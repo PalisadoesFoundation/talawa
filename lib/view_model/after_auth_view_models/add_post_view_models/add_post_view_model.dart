@@ -22,62 +22,27 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 /// They are used to interact with the model to add a new post in the
 ///  organization.
 class AddPostViewModel extends BaseModel {
-  AddPostViewModel({this.demoMode = false});
+  AddPostViewModel();
+
+  /// Maximum number of images allowed per post..
+  static const int maxImages = 5;
 
   // Services
   late MultiMediaPickerService _multiMediaPickerService;
   late NavigationService _navigationService;
   late ImageService _imageService;
 
-  late File? _imageFile;
-  late String? _imageInBase64;
+  /// List of image files to be uploaded.
+  List<File> _imageFiles = [];
+
+  /// The organization ID for which to fetch the presigned URL.
   late OrgInfo _selectedOrg;
-  final TextEditingController _controller = TextEditingController();
-  final TextEditingController _textHashTagController = TextEditingController();
-  final TextEditingController _titleController = TextEditingController();
 
-  /// Whether the app is running in Demo Mode.
-  late bool demoMode;
-
-  /// The image file that is to be uploaded.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `File?`: The image file
-  File? get imageFile => _imageFile;
-
-  /// Method to set image.
-  ///
-  ///
-  /// **params**:
-  /// * `file`: The file to set
-  ///
-  /// **returns**:
-  ///   None
-  void setImageFile(File? file) {
-    _imageFile = file;
-    notifyListeners();
-  }
-
-  /// Getter to access the base64 type.
-  String? get imageInBase64 => _imageInBase64;
-
-  /// Method to set Image in Bsse64.
-  ///
-  /// **params**:
-  /// * `file`: The file to convert.
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> setImageInBase64(File file) async {
-    _imageInBase64 = await _imageService.convertToBase64(file);
-    notifyListeners();
-  }
+  /// Controller for caption text field.
+  final TextEditingController captionController = TextEditingController();
 
   /// The username of the currentUser.
-  String get userName =>
-      userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
+  String get userName => userConfig.currentUser.name!;
 
   /// User profile picture.
   String? get userPic => userConfig.currentUser.image;
@@ -85,17 +50,26 @@ class AddPostViewModel extends BaseModel {
   /// The organisation name.
   String get orgName => _selectedOrg.name!;
 
-  /// The main text controller of the post body.
-  TextEditingController get controller => _controller;
-
-  /// The main text controller of the hashtag.
-  TextEditingController get textHashTagController => _textHashTagController;
-
-  /// The text controller of the title body.
-  TextEditingController get titleController => _titleController;
+  /// The database functions instance.
   late DataBaseMutationFunctions _dbFunctions;
 
-  /// This function is usedto do initialisation of stuff in the view model.
+  /// The list of image files to be uploaded.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `List<File>`: The list of image files
+  List<File> get imageFiles => _imageFiles;
+
+  /// The first image file (for backward compatibility).
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `File?`: The first image file or null
+  File? get imageFile => _imageFiles.isNotEmpty ? _imageFiles.first : null;
+
+  /// This function is used to do initialisation of stuff in the view model.
   ///
   /// **params**:
   ///   None
@@ -104,14 +78,11 @@ class AddPostViewModel extends BaseModel {
   ///   None
   void initialise() {
     _navigationService = locator<NavigationService>();
-    _imageFile = null;
-    _imageInBase64 = null;
+    _imageFiles = [];
     _multiMediaPickerService = locator<MultiMediaPickerService>();
     _imageService = locator<ImageService>();
-    if (!demoMode) {
-      _dbFunctions = locator<DataBaseMutationFunctions>();
-      _selectedOrg = locator<UserConfig>().currentOrg;
-    }
+    _dbFunctions = locator<DataBaseMutationFunctions>();
+    _selectedOrg = locator<UserConfig>().currentOrg;
   }
 
   /// This function is used to get the image from gallery.
@@ -126,16 +97,39 @@ class AddPostViewModel extends BaseModel {
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
-    // convertImageToBase64(image!.path);
     if (image != null) {
-      _imageFile = image;
-      // convertImageToBase64(image.path);
-      _imageInBase64 = await _imageService.convertToBase64(image);
-      // print(_imageInBase64);
-      _navigationService.showTalawaErrorSnackBar(
-        "Image is added",
-        MessageType.info,
-      );
+      // Crop the image
+      final croppedImage = await _imageService.cropImage(imageFile: image);
+      if (croppedImage != null) {
+        addImage(croppedImage);
+      }
+    }
+  }
+
+  /// Method to add image to the list.
+  ///
+  /// **params**:
+  /// * `file`: The file to add
+  ///
+  /// **returns**:
+  ///   None
+  void addImage(File file) {
+    if (_imageFiles.length < maxImages) {
+      _imageFiles.add(file);
+      notifyListeners();
+    }
+  }
+
+  /// Method to remove image from the list.
+  ///
+  /// **params**:
+  /// * `index`: The index of the file to remove
+  ///
+  /// **returns**:
+  ///   None
+  void removeImageAt(int index) {
+    if (index >= 0 && index < _imageFiles.length) {
+      _imageFiles.removeAt(index);
       notifyListeners();
     }
   }
@@ -148,22 +142,63 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> uploadPost() async {
+    // Validate that at least one image is selected
+    if (_imageFiles.isEmpty) {
+      _navigationService.showTalawaErrorSnackBar(
+        "At least one image is required to create a post",
+        MessageType.error,
+      );
+      return;
+    }
+
+    // Validate that caption is not empty
+    if (captionController.text.trim().isEmpty) {
+      _navigationService.showTalawaErrorSnackBar(
+        "Caption cannot be empty",
+        MessageType.error,
+      );
+      return;
+    }
+
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.postCreationFailed,
       action: () async {
-        final variables = {
-          "text": "${_controller.text} #${_textHashTagController.text}",
-          "organizationId": _selectedOrg.id,
-          "title": _titleController.text,
-          if (_imageFile != null)
-            "file": 'data:image/png;base64,${_imageInBase64!}',
-        };
         navigationService.pushDialog(
           const CustomProgressDialog(
             key: Key('addPostProgress'),
           ),
         );
+
+        // Upload images to Minio if available
+        final List<Map<String, String>> attachmentsList = [];
+        if (_imageFiles.isNotEmpty) {
+          for (final imageFile in _imageFiles) {
+            final fileInfo = await _imageService.uploadFileToMinio(
+              file: imageFile,
+              organizationId: _selectedOrg.id!,
+            );
+            attachmentsList.add(
+              prepareAttachmentData(
+                fileInfo['objectName']!,
+                fileInfo['fileHash']!,
+                fileInfo['name']!,
+                getPostAttachmentMimeType(imageFile.path),
+              ),
+            );
+          }
+        }
+
+        final Map<String, dynamic> variables = {
+          "caption": captionController.text,
+          "organizationId": _selectedOrg.id,
+        };
+
+        // Add file information to variables if we uploaded files
+        if (attachmentsList.isNotEmpty) {
+          variables["attachments"] = attachmentsList;
+        }
+
         final result = await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: variables,
@@ -174,6 +209,7 @@ class AddPostViewModel extends BaseModel {
         final Post newPost = Post.fromJson(
           result.data!['createPost'] as Map<String, dynamic>,
         );
+        newPost.getPresignedUrl(_selectedOrg.id);
         locator<PostService>().addNewpost(newPost);
         navigationService.pop();
       },
@@ -192,14 +228,13 @@ class AddPostViewModel extends BaseModel {
       },
       onActionFinally: () async {
         removeImage();
-        _controller.text = "";
-        _titleController.text = "";
+        captionController.clear();
         notifyListeners();
       },
     );
   }
 
-  /// This function removes the image selected.
+  /// This function removes all images selected.
   ///
   /// **params**:
   ///   None
@@ -207,7 +242,76 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void removeImage() {
-    _imageFile = null;
+    _imageFiles.clear();
     notifyListeners();
+  }
+
+  /// Checks if the post can be uploaded (at least one image is required).
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `bool`: True if post can be uploaded, false otherwise
+  bool canUploadPost() {
+    return _imageFiles.isNotEmpty && captionController.text.trim().isNotEmpty;
+  }
+
+  /// Gets the total number of images selected.
+  ///
+  /// **returns**:
+  /// * `int`: Number of images selected
+  int get imageCount => _imageFiles.length;
+
+  /// Prepares attachment data for upload.
+  ///
+  /// **params**:
+  /// * `objectName`: The name of the object in Minio storage.
+  /// * `fileHash`: The SHA-256 hash of the file.
+  /// * `name`: The name of the file.
+  /// * `mimeType`: The MIME type of the file.
+  ///
+  /// **returns**:
+  /// * `Map<String, String>`: A map containing attachment data.
+  Map<String, String> prepareAttachmentData(
+    String objectName,
+    String fileHash,
+    String name,
+    String mimeType,
+  ) {
+    return {
+      "objectName": objectName,
+      "fileHash": fileHash,
+      "mimeType": mimeType,
+      "name": name,
+    };
+  }
+
+  /// This function is used to get the query related to updating post vote.
+  ///
+  /// **params**:
+  /// * `fileName`: The name of the file whose MIME type is to be determined.
+  ///
+  /// **returns**:
+  /// * `String`: The mutation for updating vote on a post
+  String getPostAttachmentMimeType(String fileName) {
+    final ext = fileName.toLowerCase().split('.').last;
+    switch (ext) {
+      case 'avif':
+        return 'IMAGE_AVIF';
+      case 'jpg':
+      case 'jpeg':
+        return 'IMAGE_JPEG';
+      case 'png':
+        return 'IMAGE_PNG';
+      case 'webp':
+        return 'IMAGE_WEBP';
+      case 'mp4':
+        return 'VIDEO_MP4';
+      case 'webm':
+        return 'VIDEO_WEBM';
+      default:
+        throw Exception('Unsupported file type');
+    }
   }
 }

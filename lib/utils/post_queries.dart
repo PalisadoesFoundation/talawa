@@ -66,23 +66,6 @@ class PostQueries {
   ''';
   }
 
-  /// Getting Presigned URL for uploading a file.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `String`: The query related to gettingPresignedUrl
-  String getPresignedUrl() {
-    return """
-    mutation GetFileUrl(\$objectName: String!, \$organizationId: ID!) {
-      createGetfileUrl(input: { objectName: \$objectName, organizationId: \$organizationId }) {
-        presignedUrl
-      }
-    }
-  """;
-  }
-
   /// Add Like to a post.
   ///
   /// **params**:
@@ -110,7 +93,7 @@ class PostQueries {
   /// * `String`: The mutation for updating vote on a post
   String updateVotePost() {
     return """
-     mutation UpdateVotePost(\$postId: ID!, \$type: PostVoteType!) { 
+     mutation UpdateVotePost(\$postId: ID!, \$type: PostVoteType) { 
       updatePostVote(input: { postId: \$postId, type: \$type }) {
         id
         upVotesCount
@@ -130,49 +113,46 @@ class PostQueries {
   String uploadPost() {
     return '''
     mutation CreatePost(
-    \$text: String!
-    \$title: String!
-    \$imageUrl: URL
-    \$videoUrl: URL
-    \$organizationId: ID!
-    \$file: String
-  ) {
-    createPost(
-      data: {
-        text: \$text
-        title: \$title
-        imageUrl: \$imageUrl
-        videoUrl: \$videoUrl
-        organizationId: \$organizationId
-      }
-      file: \$file
+      \$caption: String!
+      \$organizationId: ID!
+      \$attachments: [AttachmentInput]
+      \$userId: ID!
     ) {
-      _id
-      text
-      createdAt
-      imageUrl
-      videoUrl
-      title
-      commentCount
-      likeCount
-      creator{
-        _id
-        firstName
-        lastName
-        image
+      createPost(
+        input: {
+          caption: \$caption
+          organizationId: \$organizationId
+          attachments: \$attachments
+        }
+      ) {
+        id
+        caption
+        upVotesCount
+        downVotesCount
+        commentsCount
+        createdAt
+        hasUserVoted(userId: \$userId) {
+          hasVoted
+          voteType
+        }
+        creator {
+          id
+          name
+          avatarURL
+        }
+        organization {
+          id
+        }
+        attachments {
+          id
+          fileHash
+          mimeType
+          name
+          objectName
+        }
       }
-      organization{
-        _id
-      }
-      likedBy{
-        _id
-      }
-      comments{
-        _id
-          }
     }
-  }
-    ''';
+  ''';
   }
 
   /// Mutation to delete the post.

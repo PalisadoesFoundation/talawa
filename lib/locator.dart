@@ -47,6 +47,7 @@ import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/comment_interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
@@ -182,6 +183,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => UserProfileService());
+  locator.registerFactory(() => CommentInteractionsViewModel());
 
   //AppLinks
   locator.registerSingleton(AppLinks());

@@ -26,7 +26,7 @@ class PostAdapter extends TypeAdapter<Post> {
       commentsCount: fields[2] as int?,
       upvotesCount: fields[3] as int?,
       downvotesCount: fields[12] as int?,
-      voteType: fields[8] as String?,
+      voteType: fields[8] as VoteType?,
       isPinned: fields[10] as bool?,
       pinnedAt: fields[11] as DateTime?,
       hasVoted: fields[7] as bool?,

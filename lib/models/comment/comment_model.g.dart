@@ -25,7 +25,7 @@ class CommentAdapter extends TypeAdapter<Comment> {
       hasVoted: fields[5] as bool?,
       upvotesCount: fields[6] as int?,
       downvotesCount: fields[7] as int?,
-      voteType: fields[8] as String?,
+      voteType: fields[8] as VoteType?,
     );
   }
 

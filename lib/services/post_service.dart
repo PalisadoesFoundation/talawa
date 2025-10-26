@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/page_info/page_info.dart';
@@ -154,18 +156,25 @@ class PostService extends BaseFeedManager<Post> {
       String mutation;
       Map<String, dynamic> variables;
 
-      if (!(post.hasVoted == true && post.voteType == 'up_vote')) {
-        // Add upvote (or change from downvote to upvote)
+      if (post.hasVoted == true && post.voteType == VoteType.upVote) {
+        // Remove upvote
         mutation = PostQueries().updateVotePost();
         variables = {
           'postId': post.id,
-          'type': 'up_vote',
+          'type': null,
         };
-
-        await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+      } else {
+        // Add Upvote
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': VoteType.upVote.toApiString(),
+        };
       }
+
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
     } catch (e) {
-      print('Error toggling upvote: $e');
+      debugPrint('Error toggling upvote: $e');
     }
   }
 
@@ -181,17 +190,23 @@ class PostService extends BaseFeedManager<Post> {
       String mutation;
       Map<String, dynamic> variables;
 
-      if (!(post.hasVoted == true && post.voteType == 'down_vote')) {
-        // Add downvote (or change from upvote to downvote)
+      if (post.hasVoted == true && post.voteType == VoteType.downVote) {
+        // Remove downvote
         mutation = PostQueries().updateVotePost();
         variables = {
           'postId': post.id,
-          'type': 'down_vote',
+          'type': null,
         };
-        await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+      } else {
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': VoteType.downVote.toApiString(),
+        };
       }
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
     } catch (e) {
-      print('Error toggling downvote: $e');
+      debugPrint('Error toggling downvote: $e');
     }
   }
 
@@ -255,13 +270,13 @@ class PostService extends BaseFeedManager<Post> {
   ///Method to add comment of a user and update comments using updated Post Stream.
   ///
   /// **params**:
-  /// * `postID`: ID of the post to add comment locally
+  /// * `post`: ID of the post to add comment locally
   ///
   /// **returns**:
   ///   None
-  void addCommentLocally(String postID) {
+  void addCommentLocally(Post post) {
     for (int i = 0; i < _posts.length; i++) {
-      if (_posts[i].id == postID) {
+      if (_posts[i].id == post.id) {
         _posts[i].commentsCount = (_posts[i].commentsCount ?? 0) + 1;
         _updatedPostStreamController.add(_posts[i]);
       }

@@ -24,7 +24,7 @@ class CommentInteractionsViewModel extends BaseModel {
   ///   None
   Future<void> toggleUpVoteComment(Comment comment) async {
     await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
+      actionType: ActionType.critical,
       action: () async {
         await _commentService.toggleUpVoteComment(
           comment.id!,
@@ -35,25 +35,25 @@ class CommentInteractionsViewModel extends BaseModel {
       },
       updateUI: () {
         final bool wasUpvoted =
-            comment.hasVoted == true && comment.voteType == 'up_vote';
+            comment.hasVoted == true && comment.voteType == VoteType.upVote;
         final bool wasDownvoted =
-            comment.hasVoted == true && comment.voteType == 'down_vote';
+            comment.hasVoted == true && comment.voteType == VoteType.downVote;
 
         if (wasUpvoted) {
           // Remove upvote
-          comment.upvotesCount = (comment.upvotesCount ?? 1) - 1;
+          comment.upvotesCount = (comment.upvotesCount ?? 0) - 1;
           comment.hasVoted = false;
-          comment.voteType = null;
+          comment.voteType = VoteType.none;
         } else if (wasDownvoted) {
           // Change from downvote to upvote
-          comment.downvotesCount = (comment.downvotesCount ?? 1) - 1;
+          comment.downvotesCount = (comment.downvotesCount ?? 0) - 1;
           comment.upvotesCount = (comment.upvotesCount ?? 0) + 1;
-          comment.voteType = 'up_vote';
+          comment.voteType = VoteType.upVote;
         } else {
           // Add upvote
           comment.upvotesCount = (comment.upvotesCount ?? 0) + 1;
           comment.hasVoted = true;
-          comment.voteType = 'up_vote';
+          comment.voteType = VoteType.upVote;
         }
         notifyListeners();
       },
@@ -69,7 +69,7 @@ class CommentInteractionsViewModel extends BaseModel {
   ///   None
   Future<void> toggleDownVoteComment(Comment comment) async {
     await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
+      actionType: ActionType.critical,
       action: () async {
         await _commentService.toggleDownVoteComment(
           comment.id!,
@@ -80,25 +80,24 @@ class CommentInteractionsViewModel extends BaseModel {
       },
       updateUI: () {
         final bool wasUpvoted =
-            comment.hasVoted == true && comment.voteType == 'up_vote';
+            comment.hasVoted == true && comment.voteType == VoteType.upVote;
         final bool wasDownvoted =
-            comment.hasVoted == true && comment.voteType == 'down_vote';
+            comment.hasVoted == true && comment.voteType == VoteType.downVote;
 
         if (wasDownvoted) {
-          // Remove downvote
-          comment.downvotesCount = (comment.downvotesCount ?? 1) - 1;
+          comment.downvotesCount = (comment.downvotesCount ?? 0) - 1;
           comment.hasVoted = false;
-          comment.voteType = null;
+          comment.voteType = VoteType.none;
         } else if (wasUpvoted) {
           // Change from upvote to downvote
           comment.upvotesCount = (comment.upvotesCount ?? 1) - 1;
           comment.downvotesCount = (comment.downvotesCount ?? 0) + 1;
-          comment.voteType = 'down_vote';
+          comment.voteType = VoteType.downVote;
         } else {
           // Add downvote
           comment.downvotesCount = (comment.downvotesCount ?? 0) + 1;
           comment.hasVoted = true;
-          comment.voteType = 'down_vote';
+          comment.voteType = VoteType.downVote;
         }
         notifyListeners();
       },

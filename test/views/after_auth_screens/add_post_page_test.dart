@@ -41,15 +41,6 @@ class MockAddPostViewModel extends Mock implements AddPostViewModel {
   @override
   String get orgName => 'orgName';
 
-  @override
-  TextEditingController get textHashTagController => _textHashTagController;
-
-  @override
-  TextEditingController get controller => _controller;
-
-  @override
-  TextEditingController get titleController => _titleController;
-
   // @override
   // void removeImage() {
   //   removeImageCalled = true;

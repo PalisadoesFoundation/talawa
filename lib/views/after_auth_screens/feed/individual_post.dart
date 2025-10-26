@@ -28,7 +28,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
   Widget build(BuildContext context) {
     return BaseView<CommentsViewModel>(
       onModelReady: (model) async {
-        await model.initialise(widget.post.id!);
+        await model.initialise(widget.post);
       },
       builder: (context, model, child) {
         return Scaffold(
@@ -217,30 +217,40 @@ class CommentTemplate extends StatelessWidget {
                   .withAlpha((0.2 * 255).toInt()),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
-            padding: const EdgeInsets.all(16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
             margin: const EdgeInsets.only(left: 8.0, bottom: 8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        "${comment.creator?.firstName} ${comment.creator?.lastName}",
-                        style: Theme.of(context).textTheme.bodyMedium,
+                // Comment content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          comment.creator?.name ?? 'Unknown User',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Text(
-                      comment.body ?? '',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: 16.0),
-                    ),
-                  ],
+                      Text(
+                        comment.body ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
                 ),
+
                 CommentInteractions(comment: comment),
               ],
             ),

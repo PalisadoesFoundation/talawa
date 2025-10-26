@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -20,6 +21,7 @@ class Comment {
   });
   //Creating a new Comment instance from a map structure.
   factory Comment.fromJson(Map<String, dynamic> json) {
+    final hasUserVoted = json['hasUserVoted'] as Map<String, dynamic>?;
     return Comment(
       body: json['body'] as String?,
       createdAt: json['createdAt'] as String?,
@@ -35,10 +37,10 @@ class Comment {
             )
           : null,
       id: json["id"] as String?,
-      hasVoted: json["hasVoted"] as bool? ?? false,
-      upvotesCount: json["upvotesCount"] as int?,
-      downvotesCount: json["downvotesCount"] as int?,
-      voteType: json["voteType"] as String?,
+      upvotesCount: json["upVotesCount"] as int?,
+      downvotesCount: json["downVotesCount"] as int?,
+      hasVoted: hasUserVoted?['hasVoted'] as bool?,
+      voteType: VoteType.fromApiString(hasUserVoted?["voteType"] as String?),
     );
   }
 
@@ -76,5 +78,5 @@ class Comment {
 
   /// Variable to check the type of vote on the comment by the user (if not voted then null).
   @HiveField(8)
-  String? voteType;
+  VoteType? voteType;
 }

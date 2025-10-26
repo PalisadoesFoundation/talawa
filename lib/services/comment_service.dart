@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -43,7 +44,9 @@ class CommentService {
       _navigationService.showSnackBar(
         "Comment sent",
       );
-      return Comment.fromJson(result.data!);
+      print("Comment created: ${result.data!}");
+      return Comment.fromJson(
+          result.data!['createComment'] as Map<String, dynamic>);
     } on Exception catch (_) {
       _navigationService.showTalawaErrorSnackBar(
         "Something went wrong",
@@ -117,47 +120,33 @@ class CommentService {
   /// * `hasVoted`: Whether the user has already voted.
   ///
   /// **returns**:
-  /// * `Future<bool>`: Whether the operation was successful.
-  Future<bool> toggleUpVoteComment(
+  ///   None
+  Future<void> toggleUpVoteComment(
     String commentId,
-    String? currentVoteType,
+    VoteType? currentVoteType,
     bool hasVoted,
   ) async {
     try {
       String mutation;
       Map<String, dynamic> variables;
 
-      if (hasVoted && currentVoteType == 'up_vote') {
-        // Remove upvote
-        mutation = CommentQueries().removeVoteComment();
-        variables = {'commentId': commentId};
-      } else {
-        // Add upvote (or change from downvote to upvote)
+      if (hasVoted && currentVoteType == VoteType.upVote) {
         mutation = CommentQueries().updateVoteComment();
         variables = {
           'commentId': commentId,
-          'voteType': 'up_vote',
+          'type': null,
+        };
+      } else {
+        mutation = CommentQueries().updateVoteComment();
+        variables = {
+          'commentId': commentId,
+          'type': VoteType.upVote.toApiString(),
         };
       }
 
-      final result =
-          await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
-
-      if (result.hasException) {
-        _navigationService.showTalawaErrorSnackBar(
-          "Something went wrong while voting",
-          MessageType.error,
-        );
-        return false;
-      }
-
-      return true;
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
     } catch (e) {
-      _navigationService.showTalawaErrorSnackBar(
-        "Something went wrong while voting",
-        MessageType.error,
-      );
-      return false;
+      debugPrint('Error toggling upvote: $e');
     }
   }
 
@@ -169,47 +158,33 @@ class CommentService {
   /// * `hasVoted`: Whether the user has already voted.
   ///
   /// **returns**:
-  /// * `Future<bool>`: Whether the operation was successful.
-  Future<bool> toggleDownVoteComment(
+  ///   None
+  Future<void> toggleDownVoteComment(
     String commentId,
-    String? currentVoteType,
+    VoteType? currentVoteType,
     bool hasVoted,
   ) async {
     try {
       String mutation;
       Map<String, dynamic> variables;
 
-      if (hasVoted && currentVoteType == 'down_vote') {
-        // Remove downvote
-        mutation = CommentQueries().removeVoteComment();
-        variables = {'commentId': commentId};
-      } else {
-        // Add downvote (or change from upvote to downvote)
+      if (hasVoted && currentVoteType == VoteType.downVote) {
         mutation = CommentQueries().updateVoteComment();
         variables = {
           'commentId': commentId,
-          'voteType': 'down_vote',
+          'type': null,
+        };
+      } else {
+        mutation = CommentQueries().updateVoteComment();
+        variables = {
+          'commentId': commentId,
+          'type': VoteType.downVote.toApiString(),
         };
       }
 
-      final result =
-          await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
-
-      if (result.hasException) {
-        _navigationService.showTalawaErrorSnackBar(
-          "Something went wrong while voting",
-          MessageType.error,
-        );
-        return false;
-      }
-
-      return true;
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
     } catch (e) {
-      _navigationService.showTalawaErrorSnackBar(
-        "Something went wrong while voting",
-        MessageType.error,
-      );
-      return false;
+      debugPrint('Error toggling downvote: $e');
     }
   }
 }

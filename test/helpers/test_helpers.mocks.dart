@@ -2864,7 +2864,7 @@ class MockPost extends _i2.Mock implements _i20.Post {
       );
 
   @override
-  set voteType(String? _voteType) => super.noSuchMethod(
+  set voteType(_i17.VoteType? _voteType) => super.noSuchMethod(
         Invocation.setter(
           #voteType,
           _voteType,
@@ -2953,10 +2953,11 @@ class MockPost extends _i2.Mock implements _i20.Post {
       ) as String);
 
   @override
-  _i8.Future<void> getPresignedUrl(String? id) => (super.noSuchMethod(
+  _i8.Future<void> getPresignedUrl(String? organizationId) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getPresignedUrl,
-          [id],
+          [organizationId],
         ),
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
@@ -3887,9 +3888,9 @@ class MockCommentService extends _i2.Mock implements _i39.CommentService {
       ) as _i8.Future<Map<String, dynamic>>);
 
   @override
-  _i8.Future<bool> toggleUpVoteComment(
+  _i8.Future<void> toggleUpVoteComment(
     String? commentId,
-    String? currentVoteType,
+    _i17.VoteType? currentVoteType,
     bool? hasVoted,
   ) =>
       (super.noSuchMethod(
@@ -3901,14 +3902,14 @@ class MockCommentService extends _i2.Mock implements _i39.CommentService {
             hasVoted,
           ],
         ),
-        returnValue: _i8.Future<bool>.value(false),
-        returnValueForMissingStub: _i8.Future<bool>.value(false),
-      ) as _i8.Future<bool>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i8.Future<bool> toggleDownVoteComment(
+  _i8.Future<void> toggleDownVoteComment(
     String? commentId,
-    String? currentVoteType,
+    _i17.VoteType? currentVoteType,
     bool? hasVoted,
   ) =>
       (super.noSuchMethod(
@@ -3920,9 +3921,9 @@ class MockCommentService extends _i2.Mock implements _i39.CommentService {
             hasVoted,
           ],
         ),
-        returnValue: _i8.Future<bool>.value(false),
-        returnValueForMissingStub: _i8.Future<bool>.value(false),
-      ) as _i8.Future<bool>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [AppTheme].

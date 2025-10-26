@@ -2,6 +2,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/page_info/page_info.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -18,17 +19,14 @@ class CommentsViewModel extends BaseModel {
   /// PostService instance.
   late PostService _postService;
 
-  /// Post id on which comments are to be fetched.
-  late String _postID;
+  /// Post on which comments are to be fetched.
+  late Post post;
 
   /// List of comments on the post.
   late List<Comment> _commentlist;
 
   /// comment list getter.
   List<Comment> get commentList => _commentlist;
-
-  /// Id of current post.
-  String get postId => _postID;
 
   /// page Info of the current comments.
   PageInfo pageInfo = PageInfo(
@@ -49,9 +47,9 @@ class CommentsViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> initialise(String postID) async {
+  Future<void> initialise(Post post) async {
     _commentlist = [];
-    _postID = postID;
+    this.post = post;
     _commentService = locator<CommentService>();
     _postService = locator<PostService>();
     notifyListeners();
@@ -69,7 +67,7 @@ class CommentsViewModel extends BaseModel {
   Future<void> getComments() async {
     setState(ViewState.busy);
     final result = await _commentService.getCommentsForPost(
-      postId: _postID,
+      postId: post.id!,
       first: 10,
       after: pageInfo.endCursor,
     );
@@ -105,45 +103,23 @@ class CommentsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> createComment(String msg) async {
-    Comment? comment;
-    await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
-      action: () async {
-        comment = await _commentService.createComments(_postID, msg);
-        return null;
-      },
-      updateUI: () {
+    try {
+      final Comment? comment = await _commentService.createComments(
+        post.id!,
+        msg,
+      );
+      if (comment != null) {
         addCommentLocally(comment);
-      },
-    );
-  }
-
-  /// This function toggle upvote on the comment. The function uses `toggleUpVoteComment` method provided by Comment Service.
-  ///
-  /// **params**:
-  /// * `comment`: The comment to be upvoted or remove upvote.
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> toggleUpVoteComment(Comment comment) async {
-    await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
-      action: () async {
-        // await _commentService.toggleUpVoteComment(_postID, isUpvoted);
-        return null;
-      },
-      updateUI: () {
-        comment.upvotesCount = (comment.upvotesCount ?? 0) +
-            (comment.hasVoted != null && comment.hasVoted == true ? -1 : 1);
-
-        if (comment.hasVoted != null && comment.hasVoted == true) {
-          comment.hasVoted = false;
-        } else {
-          comment.hasVoted = true;
-        }
-        notifyListeners();
-      },
-    );
+      }
+    } catch (e) {
+      print('Error adding comment: $e');
+      navigationService.showTalawaErrorSnackBar(
+        "Failed to add comment",
+        MessageType.error,
+      );
+    } finally {
+      notifyListeners();
+    }
   }
 
   /// This function add comment locally.
@@ -157,8 +133,10 @@ class CommentsViewModel extends BaseModel {
     if (comment == null) {
       return;
     }
-    _postService.addCommentLocally(_postID);
-    _commentlist.add(comment);
+    _postService.addCommentLocally(post);
+
+    /// adding comment to the top of the list
+    _commentlist.insert(0, comment);
     notifyListeners();
   }
 }

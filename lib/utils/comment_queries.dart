@@ -13,6 +13,16 @@ class CommentQueries {
         createComment(input: { postId: \$postId, body: \$body }) {
           body
           id
+          upVotesCount
+          downVotesCount
+          post {
+            id
+          }
+          createdAt
+          creator {
+            name
+            avatarURL
+          }
         }
       }
     ''';
@@ -34,8 +44,8 @@ class CommentQueries {
             node {
               body
               id
-              upvotesCount
-              downvotesCount
+              upVotesCount
+              downVotesCount
               post {
                 id
               }
@@ -71,30 +81,11 @@ class CommentQueries {
   /// * `String`: The mutation for updating vote on a comment
   String updateVoteComment() {
     return '''
-      mutation UpdateVoteComment(\$commentId: ID!, \$voteType: String!) {
-        updateVote(input: { commentId: \$commentId, voteType: \$voteType }) {
+      mutation UpdateVoteComment(\$commentId: ID!, \$type: CommentVoteType) {
+        updateCommentVote(input: { commentId: \$commentId, type: \$type  }) {
           id
-          upvotesCount
-          downvotesCount
-        }
-      }
-    ''';
-  }
-
-  /// Remove vote from a comment.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `String`: The mutation for removing vote from a comment
-  String removeVoteComment() {
-    return '''
-      mutation RemoveVoteComment(\$commentId: ID!) {
-        removeVote(input: { commentId: \$commentId }) {
-          id
-          upvotesCount
-          downvotesCount
+          upVotesCount
+          downVotesCount
         }
       }
     ''';

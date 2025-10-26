@@ -6,13 +6,12 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// LikeButtonViewModel class helps to serve the data and to react to user's input for Like Button Widget.
+/// InteractionsViewModel class helps to serve the data and to react to user's input for Post Interaction Widget.
 ///
 ///
 /// Methods include:
-/// * `initialize` - initializes the ViewModel with the Post ID.
-/// * `updatePost` - updates the Post data when it is changed.
-/// * `dispose` - cleans up the resources used by the ViewModel.
+/// * `toggleUpVotePost` - toggles upvote on a post
+/// * `toggleDownVotePost` - toggles downvote on a post
 class InteractionsViewModel extends BaseModel {
   // Services
   final _postService = locator<PostService>();
@@ -26,28 +25,34 @@ class InteractionsViewModel extends BaseModel {
   ///   None
   Future<void> toggleUpVotePost(Post post) async {
     await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
+      actionType: ActionType.critical,
       action: () async {
         await _postService.toggleUpVote(post);
         return null;
       },
       updateUI: () {
         final bool wasUpvoted =
-            post.hasVoted == true && post.voteType == 'up_vote';
+            post.hasVoted == true && post.voteType == VoteType.upVote;
         final bool wasDownvoted =
-            post.hasVoted == true && post.voteType == 'down_vote';
+            post.hasVoted == true && post.voteType == VoteType.downVote;
 
-        if (wasDownvoted) {
+        if (wasUpvoted) {
+          // Remove upvote
+          post.upvotesCount = (post.upvotesCount ?? 0) - 1;
+          post.hasVoted = false;
+          post.voteType = VoteType.none;
+        } else if (wasDownvoted) {
           // Change from downvote to upvote
           post.downvotesCount = (post.downvotesCount ?? 1) - 1;
           post.upvotesCount = (post.upvotesCount ?? 0) + 1;
-          post.voteType = 'up_vote';
-        } else if (!wasUpvoted && !wasDownvoted) {
-          // Add upvote
+          post.voteType = VoteType.upVote;
+        } else {
+          // Add Upvote
           post.upvotesCount = (post.upvotesCount ?? 0) + 1;
           post.hasVoted = true;
-          post.voteType = 'up_vote';
+          post.voteType = VoteType.upVote;
         }
+
         notifyListeners();
       },
     );
@@ -62,27 +67,32 @@ class InteractionsViewModel extends BaseModel {
   ///   None
   Future<void> toggleDownVotePost(Post post) async {
     await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
+      actionType: ActionType.critical,
       action: () async {
         await _postService.toggleDownVote(post);
         return null;
       },
       updateUI: () {
         final bool wasUpvoted =
-            post.hasVoted == true && post.voteType == 'up_vote';
+            post.hasVoted == true && post.voteType == VoteType.upVote;
         final bool wasDownvoted =
-            post.hasVoted == true && post.voteType == 'down_vote';
+            post.hasVoted == true && post.voteType == VoteType.downVote;
 
-        if (wasUpvoted) {
+        if (wasDownvoted) {
+          // Remove downvote
+          post.downvotesCount = (post.downvotesCount ?? 1) - 1;
+          post.hasVoted = false;
+          post.voteType = VoteType.none;
+        } else if (wasUpvoted) {
           // Change from upvote to downvote
           post.upvotesCount = (post.upvotesCount ?? 1) - 1;
           post.downvotesCount = (post.downvotesCount ?? 0) + 1;
-          post.voteType = 'down_vote';
-        } else if (!wasDownvoted && !wasUpvoted) {
+          post.voteType = VoteType.downVote;
+        } else {
           // Add downvote
           post.downvotesCount = (post.downvotesCount ?? 0) + 1;
           post.hasVoted = true;
-          post.voteType = 'down_vote';
+          post.voteType = VoteType.downVote;
         }
         notifyListeners();
       },
