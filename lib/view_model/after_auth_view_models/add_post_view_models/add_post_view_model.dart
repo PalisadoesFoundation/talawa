@@ -33,7 +33,7 @@ class AddPostViewModel extends BaseModel {
   late ImageService _imageService;
 
   /// List of image files to be uploaded.
-  List<File> _imageFiles = [];
+  List<File> imageFiles = [];
 
   /// The organization ID for which to fetch the presigned URL.
   late OrgInfo _selectedOrg;
@@ -53,21 +53,13 @@ class AddPostViewModel extends BaseModel {
   /// The database functions instance.
   late DataBaseMutationFunctions _dbFunctions;
 
-  /// The list of image files to be uploaded.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `List<File>`: The list of image files
-  List<File> get imageFiles => _imageFiles;
-
   /// The first image file (for backward compatibility).
   ///
   /// params:
   /// None
   /// returns:
   /// * `File?`: The first image file or null
-  File? get imageFile => _imageFiles.isNotEmpty ? _imageFiles.first : null;
+  File? get imageFile => imageFiles.isNotEmpty ? imageFiles.first : null;
 
   /// This function is used to do initialisation of stuff in the view model.
   ///
@@ -78,7 +70,7 @@ class AddPostViewModel extends BaseModel {
   ///   None
   void initialise() {
     _navigationService = locator<NavigationService>();
-    _imageFiles = [];
+    imageFiles = [];
     _multiMediaPickerService = locator<MultiMediaPickerService>();
     _imageService = locator<ImageService>();
     _dbFunctions = locator<DataBaseMutationFunctions>();
@@ -114,8 +106,8 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void addImage(File file) {
-    if (_imageFiles.length < maxImages) {
-      _imageFiles.add(file);
+    if (imageFiles.length < maxImages) {
+      imageFiles.add(file);
       notifyListeners();
     }
   }
@@ -128,8 +120,8 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void removeImageAt(int index) {
-    if (index >= 0 && index < _imageFiles.length) {
-      _imageFiles.removeAt(index);
+    if (index >= 0 && index < imageFiles.length) {
+      imageFiles.removeAt(index);
       notifyListeners();
     }
   }
@@ -143,7 +135,7 @@ class AddPostViewModel extends BaseModel {
   ///   None
   Future<void> uploadPost() async {
     // Validate that at least one image is selected
-    if (_imageFiles.isEmpty) {
+    if (imageFiles.isEmpty) {
       _navigationService.showTalawaErrorSnackBar(
         "At least one image is required to create a post",
         MessageType.error,
@@ -172,8 +164,8 @@ class AddPostViewModel extends BaseModel {
 
         // Upload images to Minio if available
         final List<Map<String, String>> attachmentsList = [];
-        if (_imageFiles.isNotEmpty) {
-          for (final imageFile in _imageFiles) {
+        if (imageFiles.isNotEmpty) {
+          for (final imageFile in imageFiles) {
             final fileInfo = await _imageService.uploadFileToMinio(
               file: imageFile,
               organizationId: _selectedOrg.id!,
@@ -242,7 +234,7 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void removeImage() {
-    _imageFiles.clear();
+    imageFiles.clear();
     notifyListeners();
   }
 
@@ -254,14 +246,14 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   /// * `bool`: True if post can be uploaded, false otherwise
   bool canUploadPost() {
-    return _imageFiles.isNotEmpty && captionController.text.trim().isNotEmpty;
+    return imageFiles.isNotEmpty && captionController.text.trim().isNotEmpty;
   }
 
   /// Gets the total number of images selected.
   ///
   /// **returns**:
   /// * `int`: Number of images selected
-  int get imageCount => _imageFiles.length;
+  int get imageCount => imageFiles.length;
 
   /// Prepares attachment data for upload.
   ///

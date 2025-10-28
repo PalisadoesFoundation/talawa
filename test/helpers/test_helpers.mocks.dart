@@ -9,16 +9,16 @@ import 'dart:ui' as _i11;
 
 import 'package:flutter/material.dart' as _i1;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i12;
-import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i51;
-import 'package:graphql/src/utilities/helpers.dart' as _i50;
+import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i53;
+import 'package:graphql/src/utilities/helpers.dart' as _i52;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
-import 'package:image_cropper/src/cropper.dart' as _i47;
+import 'package:image_cropper/image_cropper.dart' as _i47;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
     as _i48;
 import 'package:image_picker/image_picker.dart' as _i16;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i21;
-import 'package:normalize/normalize.dart' as _i49;
+import 'package:normalize/normalize.dart' as _i51;
 import 'package:qr_code_scanner_plus/src/qr_code_scanner.dart' as _i36;
 import 'package:qr_code_scanner_plus/src/types/barcode.dart' as _i37;
 import 'package:qr_code_scanner_plus/src/types/camera.dart' as _i38;
@@ -41,11 +41,13 @@ import 'package:talawa/services/comment_service.dart' as _i39;
 import 'package:talawa/services/database_mutation_functions.dart' as _i10;
 import 'package:talawa/services/event_service.dart' as _i13;
 import 'package:talawa/services/graphql_config.dart' as _i18;
+import 'package:talawa/services/image_service.dart' as _i49;
 import 'package:talawa/services/navigation_service.dart' as _i7;
 import 'package:talawa/services/org_service.dart' as _i32;
 import 'package:talawa/services/post_service.dart' as _i19;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i22;
+import 'package:talawa/services/user_action_handler.dart' as _i50;
 import 'package:talawa/services/user_config.dart' as _i15;
 import 'package:talawa/utils/validators.dart' as _i35;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
@@ -1270,10 +1272,10 @@ class MockPostService extends _i2.Mock implements _i19.PostService {
       ) as _i8.Future<_i3.QueryResult<Object?>>);
 
   @override
-  void addCommentLocally(String? postID) => super.noSuchMethod(
+  void addCommentLocally(_i20.Post? post) => super.noSuchMethod(
         Invocation.method(
           #addCommentLocally,
-          [postID],
+          [post],
         ),
         returnValueForMissingStub: null,
       );
@@ -5365,6 +5367,208 @@ class MockImagePicker extends _i2.Mock implements _i16.ImagePicker {
       ) as bool);
 }
 
+/// A class which mocks [ImageService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockImageService extends _i2.Mock implements _i49.ImageService {
+  @override
+  _i8.Future<_i23.File?> cropImage({required _i23.File? imageFile}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cropImage,
+          [],
+          {#imageFile: imageFile},
+        ),
+        returnValue: _i8.Future<_i23.File?>.value(),
+        returnValueForMissingStub: _i8.Future<_i23.File?>.value(),
+      ) as _i8.Future<_i23.File?>);
+
+  @override
+  _i8.Future<String> convertToBase64(_i23.File? file) => (super.noSuchMethod(
+        Invocation.method(
+          #convertToBase64,
+          [file],
+        ),
+        returnValue: _i8.Future<String>.value(_i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #convertToBase64,
+            [file],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i8.Future<String>.value(_i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #convertToBase64,
+            [file],
+          ),
+        )),
+      ) as _i8.Future<String>);
+
+  @override
+  _i8.Future<String> calculateFileHash(_i23.File? file) => (super.noSuchMethod(
+        Invocation.method(
+          #calculateFileHash,
+          [file],
+        ),
+        returnValue: _i8.Future<String>.value(_i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #calculateFileHash,
+            [file],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i8.Future<String>.value(_i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #calculateFileHash,
+            [file],
+          ),
+        )),
+      ) as _i8.Future<String>);
+
+  @override
+  _i8.Future<Map<String, String>> uploadFileToMinio({
+    required _i23.File? file,
+    required String? organizationId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadFileToMinio,
+          [],
+          {
+            #file: file,
+            #organizationId: organizationId,
+          },
+        ),
+        returnValue: _i8.Future<Map<String, String>>.value(<String, String>{}),
+        returnValueForMissingStub:
+            _i8.Future<Map<String, String>>.value(<String, String>{}),
+      ) as _i8.Future<Map<String, String>>);
+
+  @override
+  _i8.Future<String> getFileFromMinio({
+    required String? objectName,
+    required String? organizationId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFileFromMinio,
+          [],
+          {
+            #objectName: objectName,
+            #organizationId: organizationId,
+          },
+        ),
+        returnValue: _i8.Future<String>.value(_i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getFileFromMinio,
+            [],
+            {
+              #objectName: objectName,
+              #organizationId: organizationId,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i8.Future<String>.value(_i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getFileFromMinio,
+            [],
+            {
+              #objectName: objectName,
+              #organizationId: organizationId,
+            },
+          ),
+        )),
+      ) as _i8.Future<String>);
+
+  @override
+  String getContentType(String? fileName) => (super.noSuchMethod(
+        Invocation.method(
+          #getContentType,
+          [fileName],
+        ),
+        returnValue: _i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getContentType,
+            [fileName],
+          ),
+        ),
+        returnValueForMissingStub: _i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getContentType,
+            [fileName],
+          ),
+        ),
+      ) as String);
+}
+
+/// A class which mocks [ActionHandlerService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockActionHandlerService extends _i2.Mock
+    implements _i50.ActionHandlerService {
+  @override
+  _i8.Future<bool?> executeApiCall({
+    required _i8.Future<_i3.QueryResult<Object?>?> Function()? action,
+    _i8.Future<void> Function(_i3.QueryResult<Object?>)? onValidResult,
+    _i8.Future<void> Function(Exception)? onActionException,
+    _i8.Future<void> Function()? onActionFinally,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #executeApiCall,
+          [],
+          {
+            #action: action,
+            #onValidResult: onValidResult,
+            #onActionException: onActionException,
+            #onActionFinally: onActionFinally,
+          },
+        ),
+        returnValue: _i8.Future<bool?>.value(),
+        returnValueForMissingStub: _i8.Future<bool?>.value(),
+      ) as _i8.Future<bool?>);
+
+  @override
+  _i8.Future<void> performAction({
+    required _i17.ActionType? actionType,
+    required _i8.Future<_i3.QueryResult<Object?>?> Function()? action,
+    _i8.Future<void> Function(_i3.QueryResult<Object?>)? onValidResult,
+    _i8.Future<void> Function(Exception)? onActionException,
+    void Function()? updateUI,
+    void Function()? apiCallSuccessUpdateUI,
+    String? criticalActionFailureMessage =
+        'You are offline. User action not saved.',
+    _i8.Future<void> Function()? onActionFinally,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #performAction,
+          [],
+          {
+            #actionType: actionType,
+            #action: action,
+            #onValidResult: onValidResult,
+            #onActionException: onActionException,
+            #updateUI: updateUI,
+            #apiCallSuccessUpdateUI: apiCallSuccessUpdateUI,
+            #criticalActionFailureMessage: criticalActionFailureMessage,
+            #onActionFinally: onActionFinally,
+          },
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+}
+
 /// A class which mocks [GraphQLCache].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -5390,11 +5594,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as _i3.PartialDataCachePolicy);
 
   @override
-  Map<String, _i49.TypePolicy> get typePolicies => (super.noSuchMethod(
+  Map<String, _i51.TypePolicy> get typePolicies => (super.noSuchMethod(
         Invocation.getter(#typePolicies),
-        returnValue: <String, _i49.TypePolicy>{},
-        returnValueForMissingStub: <String, _i49.TypePolicy>{},
-      ) as Map<String, _i49.TypePolicy>);
+        returnValue: <String, _i51.TypePolicy>{},
+        returnValueForMissingStub: <String, _i51.TypePolicy>{},
+      ) as Map<String, _i51.TypePolicy>);
 
   @override
   Map<String, Set<String>> get possibleTypes => (super.noSuchMethod(
@@ -5404,11 +5608,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as Map<String, Set<String>>);
 
   @override
-  _i50.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
+  _i52.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
         Invocation.getter(#sanitizeVariables),
         returnValue: (Map<String, dynamic> variables) => null,
         returnValueForMissingStub: (Map<String, dynamic> variables) => null,
-      ) as _i50.SanitizeVariables);
+      ) as _i52.SanitizeVariables);
 
   @override
   int get inflightOptimisticTransactions => (super.noSuchMethod(
@@ -5428,14 +5632,14 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  List<_i51.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
+  List<_i53.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
         Invocation.getter(#optimisticPatches),
-        returnValue: <_i51.OptimisticPatch>[],
-        returnValueForMissingStub: <_i51.OptimisticPatch>[],
-      ) as List<_i51.OptimisticPatch>);
+        returnValue: <_i53.OptimisticPatch>[],
+        returnValueForMissingStub: <_i53.OptimisticPatch>[],
+      ) as List<_i53.OptimisticPatch>);
 
   @override
-  set optimisticPatches(List<_i51.OptimisticPatch>? _optimisticPatches) =>
+  set optimisticPatches(List<_i53.OptimisticPatch>? _optimisticPatches) =>
       super.noSuchMethod(
         Invocation.setter(
           #optimisticPatches,
@@ -5484,7 +5688,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  set sanitizeVariables(_i50.SanitizeVariables? _sanitizeVariables) =>
+  set sanitizeVariables(_i52.SanitizeVariables? _sanitizeVariables) =>
       super.noSuchMethod(
         Invocation.setter(
           #sanitizeVariables,
@@ -5543,7 +5747,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
 
   @override
   void recordOptimisticTransaction(
-    _i51.CacheTransaction? transaction,
+    _i53.CacheTransaction? transaction,
     String? addId,
   ) =>
       super.noSuchMethod(

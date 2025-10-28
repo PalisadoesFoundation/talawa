@@ -196,7 +196,7 @@ void main() {
       final emittedFuture = postService.updatedPostStream.first;
 
       // Call the method under test
-      postService.addCommentLocally('comment1');
+      postService.addCommentLocally(post);
 
       // Await the emitted post
       final emitted = await emittedFuture;

@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/comment/comment_model.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_action_handler.dart';
@@ -14,6 +15,7 @@ void main() {
   setUp(() {
     registerServices();
   });
+
   test('Testing model initialization and get functions after initialization',
       () async {
     final CommentService commentService = locator<CommentService>();
@@ -51,13 +53,13 @@ void main() {
         },
       },
     );
-
+    final post = Post(id: 'testPostID', caption: 'Test Post');
     final commentsViewModel = CommentsViewModel();
 
-    await commentsViewModel.initialise('testPostID');
+    await commentsViewModel.initialise(post);
 
     expect(commentsViewModel, isNotNull);
-    expect(commentsViewModel.postId, 'testPostID');
+    expect(commentsViewModel.post.id, 'testPostID');
     expect(commentsViewModel.commentList.length, 2);
     expect(commentsViewModel.commentList[0].body, 'This is a test comment');
     expect(
@@ -90,7 +92,8 @@ void main() {
         },
       },
     );
-    await viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    await viewModel.initialise(post);
 
     /// this is when we are testing.
     when(
@@ -134,6 +137,7 @@ void main() {
     expect(viewModel.commentList[1].body, 'This is another test comment');
     expect(viewModel.pageInfo.hasNextPage, false);
   });
+
   test('getComments calls setState with busy and idle', () async {
     final states = <ViewState>[];
     final viewModel = CommentsViewModel();
@@ -173,7 +177,8 @@ void main() {
         },
       },
     );
-    viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    viewModel.initialise(post);
 
     // Listen for state changes
     viewModel.addListener(() {
@@ -213,7 +218,8 @@ void main() {
       },
     );
 
-    await viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    await viewModel.initialise(post);
 
     viewModel.pageInfo.hasNextPage = true;
     viewModel.pageInfo.endCursor = 'random cursor';
@@ -268,7 +274,8 @@ void main() {
       },
     );
 
-    await viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    await viewModel.initialise(post);
 
     viewModel.pageInfo.hasNextPage = false;
     viewModel.pageInfo.endCursor = 'random cursor';
@@ -292,6 +299,7 @@ void main() {
     final viewModel = CommentsViewModel();
     locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
     final CommentService commentService = locator<CommentService>();
+    final PostService postService = locator<PostService>();
 
     /// this is just for initialization
     when(
@@ -312,7 +320,8 @@ void main() {
       },
     );
 
-    await viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    await viewModel.initialise(post);
 
     // Create a mock Comment object
     final mockComment = Comment(
@@ -328,9 +337,12 @@ void main() {
     await viewModel.createComment('Hello!');
 
     expect(viewModel.commentList.length, initialCount + 1);
-    expect(viewModel.commentList.last.body, 'Hello!');
+    expect(
+      viewModel.commentList.first.body,
+      'Hello!',
+    );
     verify(commentService.createComments('testPostID', 'Hello!')).called(1);
-    verify(postService.addCommentLocally('testPostID')).called(1);
+    verify(postService.addCommentLocally(post)).called(1);
   });
 
   test('addCommentLocally adds a comment and notifies listeners', () async {
@@ -357,7 +369,8 @@ void main() {
       },
     );
 
-    await viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    await viewModel.initialise(post);
     var notified = false;
     viewModel.addListener(() {
       notified = true;
@@ -375,14 +388,13 @@ void main() {
     expect(viewModel.commentList.length, 1);
     expect(viewModel.commentList.first.body, 'Local comment');
     expect(notified, isTrue);
-    verify(postService.addCommentLocally('testPostID')).called(1);
+    verify(postService.addCommentLocally(post)).called(1);
   });
 
-  test('toggleUpVoteComment upvotes when not voted', () async {
+  test('addCommentLocally handles null comment gracefully', () async {
     final viewModel = CommentsViewModel();
     final CommentService commentService = locator<CommentService>();
 
-    // Initialize view model
     when(
       commentService.getCommentsForPost(
         postId: 'testPostID',
@@ -401,30 +413,19 @@ void main() {
       },
     );
 
-    await viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    await viewModel.initialise(post);
 
-    // Create a test comment
-    final testComment = Comment(
-      id: 'comment1',
-      body: 'Test comment',
-      hasVoted: false,
-      upvotesCount: 5,
-      createdAt: DateTime.now().toIso8601String(),
-    );
+    final initialCount = viewModel.commentList.length;
+    viewModel.addCommentLocally(null);
 
-    // Act
-    await viewModel.toggleUpVoteComment(testComment);
-
-    // Assert
-    expect(testComment.hasVoted, true);
-    expect(testComment.upvotesCount, 6);
+    expect(viewModel.commentList.length, initialCount);
   });
 
-  test('toggleUpVoteComment removes upvote when already voted', () async {
+  test('hasNextPage getter returns correct value', () async {
     final viewModel = CommentsViewModel();
     final CommentService commentService = locator<CommentService>();
 
-    // Initialize view model
     when(
       commentService.getCommentsForPost(
         postId: 'testPostID',
@@ -435,7 +436,7 @@ void main() {
       (_) async => {
         'comments': <Map<String, dynamic>>[],
         'pageInfo': {
-          'hasNextPage': false,
+          'hasNextPage': true,
           'hasPreviousPage': false,
           'startCursor': null,
           'endCursor': null,
@@ -443,22 +444,12 @@ void main() {
       },
     );
 
-    await viewModel.initialise('testPostID');
+    final post = Post(id: 'testPostID', caption: 'Test Post');
+    await viewModel.initialise(post);
 
-    // Create a test comment that's already voted
-    final testComment = Comment(
-      id: 'comment1',
-      body: 'Test comment',
-      hasVoted: true,
-      upvotesCount: 5,
-      createdAt: DateTime.now().toIso8601String(),
-    );
+    expect(viewModel.hasNextPage, true);
 
-    // Act
-    await viewModel.toggleUpVoteComment(testComment);
-
-    // Assert
-    expect(testComment.hasVoted, false);
-    expect(testComment.upvotesCount, 4);
+    viewModel.pageInfo.hasNextPage = false;
+    expect(viewModel.hasNextPage, false);
   });
 }

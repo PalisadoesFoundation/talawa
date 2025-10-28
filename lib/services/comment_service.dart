@@ -46,7 +46,8 @@ class CommentService {
       );
       print("Comment created: ${result.data!}");
       return Comment.fromJson(
-          result.data!['createComment'] as Map<String, dynamic>);
+        result.data!['createComment'] as Map<String, dynamic>,
+      );
     } on Exception catch (_) {
       _navigationService.showTalawaErrorSnackBar(
         "Something went wrong",

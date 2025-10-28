@@ -31,6 +31,7 @@ import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
@@ -53,7 +54,6 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-import '../service_tests/image_service_test.dart';
 import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 import '../service_tests/user_config_test.dart';
 import '../views/main_screen_test.dart';
@@ -101,6 +101,8 @@ import 'test_helpers.mocks.dart';
     ),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImageService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ActionHandlerService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),

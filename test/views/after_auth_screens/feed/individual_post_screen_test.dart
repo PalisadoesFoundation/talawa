@@ -350,7 +350,7 @@ void main() {
     final model = CommentsViewModel();
 
     // Act: initialise the model
-    await model.initialise('XYZ');
+    await model.initialise(Post(id: 'XYZ'));
 
     await tester.pumpWidget(
       MaterialApp(

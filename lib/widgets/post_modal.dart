@@ -3,7 +3,6 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// To add options to the bottom nav bar, increase the height too.
 class PostBottomModal extends StatelessWidget {
@@ -100,7 +99,7 @@ class PostBottomModal extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
       ],
     );
   }

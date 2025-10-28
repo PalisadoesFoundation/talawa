@@ -43,7 +43,7 @@ class CommentsViewModel extends BaseModel {
   ///
   /// To verify things are working, check out the native platform logs.
   /// **params**:
-  /// * `postID`: The post id for which comments are to be fetched.
+  /// * `post`: The post for which comments are to be fetched.
   ///
   /// **returns**:
   ///   None

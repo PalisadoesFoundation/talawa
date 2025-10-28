@@ -1,263 +1,481 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
-import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
-import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
-import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-class MockCallbackFunction extends Mock {
-  void call();
-}
-
-final demoJson = {
-  'createPost': {
-    '__typename': 'Post',
-    '_id': '1',
-    'text': 'text #hastag',
-    'createdAt': '2023-11-13T19:28:21.095Z',
-    'imageUrl': 'https://imageurl',
-    'videoUrl': 'https://videoUrl',
-    'title': 'demo title',
-    'commentCount': 0,
-    'likeCount': 0,
-    'creator': {
-      '__typename': 'User',
-      '_id': '1',
-      'firstName': 'Ayush',
-      'lastName': 'Raghuwanshi',
-      'image': 'https://imageUrl',
-    },
-    'organization': {'__typename': 'Organization', '_id': '1'},
-    'likedBy': [],
-    'comments': [],
-  },
-};
-
 void main() {
-  testSetupLocator();
-  setUp(() {
-    AppConnectivity.isOnline = true;
+  late AddPostViewModel viewModel;
+
+  setUpAll(() {
     registerServices();
-    getAndRegisterImageService();
+    testSetupLocator();
   });
-  group("AddPostViewModel Test - ", () {
-    test("Check if it's initialized correctly", () {
-      final model = AddPostViewModel();
-      model.initialise();
 
-      expect(model.imageFile, null);
-      expect(model.orgName, userConfig.currentOrg.name);
-      expect(
-        model.userName,
-        userConfig.currentUser.firstName! + userConfig.currentUser.lastName!,
-      );
-    });
+  setUp(() {
+    viewModel = AddPostViewModel();
+  });
 
-    test('Test for imageInBase64 getter', () {
-      final model = AddPostViewModel();
-      model.initialise();
-      expect(model.imageInBase64, null);
-    });
+  tearDown(() {
+    viewModel.dispose();
+  });
 
-    test("Check if getImageFromGallery() is working fine", () async {
-      final model = AddPostViewModel();
-      model.initialise();
+  group('AddPostViewModel Tests', () {
+    group('Initialization', () {
+      test('should initialize correctly', () {
+        // Act
+        viewModel.initialise();
 
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery())
-          .thenAnswer((_) async {
-        return null;
+        // Assert
+        expect(viewModel.userName, equals('Test User'));
+        expect(viewModel.userPic, equals('test_image_url'));
+        expect(viewModel.orgName, equals('Test Organization'));
+        expect(viewModel.imageFiles, isEmpty);
+        expect(viewModel.captionController.text, isEmpty);
+        expect(viewModel.imageCount, equals(0));
+        expect(viewModel.imageFile, isNull);
       });
 
-      await model.getImageFromGallery();
-      verify(locator<MultiMediaPickerService>().getPhotoFromGallery());
-      expect(model.imageFile, null);
+      test('should have correct maxImages constant', () {
+        expect(AddPostViewModel.maxImages, equals(5));
+      });
     });
-    test("Check if getImageFromGallery() is working fine (camera is true)",
-        () async {
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = AddPostViewModel()..addListener(notifyListenerCallback);
-      model.initialise();
 
-      final file = File('fakePath');
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
-          .thenAnswer((_) async {
-        return file;
+    group('Image Management', () {
+      test(
+          'should add image when getImageFromGallery is called with valid image',
+          () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+        final mockCroppedFile = File('cropped_image.jpg');
+
+        when(multimediaPickerService.getPhotoFromGallery(camera: false))
+            .thenAnswer((_) async => mockFile);
+        when(imageService.cropImage(imageFile: mockFile))
+            .thenAnswer((_) async => mockCroppedFile);
+
+        // Act
+        await viewModel.getImageFromGallery(camera: false);
+
+        // Assert
+        expect(viewModel.imageFiles.length, equals(1));
+        expect(viewModel.imageFiles.first, equals(mockCroppedFile));
+        expect(viewModel.imageFile, equals(mockCroppedFile));
+        expect(viewModel.imageCount, equals(1));
+        verify(multimediaPickerService.getPhotoFromGallery(camera: false))
+            .called(1);
+        verify(imageService.cropImage(imageFile: mockFile)).called(1);
       });
 
-      await model.getImageFromGallery(camera: true);
+      test('should add image when getImageFromGallery is called with camera',
+          () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('camera_image.jpg');
+        final mockCroppedFile = File('cropped_camera_image.jpg');
 
-      verify(
-        locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true),
-      );
-      verify(
-        locator<NavigationService>().showTalawaErrorSnackBar(
-          "Image is added",
-          MessageType.info,
-        ),
-      );
+        when(multimediaPickerService.getPhotoFromGallery(camera: true))
+            .thenAnswer((_) async => mockFile);
+        when(imageService.cropImage(imageFile: mockFile))
+            .thenAnswer((_) async => mockCroppedFile);
 
-      expect(model.imageFile, file);
+        // Act
+        await viewModel.getImageFromGallery(camera: true);
 
-      verify(notifyListenerCallback());
-    });
-    test("Check if upload post works correctly", () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = AddPostViewModel()..addListener(notifyListenerCallback);
-      model.initialise();
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().uploadPost(),
-          variables: {
-            "text": " #",
-            "organizationId": 'XYZ',
-            "title": '',
-          },
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(PostQueries().uploadPost())),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      await model.uploadPost();
-      verify(
-        locator<NavigationService>().showTalawaErrorSnackBar(
-          "Post is uploaded",
-          MessageType.info,
-        ),
-      );
-      // verify(
-      //   locator<DataBaseMutationFunctions>().gqlAuthMutation(
-      //     query,
-      //     variables: {
-      //       "text": "",
-      //       "organizationId": "XYZ",
-      //       "title": "",
-      //       "file":"",
-      //     },
-      //   ),
-      // );
-      verify(notifyListenerCallback());
-    });
-    test('uploadPost with _imageFile != null and throws no exception',
-        () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final viewModel = AddPostViewModel();
-      viewModel.initialise();
-      final mockImageFile = File(
-        'path/to/mockImage.png',
-      );
-      viewModel.setImageFile(mockImageFile);
-
-      await viewModel.setImageInBase64(mockImageFile);
-
-      viewModel.controller.text = "Some post content";
-      viewModel.textHashTagController.text = "hashtag";
-      viewModel.titleController.text = "Post Title";
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().uploadPost(),
-          variables: {
-            "text": 'Some post content #hashtag',
-            "organizationId": 'XYZ',
-            "title": 'Post Title',
-            "file": 'data:image/png;base64,${viewModel.imageInBase64}',
-          },
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(PostQueries().uploadPost())),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      await viewModel.uploadPost();
-      verify(
-        locator<NavigationService>().showTalawaErrorSnackBar(
-          "Post is uploaded",
-          MessageType.info,
-        ),
-      ).called(1);
-    });
-    test('uploadPost with _imageFile == null', () async {
-      final viewModel = AddPostViewModel();
-      viewModel.initialise();
-      viewModel.controller.text = "Some post content";
-      viewModel.textHashTagController.text = "hashtag";
-      viewModel.titleController.text = "Post Title";
-      when(
-        locator<DataBaseMutationFunctions>().gqlAuthMutation(
-          PostQueries().uploadPost(),
-          variables: anyNamed('variables'),
-        ),
-      ).thenThrow(Exception("exception"));
-
-      await viewModel.uploadPost();
-      verify(
-        locator<NavigationService>().showTalawaErrorSnackBar(
-          "Upload failed: Exception: exception",
-          MessageType.error,
-        ),
-      ).called(1);
-    });
-    test('uploadPost with _imageFile != null', () async {
-      final viewModel = AddPostViewModel();
-      viewModel.initialise();
-      final mockImageFile = File(
-        'path/to/mockImage.png',
-      );
-      viewModel.setImageFile(mockImageFile);
-
-      await viewModel.setImageInBase64(mockImageFile);
-      viewModel.controller.text = "Some post content";
-      viewModel.textHashTagController.text = "hashtag";
-      viewModel.titleController.text = "Post Title";
-      when(
-        locator<DataBaseMutationFunctions>().gqlAuthMutation(
-          PostQueries().uploadPost(),
-          variables: anyNamed('variables'),
-        ),
-      ).thenThrow(Exception("exception"));
-
-      await viewModel.uploadPost();
-      verify(
-        locator<NavigationService>().showTalawaErrorSnackBar(
-          "Upload failed: Exception: exception",
-          MessageType.error,
-        ),
-      ).called(1);
-    });
-    test("Check if remove_image method works correctly", () async {
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = AddPostViewModel()..addListener(notifyListenerCallback);
-
-      model.initialise();
-
-      final file = File('fakePath');
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
-          .thenAnswer((_) async {
-        return file;
+        // Assert
+        expect(viewModel.imageFiles.length, equals(1));
+        verify(multimediaPickerService.getPhotoFromGallery(camera: true))
+            .called(1);
       });
 
-      await model.getImageFromGallery(camera: true);
-      model.removeImage();
-      expect(model.imageFile, null);
+      test('should not add image when cropImage returns null', () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+
+        when(multimediaPickerService.getPhotoFromGallery(camera: false))
+            .thenAnswer((_) async => mockFile);
+        when(imageService.cropImage(imageFile: mockFile))
+            .thenAnswer((_) async => null);
+
+        // Act
+        await viewModel.getImageFromGallery(camera: false);
+
+        // Assert
+        expect(viewModel.imageFiles, isEmpty);
+        expect(viewModel.imageFile, isNull);
+      });
+
+      test('should add multiple images up to maxImages limit', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFiles = List.generate(
+          7,
+          (index) => File('test_image_\$index.jpg'),
+        ); // More than maxImages
+
+        // Act & Assert
+        for (int i = 0; i < mockFiles.length; i++) {
+          viewModel.addImage(mockFiles[i]);
+          if (i < AddPostViewModel.maxImages) {
+            expect(viewModel.imageFiles.length, equals(i + 1));
+            expect(viewModel.imageFiles.contains(mockFiles[i]), isTrue);
+          } else {
+            // Should not add more than maxImages
+            expect(
+              viewModel.imageFiles.length,
+              equals(AddPostViewModel.maxImages),
+            );
+            expect(viewModel.imageFiles.contains(mockFiles[i]), isFalse);
+          }
+        }
+      });
+
+      test('should remove image at specific index', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFiles = [
+          File('image1.jpg'),
+          File('image2.jpg'),
+          File('image3.jpg'),
+        ];
+
+        mockFiles.forEach(viewModel.addImage);
+        expect(viewModel.imageFiles.length, equals(3));
+
+        // Act
+        viewModel.removeImageAt(1); // Remove middle image
+
+        // Assert
+        expect(viewModel.imageFiles.length, equals(2));
+        expect(viewModel.imageFiles.contains(mockFiles[0]), isTrue);
+        expect(viewModel.imageFiles.contains(mockFiles[1]), isFalse);
+        expect(viewModel.imageFiles.contains(mockFiles[2]), isTrue);
+      });
+
+      test('should not remove image when index is out of bounds', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+        viewModel.addImage(mockFile);
+        expect(viewModel.imageFiles.length, equals(1));
+
+        // Act
+        viewModel.removeImageAt(-1); // Invalid negative index
+        expect(viewModel.imageFiles.length, equals(1));
+
+        viewModel.removeImageAt(5); // Invalid high index
+        expect(viewModel.imageFiles.length, equals(1));
+      });
+
+      test('should remove all images when removeImage is called', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFiles = [
+          File('image1.jpg'),
+          File('image2.jpg'),
+          File('image3.jpg'),
+        ];
+
+        mockFiles.forEach(viewModel.addImage);
+        expect(viewModel.imageFiles.length, equals(3));
+
+        // Act
+        viewModel.removeImage();
+
+        // Assert
+        expect(viewModel.imageFiles, isEmpty);
+        expect(viewModel.imageFile, isNull);
+        expect(viewModel.imageCount, equals(0));
+      });
+    });
+
+    group('Post Upload Validation', () {
+      test('should return false for canUploadPost when no images selected', () {
+        // Arrange
+        viewModel.initialise();
+        viewModel.captionController.text = 'Test caption';
+
+        // Act & Assert
+        expect(viewModel.canUploadPost(), isFalse);
+      });
+
+      test('should return false for canUploadPost when caption is empty', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+        viewModel.addImage(mockFile);
+
+        // Act & Assert
+        expect(viewModel.canUploadPost(), isFalse);
+      });
+
+      test(
+          'should return false for canUploadPost when caption is only whitespace',
+          () {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+        viewModel.addImage(mockFile);
+        viewModel.captionController.text = '   ';
+
+        // Act & Assert
+        expect(viewModel.canUploadPost(), isFalse);
+      });
+
+      test(
+          'should return true for canUploadPost when both image and caption exist',
+          () {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+        viewModel.addImage(mockFile);
+        viewModel.captionController.text = 'Test caption';
+
+        // Act & Assert
+        expect(viewModel.canUploadPost(), isTrue);
+      });
+
+      test('should show error when uploading post without images', () async {
+        // Arrange
+        viewModel.initialise();
+        viewModel.captionController.text = 'Test caption';
+
+        // Act
+        await viewModel.uploadPost();
+
+        // Assert
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            'At least one image is required to create a post',
+            MessageType.error,
+          ),
+        ).called(1);
+      });
+
+      test('should show error when uploading post without caption', () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+        viewModel.addImage(mockFile);
+
+        // Act
+        await viewModel.uploadPost();
+
+        // Assert
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            'Caption cannot be empty',
+            MessageType.error,
+          ),
+        ).called(1);
+      });
+    });
+
+    group('MIME Type Detection', () {
+      test('should return correct MIME type for AVIF files', () {
+        expect(viewModel.getPostAttachmentMimeType('image.avif'), 'IMAGE_AVIF');
+        expect(viewModel.getPostAttachmentMimeType('IMAGE.AVIF'), 'IMAGE_AVIF');
+      });
+
+      test('should return correct MIME type for JPEG files', () {
+        expect(viewModel.getPostAttachmentMimeType('image.jpg'), 'IMAGE_JPEG');
+        expect(viewModel.getPostAttachmentMimeType('image.jpeg'), 'IMAGE_JPEG');
+        expect(viewModel.getPostAttachmentMimeType('IMAGE.JPG'), 'IMAGE_JPEG');
+      });
+
+      test('should return correct MIME type for PNG files', () {
+        expect(viewModel.getPostAttachmentMimeType('image.png'), 'IMAGE_PNG');
+        expect(viewModel.getPostAttachmentMimeType('IMAGE.PNG'), 'IMAGE_PNG');
+      });
+
+      test('should return correct MIME type for WebP files', () {
+        expect(viewModel.getPostAttachmentMimeType('image.webp'), 'IMAGE_WEBP');
+        expect(viewModel.getPostAttachmentMimeType('IMAGE.WEBP'), 'IMAGE_WEBP');
+      });
+
+      test('should return correct MIME type for MP4 files', () {
+        expect(viewModel.getPostAttachmentMimeType('video.mp4'), 'VIDEO_MP4');
+        expect(viewModel.getPostAttachmentMimeType('VIDEO.MP4'), 'VIDEO_MP4');
+      });
+
+      test('should return correct MIME type for WebM files', () {
+        expect(viewModel.getPostAttachmentMimeType('video.webm'), 'VIDEO_WEBM');
+        expect(viewModel.getPostAttachmentMimeType('VIDEO.WEBM'), 'VIDEO_WEBM');
+      });
+
+      test('should throw exception for unsupported file types', () {
+        expect(
+          () => viewModel.getPostAttachmentMimeType('file.txt'),
+          throwsException,
+        );
+        expect(
+          () => viewModel.getPostAttachmentMimeType('file.doc'),
+          throwsException,
+        );
+        expect(
+          () => viewModel.getPostAttachmentMimeType('file.pdf'),
+          throwsException,
+        );
+        expect(
+          () => viewModel.getPostAttachmentMimeType('file.unknown'),
+          throwsException,
+        );
+      });
+    });
+
+    group('Attachment Data Preparation', () {
+      test('should prepare attachment data correctly', () {
+        // Arrange
+        const objectName = 'test-object-name';
+        const fileHash = 'abc123hash';
+        const name = 'test-file.jpg';
+        const mimeType = 'IMAGE_JPEG';
+
+        // Act
+        final result = viewModel.prepareAttachmentData(
+          objectName,
+          fileHash,
+          name,
+          mimeType,
+        );
+
+        // Assert
+        expect(result, isA<Map<String, String>>());
+        expect(result['objectName'], equals(objectName));
+        expect(result['fileHash'], equals(fileHash));
+        expect(result['name'], equals(name));
+        expect(result['mimeType'], equals(mimeType));
+        expect(result.length, equals(4));
+      });
+    });
+
+    group('Getters', () {
+      test('should return correct userName from current user', () {
+        // Arrange
+        viewModel.initialise();
+
+        // Act & Assert
+        expect(viewModel.userName, equals('Test User'));
+      });
+
+      test('should return correct userPic from current user', () {
+        // Arrange
+        viewModel.initialise();
+
+        // Act & Assert
+        expect(viewModel.userPic, equals('test_image_url'));
+      });
+
+      test('should return correct orgName from selected organization', () {
+        // Arrange
+        viewModel.initialise();
+
+        // Act & Assert
+        expect(viewModel.orgName, equals('Test Organization'));
+      });
+
+      test('should return correct imageFile (first image)', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFiles = [
+          File('image1.jpg'),
+          File('image2.jpg'),
+          File('image3.jpg'),
+        ];
+
+        // Act
+        mockFiles.forEach(viewModel.addImage);
+
+        // Assert
+        expect(viewModel.imageFile, equals(mockFiles.first));
+      });
+
+      test('should return null imageFile when no images', () {
+        // Arrange
+        viewModel.initialise();
+
+        // Act & Assert
+        expect(viewModel.imageFile, isNull);
+      });
+
+      test('should return correct imageCount', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFiles = [
+          File('image1.jpg'),
+          File('image2.jpg'),
+        ];
+
+        // Act
+        mockFiles.forEach(viewModel.addImage);
+
+        // Assert
+        expect(viewModel.imageCount, equals(2));
+      });
+    });
+
+    group('Notification Testing', () {
+      test('should notify listeners when adding image', () {
+        // Arrange
+        viewModel.initialise();
+        var notificationCount = 0;
+        viewModel.addListener(() {
+          notificationCount++;
+        });
+
+        final mockFile = File('test_image.jpg');
+
+        // Act
+        viewModel.addImage(mockFile);
+
+        // Assert
+        expect(notificationCount, equals(1));
+      });
+
+      test('should notify listeners when removing image', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('test_image.jpg');
+        viewModel.addImage(mockFile);
+
+        var notificationCount = 0;
+        viewModel.addListener(() {
+          notificationCount++;
+        });
+
+        // Act
+        viewModel.removeImageAt(0);
+
+        // Assert
+        expect(notificationCount, equals(1));
+      });
+
+      test('should notify listeners when removing all images', () {
+        // Arrange
+        viewModel.initialise();
+        final mockFiles = [
+          File('image1.jpg'),
+          File('image2.jpg'),
+        ];
+        mockFiles.forEach(viewModel.addImage);
+
+        var notificationCount = 0;
+        viewModel.addListener(() {
+          notificationCount++;
+        });
+
+        // Act
+        viewModel.removeImage();
+
+        // Assert
+        expect(notificationCount, equals(1));
+      });
     });
   });
 }

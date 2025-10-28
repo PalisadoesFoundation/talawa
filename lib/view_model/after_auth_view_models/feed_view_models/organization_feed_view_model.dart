@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
