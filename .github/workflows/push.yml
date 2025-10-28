@@ -20,6 +20,7 @@ on:
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+  FLUTTER_VERSION: 3.32.8
 
 jobs:
   Flutter-Codebase-Check:
@@ -39,7 +40,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
@@ -93,7 +94,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Copy .env.example to .env
         run: cp .env.example .env
@@ -106,13 +107,20 @@ jobs:
       - name: Remove generated files from coverage
         run: |
           sed -i '/\.g\.dart/d' coverage/lcov.info
+
+      #######################################################################
+      # DO NOT DELETE ANY references to env.CODECOV_UNIQUE_NAME in this
+      # section. They are required for accurate calculations
+      #######################################################################
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
-          fail_ci_if_error: false
           name: "${{env.CODECOV_UNIQUE_NAME}}"
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+          verbose: true
+          exclude: 'docs/'
+          gcov_ignore: 'docs/'
 
   Android-Build-and-Release:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -130,7 +138,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Copy .env.example to .env
         run: cp .env.example .env
@@ -140,6 +148,8 @@ jobs:
         run: flutter pub get
       - name: Building for android
         run: flutter build apk
+        env:
+          GRADLE_OPTS: "-Xmx3g -XX:MaxMetaspaceSize=512m"
 
         ###################################################
         ## Release the built apk as an automated release ##
@@ -158,14 +168,20 @@ jobs:
 
   iOS-Build:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: iOS Build and Relaese
+    name: iOS Build and Release
+    permissions:
+      contents: write
     runs-on: macos-latest
     needs: Flutter-Testing
+    
     steps:
       - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Copy .env.example to .env
@@ -182,7 +198,7 @@ jobs:
         run: |
           mkdir Payload
           cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
-          zip -r app.ipa Payload
+          zip -r app-release.ipa Payload
         # This packages the Runner.app into an .ipa file
 
       - uses: ncipollo/release-action@v1

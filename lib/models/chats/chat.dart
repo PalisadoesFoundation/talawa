@@ -10,6 +10,7 @@ class Chat {
   /// [description] is a description of the chat.
   /// [createdAt] is the timestamp when the chat was created.
   /// [updatedAt] is the timestamp when the chat was last updated.
+  /// [creator] is the user who created the chat.
   /// [members] is a list of chat members.
   /// [messages] is a list of messages in the chat.
   Chat({
@@ -18,6 +19,7 @@ class Chat {
     this.description,
     this.createdAt,
     this.updatedAt,
+    this.creator,
     this.members,
     this.messages,
   });
@@ -77,12 +79,19 @@ class Chat {
       }
     }
 
+    // Parse creator if it exists
+    ChatUser? creator;
+    if (json['creator'] != null) {
+      creator = ChatUser.fromJson(json['creator'] as Map<String, dynamic>);
+    }
+
     final chat = Chat(
       id: json['id'] as String?,
       name: json['name'] as String?,
       description: json['description'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
+      creator: creator,
       members: members,
       messages: messages,
     );
@@ -104,6 +113,7 @@ class Chat {
       'description': description,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
+      'creator': creator?.toJson(),
       'members': members?.map((m) => m.toJson()).toList(),
       'messages': messages?.map((m) => m.toJson()).toList(),
     };
@@ -123,6 +133,9 @@ class Chat {
 
   /// The timestamp when the chat was last updated.
   String? updatedAt;
+
+  /// The user who created the chat.
+  ChatUser? creator;
 
   /// A list of chat members.
   List<ChatUser>? members;

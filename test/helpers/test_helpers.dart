@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -22,6 +23,7 @@ import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/fund_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -37,13 +39,16 @@ import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
@@ -74,6 +79,7 @@ import 'test_helpers.mocks.dart';
     ),
     MockSpec<EventService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ChatService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<FundService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<UserConfig>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppLanguage>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SignupDetailsViewModel>(
@@ -90,15 +96,18 @@ import 'test_helpers.mocks.dart';
     MockSpec<OrganizationFeedViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
+    MockSpec<FundViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<GroupChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SelectContactViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
+    MockSpec<AppSettingViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageService>(onMissingStub: OnMissingStub.returnDefault),
@@ -106,6 +115,9 @@ import 'test_helpers.mocks.dart';
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ScrollController>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ScrollPosition>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<AppLinks>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 
@@ -167,6 +179,7 @@ NavigationService getAndRegisterNavigationService() {
       .thenAnswer((_) async {});
   when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
   when(service.pushDialog(any)).thenAnswer((_) {});
+  when(service.showTalawaErrorSnackBar(any, any)).thenAnswer((_) {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
@@ -467,6 +480,22 @@ AppLanguage getAndRegisterAppLanguage() {
   return service;
 }
 
+/// `getAndRegisterFundService` returns a mock instance of the `FundService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `FundService`: A mock instance of the `FundService` class.
+FundService getAndRegisterFundService() {
+  _removeRegistrationIfExists<FundService>();
+  final service = MockFundService();
+
+  _removeRegistrationIfExists<FundService>();
+  locator.registerSingleton<FundService>(service);
+  return service;
+}
+
 /// `getAndRegisterGraphqlConfig` returns a mock instance of the `GraphqlConfig` class.
 ///
 /// **params**:
@@ -752,7 +781,7 @@ EventService getAndRegisterEventService() {
         id: '1',
         name: 'test',
         startAt: DateTime.now(),
-        endAt: DateTime.now(),
+        endAt: DateTime.now().add(const Duration(hours: 1)),
         location: 'ABC',
         description: 'test',
         creator: User(
@@ -1021,6 +1050,107 @@ SelectContactViewModel getAndRegisterSelectContactViewModel() {
   return cachedViewModel;
 }
 
+/// `getAndRegisterGroupChatViewModel` returns a mock instance of the `GroupChatViewModel` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `GroupChatViewModel`: A mock instance of the `GroupChatViewModel` class.
+GroupChatViewModel getAndRegisterGroupChatViewModel() {
+  _removeRegistrationIfExists<GroupChatViewModel>();
+  final cachedViewModel = MockGroupChatViewModel();
+  final formKey = GlobalKey<AnimatedListState>();
+
+  // Create mock group chat users
+  final ChatUser chatUser1 =
+      ChatUser(firstName: "Alice", id: "user1", image: "avatar1.jpg");
+  final ChatUser chatUser2 =
+      ChatUser(firstName: "Bob", id: "user2", image: "avatar2.jpg");
+  final ChatUser chatUser3 =
+      ChatUser(firstName: "Charlie", id: "user3", image: "avatar3.jpg");
+
+  // Create mock group chat messages
+  final ChatMessage groupMessage1 = ChatMessage(
+    id: "msg1",
+    body: "Welcome to the group!",
+    creator: chatUser1,
+    chatId: "group1",
+    createdAt: DateTime.now().toIso8601String(),
+  );
+  final ChatMessage groupMessage2 = ChatMessage(
+    id: "msg2",
+    body: "Thanks for adding me!",
+    creator: chatUser2,
+    chatId: "group1",
+    createdAt: DateTime.now().toIso8601String(),
+  );
+
+  // Create mock group chat
+  final Chat groupChat = Chat(
+    id: "group1",
+    name: "Test Group Chat",
+    members: [chatUser1, chatUser2, chatUser3],
+    messages: [groupMessage1, groupMessage2],
+  );
+
+  final Map<String, List<ChatMessage>> messages = {
+    "group1": [groupMessage1, groupMessage2],
+  };
+
+  final ChatListTileDataModel groupChatListTile = ChatListTileDataModel(
+    id: "group1",
+    users: [chatUser1, chatUser2, chatUser3],
+    chat: groupChat,
+  );
+
+  when(cachedViewModel.listKey).thenReturn(formKey);
+  when(cachedViewModel.chatState).thenReturn(ChatState.complete);
+  when(cachedViewModel.name).thenReturn("Test Group Chat");
+  when(cachedViewModel.groupChats).thenReturn([groupChatListTile]);
+  when(cachedViewModel.chatMessagesByUser).thenReturn(messages);
+  when(cachedViewModel.initialise()).thenAnswer((realInvocation) async {});
+  when(cachedViewModel.getChatMessages("group1"))
+      .thenAnswer((realInvocation) async {});
+  when(cachedViewModel.sendMessageToGroupChat("group1", "New message"))
+      .thenAnswer((realInvocation) async {
+    messages['group1']?.add(
+      ChatMessage(
+        id: "msg3",
+        body: "New message",
+        creator: chatUser1,
+        chatId: "group1",
+        createdAt: DateTime.now().toIso8601String(),
+      ),
+    );
+  });
+
+  // Mock pagination methods
+  when(cachedViewModel.loadMoreMessages("group1"))
+      .thenAnswer((realInvocation) async {});
+  when(cachedViewModel.hasMoreMessages("group1")).thenReturn(false);
+  when(cachedViewModel.isLoadingMoreMessages("group1")).thenReturn(false);
+
+  // Mock refresh method
+  when(cachedViewModel.refreshChats()).thenReturn(null);
+
+  // Mock getAvailableMembers method
+  when(cachedViewModel.getAvailableMembers(any)).thenReturn([]);
+
+  // Mock group management methods
+  when(
+    cachedViewModel.addGroupMember(
+      chatId: anyNamed('chatId'),
+      userId: anyNamed('userId'),
+    ),
+  ).thenAnswer((_) async => true);
+  when(cachedViewModel.deleteGroupChat(any)).thenAnswer((_) async => true);
+  when(cachedViewModel.leaveGroupChat(any, any)).thenAnswer((_) async => true);
+
+  locator.registerSingleton<GroupChatViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
 /// `getAndRegisterExploreEventsViewModel` returns a mock instance of the `ExploreEventsViewModel` class.
 ///
 /// **params**:
@@ -1100,6 +1230,7 @@ void registerServices() {
   getAndRegisterChatService();
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
+  getAndRegisterFundService();
 }
 
 /// `unregisterServices` unregisters all the services required for the test.
@@ -1115,6 +1246,7 @@ void unregisterServices() {
   locator.unregister<UserConfig>();
   locator.unregister<PostService>();
   locator.unregister<EventService>();
+  locator.unregister<FundService>();
   locator.unregister<MultiMediaPickerService>();
   locator.unregister<Connectivity>();
   locator.unregister<ConnectivityService>();
@@ -1123,6 +1255,7 @@ void unregisterServices() {
   locator.unregister<CommentService>();
   locator.unregister<ImageCropper>();
   locator.unregister<ImagePicker>();
+  locator.unregister<ChatService>();
 }
 
 /// registerViewModels registers all the view models required for the test.
