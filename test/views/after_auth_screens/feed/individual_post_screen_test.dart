@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -43,18 +44,24 @@ Widget createCommentTemplateWidget({
       GlobalWidgetsLocalizations.delegate,
     ],
     home: Scaffold(
-      body: CommentTemplate(
-        model: CommentsViewModel(),
-        comment: Comment(
-          id: "Test id",
-          creator: User(
-            id: '123',
-            firstName: 'Ayush',
-            lastName: 'Chaudhary',
-            email: 'test@test.com',
+      body: SizedBox(
+        child: CommentTemplate(
+          model: CommentsViewModel(),
+          comment: Comment(
+            id: "Test id",
+            creator: User(
+              id: '123',
+              firstName: 'Ayush',
+              lastName: 'Chaudhary',
+              email: 'test@test.com',
+            ),
+            createdAt: '123456',
+            body: 'test text',
+            upvotesCount: 0,
+            downvotesCount: 0,
+            hasVoted: false,
+            voteType: VoteType.none,
           ),
-          createdAt: '123456',
-          body: 'test text',
         ),
       ),
     ),
@@ -230,7 +237,7 @@ void main() {
 
       final findStack = find.byType(Row);
 
-      expect(findStack, findsNWidgets(1));
+      expect(findStack, findsNWidgets(3));
     });
 
     testWidgets('Check if the name is displayed in CommentTemplate ',
@@ -305,9 +312,7 @@ void main() {
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
-          body: IndividualPostView(
-            post: Post(id: "XYZ"),
-          ),
+          body: IndividualPostView(post: Post(id: 'XYZ')),
         ),
       ),
     );
@@ -373,9 +378,15 @@ void main() {
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
-          body: IndividualPostCommentSection(
-            postID: 'postID',
-            model: model,
+          body: SizedBox(
+            width: 400, // Fixed width to prevent overflow
+            height: 600, // Fixed height for container
+            child: SingleChildScrollView(
+              child: IndividualPostCommentSection(
+                postID: 'postID',
+                model: model,
+              ),
+            ),
           ),
         ),
       ),

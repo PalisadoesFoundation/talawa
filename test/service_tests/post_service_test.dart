@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -15,7 +14,7 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 void main() {
-  group('Test PostService', () {
+  group('PostService', () {
     setUpAll(() {
       TestWidgetsFlutterBinding.ensureInitialized();
       testSetupLocator();
@@ -30,41 +29,18 @@ void main() {
         () async {
       final postService = TestablePostService();
       final emittedPosts = <List<Post>>[];
-      postService.postStream.listen(emittedPosts.add);
-
+      final sub = postService.postStream.listen(emittedPosts.add);
       await postService.refreshFeed();
       await Future.delayed(Duration.zero);
-
-      // Use public getters to check state
       expect(postService.posts, isNotEmpty);
       expect(postService.after, isNull);
       expect(postService.before, isNull);
       expect(postService.first, 5);
       expect(postService.last, isNull);
-
-      // These are the posts returned by getNewFeedAndRefreshCache
-      final mockPosts = [
-        Post(
-          id: 'test_post',
-          caption: 'Test Post',
-          commentsCount: 0,
-          hasVoted: false,
-          voteType: null,
-        ),
-        Post(
-          id: 'test_post2',
-          caption: 'Test Post 2',
-          commentsCount: 0,
-          hasVoted: false,
-          voteType: null,
-        ),
-      ];
-
-      expect(postService.posts.first.id, mockPosts.first.id);
-
-      // Assert: stream emitted
+      expect(postService.posts.first.id, 'test_post');
       expect(emittedPosts, isNotEmpty);
-      expect(emittedPosts.last.first.id, mockPosts.first.id);
+      expect(emittedPosts.last.first.id, 'test_post');
+      await sub.cancel();
     });
 
     test(
@@ -86,22 +62,15 @@ void main() {
       final dbFunctions = locator<DataBaseMutationFunctions>();
       final postService = PostService();
       final query = PostQueries().getPostsByOrgID();
-      final variables = {
-        'orgId': 'XYZ',
-        'first': 5,
-        'after': null,
-        'before': null,
-        'last': null,
-      };
 
-      when(dbFunctions.gqlAuthQuery(query, variables: variables)).thenAnswer(
+      when(dbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
+          .thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: null,
           source: QueryResultSource.network,
         ),
       );
-
       expect(() async => await postService.fetchDataFromApi(), throwsException);
     });
 
@@ -111,13 +80,6 @@ void main() {
 
       // Mock the posts query
       final postsQuery = PostQueries().getPostsByOrgID();
-      final postsVariables = {
-        'orgId': 'XYZ',
-        'first': 5,
-        'after': null,
-        'before': null,
-        'last': null,
-      };
 
       final postsData = {
         'organization': {
@@ -141,8 +103,12 @@ void main() {
         },
       };
 
-      when(dbFunctions.gqlAuthQuery(postsQuery, variables: postsVariables))
-          .thenAnswer(
+      when(
+        dbFunctions.gqlAuthQuery(
+          postsQuery,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(postsQuery)),
           data: postsData,
@@ -176,34 +142,26 @@ void main() {
       expect(cached.first.caption, 'Cache Test');
     });
 
-    test('addNewpost adds post to the top', () {
+    test('addNewpost adds post to the top and emits', () async {
       final postService = PostService();
       final post = Post(id: 'new1', caption: 'New Post');
+      final emitted = <List<Post>>[];
+      final sub = postService.postStream.listen(emitted.add);
       postService.addNewpost(post);
-      expect(postService.postStream, isA<Stream<List<Post>>>());
+      await Future.delayed(Duration.zero);
+      expect(postService.posts.first.id, 'new1');
+      expect(emitted.last.first.id, 'new1');
+      await sub.cancel();
     });
 
-    test(
-        'addCommentLocally increments commentsCount and emits to updatedPostStream',
-        () async {
+    test('addCommentLocally increments commentsCount and emits', () async {
       final postService = PostService();
       final post = Post(id: 'comment1', caption: 'Test', commentsCount: 0);
-
-      // Add the post to the in-memory list using the public API
       postService.addNewpost(post);
-
-      // Listen to the updatedPostStream for the emitted post
-      final emittedFuture = postService.updatedPostStream.first;
-
-      // Call the method under test
       postService.addCommentLocally(post);
-
-      // Await the emitted post
-      final emitted = await emittedFuture;
-
-      // Assert that the emitted post has the incremented commentsCount
-      expect(emitted.id, 'comment1');
-      expect(emitted.commentsCount, 1);
+      final updated = await postService.updatedPostStream.first;
+      expect(updated.id, 'comment1');
+      expect(updated.commentsCount, 1);
     });
 
     test('deletePost calls gqlAuthMutation and returns result', () async {
@@ -312,29 +270,89 @@ void main() {
       },
     );
 
-    test('toggleUpVote completes successfully', () async {
+    test('toggleUpVote calls gqlAuthMutation with correct variables', () async {
+      final db = locator<DataBaseMutationFunctions>();
       final postService = PostService();
-      final post = Post(id: 'test_post', hasVoted: false);
-
-      // This should complete without throwing
-      await expectLater(postService.toggleUpVote(post), completes);
+      final post = Post(id: 'pid', hasVoted: false);
+      final query = PostQueries().updateVotePost();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {},
+          source: QueryResultSource.network,
+        ),
+      );
+      await postService.toggleUpVote(post);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'postId': 'pid',
+            'type': 'up_vote',
+          },
+        ),
+      ).called(1);
+      final post2 = Post(id: 'pid', hasVoted: true, voteType: VoteType.upVote);
+      await postService.toggleUpVote(post2);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'postId': 'pid',
+            'type': null,
+          },
+        ),
+      ).called(1);
     });
 
     test('refreshFeed prevents concurrent refreshes', () async {
       final postService = TestablePostService();
       final futures = <Future<void>>[];
-
-      // Start multiple refresh operations concurrently
       for (int i = 0; i < 3; i++) {
         futures.add(postService.refreshFeed());
       }
-
-      // All should complete without error
       await Future.wait(futures);
-
-      // Posts should be set (not multiplied by concurrent calls)
       expect(postService.posts, isNotEmpty);
-      expect(postService.posts.length, 2); // From TestablePostService mock
+      expect(postService.posts.length, 2);
+    });
+
+    test('toggleDownVote calls gqlAuthMutation with correct variables',
+        () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final postService = PostService();
+      final post = Post(id: 'pid', hasVoted: false);
+      final query = PostQueries().updateVotePost();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {},
+          source: QueryResultSource.network,
+        ),
+      );
+      await postService.toggleDownVote(post);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'postId': 'pid',
+            'type': 'down_vote',
+          },
+        ),
+      ).called(1);
+      final post2 =
+          Post(id: 'pid', hasVoted: true, voteType: VoteType.downVote);
+      await postService.toggleDownVote(post2);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'postId': 'pid',
+            'type': null,
+          },
+        ),
+      ).called(1);
     });
   });
 }

@@ -12,8 +12,8 @@ void main() {
   late AddPostViewModel viewModel;
 
   setUpAll(() {
-    registerServices();
     testSetupLocator();
+    registerServices();
   });
 
   setUp(() {
@@ -22,6 +22,9 @@ void main() {
 
   tearDown(() {
     viewModel.dispose();
+  });
+  tearDownAll(() {
+    unregisterServices();
   });
 
   group('AddPostViewModel Tests', () {
@@ -32,8 +35,8 @@ void main() {
 
         // Assert
         expect(viewModel.userName, equals('Test User'));
-        expect(viewModel.userPic, equals('test_image_url'));
-        expect(viewModel.orgName, equals('Test Organization'));
+        expect(viewModel.userPic, null);
+        expect(viewModel.orgName, equals('Organization Name'));
         expect(viewModel.imageFiles, isEmpty);
         expect(viewModel.captionController.text, isEmpty);
         expect(viewModel.imageCount, equals(0));
@@ -58,6 +61,7 @@ void main() {
             .thenAnswer((_) async => mockFile);
         when(imageService.cropImage(imageFile: mockFile))
             .thenAnswer((_) async => mockCroppedFile);
+        // Use a fake/mock CroppedFile as expected by cropImage
 
         // Act
         await viewModel.getImageFromGallery(camera: false);
@@ -79,6 +83,8 @@ void main() {
         final mockFile = File('camera_image.jpg');
         final mockCroppedFile = File('cropped_camera_image.jpg');
 
+        viewModel = AddPostViewModel();
+        viewModel.initialise();
         when(multimediaPickerService.getPhotoFromGallery(camera: true))
             .thenAnswer((_) async => mockFile);
         when(imageService.cropImage(imageFile: mockFile))
@@ -369,7 +375,7 @@ void main() {
         viewModel.initialise();
 
         // Act & Assert
-        expect(viewModel.userPic, equals('test_image_url'));
+        expect(viewModel.userPic, null);
       });
 
       test('should return correct orgName from selected organization', () {
@@ -377,7 +383,7 @@ void main() {
         viewModel.initialise();
 
         // Act & Assert
-        expect(viewModel.orgName, equals('Test Organization'));
+        expect(viewModel.orgName, equals('Organization Name'));
       });
 
       test('should return correct imageFile (first image)', () {

@@ -71,7 +71,6 @@ class ImageService {
           ),
         ],
       );
-
       if (croppedImage != null) {
         return File(croppedImage.path);
       }

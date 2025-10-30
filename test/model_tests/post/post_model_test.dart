@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -29,9 +30,11 @@ void main() {
           }
         ],
         'commentsCount': 5,
-        'upvotesCount': 10,
-        'hasVoted': true,
-        'voteType': 'upvote',
+        'upVotesCount': 10,
+        'hasUserVoted': {
+          'hasVoted': true,
+          'voteType': 'up_vote',
+        },
         'isPinned': true,
         'pinnedAt': '2024-06-18T12:00:00Z',
       };
@@ -40,16 +43,16 @@ void main() {
 
       expect(post.id, 'post1');
       expect(post.caption, 'Test Caption');
-      expect(post.createdAt, DateTime.parse('2024-06-19T12:00:00Z'));
+      expect(post.createdAt, DateTime.parse('2024-06-19T12:00:00Z').toLocal());
       expect(post.creator, isA<User>());
       expect(post.organization, isA<OrgInfo>());
       expect(post.attachments, isA<List<AttachmentModel>>());
       expect(post.commentsCount, 5);
       expect(post.upvotesCount, 10);
       expect(post.hasVoted, true);
-      expect(post.voteType, 'upvote');
+      expect(post.voteType, VoteType.upVote);
       expect(post.isPinned, true);
-      expect(post.pinnedAt, DateTime.parse('2024-06-18T12:00:00Z'));
+      expect(post.pinnedAt, DateTime.parse('2024-06-18T12:00:00Z').toLocal());
     });
 
     test(

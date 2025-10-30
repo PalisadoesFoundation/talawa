@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -741,6 +742,19 @@ ImageCropper getAndRegisterImageCropper() {
 ImageService getAndRegisterImageService() {
   _removeRegistrationIfExists<ImageService>();
   final service = MockImageService();
+  // Mock the convertToBase64 method to return a proper base64 string
+  when(service.convertToBase64(any)).thenAnswer((realInvocation) async {
+    // Return a dummy base64 string for testing
+    return 'VGVzdCBmaWxlIGNvbnRlbnQ='; // "Test file content" in base64
+  });
+
+  // Mock the cropImage method
+  when(service.cropImage(imageFile: anyNamed('imageFile')))
+      .thenAnswer((realInvocation) async {
+    final imageFile = realInvocation.namedArguments[#imageFile] as File;
+    return imageFile; // Return the same file for testing
+  });
+
   locator.registerLazySingleton<ImageService>(() => service);
   return service;
 }
@@ -1230,6 +1244,7 @@ void registerServices() {
   getAndRegisterChatService();
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
+  getAndRegisterImageService();
   getAndRegisterFundService();
 }
 
@@ -1255,6 +1270,7 @@ void unregisterServices() {
   locator.unregister<CommentService>();
   locator.unregister<ImageCropper>();
   locator.unregister<ImagePicker>();
+  locator.unregister<ImageService>();
   locator.unregister<ChatService>();
 }
 

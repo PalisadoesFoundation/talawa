@@ -11,7 +11,6 @@ class AddPost extends StatefulWidget {
 
   /// DrawerKey.
   final GlobalKey<ScaffoldState>? drawerKey;
-
   @override
   State<AddPost> createState() => _AddPostState();
 }
@@ -73,7 +72,6 @@ class _AddPostState extends State<AddPost> {
           ),
           body: Column(
             children: [
-              // User info section
               Container(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -110,9 +108,7 @@ class _AddPostState extends State<AddPost> {
                   ],
                 ),
               ),
-
               Divider(color: colorScheme.outline),
-
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(16.0),

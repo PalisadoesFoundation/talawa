@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 
@@ -42,6 +43,7 @@ void main() {
         id: 'test_post_id',
         hasVoted: true,
         upvotesCount: 5,
+        voteType: VoteType.upVote,
       );
 
       // Act
