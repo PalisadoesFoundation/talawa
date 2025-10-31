@@ -346,7 +346,7 @@ void main() {
       await model.convertToBase64(file);
       expect(
         model.base64Image,
-        "Dummy_String_created_while_calling_convertToBase64(File%3A_'Hello%2Fthrow_Exception')_on_MockImageService.",
+        "VGVzdCBmaWxlIGNvbnRlbnQ=",
       );
     });
 
