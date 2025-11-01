@@ -38,9 +38,8 @@ No one should fear voicing their opinion. Respones must be respectful to help th
 
 If you are ready to start contributing code right away, get ready!
 
-1. Join our Slack and introduce yourself. See details on how to join below in the Community section.
-   1. This repository has its own dedicated channel.
-   1. There are many persons on the various channels, willing to assist you in getting started.
+1. Join our [community forum](https://community.talawa.io) and introduce yourself. See details on how to join below in the Community section.
+   1. There are many persons on the various forums who are willing to assist you in getting started.
 1. Take a look at our issues (**_after reading our guidelines below_**):
    1. We have a list of [good first issues](https://github.com/PalisadoesFoundation/talawa/labels/good%20first%20issue) that contain challenges with limited scope for beginners.
    1. There are issues for creating tests for our codebase. We need to increase reliability. Try those issues, or create your own files that don't already have tests. This is another good strategy for beginners.
@@ -69,14 +68,15 @@ For Talawa, we had employed the following branching strategy to simplify the dev
 - `develop`: For unstable code and bug fixing
 - `main`: Where the stable production ready code lies. This is our default branch.
 
+
 #### Conflict Resolution
 
 When multiple developers are working on issues there is bound to be a conflict of interest (not to be confused with git conflicts) among issues, PRs or even ideas. Usually these conflicts are resolved in a **First Come First Serve** basis however there are certain exceptions to it.
 
-- In the cases where you feel your potential issues could be an extension or in conflict with other PRs it is important to ask the author of the PR in the slack channel or in their PRs or issues themselves why he/she did not write code for something that would require minimal effort on their part.
+- In the cases where you feel your potential issues could be an extension or in conflict with other PRs it is important to ask the author of the PR in our community forums or in their PRs or issues themselves why he/she did not write code for something that would require minimal effort on their part.
 - Based on basic courtesy, it is good practice to let the person who created a function apply and test that function when needed.
-- Last but not the least, communication is important make sure to talk to other contributors, in these cases, in slack channel or in a issue/PR thread.
-- As a last resort the Admins would be responsible for deciding how to resolve this conflict. 
+- Last but not the least, communication is important make sure to talk to other contributors, in these cases, in the community forum or in a issue/PR thread.
+- As a last resort the Admins would be responsible for deciding how to resolve this conflict.
 
 ### Contributing Code
 
@@ -298,5 +298,5 @@ If you are participating in any of the various internship programs we ar members
 ## Community
 There are many ways to communicate with the community.
 
-1. The Palisadoes Foundation has a Slack channel where members can assist with support and clarification. Visit the [Talawa GitHub repository home page](https://github.com/PalisadoesFoundation/talawa) for the link to join our slack channel.
+1. The Palisadoes Foundation has an [online community](https://community.talawa.io/) where members can assist with support and clarification.    
 1. We also have a technical email list run by [freelists.org](https://www.freelists.org/). Search for "palisadoes" and join. Members on this list are also periodically added to our marketing email list that focuses on less technical aspects of our work.
