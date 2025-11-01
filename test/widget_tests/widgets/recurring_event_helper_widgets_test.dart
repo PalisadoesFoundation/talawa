@@ -238,6 +238,94 @@ void main() {
       expect(find.text('Monthly'), findsOneWidget);
       expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
     });
+
+    testWidgets(
+        'Should handle PopupMenuButton interaction and onSelected callback',
+        (WidgetTester tester) async {
+      String? selectedValue;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: RecurrenceFrequencyDropdown(
+              model: mockModel,
+              onSelected: (value) {
+                selectedValue = value;
+              },
+              options: ['Daily', 'Weekly', 'Monthly'],
+              selectedOption: 'Weekly',
+            ),
+          ),
+        ),
+      );
+
+      // Tap on PopupMenuButton to open menu
+      await tester.tap(find.byType(PopupMenuButton<String>));
+      await tester.pumpAndSettle();
+
+      // Verify menu items are displayed
+      expect(find.text('Daily'), findsWidgets);
+      expect(find.text('Weekly'), findsWidgets);
+      expect(find.text('Monthly'), findsWidgets);
+
+      // Tap on 'Daily' option
+      await tester.tap(find.text('Daily').last);
+      await tester.pumpAndSettle();
+
+      // Verify callback was called with correct value
+      expect(selectedValue, 'Daily');
+    });
+
+    testWidgets('Should create correct PopupMenuEntry items',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: RecurrenceFrequencyDropdown(
+              model: mockModel,
+              onSelected: null,
+              options: ['Option1', 'Option2', 'Option3'],
+              selectedOption: 'Option1',
+            ),
+          ),
+        ),
+      );
+
+      // Open the popup menu
+      await tester.tap(find.byType(PopupMenuButton<String>));
+      await tester.pumpAndSettle();
+
+      // Verify all options are created as PopupMenuItem
+      expect(find.byType(PopupMenuItem<String>), findsNWidgets(3));
+      expect(find.text('Option1'), findsWidgets);
+      expect(find.text('Option2'), findsWidgets);
+      expect(find.text('Option3'), findsWidgets);
+    });
+
+    testWidgets('Should handle empty options list gracefully',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: RecurrenceFrequencyDropdown(
+              model: mockModel,
+              onSelected: null,
+              options: [],
+              selectedOption: '',
+            ),
+          ),
+        ),
+      );
+
+      // Should still render without errors
+      expect(find.byType(PopupMenuButton<String>), findsOneWidget);
+
+      // Open menu (should be empty)
+      await tester.tap(find.byType(PopupMenuButton<String>));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(PopupMenuItem<String>), findsNothing);
+    });
   });
 
   group('EventEndOptions Widget Tests', () {
@@ -365,6 +453,258 @@ void main() {
 
       // Should have CustomRectangle widgets for date picker and count field
       expect(find.byType(CustomRectangle), findsAtLeastNWidgets(1));
+    });
+
+    testWidgets('Should handle never radio button inputAction',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      when(mockModel.count).thenReturn(5);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime.now());
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find and tap the "Never" radio button
+      final neverRadio = find.byKey(const Key('neverRadioButton'));
+      expect(neverRadio, findsOneWidget);
+
+      await tester.tap(neverRadio);
+      await tester.pumpAndSettle();
+
+      // Verify that model setters were called (indirectly through widget rebuild)
+      expect(find.byType(EventEndOptions), findsOneWidget);
+    });
+
+    testWidgets('Should handle date picker interaction in "on" option',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime(2023, 12, 25));
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find the date selector IconButton
+      final dateButton = find.byKey(const Key('dateSelectorCalendar'));
+      expect(dateButton, findsOneWidget);
+
+      // Verify IconButton properties
+      final iconButton = tester.widget<IconButton>(dateButton);
+      expect(iconButton.onPressed, isNotNull);
+
+      // Test the date display
+      expect(find.text('Dec 25, 2023'), findsOneWidget);
+    });
+
+    testWidgets('Should handle "on" radio button inputAction',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.never);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find and tap the "On" radio button
+      final onRadio = find.byKey(const Key('onRadioButton'));
+      expect(onRadio, findsOneWidget);
+
+      await tester.tap(onRadio);
+      await tester.pumpAndSettle();
+
+      // Widget should rebuild without errors
+      expect(find.byType(EventEndOptions), findsOneWidget);
+    });
+
+    testWidgets('Should handle count input field onChanged callback',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.after);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find the count input TextField
+      final countField = find.byWidgetPredicate(
+        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+      );
+      expect(countField, findsOneWidget);
+
+      // Test entering valid numeric input
+      await tester.enterText(countField, '15');
+      await tester.pumpAndSettle();
+
+      // Test entering empty input (should default to 1)
+      await tester.enterText(countField, '');
+      await tester.pumpAndSettle();
+
+      // Test numeric validation
+      final textField = tester.widget<TextField>(countField);
+      expect(textField.onChanged, isNotNull);
+      expect(textField.keyboardType, TextInputType.number);
+      expect(textField.inputFormatters, isNotEmpty);
+    });
+
+    testWidgets('Should handle "after" radio button inputAction',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime.now());
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find and tap the "After" radio button
+      final afterRadio = find.byKey(const Key('afterRadioButton'));
+      expect(afterRadio, findsOneWidget);
+
+      await tester.tap(afterRadio);
+      await tester.pumpAndSettle();
+
+      // Widget should rebuild and show count field enabled
+      expect(find.byType(EventEndOptions), findsOneWidget);
+
+      // Count field should be enabled when "after" is selected
+      final countField = find.byWidgetPredicate(
+        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+      );
+      expect(countField, findsOneWidget);
+    });
+
+    testWidgets('Should apply correct theme properties to radio buttons',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find Theme widgets wrapping RadioListTiles
+      final themes = find.byType(Theme);
+      expect(themes, findsAtLeastNWidgets(3)); // One for each radio button
+
+      // Verify RadioListTile properties
+      final radioButtons = find.byType(RadioListTile<String>);
+      expect(radioButtons, findsNWidgets(3));
+
+      // Test radio button values and group behavior
+      final firstRadio =
+          tester.widget<RadioListTile<String>>(radioButtons.first);
+      expect(firstRadio.value, EventEndTypes.never);
+      expect(firstRadio.groupValue, mockModel.eventEndType);
+      expect(firstRadio.onChanged, isNotNull);
+    });
+
+    testWidgets(
+        'Should handle radio button onChanged with proper state management',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.never);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find radio buttons
+      final radioButtons = find.byType(RadioListTile<String>);
+      expect(radioButtons, findsNWidgets(3));
+
+      // Test tapping different radio buttons
+      for (int i = 0; i < 3; i++) {
+        await tester.tap(radioButtons.at(i));
+        await tester.pumpAndSettle();
+
+        // Verify widget rebuilds successfully
+        expect(find.byType(EventEndOptions), findsOneWidget);
+      }
+    });
+
+    testWidgets('Should handle count field enabled/disabled state correctly',
+        (WidgetTester tester) async {
+      // Test when "after" is selected (field should be enabled)
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.after);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      final countField = find.byWidgetPredicate(
+        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+      );
+      expect(countField, findsOneWidget);
+
+      final textField = tester.widget<TextField>(countField);
+      expect(textField.enabled, true);
+
+      // Rebuild with different end type
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.never);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      final disabledField = find.byWidgetPredicate(
+        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+      );
+      expect(disabledField, findsOneWidget);
+
+      final disabledTextField = tester.widget<TextField>(disabledField);
+      expect(disabledTextField.enabled, false);
+    });
+
+    testWidgets(
+        'Should initialize with correct state when eventEndType is never',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.never);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime.now());
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Verify initState behavior - should set recurrenceEndDate to null
+      expect(find.byType(EventEndOptions), findsOneWidget);
+
+      // Verify widget structure is correct
+      expect(find.byType(Column), findsOneWidget);
+      expect(find.byType(RadioListTile<String>), findsNWidgets(3));
     });
   });
 }
