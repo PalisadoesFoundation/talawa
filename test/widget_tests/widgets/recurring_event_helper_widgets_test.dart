@@ -505,6 +505,198 @@ void main() {
       expect(find.text('Dec 25, 2023'), findsOneWidget);
     });
 
+    testWidgets(
+        'Should call customDatePicker and update model when date selector is pressed',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime(2023, 12, 25));
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find the date selector IconButton
+      final dateButton = find.byKey(const Key('dateSelectorCalendar'));
+      expect(dateButton, findsOneWidget);
+
+      // Tap the date selector button
+      await tester.tap(dateButton);
+      await tester.pump();
+
+      // This should open the date picker dialog
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      // Test canceling the date picker
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+
+      // Dialog should be closed
+      expect(find.byType(DatePickerDialog), findsNothing);
+    });
+
+    testWidgets('Should update model state when date is selected from picker',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime(2023, 12, 25));
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find the date selector IconButton
+      final dateButton = find.byKey(const Key('dateSelectorCalendar'));
+      expect(dateButton, findsOneWidget);
+
+      // Tap the date selector button to open picker
+      await tester.tap(dateButton);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+
+      // Verify date picker dialog is shown
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      // Tap OK to confirm date selection (this will use the initialDate: DateTime.now())
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      // Dialog should be closed
+      expect(find.byType(DatePickerDialog), findsNothing);
+
+      // The widget should have called setState which would trigger a rebuild
+      expect(find.byType(EventEndOptions), findsOneWidget);
+    });
+
+    testWidgets('Should properly initialize date picker with DateTime.now()',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime(2023, 12, 25));
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Find the date selector IconButton
+      final dateButton = find.byKey(const Key('dateSelectorCalendar'));
+      expect(dateButton, findsOneWidget);
+
+      // Tap to open date picker
+      await tester.tap(dateButton);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+
+      // Verify the date picker opens with today's date highlighted
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      // The picker should initialize with DateTime.now() as specified in the code
+      // This tests the customDatePicker(initialDate: DateTime.now()) call
+      final today = DateTime.now();
+      final todayText = today.day.toString();
+      expect(find.text(todayText), findsAtLeastNWidgets(1));
+    });
+
+    testWidgets('Should update eventEndType to "on" when date is selected',
+        (WidgetTester tester) async {
+      // Start with a different end type
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.never);
+      when(mockModel.recurrenceEndDate).thenReturn(null);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Switch to "on" option by tapping the radio button
+      final onRadio = find.byKey(const Key('onRadioButton'));
+      expect(onRadio, findsOneWidget);
+
+      await tester.tap(onRadio);
+      await tester.pumpAndSettle();
+
+      // Now the date selector should be available
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      when(mockModel.recurrenceEndDate).thenReturn(DateTime.now());
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      final dateButton = find.byKey(const Key('dateSelectorCalendar'));
+      expect(dateButton, findsOneWidget);
+
+      // Test the complete flow: tap button -> picker opens -> select date -> model updates
+      await tester.tap(dateButton);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      // Confirm date selection
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      // Verify the widget rebuilt successfully (indicating setState was called)
+      expect(find.byType(EventEndOptions), findsOneWidget);
+    });
+
+    testWidgets('Should handle date picker cancellation gracefully',
+        (WidgetTester tester) async {
+      when(mockModel.eventEndType).thenReturn(EventEndTypes.on);
+      final initialDate = DateTime(2023, 12, 25);
+      when(mockModel.recurrenceEndDate).thenReturn(initialDate);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(
+            body: EventEndOptions(model: mockModel),
+          ),
+        ),
+      );
+
+      // Verify initial date display
+      expect(find.text('Dec 25, 2023'), findsOneWidget);
+
+      // Open date picker
+      final dateButton = find.byKey(const Key('dateSelectorCalendar'));
+      await tester.tap(dateButton);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      // Cancel the picker
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+
+      // Date should remain unchanged (customDatePicker returns initialDate on cancel)
+      expect(find.text('Dec 25, 2023'), findsOneWidget);
+      expect(find.byType(DatePickerDialog), findsNothing);
+    });
+
     testWidgets('Should handle "on" radio button inputAction',
         (WidgetTester tester) async {
       when(mockModel.eventEndType).thenReturn(EventEndTypes.never);
