@@ -1293,10 +1293,10 @@ packages:
     dependency: "direct main"
     description:
       name: qr_code_scanner_plus
-      sha256: a0f1ac8e13299b3db2646635f252fe2ec67222b848b24ed34d11052faf080bfa
+      sha256: b764e5004251c58d9dee0c295e6006e05bd8d249e78ac3383abdb5afe0a996cd
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.12"
+    version: "2.0.14"
   qr_flutter:
     dependency: "direct main"
     description:
