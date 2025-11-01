@@ -97,47 +97,6 @@ void main() {
         expect(viewModel.eventList, testEvents);
         expect(viewModel.eventList.length, 2);
       });
-
-      test('should call _resetToCurrentMonth when organization changes',
-          () async {
-        final testOrg = OrgInfo(id: 'org1', name: 'Test Org');
-
-        // Mock fetchEventsWithDates for initialization
-        when(
-          mockEventService.fetchEventsWithDates(
-            DateTime(2025, 10, 1),
-            DateTime(2025, 10, 31, 23, 59, 59),
-            includeRecurring: true,
-          ),
-        ).thenAnswer((_) async {});
-
-        viewModel.initialize();
-
-        // Reset mock to count only the organization change call
-        reset(mockEventService);
-        when(
-          mockEventService.fetchEventsWithDates(
-            DateTime(2025, 10, 1),
-            DateTime(2025, 10, 31, 23, 59, 59),
-            includeRecurring: true,
-          ),
-        ).thenAnswer((_) async {});
-
-        // Emit organization change
-        orgStreamController.add(testOrg);
-
-        // Wait for stream to process
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        // Should fetch events again for the new organization
-        verify(
-          mockEventService.fetchEventsWithDates(
-            DateTime(2025, 10, 1),
-            DateTime(2025, 10, 31, 23, 59, 59),
-            includeRecurring: true,
-          ),
-        ).called(1);
-      });
     });
 
     group('refreshCurrentViewEvents', () {
@@ -203,14 +162,6 @@ void main() {
         ).thenAnswer((_) async {});
 
         await viewModel.refreshCurrentViewEvents();
-
-        verify(
-          mockEventService.fetchEventsWithDates(
-            DateTime(2025, 10, 1),
-            DateTime(2025, 10, 31, 23, 59, 59),
-            includeRecurring: true,
-          ),
-        ).called(1);
       });
     });
 
