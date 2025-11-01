@@ -5,7 +5,6 @@ import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/post_service.dart';
-import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -297,7 +296,6 @@ void main() {
 
   test('createComment calls CommentService and adds locally', () async {
     final viewModel = CommentsViewModel();
-    locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
     final CommentService commentService = locator<CommentService>();
     final PostService postService = locator<PostService>();
 

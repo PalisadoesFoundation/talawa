@@ -145,10 +145,6 @@ class ImageService {
         mutation,
         variables: variables,
       );
-      print("*******************");
-      print("Uploading file to Minio:");
-      print(result.exception);
-      print(result.data);
       if (result.hasException) {
         throw Exception('Failed to get presigned URL: ${result.exception}');
       }
@@ -175,10 +171,6 @@ class ImageService {
             'Content-Type': contentType,
           },
         );
-
-        print("Upload response status: ${response.statusCode}");
-        print("Upload response body: ${response.body}");
-
         if (response.statusCode != 200) {
           throw Exception(
             'File upload failed: ${response.statusCode} ${response.body}',

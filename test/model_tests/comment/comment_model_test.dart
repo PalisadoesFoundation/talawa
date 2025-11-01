@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -14,6 +15,8 @@ void main() {
     createdAt: '123456',
     body: 'test text',
     post: null,
+    hasVoted: true,
+    voteType: VoteType.upVote,
   );
 
   final commentJson = {
@@ -28,6 +31,10 @@ void main() {
     'createdAt': '123456',
     'body': 'test text',
     'post': null,
+    'hasUserVoted': {
+      'hasVoted': true,
+      'voteType': 'up_vote',
+    },
   };
 
   group('Test Comment model', () {
@@ -39,7 +46,9 @@ void main() {
       expect(comment.creator?.email, commentFromJson.creator?.email);
       expect(comment.createdAt, commentFromJson.createdAt);
       expect(comment.body, commentFromJson.body);
+      expect(comment.hasVoted, commentFromJson.hasVoted);
       expect(comment.post, commentFromJson.post);
+      expect(comment.voteType, commentFromJson.voteType);
     });
   });
   test('Comment.fromJson sets post when json["post"] is not null', () {

@@ -170,6 +170,7 @@ class AddPostViewModel extends BaseModel {
               file: imageFile,
               organizationId: _selectedOrg.id!,
             );
+
             attachmentsList.add(
               prepareAttachmentData(
                 fileInfo['objectName']!,
@@ -180,7 +181,6 @@ class AddPostViewModel extends BaseModel {
             );
           }
         }
-
         final Map<String, dynamic> variables = {
           "caption": captionController.text,
           "organizationId": _selectedOrg.id,
@@ -212,7 +212,6 @@ class AddPostViewModel extends BaseModel {
         );
       },
       onActionException: (e) async {
-        print(e);
         _navigationService.showTalawaErrorSnackBar(
           "Upload failed: $e",
           MessageType.error,
