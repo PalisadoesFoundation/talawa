@@ -2,29 +2,56 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
 void main() {
   late AddPostViewModel viewModel;
+  late MockActionHandlerService mockActionHandlerService;
 
   setUpAll(() {
     testSetupLocator();
     registerServices();
+    mockActionHandlerService = getAndRegisterLocalActionHandlerService();
   });
 
   setUp(() {
+    // Register our local ActionHandlerService mock specifically for this test
+
     viewModel = AddPostViewModel();
+
+    // Set up userConfig mocks
+    final mockOrg = OrgInfo(
+      id: 'org_123',
+      name: 'Test Organization',
+      userRegistrationRequired: false,
+    );
+    final mockUser = User(
+      id: 'user_123',
+      firstName: 'Test',
+      lastName: 'User',
+    );
+
+    when(userConfig.currentOrg).thenReturn(mockOrg);
+    when(userConfig.currentUser).thenReturn(mockUser);
   });
 
-  tearDown(() {
-    viewModel.dispose();
-  });
   tearDownAll(() {
+    // Clean up general services
     unregisterServices();
+
+    // Ensure ActionHandlerService is unregistered
+    if (locator.isRegistered<ActionHandlerService>()) {
+      locator.unregister<ActionHandlerService>();
+    }
   });
 
   group('AddPostViewModel Tests', () {
@@ -36,7 +63,7 @@ void main() {
         // Assert
         expect(viewModel.userName, equals('Test User'));
         expect(viewModel.userPic, null);
-        expect(viewModel.orgName, equals('Organization Name'));
+        expect(viewModel.orgName, equals('Test Organization'));
         expect(viewModel.imageFiles, isEmpty);
         expect(viewModel.captionController.text, isEmpty);
         expect(viewModel.imageCount, equals(0));
@@ -383,7 +410,7 @@ void main() {
         viewModel.initialise();
 
         // Act & Assert
-        expect(viewModel.orgName, equals('Organization Name'));
+        expect(viewModel.orgName, equals('Test Organization'));
       });
 
       test('should return correct imageFile (first image)', () {
@@ -481,6 +508,111 @@ void main() {
 
         // Assert
         expect(notificationCount, equals(1));
+      });
+    });
+
+    group('uploadPost Tests', () {
+      test('should show error when no images are selected', () async {
+        // Arrange
+        viewModel.initialise();
+        viewModel.captionController.text = 'Test caption';
+
+        // Act
+        await viewModel.uploadPost();
+
+        // Assert
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            "At least one image is required to create a post",
+            MessageType.error,
+          ),
+        ).called(1);
+      });
+
+      test('should show error when caption is empty', () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('assets/images/talawa-logo-lite-200x200.png');
+        viewModel.addImage(mockFile);
+
+        // Act
+        await viewModel.uploadPost();
+
+        // Assert
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            "Caption cannot be empty",
+            MessageType.error,
+          ),
+        ).called(1);
+      });
+
+      test('should show error when caption is only whitespace', () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('assets/images/talawa-logo-lite-200x200.png');
+        viewModel.addImage(mockFile);
+        viewModel.captionController.text = '   ';
+
+        // Act
+        await viewModel.uploadPost();
+
+        // Assert
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            "Caption cannot be empty",
+            MessageType.error,
+          ),
+        ).called(1);
+      });
+
+      test('should call ActionHandlerService with correct parameters',
+          () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('assets/images/talawa-logo-lite-200x200.png');
+        viewModel.addImage(mockFile);
+        viewModel.captionController.text = 'Test post caption';
+
+        // Act
+        await viewModel.uploadPost();
+
+        // Assert
+        verify(
+          mockActionHandlerService.performAction(
+            actionType: ActionType.critical,
+            criticalActionFailureMessage: TalawaErrors.postCreationFailed,
+            action: anyNamed('action'),
+            onValidResult: anyNamed('onValidResult'),
+            apiCallSuccessUpdateUI: anyNamed('apiCallSuccessUpdateUI'),
+            onActionException: anyNamed('onActionException'),
+            onActionFinally: anyNamed('onActionFinally'),
+          ),
+        ).called(1);
+      });
+
+      test('should handle successful post upload flow', () async {
+        // Arrange
+        viewModel.initialise();
+        final mockFile = File('assets/images/talawa-logo-lite-200x200.png');
+        viewModel.addImage(mockFile);
+        viewModel.captionController.text = 'Test post caption';
+
+        // Act
+        await viewModel.uploadPost();
+
+        // Assert - Just verify that ActionHandlerService is called
+        verify(
+          mockActionHandlerService.performAction(
+            actionType: ActionType.critical,
+            criticalActionFailureMessage: TalawaErrors.postCreationFailed,
+            action: anyNamed('action'),
+            onValidResult: anyNamed('onValidResult'),
+            apiCallSuccessUpdateUI: anyNamed('apiCallSuccessUpdateUI'),
+            onActionException: anyNamed('onActionException'),
+            onActionFinally: anyNamed('onActionFinally'),
+          ),
+        ).called(1);
       });
     });
   });

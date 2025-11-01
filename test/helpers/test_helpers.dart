@@ -497,6 +497,22 @@ FundService getAndRegisterFundService() {
   return service;
 }
 
+/// `getAndRegisterLocalActionHandlerService` returns a mock instance of the `ActionHandlerService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `MockActionHandlerService`: A mock instance of the `ActionHandlerService` class.
+MockActionHandlerService getAndRegisterLocalActionHandlerService() {
+  if (locator.isRegistered<ActionHandlerService>()) {
+    locator.unregister<ActionHandlerService>();
+  }
+  final service = MockActionHandlerService();
+  locator.registerSingleton<ActionHandlerService>(service);
+  return service;
+}
+
 /// `getAndRegisterGraphqlConfig` returns a mock instance of the `GraphqlConfig` class.
 ///
 /// **params**:
