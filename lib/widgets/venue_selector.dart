@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/events/event_venue.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
@@ -19,29 +18,75 @@ class _VenueSelectionWidgetState extends State<VenueSelectionWidget> {
   /// The currently selected venue.
   Venue? selectedVenue;
 
+  /// Whether the widget is currently loading venues.
+  bool isLoading = false;
+
+  /// Handles venue selection from the bottom sheet.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> _selectVenue() async {
+    if (isLoading) return;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final List<Venue> venues = await widget.model.fetchVenues();
+      if (!mounted) return;
+
+      final Venue? selected = await showModalBottomSheet<Venue>(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return VenueBottomSheet(venues: venues);
+        },
+      );
+
+      if (selected != null && mounted) {
+        setState(() {
+          selectedVenue = selected;
+        });
+      }
+    } catch (error) {
+      // Handle error gracefully - could show snackbar in real app
+      debugPrint('Error fetching venues: $error');
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  /// Clears the selected venue.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void _clearVenue() {
+    setState(() {
+      selectedVenue = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         GestureDetector(
-          onTap: () async {
-            final List<Venue> venues = await widget.model.fetchVenues();
-            if (!context.mounted) return;
-            final Venue? selected = await showModalBottomSheet<Venue>(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) {
-                return VenueBottomSheet(venues: venues);
-              },
-            );
-            if (selected != null) {
-              setState(() {
-                selectedVenue = selected;
-              });
-            }
-          },
+          key: const Key('venue_selector_gesture'),
+          onTap: _selectVenue,
           child: selectedVenue == null
               ? Container(
+                  key: const Key('add_venue_container'),
                   height: 50.0,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   decoration: BoxDecoration(
@@ -54,11 +99,23 @@ class _VenueSelectionWidgetState extends State<VenueSelectionWidget> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.add_location, color: Colors.blueAccent),
+                      if (isLoading)
+                        const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      else
+                        const Icon(
+                          Icons.add_location,
+                          color: Colors.blueAccent,
+                        ),
                       const SizedBox(width: 10.0),
                       Text(
-                        AppLocalizations.of(context)!
-                            .strictTranslate('Add Venue'),
+                        isLoading
+                            ? 'Loading...'
+                            : AppLocalizations.of(context)!
+                                .strictTranslate('Add Venue'),
                         style:
                             Theme.of(context).textTheme.titleMedium!.copyWith(
                                   color: Colors.blueAccent,
@@ -69,6 +126,7 @@ class _VenueSelectionWidgetState extends State<VenueSelectionWidget> {
                   ),
                 )
               : Container(
+                  key: const Key('selected_venue_container'),
                   height: 100.0,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   decoration: BoxDecoration(
@@ -86,22 +144,19 @@ class _VenueSelectionWidgetState extends State<VenueSelectionWidget> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(6.0),
                           child: Image.network(
-                            selectedVenue!.imageUrl!.replaceAll(
-                              'http://localhost:4000',
-                              GraphqlConfig.orgURI!
-                                  .replaceFirst('/graphql', ''),
-                            ),
+                            selectedVenue!.imageUrl!,
                             width: 50,
                             height: 50,
                             fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
+                                'assets/images/defaultImg.png',
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              );
+                            },
                           ),
-                        )
-                      else
-                        Image.asset(
-                          'assets/images/defaultImg.png',
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
                         ),
                       const SizedBox(width: 10.0),
                       Expanded(
@@ -130,17 +185,15 @@ class _VenueSelectionWidgetState extends State<VenueSelectionWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedVenue = null;
-                              });
-                            },
+                            key: const Key('clear_venue_button'),
+                            onPressed: _clearVenue,
                             icon: const Icon(
                               Icons.cancel,
                               color: Colors.redAccent,
                             ),
                           ),
                           IconButton(
+                            key: const Key('edit_venue_button'),
                             onPressed: () {
                               // You can implement edit venue logic here
                             },
@@ -171,7 +224,7 @@ class VenueBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height * 0.4,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -179,12 +232,13 @@ class VenueBottomSheet extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: Container(
               width: 40,
-              height: 5,
+              height: 4,
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(10),
@@ -192,10 +246,10 @@ class VenueBottomSheet extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: Text(
               'Select Venue',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           Expanded(
@@ -209,14 +263,18 @@ class VenueBottomSheet extends StatelessWidget {
                         leading:
                             venue.imageUrl != null && venue.imageUrl!.isNotEmpty
                                 ? Image.network(
-                                    venue.imageUrl!.replaceAll(
-                                      'http://localhost:4000',
-                                      GraphqlConfig.orgURI!
-                                          .replaceFirst('/graphql', ''),
-                                    ),
+                                    venue.imageUrl!,
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'assets/images/defaultImg.png',
+                                        width: 50,
+                                        height: 50,
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
                                   )
                                 : Image.asset(
                                     'assets/images/defaultImg.png',
