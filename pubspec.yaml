@@ -40,8 +40,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.4.1
-  flutter_image_compress: ^2.4.0
   flutter_dotenv: ^6.0.0
+  flutter_image_compress: ^2.4.0
   flutter_local_notifications: ^18.0.1
   flutter_localizations:
     sdk: flutter
