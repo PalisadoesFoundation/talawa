@@ -200,6 +200,129 @@ void main() {
       expect(chat.members![1].firstName, equals('Jane'));
     });
 
+    test('fromJson parses members from new ChatMember structure with edges',
+        () {
+      final json = {
+        'id': 'chat1',
+        'name': 'Test Chat',
+        'members': {
+          'edges': [
+            {
+              'node': {
+                'role': 'administrator',
+                'user': {
+                  'id': 'user1',
+                  'name': 'John Doe',
+                },
+              },
+            },
+            {
+              'node': {
+                'role': 'regular',
+                'user': {
+                  'id': 'user2',
+                  'name': 'Jane Smith',
+                },
+              },
+            },
+          ],
+        },
+      };
+
+      final chat = Chat.fromJson(json);
+
+      expect(chat.members, isNotNull);
+      expect(chat.members!.length, equals(2));
+      expect(chat.members![0].id, equals('user1'));
+      expect(chat.members![0].firstName, equals('John'));
+      expect(chat.members![1].id, equals('user2'));
+      expect(chat.members![1].firstName, equals('Jane'));
+    });
+
+    test('fromJson parses members from new ChatMember structure as list', () {
+      final json = {
+        'id': 'chat1',
+        'name': 'Test Chat',
+        'members': [
+          {
+            'role': 'administrator',
+            'user': {
+              'id': 'user1',
+              'name': 'Alice Admin',
+            },
+          },
+          {
+            'role': 'regular',
+            'user': {
+              'id': 'user2',
+              'name': 'Bob Regular',
+            },
+          },
+        ],
+      };
+
+      final chat = Chat.fromJson(json);
+
+      expect(chat.members, isNotNull);
+      expect(chat.members!.length, equals(2));
+      expect(chat.members![0].id, equals('user1'));
+      expect(chat.members![0].firstName, equals('Alice'));
+      expect(chat.members![1].id, equals('user2'));
+      expect(chat.members![1].firstName, equals('Bob'));
+    });
+
+    test('fromJson handles mixed old and new member formats gracefully', () {
+      // Test backward compatibility - old format in edges
+      final jsonOldFormat = {
+        'id': 'chat1',
+        'name': 'Test Chat',
+        'members': {
+          'edges': [
+            {
+              'node': {
+                'id': 'user1',
+                'name': 'John Doe',
+              },
+            },
+          ],
+        },
+      };
+
+      final chatOld = Chat.fromJson(jsonOldFormat);
+      expect(chatOld.members, isNotNull);
+      expect(chatOld.members!.length, equals(1));
+      expect(chatOld.members![0].id, equals('user1'));
+      expect(chatOld.members![0].firstName, equals('John'));
+    });
+
+    test('fromJson parses members from simple list format', () {
+      final json = {
+        'id': 'chat1',
+        'name': 'Test Chat',
+        'members': [
+          {
+            'id': 'user1',
+            'name': 'John Doe',
+            'avatarURL': 'avatar1.jpg',
+          },
+          {
+            'id': 'user2',
+            'name': 'Jane Smith',
+            'avatarURL': 'avatar2.jpg',
+          },
+        ],
+      };
+
+      final chat = Chat.fromJson(json);
+
+      expect(chat.members, isNotNull);
+      expect(chat.members!.length, equals(2));
+      expect(chat.members![0].id, equals('user1'));
+      expect(chat.members![0].firstName, equals('John'));
+      expect(chat.members![1].id, equals('user2'));
+      expect(chat.members![1].firstName, equals('Jane'));
+    });
+
     test('fromJson parses messages from GraphQL edges format', () {
       final json = {
         'id': 'chat1',
