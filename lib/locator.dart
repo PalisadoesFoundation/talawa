@@ -154,7 +154,6 @@ Future<void> setupLocator() async {
 
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());
-  // locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => AuthLandingViewModel());
   locator.registerFactory(() => LoginViewModel());
