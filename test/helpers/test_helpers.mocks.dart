@@ -7,19 +7,19 @@ import 'dart:async' as _i8;
 import 'dart:io' as _i23;
 import 'dart:ui' as _i12;
 
-import 'package:app_links/src/app_links.dart' as _i54;
+import 'package:app_links/src/app_links.dart' as _i55;
 import 'package:flutter/material.dart' as _i1;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i13;
-import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i53;
-import 'package:graphql/src/utilities/helpers.dart' as _i52;
+import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i54;
+import 'package:graphql/src/utilities/helpers.dart' as _i53;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
-import 'package:image_cropper/src/cropper.dart' as _i49;
+import 'package:image_cropper/src/cropper.dart' as _i50;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
-    as _i50;
+    as _i51;
 import 'package:image_picker/image_picker.dart' as _i16;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i21;
-import 'package:normalize/normalize.dart' as _i51;
+import 'package:normalize/normalize.dart' as _i52;
 import 'package:talawa/enums/enums.dart' as _i17;
 import 'package:talawa/models/attachments/attachment_model.dart' as _i35;
 import 'package:talawa/models/chats/chat.dart' as _i27;
@@ -35,9 +35,9 @@ import 'package:talawa/models/organization/org_info.dart' as _i5;
 import 'package:talawa/models/page_info/page_info.dart' as _i4;
 import 'package:talawa/models/post/post_model.dart' as _i20;
 import 'package:talawa/models/user/user_info.dart' as _i9;
-import 'package:talawa/services/chat_core_service.dart' as _i55;
-import 'package:talawa/services/chat_membership_service.dart' as _i56;
-import 'package:talawa/services/chat_message_service.dart' as _i57;
+import 'package:talawa/services/chat_core_service.dart' as _i56;
+import 'package:talawa/services/chat_membership_service.dart' as _i57;
+import 'package:talawa/services/chat_message_service.dart' as _i58;
 import 'package:talawa/services/chat_service.dart' as _i26;
 import 'package:talawa/services/comment_service.dart' as _i41;
 import 'package:talawa/services/database_mutation_functions.dart' as _i11;
@@ -50,7 +50,7 @@ import 'package:talawa/services/post_service.dart' as _i19;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i22;
 import 'package:talawa/services/user_config.dart' as _i15;
-import 'package:talawa/services/user_profile_service.dart' as _i58;
+import 'package:talawa/services/user_profile_service.dart' as _i59;
 import 'package:talawa/utils/pair.dart' as _i7;
 import 'package:talawa/utils/validators.dart' as _i40;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
@@ -67,6 +67,8 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
     as _i38;
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart'
     as _i39;
+import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart'
+    as _i49;
 import 'package:talawa/view_model/lang_view_model.dart' as _i33;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i34;
@@ -5996,19 +5998,111 @@ class MockSelectContactViewModel extends _i2.Mock
       );
 }
 
+/// A class which mocks [AppSettingViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppSettingViewModel extends _i2.Mock
+    implements _i49.AppSettingViewModel {
+  @override
+  _i17.ViewState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i17.ViewState.idle,
+        returnValueForMissingStub: _i17.ViewState.idle,
+      ) as _i17.ViewState);
+
+  @override
+  bool get isBusy => (super.noSuchMethod(
+        Invocation.getter(#isBusy),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i8.Future<void> logout() => (super.noSuchMethod(
+        Invocation.method(
+          #logout,
+          [],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+
+  @override
+  _i8.Future<bool> launchWebsite(String? url) => (super.noSuchMethod(
+        Invocation.method(
+          #launchWebsite,
+          [url],
+        ),
+        returnValue: _i8.Future<bool>.value(false),
+        returnValueForMissingStub: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
+
+  @override
+  void setState(_i17.ViewState? viewState) => super.noSuchMethod(
+        Invocation.method(
+          #setState,
+          [viewState],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(_i12.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i12.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
 /// A class which mocks [ImageCropper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageCropper extends _i2.Mock implements _i49.ImageCropper {
+class MockImageCropper extends _i2.Mock implements _i50.ImageCropper {
   @override
-  _i8.Future<_i50.CroppedFile?> cropImage({
+  _i8.Future<_i51.CroppedFile?> cropImage({
     required String? sourcePath,
     int? maxWidth,
     int? maxHeight,
-    _i50.CropAspectRatio? aspectRatio,
-    _i50.ImageCompressFormat? compressFormat = _i50.ImageCompressFormat.jpg,
+    _i51.CropAspectRatio? aspectRatio,
+    _i51.ImageCompressFormat? compressFormat = _i51.ImageCompressFormat.jpg,
     int? compressQuality = 90,
-    List<_i50.PlatformUiSettings>? uiSettings,
+    List<_i51.PlatformUiSettings>? uiSettings,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -6024,19 +6118,19 @@ class MockImageCropper extends _i2.Mock implements _i49.ImageCropper {
             #uiSettings: uiSettings,
           },
         ),
-        returnValue: _i8.Future<_i50.CroppedFile?>.value(),
-        returnValueForMissingStub: _i8.Future<_i50.CroppedFile?>.value(),
-      ) as _i8.Future<_i50.CroppedFile?>);
+        returnValue: _i8.Future<_i51.CroppedFile?>.value(),
+        returnValueForMissingStub: _i8.Future<_i51.CroppedFile?>.value(),
+      ) as _i8.Future<_i51.CroppedFile?>);
 
   @override
-  _i8.Future<_i50.CroppedFile?> recoverImage() => (super.noSuchMethod(
+  _i8.Future<_i51.CroppedFile?> recoverImage() => (super.noSuchMethod(
         Invocation.method(
           #recoverImage,
           [],
         ),
-        returnValue: _i8.Future<_i50.CroppedFile?>.value(),
-        returnValueForMissingStub: _i8.Future<_i50.CroppedFile?>.value(),
-      ) as _i8.Future<_i50.CroppedFile?>);
+        returnValue: _i8.Future<_i51.CroppedFile?>.value(),
+        returnValueForMissingStub: _i8.Future<_i51.CroppedFile?>.value(),
+      ) as _i8.Future<_i51.CroppedFile?>);
 }
 
 /// A class which mocks [ImagePicker].
@@ -6240,11 +6334,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as _i3.PartialDataCachePolicy);
 
   @override
-  Map<String, _i51.TypePolicy> get typePolicies => (super.noSuchMethod(
+  Map<String, _i52.TypePolicy> get typePolicies => (super.noSuchMethod(
         Invocation.getter(#typePolicies),
-        returnValue: <String, _i51.TypePolicy>{},
-        returnValueForMissingStub: <String, _i51.TypePolicy>{},
-      ) as Map<String, _i51.TypePolicy>);
+        returnValue: <String, _i52.TypePolicy>{},
+        returnValueForMissingStub: <String, _i52.TypePolicy>{},
+      ) as Map<String, _i52.TypePolicy>);
 
   @override
   Map<String, Set<String>> get possibleTypes => (super.noSuchMethod(
@@ -6254,11 +6348,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as Map<String, Set<String>>);
 
   @override
-  _i52.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
+  _i53.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
         Invocation.getter(#sanitizeVariables),
         returnValue: (Map<String, dynamic> variables) => null,
         returnValueForMissingStub: (Map<String, dynamic> variables) => null,
-      ) as _i52.SanitizeVariables);
+      ) as _i53.SanitizeVariables);
 
   @override
   int get inflightOptimisticTransactions => (super.noSuchMethod(
@@ -6278,14 +6372,14 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  List<_i53.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
+  List<_i54.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
         Invocation.getter(#optimisticPatches),
-        returnValue: <_i53.OptimisticPatch>[],
-        returnValueForMissingStub: <_i53.OptimisticPatch>[],
-      ) as List<_i53.OptimisticPatch>);
+        returnValue: <_i54.OptimisticPatch>[],
+        returnValueForMissingStub: <_i54.OptimisticPatch>[],
+      ) as List<_i54.OptimisticPatch>);
 
   @override
-  set optimisticPatches(List<_i53.OptimisticPatch>? _optimisticPatches) =>
+  set optimisticPatches(List<_i54.OptimisticPatch>? _optimisticPatches) =>
       super.noSuchMethod(
         Invocation.setter(
           #optimisticPatches,
@@ -6334,7 +6428,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  set sanitizeVariables(_i52.SanitizeVariables? _sanitizeVariables) =>
+  set sanitizeVariables(_i53.SanitizeVariables? _sanitizeVariables) =>
       super.noSuchMethod(
         Invocation.setter(
           #sanitizeVariables,
@@ -6393,7 +6487,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
 
   @override
   void recordOptimisticTransaction(
-    _i53.CacheTransaction? transaction,
+    _i54.CacheTransaction? transaction,
     String? addId,
   ) =>
       super.noSuchMethod(
@@ -6593,7 +6687,7 @@ class MockPageInfo extends _i2.Mock implements _i4.PageInfo {
 /// A class which mocks [AppLinks].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppLinks extends _i2.Mock implements _i54.AppLinks {
+class MockAppLinks extends _i2.Mock implements _i55.AppLinks {
   @override
   _i8.Stream<String> get stringLinkStream => (super.noSuchMethod(
         Invocation.getter(#stringLinkStream),
@@ -6652,7 +6746,7 @@ class MockAppLinks extends _i2.Mock implements _i54.AppLinks {
 /// A class which mocks [ChatCoreService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockChatCoreService extends _i2.Mock implements _i55.ChatCoreService {
+class MockChatCoreService extends _i2.Mock implements _i56.ChatCoreService {
   @override
   _i10.NavigationService get navigationService => (super.noSuchMethod(
         Invocation.getter(#navigationService),
@@ -6746,7 +6840,7 @@ class MockChatCoreService extends _i2.Mock implements _i55.ChatCoreService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockChatMembershipService extends _i2.Mock
-    implements _i56.ChatMembershipService {
+    implements _i57.ChatMembershipService {
   @override
   _i10.NavigationService get navigationService => (super.noSuchMethod(
         Invocation.getter(#navigationService),
@@ -6843,7 +6937,7 @@ class MockChatMembershipService extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockChatMessageService extends _i2.Mock
-    implements _i57.ChatMessageService {
+    implements _i58.ChatMessageService {
   @override
   Map<String, String?> get beforeCursor => (super.noSuchMethod(
         Invocation.getter(#beforeCursor),
@@ -6964,7 +7058,7 @@ class MockChatMessageService extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserProfileService extends _i2.Mock
-    implements _i58.UserProfileService {
+    implements _i59.UserProfileService {
   @override
   _i8.Future<_i3.QueryResult<Object?>> updateUserProfile(
           Map<String, dynamic>? variables) =>

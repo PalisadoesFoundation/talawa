@@ -168,7 +168,7 @@ jobs:
 
   iOS-Build:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: iOS Build and Relaese
+    name: iOS Build and Release
     permissions:
       contents: write
     runs-on: macos-latest
@@ -198,7 +198,7 @@ jobs:
         run: |
           mkdir Payload
           cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
-          zip -r app.ipa Payload
+          zip -r app-release.ipa Payload
         # This packages the Runner.app into an .ipa file
 
       - uses: ncipollo/release-action@v1
