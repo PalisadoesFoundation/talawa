@@ -26,8 +26,14 @@ Event getTestEvent({
   bool asAdmin = false,
   bool hasRecurrence = false,
   bool hasVenues = false,
+  bool isAllDay = false,
+  String? progressLabel,
+  int? sequenceNumber,
+  int? totalCount,
+  Event? baseEvent,
   List<Attendee>? attendees,
   List<User>? admins,
+  RecurrenceRule? customRecurrenceRule,
 }) {
   return Event(
     id: "1",
@@ -38,10 +44,15 @@ Event getTestEvent({
       lastName: "shaikh",
     ),
     isPublic: isPublic,
+    allDay: isAllDay,
     location: "iitbhu, varanasi",
     description: "test_event_description",
     startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
     endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
+    progressLabel: progressLabel,
+    sequenceNumber: sequenceNumber,
+    totalCount: totalCount,
+    baseEvent: baseEvent,
     admins: admins ??
         [
           User(
@@ -58,13 +69,14 @@ Event getTestEvent({
           ),
         ],
     isRegisterable: true,
-    recurrenceRule: hasRecurrence
-        ? RecurrenceRule(
-            frequency: 'WEEKLY',
-            interval: 1,
-            byDay: ['MO', 'WE', 'FR'],
-          )
-        : null,
+    recurrenceRule: customRecurrenceRule ??
+        (hasRecurrence
+            ? RecurrenceRule(
+                frequency: 'WEEKLY',
+                interval: 1,
+                byDay: ['MO', 'WE', 'FR'],
+              )
+            : null),
     venues: hasVenues
         ? [
             Venue(
@@ -82,8 +94,14 @@ Widget createEventInfoBody({
   bool asAdmin = false,
   bool hasRecurrence = false,
   bool hasVenues = false,
+  bool isAllDay = false,
+  String? progressLabel,
+  int? sequenceNumber,
+  int? totalCount,
+  Event? baseEvent,
   List<Attendee>? attendees,
   List<User>? admins,
+  RecurrenceRule? customRecurrenceRule,
 }) {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),
@@ -96,8 +114,14 @@ Widget createEventInfoBody({
               asAdmin: asAdmin,
               hasRecurrence: hasRecurrence,
               hasVenues: hasVenues,
+              isAllDay: isAllDay,
+              progressLabel: progressLabel,
+              sequenceNumber: sequenceNumber,
+              totalCount: totalCount,
+              baseEvent: baseEvent,
               attendees: attendees,
               admins: admins,
+              customRecurrenceRule: customRecurrenceRule,
             ),
           );
           _eventInfoViewModel = model;
@@ -208,6 +232,253 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("No attendees yet"), findsOneWidget);
+    });
+
+    testWidgets("Shows 'All day' chip when event is all day", (tester) async {
+      await tester.pumpWidget(createEventInfoBody(isAllDay: true));
+      await tester.pumpAndSettle();
+
+      expect(find.text("All day"), findsOneWidget);
+      expect(find.byType(Chip), findsOneWidget);
+
+      // Verify chip styling
+      final chip = tester.widget<Chip>(find.byType(Chip));
+      expect(chip.padding, EdgeInsets.zero);
+      expect(chip.materialTapTargetSize, MaterialTapTargetSize.shrinkWrap);
+    });
+
+    testWidgets("Does not show 'All day' chip when event is not all day",
+        (tester) async {
+      await tester.pumpWidget(createEventInfoBody(isAllDay: false));
+      await tester.pumpAndSettle();
+
+      expect(find.text("All day"), findsNothing);
+      expect(find.byType(Chip), findsNothing);
+    });
+
+    testWidgets("Shows public event icon correctly", (tester) async {
+      await tester.pumpWidget(createEventInfoBody(isPublic: true));
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.lock_open), findsOneWidget);
+      expect(find.text("public"), findsOneWidget);
+    });
+
+    testWidgets("Shows private event icon correctly", (tester) async {
+      await tester.pumpWidget(createEventInfoBody(isPublic: false));
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.lock), findsOneWidget);
+      expect(find.text("private"), findsOneWidget);
+    });
+
+    testWidgets("Shows progress label in recurring event section",
+        (tester) async {
+      await tester.pumpWidget(
+        createEventInfoBody(
+          hasRecurrence: true,
+          progressLabel: "Event 3 of 10",
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("Recurring Event"), findsOneWidget);
+      expect(find.text("Event 3 of 10"), findsOneWidget);
+      expect(find.byIcon(Icons.event_repeat), findsOneWidget);
+    });
+
+    testWidgets("Shows sequence number and total count", (tester) async {
+      await tester.pumpWidget(
+        createEventInfoBody(
+          hasRecurrence: true,
+          sequenceNumber: 5,
+          totalCount: 12,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("Event 5 of 12"), findsOneWidget);
+      expect(find.byIcon(Icons.numbers), findsOneWidget);
+    });
+
+    testWidgets("Shows base event information", (tester) async {
+      final baseEvent = Event(
+        id: "base1",
+        name: "Conference Series",
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          hasRecurrence: true,
+          baseEvent: baseEvent,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("Part of: Conference Series"), findsOneWidget);
+      expect(find.byIcon(Icons.event_note), findsOneWidget);
+    });
+
+    testWidgets("Shows base event with fallback name when name is null",
+        (tester) async {
+      final baseEvent = Event(
+        id: "base1",
+        name: null,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          hasRecurrence: true,
+          baseEvent: baseEvent,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("Part of: Event series"), findsOneWidget);
+    });
+  });
+
+  group("Recurrence Rule Formatting Tests", () {
+    testWidgets("Formats daily recurrence rule correctly", (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'DAILY',
+        interval: 1,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats daily"), findsOneWidget);
+    });
+
+    testWidgets("Formats daily recurrence with interval correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'DAILY',
+        interval: 3,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats every 3 days"), findsOneWidget);
+    });
+
+    testWidgets("Formats weekly recurrence with days correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'WEEKLY',
+        interval: 2,
+        byDay: ['MO', 'WE', 'FR'],
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats every 2 weeks"), findsOneWidget);
+      expect(find.textContaining("on MO, WE, FR"), findsOneWidget);
+    });
+
+    testWidgets("Formats monthly recurrence with month day correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'MONTHLY',
+        interval: 1,
+        byMonthDay: [15, 30],
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats monthly"), findsOneWidget);
+      expect(find.textContaining("on day 15, 30"), findsOneWidget);
+    });
+
+    testWidgets("Formats yearly recurrence with months correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'YEARLY',
+        interval: 1,
+        byMonth: [6, 12],
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats yearly"), findsOneWidget);
+      expect(find.textContaining("in 6, 12"), findsOneWidget);
+    });
+
+    testWidgets("Formats recurrence with count correctly", (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'WEEKLY',
+        interval: 1,
+        count: 5,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats weekly"), findsOneWidget);
+      expect(find.textContaining(", 5 times"), findsOneWidget);
+    });
+
+    testWidgets("Formats recurrence with end date correctly", (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'DAILY',
+        interval: 1,
+        recurrenceEndDate: DateTime.parse('2025-12-31T00:00:00.000Z'),
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats daily"), findsOneWidget);
+      expect(find.textContaining(", until Dec 31, 2025"), findsOneWidget);
+    });
+
+    testWidgets("Formats unknown frequency correctly", (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'CUSTOM',
+        interval: 1,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats custom"), findsOneWidget);
     });
   });
 }
