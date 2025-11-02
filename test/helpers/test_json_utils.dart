@@ -1,7 +1,7 @@
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/comment/comment_model.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
@@ -188,26 +188,18 @@ class TestJsonUtils {
   ) {
     return EventAgendaItem(
       id: json['_id'] as String?,
-      title: json['title'] as String?,
+      name: json['title'] as String?,
       description: json['description'] as String?,
       duration: json['duration'] as String?,
       attachments: (json['attachments'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      createdBy: createUserFromJson(json['createdBy'] as Map<String, dynamic>?),
       urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      relatedEvent: json['relatedEvent'] != null
-          ? createEventFromJson(json['relatedEvent'] as Map<String, dynamic>)
-          : null,
       categories: (json['categories'] as List<dynamic>?)
           // AgendaCategory doesn't require nested user handling, use direct fromJson
           ?.map((e) => AgendaCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
       sequence: json['sequence'] as int?,
-      organization: json['organization'] != null
-          // OrgInfo doesn't require nested user handling, use direct fromJson
-          ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
-          : null,
     );
   }
 

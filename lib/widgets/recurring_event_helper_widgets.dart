@@ -48,10 +48,10 @@ class CustomTextField extends StatelessWidget {
   /// Controller of textField.
   final TextEditingController textEditingController;
 
-  /// Indicates wether text field is enabled.
+  /// Indicates whether text field is enabled.
   final bool? enabled;
 
-  /// Indicates wether text field is read only.
+  /// Indicates whether text field is read only.
   final bool readOnly;
 
   @override
@@ -86,6 +86,7 @@ class CustomTextField extends StatelessWidget {
 /// Recurrence Frequency selection widget.
 class RecurrenceFrequencyDropdown extends StatefulWidget {
   const RecurrenceFrequencyDropdown({
+    super.key,
     required this.model,
     required this.onSelected,
     required this.options,
@@ -118,8 +119,7 @@ class _RecurrenceFrequencyDropdownState
         padding: const EdgeInsets.all(12),
         child: Center(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment
-                .center, // Align the row's contents to the center horizontally
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               PopupMenuButton<String>(
                 offset: const Offset(0, 40),
@@ -225,10 +225,8 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                       });
                     },
                     icon: Text(
-                      formatDate(
-                        (widget.model.recurrenceEndDate ?? DateTime.now())
-                            .toString()
-                            .split(" ")[0],
+                      DateFormat("MMM d, yyyy").format(
+                        widget.model.recurrenceEndDate ?? DateTime.now(),
                       ),
                       style: widget.model.eventEndType == EventEndTypes.on
                           ? TextStyle(color: Theme.of(context).dividerColor)
@@ -255,16 +253,38 @@ class _EventEndOptionsState extends State<EventEndOptions> {
         radioButton(
           key: const Key('afterRadioButton'),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(EventEndTypes.after),
               inlineWidth,
-              CustomTextField(
-                enabled: widget.model.eventEndType == EventEndTypes.after,
-                maxTextLength: 3,
-                textEditingController: widget.model.endOccurenceController,
+              CustomRectangle(
+                child: SizedBox(
+                  width: 60,
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                      border: InputBorder.none,
+                      hintText: '1',
+                    ),
+                    enabled: widget.model.eventEndType == EventEndTypes.after,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        widget.model.count = int.parse(value);
+                      } else {
+                        widget.model.count = 1;
+                      }
+                    },
+                  ),
+                ),
               ),
               inlineWidth,
-              const Text('occurrence'),
+              const Text('occurrence(s)'),
             ],
           ),
           index: 2,
@@ -310,17 +330,5 @@ class _EventEndOptionsState extends State<EventEndOptions> {
         },
       ),
     );
-  }
-
-  /// Formats input date into [MMM d, yyyy] format.
-  ///
-  /// **params**:
-  /// * `inputDate`: Unformatted date.
-  ///
-  /// **returns**:
-  /// * `String`: formatted date.
-  String formatDate(String inputDate) {
-    final DateTime dateTime = DateTime.parse(inputDate);
-    return DateFormat("MMM d, yyyy").format(dateTime);
   }
 }

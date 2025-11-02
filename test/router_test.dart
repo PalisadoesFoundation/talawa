@@ -23,11 +23,10 @@ import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.d
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/group_chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
-import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
-import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
-import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
+import 'package:talawa/views/after_auth_screens/events/custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
-import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
+import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
+import 'package:talawa/views/after_auth_screens/events/event_page_form.dart';
 import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group.dart';
 import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
@@ -99,6 +98,75 @@ void main() {
       }
     });
 
+    testWidgets('Test Demo Page route', (WidgetTester tester) async {
+      final route = generateRoute(
+        const RouteSettings(name: Routes.demoPage),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<DemoPageView>());
+      }
+    });
+
+    test("Test Event Page Form route without event", () {
+      final route =
+          generateRoute(const RouteSettings(name: Routes.eventPageForm));
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<EventPageForm>());
+      }
+    });
+
+    test("Test Event Page Form route with event", () {
+      final route = generateRoute(
+        RouteSettings(
+          name: Routes.eventPageForm,
+          arguments: Event(id: "testId"),
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<EventPageForm>());
+      }
+    });
+
+    test("Test Event Info Page route", () {
+      final route = generateRoute(
+        RouteSettings(
+          name: Routes.eventInfoPage,
+          arguments: Event(id: "testId"),
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<EventInfoPage>());
+      }
+    });
+
+    test("Test Custom recurrence page route", () {
+      final route = generateRoute(
+        RouteSettings(
+          name: Routes.customRecurrencePage,
+          arguments: CreateEventViewModel(),
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<CustomRecurringEvent>());
+      }
+    });
+
     testWidgets('Test WaitingPage route', (WidgetTester tester) async {
       final route = generateRoute(
         const RouteSettings(name: Routes.waitingScreen, arguments: 0),
@@ -163,47 +231,6 @@ void main() {
       }
     });
 
-    testWidgets('Test ExploreEvents route', (WidgetTester tester) async {
-      final route =
-          generateRoute(const RouteSettings(name: Routes.exploreEventsScreen));
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<ExploreEvents>());
-      }
-    });
-
-    testWidgets('Test CreateEventPage route', (WidgetTester tester) async {
-      final route =
-          generateRoute(const RouteSettings(name: Routes.createEventPage));
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<CreateEventPage>());
-      }
-    });
-
-    testWidgets('Test createCustomRecurringEvent route',
-        (WidgetTester tester) async {
-      final route = generateRoute(
-        RouteSettings(
-          name: Routes.customRecurrencePage,
-          arguments: CreateEventViewModel(),
-        ),
-      );
-      expect(
-        route,
-        isA<MaterialPageRoute>(),
-      );
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<CustomRecurrencePage>());
-      }
-    });
-
     testWidgets('Test for pinnedPost route', (WidgetTester tester) async {
       final route = generateRoute(
         RouteSettings(
@@ -265,19 +292,6 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<SendAccessRequest>());
-      }
-    });
-
-    testWidgets('Test for editEventPage route', (WidgetTester tester) async {
-      final Event event = Event();
-      final route = generateRoute(
-        RouteSettings(name: Routes.editEventPage, arguments: event),
-      );
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<EditEventPage>());
       }
     });
 

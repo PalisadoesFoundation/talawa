@@ -8,7 +8,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
-import 'package:talawa/views/after_auth_screens/profile/user_event.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -131,7 +130,7 @@ class ProfilePage extends StatelessWidget {
                         Column(
                           children: [
                             RaisedRoundedButton(
-                              key: homeModel!.keySPDonateUs,
+                              key: const Key('DonateButton'),
                               buttonLabel:
                                   AppLocalizations.of(context)!.strictTranslate(
                                 'Donate to the Community',
@@ -159,17 +158,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                                 key: const Key('UserpostTab'),
                               ),
-                              Tab(
-                                text: AppLocalizations.of(context)!
-                                    .strictTranslate(
-                                  'Events',
-                                ),
-                                key: const Key('UserEventsTab'),
-                              ),
                             ],
                             views: [
                               const UserFeed(key: Key("UserFeed")),
-                              const UserEvents(key: Key("UserEvents")),
                             ],
                           ),
                         ),
@@ -212,10 +203,8 @@ class ProfilePage extends StatelessWidget {
               child: SizedBox(
                 height: model.bottomSheetHeight,
                 child: Scaffold(
-                  // background color set to Primary
                   backgroundColor:
                       Theme.of(context).colorScheme.primaryContainer,
-                  // header
                   appBar: AppBar(
                     centerTitle: true,
                     automaticallyImplyLeading: false,
@@ -224,7 +213,6 @@ class ProfilePage extends StatelessWidget {
                     toolbarHeight: SizeConfig.screenHeight! * 0.15,
                     title: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      // display title
                       child: Text(
                         '${AppLocalizations.of(context)!.strictTranslate('Donating to')}\n${model.currentOrg.name}',
                         style: Theme.of(context)
@@ -253,7 +241,6 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   body: SingleChildScrollView(
-                    // SingleChildScrollView is a box in which a single widget can be scrolled.
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
