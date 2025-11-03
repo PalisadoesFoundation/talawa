@@ -42,8 +42,7 @@ void main() {
 
       sampleUser = User(
         id: 'user123',
-        firstName: 'John',
-        lastName: 'Doe',
+        name: 'John Doe',
         email: 'john@example.com',
         authToken: 'sample-auth-token',
       );
@@ -218,8 +217,7 @@ void main() {
         when(mockUserConfig.currentUser).thenReturn(
           User(
             id: 'user123',
-            firstName: 'John',
-            lastName: 'Doe',
+            name: 'John Doe',
             email: 'john@example.com',
             authToken: null,
           ),
@@ -235,8 +233,7 @@ void main() {
         when(mockUserConfig.currentUser).thenReturn(
           User(
             id: 'user123',
-            firstName: 'John',
-            lastName: 'Doe',
+            name: 'John Doe',
             email: 'john@example.com',
             authToken: '',
           ),
@@ -513,7 +510,7 @@ void main() {
     });
 
     group('disposal', () {
-      test('dispose closes all streams', () async {
+      test('dispose closes all streams', () {
         chatCoreService.dispose();
         // Test passes if no exceptions are thrown
         expect(true, isTrue);

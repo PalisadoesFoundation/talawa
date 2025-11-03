@@ -66,8 +66,7 @@ void main() {
     when(mockUserConfig.currentOrg).thenReturn(mockOrg);
 
     // Setup mock current user
-    final mockCurrentUser =
-        User(id: 'current_user_id', firstName: 'Current', lastName: 'User');
+    final mockCurrentUser = User(id: 'current_user_id', name: 'Current User');
     when(mockUserConfig.currentUser).thenReturn(mockCurrentUser);
 
     // Ensure getCurrentOrgUsersList is properly stubbed for all test cases
@@ -132,8 +131,7 @@ void main() {
       final users = [
         User(
           id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
+          name: 'John Doe',
           image: 'https://picsum.photos/200/300',
         ),
       ];
@@ -155,23 +153,19 @@ void main() {
     });
 
     final avatarTestCases = [
-      {'firstName': 'John', 'lastName': 'Doe', 'expected': 'J'},
-      {'firstName': '', 'lastName': 'TestName', 'expected': 'T'},
-      {'firstName': '', 'lastName': 'TestName', 'expected': 'T'},
-      {'firstName': null, 'lastName': 'TestName', 'expected': 'T'},
-      {'firstName': '', 'lastName': '', 'expected': '?'},
-      {'firstName': null, 'lastName': null, 'expected': '?'},
+      {'name': 'John Doe', 'expected': 'J'},
+      {'name': 'TestName', 'expected': 'T'},
+      {'name': '', 'lastName': '', 'expected': '?'},
     ];
 
     for (final testCase in avatarTestCases) {
       testWidgets(
-          'should display avatar with "${testCase['expected']}" when name is ${testCase['firstName']} ${testCase['lastName']}',
+          'should display avatar with "${testCase['expected']}" when name is ${testCase['name']}',
           (tester) async {
         final users = [
           User(
             id: 'user1',
-            firstName: testCase['firstName'],
-            lastName: testCase['lastName'],
+            name: "${testCase['name']}",
             image: null,
           ),
         ];
@@ -188,24 +182,19 @@ void main() {
 
   group('Name and Email Display', () {
     final nameTestCases = [
-      {'firstName': 'John', 'lastName': 'Doe', 'expected': 'John'},
-      {'firstName': null, 'lastName': 'TestName', 'expected': 'TestName'},
-      {'firstName': '', 'lastName': 'TestName', 'expected': ''},
-      {'firstName': 'John', 'lastName': null, 'expected': 'John'},
-      {'firstName': 'John', 'lastName': '', 'expected': 'John'},
-      {'firstName': null, 'lastName': null, 'expected': 'Unknown User'},
-      {'firstName': '', 'lastName': '', 'expected': ''},
+      {'name': 'John Doe', 'expected': 'John'},
+      {'name': 'TestName', 'expected': 'TestName'},
+      {'name': '', 'expected': ''},
     ];
 
     for (final testCase in nameTestCases) {
       testWidgets(
-          'should display name "${testCase['expected']}" when name is ${testCase['firstName']} ${testCase['lastName']}',
+          'should display name "${testCase['expected']}" when name is ${testCase['name']}',
           (tester) async {
         final users = [
           User(
             id: 'user1',
-            firstName: testCase['firstName'],
-            lastName: testCase['lastName'],
+            name: "${testCase['name']}",
           ),
         ];
         when(mockSelectContactViewModel.isBusy).thenReturn(false);
@@ -237,7 +226,7 @@ void main() {
   });
 
   group('Chat Creation and Navigation', () {
-    final testUser = User(id: 'user1', firstName: 'John', lastName: 'Doe');
+    final testUser = User(id: 'user1', name: 'John Doe');
 
     testWidgets('should handle successful chat creation and navigation',
         (tester) async {

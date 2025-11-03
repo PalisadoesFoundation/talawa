@@ -31,8 +31,7 @@ void main() {
         id: 'post1',
         caption: 'Test caption',
         creator: User(
-          firstName: 'John',
-          lastName: 'Doe',
+          name: 'John Doe',
           image: null,
         ),
         attachments: null,
@@ -42,8 +41,7 @@ void main() {
         id: 'post2',
         caption: 'Post with attachments',
         creator: User(
-          firstName: 'Jane',
-          lastName: 'Smith',
+          name: 'Jane Smith',
           image: 'https://example.com/image.jpg',
         ),
         attachments: [

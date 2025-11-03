@@ -51,8 +51,8 @@ void main() {
     mockModel = MockFundViewModel();
     campaign = Campaign(id: 'camp1', name: 'Test Campaign', currency: 'USD');
     orgMembers = [
-      User(id: '1', firstName: 'John', lastName: 'Doe'),
-      User(id: '2', firstName: 'Jane', lastName: 'Smith'),
+      User(id: '1', name: 'John Doe'),
+      User(id: '2', name: 'Jane Smith'),
     ];
     when(mockModel.orgMembersList).thenReturn(orgMembers);
   });

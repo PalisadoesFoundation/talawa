@@ -26,8 +26,8 @@
   "Verify": "Verificar",
   "Sign Up": "Inscrever-se",
   "Change language": "Mudar idioma",
-  "First Name Hint": "John",
-  "Enter your first name": "Digite seu primeiro nome",
+  "Name Hint": "John",
+  "Enter your name": "Digite seu nome",
   "Last Name Hint": "Carlos",
   "Enter your last name": "Digite seu sobrenome",
   "Confirm your password": "Confirme sua senha",
@@ -327,5 +327,6 @@
   "Unknown": "Desconhecido",
   "Upcoming": "Próxima",
   "Ended": "Encerrada",
-  "Active": "Ativa"
+  "Active": "Ativa",
+  "Unnamed Organization": "Organização Sem Nome"
 }

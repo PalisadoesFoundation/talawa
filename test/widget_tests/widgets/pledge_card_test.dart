@@ -41,15 +41,13 @@ final mockPledge = Pledge(
   endDate: DateTime(2024, 12, 31),
   pledger: User(
     id: '1',
-    firstName: 'John',
-    lastName: 'Doe',
+    name: 'John Doe',
     image: null,
   ),
   note: 'Test note',
   creator: User(
     id: '2',
-    firstName: 'Jane',
-    lastName: 'Smith',
+    name: 'Jane Smith',
     image: null,
   ),
 );
@@ -152,7 +150,7 @@ void main() {
         amount: 500,
         startDate: DateTime(2024, 6, 1),
         endDate: DateTime(2024, 6, 30),
-        pledger: User(id: '2', firstName: null, lastName: null, image: null),
+        pledger: User(id: '2', name: null, image: null),
         note: 'No name pledger',
         creator: null,
       );
@@ -169,8 +167,7 @@ void main() {
         amount: 250,
         startDate: DateTime(2024, 7, 1),
         endDate: DateTime(2024, 7, 31),
-        pledger:
-            User(id: '3', firstName: 'Sam', lastName: 'Smith', image: null),
+        pledger: User(id: '3', name: 'Sam Smith', image: null),
         note: 'Test note',
         creator: null,
       );
@@ -187,11 +184,9 @@ void main() {
         amount: 300,
         startDate: DateTime(2024, 8, 1),
         endDate: DateTime(2024, 8, 31),
-        pledger:
-            User(id: '4', firstName: 'Alex', lastName: 'Brown', image: null),
+        pledger: User(id: '4', name: 'Alex Brown', image: null),
         note: 'Currency test',
-        creator:
-            User(id: '5', firstName: 'Chris', lastName: 'Green', image: null),
+        creator: User(id: '5', name: 'Chris Green', image: null),
         currency: 'EUR',
       );
       await tester.pumpWidget(createPledgeCard(pledge: pledgeWithCurrency));
@@ -210,8 +205,7 @@ void main() {
         endDate: DateTime(2024, 9, 30),
         pledger: User(
           id: 'other',
-          firstName: 'Other',
-          lastName: 'User',
+          name: 'Other User',
           image: null,
         ),
         note: 'Other user',

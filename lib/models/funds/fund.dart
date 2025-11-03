@@ -35,7 +35,6 @@ class Fund {
           ? null
           : User.fromJson(
               json['creator'] as Map<String, dynamic>,
-              fromOrg: true,
             ),
       campaigns: (json['campaigns'] as List<dynamic>?)
           ?.map((e) => Campaign.fromJson(e as Map<String, dynamic>))

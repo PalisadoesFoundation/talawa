@@ -23,11 +23,10 @@ class GraphqlConfig {
   String? displayImgRoute;
 
   /// This function is used to get user the access token.
-  Future getToken() async {
+  void getToken() {
     final authToken = userConfig.currentUser.authToken;
     token = authToken;
     getOrgUrl();
-    return true;
   }
 
   /// This function is used to initialize the GraphQL client for testing.

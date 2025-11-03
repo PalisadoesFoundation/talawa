@@ -13,9 +13,6 @@ class AccessScreenViewModel extends BaseModel {
   /// organizations list.
   late List<OrgInfo> organizations = [];
 
-  /// org identifier.
-  late String orgId;
-
   /// text controller for optional message during the request.
   final optionalMessageController = TextEditingController();
 
@@ -38,16 +35,32 @@ class AccessScreenViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> sendMembershipRequest() async {
-    //TODO: Implement Message arg for below function
+    if (selectedOrganization.id == null || selectedOrganization.id == '-1') {
+      navigationService.showTalawaErrorSnackBar(
+        'Please select an organization',
+        MessageType.error,
+      );
+      return;
+    }
+
     final result = await databaseFunctions.gqlAuthMutation(
-      queries.sendMembershipRequest(selectedOrganization.id!),
+      queries.sendMembershipRequest(),
+      variables: {"organizationId": selectedOrganization.id},
     );
     if (result.data != null) {
-      final OrgInfo membershipRequest = OrgInfo.fromJson(
-        (result.data!['sendMembershipRequest']
-            as Map<String, dynamic>)['organization'] as Map<String, dynamic>,
-      );
-      userConfig.updateUserMemberRequestOrg([membershipRequest]);
+      final data =
+          result.data!['sendMembershipRequest'] as Map<String, dynamic>;
+      final organizationId = data['organizationId'] as String?;
+
+      if (organizationId != selectedOrganization.id) {
+        navigationService.showTalawaErrorSnackBar(
+          'Some error occurred. Please try again later.',
+          MessageType.error,
+        );
+        return;
+      }
+
+      userConfig.updateUserMemberRequestOrg([selectedOrganization.id!]);
       if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
         navigationService.removeAllAndPush(
           Routes.waitingScreen,
@@ -61,5 +74,11 @@ class AccessScreenViewModel extends BaseModel {
         );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    optionalMessageController.dispose();
+    super.dispose();
   }
 }

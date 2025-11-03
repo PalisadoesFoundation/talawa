@@ -28,8 +28,7 @@ Event getTestEvent({
     name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      firstName: "ravidi",
-      lastName: "shaikh",
+      name: "ravidi shaikh",
     ),
     isPublic: isPublic,
     location: "iitbhu, varanasi",
@@ -38,12 +37,10 @@ Event getTestEvent({
     endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
     admins: [
       User(
-        firstName: "ravidi_admin_one",
-        lastName: "shaikh_admin_one",
+        name: "ravidi_admin_one shaikh_admin_one",
       ),
       User(
-        firstName: "ravidi_admin_two",
-        lastName: "shaikh_admin_two",
+        name: "ravidi_admin_two shaikh_admin_two",
       ),
     ],
     attendees: [
@@ -161,8 +158,7 @@ void main() {
         name: "test_event",
         creator: User(
           id: "acb1",
-          firstName: "ravidi",
-          lastName: "shaikh",
+          name: "ravidi shaikh",
         ),
         isPublic: true,
         location: "iitbhu, varanasi",

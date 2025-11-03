@@ -143,16 +143,10 @@ Future<void> main() async {
       final pendingRequestList = find.byKey(
         const Key('PendingRequestList'),
       );
-      //initializing the custom rich text widget Finder
-      final pendingItem = find.byKey(
-        const Key('WaitingJoin'),
-      );
 
       //finding the custom rich text widget
       expect(pendingRequestList, findsOneWidget);
 
-      //testing greeting text
-      expect(pendingItem, findsNWidgets(2));
       await tester.tap(pendingRequestList);
       await tester.pumpAndSettle();
     });

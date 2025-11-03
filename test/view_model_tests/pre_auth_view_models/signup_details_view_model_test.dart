@@ -160,7 +160,7 @@ void main() {
       final queryResult = QueryResult(
         options: QueryOptions(
           document: gql(
-            queries.registerUser('', '', '', '', org.id),
+            queries.registerUser('', '', '', org.id),
           ),
         ),
         data: mockSignUpData,
@@ -169,7 +169,7 @@ void main() {
 
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       ).thenAnswer((_) async => queryResult);
 
@@ -183,7 +183,7 @@ void main() {
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       );
 
@@ -204,7 +204,7 @@ void main() {
       );
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       ).thenThrow(
         Exception(
@@ -222,7 +222,7 @@ void main() {
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       );
 
@@ -248,7 +248,7 @@ void main() {
       final queryResult = QueryResult(
         options: QueryOptions(
           document: gql(
-            queries.registerUser('', '', '', '', org.id),
+            queries.registerUser('', '', '', org.id),
           ),
         ),
         data: modifiedSignUpData,
@@ -257,7 +257,7 @@ void main() {
 
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       ).thenAnswer((_) async => queryResult);
 
@@ -271,7 +271,7 @@ void main() {
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       );
       await tester.pumpAndSettle(); // or pumpAndSettle() if needed
@@ -317,7 +317,7 @@ void main() {
       final queryResult = QueryResult(
         options: QueryOptions(
           document: gql(
-            queries.registerUser('', '', '', '', org.id),
+            queries.registerUser('', '', '', org.id),
           ),
         ),
         data: null,
@@ -326,7 +326,7 @@ void main() {
 
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       ).thenAnswer(
         (_) async => queryResult,
@@ -342,7 +342,7 @@ void main() {
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
       );
       verifyNever(

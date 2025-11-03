@@ -24,8 +24,7 @@ final testEvent = Event(
   description: 'test',
   creator: User(
     id: 'xzy1',
-    firstName: 'Test',
-    lastName: 'User',
+    name: 'Test User',
     email: 'testuser@gmail.com',
     refreshToken: 'testtoken',
     authToken: 'testtoken',
@@ -141,8 +140,7 @@ void main() {
         description: '',
         creator: User(
           id: 'xzy1',
-          firstName: 'Test',
-          lastName: 'User',
+          name: 'Test User',
           email: 'testuser@gmail.com',
           refreshToken: 'testtoken',
           authToken: 'testtoken',

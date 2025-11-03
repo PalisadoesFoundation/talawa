@@ -42,7 +42,6 @@ class EventAgendaItem {
       createdBy: json['createdBy'] != null
           ? User.fromJson(
               json['createdBy'] as Map<String, dynamic>,
-              fromOrg: true,
             )
           : null,
       urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),

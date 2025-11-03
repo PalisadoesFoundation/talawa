@@ -31,7 +31,7 @@ void main() {
     dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
   });
 
-  tearDown(() async {
+  tearDown(() {
     locator.reset();
   });
 
@@ -78,12 +78,11 @@ void main() {
       );
     });
 
-    test('getToken updates token and calls getOrgUrl', () async {
+    test('getToken updates token and calls getOrgUrl', () {
       final userConfig = getAndRegisterUserConfig();
       final mockUser = User(
         id: 'testuser',
-        firstName: 'Test',
-        lastName: 'User',
+        name: 'Test User',
         email: 'test@example.com',
         authToken: 'test-token',
       );
@@ -93,9 +92,7 @@ void main() {
       when(userConfig.currentUser).thenReturn(mockUser);
 
       final config = GraphqlConfig();
-      final result = await config.getToken();
-
-      expect(result, true);
+      config.getToken();
       expect(GraphqlConfig.token, 'test-token');
       expect(config.httpLink, isA<HttpLink>());
     });
@@ -289,7 +286,7 @@ void main() {
       // The Link.split predicate (request) => request.isSubscription has been created
     });
 
-    test('covers initialPayload return with Authorization header', () async {
+    test('covers initialPayload return with Authorization header', () {
       final config = GraphqlConfig();
       GraphqlConfig.token = 'test-token-123';
 
