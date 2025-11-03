@@ -6,6 +6,7 @@ import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/plugin/index.dart' as plugins;
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
@@ -29,6 +30,7 @@ import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
@@ -332,7 +334,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => ManageGroupScreen(group: group, event: event),
       );
 
+    case Routes.menuPage:
+      return MaterialPageRoute(
+        builder: (context) => const MenuPage(key: Key('MenuPage')),
+      );
+
     default:
+      // Try plugin provided routes first
+      final pluginRoutes = plugins.buildPluginRoutes();
+      final builder = pluginRoutes[settings.name];
+      if (builder != null) {
+        return MaterialPageRoute(builder: builder);
+      }
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
           key: Key("DemoPage"),
