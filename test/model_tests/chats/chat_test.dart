@@ -185,6 +185,7 @@ void main() {
                 'user': {
                   'id': 'user1',
                   'name': 'John Doe',
+                  'avatarURL': 'avatar1.jpg',
                 },
               },
             },
@@ -194,6 +195,7 @@ void main() {
                 'user': {
                   'id': 'user2',
                   'name': 'Jane Smith',
+                  'avatarURL': 'avatar2.jpg',
                 },
               },
             },
@@ -207,8 +209,10 @@ void main() {
       expect(chat.members!.length, equals(2));
       expect(chat.members![0].id, equals('user1'));
       expect(chat.members![0].firstName, equals('John'));
+      expect(chat.members![0].image, equals('avatar1.jpg'));
       expect(chat.members![1].id, equals('user2'));
       expect(chat.members![1].firstName, equals('Jane'));
+      expect(chat.members![1].image, equals('avatar2.jpg'));
     });
 
     test('fromJson parses members from new ChatMember structure as list', () {
