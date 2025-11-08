@@ -1,12 +1,9 @@
-// test/custom_painters/language_icon_test.dart
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   group('LanguageIcon painter tests', () {
     test('shouldRepaint always returns true', () {
       final painter = LanguageIcon();
@@ -14,8 +11,15 @@ void main() {
       expect(painter.shouldRepaint(old), isTrue);
     });
 
-    test('paint executes on a raw Canvas (PictureRecorder) without throwing',
+    test(
+        'shouldRepaint returns true even when old delegate is also LanguageIcon',
         () {
+      final painter = LanguageIcon();
+      final oldPainter = LanguageIcon();
+      expect(painter.shouldRepaint(oldPainter), isTrue);
+    });
+
+    test('paint executes on a raw Canvas without throwing', () {
       final recorder = ui.PictureRecorder();
       const size = Size(200.0, 200.0);
       final canvas =
@@ -29,7 +33,7 @@ void main() {
       expect(picture, isNotNull);
     });
 
-    testWidgets('LanguageIcon renders inside a CustomPaint widget',
+    testWidgets('LanguageIcon renders correctly inside CustomPaint',
         (tester) async {
       final painter = LanguageIcon();
 
