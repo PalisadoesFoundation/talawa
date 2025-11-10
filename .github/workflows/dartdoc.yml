@@ -15,24 +15,24 @@ name: Generate Dart Documentation (HTML)
 on:
   push:
     branches:
-      - "main"
-    paths:
-      - "lib/**"
-      - "pubspec.yaml"
+      - "develop"
   pull_request:
     branches:
-      - "main"
+      - "develop"
     paths:
       - "lib/**"
       - "pubspec.yaml"
+
 env:
   FLUTTER_VERSION: "3.24.0"
 
 jobs:
   generate-docs:
-    if: ${{ github.actor != 'dependabot[bot]'  && github.actor != 'github-actions[bot]'  }}
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Generate Dart Docs (HTML)
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -49,26 +49,30 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Generate Dart Documentation (MARKDOWN)
+      - name: Generate Dart Documentation (HTML)
         run: |
           mkdir -p docs/auto-docs
           dart doc -o docs/auto-docs
 
       - name: Verify docs were created
         run: |
-          if [ ! -d "docs/auto-docs" ]; then
-            echo "❌ Docs directory not created!"
+          if [ ! -f "docs/auto-docs/index.html" ]; then
+            echo "❌ Docs not generated properly!"
             exit 1
+          else
+            echo "✅ Documentation generated successfully."
           fi
 
       - name: Commit and push generated docs
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "talawa-docs-bot"
+          git config user.email "talawa-docs-bot@users.noreply.github.com"
           git add docs/auto-docs
           if ! git diff-index --quiet HEAD; then
-            git commit -m "chore: update auto-generated Dart docs"
+            git commit -m "chore(ci): update auto-generated Dart HTML docs"
             git push
+          else
+            echo "ℹ️ No documentation changes to commit."
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
