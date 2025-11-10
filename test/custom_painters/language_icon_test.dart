@@ -5,17 +5,14 @@ import 'package:talawa/custom_painters/language_icon.dart';
 
 void main() {
   group('LanguageIcon painter tests', () {
-    // NOTE: In the actual painter, shouldRepaint() always returns true.
-    // We are keeping this test consistent with current implementation,
-    // as we cannot modify library code.
-    test('shouldRepaint always returns true', () {
+    test('shouldRepaint always returns false', () {
       final painter = LanguageIcon();
       final old = _FakeCustomPainter();
       expect(painter.shouldRepaint(old), isFalse);
     });
 
     test(
-        'shouldRepaint returns true even when old delegate is also LanguageIcon',
+        'shouldRepaint returns false even when old delegate is also LanguageIcon',
         () {
       final painter = LanguageIcon();
       final oldPainter = LanguageIcon();
