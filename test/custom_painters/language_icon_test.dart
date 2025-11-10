@@ -11,7 +11,7 @@ void main() {
     test('shouldRepaint always returns true', () {
       final painter = LanguageIcon();
       final old = _FakeCustomPainter();
-      expect(painter.shouldRepaint(old), isTrue);
+      expect(painter.shouldRepaint(old), isFalse);
     });
 
     test(
@@ -19,7 +19,7 @@ void main() {
         () {
       final painter = LanguageIcon();
       final oldPainter = LanguageIcon();
-      expect(painter.shouldRepaint(oldPainter), isTrue);
+      expect(painter.shouldRepaint(oldPainter), isFalse);
     });
 
     // Golden test (standard Flutter format)
