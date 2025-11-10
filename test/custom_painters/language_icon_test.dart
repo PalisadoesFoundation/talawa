@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,6 +5,9 @@ import 'package:talawa/custom_painters/language_icon.dart';
 
 void main() {
   group('LanguageIcon painter tests', () {
+    // NOTE: In the actual painter, shouldRepaint() always returns true.
+    // We are keeping this test consistent with current implementation,
+    // as we cannot modify library code.
     test('shouldRepaint always returns true', () {
       final painter = LanguageIcon();
       final old = _FakeCustomPainter();
@@ -19,39 +21,29 @@ void main() {
       final oldPainter = LanguageIcon();
       expect(painter.shouldRepaint(oldPainter), isTrue);
     });
-    test('LanguageIcon matches golden reference', () async {
-      const size = Size(100.0, 100.0);
-      final recorder = ui.PictureRecorder();
-      final canvas = Canvas(
-        recorder,
-        Rect.fromPoints(Offset.zero, const Offset(100.0, 100.0)),
+
+    // Golden test (standard Flutter format)
+    testWidgets('LanguageIcon matches golden reference', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: CustomPaint(
+                key: const Key('language_icon_golden'),
+                painter: LanguageIcon(),
+                size: const Size(100, 100),
+              ),
+            ),
+          ),
+        ),
       );
-
-      // Light background
-      canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-        Paint()..color = Colors.grey[200]!,
-      );
-
-      final painter = LanguageIcon();
-      painter.paint(canvas, size);
-
-      final picture = recorder.endRecording();
-      final image = await picture.toImage(100, 100);
-      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      final bytes = byteData!.buffer.asUint8List();
-
-      final goldenFile = File('test/goldens/language_icon_golden.png');
-      if (!goldenFile.existsSync()) {
-        goldenFile.createSync(recursive: true);
-        goldenFile.writeAsBytesSync(bytes);
-      }
 
       await expectLater(
-        bytes,
-        matchesGoldenFile('test/goldens/language_icon_golden.png'),
+        find.byKey(const Key('language_icon_golden')),
+        matchesGoldenFile('goldens/language_icon_golden.png'),
       );
     });
+
     test('paint executes on a raw Canvas without throwing', () {
       final recorder = ui.PictureRecorder();
       const size = Size(200.0, 200.0);
