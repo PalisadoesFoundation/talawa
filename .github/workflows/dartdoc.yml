@@ -16,20 +16,22 @@ on:
   push:
     branches:
       - "main"
+    paths:
+      - "lib/**"
+      - "pubspec.yaml"
   pull_request:
     branches:
       - "main"
     paths:
       - "lib/**"
       - "pubspec.yaml"
-
 env:
   FLUTTER_VERSION: "3.24.0"
 
 jobs:
   generate-docs:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Generate Dart Docs (Markdown)
+    if: ${{ github.actor != 'dependabot[bot]'  && github.actor != 'github-actions[bot]'  }}
+    name: Generate Dart Docs (HTML)
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +49,7 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Generate Dart Documentation (HTML)
+      - name: Generate Dart Documentation (MARKDOWN)
         run: |
           mkdir -p docs/auto-docs
           dart doc -o docs/auto-docs
