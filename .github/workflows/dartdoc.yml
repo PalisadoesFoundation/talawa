@@ -1,13 +1,10 @@
 ##############################################################################
 ##############################################################################
-#
-# NOTE!
-#
-# Please read the README.md file in this directory that defines what should
-# be placed in this file.
-#
+# NOTE:
+# Auto-generate Dart documentation and convert it to Markdown for Docusaurus
 ##############################################################################
 ##############################################################################
+# yamllint disable rule:truthy
 
 ---
 name: Generate Dart Documentation (Markdown)
@@ -23,9 +20,6 @@ on:
       - "lib/**"
       - "pubspec.yaml"
 
-env:
-  FLUTTER_VERSION: "3.24.0"
-
 jobs:
   generate-docs:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -38,26 +32,40 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Python (for consistency with repo)
-        uses: actions/setup-python@v5
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          flutter-version: "3.24.0"
           channel: "stable"
 
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Generate Dart Documentation (HTML)
+      - name: Generate HTML Dart Docs
         run: |
+          mkdir -p docs/html-docs
+          dart doc -o docs/html-docs
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Convert HTML docs to Markdown
+        run: |
+          pip install html2text
           mkdir -p docs/auto-docs
-          dart doc -o docs/auto-docs
+          find docs/html-docs -name "*.html" | while read file; do
+            mkdir -p "$(dirname "docs/auto-docs/${file#docs/html-docs/}")"
+            html2text "$file" > "docs/auto-docs/${file#docs/html-docs/}.md"
+          done
 
       - name: Verify docs were created
         run: |
-          if [ ! -d "docs/auto-docs" ]; then
+          if [ -d "docs/auto-docs" ]; then
+            echo "✅ Docs successfully created!"
+            ls -R docs/auto-docs | head -n 20
+          else
             echo "❌ Docs directory not created!"
             exit 1
           fi
@@ -65,11 +73,12 @@ jobs:
       - name: Commit and push generated docs
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email \
+            "github-actions[bot]@users.noreply.github.com"
           git add docs/auto-docs
           if ! git diff-index --quiet HEAD; then
-            git commit -m "chore: update auto-generated Dart docs"
+            git commit -m "chore: update auto-generated Dart markdown docs"
             git push
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
