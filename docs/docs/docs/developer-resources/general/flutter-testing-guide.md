@@ -1,6 +1,7 @@
 ---
 id: flutter-testing
 title: Flutter Testing Guide
+slug: /developer-resources/flutter-testing
 sidebar_position: 1
 ---
 

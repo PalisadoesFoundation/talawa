@@ -1,6 +1,7 @@
 ---
 id: feed-caching
 title: Feed Caching
+slug: /developer-resources/offline/feed-caching
 sidebar_position: 2
 ---
 

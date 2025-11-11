@@ -17,7 +17,11 @@ const config: Config = {
   projectName: "talawa", // repo name
 
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn", // Or 'throw', 'ignore'
+    },
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -26,6 +30,8 @@ const config: Config = {
     defaultLocale: "en",
     locales: ["en"],
   },
+
+  stylesheets: ["https://docs.talawa.io/css/styles-latest.css"],
 
   presets: [
     [
@@ -40,18 +46,19 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: [
-            require.resolve("./src/css/custom.css"),
-            require.resolve("./src/css/index.css"),
-          ],
+          customCss: undefined,
         },
       },
     ],
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    docs: {
+      sidebar: {
+        hideable: false,
+      },
+    },
     navbar: {
       title: "Talawa",
       logo: {
@@ -172,11 +179,16 @@ const config: Config = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} The Palisadoes Foundation, LLC. Built with Docusaurus.`,
     },
+    colorMode: {
+      defaultMode: "light",
+      disableSwitch: false,
+      respectPrefersColorScheme: false,
+    },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-  } satisfies Preset.ThemeConfig,
+  },
 };
 
 export default config;

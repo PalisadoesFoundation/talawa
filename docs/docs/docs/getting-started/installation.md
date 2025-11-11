@@ -1,6 +1,7 @@
 ---
 id: talawa-installation
 title: Installation
+slug: /installation
 sidebar_position: 1
 ---
 

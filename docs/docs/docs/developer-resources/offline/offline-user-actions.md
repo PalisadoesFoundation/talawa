@@ -1,6 +1,7 @@
 ---
 id: offline-user-actions
 title: Offline User Actions
+slug: /developer-resources/offline/offline-user-actions
 sidebar_position: 1
 ---
 
