@@ -180,7 +180,7 @@ const config: Config = {
     colorMode: {
       defaultMode: "light",
       disableSwitch: false,
-      respectPrefersColorScheme: false,
+      respectPrefersColorScheme: true,
     },
     prism: {
       theme: prismThemes.github,
