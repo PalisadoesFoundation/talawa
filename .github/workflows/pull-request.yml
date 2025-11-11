@@ -111,15 +111,15 @@ jobs:
           echo "Error: Close this PR and try again."          
           exit 1
 
-  Branch-check:
-    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
-    name: "Base branch check"
+  Check-Target-Branch:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Check Target Branch
     runs-on: ubuntu-latest
     steps:
-      - name: "Check if base branch is develop"
+      - name: Check if the target branch is develop
         if: github.event.pull_request.base.ref != 'develop'
         run: |
-          echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
+          echo "Error: Pull request target branch must be 'develop'. Please refer PR_GUIDELINES.md"
           echo "Error: Close this PR and try again."
           exit 1
 
@@ -394,18 +394,20 @@ jobs:
     # Run only if the develop branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop' }}
     steps:
-      - name: Checkout the Repository
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: "22.x"
+          cache: pnpm
+          cache-dependency-path: |
+            docs/pnpm-lock.yaml
+            docs/package.json
+      # Run Docusaurus in the ./docs directory
       - name: Install dependencies
         working-directory: ./docs
-        run: npm install
+        run: pnpm install --frozen-lockfile
       - name: Test building the website
         working-directory: ./docs
-        run: npm run build
+        run: pnpm build
 
   Python-Compliance:
     name: Check Python Code Style
