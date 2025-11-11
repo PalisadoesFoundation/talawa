@@ -4,7 +4,7 @@
 
 ## Installation
 
-This document provides instructions on how to set up and start a running instance of the [talawa documentation website](https://docs-mobile.talawa.io/) on your local system. The instructions are written to be followed in sequence so make sure to go through each of them step by step without skipping any sections.
+This document provides instructions on how to set up and start a running instance of the [talawa documentation website](https://docs-mobile.talawa.io/) on your local system. The instructions are written to be followed in sequence, so make sure to go through each of them step by step without skipping any sections.
 
 ## Table of Contents
 
@@ -49,7 +49,7 @@ $ pnpm install
 
 ## Running the Development Server
 
-To preview your changes as you edit the files, you can run a local development server that will serve your website and it will reflect the latest changes.
+To preview your changes as you edit the files, you can run a local development server that will serve your website, and it will reflect the latest changes.
 
 The command to run the server is:
 
@@ -65,7 +65,7 @@ This command starts a local development server and open up a browser window. Mos
 
 ## Building Static HTML Pages
 
-**In most cases is unnecessary**. Running the `development server` will be sufficient.
+**In most cases, is unnecessary**. Running the `development server` will be sufficient.
 
 If you need to generate static HTML pages (unlikely), then follow these steps.
 
