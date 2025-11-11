@@ -1,6 +1,7 @@
 ---
 id: action-handler-service
 title: ActionHandlerService
+sidebar_position: 3
 ---
 
 The **ActionHandlerService** provides a standardized way to handle both optimistic and critical user actions within the application, ensuring that they are executed consistently, regardless of whether the user is online or offline. This documentation outlines the flow of the `performAction` method, with detailed step-by-step explanations for both optimistic and critical actions.
@@ -20,7 +21,7 @@ The service focuses on:
 
 ## **ActionHandlerService PerformAction Flow**
 
-![ActionHandler PerformAction Flow](../../../static/img/markdown/offline/perform_action_wrapper_flow.png)
+![ActionHandler PerformAction Flow](../../../../static/img/markdown/offline/perform_action_wrapper_flow.png)
 
 ### 1. User Initiates an Action
 

@@ -1,6 +1,7 @@
 ---
 id: talawa-lint
 title: Talawa Lint Ecosystem
+sidebar_position: 2
 ---
 
 ## Talawa Lint
@@ -47,7 +48,7 @@ in your IDE, as well as analyze your files from command line.
 With proper installation, you will get lint warnings if either your fields don't have any
 documentation, or the documentation is not in the right format. Something like this
 
-![Lint warning example](../../static/img/markdown/talawa_lint/lint_warning_ex.png)
+![Lint warning example](../../../../static/img/markdown/talawa_lint/lint_warning_ex.png)
 
 #### Command line
 
@@ -75,7 +76,7 @@ The rules being.
 This lint rule checks for presence of documentation comment for any field. You will get a warning
 as shown here
 
-![No Lint warning example](../../static/img/markdown/talawa_lint/no_lint_ex.png)
+![No Lint warning example](../../../../static/img/markdown/talawa_lint/no_lint_ex.png)
 
 Note that a documentation comment is different from a normal comment as in normal comment starts
 with `//` whereas doc comment starts with `///`.
