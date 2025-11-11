@@ -111,15 +111,15 @@ jobs:
           echo "Error: Close this PR and try again."          
           exit 1
 
-  Branch-check:
-    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
-    name: "Base branch check"
+  Check-Target-Branch:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Check Target Branch
     runs-on: ubuntu-latest
     steps:
-      - name: "Check if base branch is develop"
+      - name: Check if the target branch is develop
         if: github.event.pull_request.base.ref != 'develop'
         run: |
-          echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
+          echo "Error: Pull request target branch must be 'develop'. Please refer PR_GUIDELINES.md"
           echo "Error: Close this PR and try again."
           exit 1
 

@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: docs/.docusaurus
           key: docusaurus-${{ hashFiles('docs/**') }}
