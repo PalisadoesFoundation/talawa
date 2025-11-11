@@ -58,8 +58,8 @@ Welcome aboard!
 
 Unfortunately, because of recent abuse, we will only be assigning issues to persons who have:
 
-1. At least a year of GitHub history
-1. Consistent code updates throughout their GitHub life, especially the most recent 12 months.
+1. At least two years of GitHub history
+1. Consistent code updates throughout their GitHub life, especially the most recent 18 months.
 
 This is a new policy triggered by newly created accounts that: 
 
