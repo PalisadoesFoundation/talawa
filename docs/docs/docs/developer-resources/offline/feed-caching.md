@@ -1,6 +1,7 @@
 ---
 id: feed-caching
 title: Feed Caching
+sidebar_position: 2
 ---
 
 An abstract base class for managing a feed of type `[T]` with support for caching and online data fetching. This class is designed to provide a unified interface for handling data operations that involve both local caching and remote API interactions.
@@ -19,7 +20,7 @@ This class is generic and can be used with any data type by specifying the type 
 
 ### Flow-breakdown
 
-![Basefeed manager](../../../static/img/markdown/offline/perform_action_wrapper_flow.png)
+![Basefeed manager](../../../../static/img/markdown/offline/perform_action_wrapper_flow.png)
 
 1. **Initialize Feed**
 

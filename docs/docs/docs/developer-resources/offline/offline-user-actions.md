@@ -1,13 +1,14 @@
 ---
 id: offline-user-actions
 title: Offline User Actions
+sidebar_position: 1
 ---
 
 This document outlines the detailed process for managing user actions with GraphQL operations in scenarios where network connectivity can vary. The flow includes creating GraphQL operations, determining whether to execute or cache these operations based on network status, and handling offline scenarios by queuing actions and executing them once the device is back online.
 
 ## Flow-Breakdown
 
-![High level offline action flow](../../../static/img/markdown/offline/High_level_offline_action_flow.png)
+![High level offline action flow](../../../../static/img/markdown/offline/High_level_offline_action_flow.png)
 
 1. **User Action Initiation**
 
