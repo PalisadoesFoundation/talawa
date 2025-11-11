@@ -1,6 +1,7 @@
 ---
 id: talawa-lint
 title: Talawa Lint Ecosystem
+slug: /developer-resources/talawa-lint
 sidebar_position: 2
 ---
 

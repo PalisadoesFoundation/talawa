@@ -1,6 +1,7 @@
 ---
 id: action-handler-service
 title: ActionHandlerService
+slug: /developer-resources/offline/action-handler-service
 sidebar_position: 3
 ---
 

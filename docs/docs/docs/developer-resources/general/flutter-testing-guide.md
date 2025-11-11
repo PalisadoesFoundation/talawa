@@ -1,11 +1,9 @@
 ---
 id: flutter-testing
 title: Flutter Testing Guide
+slug: /developer-resources/flutter-testing
 sidebar_position: 1
 ---
-
-
-## Introduction
 
 Tests are an essential part of software development. They help developers to verify the functionality of the code they write and ensure that it behaves as expected. Testing is a process of executing a program with the intent of finding errors. They help to catch bugs early in the development process, which saves time and effort in the long run. Writing tests also makes the code more reliable and maintainable. 
 

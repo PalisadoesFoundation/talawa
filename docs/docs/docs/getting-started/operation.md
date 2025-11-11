@@ -1,6 +1,7 @@
 ---
 id: talawa-operation
 title: Operation
+slug: /operation
 sidebar_position: 2
 ---
 
