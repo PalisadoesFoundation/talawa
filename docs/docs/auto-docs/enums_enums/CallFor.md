@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [enums/enums.dart](../enums_enums/)
+3.  CallFor enum
+
+
+CallFor
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CallFor enum
@@ -125,3 +143,6 @@ joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.md)]
 
 
 
+
+
+ talawa 1.0.0+1 

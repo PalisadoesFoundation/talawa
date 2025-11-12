@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [exceptions/graphql_exception_resolver.dart](../exceptions_graphql_exception_resolver/)
+3.  GraphqlExceptionResolver class
+
+
+GraphqlExceptionResolver
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # GraphqlExceptionResolver class
@@ -114,7 +132,7 @@ static class to handle graphql exceptions.
 
 ## Static Methods
 
-[[encounteredExceptionOrError](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/encounteredExceptionOrError.md)][([[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.md)] exception, ) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
+[[encounteredExceptionOrError](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/encounteredExceptionOrError.md)][([[[OperationException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException-class.md)] exception, ) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
 :   This function is used to check if any exceptions or error
     encountered. The return type is `boolean`.
 
@@ -136,3 +154,6 @@ static class to handle graphql exceptions.
 
 
 
+
+
+ talawa 1.0.0+1 

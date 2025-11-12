@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
+3.  RecurrenceUtils class
+
+
+RecurrenceUtils
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # RecurrenceUtils class
@@ -107,3 +125,6 @@ conatins all neccessary utils.
 
 
 
+
+
+ talawa 1.0.0+1 

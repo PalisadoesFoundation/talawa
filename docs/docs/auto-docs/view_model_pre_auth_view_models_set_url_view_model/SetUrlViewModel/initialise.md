@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../../view_model_pre_auth_view_models_set_url_view_model/)
+3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
+4.  initialise method
+
+
+initialise
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # initialise method
@@ -12,9 +31,7 @@ void
 
 This function initialises the variables.
 
-**params**:
-
--   `inviteUrl`: url
+**params**: None
 
 **returns**: None
 
@@ -45,3 +62,6 @@ void
 
 
 
+
+
+ talawa 1.0.0+1 

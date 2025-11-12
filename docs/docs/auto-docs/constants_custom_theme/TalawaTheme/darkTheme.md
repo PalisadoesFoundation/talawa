@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/custom_theme.dart](../../constants_custom_theme/)
+3.  [TalawaTheme](../../constants_custom_theme/TalawaTheme-class.md)
+4.  darkTheme property
+
+
+darkTheme
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # darkTheme property
@@ -65,3 +84,6 @@ static final darkTheme = ThemeData(
 
 
 
+
+
+ talawa 1.0.0+1 

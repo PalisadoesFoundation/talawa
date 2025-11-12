@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/raised_round_edge_button.dart](../../widgets_raised_round_edge_button/)
+3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
+4.  showArrow property
+
+
+showArrow
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # showArrow property
@@ -40,3 +59,6 @@ final bool showArrow;
 
 
 
+
+
+ talawa 1.0.0+1 

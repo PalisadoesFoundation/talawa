@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/encryptor.dart](../utils_encryptor/)
+3.  Encryptor class
+
+
+Encryptor
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Encryptor class
@@ -36,16 +54,16 @@ Handles all of the encryption tasks in the codebase.
 
 ## Methods
 
-[[assymetricDecryptString](../utils_encryptor/Encryptor/assymetricDecryptString.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] data, ][[[RSAPrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPrivateKey-class.html)] privateKey]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[assymetricDecryptString](../utils_encryptor/Encryptor/assymetricDecryptString.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] data, ][dynamic privateKey]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Encrypts the given string data with user\'s Private Key.
 
-[[assymetricEncryptString](../utils_encryptor/Encryptor/assymetricEncryptString.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] data, ][[[RSAPublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPublicKey-class.html)] recipientPublicKey]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[assymetricEncryptString](../utils_encryptor/Encryptor/assymetricEncryptString.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] data, ][dynamic recipientPublicKey]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Encrypts the given string data with Recipient\'s Public Key.
 
-[[generateRSAKeyPair](../utils_encryptor/Encryptor/generateRSAKeyPair.md)][ [→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)], [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]] ]
+[generateRSAKeyPair](../utils_encryptor/Encryptor/generateRSAKeyPair.md) [→ dynamic ]
 :   Generates RSA Key Pairs (Public/Private).
 
-[[loadKeyPair](../utils_encryptor/Encryptor/loadKeyPair.md)][([[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.md)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)], [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]\>]] ]
+[[loadKeyPair](../utils_encryptor/Encryptor/loadKeyPair.md)][([[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.md)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   Loads secret keys from the Hive db.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
@@ -57,7 +75,7 @@ Handles all of the encryption tasks in the codebase.
 [[receiveMessage](../utils_encryptor/Encryptor/receiveMessage.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] message, ][[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Helper function to decrypt the message.
 
-[[saveKeyPair](../utils_encryptor/Encryptor/saveKeyPair.md)][([[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.md)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)], [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]] keyPair, ][[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[saveKeyPair](../utils_encryptor/Encryptor/saveKeyPair.md)]([[dynamic keyPair, ][[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.md)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Saves the generated key pair to local storage.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -111,3 +129,6 @@ Handles all of the encryption tasks in the codebase.
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/user_action_handler.dart](../services_user_action_handler/)
+3.  ActionHandlerService class
+
+
+ActionHandlerService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ActionHandlerService class
@@ -86,3 +104,6 @@ with proper error handling and UI updates based on the action type.
 
 
 
+
+
+ talawa 1.0.0+1 

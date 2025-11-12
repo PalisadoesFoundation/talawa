@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [demo_server_data/direct_chat_demo_data.dart](../demo_server_data_direct_chat_demo_data/)
+3.  directChatDemoData constant
+
+
+directChatDemoData
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # directChatDemoData top-level constant
@@ -14,7 +32,7 @@ const directChatDemoData
 
 This file contains demo data.
 
-It contains a list of type Map\<String, Object\> and sample data of
+It contains a list of type `Map<String, Object>` and sample data of
 chats.
 
 
@@ -53,3 +71,6 @@ const directChatDemoData = [
 
 
 
+
+
+ talawa 1.0.0+1 

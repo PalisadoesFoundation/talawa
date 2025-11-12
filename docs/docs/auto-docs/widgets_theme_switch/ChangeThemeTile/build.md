@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/theme_switch.dart](../../widgets_theme_switch/)
+3.  [ChangeThemeTile](../../widgets_theme_switch/ChangeThemeTile-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

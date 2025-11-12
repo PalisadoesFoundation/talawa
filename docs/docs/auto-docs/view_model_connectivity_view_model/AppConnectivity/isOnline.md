@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/connectivity_view_model.dart](../../view_model_connectivity_view_model/)
+3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.md)
+4.  isOnline property
+
+
+isOnline
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isOnline property
@@ -22,7 +41,7 @@ flag to handle online status.
 ## Implementation
 
 ``` language-dart
-static late bool isOnline;
+static bool isOnline = false;
 ```
 
 
@@ -44,3 +63,6 @@ static late bool isOnline;
 
 
 
+
+
+ talawa 1.0.0+1 

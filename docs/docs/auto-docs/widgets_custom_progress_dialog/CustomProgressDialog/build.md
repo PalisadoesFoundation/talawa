@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_progress_dialog.dart](../../widgets_custom_progress_dialog/)
+3.  [CustomProgressDialog](../../widgets_custom_progress_dialog/CustomProgressDialog-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

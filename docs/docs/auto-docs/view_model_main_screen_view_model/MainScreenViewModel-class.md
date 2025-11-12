@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/main_screen_view_model.dart](../view_model_main_screen_view_model/)
+3.  MainScreenViewModel class
+
+
+MainScreenViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # MainScreenViewModel class
@@ -115,6 +133,12 @@ Inheritance
     final
     :::
 
+[[keyBNFunds](../view_model_main_screen_view_model/MainScreenViewModel/keyBNFunds.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
+:   static variables.
+    ::: features
+    final
+    :::
+
 [[keyBNHome](../view_model_main_screen_view_model/MainScreenViewModel/keyBNHome.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
 :   static variables.
     ::: features
@@ -128,6 +152,30 @@ Inheritance
     :::
 
 [[keyBNProfile](../view_model_main_screen_view_model/MainScreenViewModel/keyBNProfile.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
+:   static variables.
+    ::: features
+    final
+    :::
+
+[[keyDrawerCurOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerCurOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
+:   static variables.
+    ::: features
+    final
+    :::
+
+[[keyDrawerJoinOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerJoinOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
+:   static variables.
+    ::: features
+    final
+    :::
+
+[[keyDrawerLeaveCurrentOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerLeaveCurrentOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
+:   static variables.
+    ::: features
+    final
+    :::
+
+[[keyDrawerSwitchableOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerSwitchableOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
 :   static variables.
     ::: features
     final
@@ -237,22 +285,16 @@ Inheritance
     getter/setter pair
     :::
 
-[[pluginList](../view_model_main_screen_view_model/MainScreenViewModel/pluginList.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)]
-:   list of all the pluginList.
-    ::: features
-    getter/setter pair
-    :::
-
-[[pluginPrototypeData](../view_model_main_screen_view_model/MainScreenViewModel/pluginPrototypeData.md)] [↔ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)]
-:   Maps the feature names with their proper Icon and Page.
-    ::: features
-    getter/setter pair
-    :::
-
 [[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
     no setterinherited
+    :::
+
+[[scaffoldKey](../view_model_main_screen_view_model/MainScreenViewModel/scaffoldKey.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)]\>]]
+:   static variables.
+    ::: features
+    final
     :::
 
 [[showAppTour](../view_model_main_screen_view_model/MainScreenViewModel/showAppTour.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
@@ -271,12 +313,6 @@ Inheritance
 :   array of target.
     ::: features
     final
-    :::
-
-[[testMode](../view_model_main_screen_view_model/MainScreenViewModel/testMode.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   flag to represent if app is in testMode.
-    ::: features
-    getter/setter pair
     :::
 
 [[tourComplete](../view_model_main_screen_view_model/MainScreenViewModel/tourComplete.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
@@ -313,10 +349,6 @@ Inheritance
     inherited
     :::
 
-[[fetchAndAddPlugins](../view_model_main_screen_view_model/MainScreenViewModel/fetchAndAddPlugins.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) → void ]
-:   Dynamically adds `BottomNavigationBarItems` in
-    `BottomNavigationBar`.
-
 [[initialise](../view_model_main_screen_view_model/MainScreenViewModel/initialise.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] ctx, ) → void ]
 :   Initalizing function.
 
@@ -349,7 +381,11 @@ Inheritance
     inherited
     :::
 
-[[showHome](../view_model_main_screen_view_model/MainScreenViewModel/showHome.md)][([[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.md)] clickedTarget]) → void ]
+[[setupNavigationItems](../view_model_main_screen_view_model/MainScreenViewModel/setupNavigationItems.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) → void ]
+:   Dynamically adds `BottomNavigationBarItems` in
+    `BottomNavigationBar`.
+
+[[showHome](../view_model_main_screen_view_model/MainScreenViewModel/showHome.md)]([[dynamic clickedTarget]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function shows the Home screen.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -394,36 +430,6 @@ Inheritance
     getter/setter pair
     :::
 
-[[keyDrawerCurOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerCurOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
-
-[[keyDrawerJoinOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerJoinOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
-
-[[keyDrawerLeaveCurrentOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerLeaveCurrentOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
-
-[[keyDrawerSwitchableOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerSwitchableOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
-
-[[scaffoldKey](../view_model_main_screen_view_model/MainScreenViewModel/scaffoldKey.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
-
 
 
 
@@ -442,3 +448,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

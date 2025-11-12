@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/organization/org_info.dart](../../models_organization_org_info/)
+3.  [OrgInfoAdapter](../../models_organization_org_info/OrgInfoAdapter-class.md)
+4.  operator == method
+
+
+operator ==
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # operator == method
@@ -88,3 +107,6 @@ bool operator ==(Object other) =>
 
 
 
+
+
+ talawa 1.0.0+1 

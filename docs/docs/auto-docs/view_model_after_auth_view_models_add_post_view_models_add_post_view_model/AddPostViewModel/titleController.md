@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
+3.  [AddPostViewModel](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)
+4.  titleController property
+
+
+titleController
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # titleController property
@@ -42,3 +61,6 @@ TextEditingController get titleController => _titleController;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/events/event_venue.dart](../models_events_event_venue/)
+3.  Venue class
+
+
+Venue
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Venue class
@@ -117,3 +135,6 @@ The `Venue` class represents a venue for events.
 
 
 
+
+
+ talawa 1.0.0+1 

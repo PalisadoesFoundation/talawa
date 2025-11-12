@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_list_tile.dart](../../widgets_custom_list_tile/)
+3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
+4.  type property
+
+
+type
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # type property
@@ -43,3 +62,6 @@ final TileType type;
 
 
 
+
+
+ talawa 1.0.0+1 

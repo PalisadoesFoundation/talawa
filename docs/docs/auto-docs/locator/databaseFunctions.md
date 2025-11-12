@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  databaseFunctions property
+
+
+databaseFunctions
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # databaseFunctions top-level property
@@ -43,3 +61,6 @@ final databaseFunctions = locator<DataBaseMutationFunctions>;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  scaffoldKey property
+
+
+scaffoldKey
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # scaffoldKey property
@@ -22,8 +41,7 @@ static variables.
 ## Implementation
 
 ``` language-dart
-static final GlobalKey<ScaffoldState> scaffoldKey =
-    GlobalKey<ScaffoldState>;
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>;
 ```
 
 
@@ -45,3 +63,6 @@ static final GlobalKey<ScaffoldState> scaffoldKey =
 
 
 
+
+
+ talawa 1.0.0+1 

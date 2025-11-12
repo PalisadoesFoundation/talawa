@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/post_container.dart](../../widgets_post_container/)
+3.  [PostContainer](../../widgets_post_container/PostContainer-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -12,7 +31,7 @@
 
 </div>
 
-[[PostContainerState](../../widgets_post_container/PostContainerState-class.md)]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PostContainer](../../widgets_post_container/PostContainer-class.md)]\>]]
 
 
 
@@ -54,7 +73,7 @@ objects.
 
 ``` language-dart
 @override
-PostContainerState  => ;
+State<PostContainer>  => ;
 ```
 
 
@@ -76,3 +95,6 @@ PostContainerState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

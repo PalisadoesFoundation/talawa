@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [main.dart](../main/)
+3.  MyApp class
+
+
+MyApp
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # MyApp class
@@ -19,10 +37,6 @@ Inheritance
     -   [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
     -   [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
     -   MyApp
-
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
 
 
 
@@ -57,21 +71,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[createElement](https://api.flutter.dev/flutter/widgets/StatefulWidget/createElement.html)][ [→ [StatefulElement](https://api.flutter.dev/flutter/widgets/StatefulElement-class.html)] ]
 :   Creates a
@@ -168,3 +167,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

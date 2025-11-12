@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/caching/cached_user_action.dart](../../models_caching_cached_user_action/)
+3.  [CachedUserActionAdapter](../../models_caching_cached_user_action/CachedUserActionAdapter-class.md)
+4.  read method
+
+
+read
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # read method
@@ -56,3 +75,6 @@ CachedUserAction read(BinaryReader reader)
 
 
 
+
+
+ talawa 1.0.0+1 

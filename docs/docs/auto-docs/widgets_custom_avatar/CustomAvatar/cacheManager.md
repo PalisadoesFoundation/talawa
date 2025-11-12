@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_avatar.dart](../../widgets_custom_avatar/)
+3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
+4.  cacheManager property
+
+
+cacheManager
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # cacheManager property
@@ -6,8 +25,7 @@
 </div>
 
 
-[BaseCacheManager](https://pub.dev/documentation/flutter_cache_manager/3.4.1/flutter_cache_manager/BaseCacheManager-class.html)?
-cacheManager
+dynamic cacheManager
 
 
 final
@@ -44,3 +62,6 @@ final BaseCacheManager? cacheManager;
 
 
 
+
+
+ talawa 1.0.0+1 

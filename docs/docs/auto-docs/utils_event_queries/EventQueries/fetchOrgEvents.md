@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/event_queries.dart](../../utils_event_queries/)
+3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
+4.  fetchOrgEvents method
+
+
+fetchOrgEvents
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # fetchOrgEvents method
@@ -7,20 +26,13 @@
 
 
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-fetchOrgEvents(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
-    orgId]
-
-)
 
 
 
 Fetches events by organization ID.
 
-**params**:
-
--   `orgId`: The ID of the organization to fetch events for.
+**params**: None
 
 **returns**:
 
@@ -35,7 +47,7 @@ on the provided organization ID.
 ## Implementation
 
 ``` language-dart
-String fetchOrgEvents(String orgId) 
+String  
 ```
 
 
@@ -57,3 +69,6 @@ String fetchOrgEvents(String orgId)
 
 
 
+
+
+ talawa 1.0.0+1 

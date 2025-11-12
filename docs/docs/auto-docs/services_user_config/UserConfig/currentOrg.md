@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/user_config.dart](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  currentOrg property
+
+
+currentOrg
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # currentOrg property
@@ -62,3 +81,6 @@ set currentOrg(OrgInfo org) => _currentOrg = org;
 
 
 
+
+
+ talawa 1.0.0+1 

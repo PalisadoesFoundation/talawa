@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [views/after_auth_screens/feed/individual_post.dart](../views_after_auth_screens_feed_individual_post/)
+3.  IndividualPostCommentSection class
+
+
+IndividualPostCommentSection
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # IndividualPostCommentSection class
@@ -22,10 +40,6 @@ Inheritance
     -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
     -   IndividualPostCommentSection
 
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-
 
 
 ## Constructors
@@ -40,12 +54,6 @@ Available extensions
 
 ## Properties
 
-[[comments](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection/comments.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../models_post_post_model/Comments-class.md)]\>]]
-:   List of comments on a post.
-    ::: features
-    final
-    :::
-
 [[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
@@ -56,6 +64,12 @@ Available extensions
 :   Controls how one widget replaces another widget in the tree.
     ::: features
     finalinherited
+    :::
+
+[[model](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection/model.md)] [→ [CommentsViewModel](../view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.md)]
+:   Instance of CommentsViewModel to manage comments.
+    ::: features
+    final
     :::
 
 [[postID](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection/postID.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -73,21 +87,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[build](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
@@ -183,3 +182,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

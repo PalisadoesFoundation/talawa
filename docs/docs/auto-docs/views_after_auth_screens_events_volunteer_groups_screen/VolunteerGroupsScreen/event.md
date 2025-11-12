@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/volunteer_groups_screen.dart](../../views_after_auth_screens_events_volunteer_groups_screen/)
+3.  [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)
+4.  event property
+
+
+event
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # event property
@@ -43,3 +62,6 @@ final Event event;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
+3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
+4.  isSupported method
+
+
+isSupported
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isSupported method
@@ -60,3 +79,6 @@ bool isSupported(Locale locale)
 
 
 
+
+
+ talawa 1.0.0+1 

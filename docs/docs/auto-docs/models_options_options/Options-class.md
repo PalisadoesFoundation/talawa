@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/options/options.dart](../models_options_options/)
+3.  Options class
+
+
+Options
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Options class
@@ -100,3 +118,6 @@ This class creates a Option model.
 
 
 
+
+
+ talawa 1.0.0+1 

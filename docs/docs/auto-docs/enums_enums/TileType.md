@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [enums/enums.dart](../enums_enums/)
+3.  TileType enum
+
+
+TileType
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # TileType enum
@@ -129,3 +147,6 @@ option [→ const [TileType](../enums_enums/TileType.md)]
 
 
 
+
+
+ talawa 1.0.0+1 

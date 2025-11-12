@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
+3.  [User](../../models_user_user_info/User-class.md)
+4.  image property
+
+
+image
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # image property
@@ -8,7 +27,7 @@
 
 <div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(6)
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField/HiveField.html)(6)
 
 </div>
 
@@ -51,3 +70,6 @@ String? image;
 
 
 
+
+
+ talawa 1.0.0+1 

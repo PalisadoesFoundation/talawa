@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/event_service.dart](../../services_event_service/)
+3.  [EventService](../../services_event_service/EventService-class.md)
+4.  getEvents method
+
+
+getEvents
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getEvents method
@@ -44,3 +63,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

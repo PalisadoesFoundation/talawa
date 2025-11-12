@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/app_localization.dart](../utils_app_localization/)
+3.  AppLocalizations class
+
+
+AppLocalizations
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AppLocalizations class
@@ -121,3 +139,6 @@ be available to users with different languages.
 
 
 
+
+
+ talawa 1.0.0+1 

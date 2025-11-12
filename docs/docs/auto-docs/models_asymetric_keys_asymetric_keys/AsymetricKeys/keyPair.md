@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/asymetric_keys/asymetric_keys.dart](../../models_asymetric_keys_asymetric_keys/)
+3.  [AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)
+4.  keyPair property
+
+
+keyPair
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # keyPair property
@@ -8,13 +27,11 @@
 
 <div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(0)
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField/HiveField.html)(0)
 
 </div>
 
-[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)],
-[[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]
-keyPair
+dynamic keyPair
 
 
 final
@@ -54,3 +71,6 @@ final AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
 
 
 
+
+
+ talawa 1.0.0+1 

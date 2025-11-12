@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/constants.dart](../constants_constants/)
+3.  HiveKeys class
+
+
+HiveKeys
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # HiveKeys class
@@ -83,9 +101,8 @@ and cached actions.
 :   The key used to identify the Hive box that stores the current
     organization\'s information.
 
-[[pluginBoxKey](../constants_constants/HiveKeys/pluginBoxKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-:   The key used to identify the Hive box that stores plugin-related
-    data.
+[[pinnedPostKey](../constants_constants/HiveKeys/pinnedPostKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+:   The key used to identify the Hive box that stores pinned posts.
 
 [[postFeedKey](../constants_constants/HiveKeys/postFeedKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the post feed
@@ -116,3 +133,6 @@ and cached actions.
 
 
 
+
+
+ talawa 1.0.0+1 

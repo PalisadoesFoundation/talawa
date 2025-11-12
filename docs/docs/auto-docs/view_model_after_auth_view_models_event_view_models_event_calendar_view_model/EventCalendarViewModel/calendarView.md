@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
+3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
+4.  calendarView property
+
+
+calendarView
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # calendarView property
@@ -7,8 +26,7 @@
 
 
 
-[[CalendarView](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/CalendarView.html)]
-get calendarView
+dynamic get calendarView
 
 
 
@@ -42,3 +60,6 @@ CalendarView get calendarView => _calendarView;
 
 
 
+
+
+ talawa 1.0.0+1 

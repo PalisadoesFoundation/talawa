@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [enums/enums.dart](../enums_enums/)
+3.  ActionType enum
+
+
+ActionType
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ActionType enum
@@ -125,3 +143,6 @@ optimistic [→ const [ActionType](../enums_enums/ActionType.md)]
 
 
 
+
+
+ talawa 1.0.0+1 

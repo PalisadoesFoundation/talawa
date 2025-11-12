@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/main_screen.dart](../../views_main_screen/)
+3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
+4.  mainScreenArgs property
+
+
+mainScreenArgs
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # mainScreenArgs property
@@ -45,3 +64,6 @@ final MainScreenArgs mainScreenArgs;
 
 
 
+
+
+ talawa 1.0.0+1 

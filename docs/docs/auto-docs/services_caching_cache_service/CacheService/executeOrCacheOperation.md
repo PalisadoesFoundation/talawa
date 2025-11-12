@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/caching/cache_service.dart](../../services_caching_cache_service/)
+3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
+4.  executeOrCacheOperation method
+
+
+executeOrCacheOperation
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # executeOrCacheOperation method
@@ -6,7 +25,7 @@
 </div>
 
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 
 
 
@@ -21,12 +40,12 @@ stores it in the `offlineActionQueue`. It then returns null.
 **params**:
 
 -   `operation`: The GraphQL operation string.
--   `variables`: Optional variables for the operation (Map\<String,
-    dynamic\>).
+-   `variables`: Optional variables for the operation
+    (`Map<String, dynamic>`).
 -   `operationType`: The type of the GraphQL operation (from
     `CachedOperationType` enum).
 -   `whenOnline`: A function that executes the operation online and
-    returns the result (Future\<QueryResult\<Object?\>?\>).
+    returns the result (`Future<QueryResult<Object?>?>`).
 
 **returns**:
 
@@ -59,3 +78,6 @@ Future<QueryResult<Object?>>  async
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/validators.dart](../../utils_validators/)
+3.  [Validator](../../utils_validators/Validator-class.md)
+4.  validateEmail static method
+
+
+validateEmail
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # validateEmail static method
@@ -55,3 +74,6 @@ static String? validateEmail(
 
 
 
+
+
+ talawa 1.0.0+1 

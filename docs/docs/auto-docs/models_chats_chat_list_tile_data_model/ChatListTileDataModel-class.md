@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/chats/chat_list_tile_data_model.dart](../models_chats_chat_list_tile_data_model/)
+3.  ChatListTileDataModel class
+
+
+ChatListTileDataModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatListTileDataModel class
@@ -6,32 +24,33 @@
 </div>
 
 
-This class creates JSON code using the JsonSerializable package.
+This class provides backward compatibility for existing UI components.
 
-
-
-
-Annotations
-
-:   -   @[JsonSerializable](https://pub.dev/documentation/json_annotation/4.9.0/json_annotation/JsonSerializable-class.html)
+that expect the old chat list tile data structure.
 
 
 
 ## Constructors
 
-[[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[ChatUser](../models_chats_chat_user/ChatUser-class.md)]\>]?] users, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id])]
+[[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.md)][]
 
 :   
 
-[[ChatListTileDataModel.fromJson](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
-
-:   ::: 
+[[ChatListTileDataModel.fromChat](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.fromChat.md)][([[[Chat](../models_chats_chat/Chat-class.md)] chat])]
+:   Creates a `ChatListTileDataModel` from a `Chat` instance.
+    ::: 
     factory
     :::
 
 
 
 ## Properties
+
+[[chat](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/chat.md)] [↔ [Chat](../models_chats_chat/Chat-class.md)?]
+:   The full chat object (new field for PostgreSQL support).
+    ::: features
+    getter/setter pair
+    :::
 
 [[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
@@ -40,8 +59,8 @@ Annotations
     :::
 
 [[id](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-
-:   ::: features
+:   Chat ID (for backward compatibility).
+    ::: features
     getter/setter pair
     :::
 
@@ -52,8 +71,8 @@ Annotations
     :::
 
 [[users](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/users.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatUser](../models_chats_chat_user/ChatUser-class.md)]\>]?]
-
-:   ::: features
+:   List of users in the chat (for backward compatibility).
+    ::: features
     getter/setter pair
     :::
 
@@ -66,10 +85,6 @@ Annotations
     ::: features
     inherited
     :::
-
-[[toJson](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/toJson.md)][ [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
-
-:   
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
@@ -105,3 +120,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

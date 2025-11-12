@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/venue_card.dart](../../widgets_venue_card/)
+3.  [VenueCard](../../widgets_venue_card/VenueCard-class.md)
+4.  isSelected property
+
+
+isSelected
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isSelected property
@@ -46,3 +65,6 @@ final bool isSelected;
 
 
 
+
+
+ talawa 1.0.0+1 

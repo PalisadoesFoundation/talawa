@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the createChatWithUser method from the SelectContactViewModel class, for the Dart programming language.">
+  <title>createChatWithUser method - SelectContactViewModel class - select_contact_view_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/">view_model&#47;after_auth_view_models&#47;chat_view_models&#47;select_contact_view_model.dart</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class.html">SelectContactViewModel</a></li>
+    <li class="self-crumb">createChatWithUser method</li>
+  </ol>
+  <div class="self-name">createChatWithUser</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="view_model_after_auth_view_models_chat_view_models_select_contact_view_model&#47;SelectContactViewModel-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">createChatWithUser</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>&gt;</span></span>
+<span class="name ">createChatWithUser</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="createChatWithUser-param-selectedUser"><span class="type-annotation"><a href="../../models_user_user_info/User-class.html">User</a></span> <span class="parameter-name">selectedUser</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Function to create a new chat with a selected user.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>selectedUser</code>: The user to create a chat with.</li>
+</ul>
+<p><strong>returns</strong>:</p>
+<ul>
+<li><code>Future&lt;String?&gt;</code>: The chat ID if successfully created, null otherwise.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;String?&gt; createChatWithUser(User selectedUser) async {
+  try {
+    setState(ViewState.busy);
+
+    &#47;&#47; First, check if a chat already exists with this user
+    final existingChatId = await checkExistingChat(selectedUser);
+    if (existingChatId != null) {
+      &#47;&#47; Chat already exists, return the existing chat ID
+      return existingChatId;
+    }
+
+    &#47;&#47; Create a unique chat name using both user IDs (sorted for consistency)
+    final userIds = [userConfig.currentUser.id!, selectedUser.id!]..sort();
+    final uniqueChatName = &#39;chat_${userIds[0]}_${userIds[1]}&#39;;
+
+    &#47;&#47; Create the chat
+    final chat = await _chatService.createChat(
+      name: uniqueChatName,
+      description: &#39;Direct chat between users&#39;,
+    );
+
+    if (chat != null) {
+      &#47;&#47; Add both users to the chat
+      final currentUserAdded = await _chatService.createChatMembership(
+        chatId: chat.id!,
+        userId: userConfig.currentUser.id!,
+      );
+
+      final selectedUserAdded = await _chatService.createChatMembership(
+        chatId: chat.id!,
+        userId: selectedUser.id!,
+      );
+
+      if (currentUserAdded &amp;&amp; selectedUserAdded) {
+        return chat.id;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  } catch (e) {
+    log(&#39;Error creating chat with user: $e&#39;);
+    return null;
+  } finally {
+    setState(ViewState.idle);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/">select_contact_view_model</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class.html">SelectContactViewModel</a></li>
+    <li class="self-crumb">createChatWithUser method</li>
+</ol>
+
+    <h5>SelectContactViewModel class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

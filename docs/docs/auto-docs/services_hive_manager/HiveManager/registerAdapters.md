@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/hive_manager.dart](../../services_hive_manager/)
+3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
+4.  registerAdapters static method
+
+
+registerAdapters
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # registerAdapters static method
@@ -45,3 +64,6 @@ static Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

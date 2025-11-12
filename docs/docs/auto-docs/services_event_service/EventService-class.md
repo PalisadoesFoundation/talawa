@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/event_service.dart](../services_event_service/)
+3.  EventService class
+
+
+EventService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # EventService class
@@ -43,6 +61,12 @@ Inheritance
 
 ## Properties
 
+[[after](../services_event_service/EventService/after.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The after cursor for pagination.
+    ::: features
+    getter/setter pair
+    :::
+
 [[cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   feed cacheBox key.
     ::: features
@@ -55,16 +79,40 @@ Inheritance
     no setter
     :::
 
+[[events](../services_event_service/EventService/events.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]
+:   Getter for list of events.
+    ::: features
+    no setter
+    :::
+
 [[eventStream](../services_event_service/EventService/eventStream.md)] [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]\>]]
 :   The event stream.
     ::: features
     no setter
     :::
 
+[[first](../services_event_service/EventService/first.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+:   The first number of events to fetch.
+    ::: features
+    getter/setter pair
+    :::
+
 [[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
     no setterinherited
+    :::
+
+[[hasMoreEvents](../services_event_service/EventService/hasMoreEvents.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+:   Getter to check if there are more events to fetch.
+    ::: features
+    no setter
+    :::
+
+[[pageInfo](../services_event_service/EventService/pageInfo.md)] [↔ [PageInfo](../models_page_info_page_info/PageInfo-class.md)]
+:   page info for the events.
+    ::: features
+    getter/setter pair
     :::
 
 [[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
@@ -83,7 +131,7 @@ Inheritance
 [[createAgendaItem](../services_event_service/EventService/createAgendaItem.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   This function is used to create an agenda item.
 
-[[createEvent](../services_event_service/EventService/createEvent.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[createEvent](../services_event_service/EventService/createEvent.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   This function is used to create an event using a GraphQL mutation.
 
 [[createVolunteerGroup](../services_event_service/EventService/createVolunteerGroup.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
@@ -92,14 +140,14 @@ Inheritance
 [[deleteAgendaItem](../services_event_service/EventService/deleteAgendaItem.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   This function is used to delete an agenda item.
 
-[[deleteEvent](../services_event_service/EventService/deleteEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[deleteEvent](../services_event_service/EventService/deleteEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   This function is used to delete the event.
 
 [dispose](../services_event_service/EventService/dispose.md) [→ void ]
 :   This function is used to cancel the stream subscription of an
     organization.
 
-[[editEvent](../services_event_service/EventService/editEvent.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[editEvent](../services_event_service/EventService/editEvent.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   This function is used to edit an event.
 
 [[fetchAgendaCategories](../services_event_service/EventService/fetchAgendaCategories.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
@@ -212,3 +260,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
+3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
+4.  viewChanged method
+
+
+viewChanged
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # viewChanged method
@@ -8,7 +27,7 @@
 
 void viewChanged(
 
-1.  [[[ViewChangedDetails](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/ViewChangedDetails-class.md)]
+1.  [dynamic
     viewChangedDetails]
 
 )
@@ -51,3 +70,6 @@ void viewChanged(ViewChangedDetails viewChangedDetails)
 
 
 
+
+
+ talawa 1.0.0+1 

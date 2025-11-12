@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
+4.  getChatMessages method
+
+
+getChatMessages
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getChatMessages method
@@ -18,9 +37,11 @@ getChatMessages(
 
 This function get all messages for a chat.
 
-params:
+**params**:
 
--   `chatId` : id of a chat for which messages need to be fetched.
+-   `chatId`: id of a chat for which messages need to be fetched.
+
+**returns**: None
 
 
 
@@ -49,3 +70,6 @@ Future<void> getChatMessages(String chatId) async
 
 
 
+
+
+ talawa 1.0.0+1 

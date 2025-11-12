@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/pre_auth_view_models/waiting_view_model.dart](../view_model_pre_auth_view_models_waiting_view_model/)
+3.  WaitingViewModel class
+
+
+WaitingViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # WaitingViewModel class
@@ -173,3 +191,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

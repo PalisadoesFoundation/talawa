@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [Frequency](../../constants_recurrence_values/Frequency-class.md)
+4.  yearly constant
+
+
+yearly
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # yearly constant
@@ -40,3 +59,6 @@ static const yearly = 'YEARLY';
 
 
 
+
+
+ talawa 1.0.0+1 

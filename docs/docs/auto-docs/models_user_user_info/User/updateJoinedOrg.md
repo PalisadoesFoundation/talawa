@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
+3.  [User](../../models_user_user_info/User-class.md)
+4.  updateJoinedOrg method
+
+
+updateJoinedOrg
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # updateJoinedOrg method
@@ -8,8 +27,8 @@
 
 void updateJoinedOrg(
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]\>]]
-    orgList]
+1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
+    org]
 
 )
 
@@ -19,7 +38,7 @@ Method to updated joinedOrganisation list.
 
 **params**:
 
--   `orgList`: List of organsaitions user has joined.
+-   `org`: Organisation to be added to the joinedOrganizations list.
 
 **returns**: None
 
@@ -28,7 +47,7 @@ Method to updated joinedOrganisation list.
 ## Implementation
 
 ``` language-dart
-void updateJoinedOrg(List<OrgInfo> orgList) 
+void updateJoinedOrg(OrgInfo org) 
 ```
 
 
@@ -50,3 +69,6 @@ void updateJoinedOrg(List<OrgInfo> orgList)
 
 
 
+
+
+ talawa 1.0.0+1 

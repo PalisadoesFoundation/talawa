@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/)
+3.  SelectContactViewModel class
+
+
+SelectContactViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # SelectContactViewModel class
@@ -12,6 +30,7 @@ model.
 Functions include:
 
 -   `getCurrentOrgUsersList` : to get all users of current organization.
+-   `createChatWithUser` : to create a new chat with selected user.
 
 
 
@@ -71,6 +90,13 @@ Inheritance
     no setterinherited
     :::
 
+[[userConfig](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/userConfig.md)] [→ [UserConfig](../services_user_config/UserConfig-class.md)]
+:   User configuration service for accessing current user and
+    organization information.
+    ::: features
+    final
+    :::
+
 
 
 ## Methods
@@ -80,6 +106,12 @@ Inheritance
     ::: features
     inherited
     :::
+
+[[checkExistingChat](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/checkExistingChat.md)][([[[User](../models_user_user_info/User-class.md)] selectedUser]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]\>]] ]
+:   Helper method to check if a chat already exists with the given user.
+
+[[createChatWithUser](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/createChatWithUser.md)][([[[User](../models_user_user_info/User-class.md)] selectedUser]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]\>]] ]
+:   Function to create a new chat with a selected user.
 
 [dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
 :   Discards any resources used by the object. After this is called, the
@@ -157,3 +189,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

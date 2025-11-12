@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [enums/enums.dart](../enums_enums/)
+3.  CachedOperationType enum
+
+
+CachedOperationType
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CachedOperationType enum
@@ -26,7 +44,7 @@ Available extensions
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         5)
 
 
@@ -137,3 +155,6 @@ gqlNonAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperati
 
 
 
+
+
+ talawa 1.0.0+1 

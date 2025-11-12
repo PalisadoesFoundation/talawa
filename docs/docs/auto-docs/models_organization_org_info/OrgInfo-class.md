@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/organization/org_info.dart](../models_organization_org_info/)
+3.  OrgInfo class
+
+
+OrgInfo
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # OrgInfo class
@@ -14,7 +32,7 @@ OrgInfo instance.
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         2)
 
 
@@ -22,12 +40,11 @@ Annotations
 ## Constructors
 
 [[OrgInfo](../models_organization_org_info/OrgInfo/OrgInfo.md)][]
+:   Constructs an OrgInfo object.
 
-:   
-
-[[OrgInfo.fromJson](../models_organization_org_info/OrgInfo/OrgInfo.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json1, )]
-
-:   ::: 
+[[OrgInfo.fromJson](../models_organization_org_info/OrgInfo/OrgInfo.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+:   Factory method to construct an OrgInfo from a JSON object.
+    ::: 
     factory
     :::
 
@@ -35,26 +52,26 @@ Annotations
 
 ## Properties
 
-[[address](../models_organization_org_info/OrgInfo/address.md)] [↔ [Address](../models_organization_org_info_address/Address-class.md)?]
-:   Address of the Organisation.
-    ::: features
-    getter/setter pair
-    :::
-
 [[admins](../models_organization_org_info/OrgInfo/admins.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../models_user_user_info/User-class.md)]\>]?]
-:   The org admins.
+:   The administrators of the organization.
     ::: features
     getter/setter pair
     :::
 
-[[creatorInfo](../models_organization_org_info/OrgInfo/creatorInfo.md)] [↔ [User](../models_user_user_info/User-class.md)?]
-:   The org creatorInfo.
+[[city](../models_organization_org_info/OrgInfo/city.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The city of the organization\'s address.
+    ::: features
+    getter/setter pair
+    :::
+
+[[countryCode](../models_organization_org_info/OrgInfo/countryCode.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The country code of the organization\'s address.
     ::: features
     getter/setter pair
     :::
 
 [[description](../models_organization_org_info/OrgInfo/description.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The org descriptions.
+:   The description of the organization.
     ::: features
     getter/setter pair
     :::
@@ -66,25 +83,43 @@ Annotations
     :::
 
 [[id](../models_organization_org_info/OrgInfo/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The org id.
+:   The ID of the organization.
     ::: features
     getter/setter pair
     :::
 
 [[image](../models_organization_org_info/OrgInfo/image.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   contains the Image url.
+:   The URL of the organization\'s image.
+    ::: features
+    getter/setter pair
+    :::
+
+[[line1](../models_organization_org_info/OrgInfo/line1.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The first line of the organization\'s address.
+    ::: features
+    getter/setter pair
+    :::
+
+[[line2](../models_organization_org_info/OrgInfo/line2.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The second line of the organization\'s address.
     ::: features
     getter/setter pair
     :::
 
 [[members](../models_organization_org_info/OrgInfo/members.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../models_user_user_info/User-class.md)]\>]?]
-:   The org name.
+:   The members of the organization.
     ::: features
     getter/setter pair
     :::
 
 [[name](../models_organization_org_info/OrgInfo/name.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The org name.
+:   The name of the organization.
+    ::: features
+    getter/setter pair
+    :::
+
+[[postalCode](../models_organization_org_info/OrgInfo/postalCode.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The postal code of the organization\'s address.
     ::: features
     getter/setter pair
     :::
@@ -95,8 +130,14 @@ Annotations
     no setterinherited
     :::
 
+[[state](../models_organization_org_info/OrgInfo/state.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The state of the organization\'s address.
+    ::: features
+    getter/setter pair
+    :::
+
 [[userRegistrationRequired](../models_organization_org_info/OrgInfo/userRegistrationRequired.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
-:   The org registration is required.
+:   Indicates if user registration is required for the organization.
     ::: features
     getter/setter pair
     :::
@@ -105,9 +146,11 @@ Annotations
 
 ## Methods
 
+[[fromBasicJsonToList](../models_organization_org_info/OrgInfo/fromBasicJsonToList.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] data]) [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] ]
+:   Converts a JSON array to a list of OrgInfo instances.
+
 [[fromJsonToList](../models_organization_org_info/OrgInfo/fromJsonToList.md)]([[dynamic json]) [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] ]
-:   The conventional function to parse json, check flutter docs to know
-    more.
+:   Converts a JSON array to a list of OrgInfo instances.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
@@ -149,3 +192,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the buildActions method from the EventSearch class, for the Dart programming language.">
+  <title>buildActions method - EventSearch class - event_search_delegate library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../widgets_event_search_delegate/">widgets&#47;event_search_delegate.dart</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch-class.html">EventSearch</a></li>
+    <li class="self-crumb">buildActions method</li>
+  </ol>
+  <div class="self-name">buildActions</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="widgets_event_search_delegate&#47;EventSearch-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">buildActions</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>&gt;</span></span>
+<span class="name ">buildActions</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="buildActions-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">override</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Widgets to display after the search query in the <a href="https://api.flutter.dev/flutter/material/AppBar-class.html">AppBar</a>.</p>
+<p>If the <a href="https://api.flutter.dev/flutter/material/SearchDelegate/query.html">query</a> is not empty, this should typically contain a button to
+clear the query and show the suggestions again (via <a href="https://api.flutter.dev/flutter/material/SearchDelegate/showSuggestions.html">showSuggestions</a>) if
+the results are currently shown.</p>
+<p>Returns null if no widget should be shown.</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/material/AppBar/actions.html">AppBar.actions</a>, the intended use for the return value of this method.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+List&lt;Widget&gt; buildActions(BuildContext context) {
+  &#47;&#47;&#47; Returns an icon button which closes the search page and returns
+  &#47;&#47;&#47; to the underlying route if the query is empty. Otherwise it sets the
+  &#47;&#47;&#47; query empty.
+  return [
+    IconButton(
+      onPressed: () {
+        query.isNotEmpty ? query = &#39;&#39; : close(context, eventList.first);
+      },
+      icon: const Icon(Icons.clear),
+    ),
+  ];
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../widgets_event_search_delegate/">event_search_delegate</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch-class.html">EventSearch</a></li>
+    <li class="self-crumb">buildActions method</li>
+</ol>
+
+    <h5>EventSearch class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

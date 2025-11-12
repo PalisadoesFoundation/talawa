@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/events/event_model.dart](../models_events_event_model/)
+3.  Attendee class
+
+
+Attendee
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Attendee class
@@ -13,7 +31,7 @@ This class creates an attendee model and returns an Attendee instance.
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         11)
 
 
@@ -115,3 +133,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

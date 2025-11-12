@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/event_service.dart](../../services_event_service/)
+3.  [EventService](../../services_event_service/EventService-class.md)
+4.  addVolunteerToGroup method
+
+
+addVolunteerToGroup
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # addVolunteerToGroup method
@@ -55,3 +74,6 @@ Future<dynamic> addVolunteerToGroup(Map<String, dynamic> variables) async
 
 
 
+
+
+ talawa 1.0.0+1 

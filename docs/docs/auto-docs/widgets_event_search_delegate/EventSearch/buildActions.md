@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
+3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
+4.  buildActions method
+
+
+buildActions
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # buildActions method
@@ -71,3 +90,6 @@ List<Widget> buildActions(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

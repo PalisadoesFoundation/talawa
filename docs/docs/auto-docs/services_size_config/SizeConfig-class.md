@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/size_config.dart](../services_size_config/)
+3.  SizeConfig class
+
+
+SizeConfig
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # SizeConfig class
@@ -131,3 +149,6 @@ media.
 
 
 
+
+
+ talawa 1.0.0+1 

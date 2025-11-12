@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/comment/comment_model.dart](../models_comment_comment_model/)
+3.  Comment class
+
+
+Comment
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Comment class
@@ -13,7 +31,7 @@ This class returns a Comment instance.
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         12)
 
 
@@ -34,6 +52,12 @@ Annotations
 
 ## Properties
 
+[[body](../models_comment_comment_model/Comment/body.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The text of the comment.
+    ::: features
+    getter/setter pair
+    :::
+
 [[createdAt](../models_comment_comment_model/Comment/createdAt.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The creation date of the comment.
     ::: features
@@ -52,13 +76,7 @@ Annotations
     no setterinherited
     :::
 
-[[likeCount](../models_comment_comment_model/Comment/likeCount.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The like count of the comment.
-    ::: features
-    getter/setter pair
-    :::
-
-[[post](../models_comment_comment_model/Comment/post.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[post](../models_comment_comment_model/Comment/post.md)] [↔ [Post](../models_post_post_model/Post-class.md)?]
 :   The post associated with the comment.
     ::: features
     getter/setter pair
@@ -68,12 +86,6 @@ Annotations
 :   A representation of the runtime type of the object.
     ::: features
     no setterinherited
-    :::
-
-[[text](../models_comment_comment_model/Comment/text.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The text of the comment.
-    ::: features
-    getter/setter pair
     :::
 
 
@@ -120,3 +132,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

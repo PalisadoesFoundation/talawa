@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/database_mutation_functions.dart](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  fetchOrgById method
+
+
+fetchOrgById
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # fetchOrgById method
@@ -53,3 +72,6 @@ Future<dynamic> fetchOrgById(String id) async
 
 
 
+
+
+ talawa 1.0.0+1 

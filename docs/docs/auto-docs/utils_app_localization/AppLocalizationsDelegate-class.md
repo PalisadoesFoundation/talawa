@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/app_localization.dart](../utils_app_localization/)
+3.  AppLocalizationsDelegate class
+
+
+AppLocalizationsDelegate
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AppLocalizationsDelegate class
@@ -120,3 +138,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

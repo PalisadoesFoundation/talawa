@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_agenda_item.dart](../../models_events_event_agenda_item/)
+3.  [ItemType](../../models_events_event_agenda_item/ItemType.md)
+4.  values constant
+
+
+values
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # values constant
@@ -33,3 +52,6 @@ declaration.
 
 
 
+
+
+ talawa 1.0.0+1 

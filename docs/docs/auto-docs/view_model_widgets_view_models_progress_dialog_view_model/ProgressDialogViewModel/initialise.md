@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/widgets_view_models/progress_dialog_view_model.dart](../../view_model_widgets_view_models_progress_dialog_view_model/)
+3.  [ProgressDialogViewModel](../../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class.md)
+4.  initialise method
+
+
+initialise
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # initialise method
@@ -57,3 +76,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

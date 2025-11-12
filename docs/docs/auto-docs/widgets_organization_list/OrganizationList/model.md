@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/organization_list.dart](../../widgets_organization_list/)
+3.  [OrganizationList](../../widgets_organization_list/OrganizationList-class.md)
+4.  model property
+
+
+model
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # model property
@@ -47,3 +66,6 @@ final SelectOrganizationViewModel model;
 
 
 
+
+
+ talawa 1.0.0+1 

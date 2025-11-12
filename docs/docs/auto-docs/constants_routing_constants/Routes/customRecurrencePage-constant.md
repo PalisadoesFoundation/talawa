@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/routing_constants.dart](../../constants_routing_constants/)
+3.  [Routes](../../constants_routing_constants/Routes-class.md)
+4.  customRecurrencePage constant
+
+
+customRecurrencePage
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # customRecurrencePage constant
@@ -40,3 +59,6 @@ static const String customRecurrencePage = "/customRecurrencePage";
 
 
 
+
+
+ talawa 1.0.0+1 

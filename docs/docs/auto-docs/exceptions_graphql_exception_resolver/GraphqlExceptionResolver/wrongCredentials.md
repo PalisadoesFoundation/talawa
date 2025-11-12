@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [exceptions/graphql_exception_resolver.dart](../../exceptions_graphql_exception_resolver/)
+3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
+4.  wrongCredentials property
+
+
+wrongCredentials
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # wrongCredentials property
@@ -45,3 +64,6 @@ static GraphQLError wrongCredentials =
 
 
 
+
+
+ talawa 1.0.0+1 

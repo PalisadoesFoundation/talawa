@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
+4.  sendMessageToDirectChat method
+
+
+sendMessageToDirectChat
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # sendMessageToDirectChat method
@@ -20,10 +39,12 @@ sendMessageToDirectChat(
 
 This function send the message to Direct Chat.
 
-params:
+**params**:
 
--   `chatId` : id of a chat where message need to be send.
--   `messageContent` : content of a message.
+-   `chatId`: id of a chat where message need to be send.
+-   `messageContent`: content of a message.
+
+**returns**: None
 
 
 
@@ -55,3 +76,6 @@ Future<void> sendMessageToDirectChat(
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [apptheme.dart](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  blackTertiary constant
+
+
+blackTertiary
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # blackTertiary constant
@@ -6,7 +25,7 @@
 </div>
 
 
-[Color](https://api.flutter.dev/flutter/painting/Color-class.html) const
+[Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html) const
 blackTertiary
 
 
@@ -40,3 +59,6 @@ static const Color blackTertiary = Color(0xFFAEAEAE);
 
 
 
+
+
+ talawa 1.0.0+1 

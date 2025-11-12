@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/directly_login.dart](../../widgets_directly_login/)
+3.  [DirectlyLogin](../../widgets_directly_login/DirectlyLogin-class.md)
+4.  loginUsingPrevCredentials method
+
+
+loginUsingPrevCredentials
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # loginUsingPrevCredentials method
@@ -44,3 +63,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

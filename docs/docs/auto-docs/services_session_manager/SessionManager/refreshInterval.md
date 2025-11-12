@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/session_manager.dart](../../services_session_manager/)
+3.  [SessionManager](../../services_session_manager/SessionManager-class.md)
+4.  refreshInterval property
+
+
+refreshInterval
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # refreshInterval property
@@ -42,3 +61,6 @@ int get refreshInterval => _refreshInterval;
 
 
 
+
+
+ talawa 1.0.0+1 

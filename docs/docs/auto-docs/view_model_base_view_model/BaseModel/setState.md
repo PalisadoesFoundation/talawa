@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/base_view_model.dart](../../view_model_base_view_model/)
+3.  [BaseModel](../../view_model_base_view_model/BaseModel-class.md)
+4.  setState method
+
+
+setState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # setState method
@@ -40,3 +59,6 @@ void setState(ViewState viewState)
 
 
 
+
+
+ talawa 1.0.0+1 

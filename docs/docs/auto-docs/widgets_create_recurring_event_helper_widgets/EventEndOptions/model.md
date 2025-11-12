@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
+3.  [EventEndOptions](../../widgets_create_recurring_event_helper_widgets/EventEndOptions-class.md)
+4.  model property
+
+
+model
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # model property
@@ -44,3 +63,6 @@ final CreateEventViewModel model;
 
 
 
+
+
+ talawa 1.0.0+1 

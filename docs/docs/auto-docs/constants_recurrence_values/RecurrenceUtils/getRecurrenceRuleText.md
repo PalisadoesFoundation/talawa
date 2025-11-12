@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [RecurrenceUtils](../../constants_recurrence_values/RecurrenceUtils-class.md)
+4.  getRecurrenceRuleText static method
+
+
+getRecurrenceRuleText
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getRecurrenceRuleText static method
@@ -82,3 +101,6 @@ static String getRecurrenceRuleText(
 
 
 
+
+
+ talawa 1.0.0+1 

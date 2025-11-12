@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/organization/org_info.dart](../models_organization_org_info/)
+3.  OrgInfoAdapter class
+
+
+OrgInfoAdapter
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # OrgInfoAdapter class
@@ -99,3 +117,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

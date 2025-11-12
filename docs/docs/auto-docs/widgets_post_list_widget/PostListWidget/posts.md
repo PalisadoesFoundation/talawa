@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/post_list_widget.dart](../../widgets_post_list_widget/)
+3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.md)
+4.  posts property
+
+
+posts
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # posts property
@@ -44,3 +63,6 @@ final List<Post> posts;
 
 
 
+
+
+ talawa 1.0.0+1 

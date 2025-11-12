@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/comment_queries.dart](../../utils_comment_queries/)
+3.  [CommentQueries](../../utils_comment_queries/CommentQueries-class.md)
+4.  createComment method
+
+
+createComment
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createComment method
@@ -46,3 +65,6 @@ String
 
 
 
+
+
+ talawa 1.0.0+1 

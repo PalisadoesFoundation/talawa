@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../view_model_pre_auth_view_models_set_url_view_model/)
+3.  SetUrlViewModel class
+
+
+SetUrlViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # SetUrlViewModel class
@@ -82,7 +100,7 @@ Inheritance
     final
     :::
 
-[[result](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/result.md)] [↔ [Barcode](https://pub.dev/documentation/qr_code_scanner_plus/2.0.9+1/qr_code_scanner_plus/Barcode-class.html)]
+[[result](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/result.md)] ↔ dynamic
 :   qrText.
     ::: features
     getter/setter pair
@@ -100,16 +118,10 @@ Inheritance
     no setterinherited
     :::
 
-[[url](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/url.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
+[[url](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/url.md)] → dynamic
 :   url.
     ::: features
-    getter/setter pair
-    :::
-
-[[urlFocus](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/urlFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
-:   urlFocus.
-    ::: features
-    getter/setter pair
+    final
     :::
 
 [[validate](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/validate.md)] [↔ [AutovalidateMode](https://api.flutter.dev/flutter/widgets/AutovalidateMode.html)]
@@ -131,9 +143,6 @@ Inheritance
 [[checkURLandNavigate](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/checkURLandNavigate.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] navigateTo, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] argument]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function check the URL and navigate to the respective URL.
 
-[[checkURLandShowPopUp](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/checkURLandShowPopUp.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] argument]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function check the URL and navigate to the respective URL.
-
 [dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
 :   Discards any resources used by the object. After this is called, the
     object is not in a usable state and should be discarded (calls to
@@ -143,7 +152,7 @@ Inheritance
     inherited
     :::
 
-[[initialise](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/initialise.md)][ → void ]
+[initialise](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/initialise.md) [→ void ]
 :   This function initialises the variables.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
@@ -218,3 +227,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

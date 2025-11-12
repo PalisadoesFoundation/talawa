@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../../view_model_widgets_view_models_custom_drawer_view_model/)
+3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
+4.  switchOrg method
+
+
+switchOrg
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # switchOrg method
@@ -56,3 +75,6 @@ void switchOrg(OrgInfo switchToOrg)
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/chats/chat_user.dart](../models_chats_chat_user/)
+3.  ChatUser class
+
+
+ChatUser
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatUser class
@@ -6,27 +24,18 @@
 </div>
 
 
-This class creates JSON code for chat user using the JsonSerializable
-package.
-
-
-
-
-Annotations
-
-:   -   @[JsonSerializable](https://pub.dev/documentation/json_annotation/4.9.0/json_annotation/JsonSerializable-class.html)
+The `ChatUser` class represents a user in the chat system.
 
 
 
 ## Constructors
 
 [[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.md)][]
-
-:   
+:   Constructs a `ChatUser` instance.
 
 [[ChatUser.fromJson](../models_chats_chat_user/ChatUser/ChatUser.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
-
-:   ::: 
+:   Creates a `ChatUser` instance from a JSON object.
+    ::: 
     factory
     :::
 
@@ -35,8 +44,8 @@ Annotations
 ## Properties
 
 [[firstName](../models_chats_chat_user/ChatUser/firstName.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-
-:   ::: features
+:   The first name of the user.
+    ::: features
     getter/setter pair
     :::
 
@@ -47,14 +56,14 @@ Annotations
     :::
 
 [[id](../models_chats_chat_user/ChatUser/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-
-:   ::: features
+:   The unique identifier of the user.
+    ::: features
     getter/setter pair
     :::
 
 [[image](../models_chats_chat_user/ChatUser/image.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-
-:   ::: features
+:   The URL of the user\'s profile image.
+    ::: features
     getter/setter pair
     :::
 
@@ -75,8 +84,7 @@ Annotations
     :::
 
 [[toJson](../models_chats_chat_user/ChatUser/toJson.md)][ [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
-
-:   
+:   Converts the `ChatUser` instance to a JSON object.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
@@ -112,3 +120,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

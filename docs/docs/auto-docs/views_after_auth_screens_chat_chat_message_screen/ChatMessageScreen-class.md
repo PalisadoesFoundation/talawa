@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [views/after_auth_screens/chat/chat_message_screen.dart](../views_after_auth_screens_chat_chat_message_screen/)
+3.  ChatMessageScreen class
+
+
+ChatMessageScreen
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatMessageScreen class
@@ -6,8 +24,8 @@
 </div>
 
 
-ChatMessageScreen returns a StatelessWidget for showing the chat message
-screen.
+ChatMessageScreen returns a StatefulWidget for showing the chat message
+screen with pagination support.
 
 
 
@@ -17,12 +35,8 @@ Inheritance
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
     -   [DiagnosticableTree](https://api.flutter.dev/flutter/foundation/DiagnosticableTree-class.html)
     -   [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
+    -   [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
     -   ChatMessageScreen
-
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
 
 
 
@@ -39,8 +53,8 @@ Available extensions
 ## Properties
 
 [[chatId](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen/chatId.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-
-:   ::: features
+:   chatId is the unique identifier for the chat.
+    ::: features
     final
     :::
 
@@ -57,8 +71,9 @@ Available extensions
     :::
 
 [[model](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen/model.md)] [→ [DirectChatViewModel](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)]
-
-:   ::: features
+:   The DirectChatViewModel instance that manages chat state and
+    messages.
+    ::: features
     final
     :::
 
@@ -72,33 +87,19 @@ Available extensions
 
 ## Methods
 
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
-
-[[build](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
-:   Describes the part of the user interface represented by this widget.
-    ::: features
-    override
-    :::
-
-[[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)][ [→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)] ]
+[[createElement](https://api.flutter.dev/flutter/widgets/StatefulWidget/createElement.html)][ [→ [StatefulElement](https://api.flutter.dev/flutter/widgets/StatefulElement-class.html)] ]
 :   Creates a
-    [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)
+    [StatefulElement](https://api.flutter.dev/flutter/widgets/StatefulElement-class.html)
     to manage this widget\'s location in the tree.
     ::: features
     inherited
+    :::
+
+[[createState](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen/createState.md)][ [→ [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[ChatMessageScreen](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.md)]\>]] ]
+:   Creates the mutable state for this widget at a given location in the
+    tree.
+    ::: features
+    override
     :::
 
 [[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)][ [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]\>]] ]
@@ -181,3 +182,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

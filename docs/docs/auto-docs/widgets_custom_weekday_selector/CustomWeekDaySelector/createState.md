@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_weekday_selector.dart](../../widgets_custom_weekday_selector/)
+3.  [CustomWeekDaySelector](../../widgets_custom_weekday_selector/CustomWeekDaySelector-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _CustomWeekDaySelectorState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

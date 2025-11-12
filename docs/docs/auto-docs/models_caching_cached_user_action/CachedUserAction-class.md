@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/caching/cached_user_action.dart](../models_caching_cached_user_action/)
+3.  CachedUserAction class
+
+
+CachedUserAction
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CachedUserAction class
@@ -27,7 +45,7 @@ Inheritance
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         3)
 
 
@@ -138,7 +156,7 @@ Annotations
     inherited
     :::
 
-[[execute](../models_caching_cached_user_action/CachedUserAction/execute.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[execute](../models_caching_cached_user_action/CachedUserAction/execute.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   Executes the cached user action based on its operation type.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
@@ -190,3 +208,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

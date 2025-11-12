@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/chat_service.dart](../../services_chat_service/)
+3.  [ChatService](../../services_chat_service/ChatService-class.md)
+4.  chatMessagesStream property
+
+
+chatMessagesStream
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # chatMessagesStream property
@@ -12,14 +31,15 @@ get chatMessagesStream
 
 
 
-Getter for chat messages stream.
+Stream for chat messages.
 
 
 
 ## Implementation
 
 ``` language-dart
-Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
+Stream<ChatMessage> get chatMessagesStream =>
+    _messageService.chatMessagesStream;
 ```
 
 
@@ -42,3 +62,6 @@ Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
 
 
 
+
+
+ talawa 1.0.0+1 

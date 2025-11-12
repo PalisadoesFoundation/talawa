@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/chat_service.dart](../../services_chat_service/)
+3.  [ChatService](../../services_chat_service/ChatService-class.md)
+4.  chatListStream property
+
+
+chatListStream
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # chatListStream property
@@ -7,19 +26,19 @@
 
 
 
-[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)]\>]]
+[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[Chat](../../models_chats_chat/Chat-class.md)]\>]]
 get chatListStream
 
 
 
-Getter for chat list stream.
+Stream for individual chat updates.
 
 
 
 ## Implementation
 
 ``` language-dart
-Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
+Stream<Chat> get chatListStream => _coreService.chatListStream;
 ```
 
 
@@ -42,3 +61,6 @@ Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
 
 
 
+
+
+ talawa 1.0.0+1 

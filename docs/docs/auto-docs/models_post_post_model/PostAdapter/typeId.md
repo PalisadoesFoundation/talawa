@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/post/post_model.dart](../../models_post_post_model/)
+3.  [PostAdapter](../../models_post_post_model/PostAdapter-class.md)
+4.  typeId property
+
+
+typeId
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # typeId property
@@ -51,3 +70,6 @@ final int typeId = 6;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/profile/profile_page.dart](../../views_after_auth_screens_profile_profile_page/)
+3.  [ProfilePage](../../views_after_auth_screens_profile_profile_page/ProfilePage-class.md)
+4.  homeModel property
+
+
+homeModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # homeModel property
@@ -44,3 +63,6 @@ final MainScreenViewModel? homeModel;
 
 
 
+
+
+ talawa 1.0.0+1 

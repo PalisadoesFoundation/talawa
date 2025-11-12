@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/post_service.dart](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  getPosts method
+
+
+getPosts
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getPosts method
@@ -15,9 +34,7 @@ Method used to fetch all posts of the current organisation.
 
 **params**: None
 
-**returns**:
-
--   `Future<void>`: returns future void
+**returns**: None
 
 
 
@@ -46,3 +63,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

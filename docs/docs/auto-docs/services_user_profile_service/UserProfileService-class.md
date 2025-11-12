@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/user_profile_service.dart](../services_user_profile_service/)
+3.  UserProfileService class
+
+
+UserProfileService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # UserProfileService class
@@ -37,7 +55,7 @@ and retrieving user profile information.
 
 ## Methods
 
-[[getUserProfileInfo](../services_user_profile_service/UserProfileService/getUserProfileInfo.md)][([[[User](../models_user_user_info/User-class.md)] user]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[getUserProfileInfo](../services_user_profile_service/UserProfileService/getUserProfileInfo.md)][([[[User](../models_user_user_info/User-class.md)] user]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   Retrieves user profile information using a GraphQL query.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
@@ -52,7 +70,7 @@ and retrieving user profile information.
     inherited
     :::
 
-[[updateUserProfile](../services_user_profile_service/UserProfileService/updateUserProfile.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[updateUserProfile](../services_user_profile_service/UserProfileService/updateUserProfile.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   Updates the user profile using a GraphQL mutation.
 
 
@@ -83,3 +101,6 @@ and retrieving user profile information.
 
 
 
+
+
+ talawa 1.0.0+1 

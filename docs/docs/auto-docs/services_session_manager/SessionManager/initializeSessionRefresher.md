@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/session_manager.dart](../../services_session_manager/)
+3.  [SessionManager](../../services_session_manager/SessionManager-class.md)
+4.  initializeSessionRefresher method
+
+
+initializeSessionRefresher
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # initializeSessionRefresher method
@@ -50,3 +69,6 @@ Timer
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  navigationService property
+
+
+navigationService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # navigationService top-level property
@@ -43,3 +61,6 @@ final navigationService = locator<NavigationService>;
 
 
 
+
+
+ talawa 1.0.0+1 

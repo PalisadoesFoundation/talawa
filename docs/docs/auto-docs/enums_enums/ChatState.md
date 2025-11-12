@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [enums/enums.dart](../enums_enums/)
+3.  ChatState enum
+
+
+ChatState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatState enum
@@ -125,3 +143,6 @@ complete [→ const [ChatState](../enums_enums/ChatState.md)]
 
 
 
+
+
+ talawa 1.0.0+1 

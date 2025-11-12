@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  removeAllAndPush method
+
+
+removeAllAndPush
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # removeAllAndPush method
@@ -59,3 +78,6 @@ Future<dynamic> removeAllAndPush(
 
 
 
+
+
+ talawa 1.0.0+1 

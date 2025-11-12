@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  showHome method
+
+
+showHome
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # showHome method
@@ -6,9 +25,10 @@
 </div>
 
 
-void showHome(
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+showHome(
 
-1.  [[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.md)]
+1.  [dynamic
     clickedTarget]
 
 )
@@ -28,7 +48,7 @@ This function shows the Home screen.
 ## Implementation
 
 ``` language-dart
-void showHome(TargetFocus clickedTarget) 
+Future<void> showHome(TargetFocus clickedTarget) async 
 ```
 
 
@@ -50,3 +70,6 @@ void showHome(TargetFocus clickedTarget)
 
 
 
+
+
+ talawa 1.0.0+1 

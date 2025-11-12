@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/app_tour.dart](../../models_app_tour/)
+3.  [AppTour](../../models_app_tour/AppTour-class.md)
+4.  showTutorial method
+
+
+showTutorial
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # showTutorial method
@@ -49,3 +68,6 @@ void
 
 
 
+
+
+ talawa 1.0.0+1 

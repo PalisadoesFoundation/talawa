@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
+3.  [ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)
+4.  fetchNewEvents method
+
+
+fetchNewEvents
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # fetchNewEvents method
@@ -46,3 +65,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

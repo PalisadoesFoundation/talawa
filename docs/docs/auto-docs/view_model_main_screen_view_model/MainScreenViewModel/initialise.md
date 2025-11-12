@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  initialise method
+
+
+initialise
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # initialise method
@@ -21,7 +40,6 @@ Initalizing function.
 -   `fromSignUp`: Bool to find user entry
 -   `mainScreenIndex`: Index to find tab on mainScreen
 -   `demoMode`: Whether the app is in demo mode
--   `testMode`: Whether the app is in test mode
 
 **returns**: None
 
@@ -53,3 +71,6 @@ void initialise(
 
 
 
+
+
+ talawa 1.0.0+1 

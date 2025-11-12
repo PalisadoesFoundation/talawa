@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/event_info_view_model.dart](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
+3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
+4.  agendaItems property
+
+
+agendaItems
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # agendaItems property
@@ -42,3 +61,6 @@ List<EventAgendaItem> get agendaItems => _agendaItems;
 
 
 
+
+
+ talawa 1.0.0+1 

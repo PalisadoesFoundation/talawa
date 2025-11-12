@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_event_page.dart](../../views_after_auth_screens_events_create_event_page/)
+3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)
+4.  selectedVenue property
+
+
+selectedVenue
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # selectedVenue property
@@ -44,3 +63,6 @@ Venue? selectedVenue;
 
 
 
+
+
+ talawa 1.0.0+1 

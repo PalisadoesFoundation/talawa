@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/pre_auth_screens/waiting_screen.dart](../../views_pre_auth_screens_waiting_screen/)
+3.  [WaitingPage](../../views_pre_auth_screens_waiting_screen/WaitingPage-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

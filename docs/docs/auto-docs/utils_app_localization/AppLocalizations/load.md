@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
+3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
+4.  load method
+
+
+load
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # load method
@@ -36,3 +55,6 @@ Future<bool>  async
 
 
 
+
+
+ talawa 1.0.0+1 

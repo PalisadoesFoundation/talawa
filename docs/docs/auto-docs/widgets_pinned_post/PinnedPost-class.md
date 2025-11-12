@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [widgets/pinned_post.dart](../widgets_pinned_post/)
+3.  PinnedPost class
+
+
+PinnedPost
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # PinnedPost class
@@ -18,10 +36,6 @@ Inheritance
     -   [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
     -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
     -   PinnedPost
-
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
 
 
 
@@ -49,12 +63,6 @@ Available extensions
     finalinherited
     :::
 
-[[model](../widgets_pinned_post/PinnedPost/model.md)] [→ [MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)]
-:   gives access mainScreenViewModel\'s attributes.
-    ::: features
-    final
-    :::
-
 [[pinnedPost](../widgets_pinned_post/PinnedPost/PinnedPost.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.md)]\>]]
 :   contains the pinned post.
     ::: features
@@ -70,21 +78,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[build](../widgets_pinned_post/PinnedPost/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
@@ -114,9 +107,6 @@ Available extensions
     inherited
     :::
 
-[[getTimeDifferenceInHours](../widgets_pinned_post/PinnedPost/getTimeDifferenceInHours.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] createdAtString]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Function returns the time difference in hours.
-
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
@@ -130,9 +120,6 @@ Available extensions
     ::: features
     inherited
     :::
-
-[[toMap](../widgets_pinned_post/PinnedPost/toMap.md)][([[[int](https://api.flutter.dev/flutter/dart-core/int-class.md)] index]) [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]] ]
-:   converts post to mapped string.
 
 [[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
@@ -186,3 +173,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

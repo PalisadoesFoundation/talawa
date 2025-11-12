@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/caching/offline_action_queue.dart](../../services_caching_offline_action_queue/)
+3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
+4.  getActions method
+
+
+getActions
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getActions method
@@ -46,3 +65,6 @@ List<CachedUserAction>
 
 
 
+
+
+ talawa 1.0.0+1 

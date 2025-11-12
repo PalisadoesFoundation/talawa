@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [Event](../../models_events_event_model/Event-class.md)
+4.  isRegisterable property
+
+
+isRegisterable
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isRegisterable property
@@ -8,7 +27,7 @@
 
 <div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(12)
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField/HiveField.html)(12)
 
 </div>
 
@@ -51,3 +70,6 @@ bool? isRegisterable;
 
 
 
+
+
+ talawa 1.0.0+1 

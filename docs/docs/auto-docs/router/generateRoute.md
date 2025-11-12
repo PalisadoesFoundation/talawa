@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [router.dart](../router/)
+3.  generateRoute function
+
+
+generateRoute
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # generateRoute function
@@ -18,7 +36,7 @@ generateRoute(
 
 The MaterialApp provides us with a property called generateRoute where.
 
-we can pass in a Function that returns a Route and takes in
+we can pass in a Function that returns a `Route<dynamic>` and takes in
 RouteSettings Thus for this purpose, we create a function named
 generateRoute
 
@@ -56,3 +74,6 @@ Route<dynamic> generateRoute(RouteSettings settings)
 
 
 
+
+
+ talawa 1.0.0+1 

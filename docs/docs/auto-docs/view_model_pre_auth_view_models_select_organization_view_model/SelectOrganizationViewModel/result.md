@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/pre_auth_view_models/select_organization_view_model.dart](../../view_model_pre_auth_view_models_select_organization_view_model/)
+3.  [SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
+4.  result property
+
+
+result
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # result property
@@ -6,8 +25,7 @@
 </div>
 
 
-[Barcode](https://pub.dev/documentation/qr_code_scanner_plus/2.0.9+1/qr_code_scanner_plus/Barcode-class.html)
-result
+dynamic result
 
 
 getter/setter pair
@@ -44,3 +62,6 @@ late Barcode result;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/event_queries.dart](../../utils_event_queries/)
+3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
+4.  deleteEvent method
+
+
+deleteEvent
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # deleteEvent method
@@ -57,3 +76,6 @@ String deleteEvent(String id)
 
 
 
+
+
+ talawa 1.0.0+1 

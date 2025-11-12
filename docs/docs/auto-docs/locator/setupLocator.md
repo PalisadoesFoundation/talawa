@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  setupLocator function
+
+
+setupLocator
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # setupLocator function
@@ -43,3 +61,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

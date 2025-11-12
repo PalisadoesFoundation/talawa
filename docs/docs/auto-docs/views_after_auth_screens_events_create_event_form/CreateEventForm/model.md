@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_event_form.dart](../../views_after_auth_screens_events_create_event_form/)
+3.  [CreateEventForm](../../views_after_auth_screens_events_create_event_form/CreateEventForm-class.md)
+4.  model property
+
+
+model
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # model property
@@ -40,3 +59,6 @@ final CreateEventViewModel model;
 
 
 
+
+
+ talawa 1.0.0+1 

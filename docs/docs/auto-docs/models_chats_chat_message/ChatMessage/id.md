@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/chats/chat_message.dart](../../models_chats_chat_message/)
+3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
+4.  id property
+
+
+id
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # id property
@@ -12,6 +31,10 @@ id
 
 getter/setter pair
 
+
+
+
+The unique identifier of the message.
 
 
 
@@ -40,3 +63,6 @@ String? id;
 
 
 
+
+
+ talawa 1.0.0+1 

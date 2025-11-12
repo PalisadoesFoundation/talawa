@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/quick_actions.dart](../../constants_quick_actions/)
+3.  [ShortCutMenu](../../constants_quick_actions/ShortCutMenu-class.md)
+4.  quickActionsList property
+
+
+quickActionsList
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # quickActionsList property
@@ -6,7 +25,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)
 quickActionsList
 
 
@@ -44,3 +63,6 @@ static final quickActionsList = <ShortcutItem>[
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/video_widget.dart](../../widgets_video_widget/)
+3.  [VideoWidget](../../widgets_video_widget/VideoWidget-class.md)
+4.  VideoWidget.new const constructor
+
+
+VideoWidget.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # VideoWidget constructor
@@ -25,7 +44,7 @@ const ;
 1.  [talawa](../../index.md)
 2.  [video_widget](../../widgets_video_widget/)
 3.  [VideoWidget](../../widgets_video_widget/VideoWidget-class.md)
-4.  VideoWidget const constructor
+4.  VideoWidget.new const constructor
 
 ##### VideoWidget class
 
@@ -35,3 +54,6 @@ const ;
 
 
 
+
+
+ talawa 1.0.0+1 

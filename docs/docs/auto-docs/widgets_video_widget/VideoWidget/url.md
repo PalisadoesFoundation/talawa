@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/video_widget.dart](../../widgets_video_widget/)
+3.  [VideoWidget](../../widgets_video_widget/VideoWidget-class.md)
+4.  url property
+
+
+url
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # url property
@@ -46,3 +65,6 @@ final String url;
 
 
 
+
+
+ talawa 1.0.0+1 

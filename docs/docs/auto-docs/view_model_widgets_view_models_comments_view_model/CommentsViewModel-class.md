@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/widgets_view_models/comments_view_model.dart](../view_model_widgets_view_models_comments_view_model/)
+3.  CommentsViewModel class
+
+
+CommentsViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CommentsViewModel class
@@ -54,10 +72,23 @@ Inheritance
     no setterinherited
     :::
 
+[[hasNextPage](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/hasNextPage.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+:   This function is used to get if there is a next page of comments
+    available.
+    ::: features
+    no setter
+    :::
+
 [[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
     no setterinherited
+    :::
+
+[[pageInfo](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/pageInfo.md)] [↔ [PageInfo](../models_page_info_page_info/PageInfo-class.md)]
+:   page Info of the current comments.
+    ::: features
+    getter/setter pair
     :::
 
 [[postId](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/postId.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -103,6 +134,9 @@ Inheritance
     ::: features
     inherited
     :::
+
+[[fetchNextPage](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/fetchNextPage.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+:   This function is used to fetch next page of comments if available.
 
 [[getComments](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/getComments.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function is used to get all comments on the post.
@@ -169,3 +203,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

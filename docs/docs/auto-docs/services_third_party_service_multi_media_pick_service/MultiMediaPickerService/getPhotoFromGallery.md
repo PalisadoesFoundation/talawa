@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/third_party_service/multi_media_pick_service.dart](../../services_third_party_service_multi_media_pick_service/)
+3.  [MultiMediaPickerService](../../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.md)
+4.  getPhotoFromGallery method
+
+
+getPhotoFromGallery
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getPhotoFromGallery method
@@ -53,3 +72,6 @@ Future<File?>  async
 
 
 
+
+
+ talawa 1.0.0+1 

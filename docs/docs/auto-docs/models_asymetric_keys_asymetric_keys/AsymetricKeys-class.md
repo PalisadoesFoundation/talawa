@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/asymetric_keys/asymetric_keys.dart](../models_asymetric_keys_asymetric_keys/)
+3.  AsymetricKeys class
+
+
+AsymetricKeys
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AsymetricKeys class
@@ -19,14 +37,14 @@ Inheritance
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         7)
 
 
 
 ## Constructors
 
-[[AsymetricKeys](../models_asymetric_keys_asymetric_keys/AsymetricKeys/AsymetricKeys.md)][]
+[AsymetricKeys](../models_asymetric_keys_asymetric_keys/AsymetricKeys/AsymetricKeys.md)]
 
 :   
 
@@ -60,7 +78,7 @@ Annotations
     no setterinherited
     :::
 
-[[keyPair](../models_asymetric_keys_asymetric_keys/AsymetricKeys/keyPair.md)] [→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)], [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]
+[[keyPair](../models_asymetric_keys_asymetric_keys/AsymetricKeys/keyPair.md)] → dynamic
 :   The key pair to work with.
     ::: features
     final
@@ -128,3 +146,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

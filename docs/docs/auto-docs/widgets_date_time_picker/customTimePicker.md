@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [widgets/date_time_picker.dart](../widgets_date_time_picker/)
+3.  customTimePicker function
+
+
+customTimePicker
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # customTimePicker function
@@ -43,3 +61,6 @@ Future<TimeOfDay>  async
 
 
 
+
+
+ talawa 1.0.0+1 

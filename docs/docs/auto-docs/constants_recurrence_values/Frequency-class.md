@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
+3.  Frequency class
+
+
+Frequency
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Frequency class
@@ -92,3 +110,6 @@ Class containing constants for frequency options.
 
 
 
+
+
+ talawa 1.0.0+1 

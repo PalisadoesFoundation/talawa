@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/feed/pinned_post_screen.dart](../../views_after_auth_screens_feed_pinned_post_screen/)
+3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)
+4.  post property
+
+
+post
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # post property
@@ -6,9 +25,7 @@
 </div>
 
 
-[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]
-post
+[Post](../../models_post_post_model/Post-class.md) post
 
 
 final
@@ -23,7 +40,7 @@ Contains the data of the post.
 ## Implementation
 
 ``` language-dart
-final Map<String, String> post;
+final Post post;
 ```
 
 
@@ -45,3 +62,6 @@ final Map<String, String> post;
 
 
 
+
+
+ talawa 1.0.0+1 

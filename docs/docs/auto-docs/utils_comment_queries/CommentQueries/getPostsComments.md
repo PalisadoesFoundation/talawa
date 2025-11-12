@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/comment_queries.dart](../../utils_comment_queries/)
+3.  [CommentQueries](../../utils_comment_queries/CommentQueries-class.md)
+4.  getPostsComments method
+
+
+getPostsComments
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getPostsComments method
@@ -7,20 +26,13 @@
 
 
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-getPostsComments(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
-    postId]
-
-)
 
 
 
 Get all comments for a post.
 
-**params**:
-
--   `postId`: The id of the post to get comments for.
+**params**: None
 
 **returns**:
 
@@ -31,7 +43,7 @@ Get all comments for a post.
 ## Implementation
 
 ``` language-dart
-String getPostsComments(String postId) 
+String  
 ```
 
 
@@ -53,3 +65,6 @@ String getPostsComments(String postId)
 
 
 
+
+
+ talawa 1.0.0+1 

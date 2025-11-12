@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/access_request_view_model.dart](../view_model_access_request_view_model/)
+3.  AccessScreenViewModel class
+
+
+AccessScreenViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AccessScreenViewModel class
@@ -168,3 +186,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

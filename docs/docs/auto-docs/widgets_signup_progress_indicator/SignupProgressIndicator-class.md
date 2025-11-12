@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [widgets/signup_progress_indicator.dart](../widgets_signup_progress_indicator/)
+3.  SignupProgressIndicator class
+
+
+SignupProgressIndicator
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # SignupProgressIndicator class
@@ -30,10 +48,6 @@ Inheritance
     -   [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
     -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
     -   SignupProgressIndicator
-
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
 
 
 
@@ -80,21 +94,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[build](../widgets_signup_progress_indicator/SignupProgressIndicator/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
@@ -190,3 +189,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

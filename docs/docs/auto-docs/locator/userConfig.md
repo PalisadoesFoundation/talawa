@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  userConfig property
+
+
+userConfig
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # userConfig top-level property
@@ -43,3 +61,6 @@ final userConfig = locator<UserConfig>;
 
 
 
+
+
+ talawa 1.0.0+1 

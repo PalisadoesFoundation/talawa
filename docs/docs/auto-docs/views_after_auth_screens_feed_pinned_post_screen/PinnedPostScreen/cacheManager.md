@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/feed/pinned_post_screen.dart](../../views_after_auth_screens_feed_pinned_post_screen/)
+3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)
+4.  cacheManager property
+
+
+cacheManager
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # cacheManager property
@@ -6,8 +25,7 @@
 </div>
 
 
-[BaseCacheManager](https://pub.dev/documentation/flutter_cache_manager/3.4.1/flutter_cache_manager/BaseCacheManager-class.html)?
-cacheManager
+dynamic cacheManager
 
 
 final
@@ -44,3 +62,6 @@ final BaseCacheManager? cacheManager;
 
 
 
+
+
+ talawa 1.0.0+1 

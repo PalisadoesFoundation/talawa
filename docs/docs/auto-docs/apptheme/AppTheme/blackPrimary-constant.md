@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [apptheme.dart](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  blackPrimary constant
+
+
+blackPrimary
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # blackPrimary constant
@@ -6,7 +25,7 @@
 </div>
 
 
-[Color](https://api.flutter.dev/flutter/painting/Color-class.html) const
+[Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html) const
 blackPrimary
 
 
@@ -40,3 +59,6 @@ static const Color blackPrimary = Color(0xFF3E3E3E);
 
 
 
+
+
+ talawa 1.0.0+1 

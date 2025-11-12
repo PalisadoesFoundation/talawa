@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/venue_card.dart](../../widgets_venue_card/)
+3.  [VenueCard](../../widgets_venue_card/VenueCard-class.md)
+4.  venue property
+
+
+venue
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # venue property
@@ -43,3 +62,6 @@ final Venue venue;
 
 
 
+
+
+ talawa 1.0.0+1 

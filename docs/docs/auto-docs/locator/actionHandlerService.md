@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  actionHandlerService property
+
+
+actionHandlerService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # actionHandlerService top-level property
@@ -43,3 +61,6 @@ final actionHandlerService = locator<ActionHandlerService>;
 
 
 
+
+
+ talawa 1.0.0+1 

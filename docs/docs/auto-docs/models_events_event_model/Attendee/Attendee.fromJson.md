@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [Attendee](../../models_events_event_model/Attendee-class.md)
+4.  Attendee.fromJson constructor
+
+
+Attendee.fromJson
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Attendee.fromJson constructor
@@ -41,3 +60,6 @@ Attendee.fromJson(Map<String, dynamic> json)
 
 
 
+
+
+ talawa 1.0.0+1 

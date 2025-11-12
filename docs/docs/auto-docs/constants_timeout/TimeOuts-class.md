@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/timeout.dart](../constants_timeout/)
+3.  TimeOuts class
+
+
+TimeOuts
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # TimeOuts class
@@ -89,3 +107,6 @@ Class to define constant timeout to bring consistency in the code.
 
 
 
+
+
+ talawa 1.0.0+1 

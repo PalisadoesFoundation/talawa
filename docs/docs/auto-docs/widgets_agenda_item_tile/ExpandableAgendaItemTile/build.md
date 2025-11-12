@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/agenda_item_tile.dart](../../widgets_agenda_item_tile/)
+3.  [ExpandableAgendaItemTile](../../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

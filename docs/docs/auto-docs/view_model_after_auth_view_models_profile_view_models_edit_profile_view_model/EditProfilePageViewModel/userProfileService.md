@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
+3.  [EditProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class.md)
+4.  userProfileService property
+
+
+userProfileService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # userProfileService property
@@ -44,3 +63,6 @@ final userProfileService = locator<UserProfileService>;
 
 
 
+
+
+ talawa 1.0.0+1 

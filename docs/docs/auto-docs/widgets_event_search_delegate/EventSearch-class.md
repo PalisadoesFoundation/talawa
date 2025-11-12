@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [widgets/event_search_delegate.dart](../widgets_event_search_delegate/)
+3.  EventSearch class
+
+
+EventSearch
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # EventSearch class
@@ -48,14 +66,14 @@ Inheritance
     :::
 
 [[eventList](../widgets_event_search_delegate/EventSearch/eventList.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]
-
-:   ::: features
+:   List of events.
+    ::: features
     final
     :::
 
 [[exploreEventsViewModel](../widgets_event_search_delegate/EventSearch/exploreEventsViewModel.md)] [↔ [ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)]
-
-:   ::: features
+:   The model that contains the logic for exploring events.
+    ::: features
     getter/setter pair
     :::
 
@@ -180,8 +198,7 @@ Inheritance
     :::
 
 [[buildSuggestionsSucess](../widgets_event_search_delegate/EventSearch/buildSuggestionsSucess.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[Event](../models_events_event_model/Event-class.md)]\>]] suggestions]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
-
-:   
+:   Builds the suggestion success widget.
 
 [[close](https://api.flutter.dev/flutter/material/SearchDelegate/close.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context, ][[[Event](../models_events_event_model/Event-class.md)] result]) → void ]
 :   Closes the search page and returns to the underlying route.
@@ -255,3 +272,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

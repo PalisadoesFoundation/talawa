@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/org_service.dart](../../services_org_service/)
+3.  [OrganizationService](../../services_org_service/OrganizationService-class.md)
+4.  getOrgMembersList method
+
+
+getOrgMembersList
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getOrgMembersList method
@@ -54,3 +73,6 @@ Future<List<User>> getOrgMembersList(String orgId) async
 
 
 
+
+
+ talawa 1.0.0+1 

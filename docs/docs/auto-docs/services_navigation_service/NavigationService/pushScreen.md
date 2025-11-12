@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  pushScreen method
+
+
+pushScreen
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # pushScreen method
@@ -52,3 +71,6 @@ Future<dynamic> pushScreen(String routeName, )
 
 
 
+
+
+ talawa 1.0.0+1 

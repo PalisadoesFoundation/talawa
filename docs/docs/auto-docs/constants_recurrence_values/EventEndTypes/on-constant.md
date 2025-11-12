@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [EventEndTypes](../../constants_recurrence_values/EventEndTypes-class.md)
+4.  on constant
+
+
+on
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # on constant
@@ -40,3 +59,6 @@ static const on = 'on';
 
 
 
+
+
+ talawa 1.0.0+1 

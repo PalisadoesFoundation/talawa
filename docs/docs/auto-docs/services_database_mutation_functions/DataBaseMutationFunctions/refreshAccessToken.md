@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/database_mutation_functions.dart](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  refreshAccessToken method
+
+
+refreshAccessToken
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # refreshAccessToken method
@@ -54,3 +73,6 @@ Future<bool> refreshAccessToken(String refreshToken) async
 
 
 
+
+
+ talawa 1.0.0+1 

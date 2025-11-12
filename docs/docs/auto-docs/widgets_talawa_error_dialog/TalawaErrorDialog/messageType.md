@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/talawa_error_dialog.dart](../../widgets_talawa_error_dialog/)
+3.  [TalawaErrorDialog](../../widgets_talawa_error_dialog/TalawaErrorDialog-class.md)
+4.  messageType property
+
+
+messageType
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # messageType property
@@ -43,3 +62,6 @@ final MessageType messageType;
 
 
 
+
+
+ talawa 1.0.0+1 

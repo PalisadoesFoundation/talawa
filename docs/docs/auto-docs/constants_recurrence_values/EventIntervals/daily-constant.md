@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [EventIntervals](../../constants_recurrence_values/EventIntervals-class.md)
+4.  daily constant
+
+
+daily
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # daily constant
@@ -40,3 +59,6 @@ static const daily = 'day';
 
 
 
+
+
+ talawa 1.0.0+1 

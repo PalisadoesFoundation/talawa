@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [custom_painters/language_icon.dart](../../custom_painters_language_icon/)
+3.  [LanguageIcon](../../custom_painters_language_icon/LanguageIcon-class.md)
+4.  shouldRepaint method
+
+
+shouldRepaint
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # shouldRepaint method
@@ -94,3 +113,6 @@ bool shouldRepaint(covariant CustomPainter oldDelegate)
 
 
 
+
+
+ talawa 1.0.0+1 

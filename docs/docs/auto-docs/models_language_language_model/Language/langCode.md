@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/language/language_model.dart](../../models_language_language_model/)
+3.  [Language](../../models_language_language_model/Language-class.md)
+4.  langCode property
+
+
+langCode
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # langCode property
@@ -40,3 +59,6 @@ final String langCode;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/validators.dart](../../utils_validators/)
+3.  [Validator](../../utils_validators/Validator-class.md)
+4.  validateEventTime static method
+
+
+validateEventTime
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # validateEventTime static method
@@ -56,3 +75,6 @@ static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime)
 
 
 
+
+
+ talawa 1.0.0+1 

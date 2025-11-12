@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/edit_agenda_item_page.dart](../../views_after_auth_screens_events_edit_agenda_item_page/)
+3.  [EditAgendaItemPage](../../views_after_auth_screens_events_edit_agenda_item_page/EditAgendaItemPage-class.md)
+4.  agendaItem property
+
+
+agendaItem
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # agendaItem property
@@ -44,3 +63,6 @@ final EventAgendaItem agendaItem;
 
 
 
+
+
+ talawa 1.0.0+1 

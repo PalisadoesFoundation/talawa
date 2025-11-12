@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/chats/chat_user.dart](../../models_chats_chat_user/)
+3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
+4.  ChatUser.fromJson factory constructor
+
+
+ChatUser.fromJson
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatUser.fromJson constructor
@@ -16,11 +35,25 @@ ChatUser.fromJson(
 
 
 
+Creates a `ChatUser` instance from a JSON object.
+
+The `json` parameter is a map containing the user data. Handles the new
+PostgreSQL API format with \'name\' and \'avatarURL\' fields.
+
+**params**:
+
+-   `json`: Map containing user data from API
+
+**returns**:
+
+-   `ChatUser`: Parsed chat user instance
+
+
+
 ## Implementation
 
 ``` language-dart
-factory ChatUser.fromJson(Map<String, dynamic> json) =>
-    _$ChatUserFromJson(json);
+factory ChatUser.fromJson(Map<String, dynamic> json) 
 ```
 
 
@@ -42,3 +75,6 @@ factory ChatUser.fromJson(Map<String, dynamic> json) =>
 
 
 
+
+
+ talawa 1.0.0+1 

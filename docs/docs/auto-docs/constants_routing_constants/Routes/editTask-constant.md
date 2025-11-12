@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/routing_constants.dart](../../constants_routing_constants/)
+3.  [Routes](../../constants_routing_constants/Routes-class.md)
+4.  editTask constant
+
+
+editTask
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # editTask constant
@@ -40,3 +59,6 @@ static const String editTask = '/editTask';
 
 
 
+
+
+ talawa 1.0.0+1 

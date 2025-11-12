@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/chat/widgets/chat_message_bubble.dart](../../views_after_auth_screens_chat_widgets_chat_message_bubble/)
+3.  [Message](../../views_after_auth_screens_chat_widgets_chat_message_bubble/Message-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

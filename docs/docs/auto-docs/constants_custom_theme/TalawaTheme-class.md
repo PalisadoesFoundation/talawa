@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/custom_theme.dart](../constants_custom_theme/)
+3.  TalawaTheme class
+
+
+TalawaTheme
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # TalawaTheme class
@@ -96,3 +114,6 @@ themes.
 
 
 
+
+
+ talawa 1.0.0+1 

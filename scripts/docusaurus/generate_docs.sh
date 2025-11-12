@@ -1,27 +1,31 @@
 #!/bin/bash
+# ============================================
+# Generate and clean documentation (GLOBAL dartdoc)
+# ============================================
 
-# Run the Flutter command to generate the docs
-echo "Generating Flutter documentation..."
-flutter pub global run dartdoc --output docs/docs/auto-docs lib
+echo "Cleaning old docs..."
+rm -rf docs/docs/auto-docs
 
-# Convert HTML files to Markdown
+echo "Generating Dart documentation using global dartdoc..."
+# Use globally installed dartdoc instead of local pub run
+dartdoc --output docs/docs/auto-docs --exclude-packages=test,build
+
+# Check if dartdoc succeeded
+if [ $? -ne 0 ]; then
+  echo "❌ Dartdoc generation failed. Please check errors above."
+  exit 1
+fi
+
 echo "Converting HTML files to Markdown..."
 find docs/docs/auto-docs -type f -name "*.html" | while read file; do
   output_dir="$(dirname "$file")"
-  mkdir -p "$output_dir"
-
-  # Ensure filename case is preserved
   filename=$(basename "$file" .html)
-
-  # Convert HTML to Markdown using pandoc
   pandoc -f html -t markdown -o "$output_dir/$filename.md" "$file"
-
-  # Delete the original HTML file after conversion
   rm "$file"
 done
 
-# Fix the markdown using the Python scripts
-echo "Fixing markdown..."
-python scripts/docusaurus/fix_markdown.py
+echo "Cleaning markdown..."
+python3 scripts/docusaurus/fix_markdown.py
 
-echo "Documentation generation completed."
+echo "✅ Documentation generated and cleaned successfully!"
+

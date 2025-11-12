@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [apptheme.dart](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  title property
+
+
+title
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # title property
@@ -50,3 +69,6 @@ static TextStyle title = const TextStyle(
 
 
 
+
+
+ talawa 1.0.0+1 

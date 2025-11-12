@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/event_date_time_tile.dart](../../widgets_event_date_time_tile/)
+3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.md)
+4.  time property
+
+
+time
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # time property
@@ -44,3 +63,6 @@ final String time;
 
 
 
+
+
+ talawa 1.0.0+1 

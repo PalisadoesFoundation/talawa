@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/chat/widgets/chat_input_field.dart](../../views_after_auth_screens_chat_widgets_chat_input_field/)
+3.  [ChatInputField](../../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -76,3 +95,6 @@ State<ChatInputField>  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

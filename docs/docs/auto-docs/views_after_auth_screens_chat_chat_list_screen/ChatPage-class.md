@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [views/after_auth_screens/chat/chat_list_screen.dart](../views_after_auth_screens_chat_chat_list_screen/)
+3.  ChatPage class
+
+
+ChatPage
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatPage class
@@ -6,9 +24,7 @@
 </div>
 
 
-ChatPage returns a stateless widget.
-
-That renders a list of users with whom the current user has chatted.
+This returns a widget for the page to chat with the selected contact.
 
 
 
@@ -18,20 +34,16 @@ Inheritance
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
     -   [DiagnosticableTree](https://api.flutter.dev/flutter/foundation/DiagnosticableTree-class.html)
     -   [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
+    -   [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
     -   ChatPage
-
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
 
 
 
 ## Constructors
 
 [[ChatPage](../views_after_auth_screens_chat_chat_list_screen/ChatPage/ChatPage.md)][]
-
-:   ::: 
+:   Creates a ChatPage widget.
+    ::: 
     const
     :::
 
@@ -61,33 +73,19 @@ Available extensions
 
 ## Methods
 
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
-
-[[build](../views_after_auth_screens_chat_chat_list_screen/ChatPage/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
-:   Describes the part of the user interface represented by this widget.
-    ::: features
-    override
-    :::
-
-[[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)][ [→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)] ]
+[[createElement](https://api.flutter.dev/flutter/widgets/StatefulWidget/createElement.html)][ [→ [StatefulElement](https://api.flutter.dev/flutter/widgets/StatefulElement-class.html)] ]
 :   Creates a
-    [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)
+    [StatefulElement](https://api.flutter.dev/flutter/widgets/StatefulElement-class.html)
     to manage this widget\'s location in the tree.
     ::: features
     inherited
+    :::
+
+[[createState](../views_after_auth_screens_chat_chat_list_screen/ChatPage/createState.md)][ [→ [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[ChatPage](../views_after_auth_screens_chat_chat_list_screen/ChatPage-class.md)]\>]] ]
+:   Creates the mutable state for this widget at a given location in the
+    tree.
+    ::: features
+    override
     :::
 
 [[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)][ [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]\>]] ]
@@ -170,3 +168,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

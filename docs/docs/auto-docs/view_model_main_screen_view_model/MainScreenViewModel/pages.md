@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  pages property
+
+
+pages
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # pages property
@@ -16,8 +35,6 @@ getter/setter pair
 
 
 Contains the Widgets to be rendered for corresponding navbar items.
-
-Features that should be implemented as plugins should be kept here.
 
 
 
@@ -46,3 +63,6 @@ List<Widget> pages = [];
 
 
 
+
+
+ talawa 1.0.0+1 

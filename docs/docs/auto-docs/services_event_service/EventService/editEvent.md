@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/event_service.dart](../../services_event_service/)
+3.  [EventService](../../services_event_service/EventService-class.md)
+4.  editEvent method
+
+
+editEvent
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # editEvent method
@@ -6,7 +25,7 @@
 </div>
 
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 
 
 
@@ -51,3 +70,6 @@ Future<QueryResult<Object?>>  async
 
 
 
+
+
+ talawa 1.0.0+1 

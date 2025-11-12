@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/app_settings/app_settings_page.dart](../../views_after_auth_screens_app_settings_app_settings_page/)
+3.  [AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -76,3 +95,6 @@ State<AppSettingsPage>  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/pre_auth_screens/recover.dart](../../views_pre_auth_screens_recover/)
+3.  [Recover](../../views_pre_auth_screens_recover/Recover-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _RecoverState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

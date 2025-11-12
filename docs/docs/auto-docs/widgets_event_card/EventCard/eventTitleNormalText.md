@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/event_card.dart](../../widgets_event_card/)
+3.  [EventCard](../../widgets_event_card/EventCard-class.md)
+4.  eventTitleNormalText property
+
+
+eventTitleNormalText
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # eventTitleNormalText property
@@ -44,3 +63,6 @@ final String? eventTitleNormalText;
 
 
 
+
+
+ talawa 1.0.0+1 

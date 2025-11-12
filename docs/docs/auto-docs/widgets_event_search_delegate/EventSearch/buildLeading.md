@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
+3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
+4.  buildLeading method
+
+
+buildLeading
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # buildLeading method
@@ -77,3 +96,6 @@ Widget buildLeading(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

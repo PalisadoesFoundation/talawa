@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/quick_actions.dart](../../constants_quick_actions/)
+3.  [ShortCutMenu](../../constants_quick_actions/ShortCutMenu-class.md)
+4.  eventAction constant
+
+
+eventAction
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # eventAction constant
@@ -6,8 +25,7 @@
 </div>
 
 
-[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)
-const eventAction
+dynamic const eventAction
 
 
 
@@ -40,3 +58,6 @@ static const eventAction = ShortcutItem(
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
+3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
+4.  invite method
+
+
+invite
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # invite method
@@ -50,3 +69,6 @@ void invite(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

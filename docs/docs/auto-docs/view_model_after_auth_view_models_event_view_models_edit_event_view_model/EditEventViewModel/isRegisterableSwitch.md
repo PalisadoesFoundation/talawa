@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
+3.  [EditEventViewModel](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.md)
+4.  isRegisterableSwitch property
+
+
+isRegisterableSwitch
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isRegisterableSwitch property
@@ -45,3 +64,6 @@ bool isRegisterableSwitch = false;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/chats/chat_message.dart](../../models_chats_chat_message/)
+3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
+4.  ChatMessage.fromJson factory constructor
+
+
+ChatMessage.fromJson
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatMessage.fromJson constructor
@@ -16,11 +35,24 @@ ChatMessage.fromJson(
 
 
 
+Creates a `ChatMessage` instance from a JSON object.
+
+The `json` parameter is a map containing the message data from the API.
+
+**params**:
+
+-   `json`: JSON data from API containing message information
+
+**returns**:
+
+-   `ChatMessage`: Parsed chat message instance
+
+
+
 ## Implementation
 
 ``` language-dart
-factory ChatMessage.fromJson(Map<String, dynamic> json) =>
-    _$ChatMessageFromJson(json);
+factory ChatMessage.fromJson(Map<String, dynamic> json) 
 ```
 
 
@@ -42,3 +74,6 @@ factory ChatMessage.fromJson(Map<String, dynamic> json) =>
 
 
 
+
+
+ talawa 1.0.0+1 

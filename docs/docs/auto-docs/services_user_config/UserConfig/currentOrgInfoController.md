@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/user_config.dart](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  currentOrgInfoController property
+
+
+currentOrgInfoController
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # currentOrgInfoController property
@@ -43,3 +62,6 @@ StreamController<OrgInfo> get currentOrgInfoController =>
 
 
 
+
+
+ talawa 1.0.0+1 

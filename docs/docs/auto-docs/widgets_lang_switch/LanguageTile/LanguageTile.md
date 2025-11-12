@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/lang_switch.dart](../../widgets_lang_switch/)
+3.  [LanguageTile](../../widgets_lang_switch/LanguageTile-class.md)
+4.  LanguageTile.new const constructor
+
+
+LanguageTile.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # LanguageTile constructor
@@ -25,7 +44,7 @@ const ;
 1.  [talawa](../../index.md)
 2.  [lang_switch](../../widgets_lang_switch/)
 3.  [LanguageTile](../../widgets_lang_switch/LanguageTile-class.md)
-4.  LanguageTile const constructor
+4.  LanguageTile.new const constructor
 
 ##### LanguageTile class
 
@@ -35,3 +54,6 @@ const ;
 
 
 
+
+
+ talawa 1.0.0+1 

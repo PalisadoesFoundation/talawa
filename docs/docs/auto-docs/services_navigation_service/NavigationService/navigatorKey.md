@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  navigatorKey property
+
+
+navigatorKey
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # navigatorKey property
@@ -44,3 +63,6 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>;
 
 
 
+
+
+ talawa 1.0.0+1 

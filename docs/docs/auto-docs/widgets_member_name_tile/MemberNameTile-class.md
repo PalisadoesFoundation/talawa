@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [widgets/member_name_tile.dart](../widgets_member_name_tile/)
+3.  MemberNameTile class
+
+
+MemberNameTile
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # MemberNameTile class
@@ -22,10 +40,6 @@ Inheritance
     -   [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
     -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
     -   MemberNameTile
-
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
 
 
 
@@ -80,21 +94,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[build](../widgets_member_name_tile/MemberNameTile/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
@@ -190,3 +189,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [widgets/invite_child.dart](../widgets_invite_child/)
+3.  invite function
+
+
+invite
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # invite function
@@ -55,3 +73,6 @@ Widget invite(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

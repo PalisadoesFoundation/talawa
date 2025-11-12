@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/language/language_model.dart](../models_language_language_model/)
+3.  Language class
+
+
+Language
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Language class
@@ -100,3 +118,6 @@ This class creates an langauge model.
 
 
 
+
+
+ talawa 1.0.0+1 

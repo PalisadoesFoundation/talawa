@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the encounteredExceptionOrError method from the GraphqlExceptionResolver class, for the Dart programming language.">
+  <title>encounteredExceptionOrError method - GraphqlExceptionResolver class - graphql_exception_resolver library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../exceptions_graphql_exception_resolver/">exceptions&#47;graphql_exception_resolver.dart</a></li>
+    <li><a href="../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.html">GraphqlExceptionResolver</a></li>
+    <li class="self-crumb">encounteredExceptionOrError static method</li>
+  </ol>
+  <div class="self-name">encounteredExceptionOrError</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="exceptions_graphql_exception_resolver&#47;GraphqlExceptionResolver-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">encounteredExceptionOrError</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span>
+<span class="name ">encounteredExceptionOrError</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="encounteredExceptionOrError-param-exception"><span class="type-annotation"><a href="https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException-class.html">OperationException</a></span> <span class="parameter-name">exception</span>, {</span></li>
+<li><span class="parameter" id="encounteredExceptionOrError-param-showSnackBar"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">showSnackBar</span> = <span class="default-value">true</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>This function is used to check if any exceptions or error encountered. The return type is <code>boolean</code>.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>exception</code>: OperationException which occur when calling for graphql post request</li>
+<li><code>showSnackBar</code>: Tell if the the place where this function is called wants a SnackBar on error</li>
+</ul>
+<p><strong>returns</strong>:</p>
+<ul>
+<li><code>bool?</code>: returns a bool whether or not their is error, can be null</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static bool? encounteredExceptionOrError(
+  OperationException exception, {
+  bool showSnackBar = true,
+}) {
+  &#47;&#47; If server link is wrong.
+  if (exception.linkException != null) {
+    debugPrint(exception.linkException.toString());
+    if (showSnackBar) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) =&gt; navigationService.showTalawaErrorSnackBar(
+          &quot;Server not running&#47;wrong url&quot;,
+          MessageType.info,
+        ),
+      );
+    }
+    return false;
+  }
+
+  if (exception is CriticalActionException) {
+    debugPrint(exception.toString());
+    if (showSnackBar) {
+      navigationService.showCustomToast(exception.actionError);
+    }
+    return false;
+  }
+
+  &#47;&#47;&#47; Looping through graphQL errors.
+  debugPrint(exception.graphqlErrors.toString());
+  for (int i = 0; i &lt; exception.graphqlErrors.length; i++) {
+    &#47;&#47; if the error message is &quot;Access Token has expired. Please refresh session.: Undefined location&quot;
+    if (exception.graphqlErrors[i].message ==
+        refreshAccessTokenExpiredException.message) {
+      print(&#39;token refreshed&#39;);
+      databaseFunctions
+          .refreshAccessToken(userConfig.currentUser.refreshToken!)
+          .then(
+            (value) =&gt; graphqlConfig
+                .getToken()
+                .then((value) =&gt; databaseFunctions.init()),
+          );
+      print(&#39;client refreshed&#39;);
+      return true;
+    }
+
+    &#47;&#47;&#47; If the error message is &quot;User is not authenticated&quot;
+    if (exception.graphqlErrors[i].message == userNotAuthenticated.message) {
+      print(&#39;client refreshed&#39;);
+      databaseFunctions
+          .refreshAccessToken(userConfig.currentUser.refreshToken!)
+          .then(
+            (value) =&gt; graphqlConfig
+                .getToken()
+                .then((value) =&gt; databaseFunctions.init()),
+          );
+      return true;
+    }
+
+    &#47;&#47;&#47; If the error message is &quot;User not found&quot;
+    if (exception.graphqlErrors[i].message == userNotFound.message) {
+      print(showSnackBar);
+      if (showSnackBar) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) =&gt; navigationService.showTalawaErrorDialog(
+            &quot;No account registered with this email&quot;,
+            MessageType.error,
+          ),
+        );
+      }
+      return false;
+    }
+
+    &#47;&#47;&#47; If the error message is &quot;Membership Request already exists&quot;
+    if (exception.graphqlErrors[i].message == memberRequestExist.message) {
+      if (showSnackBar) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) =&gt; navigationService.showTalawaErrorDialog(
+            &quot;Membership request already exist&quot;,
+            MessageType.error,
+          ),
+        );
+      }
+      return false;
+    }
+
+    &#47;&#47;&#47; If the error message is &quot;Invalid credentials&quot;
+    if (exception.graphqlErrors[i].message == wrongCredentials.message) {
+      if (showSnackBar) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) =&gt; navigationService.showTalawaErrorDialog(
+            &quot;Enter a valid password&quot;,
+            MessageType.error,
+          ),
+        );
+      }
+      return false;
+    }
+
+    &#47;&#47;&#47; If the error message is &quot;Organization not found&quot;
+    if (exception.graphqlErrors[i].message == organizationNotFound.message) {
+      if (showSnackBar) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) =&gt; navigationService.showTalawaErrorDialog(
+            &quot;Organization Not Found&quot;,
+            MessageType.error,
+          ),
+        );
+      }
+      return false;
+    }
+
+    &#47;&#47;&#47; If the error message is &quot;Email address already exists&quot;
+    if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
+      if (showSnackBar) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) =&gt; navigationService.showTalawaErrorDialog(
+            &quot;Account with this email already registered&quot;,
+            MessageType.error,
+          ),
+        );
+      }
+      return false;
+    }
+  }
+  &#47;&#47; If the error is unknown
+  WidgetsBinding.instance.addPostFrameCallback(
+    (_) =&gt; navigationService.showTalawaErrorDialog(
+      &quot;Something went wrong!&quot;,
+      MessageType.error,
+    ),
+  );
+  return false;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../exceptions_graphql_exception_resolver/">graphql_exception_resolver</a></li>
+    <li><a href="../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.html">GraphqlExceptionResolver</a></li>
+    <li class="self-crumb">encounteredExceptionOrError static method</li>
+</ol>
+
+    <h5>GraphqlExceptionResolver class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

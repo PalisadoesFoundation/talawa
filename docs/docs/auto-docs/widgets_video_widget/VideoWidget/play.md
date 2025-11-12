@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/video_widget.dart](../../widgets_video_widget/)
+3.  [VideoWidget](../../widgets_video_widget/VideoWidget-class.md)
+4.  play property
+
+
+play
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # play property
@@ -44,3 +63,6 @@ final bool play;
 
 
 
+
+
+ talawa 1.0.0+1 

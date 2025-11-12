@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/post_service.dart](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  first property
+
+
+first
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # first property
@@ -12,6 +31,11 @@ first
 
 getter/setter pair
 
+
+
+
+`first` is used to limit the number of posts fetched in a single
+request.
 
 
 
@@ -40,3 +64,6 @@ int? first = 5;
 
 
 
+
+
+ talawa 1.0.0+1 

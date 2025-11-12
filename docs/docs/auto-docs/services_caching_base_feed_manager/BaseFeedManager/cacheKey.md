@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/caching/base_feed_manager.dart](../../services_caching_base_feed_manager/)
+3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.md)
+4.  cacheKey property
+
+
+cacheKey
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # cacheKey property
@@ -44,3 +63,6 @@ final String cacheKey;
 
 
 
+
+
+ talawa 1.0.0+1 

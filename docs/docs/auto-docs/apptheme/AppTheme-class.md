@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [apptheme.dart](../apptheme/)
+3.  AppTheme class
+
+
+AppTheme
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AppTheme class
@@ -150,46 +168,46 @@ Apptheme class.
 
 ## Constants
 
-[[blackPrimary](../apptheme/AppTheme/blackPrimary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[blackPrimary](../apptheme/AppTheme/blackPrimary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[blackSecondary](../apptheme/AppTheme/blackSecondary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[blackSecondary](../apptheme/AppTheme/blackSecondary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[blackTertiary](../apptheme/AppTheme/blackTertiary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[blackTertiary](../apptheme/AppTheme/blackTertiary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[blue](../apptheme/AppTheme/blue-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[blue](../apptheme/AppTheme/blue-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[green](../apptheme/AppTheme/green-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[green](../apptheme/AppTheme/green-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[grey](../apptheme/AppTheme/grey-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[grey](../apptheme/AppTheme/grey-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[lightGrey](../apptheme/AppTheme/lightGrey-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[lightGrey](../apptheme/AppTheme/lightGrey-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[primary](../apptheme/AppTheme/primary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[primary](../apptheme/AppTheme/primary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Colors.
 
-[[red](../apptheme/AppTheme/red-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[red](../apptheme/AppTheme/red-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[secondary](../apptheme/AppTheme/secondary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[secondary](../apptheme/AppTheme/secondary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[shadow](../apptheme/AppTheme/shadow-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[shadow](../apptheme/AppTheme/shadow-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[tertiary](../apptheme/AppTheme/tertiary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[tertiary](../apptheme/AppTheme/tertiary-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[white](../apptheme/AppTheme/white-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[white](../apptheme/AppTheme/white-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
-[[yellow](../apptheme/AppTheme/yellow-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
+[[yellow](../apptheme/AppTheme/yellow-constant.md)] [→ const [Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html)]
 :   Custom colors for the app.
 
 
@@ -210,3 +228,6 @@ Apptheme class.
 
 
 
+
+
+ talawa 1.0.0+1 

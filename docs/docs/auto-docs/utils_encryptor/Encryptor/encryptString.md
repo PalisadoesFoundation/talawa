@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/encryptor.dart](../../utils_encryptor/)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
+4.  encryptString static method
+
+
+encryptString
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # encryptString static method
@@ -53,3 +72,6 @@ static String encryptString(String data)
 
 
 
+
+
+ talawa 1.0.0+1 

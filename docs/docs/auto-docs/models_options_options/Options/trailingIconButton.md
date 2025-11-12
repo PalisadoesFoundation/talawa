@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/options/options.dart](../../models_options_options/)
+3.  [Options](../../models_options_options/Options-class.md)
+4.  trailingIconButton property
+
+
+trailingIconButton
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # trailingIconButton property
@@ -40,3 +59,6 @@ IconButton? trailingIconButton;
 
 
 
+
+
+ talawa 1.0.0+1 

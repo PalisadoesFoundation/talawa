@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [exceptions/critical_action_exception.dart](../../exceptions_critical_action_exception/)
+3.  [CriticalActionException](../../exceptions_critical_action_exception/CriticalActionException-class.md)
+4.  actionError property
+
+
+actionError
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # actionError property
@@ -44,3 +63,6 @@ String actionError;
 
 
 
+
+
+ talawa 1.0.0+1 

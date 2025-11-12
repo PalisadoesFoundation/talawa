@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_volunteer_group.dart](../../models_events_event_volunteer_group/)
+3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)
+4.  leader property
+
+
+leader
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # leader property
@@ -43,3 +62,6 @@ User? leader;
 
 
 
+
+
+ talawa 1.0.0+1 

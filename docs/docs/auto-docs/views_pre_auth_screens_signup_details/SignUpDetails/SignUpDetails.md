@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/pre_auth_screens/signup_details.dart](../../views_pre_auth_screens_signup_details/)
+3.  [SignUpDetails](../../views_pre_auth_screens_signup_details/SignUpDetails-class.md)
+4.  SignUpDetails.new const constructor
+
+
+SignUpDetails.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # SignUpDetails constructor
@@ -13,7 +32,8 @@ const
 ## Implementation
 
 ``` language-dart
-const  : super(key: key);
+const 
+    : super(key: key);
 ```
 
 
@@ -25,7 +45,7 @@ const  : super(key: key);
 1.  [talawa](../../index.md)
 2.  [signup_details](../../views_pre_auth_screens_signup_details/)
 3.  [SignUpDetails](../../views_pre_auth_screens_signup_details/SignUpDetails-class.md)
-4.  SignUpDetails const constructor
+4.  SignUpDetails.new const constructor
 
 ##### SignUpDetails class
 
@@ -35,3 +55,6 @@ const  : super(key: key);
 
 
 
+
+
+ talawa 1.0.0+1 

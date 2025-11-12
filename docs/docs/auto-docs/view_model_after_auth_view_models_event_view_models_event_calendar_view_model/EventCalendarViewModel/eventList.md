@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
+3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
+4.  eventList property
+
+
+eventList
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # eventList property
@@ -42,3 +61,6 @@ List<Event> get eventList => _eventList;
 
 
 
+
+
+ talawa 1.0.0+1 

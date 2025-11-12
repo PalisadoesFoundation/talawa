@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/third_party_service/multi_media_pick_service.dart](../services_third_party_service_multi_media_pick_service/)
+3.  MultiMediaPickerService class
+
+
+MultiMediaPickerService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # MultiMediaPickerService class
@@ -97,3 +115,6 @@ Services include:
 
 
 
+
+
+ talawa 1.0.0+1 

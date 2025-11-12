@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [Event](../../models_events_event_model/Event-class.md)
+4.  endTime property
+
+
+endTime
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # endTime property
@@ -6,31 +25,23 @@
 </div>
 
 
-<div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(9)
-
-</div>
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-endTime
-
-
-getter/setter pair
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+get endTime
 
 
 
-
-The end time of the event.
+Computed property: formatted end time (e.g. \"05:00 PM\").
 
 
 
 ## Implementation
 
 ``` language-dart
-@HiveField(9)
-String? endTime;
+String get endTime =>
+    endAt != null ? DateFormat('hh:mm a').format(endAt!) : '';
 ```
+
 
 
 
@@ -51,3 +62,6 @@ String? endTime;
 
 
 
+
+
+ talawa 1.0.0+1 

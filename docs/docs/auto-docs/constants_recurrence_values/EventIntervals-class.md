@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
+3.  EventIntervals class
+
+
+EventIntervals
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # EventIntervals class
@@ -92,3 +110,6 @@ Class containing constants for event intervals.
 
 
 
+
+
+ talawa 1.0.0+1 

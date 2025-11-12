@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/chats/chat_user.dart](../../models_chats_chat_user/)
+3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
+4.  firstName property
+
+
+firstName
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # firstName property
@@ -12,6 +31,10 @@ firstName
 
 getter/setter pair
 
+
+
+
+The first name of the user.
 
 
 
@@ -40,3 +63,6 @@ String? firstName;
 
 
 
+
+
+ talawa 1.0.0+1 

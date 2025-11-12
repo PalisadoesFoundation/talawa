@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/time_conversion.dart](../utils_time_conversion/)
+3.  traverseAndConvertDates function
+
+
+traverseAndConvertDates
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # traverseAndConvertDates function
@@ -13,13 +31,13 @@ void traverseAndConvertDates(
     obj, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     convertFn(]
-    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]]
+    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?]]
 
     ),
 3.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
     splitFn(]
-    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]]
+    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?]]
 
     )
 
@@ -47,8 +65,8 @@ format.
 ``` language-dart
 void traverseAndConvertDates(
   Map<String, dynamic> obj,
-  String Function(String) convertFn,
-  Map<String, String> Function(String) splitFn,
+  String Function(String?) convertFn,
+  Map<String, String> Function(String?) splitFn,
 ) 
 ```
 
@@ -70,3 +88,6 @@ void traverseAndConvertDates(
 
 
 
+
+
+ talawa 1.0.0+1 

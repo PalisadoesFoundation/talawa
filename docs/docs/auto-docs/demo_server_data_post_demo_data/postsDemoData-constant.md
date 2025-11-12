@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [demo_server_data/post_demo_data.dart](../demo_server_data_post_demo_data/)
+3.  postsDemoData constant
+
+
+postsDemoData
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # postsDemoData top-level constant
@@ -13,7 +31,7 @@ const postsDemoData
 
 
 This file contains demo data for posts. It contains a list of type
-Map\<String, Object\> and sample data of posts.
+`Map<String, Object>` and sample data of posts.
 
 
 
@@ -46,3 +64,6 @@ const postsDemoData = [
 
 
 
+
+
+ talawa 1.0.0+1 

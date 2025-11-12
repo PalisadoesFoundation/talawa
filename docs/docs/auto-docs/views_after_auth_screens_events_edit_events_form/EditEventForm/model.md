@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/edit_events_form.dart](../../views_after_auth_screens_events_edit_events_form/)
+3.  [EditEventForm](../../views_after_auth_screens_events_edit_events_form/EditEventForm-class.md)
+4.  model property
+
+
+model
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # model property
@@ -40,3 +59,6 @@ final EditEventViewModel model;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/base_view_model.dart](../view_model_base_view_model/)
+3.  BaseModel class
+
+
+BaseModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # BaseModel class
@@ -24,7 +42,7 @@ Implementers
     -   [CommentsViewModel](../view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.md)
     -   [CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)
     -   [CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
-    -   [DemoViewModel](../main/DemoViewModel-class.md)
+    -   [DemoViewModel](../views_demo_page_view/DemoViewModel-class.md)
     -   [DirectChatViewModel](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
     -   [EditAgendaItemViewModel](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel-class.md)
     -   [EditEventViewModel](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.md)
@@ -32,7 +50,9 @@ Implementers
     -   [EventCalendarViewModel](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
     -   [EventInfoViewModel](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
     -   [ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)
-    -   [LikeButtonViewModel](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.md)
+    -   [FundViewModel](../view_model_after_auth_view_models_fund_view_model_fund_view_model/FundViewModel-class.md)
+    -   [GroupChatViewModel](../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)
+    -   [InteractionsViewModel](../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel-class.md)
     -   [LoginViewModel](../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.md)
     -   [MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)
     -   [ManageVolunteerGroupViewModel](../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class.md)
@@ -163,3 +183,6 @@ Implementers
 
 
 
+
+
+ talawa 1.0.0+1 

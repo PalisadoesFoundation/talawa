@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
+3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
+4.  AppLocalizations.new constructor
+
+
+AppLocalizations.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AppLocalizations constructor
@@ -29,7 +48,7 @@ AppLocalizations(
 1.  [talawa](../../index.md)
 2.  [app_localization](../../utils_app_localization/)
 3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
-4.  AppLocalizations constructor
+4.  AppLocalizations.new constructor
 
 ##### AppLocalizations class
 
@@ -39,3 +58,6 @@ AppLocalizations(
 
 
 
+
+
+ talawa 1.0.0+1 

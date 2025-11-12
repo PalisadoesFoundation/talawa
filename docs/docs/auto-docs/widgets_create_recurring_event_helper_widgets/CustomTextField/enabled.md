@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
+3.  [CustomTextField](../../widgets_create_recurring_event_helper_widgets/CustomTextField-class.md)
+4.  enabled property
+
+
+enabled
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # enabled property
@@ -44,3 +63,6 @@ final bool? enabled;
 
 
 
+
+
+ talawa 1.0.0+1 

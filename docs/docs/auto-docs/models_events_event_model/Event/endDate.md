@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [Event](../../models_events_event_model/Event-class.md)
+4.  endDate property
+
+
+endDate
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # endDate property
@@ -6,31 +25,23 @@
 </div>
 
 
-<div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(7)
-
-</div>
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-endDate
-
-
-getter/setter pair
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+get endDate
 
 
 
-
-The end date of the event.
+Computed property: formatted end date (e.g. \"2025-07-31\").
 
 
 
 ## Implementation
 
 ``` language-dart
-@HiveField(7)
-String? endDate;
+String? get endDate =>
+    endAt != null ? DateFormat('yyyy-MM-dd').format(endAt!) : null;
 ```
+
 
 
 
@@ -51,3 +62,6 @@ String? endDate;
 
 
 
+
+
+ talawa 1.0.0+1 

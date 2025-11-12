@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/encryptor.dart](../../utils_encryptor/)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
+4.  generateRSAKeyPair method
+
+
+generateRSAKeyPair
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # generateRSAKeyPair method
@@ -6,9 +25,7 @@
 </div>
 
 
-[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)],
-[[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]
-
+dynamic 
 
 
 
@@ -51,3 +68,6 @@ AsymmetricKeyPair<PublicKey, PrivateKey>
 
 
 
+
+
+ talawa 1.0.0+1 

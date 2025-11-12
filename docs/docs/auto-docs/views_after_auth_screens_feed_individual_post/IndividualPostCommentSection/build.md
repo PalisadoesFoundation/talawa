@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/feed/individual_post.dart](../../views_after_auth_screens_feed_individual_post/)
+3.  [IndividualPostCommentSection](../../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

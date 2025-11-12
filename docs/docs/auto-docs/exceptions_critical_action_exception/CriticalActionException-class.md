@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [exceptions/critical_action_exception.dart](../exceptions_critical_action_exception/)
+3.  CriticalActionException class
+
+
+CriticalActionException
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CriticalActionException class
@@ -9,7 +27,7 @@
 Exception thrown for critical actions that require special handling.
 
 Extends
-[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.html)
+[OperationException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException-class.html)
 to integrate with GraphQL error handling.
 
 
@@ -18,7 +36,7 @@ to integrate with GraphQL error handling.
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.html)
+    -   [OperationException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException-class.html)
     -   CriticalActionException
 
 
@@ -39,7 +57,7 @@ Inheritance
     getter/setter pair
     :::
 
-[[graphqlErrors](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/graphqlErrors.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]\>]]
+[[graphqlErrors](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/graphqlErrors.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]\>]]
 :   Any graphql errors returned from the operation
     ::: features
     getter/setter pairinherited
@@ -51,19 +69,19 @@ Inheritance
     no setterinherited
     :::
 
-[[linkException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/linkException.html)] [↔ [LinkException](https://pub.dev/documentation/gql_link/1.0.1-alpha+1705114622987/graphql_flutter/LinkException-class.html)?]
+[[linkException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/linkException.html)] [↔ [LinkException](https://pub.dev/documentation/gql_link/1.0.1-alpha+1730759315378/graphql_flutter/LinkException-class.html)?]
 :   Errors encountered during execution such as network or cache errors
     ::: features
     getter/setter pairinherited
     :::
 
-[[originalStackTrace](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/originalStackTrace.html)] [↔ [StackTrace](https://api.flutter.dev/flutter/dart-core/StackTrace-class.html)?]
+[[originalStackTrace](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/originalStackTrace.html)] [↔ [StackTrace](https://api.flutter.dev/flutter/dart-core/StackTrace-class.html)?]
 
 :   ::: features
     getter/setter pairinherited
     :::
 
-[[raw](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/raw.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)?]
+[[raw](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/raw.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)?]
 
 :   ::: features
     getter/setter pairinherited
@@ -79,7 +97,7 @@ Inheritance
 
 ## Methods
 
-[[addError](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/addError.html)][([[[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.md)] error]) → void ]
+[[addError](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/addError.html)][([[[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.md)] error]) → void ]
 
 :   ::: features
     inherited
@@ -125,3 +143,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

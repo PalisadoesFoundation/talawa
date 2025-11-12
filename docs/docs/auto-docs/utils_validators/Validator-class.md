@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/validators.dart](../utils_validators/)
+3.  Validator class
+
+
+Validator
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Validator class
@@ -109,3 +127,6 @@ They are used to validate information given by the users.
 
 
 
+
+
+ talawa 1.0.0+1 

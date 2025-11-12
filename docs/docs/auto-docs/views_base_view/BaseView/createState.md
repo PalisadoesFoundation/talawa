@@ -1,4 +1,24 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/base_view.dart](../../views_base_view/)
+3.  BaseView[\<[T extends
+    ChangeNotifier\>]](../../views_base_view/BaseView-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -77,3 +97,6 @@ _BaseViewState<T>  => _BaseViewState<T>;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_custom_recurring_event.dart](../../views_after_auth_screens_events_create_custom_recurring_event/)
+3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
+4.  model property
+
+
+model
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # model property
@@ -44,3 +63,6 @@ final CreateEventViewModel model;
 
 
 
+
+
+ talawa 1.0.0+1 

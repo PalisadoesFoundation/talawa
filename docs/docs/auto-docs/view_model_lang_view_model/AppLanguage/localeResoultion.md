@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/lang_view_model.dart](../../view_model_lang_view_model/)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
+4.  localeResoultion method
+
+
+localeResoultion
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # localeResoultion method
@@ -60,3 +79,6 @@ Locale localeResoultion(Locale? locale, Iterable<Locale> supportedLocales)
 
 
 
+
+
+ talawa 1.0.0+1 

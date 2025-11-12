@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [RecurringEventMutationType](../../constants_recurrence_values/RecurringEventMutationType-class.md)
+4.  thisInstance constant
+
+
+thisInstance
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # thisInstance constant
@@ -40,3 +59,6 @@ static const thisInstance = 'ThisInstance';
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/queries.dart](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  fetchOrgById method
+
+
+fetchOrgById
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # fetchOrgById method
@@ -54,3 +73,6 @@ String fetchOrgById(String orgId)
 
 
 
+
+
+ talawa 1.0.0+1 

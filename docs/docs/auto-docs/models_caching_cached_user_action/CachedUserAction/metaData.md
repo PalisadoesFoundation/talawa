@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/caching/cached_user_action.dart](../../models_caching_cached_user_action/)
+3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)
+4.  metaData property
+
+
+metaData
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # metaData property
@@ -8,7 +27,7 @@
 
 <div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(5)
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField/HiveField.html)(5)
 
 </div>
 
@@ -51,3 +70,6 @@ Map<String, dynamic>? metaData;
 
 
 
+
+
+ talawa 1.0.0+1 

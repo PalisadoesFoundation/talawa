@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/event_queries.dart](../utils_event_queries/)
+3.  EventQueries class
+
+
+EventQueries
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # EventQueries class
@@ -64,7 +82,7 @@ This class creates queries related to the events.
 [[fetchAgendaItemsByEvent](../utils_event_queries/EventQueries/fetchAgendaItemsByEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] relatedEventId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Creates a GraphQL query for fetching agenda items by organization.
 
-[[fetchOrgEvents](../utils_event_queries/EventQueries/fetchOrgEvents.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[fetchOrgEvents](../utils_event_queries/EventQueries/fetchOrgEvents.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Fetches events by organization ID.
 
 [[fetchVolunteerGroups](../utils_event_queries/EventQueries/fetchVolunteerGroups.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -94,7 +112,7 @@ This class creates queries related to the events.
 [[updateAgendaItem](../utils_event_queries/EventQueries/updateAgendaItem.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Creates a GraphQL mutation for updating an agenda item.
 
-[updateEvent](../utils_event_queries/EventQueries/updateEvent.md) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[updateEvent](../utils_event_queries/EventQueries/updateEvent.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Creates a GraphQL mutation for updating an event.
 
 [[updateVolunteerGroupMutation](../utils_event_queries/EventQueries/updateVolunteerGroupMutation.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -128,3 +146,6 @@ This class creates queries related to the events.
 
 
 
+
+
+ talawa 1.0.0+1 

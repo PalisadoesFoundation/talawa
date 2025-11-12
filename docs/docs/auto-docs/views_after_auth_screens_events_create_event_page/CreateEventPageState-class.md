@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [views/after_auth_screens/events/create_event_page.dart](../views_after_auth_screens_events_create_event_page/)
+3.  CreateEventPageState class
+
+
+CreateEventPageState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CreateEventPageState class
@@ -207,3 +225,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

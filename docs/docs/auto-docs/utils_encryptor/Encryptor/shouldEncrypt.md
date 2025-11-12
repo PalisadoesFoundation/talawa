@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/encryptor.dart](../../utils_encryptor/)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
+4.  shouldEncrypt property
+
+
+shouldEncrypt
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # shouldEncrypt property
@@ -48,3 +67,6 @@ static bool shouldEncrypt = false;
 
 
 
+
+
+ talawa 1.0.0+1 

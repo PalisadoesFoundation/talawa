@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [splash_screen.dart](../../splash_screen/)
+3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _SplashScreenState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

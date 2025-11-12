@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/caching/cache_service.dart](../services_caching_cache_service/)
+3.  CacheService class
+
+
+CacheService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CacheService class
@@ -41,7 +59,7 @@ Service to handle caching routines.
 
 ## Methods
 
-[[executeOrCacheOperation](../services_caching_cache_service/CacheService/executeOrCacheOperation.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[executeOrCacheOperation](../services_caching_cache_service/CacheService/executeOrCacheOperation.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   Executes a GraphQL operation or caches it for offline execution.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
@@ -70,7 +88,7 @@ Service to handle caching routines.
 
 ## Static Properties
 
-[[offlineResult](../services_caching_cache_service/CacheService/offlineResult.md)] [→ [QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
+[[offlineResult](../services_caching_cache_service/CacheService/offlineResult.md)] [→ [QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
 :   static graphql result when device is offline.
     ::: features
     final
@@ -94,3 +112,6 @@ Service to handle caching routines.
 
 
 
+
+
+ talawa 1.0.0+1 

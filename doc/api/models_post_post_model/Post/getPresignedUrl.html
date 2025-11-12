@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getPresignedUrl method from the Post class, for the Dart programming language.">
+  <title>getPresignedUrl method - Post class - post_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../models_post_post_model/">models&#47;post&#47;post_model.dart</a></li>
+    <li><a href="../../models_post_post_model/Post-class.html">Post</a></li>
+    <li class="self-crumb">getPresignedUrl method</li>
+  </ol>
+  <div class="self-name">getPresignedUrl</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="models_post_post_model&#47;Post-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">getPresignedUrl</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">getPresignedUrl</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getPresignedUrl-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">id</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Method to get the presigned URL for a file attachment.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>id</code>:  The ID of the post for which to fetch the presigned URL.</li>
+</ul>
+<p><strong>returns</strong>:
+  None</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; getPresignedUrl(String? id) async {
+  if (id == null || id.isEmpty) {
+    return;
+  }
+
+  &#47;&#47;&#47; If the post has attachments, fetch presigned URLs for each attachment.
+  if (this.attachments != null &amp;&amp; this.attachments!.isNotEmpty) {
+    for (final attachment in this.attachments!) {
+      if ((attachment.url == null || attachment.url!.isEmpty) &amp;&amp;
+          attachment.name != null) {
+        final query = PostQueries().getPresignedUrl();
+        final variables = {
+          &quot;objectName&quot;: attachment.name,
+          &quot;organizationId&quot;: id,
+        };
+        final QueryResult&lt;Object?&gt;? result;
+        try {
+          result = await locator&lt;DataBaseMutationFunctions&gt;()
+              .gqlAuthMutation(query, variables: variables);
+        } catch (e) {
+          &#47;&#47; Fallback to a placeholder image when API call fails
+          attachment.url =
+              &quot;https:&#47;&#47;avatars.githubusercontent.com&#47;u&#47;24500036?s=280&amp;v=4&quot;;
+          continue;
+        }
+
+        if (result.data != null &amp;&amp;
+            result.data!.containsKey(&#39;createGetfileUrl&#39;)) {
+          final containsUrl =
+              result.data?[&#39;createGetfileUrl&#39;] as Map&lt;String, dynamic&gt;;
+          final url = containsUrl[&#39;presignedUrl&#39;] as String?;
+          if (url != null &amp;&amp; url.isNotEmpty) {
+            &#47;&#47; Check if the URL contains &#39;minio&#39; hostname which might cause DNS issues
+            if (url.contains(&#39;minio:&#39;) || url.contains(&#39;minio&#47;&#39;)) {
+              &#47;&#47; Use fallback image if MinIO URL is detected
+              attachment.url =
+                  &quot;https:&#47;&#47;avatars.githubusercontent.com&#47;u&#47;24500036?s=280&amp;v=4&quot;;
+            } else {
+              attachment.url = url;
+            }
+          } else {
+            attachment.url =
+                &quot;https:&#47;&#47;avatars.githubusercontent.com&#47;u&#47;24500036?s=280&amp;v=4&quot;;
+          }
+        } else {
+          &#47;&#47; Fallback when response doesn&#39;t contain expected data
+          attachment.url =
+              &quot;https:&#47;&#47;avatars.githubusercontent.com&#47;u&#47;24500036?s=280&amp;v=4&quot;;
+        }
+      }
+    }
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../models_post_post_model/">post_model</a></li>
+    <li><a href="../../models_post_post_model/Post-class.html">Post</a></li>
+    <li class="self-crumb">getPresignedUrl method</li>
+</ol>
+
+    <h5>Post class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

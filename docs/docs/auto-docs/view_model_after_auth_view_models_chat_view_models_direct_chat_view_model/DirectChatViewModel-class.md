@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  DirectChatViewModel class
+
+
+DirectChatViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # DirectChatViewModel class
@@ -38,20 +56,20 @@ Inheritance
 ## Properties
 
 [[chatMessagesByUser](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/chatMessagesByUser.md)] [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)]\>]]\>]]
-
-:   ::: features
+:   This is the getter for the chat messages by user.
+    ::: features
     no setter
     :::
 
 [[chats](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/chats.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)]\>]]
-
-:   ::: features
+:   This is the getter for the unique chat IDs.
+    ::: features
     no setter
     :::
 
 [[chatState](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/chatState.md)] [↔ [ChatState](../enums_enums/ChatState.md)]
-
-:   ::: features
+:   State of the chat.
+    ::: features
     getter/setter pair
     :::
 
@@ -74,14 +92,14 @@ Inheritance
     :::
 
 [[listKey](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/listKey.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[AnimatedListState](https://api.flutter.dev/flutter/widgets/AnimatedListState-class.html)]\>]]
-
-:   ::: features
+:   This is the key for the AnimatedList widget.
+    ::: features
     final
     :::
 
 [[name](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/name.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-
-:   ::: features
+:   Name of the chat.
+    ::: features
     getter/setter pair
     :::
 
@@ -97,6 +115,12 @@ Inheritance
     no setterinherited
     :::
 
+[[userConfig](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/userConfig.md)] [→ [UserConfig](../services_user_config/UserConfig-class.md)]
+:   User configuration service for accessing current user information.
+    ::: features
+    final
+    :::
+
 
 
 ## Methods
@@ -107,9 +131,8 @@ Inheritance
     inherited
     :::
 
-[[chatName](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/chatName.md)]([[dynamic chatId]) → void ]
-
-:   
+[[chatName](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/chatName.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] chatId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
+:   Method to return chat name based on the chatId.
 
 [dispose](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/dispose.md) [→ void ]
 :   Discards any resources used by the object. After this is called, the
@@ -123,9 +146,17 @@ Inheritance
 [[getChatMessages](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/getChatMessages.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] chatId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function get all messages for a chat.
 
-[[initialise](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/initialise.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[hasMoreMessages](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/hasMoreMessages.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] chatId]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   Check if there are more messages to load for a specific chat.
 
-:   
+[[initialise](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/initialise.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+:   This function is used to initialise the states.
+
+[[isLoadingMoreMessages](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/isLoadingMoreMessages.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] chatId]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   Getter for pagination loading state.
+
+[[loadMoreMessages](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel/loadMoreMessages.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] chatId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+:   Load more messages (older messages) for a specific chat.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
@@ -192,3 +223,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

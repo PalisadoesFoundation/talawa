@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/organization_search_list.dart](../../widgets_organization_search_list/)
+3.  [OrganizationSearchList](../../widgets_organization_search_list/OrganizationSearchList-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _OrganizationSearchListState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

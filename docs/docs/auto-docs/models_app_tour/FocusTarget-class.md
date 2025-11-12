@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/app_tour.dart](../models_app_tour/)
+3.  FocusTarget class
+
+
+FocusTarget
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # FocusTarget class
@@ -19,7 +37,7 @@ Class that represents FocusTarget.
 
 ## Properties
 
-[[align](../models_app_tour/FocusTarget/align.md)] [↔ [ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/ContentAlign.html)]
+[[align](../models_app_tour/FocusTarget/align.md)] ↔ dynamic
 :   alignment of description text.
     ::: features
     getter/setter pair
@@ -43,7 +61,7 @@ Class that represents FocusTarget.
     getter/setter pair
     :::
 
-[[focusWidget](../models_app_tour/FocusTarget/focusWidget.md)] [↔ [TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]
+[[focusWidget](../models_app_tour/FocusTarget/focusWidget.md)] ↔ dynamic
 :   Target focus widget with all above properties.
     ::: features
     getter/setter pair
@@ -147,3 +165,6 @@ Class that represents FocusTarget.
 
 
 
+
+
+ talawa 1.0.0+1 

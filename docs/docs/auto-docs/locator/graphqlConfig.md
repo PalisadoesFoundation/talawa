@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  graphqlConfig property
+
+
+graphqlConfig
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # graphqlConfig top-level property
@@ -43,3 +61,6 @@ final graphqlConfig = locator<GraphqlConfig>;
 
 
 
+
+
+ talawa 1.0.0+1 

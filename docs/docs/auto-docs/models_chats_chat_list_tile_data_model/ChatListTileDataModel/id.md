@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/chats/chat_list_tile_data_model.dart](../../models_chats_chat_list_tile_data_model/)
+3.  [ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)
+4.  id property
+
+
+id
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # id property
@@ -12,6 +31,10 @@ id
 
 getter/setter pair
 
+
+
+
+Chat ID (for backward compatibility).
 
 
 
@@ -40,3 +63,6 @@ String? id;
 
 
 
+
+
+ talawa 1.0.0+1 

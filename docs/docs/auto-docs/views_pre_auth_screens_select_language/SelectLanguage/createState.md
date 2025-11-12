@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/pre_auth_screens/select_language.dart](../../views_pre_auth_screens_select_language/)
+3.  [SelectLanguage](../../views_pre_auth_screens_select_language/SelectLanguage-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _SelectLanguageState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

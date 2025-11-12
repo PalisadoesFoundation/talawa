@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [views/after_auth_screens/chat/direct_chats.dart](../views_after_auth_screens_chat_direct_chats/)
+3.  DirectChats class
+
+
+DirectChats
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # DirectChats class
@@ -6,8 +24,12 @@
 </div>
 
 
-DirectChats return a statelessWidget for rendering all the directs chats
-of the current user in the Chat List Screen
+DirectChats returns a StatelessWidget for rendering all the direct chats
+of the current user in the Chat List Screen.
+
+This widget displays either an empty state when no chats are available
+or a scrollable list of chat tiles when chats exist. It includes
+pull-to-refresh functionality for updating the chat list.
 
 
 
@@ -20,17 +42,13 @@ Inheritance
     -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
     -   DirectChats
 
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-
 
 
 ## Constructors
 
 [[DirectChats](../views_after_auth_screens_chat_direct_chats/DirectChats/DirectChats.md)][]
-
-:   ::: 
+:   Creates a DirectChats widget.
+    ::: 
     const
     :::
 
@@ -59,21 +77,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[build](../views_after_auth_screens_chat_direct_chats/DirectChats/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
@@ -108,6 +111,9 @@ Available extensions
     ::: features
     inherited
     :::
+
+[[onRefresh](../views_after_auth_screens_chat_direct_chats/DirectChats/onRefresh.md)][([[[DirectChatViewModel](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)] model]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+:   Handles the refresh action for the chat list.
 
 [[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][ [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
@@ -169,3 +175,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

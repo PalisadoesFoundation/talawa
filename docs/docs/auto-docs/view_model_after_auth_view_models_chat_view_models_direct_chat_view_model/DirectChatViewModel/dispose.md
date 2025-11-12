@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
+4.  dispose method
+
+
+dispose
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # dispose method
@@ -59,3 +78,6 @@ void
 
 
 
+
+
+ talawa 1.0.0+1 

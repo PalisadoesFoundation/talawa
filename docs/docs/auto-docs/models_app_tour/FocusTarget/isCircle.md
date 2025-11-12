@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/app_tour.dart](../../models_app_tour/)
+3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
+4.  isCircle property
+
+
+isCircle
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isCircle property
@@ -44,3 +63,6 @@ bool isCircle;
 
 
 
+
+
+ talawa 1.0.0+1 

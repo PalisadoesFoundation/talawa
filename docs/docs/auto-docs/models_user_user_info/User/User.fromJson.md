@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
+3.  [User](../../models_user_user_info/User-class.md)
+4.  User.fromJson factory constructor
+
+
+User.fromJson
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # User.fromJson constructor
@@ -39,3 +58,6 @@ factory User.fromJson(Map<String, dynamic> json, )
 
 
 
+
+
+ talawa 1.0.0+1 

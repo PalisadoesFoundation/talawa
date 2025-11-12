@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart](../../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/)
+3.  [OrganizationFeedViewModel](../../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class.md)
+4.  userPosts property
+
+
+userPosts
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # userPosts property
@@ -19,7 +38,7 @@ Getter for User Posts.
 ## Implementation
 
 ``` language-dart
-List<Post> get userPosts 
+List<Post> get userPosts => _userPosts;
 ```
 
 
@@ -42,3 +61,6 @@ List<Post> get userPosts
 
 
 
+
+
+ talawa 1.0.0+1 

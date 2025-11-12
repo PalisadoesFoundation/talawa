@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/chat/direct_chats.dart](../../views_after_auth_screens_chat_direct_chats/)
+3.  [ChatTile](../../views_after_auth_screens_chat_direct_chats/ChatTile-class.md)
+4.  model property
+
+
+model
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # model property
@@ -12,6 +31,10 @@ model
 
 final
 
+
+
+
+The DirectChatViewModel instance for handling chat operations.
 
 
 
@@ -40,3 +63,6 @@ final DirectChatViewModel model;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_alert_dialog_with_checkbox.dart](../../widgets_custom_alert_dialog_with_checkbox/)
+3.  [CustomAlertDialogWithCheckbox](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.md)
+4.  successText property
+
+
+successText
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # successText property
@@ -44,3 +63,6 @@ final String successText;
 
 
 
+
+
+ talawa 1.0.0+1 

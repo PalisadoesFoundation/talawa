@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/validators.dart](../../utils_validators/)
+3.  [Validator](../../utils_validators/Validator-class.md)
+4.  validatePassword static method
+
+
+validatePassword
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # validatePassword static method
@@ -55,3 +74,6 @@ static String? validatePassword(
 
 
 
+
+
+ talawa 1.0.0+1 

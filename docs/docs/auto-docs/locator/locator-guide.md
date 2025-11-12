@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  locator property
+
+
+locator
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # locator top-level property
@@ -6,7 +24,7 @@
 </div>
 
 
-[GetIt](https://pub.dev/documentation/get_it/8.0.3/get_it/GetIt-class.html)
+[GetIt](https://pub.dev/documentation/get_it/8.2.0/get_it/GetIt-class.html)
 locator
 
 
@@ -43,3 +61,6 @@ GetIt locator = GetIt.instance;
 
 
 
+
+
+ talawa 1.0.0+1 

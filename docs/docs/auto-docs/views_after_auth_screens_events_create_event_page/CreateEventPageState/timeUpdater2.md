@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_event_page.dart](../../views_after_auth_screens_events_create_event_page/)
+3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)
+4.  timeUpdater2 method
+
+
+timeUpdater2
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # timeUpdater2 method
@@ -53,3 +72,6 @@ void timeUpdater2(TimeOfDay time, CreateEventViewModel model)
 
 
 
+
+
+ talawa 1.0.0+1 

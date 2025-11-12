@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
+3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
+4.  shouldReload method
+
+
+shouldReload
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # shouldReload method
@@ -67,3 +86,6 @@ bool shouldReload(AppLocalizationsDelegate old) => false;
 
 
 
+
+
+ talawa 1.0.0+1 

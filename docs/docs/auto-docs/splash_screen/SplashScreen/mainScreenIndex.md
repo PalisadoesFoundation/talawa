@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [splash_screen.dart](../../splash_screen/)
+3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
+4.  mainScreenIndex property
+
+
+mainScreenIndex
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # mainScreenIndex property
@@ -45,3 +64,6 @@ final int mainScreenIndex;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/explore_event_dialogue.dart](../../views_after_auth_screens_events_explore_event_dialogue/)
+3.  [ExploreEventDialog](../../views_after_auth_screens_events_explore_event_dialogue/ExploreEventDialog-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _ExploreEventDialogState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/caching/cache_service.dart](../../services_caching_cache_service/)
+3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
+4.  CacheService.new constructor
+
+
+CacheService.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CacheService constructor
@@ -29,7 +48,7 @@ Initializes the cache service and the offline action queue.
 1.  [talawa](../../index.md)
 2.  [cache_service](../../services_caching_cache_service/)
 3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
-4.  CacheService constructor
+4.  CacheService.new constructor
 
 ##### CacheService class
 
@@ -39,3 +58,6 @@ Initializes the cache service and the offline action queue.
 
 
 
+
+
+ talawa 1.0.0+1 

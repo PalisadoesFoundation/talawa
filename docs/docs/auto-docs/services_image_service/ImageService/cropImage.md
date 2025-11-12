@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/image_service.dart](../../services_image_service/)
+3.  [ImageService](../../services_image_service/ImageService-class.md)
+4.  cropImage method
+
+
+cropImage
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # cropImage method
@@ -52,3 +71,6 @@ Future<File?>  async
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [views/after_auth_screens/chat/direct_chats.dart](../views_after_auth_screens_chat_direct_chats/)
+3.  ChatTile class
+
+
+ChatTile
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatTile class
@@ -6,8 +24,12 @@
 </div>
 
 
-ChatTile return a widget for a tile in the list of Direct Chats in the
+ChatTile returns a widget for a tile in the list of Direct Chats in the
 Chat List Screen.
+
+This widget displays individual chat information including user avatar,
+chat name, description, and timestamp. It handles navigation to the chat
+message screen when tapped.
 
 
 
@@ -20,17 +42,13 @@ Inheritance
     -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
     -   ChatTile
 
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-
 
 
 ## Constructors
 
 [[ChatTile](../views_after_auth_screens_chat_direct_chats/ChatTile/ChatTile.md)][]
-
-:   ::: 
+:   Creates a ChatTile widget.
+    ::: 
     const
     :::
 
@@ -39,8 +57,8 @@ Available extensions
 ## Properties
 
 [[chat](../views_after_auth_screens_chat_direct_chats/ChatTile/chat.md)] [→ [ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)]
-
-:   ::: features
+:   The chat data model containing chat information and user details.
+    ::: features
     final
     :::
 
@@ -57,8 +75,8 @@ Available extensions
     :::
 
 [[model](../views_after_auth_screens_chat_direct_chats/ChatTile/model.md)] [→ [DirectChatViewModel](../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)]
-
-:   ::: features
+:   The DirectChatViewModel instance for handling chat operations.
+    ::: features
     final
     :::
 
@@ -71,21 +89,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[build](../views_after_auth_screens_chat_direct_chats/ChatTile/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
@@ -181,3 +184,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

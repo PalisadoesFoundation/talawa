@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [enums/enums.dart](../enums_enums/)
+3.  MessageType enum
+
+
+MessageType
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # MessageType enum
@@ -129,3 +147,6 @@ random [→ const [MessageType](../enums_enums/MessageType.md)]
 
 
 
+
+
+ talawa 1.0.0+1 

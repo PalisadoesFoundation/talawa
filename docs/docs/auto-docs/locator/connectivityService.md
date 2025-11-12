@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  connectivityService property
+
+
+connectivityService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # connectivityService top-level property
@@ -43,3 +61,6 @@ final connectivityService = locator<ConnectivityService>;
 
 
 
+
+
+ talawa 1.0.0+1 

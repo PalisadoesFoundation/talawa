@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/caching/base_feed_manager.dart](../../services_caching_base_feed_manager/)
+3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.md)
+4.  BaseFeedManager.new constructor
+
+
+BaseFeedManager.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # BaseFeedManager\<[T\>] constructor
@@ -30,7 +49,7 @@ BaseFeedManager(this.cacheKey)
 1.  [talawa](../../index.md)
 2.  [base_feed_manager](../../services_caching_base_feed_manager/)
 3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.md)
-4.  BaseFeedManager constructor
+4.  BaseFeedManager.new constructor
 
 ##### BaseFeedManager class
 
@@ -40,3 +59,6 @@ BaseFeedManager(this.cacheKey)
 
 
 
+
+
+ talawa 1.0.0+1 

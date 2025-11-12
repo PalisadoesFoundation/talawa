@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  cacheService property
+
+
+cacheService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # cacheService top-level property
@@ -43,3 +61,6 @@ final cacheService = locator<CacheService>;
 
 
 
+
+
+ talawa 1.0.0+1 

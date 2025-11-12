@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
+3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
+4.  AppLocalizationsDelegate.new const constructor
+
+
+AppLocalizationsDelegate.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AppLocalizationsDelegate constructor
@@ -25,7 +44,7 @@ const ;
 1.  [talawa](../../index.md)
 2.  [app_localization](../../utils_app_localization/)
 3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
-4.  AppLocalizationsDelegate const constructor
+4.  AppLocalizationsDelegate.new const constructor
 
 ##### AppLocalizationsDelegate class
 
@@ -35,3 +54,6 @@ const ;
 
 
 
+
+
+ talawa 1.0.0+1 

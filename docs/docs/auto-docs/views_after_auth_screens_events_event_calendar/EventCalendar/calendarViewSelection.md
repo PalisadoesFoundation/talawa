@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/event_calendar.dart](../../views_after_auth_screens_events_event_calendar/)
+3.  [EventCalendar](../../views_after_auth_screens_events_event_calendar/EventCalendar-class.md)
+4.  calendarViewSelection method
+
+
+calendarViewSelection
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # calendarViewSelection method
@@ -53,3 +72,6 @@ PopupMenuButton<String> calendarViewSelection(EventCalendarViewModel model)
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/events/event_model.dart](../models_events_event_model/)
+3.  Event class
+
+
+Event
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Event class
@@ -13,7 +31,7 @@ This class creates an event model and returns an Event instance.
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         10)
 
 
@@ -64,16 +82,22 @@ Annotations
     getter/setter pair
     :::
 
-[[endDate](../models_events_event_model/Event/endDate.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The end date of the event.
+[[endAt](../models_events_event_model/Event/endAt.md)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]
+:   The end DateTime of the event.
     ::: features
     getter/setter pair
     :::
 
-[[endTime](../models_events_event_model/Event/endTime.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The end time of the event.
+[[endDate](../models_events_event_model/Event/endDate.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   Computed property: formatted end date (e.g. \"2025-07-31\").
     ::: features
-    getter/setter pair
+    no setter
+    :::
+
+[[endTime](../models_events_event_model/Event/endTime.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+:   Computed property: formatted end time (e.g. \"05:00 PM\").
+    ::: features
+    no setter
     :::
 
 [[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
@@ -113,6 +137,12 @@ Annotations
     getter/setter pair
     :::
 
+[[name](../models_events_event_model/Event/name.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The title of the event.
+    ::: features
+    getter/setter pair
+    :::
+
 [[organization](../models_events_event_model/Event/organization.md)] [↔ [OrgInfo](../models_organization_org_info/OrgInfo-class.md)?]
 :   The organization of the event.
     ::: features
@@ -131,22 +161,22 @@ Annotations
     no setterinherited
     :::
 
-[[startDate](../models_events_event_model/Event/startDate.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The start date of the event.
+[[startAt](../models_events_event_model/Event/startAt.md)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]
+:   The start DateTime of the event.
     ::: features
     getter/setter pair
     :::
 
-[[startTime](../models_events_event_model/Event/startTime.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The start time of the event.
+[[startDate](../models_events_event_model/Event/startDate.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   Computed property: formatted start date (e.g. \"2025-07-30\").
     ::: features
-    getter/setter pair
+    no setter
     :::
 
-[[title](../models_events_event_model/Event/title.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The title of the event.
+[[startTime](../models_events_event_model/Event/startTime.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+:   Computed property: formatted start time (e.g. \"09:00 AM\").
     ::: features
-    getter/setter pair
+    no setter
     :::
 
 
@@ -193,3 +223,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

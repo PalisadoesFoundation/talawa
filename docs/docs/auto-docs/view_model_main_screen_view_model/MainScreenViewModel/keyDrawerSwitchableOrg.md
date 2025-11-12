@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  keyDrawerSwitchableOrg property
+
+
+keyDrawerSwitchableOrg
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # keyDrawerSwitchableOrg property
@@ -22,7 +41,7 @@ static variables.
 ## Implementation
 
 ``` language-dart
-static final GlobalKey keyDrawerSwitchableOrg =
+final GlobalKey keyDrawerSwitchableOrg =
     GlobalKey(debugLabel: "DrawerSwitchableOrg");
 ```
 
@@ -45,3 +64,6 @@ static final GlobalKey keyDrawerSwitchableOrg =
 
 
 
+
+
+ talawa 1.0.0+1 

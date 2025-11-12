@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [RecurrenceUtils](../../constants_recurrence_values/RecurrenceUtils-class.md)
+4.  isLastOccurenceOfWeekDay static method
+
+
+isLastOccurenceOfWeekDay
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isLastOccurenceOfWeekDay static method
@@ -55,3 +74,6 @@ static bool isLastOccurenceOfWeekDay(DateTime date)
 
 
 
+
+
+ talawa 1.0.0+1 

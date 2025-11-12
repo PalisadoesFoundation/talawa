@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  queries property
+
+
+queries
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # queries top-level property
@@ -42,3 +60,6 @@ final queries = locator<Queries>;
 
 
 
+
+
+ talawa 1.0.0+1 

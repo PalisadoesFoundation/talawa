@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/queries.dart](../utils_queries/)
+3.  Queries class
+
+
+Queries
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Queries class
@@ -64,11 +82,10 @@ This class returns some queries for the application.
 [[fetchOrgDetailsById](../utils_queries/Queries/fetchOrgDetailsById.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   query to fetch org details.
 
-[[getPluginsList](../utils_queries/Queries/getPluginsList.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   `getPluginList` queries all properties of pluginList from the
-    server.
+[[fetchUsersByOrganizationId](../utils_queries/Queries/fetchUsersByOrganizationId.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Query to fetch users by organization ID using new GraphQL schema.
 
-[[joinOrgById](../utils_queries/Queries/joinOrgById.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[joinOrgById](../utils_queries/Queries/joinOrgById.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   make mutation string for joiining org by ord.id.
 
 [[loginUser](../utils_queries/Queries/loginUser.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] email, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] password]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -141,3 +158,6 @@ This class returns some queries for the application.
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getChatsByUser method from the ChatCoreService class, for the Dart programming language.">
+  <title>getChatsByUser method - ChatCoreService class - chat_core_service library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../services_chat_core_service/">services&#47;chat_core_service.dart</a></li>
+    <li><a href="../../services_chat_core_service/ChatCoreService-class.html">ChatCoreService</a></li>
+    <li class="self-crumb">getChatsByUser method</li>
+  </ol>
+  <div class="self-name">getChatsByUser</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="services_chat_core_service&#47;ChatCoreService-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">getChatsByUser</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../models_chats_chat/Chat-class.html">Chat</a></span>&gt;</span></span>&gt;</span></span>
+<span class="name ">getChatsByUser</span>(<wbr>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Retrieves all chats for the current user.</p>
+<p><strong>params</strong>:
+  None</p>
+<p><strong>returns</strong>:</p>
+<ul>
+<li><code>Future&lt;List&lt;Chat&gt;&gt;</code>: List of chats if successful, or an empty list on failures (authentication or other errors)</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;List&lt;Chat&gt;&gt; getChatsByUser() async {
+  if (_userConfig.currentUser.authToken == null ||
+      _userConfig.currentUser.authToken!.isEmpty) {
+    debugPrint(&#39;Skipping chat fetch: Authentication token not available yet&#39;);
+    return [];
+  }
+
+  final userId = _userConfig.currentUser.id;
+
+  if (userId == null) {
+    debugPrint(&#39;Error fetching chats: User ID is required&#39;);
+    navigationService.showTalawaErrorDialog(
+      &quot;User ID is required to fetch chats&quot;,
+      MessageType.error,
+    );
+    return [];
+  }
+
+  final result = await _dbFunctions.gqlAuthQuery(
+    ChatQueries().chatsByUser(),
+  );
+
+  if (result.hasException) {
+    debugPrint(&#39;Error fetching chats: ${result.exception}&#39;);
+
+    &#47;&#47; Check if it&#39;s an authentication error
+    final exceptionString = result.exception.toString();
+    if (exceptionString.contains(&#39;unauthenticated&#39;) ||
+        exceptionString.contains(&#39;authentication&#39;) ||
+        exceptionString.contains(&#39;You must be authenticated&#39;)) {
+      debugPrint(&#39;Authentication error in chat fetch - returning empty list&#39;);
+      return [];
+    }
+
+    &#47;&#47; For other errors, still return empty list but could optionally show error dialog
+    &#47;&#47; Only show error dialog if we&#39;re not in a test environment
+    if (!exceptionString.contains(&#39;test&#39;)) {
+      navigationService.showTalawaErrorDialog(
+        &quot;Failed to fetch chats&quot;,
+        MessageType.error,
+      );
+    }
+    return [];
+  }
+
+  if (result.data == null) {
+    debugPrint(&#39;Error fetching chats: No data returned&#39;);
+    return [];
+  }
+
+  final chatsList = result.data![&#39;chatsByUser&#39;] as List&lt;dynamic&gt;?;
+  final List&lt;Chat&gt; chats = [];
+
+  if (chatsList != null) {
+    for (final chatData in chatsList) {
+      final chat = Chat.fromJson(chatData as Map&lt;String, dynamic&gt;);
+      if (!_chatController.isClosed) {
+        _chatController.add(chat);
+      }
+      chats.add(chat);
+    }
+    return chats; &#47;&#47; Return the list of chats
+  } else {
+    return [];
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../services_chat_core_service/">chat_core_service</a></li>
+    <li><a href="../../services_chat_core_service/ChatCoreService-class.html">ChatCoreService</a></li>
+    <li class="self-crumb">getChatsByUser method</li>
+</ol>
+
+    <h5>ChatCoreService class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

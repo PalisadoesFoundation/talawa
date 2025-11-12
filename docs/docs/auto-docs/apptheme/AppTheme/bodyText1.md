@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [apptheme.dart](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  bodyText1 property
+
+
+bodyText1
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # bodyText1 property
@@ -49,3 +68,6 @@ static TextStyle bodyText1 = const TextStyle(
 
 
 
+
+
+ talawa 1.0.0+1 

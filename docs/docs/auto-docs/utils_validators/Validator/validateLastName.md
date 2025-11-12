@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/validators.dart](../../utils_validators/)
+3.  [Validator](../../utils_validators/Validator-class.md)
+4.  validateLastName static method
+
+
+validateLastName
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # validateLastName static method
@@ -53,3 +72,6 @@ static String? validateLastName(String value)
 
 
 
+
+
+ talawa 1.0.0+1 

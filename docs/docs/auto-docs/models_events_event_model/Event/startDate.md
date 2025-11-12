@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [Event](../../models_events_event_model/Event-class.md)
+4.  startDate property
+
+
+startDate
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # startDate property
@@ -6,31 +25,23 @@
 </div>
 
 
-<div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(6)
-
-</div>
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-startDate
-
-
-getter/setter pair
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+get startDate
 
 
 
-
-The start date of the event.
+Computed property: formatted start date (e.g. \"2025-07-30\").
 
 
 
 ## Implementation
 
 ``` language-dart
-@HiveField(6)
-String? startDate;
+String? get startDate =>
+    startAt != null ? DateFormat('yyyy-MM-dd').format(startAt!) : null;
 ```
+
 
 
 
@@ -51,3 +62,6 @@ String? startDate;
 
 
 
+
+
+ talawa 1.0.0+1 

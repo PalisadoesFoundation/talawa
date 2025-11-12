@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  keyDrawerLeaveCurrentOrg property
+
+
+keyDrawerLeaveCurrentOrg
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # keyDrawerLeaveCurrentOrg property
@@ -22,7 +41,7 @@ static variables.
 ## Implementation
 
 ``` language-dart
-static final GlobalKey keyDrawerLeaveCurrentOrg =
+final GlobalKey keyDrawerLeaveCurrentOrg =
     GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
 ```
 
@@ -45,3 +64,6 @@ static final GlobalKey keyDrawerLeaveCurrentOrg =
 
 
 
+
+
+ talawa 1.0.0+1 

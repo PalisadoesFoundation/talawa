@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [apptheme.dart](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  lightGrey constant
+
+
+lightGrey
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # lightGrey constant
@@ -6,7 +25,7 @@
 </div>
 
 
-[Color](https://api.flutter.dev/flutter/painting/Color-class.html) const
+[Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html) const
 lightGrey
 
 
@@ -40,3 +59,6 @@ static const Color lightGrey = Color(0xFFECECEC);
 
 
 
+
+
+ talawa 1.0.0+1 

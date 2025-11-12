@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
+3.  [RecurrenceFrequencyDropdown](../../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)
+4.  selectedOption property
+
+
+selectedOption
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # selectedOption property
@@ -44,3 +63,6 @@ final String selectedOption;
 
 
 
+
+
+ talawa 1.0.0+1 

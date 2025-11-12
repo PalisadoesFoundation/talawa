@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the tourHomeTargets method from the MainScreenViewModel class, for the Dart programming language.">
+  <title>tourHomeTargets method - MainScreenViewModel class - main_screen_view_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_main_screen_view_model/">view_model&#47;main_screen_view_model.dart</a></li>
+    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html">MainScreenViewModel</a></li>
+    <li class="self-crumb">tourHomeTargets method</li>
+  </ol>
+  <div class="self-name">tourHomeTargets</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="view_model_main_screen_view_model&#47;MainScreenViewModel-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">tourHomeTargets</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype">void</span>
+<span class="name ">tourHomeTargets</span>(<wbr>[<ol class="parameter-list single-line"> <li><span class="parameter" id="tourHomeTargets-param-givenUserConfig"><span class="type-annotation"><a href="../../services_user_config/UserConfig-class.html">UserConfig</a>?</span> <span class="parameter-name">givenUserConfig</span></span></li>
+</ol>])
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Starts the tour and info to be displayed is mentioned in this functions.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>givenUserConfig</code>: Mock user config that helps in testing.</li>
+</ul>
+<p><strong>returns</strong>:
+  None</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void tourHomeTargets([UserConfig? givenUserConfig]) {
+  final UserConfig localUserConfig = givenUserConfig ?? userConfig;
+  targets.clear();
+  targets.add(
+    FocusTarget(
+      key: keySHOrgName,
+      keyName: &#39;keySHOrgName&#39;,
+      description: &#39;Current selected Organization Name&#39;,
+      appTour: appTour,
+    ),
+  );
+  targets.add(
+    FocusTarget(
+      key: keySHMenuIcon,
+      keyName: &#39;keySHMenuIcon&#39;,
+      description:
+          &#39;Click this button to see options related to switching, joining and leaving organization(s)&#39;,
+      isCircle: true,
+      next: () =&gt; scaffoldKey.currentState!.openDrawer(),
+      appTour: appTour,
+    ),
+  );
+
+  targets.add(
+    FocusTarget(
+      key: keyDrawerCurOrg,
+      keyName: &#39;keyDrawerCurOrg&#39;,
+      description: &quot;Current selected Organization&#39;s Name appears here&quot;,
+      appTour: appTour,
+    ),
+  );
+
+  targets.add(
+    FocusTarget(
+      key: keyDrawerSwitchableOrg,
+      keyName: &#39;keyDrawerSwitchableOrg&#39;,
+      description:
+          &quot;All your joined organizations appear over here you can click on them to change the current organization&quot;,
+      appTour: appTour,
+    ),
+  );
+
+  targets.add(
+    FocusTarget(
+      key: keyDrawerJoinOrg,
+      keyName: &#39;keyDrawerJoinOrg&#39;,
+      description: &quot;From this button you can join other listed organizations&quot;,
+      appTour: appTour,
+      align: ContentAlign.top,
+      next: () {
+        if (!localUserConfig.loggedIn) {
+          navigationService.pop();
+        }
+      },
+    ),
+  );
+
+  if (localUserConfig.loggedIn) {
+    targets.add(
+      FocusTarget(
+        key: keyDrawerLeaveCurrentOrg,
+        keyName: &#39;keyDrawerLeaveCurrentOrg&#39;,
+        description:
+            &quot;To leave the current organization you can use this option&quot;,
+        align: ContentAlign.top,
+        next: () =&gt; navigationService.pop(),
+        appTour: appTour,
+      ),
+    );
+  }
+
+  targets.add(
+    FocusTarget(
+      key: keyBNHome,
+      keyName: &#39;keyBNHome&#39;,
+      description:
+          &quot;This is the home tab here you can see the latest post from other members of the current organization&quot;,
+      isCircle: true,
+      align: ContentAlign.top,
+      appTour: appTour,
+    ),
+  );
+
+  targets.add(
+    FocusTarget(
+      key: keySHPinnedPost,
+      keyName: &#39;keySHPinnedPost&#39;,
+      description:
+          &quot;This section displays all the important post set by the organization admin(s)&quot;,
+      align: ContentAlign.bottom,
+      appTour: appTour,
+    ),
+  );
+
+  targets.add(
+    FocusTarget(
+      key: keySHPost,
+      keyName: &#39;keySHPost&#39;,
+      description:
+          &quot;This is the post card you can like and comment on the post from the options available&quot;,
+      align: ContentAlign.bottom,
+      appTour: appTour,
+    ),
+  );
+  appTour.showTutorial(
+    onClickTarget: showHome,
+    onFinish: () {
+      onTabTapped(currentPageIndex + 1);
+      if (!tourComplete &amp;&amp; !tourSkipped) {
+        tourEventTargets();
+      }
+    },
+    targets: targets,
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_main_screen_view_model/">main_screen_view_model</a></li>
+    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html">MainScreenViewModel</a></li>
+    <li class="self-crumb">tourHomeTargets method</li>
+</ol>
+
+    <h5>MainScreenViewModel class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

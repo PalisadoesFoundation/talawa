@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [RecurrenceUtils](../../constants_recurrence_values/RecurrenceUtils-class.md)
+4.  weekDayOccurences constant
+
+
+weekDayOccurences
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # weekDayOccurences constant
@@ -46,3 +65,6 @@ static const List<String> weekDayOccurences = [
 
 
 
+
+
+ talawa 1.0.0+1 

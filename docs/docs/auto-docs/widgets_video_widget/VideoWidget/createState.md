@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/video_widget.dart](../../widgets_video_widget/)
+3.  [VideoWidget](../../widgets_video_widget/VideoWidget-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _VideoWidgetState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

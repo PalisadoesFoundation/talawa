@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the signUp method from the SignupDetailsViewModel class, for the Dart programming language.">
+  <title>signUp method - SignupDetailsViewModel class - signup_details_view_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_pre_auth_view_models_signup_details_view_model/">view_model&#47;pre_auth_view_models&#47;signup_details_view_model.dart</a></li>
+    <li><a href="../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.html">SignupDetailsViewModel</a></li>
+    <li class="self-crumb">signUp method</li>
+  </ol>
+  <div class="self-name">signUp</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="view_model_pre_auth_view_models_signup_details_view_model&#47;SignupDetailsViewModel-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">signUp</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">signUp</span>(<wbr>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Initiates the sign-up process.</p>
+<p>Handles the sign-up process by performing the following steps:</p>
+<ol>
+<li>Unfocusing the current focus scope.</li>
+<li>Setting the view state to <code>ViewState.busy</code>.</li>
+<li>Setting validation mode to <code>AutovalidateMode.always</code>.</li>
+<li>Setting the view state to <code>ViewState.idle</code>.</li>
+<li>Validating the form using the form key.</li>
+<li>If validation is successful, disabling auto-validation mode and
+initiating the sign-up.</li>
+<li>Displaying a custom progress dialog during sign-up.</li>
+<li>Initializing database functions.</li>
+<li>Performing a GraphQL mutation to register the user with provided
+details (first name, last name, email, password).</li>
+<li>Handling the result of the sign-up operation:
+<ul>
+<li>Updating the current user with the received data.</li>
+<li>Refreshing the access token.</li>
+<li>Joining a public organization or sending a membership request
+based on the selected organization.</li>
+</ul>
+</li>
+</ol>
+<p>In case of any exceptions during the sign-up process, this function
+catches and prints the error
+and displays a Talawa error snackbar with a corresponding message.</p>
+<p><strong>params</strong>:
+  None</p>
+<p><strong>returns</strong>:
+  None</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; signUp() async {
+  FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
+  setState(ViewState.busy);
+  validate = AutovalidateMode.always;
+  setState(ViewState.idle);
+  if (formKey.currentState!.validate()) {
+    validate = AutovalidateMode.disabled;
+    await actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToSignUp,
+      action: () async {
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key(&#39;SignUpProgress&#39;),
+          ),
+        );
+        databaseFunctions.init();
+        final String query = queries.registerUser(
+          firstName.text,
+          lastName.text,
+          email.text,
+          Encryptor.encryptString(
+            password.text,
+          ),
+          selectedOrganization.id,
+        );
+        final result = await databaseFunctions.gqlNonAuthMutation(query);
+        navigationService.pop();
+        return result;
+      },
+      onValidResult: (result) async {
+        if (result.data != null) {
+          final User signedInUser = User.fromJson(
+            result.data![&#39;signUp&#39;] as Map&lt;String, dynamic&gt;,
+          );
+          final bool userSaved = await userConfig.updateUser(signedInUser);
+          final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+          &#47;&#47; if user successfully saved and access token is also generated.
+          if (userSaved &amp;&amp;
+              tokenRefreshed &amp;&amp;
+              userConfig.currentUser.joinedOrganizations != null &amp;&amp;
+              userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
+            userConfig.saveCurrentOrgInHive(
+              userConfig.currentUser.joinedOrganizations![0],
+            );
+            navigationService.removeAllAndPush(
+              Routes.mainScreen,
+              Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+            );
+            storingCredentialsInSecureStorage();
+          } else {
+            navigationService.showTalawaErrorSnackBar(
+              TalawaErrors.userNotFound,
+              MessageType.error,
+            );
+          }
+        }
+      },
+      onActionException: (e) async {
+        navigationService.showTalawaErrorSnackBar(
+          &#39;Something went wrong&#39;,
+          MessageType.error,
+        );
+      },
+    );
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_pre_auth_view_models_signup_details_view_model/">signup_details_view_model</a></li>
+    <li><a href="../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.html">SignupDetailsViewModel</a></li>
+    <li class="self-crumb">signUp method</li>
+</ol>
+
+    <h5>SignupDetailsViewModel class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

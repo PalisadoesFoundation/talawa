@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_drawer.dart](../../widgets_custom_drawer/)
+3.  [CustomDrawer](../../widgets_custom_drawer/CustomDrawer-class.md)
+4.  homeModel property
+
+
+homeModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # homeModel property
@@ -44,3 +63,6 @@ final MainScreenViewModel homeModel;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/encryptor.dart](../../utils_encryptor/)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
+4.  assymetricEncryptString method
+
+
+assymetricEncryptString
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # assymetricEncryptString method
@@ -11,7 +30,7 @@ assymetricEncryptString(
 
 1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     data, ]
-2.  [[[RSAPublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPublicKey-class.html)]
+2.  [dynamic
     recipientPublicKey]
 
 )
@@ -57,3 +76,6 @@ String assymetricEncryptString(String data, RSAPublicKey recipientPublicKey)
 
 
 
+
+
+ talawa 1.0.0+1 

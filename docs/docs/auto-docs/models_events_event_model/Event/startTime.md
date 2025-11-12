@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [Event](../../models_events_event_model/Event-class.md)
+4.  startTime property
+
+
+startTime
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # startTime property
@@ -6,31 +25,23 @@
 </div>
 
 
-<div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(8)
-
-</div>
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-startTime
-
-
-getter/setter pair
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+get startTime
 
 
 
-
-The start time of the event.
+Computed property: formatted start time (e.g. \"09:00 AM\").
 
 
 
 ## Implementation
 
 ``` language-dart
-@HiveField(8)
-String? startTime;
+String get startTime =>
+    startAt != null ? DateFormat('hh:mm a').format(startAt!) : '';
 ```
+
 
 
 
@@ -51,3 +62,6 @@ String? startTime;
 
 
 
+
+
+ talawa 1.0.0+1 

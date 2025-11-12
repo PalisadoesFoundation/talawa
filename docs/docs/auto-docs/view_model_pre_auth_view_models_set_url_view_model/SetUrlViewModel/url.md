@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../../view_model_pre_auth_view_models_set_url_view_model/)
+3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
+4.  url property
+
+
+url
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # url property
@@ -6,11 +25,10 @@
 </div>
 
 
-[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
-url
+dynamic url
 
 
-getter/setter pair
+final
 
 
 
@@ -22,7 +40,7 @@ url.
 ## Implementation
 
 ``` language-dart
-TextEditingController url = ;
+final url = dotenv.get("API_URL");
 ```
 
 
@@ -44,3 +62,6 @@ TextEditingController url = ;
 
 
 
+
+
+ talawa 1.0.0+1 

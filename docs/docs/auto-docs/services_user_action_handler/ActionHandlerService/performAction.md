@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/user_action_handler.dart](../../services_user_action_handler/)
+3.  [ActionHandlerService](../../services_user_action_handler/ActionHandlerService-class.md)
+4.  performAction method
+
+
+performAction
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # performAction method
@@ -62,3 +81,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

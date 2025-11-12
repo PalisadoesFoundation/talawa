@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/pre_auth_view_models/login_view_model.dart](../../view_model_pre_auth_view_models_login_view_model/)
+3.  [LoginViewModel](../../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.md)
+4.  formKey property
+
+
+formKey
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # formKey property
@@ -44,3 +63,6 @@ final formKey = GlobalKey<FormState>;
 
 
 
+
+
+ talawa 1.0.0+1 

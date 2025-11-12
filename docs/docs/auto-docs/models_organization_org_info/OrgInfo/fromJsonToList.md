@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/organization/org_info.dart](../../models_organization_org_info/)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
+4.  fromJsonToList method
+
+
+fromJsonToList
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # fromJsonToList method
@@ -16,17 +35,16 @@ fromJsonToList(
 
 
 
-The conventional function to parse json, check flutter docs to know
-more.
+Converts a JSON array to a list of OrgInfo instances.
 
 **params**:
 
--   `json`: Passing the json to be parsed.
+-   `json`: The JSON array to be parsed.
 
 **returns**:
 
--   `List<OrgInfo>`: returning the OrgInfo object containing the json
-    data
+-   `List<OrgInfo>`: A list of OrgInfo objects containing the parsed
+    data.
 
 
 
@@ -55,3 +73,6 @@ List<OrgInfo> fromJsonToList(dynamic json)
 
 
 
+
+
+ talawa 1.0.0+1 

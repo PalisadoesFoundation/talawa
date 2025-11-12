@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the saveKeyPair method from the Encryptor class, for the Dart programming language.">
+  <title>saveKeyPair method - Encryptor class - encryptor library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../utils_encryptor/">utils&#47;encryptor.dart</a></li>
+    <li><a href="../../utils_encryptor/Encryptor-class.html">Encryptor</a></li>
+    <li class="self-crumb">saveKeyPair method</li>
+  </ol>
+  <div class="self-name">saveKeyPair</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="utils_encryptor&#47;Encryptor-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">saveKeyPair</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">saveKeyPair</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="saveKeyPair-param-keyPair"><span class="type-annotation">dynamic</span> <span class="parameter-name">keyPair</span>, </span></li>
+<li><span class="parameter" id="saveKeyPair-param-hive"><span class="type-annotation"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html">HiveInterface</a></span> <span class="parameter-name">hive</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Saves the generated key pair to local storage.</p>
+<p>Any future usage of the keys must be initiated from here.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>keyPair</code>: <code>AsymmetricKeyPair</code> to save.</li>
+<li><code>hive</code>: The <a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html">HiveInterface</a> to store keys in.</li>
+</ul>
+<p><strong>returns</strong>:
+  None</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; saveKeyPair(
+  AsymmetricKeyPair&lt;PublicKey, PrivateKey&gt; keyPair,
+  HiveInterface hive,
+) async {
+  &#47;&#47; TODO: Implement secure storage here
+  final Box&lt;AsymetricKeys&gt; keysBox =
+      await hive.openBox&lt;AsymetricKeys&gt;(&#39;user_keys&#39;);
+  keysBox.put(&#39;key_pair&#39;, AsymetricKeys(keyPair: keyPair));
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../utils_encryptor/">encryptor</a></li>
+    <li><a href="../../utils_encryptor/Encryptor-class.html">Encryptor</a></li>
+    <li class="self-crumb">saveKeyPair method</li>
+</ol>
+
+    <h5>Encryptor class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

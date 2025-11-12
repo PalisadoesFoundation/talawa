@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  sessionManager property
+
+
+sessionManager
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # sessionManager top-level property
@@ -43,3 +61,6 @@ final sessionManager = locator<SessionManager>;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/image_service.dart](../../services_image_service/)
+3.  [ImageService](../../services_image_service/ImageService-class.md)
+4.  convertToBase64 method
+
+
+convertToBase64
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # convertToBase64 method
@@ -53,3 +72,6 @@ Future<String> convertToBase64(File file) async
 
 
 
+
+
+ talawa 1.0.0+1 

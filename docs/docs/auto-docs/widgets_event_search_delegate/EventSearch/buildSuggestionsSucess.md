@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
+3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
+4.  buildSuggestionsSucess method
+
+
+buildSuggestionsSucess
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # buildSuggestionsSucess method
@@ -13,6 +32,18 @@ buildSuggestionsSucess(
     suggestions]
 
 )
+
+
+
+Builds the suggestion success widget.
+
+**params**:
+
+-   `suggestions`: The list of event suggestions to display.
+
+**returns**:
+
+-   `Widget`: The widget displaying the suggestions.
 
 
 
@@ -41,3 +72,6 @@ Widget buildSuggestionsSucess(List<Event> suggestions)
 
 
 
+
+
+ talawa 1.0.0+1 

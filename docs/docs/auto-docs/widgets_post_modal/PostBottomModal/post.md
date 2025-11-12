@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/post_modal.dart](../../widgets_post_modal/)
+3.  [PostBottomModal](../../widgets_post_modal/PostBottomModal-class.md)
+4.  post property
+
+
+post
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # post property
@@ -43,3 +62,6 @@ final Post post;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/user_config.dart](../services_user_config/)
+3.  UserConfig class
+
+
+UserConfig
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # UserConfig class
@@ -96,6 +114,9 @@ Services include:
     inherited
     :::
 
+[[performLogout](../services_user_config/UserConfig/performLogout.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+:   Performs client-side logout
+
 [[saveCurrentOrgInHive](../services_user_config/UserConfig/saveCurrentOrgInHive.md)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)] saveOrgAsCurrent]) → void ]
 :   save current organization details in hive.
 
@@ -120,7 +141,7 @@ Services include:
 [[updateUserCreatedOrg](../services_user_config/UserConfig/updateUserCreatedOrg.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Updates the user created organization.
 
-[[updateUserJoinedOrg](../services_user_config/UserConfig/updateUserJoinedOrg.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[updateUserJoinedOrg](../services_user_config/UserConfig/updateUserJoinedOrg.md)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Updates the user joined organization.
 
 [[updateUserMemberRequestOrg](../services_user_config/UserConfig/updateUserMemberRequestOrg.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
@@ -160,3 +181,6 @@ Services include:
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/feed/individual_post.dart](../../views_after_auth_screens_feed_individual_post/)
+3.  [CommentTemplate](../../views_after_auth_screens_feed_individual_post/CommentTemplate-class.md)
+4.  comment property
+
+
+comment
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # comment property
@@ -44,3 +63,6 @@ final Comment comment;
 
 
 
+
+
+ talawa 1.0.0+1 

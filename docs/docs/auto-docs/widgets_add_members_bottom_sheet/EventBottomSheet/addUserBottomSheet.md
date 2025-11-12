@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/add_members_bottom_sheet.dart](../../widgets_add_members_bottom_sheet/)
+3.  [EventBottomSheet](../../widgets_add_members_bottom_sheet/EventBottomSheet-class.md)
+4.  addUserBottomSheet method
+
+
+addUserBottomSheet
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # addUserBottomSheet method
@@ -46,3 +65,6 @@ void
 
 
 
+
+
+ talawa 1.0.0+1 

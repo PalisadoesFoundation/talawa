@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/organization/org_info.dart](../../models_organization_org_info/)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
+4.  name property
+
+
+name
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # name property
@@ -8,7 +27,7 @@
 
 <div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(2)
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField/HiveField.html)(2)
 
 </div>
 
@@ -21,7 +40,7 @@ getter/setter pair
 
 
 
-The org name.
+The name of the organization.
 
 
 
@@ -51,3 +70,6 @@ String? name;
 
 
 
+
+
+ talawa 1.0.0+1 

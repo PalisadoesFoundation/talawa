@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [exceptions/graphql_exception_resolver.dart](../../exceptions_graphql_exception_resolver/)
+3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
+4.  GraphqlExceptionResolver.new constructor
+
+
+GraphqlExceptionResolver.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # GraphqlExceptionResolver constructor
@@ -17,7 +36,7 @@
 1.  [talawa](../../index.md)
 2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/)
 3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
-4.  GraphqlExceptionResolver constructor
+4.  GraphqlExceptionResolver.new constructor
 
 ##### GraphqlExceptionResolver class
 
@@ -27,3 +46,6 @@
 
 
 
+
+
+ talawa 1.0.0+1 

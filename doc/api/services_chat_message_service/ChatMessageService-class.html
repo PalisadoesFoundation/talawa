@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ChatMessageService class from the chat_message_service library, for the Dart programming language.">
+  <title>ChatMessageService class - chat_message_service library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">talawa</a></li>
+    <li><a href="../services_chat_message_service/">services&#47;chat_message_service.dart</a></li>
+    <li class="self-crumb">ChatMessageService class</li>
+  </ol>
+  <div class="self-name">ChatMessageService</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="services_chat_message_service&#47;services_chat_message_service-library-sidebar.html"
+    data-below-sidebar="services_chat_message_service&#47;ChatMessageService-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">ChatMessageService</span> class 
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Provides message services for the PostgreSQL-based chat system.</p>
+<p>Services include:</p>
+<ul>
+<li><code>getChatDetails</code> - gets chat details with messages</li>
+<li><code>sendMessage</code> - sends a message to a chat</li>
+<li><code>loadMoreMessages</code> - loads older messages with pagination</li>
+<li><code>hasMoreMessages</code> - checks if more messages are available</li>
+<li>Real-time subscription services delegated to ChatSubscriptionService</li>
+</ul>
+</section>
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="ChatMessageService.new" class="callable">
+          <span class="name"><a href="../services_chat_message_service/ChatMessageService/ChatMessageService.html">ChatMessageService</a></span><span class="signature">()</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="beforeCursor" class="property">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/beforeCursor.html">beforeCursor</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  <code>before</code> cursor for loading older messages.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="chatMessagesStream" class="property">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/chatMessagesStream.html">chatMessagesStream</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_chats_chat_message/ChatMessage-class.html">ChatMessage</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  Getter for chat messages stream.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="messagePageSize" class="property">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/messagePageSize.html">messagePageSize</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  <code>last</code> parameter for limiting the number of messages fetched.
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="dispose" class="callable">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/dispose.html">dispose</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Disposes the service and closes streams.
+  
+
+</dd>
+
+        <dt id="getChatDetails" class="callable">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/getChatDetails.html">getChatDetails</a></span><span class="signature">(<wbr><span class="parameter" id="getChatDetails-param-chatId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">chatId</span>, {</span><span class="parameter" id="getChatDetails-param-isInitialLoad"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isInitialLoad</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_chats_chat/Chat-class.html">Chat</a>?</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Retrieves chat details with initial messages.
+  
+
+</dd>
+
+        <dt id="hasMoreMessages" class="callable">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/hasMoreMessages.html">hasMoreMessages</a></span><span class="signature">(<wbr><span class="parameter" id="hasMoreMessages-param-chatId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">chatId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Checks if there are more messages to load for a specific chat.
+  
+
+</dd>
+
+        <dt id="loadMoreMessages" class="callable">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/loadMoreMessages.html">loadMoreMessages</a></span><span class="signature">(<wbr><span class="parameter" id="loadMoreMessages-param-chatId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">chatId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_chats_chat_message/ChatMessage-class.html">ChatMessage</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Loads more messages (older messages) for a specific chat.
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="sendMessage" class="callable">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/sendMessage.html">sendMessage</a></span><span class="signature">(<wbr>{<span class="parameter" id="sendMessage-param-chatId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">chatId</span>, </span><span class="parameter" id="sendMessage-param-body"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">body</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_chats_chat_message/ChatMessage-class.html">ChatMessage</a>?</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Sends a message to a chat.
+  
+
+</dd>
+
+        <dt id="stopSubscription" class="callable">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/stopSubscription.html">stopSubscription</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Stops the current chat subscription.
+  
+
+</dd>
+
+        <dt id="subscribeToChatMessages" class="callable">
+  <span class="name"><a href="../services_chat_message_service/ChatMessageService/subscribeToChatMessages.html">subscribeToChatMessages</a></span><span class="signature">(<wbr><span class="parameter" id="subscribeToChatMessages-param-chatId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">chatId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_chats_chat_message/ChatMessage-class.html">ChatMessage</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Subscribes to real-time chat messages for a specific chat.
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">talawa</a></li>
+    <li><a href="../services_chat_message_service/">chat_message_service</a></li>
+    <li class="self-crumb">ChatMessageService class</li>
+</ol>
+
+    <h5>chat_message_service library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

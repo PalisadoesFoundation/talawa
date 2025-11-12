@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [widgets/post_modal.dart](../widgets_post_modal/)
+3.  PostBottomModal class
+
+
+PostBottomModal
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # PostBottomModal class
@@ -19,10 +37,6 @@ Inheritance
     -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
     -   PostBottomModal
 
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-
 
 
 ## Constructors
@@ -40,13 +54,6 @@ Available extensions
 [[deletePost](../widgets_post_modal/PostBottomModal/deletePost.md)] [→ dynamic Function[([[[Post](../models_post_post_model/Post-class.md)]])]?]
 :   To delete the post if user can (only work if the post is made by the
     user).
-    ::: features
-    final
-    :::
-
-[[function](../widgets_post_modal/PostBottomModal/function.md)] [→ dynamic Function[([[[Post](../models_post_post_model/Post-class.md)]])]?]
-:   This function is passed for the handling the action to be performed
-    when the comment button is clicked.
     ::: features
     final
     :::
@@ -78,21 +85,6 @@ Available extensions
 
 
 ## Methods
-
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
-
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
-
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
 [[build](../widgets_post_modal/PostBottomModal/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
@@ -188,3 +180,6 @@ Available extensions
 
 
 
+
+
+ talawa 1.0.0+1 

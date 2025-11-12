@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [enums/enums.dart](../../enums_enums/)
+3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.md)
+4.  typeId property
+
+
+typeId
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # typeId property
@@ -51,3 +70,6 @@ final int typeId = 4;
 
 
 
+
+
+ talawa 1.0.0+1 

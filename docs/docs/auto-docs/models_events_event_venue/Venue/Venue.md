@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_venue.dart](../../models_events_event_venue/)
+3.  [Venue](../../models_events_event_venue/Venue-class.md)
+4.  Venue.new constructor
+
+
+Venue.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Venue constructor
@@ -35,7 +54,7 @@ identifier of the organization to which the venue belongs.
 1.  [talawa](../../index.md)
 2.  [event_venue](../../models_events_event_venue/)
 3.  [Venue](../../models_events_event_venue/Venue-class.md)
-4.  Venue constructor
+4.  Venue.new constructor
 
 ##### Venue class
 
@@ -45,3 +64,6 @@ identifier of the organization to which the venue belongs.
 
 
 
+
+
+ talawa 1.0.0+1 

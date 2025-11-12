@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/database_mutation_functions.dart](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  gqlAuthQuery method
+
+
+gqlAuthQuery
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # gqlAuthQuery method
@@ -6,7 +25,7 @@
 </div>
 
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 gqlAuthQuery(
 
 1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
@@ -54,3 +73,6 @@ Future<QueryResult<Object?>> gqlAuthQuery(
 
 
 
+
+
+ talawa 1.0.0+1 

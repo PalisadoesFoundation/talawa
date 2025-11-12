@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  organizationService property
+
+
+organizationService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # organizationService top-level property
@@ -43,3 +61,6 @@ final organizationService = locator<OrganizationService>;
 
 
 
+
+
+ talawa 1.0.0+1 

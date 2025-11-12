@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_agenda_item_page.dart](../../views_after_auth_screens_events_create_agenda_item_page/)
+3.  [CreateAgendaItemPage](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)
+4.  CreateAgendaItemPage.new const constructor
+
+
+CreateAgendaItemPage.new
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CreateAgendaItemPage constructor
@@ -36,7 +55,7 @@ const ;
 1.  [talawa](../../index.md)
 2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
 3.  [CreateAgendaItemPage](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)
-4.  CreateAgendaItemPage const constructor
+4.  CreateAgendaItemPage.new const constructor
 
 ##### CreateAgendaItemPage class
 
@@ -46,3 +65,6 @@ const ;
 
 
 
+
+
+ talawa 1.0.0+1 

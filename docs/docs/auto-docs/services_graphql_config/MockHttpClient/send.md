@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/graphql_config.dart](../../services_graphql_config/)
+3.  [MockHttpClient](../../services_graphql_config/MockHttpClient-class.md)
+4.  send method
+
+
+send
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # send method
@@ -12,10 +31,10 @@
 
 </div>
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[StreamedResponse](https://pub.dev/documentation/http/1.2.2/http/StreamedResponse-class.html)]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[StreamedResponse](https://pub.dev/documentation/http/1.5.0/http/StreamedResponse-class.html)]\>]]
 send(
 
-1.  [[[BaseRequest](https://pub.dev/documentation/http/1.2.2/http/BaseRequest-class.md)?]
+1.  [[[BaseRequest](https://pub.dev/documentation/http/1.5.0/http/BaseRequest-class.md)?]
     request]
 
 )
@@ -66,3 +85,6 @@ Future<http.StreamedResponse> send(http.BaseRequest? request) =>
 
 
 
+
+
+ talawa 1.0.0+1 

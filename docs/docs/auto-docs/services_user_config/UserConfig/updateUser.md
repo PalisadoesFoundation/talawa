@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/user_config.dart](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  updateUser method
+
+
+updateUser
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # updateUser method
@@ -54,3 +73,6 @@ Future<bool> updateUser(User updatedUserDetails) async
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/access_request_view_model.dart](../../view_model_access_request_view_model/)
+3.  [AccessScreenViewModel](../../view_model_access_request_view_model/AccessScreenViewModel-class.md)
+4.  selectedOrganization property
+
+
+selectedOrganization
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # selectedOrganization property
@@ -44,3 +63,6 @@ late OrgInfo selectedOrganization = OrgInfo(id: '-1');
 
 
 
+
+
+ talawa 1.0.0+1 

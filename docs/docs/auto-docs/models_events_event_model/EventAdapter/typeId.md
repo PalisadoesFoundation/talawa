@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [EventAdapter](../../models_events_event_model/EventAdapter-class.md)
+4.  typeId property
+
+
+typeId
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # typeId property
@@ -51,3 +70,6 @@ final int typeId = 10;
 
 
 
+
+
+ talawa 1.0.0+1 

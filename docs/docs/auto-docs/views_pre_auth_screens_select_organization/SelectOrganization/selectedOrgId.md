@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/pre_auth_screens/select_organization.dart](../../views_pre_auth_screens_select_organization/)
+3.  [SelectOrganization](../../views_pre_auth_screens_select_organization/SelectOrganization-class.md)
+4.  selectedOrgId property
+
+
+selectedOrgId
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # selectedOrgId property
@@ -44,3 +63,6 @@ final String selectedOrgId;
 
 
 
+
+
+ talawa 1.0.0+1 

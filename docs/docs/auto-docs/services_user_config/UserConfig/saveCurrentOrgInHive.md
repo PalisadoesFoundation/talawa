@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/user_config.dart](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  saveCurrentOrgInHive method
+
+
+saveCurrentOrgInHive
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # saveCurrentOrgInHive method
@@ -50,3 +69,6 @@ void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent)
 
 
 
+
+
+ talawa 1.0.0+1 

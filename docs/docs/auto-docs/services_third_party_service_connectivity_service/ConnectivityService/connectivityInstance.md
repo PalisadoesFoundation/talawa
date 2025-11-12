@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/third_party_service/connectivity_service.dart](../../services_third_party_service_connectivity_service/)
+3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
+4.  connectivityInstance property
+
+
+connectivityInstance
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # connectivityInstance property
@@ -6,7 +25,7 @@
 </div>
 
 
-[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)
+[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.5/connectivity_plus/Connectivity-class.html)
 connectivityInstance
 
 
@@ -44,3 +63,6 @@ late final Connectivity connectivityInstance;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
+3.  [EventAdapter](../../models_events_event_model/EventAdapter-class.md)
+4.  read method
+
+
+read
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # read method
@@ -56,3 +75,6 @@ Event read(BinaryReader reader)
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/post_service.dart](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  before property
+
+
+before
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # before property
@@ -12,6 +31,10 @@ before
 
 getter/setter pair
 
+
+
+
+`before` is used to fetch posts before a certain cursor.
 
 
 
@@ -40,3 +63,6 @@ String? before;
 
 
 
+
+
+ talawa 1.0.0+1 

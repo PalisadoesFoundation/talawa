@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/post/post_model.dart](../../models_post_post_model/)
+3.  [PostAdapter](../../models_post_post_model/PostAdapter-class.md)
+4.  write method
+
+
+write
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # write method
@@ -57,3 +76,6 @@ void write(BinaryWriter writer, Post obj)
 
 
 
+
+
+ talawa 1.0.0+1 

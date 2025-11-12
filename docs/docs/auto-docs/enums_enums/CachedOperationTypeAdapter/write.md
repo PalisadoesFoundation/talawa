@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [enums/enums.dart](../../enums_enums/)
+3.  [CachedOperationTypeAdapter](../../enums_enums/CachedOperationTypeAdapter-class.md)
+4.  write method
+
+
+write
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # write method
@@ -57,3 +76,6 @@ void write(BinaryWriter writer, CachedOperationType obj)
 
 
 
+
+
+ talawa 1.0.0+1 

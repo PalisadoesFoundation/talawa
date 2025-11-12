@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/constants.dart](../constants_constants/)
+3.  supportedCurrencies property
+
+
+supportedCurrencies
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # supportedCurrencies top-level property
@@ -141,3 +159,6 @@ List<String> supportedCurrencies = [
 
 
 
+
+
+ talawa 1.0.0+1 

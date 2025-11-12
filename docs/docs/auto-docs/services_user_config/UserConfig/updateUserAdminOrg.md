@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/user_config.dart](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  updateUserAdminOrg method
+
+
+updateUserAdminOrg
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # updateUserAdminOrg method
@@ -51,3 +70,6 @@ Future<void> updateUserAdminOrg(List<OrgInfo> orgDetails) async
 
 
 
+
+
+ talawa 1.0.0+1 

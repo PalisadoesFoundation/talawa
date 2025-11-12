@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_agenda_category.dart](../../models_events_event_agenda_category/)
+3.  [AgendaCategory](../../models_events_event_agenda_category/AgendaCategory-class.md)
+4.  name property
+
+
+name
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # name property
@@ -44,3 +63,6 @@ final String? name;
 
 
 
+
+
+ talawa 1.0.0+1 

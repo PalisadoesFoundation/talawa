@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [exceptions/graphql_exception_resolver.dart](../../exceptions_graphql_exception_resolver/)
+3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
+4.  refreshAccessTokenExpiredException property
+
+
+refreshAccessTokenExpiredException
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # refreshAccessTokenExpiredException property
@@ -46,3 +65,6 @@ static GraphQLError refreshAccessTokenExpiredException = const GraphQLError(
 
 
 
+
+
+ talawa 1.0.0+1 

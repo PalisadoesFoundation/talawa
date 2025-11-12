@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_venue.dart](../../models_events_event_venue/)
+3.  [Venue](../../models_events_event_venue/Venue-class.md)
+4.  Venue.fromJson factory constructor
+
+
+Venue.fromJson
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Venue.fromJson constructor
@@ -49,3 +68,6 @@ factory Venue.fromJson(Map<String, dynamic> json)
 
 
 
+
+
+ talawa 1.0.0+1 

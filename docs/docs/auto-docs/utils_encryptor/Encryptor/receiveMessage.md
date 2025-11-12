@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/encryptor.dart](../../utils_encryptor/)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
+4.  receiveMessage method
+
+
+receiveMessage
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # receiveMessage method
@@ -68,3 +87,6 @@ Future<void> receiveMessage(
 
 
 
+
+
+ talawa 1.0.0+1 

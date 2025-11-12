@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [views/after_auth_screens/events/create_agenda_item_page.dart](../views_after_auth_screens_events_create_agenda_item_page/)
+3.  CreateAgendaItemPageState class
+
+
+CreateAgendaItemPageState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CreateAgendaItemPageState class
@@ -255,3 +273,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

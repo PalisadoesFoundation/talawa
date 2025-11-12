@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_avatar.dart](../../widgets_custom_avatar/)
+3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
+4.  imageUrl property
+
+
+imageUrl
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # imageUrl property
@@ -44,3 +63,6 @@ final String? imageUrl;
 
 
 
+
+
+ talawa 1.0.0+1 

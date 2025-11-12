@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
+4.  listKey property
+
+
+listKey
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # listKey property
@@ -12,6 +31,10 @@ listKey
 
 final
 
+
+
+
+This is the key for the AnimatedList widget.
 
 
 
@@ -40,3 +63,6 @@ final listKey = GlobalKey<AnimatedListState>;
 
 
 
+
+
+ talawa 1.0.0+1 

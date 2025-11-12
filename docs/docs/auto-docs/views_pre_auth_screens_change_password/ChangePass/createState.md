@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/pre_auth_screens/change_password.dart](../../views_pre_auth_screens_change_password/)
+3.  [ChangePass](../../views_pre_auth_screens_change_password/ChangePass-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _ChangePassState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

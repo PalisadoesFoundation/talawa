@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/events/event_volunteer_group.dart](../models_events_event_volunteer_group/)
+3.  EventVolunteerGroup class
+
+
+EventVolunteerGroup
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # EventVolunteerGroup class
@@ -137,3 +155,6 @@ EventVolunteerGroup instance.
 
 
 
+
+
+ talawa 1.0.0+1 

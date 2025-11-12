@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/post_modal.dart](../../widgets_post_modal/)
+3.  [PostBottomModal](../../widgets_post_modal/PostBottomModal-class.md)
+4.  deletePost property
+
+
+deletePost
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # deletePost property
@@ -45,3 +64,6 @@ final Function(Post)? deletePost;
 
 
 
+
+
+ talawa 1.0.0+1 

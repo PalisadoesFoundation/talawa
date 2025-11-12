@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/user_profile_service.dart](../../services_user_profile_service/)
+3.  [UserProfileService](../../services_user_profile_service/UserProfileService-class.md)
+4.  updateUserProfile method
+
+
+updateUserProfile
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # updateUserProfile method
@@ -6,7 +25,7 @@
 </div>
 
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 updateUserProfile(
 
 1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
@@ -59,3 +78,6 @@ Future<QueryResult<Object?>> updateUserProfile(
 
 
 
+
+
+ talawa 1.0.0+1 

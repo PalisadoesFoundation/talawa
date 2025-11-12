@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/hive_manager.dart](../../services_hive_manager/)
+3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
+4.  openBox\<T\> static method
+
+
+openBox
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # openBox\<[T\>] static method
@@ -51,3 +70,6 @@ static Future<void> openBox<T>(String boxName) async
 
 
 
+
+
+ talawa 1.0.0+1 

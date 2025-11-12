@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/signup_progress_indicator.dart](../../widgets_signup_progress_indicator/)
+3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

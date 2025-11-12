@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/theme_view_model.dart](../../view_model_theme_view_model/)
+3.  [AppTheme](../../view_model_theme_view_model/AppTheme-class.md)
+4.  isdarkTheme property
+
+
+isdarkTheme
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # isdarkTheme property
@@ -42,3 +61,6 @@ bool get isdarkTheme => _isDarkMode;
 
 
 
+
+
+ talawa 1.0.0+1 

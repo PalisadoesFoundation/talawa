@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/events/event_agenda_category.dart](../models_events_event_agenda_category/)
+3.  AgendaCategory class
+
+
+AgendaCategory
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # AgendaCategory class
@@ -100,3 +118,6 @@ This class creates an event agenda category model.
 
 
 
+
+
+ talawa 1.0.0+1 

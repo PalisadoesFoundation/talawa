@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart](../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
+3.  EditProfilePageViewModel class
+
+
+EditProfilePageViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # EditProfilePageViewModel class
@@ -212,3 +230,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

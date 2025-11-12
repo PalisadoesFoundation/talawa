@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/pinned_post.dart](../../widgets_pinned_post/)
+3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -104,3 +123,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

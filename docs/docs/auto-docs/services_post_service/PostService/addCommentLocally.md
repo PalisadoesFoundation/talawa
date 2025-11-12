@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/post_service.dart](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  addCommentLocally method
+
+
+addCommentLocally
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # addCommentLocally method
@@ -51,3 +70,6 @@ void addCommentLocally(String postID)
 
 
 
+
+
+ talawa 1.0.0+1 

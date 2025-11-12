@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [locator.dart](../locator/)
+3.  sizeConfig property
+
+
+sizeConfig
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # sizeConfig top-level property
@@ -43,3 +61,6 @@ final sizeConfig = locator<SizeConfig>;
 
 
 
+
+
+ talawa 1.0.0+1 

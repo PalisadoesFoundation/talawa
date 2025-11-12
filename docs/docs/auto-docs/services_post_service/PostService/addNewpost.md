@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/post_service.dart](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  addNewpost method
+
+
+addNewpost
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # addNewpost method
@@ -50,3 +69,6 @@ void addNewpost(Post newPost)
 
 
 
+
+
+ talawa 1.0.0+1 

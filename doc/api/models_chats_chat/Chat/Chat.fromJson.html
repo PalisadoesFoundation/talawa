@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the Chat.fromJson constructor from Class Chat from the chat library, for the Dart programming language.">
+  <title>Chat.fromJson constructor - Chat - chat library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../models_chats_chat/">models&#47;chats&#47;chat.dart</a></li>
+    <li><a href="../../models_chats_chat/Chat-class.html">Chat</a></li>
+    <li class="self-crumb">Chat.fromJson factory constructor</li>
+  </ol>
+  <div class="self-name">Chat.fromJson</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="models_chats_chat&#47;Chat-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-constructor">Chat.fromJson</span> constructor 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+      <span class="name ">Chat.fromJson</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="fromJson-param-json"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">json</span></span></li>
+</ol>)
+    </section>
+    
+<section class="desc markdown">
+  <p>Creates a <code>Chat</code> instance from a JSON object.</p>
+<p>The <code>json</code> parameter is a map containing the chat data from the API.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>json</code>: JSON data from API containing chat information</li>
+</ul>
+<p><strong>returns</strong>:</p>
+<ul>
+<li><code>Chat</code>: Parsed chat instance</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">factory Chat.fromJson(Map&lt;String, dynamic&gt; json) {
+  &#47;&#47; Parse members if they exist
+  List&lt;ChatUser&gt;? members;
+  if (json[&#39;members&#39;] != null) {
+    final membersData = json[&#39;members&#39;];
+    if (membersData is Map&lt;String, dynamic&gt; &amp;&amp; membersData[&#39;edges&#39;] != null) {
+      &#47;&#47; Handle GraphQL paginated response format
+      final edges = membersData[&#39;edges&#39;] as List&lt;dynamic&gt;;
+      members = edges.map((dynamic edge) {
+        final edgeMap = edge as Map&lt;String, dynamic&gt;;
+        return ChatUser.fromJson(edgeMap[&#39;node&#39;] as Map&lt;String, dynamic&gt;);
+      }).toList();
+    } else if (membersData is List&lt;dynamic&gt;) {
+      &#47;&#47; Handle simple list format
+      members = membersData
+          .map(
+            (dynamic member) =&gt;
+                ChatUser.fromJson(member as Map&lt;String, dynamic&gt;),
+          )
+          .toList();
+    }
+  }
+
+  &#47;&#47; Parse messages if they exist (usually from paginated response)
+  List&lt;ChatMessage&gt;? messages;
+  if (json[&#39;messages&#39;] != null) {
+    final messagesData = json[&#39;messages&#39;];
+    if (messagesData is Map&lt;String, dynamic&gt; &amp;&amp;
+        messagesData[&#39;edges&#39;] != null) {
+      &#47;&#47; Handle GraphQL paginated response format
+      final edges = messagesData[&#39;edges&#39;] as List&lt;dynamic&gt;;
+      messages = edges.map((dynamic edge) {
+        final edgeMap = edge as Map&lt;String, dynamic&gt;;
+        return ChatMessage.fromJson(edgeMap[&#39;node&#39;] as Map&lt;String, dynamic&gt;);
+      }).toList();
+    } else if (messagesData is List&lt;dynamic&gt;) {
+      &#47;&#47; Handle simple list format
+      messages = messagesData
+          .map(
+            (dynamic message) =&gt;
+                ChatMessage.fromJson(message as Map&lt;String, dynamic&gt;),
+          )
+          .toList();
+    }
+  }
+
+  &#47;&#47; Parse creator if it exists
+  ChatUser? creator;
+  if (json[&#39;creator&#39;] != null) {
+    creator = ChatUser.fromJson(json[&#39;creator&#39;] as Map&lt;String, dynamic&gt;);
+  }
+
+  final chat = Chat(
+    id: json[&#39;id&#39;] as String?,
+    name: json[&#39;name&#39;] as String?,
+    description: json[&#39;description&#39;] as String?,
+    createdAt: json[&#39;createdAt&#39;] as String?,
+    updatedAt: json[&#39;updatedAt&#39;] as String?,
+    creator: creator,
+    members: members,
+    messages: messages,
+  );
+
+  return chat;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../models_chats_chat/">chat</a></li>
+    <li><a href="../../models_chats_chat/Chat-class.html">Chat</a></li>
+    <li class="self-crumb">Chat.fromJson factory constructor</li>
+</ol>
+
+    <h5>Chat class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [demo_server_data/pinned_post_demo_data.dart](../demo_server_data_pinned_post_demo_data/)
+3.  pinnedPostsDemoData constant
+
+
+pinnedPostsDemoData
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # pinnedPostsDemoData top-level constant
@@ -13,7 +31,7 @@ const pinnedPostsDemoData
 
 
 This file contains demo data for pinned posts. It contains a list of
-type Map\<String, Object\> and sample data.
+type `Map<String, Object>` and sample data.
 
 
 
@@ -46,3 +64,6 @@ const pinnedPostsDemoData = [
 
 
 
+
+
+ talawa 1.0.0+1 

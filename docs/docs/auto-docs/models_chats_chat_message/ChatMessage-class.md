@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/chats/chat_message.dart](../models_chats_chat_message/)
+3.  ChatMessage class
+
+
+ChatMessage
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ChatMessage class
@@ -6,34 +24,49 @@
 </div>
 
 
-This class creates JSON code for chat message using the JsonSerializable
-package.
-
-
-
-
-Annotations
-
-:   -   @[JsonSerializable](https://pub.dev/documentation/json_annotation/4.9.0/json_annotation/JsonSerializable-class.html)(explicitToJson:
-        true)
+The `ChatMessage` class represents a message in the new PostgreSQL-based
+chat system.
 
 
 
 ## Constructors
 
-[[ChatMessage](../models_chats_chat_message/ChatMessage/ChatMessage.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] id, ][[[ChatUser](../models_chats_chat_user/ChatUser-class.md)?] sender, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] messageContent, ][[[ChatUser](../models_chats_chat_user/ChatUser-class.md)?] receiver])]
-
-:   
+[[ChatMessage](../models_chats_chat_message/ChatMessage/ChatMessage.md)][]
+:   Constructs a `ChatMessage` instance.
 
 [[ChatMessage.fromJson](../models_chats_chat_message/ChatMessage/ChatMessage.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
-
-:   ::: 
+:   Creates a `ChatMessage` instance from a JSON object.
+    ::: 
     factory
     :::
 
 
 
 ## Properties
+
+[[body](../models_chats_chat_message/ChatMessage/body.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The actual text content of the message.
+    ::: features
+    getter/setter pair
+    :::
+
+[[chatId](../models_chats_chat_message/ChatMessage/chatId.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The ID of the chat this message belongs to.
+    ::: features
+    getter/setter pair
+    :::
+
+[[createdAt](../models_chats_chat_message/ChatMessage/createdAt.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The timestamp when the message was created.
+    ::: features
+    getter/setter pair
+    :::
+
+[[creator](../models_chats_chat_message/ChatMessage/creator.md)] [↔ [ChatUser](../models_chats_chat_user/ChatUser-class.md)?]
+:   The user who created the message.
+    ::: features
+    getter/setter pair
+    :::
 
 [[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
@@ -42,20 +75,14 @@ Annotations
     :::
 
 [[id](../models_chats_chat_message/ChatMessage/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-
-:   ::: features
+:   The unique identifier of the message.
+    ::: features
     getter/setter pair
     :::
 
-[[messageContent](../models_chats_chat_message/ChatMessage/messageContent.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-
-:   ::: features
-    getter/setter pair
-    :::
-
-[[receiver](../models_chats_chat_message/ChatMessage/receiver.md)] [↔ [ChatUser](../models_chats_chat_user/ChatUser-class.md)?]
-
-:   ::: features
+[[parentMessage](../models_chats_chat_message/ChatMessage/parentMessage.md)] [↔ [ChatMessage](../models_chats_chat_message/ChatMessage-class.md)?]
+:   The parent message if this is a reply.
+    ::: features
     getter/setter pair
     :::
 
@@ -65,9 +92,9 @@ Annotations
     no setterinherited
     :::
 
-[[sender](../models_chats_chat_message/ChatMessage/sender.md)] [↔ [ChatUser](../models_chats_chat_user/ChatUser-class.md)?]
-
-:   ::: features
+[[updatedAt](../models_chats_chat_message/ChatMessage/updatedAt.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The timestamp when the message was last updated.
+    ::: features
     getter/setter pair
     :::
 
@@ -82,8 +109,7 @@ Annotations
     :::
 
 [[toJson](../models_chats_chat_message/ChatMessage/toJson.md)][ [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
-
-:   
+:   Converts the `ChatMessage` instance to a JSON object.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
@@ -119,3 +145,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/third_party_service/multi_media_pick_service.dart](../../services_third_party_service_multi_media_pick_service/)
+3.  [MultiMediaPickerService](../../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.md)
+4.  permissionDeniedDialog method
+
+
+permissionDeniedDialog
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # permissionDeniedDialog method
@@ -50,3 +69,6 @@ CustomAlertDialog
 
 
 
+
+
+ talawa 1.0.0+1 

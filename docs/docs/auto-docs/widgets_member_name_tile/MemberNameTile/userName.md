@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/member_name_tile.dart](../../widgets_member_name_tile/)
+3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
+4.  userName property
+
+
+userName
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # userName property
@@ -44,3 +63,6 @@ final String userName;
 
 
 
+
+
+ talawa 1.0.0+1 

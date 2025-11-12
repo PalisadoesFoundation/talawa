@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
+3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.md)
+4.  read method
+
+
+read
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # read method
@@ -56,3 +75,6 @@ User read(BinaryReader reader)
 
 
 
+
+
+ talawa 1.0.0+1 

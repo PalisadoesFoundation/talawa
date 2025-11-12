@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
+3.  [WeekDays](../../constants_recurrence_values/WeekDays-class.md)
+4.  monday constant
+
+
+monday
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # monday constant
@@ -40,3 +59,6 @@ static const monday = 'MONDAY';
 
 
 
+
+
+ talawa 1.0.0+1 

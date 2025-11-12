@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [custom_painters/language_icon.dart](../custom_painters_language_icon/)
+3.  LanguageIcon class
+
+
+LanguageIcon
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # LanguageIcon class
@@ -75,9 +93,9 @@ Inheritance
     inherited
     :::
 
-[[paint](../custom_painters_language_icon/LanguageIcon/paint.md)][([[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.md)] canvas, ][[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)] size]) → void ]
+[[paint](../custom_painters_language_icon/LanguageIcon/paint.md)][([[[Canvas](https://api.flutter.dev/flutter/dart-ui/Canvas-class.md)] canvas, ][[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)] size]) → void ]
 :   Called whenever the object needs to paint. The given
-    [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)
+    [Canvas](https://api.flutter.dev/flutter/dart-ui/Canvas-class.html)
     has its coordinate space configured such that the origin is at the
     top left of the box. The area of the box is the size of the `size`
     argument.
@@ -152,3 +170,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

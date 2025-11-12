@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/encryptor.dart](../../utils_encryptor/)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
+4.  loadKeyPair method
+
+
+loadKeyPair
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # loadKeyPair method
@@ -6,8 +25,7 @@
 </div>
 
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)],
-[[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
 loadKeyPair(
 
 1.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.md)]
@@ -59,3 +77,6 @@ Future<AsymmetricKeyPair<PublicKey, PrivateKey>> loadKeyPair(
 
 
 
+
+
+ talawa 1.0.0+1 

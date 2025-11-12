@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/post/post_model.dart](../models_post_post_model/)
+3.  Post class
+
+
+Post
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Post class
@@ -13,7 +31,7 @@ This class creates a Post model.
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         6)
 
 
@@ -31,14 +49,20 @@ Annotations
 
 ## Properties
 
-[[base64String](../models_post_post_model/Post/base64String.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   Base64 encoded string of an image attached to the post.
+[[attachments](../models_post_post_model/Post/attachments.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AttachmentModel](../models_attachments_attachment_model/AttachmentModel-class.md)]\>]?]
+:   Attachments associated with the post.
     ::: features
     getter/setter pair
     :::
 
-[[comments](../models_post_post_model/Post/comments.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../models_post_post_model/Comments-class.md)]\>]?]
-:   List of comments on the post.
+[[caption](../models_post_post_model/Post/caption.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   Caption of the post.
+    ::: features
+    getter/setter pair
+    :::
+
+[[commentsCount](../models_post_post_model/Post/commentsCount.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+:   Number of Comments on the post.
     ::: features
     getter/setter pair
     :::
@@ -55,8 +79,8 @@ Annotations
     getter/setter pair
     :::
 
-[[description](../models_post_post_model/Post/description.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   Description of the post.
+[[downvotesCount](../models_post_post_model/Post/downvotesCount.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+:   Number of downvotes on the post.
     ::: features
     getter/setter pair
     :::
@@ -67,14 +91,20 @@ Annotations
     no setterinherited
     :::
 
-[[imageUrl](../models_post_post_model/Post/imageUrl.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   URL of the image attached to the post.
+[[hasVoted](../models_post_post_model/Post/hasVoted.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+:   Variable to check if post is voted by the user.
     ::: features
     getter/setter pair
     :::
 
-[[likedBy](../models_post_post_model/Post/likedBy.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.md)]\>]?]
-:   List of users who liked the post.
+[[id](../models_post_post_model/Post/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   unique identifier for post.
+    ::: features
+    getter/setter pair
+    :::
+
+[[isPinned](../models_post_post_model/Post/isPinned.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
+:   Variable to check if post is pinned by the user.
     ::: features
     getter/setter pair
     :::
@@ -85,20 +115,27 @@ Annotations
     getter/setter pair
     :::
 
+[[pinnedAt](../models_post_post_model/Post/pinnedAt.md)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]
+:   Timestamp when the post was pinned.
+    ::: features
+    getter/setter pair
+    :::
+
 [[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
     no setterinherited
     :::
 
-[[sId](../models_post_post_model/Post/sId.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-:   unique identifier for post.
+[[upvotesCount](../models_post_post_model/Post/upvotesCount.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+:   Number of upvotes on the post.
     ::: features
     getter/setter pair
     :::
 
-[[videoUrl](../models_post_post_model/Post/videoUrl.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   URL of a video attached to the post.
+[[voteType](../models_post_post_model/Post/voteType.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   Variable to check the type of vote on the post by the user (if not
+    voted then null).
     ::: features
     getter/setter pair
     :::
@@ -109,6 +146,12 @@ Annotations
 
 [[getPostCreatedDuration](../models_post_post_model/Post/getPostCreatedDuration.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   this is to get duration of post.
+
+[[getPostPinnedDuration](../models_post_post_model/Post/getPostPinnedDuration.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   this is to get duration of pinned post.
+
+[[getPresignedUrl](../models_post_post_model/Post/getPresignedUrl.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] id]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+:   Method to get the presigned URL for a file attachment.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
@@ -134,6 +177,13 @@ Annotations
 
 
 
+## Constants
+
+[[fallbackAttachmentUrl](../models_post_post_model/Post/fallbackAttachmentUrl-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+:   Fallback URL for post attachments.
+
+
+
 
 
 
@@ -150,3 +200,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

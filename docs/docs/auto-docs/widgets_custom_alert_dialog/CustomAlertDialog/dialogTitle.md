@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/custom_alert_dialog.dart](../../widgets_custom_alert_dialog/)
+3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
+4.  dialogTitle property
+
+
+dialogTitle
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # dialogTitle property
@@ -44,3 +63,6 @@ final String dialogTitle;
 
 
 
+
+
+ talawa 1.0.0+1 

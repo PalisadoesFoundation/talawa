@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
+3.  [CustomRectangle](../../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.md)
+4.  child property
+
+
+child
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # child property
@@ -44,3 +63,6 @@ final Widget child;
 
 
 
+
+
+ talawa 1.0.0+1 

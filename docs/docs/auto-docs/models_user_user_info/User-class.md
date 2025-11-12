@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/user/user_info.dart](../models_user_user_info/)
+3.  User class
+
+
+User
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # User class
@@ -19,7 +37,7 @@ Inheritance
 
 Annotations
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
         1)
 
 
@@ -77,10 +95,10 @@ Annotations
     getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[hashCode](../models_user_user_info/User/hashCode.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    no setterinherited
+    no setteroverride
     :::
 
 [[id](../models_user_user_info/User/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
@@ -124,6 +142,12 @@ Annotations
 :   HiveField for all organisations user has sent membership request.
     ::: features
     getter/setter pair
+    :::
+
+[[name](../models_user_user_info/User/name.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   Computed property to get the full name of the user.
+    ::: features
+    no setter
     :::
 
 [[refreshToken](../models_user_user_info/User/refreshToken.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
@@ -178,7 +202,7 @@ Annotations
 [[updateCreatedOrg](../models_user_user_info/User/updateCreatedOrg.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] orgList]) → void ]
 :   Method to updated createdOrganisation list.
 
-[[updateJoinedOrg](../models_user_user_info/User/updateJoinedOrg.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] orgList]) → void ]
+[[updateJoinedOrg](../models_user_user_info/User/updateJoinedOrg.md)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)] org]) → void ]
 :   Method to updated joinedOrganisation list.
 
 [[updateMemberRequestOrg](../models_user_user_info/User/updateMemberRequestOrg.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]] orgList]) → void ]
@@ -188,10 +212,10 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](../models_user_user_info/User/operator_equals.md)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    inherited
+    override
     :::
 
 
@@ -212,3 +236,6 @@ Annotations
 
 
 
+
+
+ talawa 1.0.0+1 

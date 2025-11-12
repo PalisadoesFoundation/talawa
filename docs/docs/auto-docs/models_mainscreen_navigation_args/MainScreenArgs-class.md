@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/mainscreen_navigation_args.dart](../models_mainscreen_navigation_args/)
+3.  MainScreenArgs class
+
+
+MainScreenArgs
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # MainScreenArgs class
@@ -97,3 +115,6 @@ This class creates a MainScreenArgs model.
 
 
 
+
+
+ talawa 1.0.0+1 

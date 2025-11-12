@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
+3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
+4.  exploreEventsViewModel property
+
+
+exploreEventsViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # exploreEventsViewModel property
@@ -12,6 +31,10 @@ exploreEventsViewModel
 
 getter/setter pair
 
+
+
+
+The model that contains the logic for exploring events.
 
 
 
@@ -40,3 +63,6 @@ ExploreEventsViewModel exploreEventsViewModel;
 
 
 
+
+
+ talawa 1.0.0+1 

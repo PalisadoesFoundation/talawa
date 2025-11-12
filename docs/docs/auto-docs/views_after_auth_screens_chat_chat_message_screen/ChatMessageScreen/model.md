@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/chat/chat_message_screen.dart](../../views_after_auth_screens_chat_chat_message_screen/)
+3.  [ChatMessageScreen](../../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.md)
+4.  model property
+
+
+model
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # model property
@@ -12,6 +31,10 @@ model
 
 final
 
+
+
+
+The DirectChatViewModel instance that manages chat state and messages.
 
 
 
@@ -40,3 +63,6 @@ final DirectChatViewModel model;
 
 
 
+
+
+ talawa 1.0.0+1 

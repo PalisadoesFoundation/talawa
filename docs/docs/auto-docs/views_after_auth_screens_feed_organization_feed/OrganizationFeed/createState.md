@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/feed/organization_feed.dart](../../views_after_auth_screens_feed_organization_feed/)
+3.  [OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -76,3 +95,6 @@ State<OrganizationFeed>  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [utils/post_queries.dart](../utils_post_queries/)
+3.  PostQueries class
+
+
+PostQueries
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # PostQueries class
@@ -39,23 +57,23 @@ This class creates queries related to posts.
 [[addLike](../utils_post_queries/PostQueries/addLike.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Add Like to a post.
 
-[[getPostById](../utils_post_queries/PostQueries/getPostById.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] postId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Getting Post by Post Id.
+[[deletePost](../utils_post_queries/PostQueries/deletePost.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Mutation to delete the post.
 
-[[getPostsById](../utils_post_queries/PostQueries/getPostsById.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] after, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] before, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] first, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] last]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[getPostsByOrgID](../utils_post_queries/PostQueries/getPostsByOrgID.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Getting Posts by Id.
+
+[[getPresignedUrl](../utils_post_queries/PostQueries/getPresignedUrl.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Getting Presigned URL for uploading a file.
+
+[[hasUserVoted](../utils_post_queries/PostQueries/hasUserVoted.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Query to fetch vote details of a post.
 
 [[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
-
-[[removeLike](../utils_post_queries/PostQueries/removeLike.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Remove Like from a post.
-
-[[removePost](../utils_post_queries/PostQueries/removePost.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Mutation to remove the post.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
@@ -94,3 +112,6 @@ This class creates queries related to posts.
 
 
 
+
+
+ talawa 1.0.0+1 

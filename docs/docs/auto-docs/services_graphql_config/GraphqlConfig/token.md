@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/graphql_config.dart](../../services_graphql_config/)
+3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
+4.  token property
+
+
+token
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # token property
@@ -40,3 +59,6 @@ static String? token;
 
 
 
+
+
+ talawa 1.0.0+1 

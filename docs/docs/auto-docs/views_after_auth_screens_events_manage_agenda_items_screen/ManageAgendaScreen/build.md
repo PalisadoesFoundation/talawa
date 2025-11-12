@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/manage_agenda_items_screen.dart](../../views_after_auth_screens_events_manage_agenda_items_screen/)
+3.  [ManageAgendaScreen](../../views_after_auth_screens_events_manage_agenda_items_screen/ManageAgendaScreen-class.md)
+4.  build method
+
+
+build
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # build method
@@ -105,3 +124,6 @@ Widget build(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

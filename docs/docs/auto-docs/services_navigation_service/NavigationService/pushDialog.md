@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  pushDialog method
+
+
+pushDialog
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # pushDialog method
@@ -51,3 +70,6 @@ void pushDialog(Widget dialog)
 
 
 
+
+
+ talawa 1.0.0+1 

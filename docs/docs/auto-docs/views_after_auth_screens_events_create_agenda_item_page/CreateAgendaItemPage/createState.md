@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_agenda_item_page.dart](../../views_after_auth_screens_events_create_agenda_item_page/)
+3.  [CreateAgendaItemPage](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -76,3 +95,6 @@ CreateAgendaItemPageState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

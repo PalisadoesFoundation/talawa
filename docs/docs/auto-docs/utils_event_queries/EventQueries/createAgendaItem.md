@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/event_queries.dart](../../utils_event_queries/)
+3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
+4.  createAgendaItem method
+
+
+createAgendaItem
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createAgendaItem method
@@ -47,3 +66,6 @@ String
 
 
 
+
+
+ talawa 1.0.0+1 

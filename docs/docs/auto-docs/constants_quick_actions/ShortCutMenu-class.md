@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/quick_actions.dart](../constants_quick_actions/)
+3.  ShortCutMenu class
+
+
+ShortCutMenu
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ShortCutMenu class
@@ -63,7 +81,7 @@ with the application. quick_actions package is used for this purpose.
 
 ## Static Properties
 
-[[quickActionsList](../constants_quick_actions/ShortCutMenu/quickActionsList.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]\>]]
+[[quickActionsList](../constants_quick_actions/ShortCutMenu/quickActionsList.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)]
 
 :   ::: features
     final
@@ -73,15 +91,15 @@ with the application. quick_actions package is used for this purpose.
 
 ## Constants
 
-[[chatAction](../constants_quick_actions/ShortCutMenu/chatAction-constant.md)] [→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]
+[[chatAction](../constants_quick_actions/ShortCutMenu/chatAction-constant.md)] → const dynamic
 
 :   
 
-[[eventAction](../constants_quick_actions/ShortCutMenu/eventAction-constant.md)] [→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]
+[[eventAction](../constants_quick_actions/ShortCutMenu/eventAction-constant.md)] → const dynamic
 
 :   
 
-[[feedAction](../constants_quick_actions/ShortCutMenu/feedAction-constant.md)] [→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]
+[[feedAction](../constants_quick_actions/ShortCutMenu/feedAction-constant.md)] → const dynamic
 
 :   
 
@@ -103,3 +121,6 @@ with the application. quick_actions package is used for this purpose.
 
 
 
+
+
+ talawa 1.0.0+1 

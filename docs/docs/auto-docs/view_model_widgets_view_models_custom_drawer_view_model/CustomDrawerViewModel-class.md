@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../view_model_widgets_view_models_custom_drawer_view_model/)
+3.  CustomDrawerViewModel class
+
+
+CustomDrawerViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # CustomDrawerViewModel class
@@ -85,13 +103,13 @@ Inheritance
     getter/setter pair
     :::
 
-[[targets](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]\>]]
+[[targets](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)]
 :   List of TargetFocus objects used for tutorial coaching.
     ::: features
     final
     :::
 
-[[tutorialCoachMark](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.md)] [↔ [TutorialCoachMark](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TutorialCoachMark-class.html)]
+[[tutorialCoachMark](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.md)] ↔ dynamic
 :   Instance of TutorialCoachMark responsible for providing tutorial
     guidance.
     ::: features
@@ -192,3 +210,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

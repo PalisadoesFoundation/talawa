@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [view_model/widgets_view_models/comments_view_model.dart](../../view_model_widgets_view_models_comments_view_model/)
+3.  [CommentsViewModel](../../view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.md)
+4.  getComments method
+
+
+getComments
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # getComments method
@@ -45,3 +64,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart](../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/)
+3.  ManageVolunteerGroupViewModel class
+
+
+ManageVolunteerGroupViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ManageVolunteerGroupViewModel class
@@ -190,3 +208,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

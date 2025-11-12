@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
+3.  EventCalendarViewModel class
+
+
+EventCalendarViewModel
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # EventCalendarViewModel class
@@ -32,19 +50,19 @@ Inheritance
 
 ## Properties
 
-[[calendarController](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/calendarController.md)] [→ [CalendarController](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/CalendarController-class.html)]
+[[calendarController](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/calendarController.md)] → dynamic
 :   Getter for accessing the calendar controller.
     ::: features
     no setter
     :::
 
-[[calendarView](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/calendarView.md)] [→ [CalendarView](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/CalendarView.html)]
+[[calendarView](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/calendarView.md)] → dynamic
 :   Getter for accessing the current view of the calendar.
     ::: features
     no setter
     :::
 
-[[dateRangePickerController](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/dateRangePickerController.md)] [→ [DateRangePickerController](https://pub.dev/documentation/syncfusion_flutter_datepicker/28.2.3/datepicker/DateRangePickerController-class.html)]
+[[dateRangePickerController](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/dateRangePickerController.md)] → dynamic
 :   Getter for accessing the date range picker controller.
     ::: features
     no setter
@@ -130,7 +148,7 @@ Inheritance
     inherited
     :::
 
-[[selectionChanged](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/selectionChanged.md)][([[[DateRangePickerSelectionChangedArgs](https://pub.dev/documentation/syncfusion_flutter_datepicker/28.2.3/datepicker/DateRangePickerSelectionChangedArgs-class.md)] args]) → void ]
+[[selectionChanged](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/selectionChanged.md)]([[dynamic args]) → void ]
 :   function to be triggered when selection is changed.
 
 [[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
@@ -145,7 +163,7 @@ Inheritance
     inherited
     :::
 
-[[viewChanged](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/viewChanged.md)][([[[ViewChangedDetails](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/ViewChangedDetails-class.md)] viewChangedDetails]) → void ]
+[[viewChanged](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/viewChanged.md)]([[dynamic viewChangedDetails]) → void ]
 :   The function to triggered when the view is changed.
 
 
@@ -176,3 +194,6 @@ Inheritance
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/queries.dart](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  joinOrgById method
+
+
+joinOrgById
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # joinOrgById method
@@ -7,20 +26,13 @@
 
 
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-joinOrgById(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
-    orgId]
-
-)
 
 
 
 make mutation string for joiining org by ord.id.
 
-**params**:
-
--   `orgId`: refer org object.
+**params**: None
 
 **returns**:
 
@@ -31,7 +43,7 @@ make mutation string for joiining org by ord.id.
 ## Implementation
 
 ``` language-dart
-String joinOrgById(String orgId) 
+String  
 ```
 
 
@@ -53,3 +65,6 @@ String joinOrgById(String orgId)
 
 
 
+
+
+ talawa 1.0.0+1 

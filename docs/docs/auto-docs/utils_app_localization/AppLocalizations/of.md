@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
+3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
+4.  of static method
+
+
+of
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # of static method
@@ -41,3 +60,6 @@ static AppLocalizations? of(BuildContext context)
 
 
 
+
+
+ talawa 1.0.0+1 

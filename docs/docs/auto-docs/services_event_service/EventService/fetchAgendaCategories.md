@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/event_service.dart](../../services_event_service/)
+3.  [EventService](../../services_event_service/EventService-class.md)
+4.  fetchAgendaCategories method
+
+
+fetchAgendaCategories
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # fetchAgendaCategories method
@@ -53,3 +72,6 @@ Future<dynamic> fetchAgendaCategories(String orgId) async
 
 
 
+
+
+ talawa 1.0.0+1 

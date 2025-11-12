@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  showTalawaErrorDialog method
+
+
+showTalawaErrorDialog
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # showTalawaErrorDialog method
@@ -54,3 +73,6 @@ void showTalawaErrorDialog(String errorMessage, MessageType messageType)
 
 
 
+
+
+ talawa 1.0.0+1 

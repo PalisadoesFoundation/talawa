@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [models/chats/chat_list_tile_data_model.dart](../../models_chats_chat_list_tile_data_model/)
+3.  [ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)
+4.  users property
+
+
+users
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # users property
@@ -12,6 +31,10 @@ users
 
 getter/setter pair
 
+
+
+
+List of users in the chat (for backward compatibility).
 
 
 
@@ -40,3 +63,6 @@ List<ChatUser>? users;
 
 
 
+
+
+ talawa 1.0.0+1 

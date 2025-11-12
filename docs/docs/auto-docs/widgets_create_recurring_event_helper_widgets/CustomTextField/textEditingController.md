@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
+3.  [CustomTextField](../../widgets_create_recurring_event_helper_widgets/CustomTextField-class.md)
+4.  textEditingController property
+
+
+textEditingController
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # textEditingController property
@@ -44,3 +63,6 @@ final TextEditingController textEditingController;
 
 
 
+
+
+ talawa 1.0.0+1 

@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [models/events/event_agenda_item.dart](../models_events_event_agenda_item/)
+3.  ItemType enum
+
+
+ItemType
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ItemType enum
@@ -121,3 +139,6 @@ note [→ const [ItemType](../models_events_event_agenda_item/ItemType.md)]
 
 
 
+
+
+ talawa 1.0.0+1 

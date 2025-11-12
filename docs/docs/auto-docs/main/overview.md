@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [main.dart](../main/)
+3.  main function
+
+
+main
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # main function
@@ -35,3 +53,6 @@ Future<void>  async
 
 
 
+
+
+ talawa 1.0.0+1 

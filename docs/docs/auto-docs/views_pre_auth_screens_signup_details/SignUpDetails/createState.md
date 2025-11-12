@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [views/pre_auth_screens/signup_details.dart](../../views_pre_auth_screens_signup_details/)
+3.  [SignUpDetails](../../views_pre_auth_screens_signup_details/SignUpDetails-class.md)
+4.  createState method
+
+
+createState
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # createState method
@@ -75,3 +94,6 @@ _SignUpDetailsState  => ;
 
 
 
+
+
+ talawa 1.0.0+1 

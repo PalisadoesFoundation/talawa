@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [services/third_party_service/connectivity_service.dart](../services_third_party_service_connectivity_service/)
+3.  ConnectivityService class
+
+
+ConnectivityService
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # ConnectivityService class
@@ -26,7 +44,7 @@ It includes methods for:
 
 ## Constructors
 
-[[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService/ConnectivityService.md)][([[[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.md)] connectivityInstance])]
+[[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService/ConnectivityService.md)][([[[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.5/connectivity_plus/Connectivity-class.md)] connectivityInstance])]
 
 :   
 
@@ -46,7 +64,7 @@ It includes methods for:
     no setter
     :::
 
-[[connectivityInstance](../services_third_party_service_connectivity_service/ConnectivityService/connectivityInstance.md)] [↔ [Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)]
+[[connectivityInstance](../services_third_party_service_connectivity_service/ConnectivityService/connectivityInstance.md)] [↔ [Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.5/connectivity_plus/Connectivity-class.html)]
 :   dependency injection connectivity.
     ::: features
     latefinal
@@ -125,3 +143,6 @@ It includes methods for:
 
 
 
+
+
+ talawa 1.0.0+1 

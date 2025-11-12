@@ -1,4 +1,22 @@
 
+
+
+
+menu
+
+1.  [talawa](../index.md)
+2.  [constants/routing_constants.dart](../constants_routing_constants/)
+3.  Routes class
+
+
+Routes
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # Routes class
@@ -114,6 +132,9 @@ call via Routes.splashScreen to access these string.
 [[exploreEventsScreen](../constants_routing_constants/Routes/exploreEventsScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
+[[groupChatMessageScreen](../constants_routing_constants/Routes/groupChatMessageScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+:   static variables.
+
 [[homeScreen](../constants_routing_constants/Routes/homeScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
@@ -134,6 +155,9 @@ call via Routes.splashScreen to access these string.
 
 [[manageVolunteerGroup](../constants_routing_constants/Routes/manageVolunteerGroup-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access Manage volunteer group screen.
+
+[[menuPage](../constants_routing_constants/Routes/menuPage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+:   static variable to access Menu page.
 
 [[orgInfoScreen](../constants_routing_constants/Routes/orgInfoScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access org info screen.
@@ -201,3 +225,6 @@ call via Routes.splashScreen to access these string.
 
 
 
+
+
+ talawa 1.0.0+1 

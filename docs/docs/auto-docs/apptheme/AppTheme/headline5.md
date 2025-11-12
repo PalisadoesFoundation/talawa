@@ -1,4 +1,23 @@
 
+
+
+
+menu
+
+1.  [talawa](../../index.md)
+2.  [apptheme.dart](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  headline5 property
+
+
+headline5
+
+
+ dark_mode   light_mode 
+
+
+
+
 <div>
 
 # headline5 property
@@ -49,3 +68,6 @@ static TextStyle headline5 = const TextStyle(
 
 
 
+
+
+ talawa 1.0.0+1 
