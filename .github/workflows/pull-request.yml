@@ -20,9 +20,38 @@ env:
   FLUTTER_VERSION: 3.32.8
 
 jobs:
+  Docs-Check:
+    name: Verify Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.8"
+          channel: "stable"
+
+      - name: Install Pandoc
+        run: sudo apt-get install pandoc -y
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate documentation
+        run: bash scripts/docusaurus/generate_docs.sh
+
+      - name: Check for uncommitted documentation changes
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "::error::❌ Documentation was generated during CI."
+            echo "Please run 'bash scripts/docusaurus/generate_docs.sh' locally and commit those files."
+            exit 1
+          fi
   Flutter-Codebase-Check:
     name: Checking codebase
     runs-on: ubuntu-latest
+    needs: [Docs-Check]
     permissions:
       contents: write
     #needs: PR-Greeting
