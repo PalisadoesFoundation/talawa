@@ -1,10 +1,42 @@
-
-<div>
-
-# build method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/manage_volunteer_group.dart](../../views_after_auth_screens_events_manage_volunteer_group/)
+3.  [ManageGroupScreen](../../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.md)
+4.  build method
+
+<div class="self-name">
+
+build
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">build</span> method
+
+</div>
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -12,19 +44,24 @@
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
-build(
+<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="name">build</span>(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
-    context]
+1.  <span id="build-param-context"
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    <span class="parameter-name">context</span></span>
 
 )
 
+<div class="features">
 
-override
+<span class="feature">override</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 Describes the part of the user interface represented by this widget.
 
@@ -45,7 +82,7 @@ subtree, as determined by calling
 [Widget.canUpdate](https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html).
 
 Typically implementations return a newly created constellation of
-widgets that are configured with information from this widget\'s
+widgets that are configured with information from this widget's
 constructor and from the given
 [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html).
 
@@ -61,12 +98,12 @@ widget is inserted into the tree in multiple places at once.
 
 The implementation of this method must only depend on:
 
--   the fields of the widget, which themselves must not change over
-    time, and
--   any ambient state obtained from the `context` using
-    [BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html).
+- the fields of the widget, which themselves must not change over time,
+  and
+- any ambient state obtained from the `context` using
+  [BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html).
 
-If a widget\'s
+If a widget's
 [build](../../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen/build.md)
 method is to depend on anything else, use a
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
@@ -74,10 +111,12 @@ instead.
 
 See also:
 
--   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html),
-    which contains the discussion on performance considerations.
+- [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html),
+  which contains the discussion on performance considerations.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -86,11 +125,15 @@ See also:
 Widget build(BuildContext context) 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [manage_volunteer_group](../../views_after_auth_screens_events_manage_volunteer_group/)
@@ -99,9 +142,16 @@ Widget build(BuildContext context)
 
 ##### ManageGroupScreen class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

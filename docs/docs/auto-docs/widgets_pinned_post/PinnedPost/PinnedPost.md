@@ -1,46 +1,82 @@
-
-<div>
-
-# pinnedPost property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]
-pinnedPost
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [widgets/pinned_post.dart](../../widgets_pinned_post/)
+3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
+4.  PinnedPost.new const constructor
 
-final
+<div class="self-name">
 
+PinnedPost.new
 
+</div>
 
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
-contains the pinned post.
+</div>
 
+<div role="main">
 
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_pinned_post/PinnedPost-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-constructor">PinnedPost</span> constructor
+
+</div>
+
+<div class="section multi-line-signature">
+
+const <span class="name">PinnedPost</span>
+
+</div>
+
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
 ``` language-dart
-final List<Post> pinnedPost;
+const ;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [pinned_post](../../widgets_pinned_post/)
 3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
-4.  pinnedPost property
+4.  PinnedPost.new const constructor
 
 ##### PinnedPost class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

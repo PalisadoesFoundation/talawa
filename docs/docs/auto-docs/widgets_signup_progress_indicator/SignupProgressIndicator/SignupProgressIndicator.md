@@ -1,14 +1,48 @@
-
-<div>
-
-# SignupProgressIndicator constructor
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [widgets/signup_progress_indicator.dart](../../widgets_signup_progress_indicator/)
+3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)
+4.  SignupProgressIndicator.new constructor
 
+<div class="self-name">
 
+SignupProgressIndicator.new
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_signup_progress_indicator/SignupProgressIndicator-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-constructor">SignupProgressIndicator</span> constructor
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="name">SignupProgressIndicator</span>
+
+</div>
+
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -17,22 +51,33 @@
     : super(key: key);
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [signup_progress_indicator](../../widgets_signup_progress_indicator/)
 3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)
-4.  SignupProgressIndicator constructor
+4.  SignupProgressIndicator.new constructor
 
 ##### SignupProgressIndicator class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

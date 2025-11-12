@@ -1,0 +1,12 @@
+1.  [Constructors](./PinnedPostQueries-class#constructors.md)
+2.  [new](./PinnedPostQueries/PinnedPostQueries.md)
+3.  [Properties](./PinnedPostQueries-class#instance-properties.md)
+4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+6.  [Methods](./PinnedPostQueries-class#instance-methods.md)
+7.  [getPinnedPostsByOrgID](./PinnedPostQueries/getPinnedPostsByOrgID.md)
+8.  [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+9.  [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+10. [Operators](./PinnedPostQueries-class#operators.md)
+11. [operator
+    ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

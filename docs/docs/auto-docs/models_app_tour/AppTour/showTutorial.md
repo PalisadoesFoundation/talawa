@@ -1,28 +1,65 @@
-
-<div>
-
-# showTutorial method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-void 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [models/app_tour.dart](../../models_app_tour/)
+3.  [AppTour](../../models_app_tour/AppTour-class.md)
+4.  showTutorial method
 
+<div class="self-name">
+
+showTutorial
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_app_tour/AppTour-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">showTutorial</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">void</span>
+<span class="name">showTutorial</span>
+
+</div>
+
+<div class="section desc markdown">
 
 This function show tutorial to user.
 
 **params**:
 
--   `onClickTarget`: Its a function which is required to run desired
-    tasks on click.
--   `onFinish`: Its a function which is required to run desired tasks on
-    finish
--   `targets`: `FocusTargets` to show the tour on.
+- `onClickTarget`: Its a function which is required to run desired tasks
+  on click.
+- `onFinish`: Its a function which is required to run desired tasks on
+  finish
+- `targets`: `FocusTargets` to show the tour on.
 
 **returns**: None
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -30,11 +67,15 @@ This function show tutorial to user.
 void  
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [app_tour](../../models_app_tour/)
@@ -43,9 +84,16 @@ void
 
 ##### AppTour class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

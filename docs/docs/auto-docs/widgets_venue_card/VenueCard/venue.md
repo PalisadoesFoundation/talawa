@@ -1,22 +1,61 @@
-
-<div>
-
-# venue property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[Venue](../../models_events_event_venue/Venue-class.md) venue
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [widgets/venue_card.dart](../../widgets_venue_card/)
+3.  [VenueCard](../../widgets_venue_card/VenueCard-class.md)
+4.  venue property
 
-final
+<div class="self-name">
 
+venue
 
+</div>
 
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_venue_card/VenueCard-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">venue</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[Venue](../../models_events_event_venue/Venue-class.md)
+<span class="name">venue</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 The venue object containing details about the venue.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -24,11 +63,15 @@ The venue object containing details about the venue.
 final Venue venue;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [venue_card](../../widgets_venue_card/)
@@ -37,9 +80,16 @@ final Venue venue;
 
 ##### VenueCard class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

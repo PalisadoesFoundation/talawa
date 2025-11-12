@@ -1,36 +1,73 @@
-
-<div>
-
-# attendeesByEvent method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-attendeesByEvent(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
-    eventId]
+1.  [talawa](../../index.md)
+2.  [utils/event_queries.dart](../../utils_event_queries/)
+3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
+4.  attendeesByEvent method
+
+<div class="self-name">
+
+attendeesByEvent
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="utils_event_queries/EventQueries-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">attendeesByEvent</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>
+<span class="name">attendeesByEvent</span>(
+
+1.  <span id="attendeesByEvent-param-eventId"
+    class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span>
+    <span class="parameter-name">eventId</span></span>
 
 )
 
+</div>
 
+<div class="section desc markdown">
 
 Fetches attendees by event ID.
 
 **params**:
 
--   `eventId`: The ID of the event to fetch registrants for.
+- `eventId`: The ID of the event to fetch registrants for.
 
 **returns**:
 
--   `String`: Returns a GraphQL query string to retrieve registrants
-    associated with the specified event ID.
+- `String`: Returns a GraphQL query string to retrieve registrants
+  associated with the specified event ID.
 
 This function generates a GraphQL query string to fetch registrants
 based on the provided event ID.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -38,11 +75,15 @@ based on the provided event ID.
 String attendeesByEvent(String eventId) 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [event_queries](../../utils_event_queries/)
@@ -51,9 +92,16 @@ String attendeesByEvent(String eventId)
 
 ##### EventQueries class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

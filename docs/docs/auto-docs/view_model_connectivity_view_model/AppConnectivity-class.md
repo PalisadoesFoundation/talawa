@@ -1,193 +1,281 @@
-
-<div>
-
-# AppConnectivity class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [view_model/connectivity_view_model.dart](../view_model_connectivity_view_model/)
+3.  AppConnectivity class
+
+<div class="self-name">
+
+AppConnectivity
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_connectivity_view_model/view_model_connectivity_view_model-library-sidebar.html"
+below-sidebar="view_model_connectivity_view_model/AppConnectivity-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">AppConnectivity</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 This class provides services related to network connectivity monitoring
 and handling.
 
-It leverages the `connectivity` package to track the device\'s internet
+It leverages the `connectivity` package to track the device's internet
 connection status. It offers methods to:
 
--   Initialize the AppConnectivity:
-    [initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.md)
--   Subscribe to connectivity changes:
-    [enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.md)
--   Handle online and offline states:
-    [handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.md),
-    [handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.md)
--   Handle the device\'s overall connectivity status:
-    [handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.md)
--   Triggers the snackbar UI to show online status.:
-    [showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.md)
+- Initialize the AppConnectivity:
+  [initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.md)
+- Subscribe to connectivity changes:
+  [enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.md)
+- Handle online and offline states:
+  [handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.md),
+  [handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.md)
+- Handle the device's overall connectivity status:
+  [handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.md)
+- Triggers the snackbar UI to show online status.:
+  [showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.md)
 
+</div>
 
+<div class="section">
 
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
+- [BaseModel](../view_model_base_view_model/BaseModel-class.md)
+- AppConnectivity
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
-    -   AppConnectivity
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity/AppConnectivity.md)
+<span class="name">[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity/AppConnectivity.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.md)] [↔ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]]
-:   Stream from
-    [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md).
-    ::: features
-    latefinal
-    :::
+<span class="name">[connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.md)</span> <span class="signature">↔ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)</span>\></span></span>\></span></span>  
+Stream from
+[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md).
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether any listeners are currently registered.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">late</span><span class="feature">final</span>
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+</div>
 
-:   ::: features
-    no setterinherited
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-:   ::: features
-    no setterinherited
-    :::
+</div>
 
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether any listeners are currently registered.
 
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[state](../view_model_base_view_model/BaseModel/state.md)</span> <span class="signature">→ [ViewState](../enums_enums/ViewState.md)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Register a closure to be called when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Register a closure to be called when the object changes.
 
-[dispose](../view_model_connectivity_view_model/AppConnectivity/dispose.md) [→ void ]
-:   Discards any resources used by the object. After this is called, the
-    object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
-    will throw after the object is disposed).
-    ::: features
-    override
-    :::
+<div class="features">
 
-[enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.md) [→ void ]
-:   Subscribes to
-    [connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.md)
-    of
-    [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md).
+<span class="feature">inherited</span>
 
-[[handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]] result]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function handles the device\'s connectivity status based on the
-    provided
-    [List\<ConnectivityResult\>](https://api.flutter.dev/flutter/dart-core/List-class.html).
+</div>
 
-[[handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function handles the actions to be taken when the device is
-    offline.
+<span class="name">[dispose](../view_model_connectivity_view_model/AppConnectivity/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
+will throw after the object is disposed).
 
-[[handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function handles the actions to be taken when the device is
-    online.
+<div class="features">
 
-[[initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   Initializes the
-    [AppConnectivity](../view_model_connectivity_view_model/AppConnectivity-class.md).
+<span class="feature">override</span>
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+</div>
 
-[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html) [→ void ]
-:   Call all the registered listeners.
-    ::: features
-    inherited
-    :::
+<span class="name">[enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Subscribes to
+[connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.md)
+of
+[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md).
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Remove a previously registered closure from the list of closures
-    that are notified when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.md)</span><span class="signature">(<span id="handleConnection-param-result" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)</span>\></span></span> <span class="parameter-name">result</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function handles the device's connectivity status based on the
+provided
+[List\<ConnectivityResult\>](https://api.flutter.dev/flutter/dart-core/List-class.html).
 
-[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
+<span class="name">[handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function handles the actions to be taken when the device is
+offline.
 
-:   ::: features
-    inherited
-    :::
+<span class="name">[handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function handles the actions to be taken when the device is online.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="name">[initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+Initializes the
+[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity-class.md).
 
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Call all the registered listeners.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Remove a previously registered closure from the list of closures that
+are notified when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="static-properties" class="section summary offset-anchor">
 
 ## Static Properties
 
-[[isOnline](../view_model_connectivity_view_model/AppConnectivity/isOnline.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   flag to handle online status.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[isOnline](../view_model_connectivity_view_model/AppConnectivity/isOnline.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+flag to handle online status.
 
+<div class="features">
 
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div id="static-methods" class="section summary offset-anchor">
 
 ## Static Methods
 
-[[showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.md)][ → void ]
-:   Triggers the snackbar UI to show online status.
+<span class="name">[showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Triggers the snackbar UI to show online status.
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../index.md)
 2.  [connectivity_view_model](../view_model_connectivity_view_model/)
@@ -195,9 +283,16 @@ Inheritance
 
 ##### connectivity_view_model library
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

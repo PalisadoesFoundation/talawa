@@ -1,10 +1,42 @@
-
-<div>
-
-# build method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_agenda_item_page.dart](../../views_after_auth_screens_events_create_agenda_item_page/)
+3.  [CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)
+4.  build method
+
+<div class="self-name">
+
+build
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">build</span> method
+
+</div>
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -12,43 +44,48 @@
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
-build(
+<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="name">build</span>(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
-    context]
+1.  <span id="build-param-context"
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    <span class="parameter-name">context</span></span>
 
 )
 
+<div class="features">
 
-override
+<span class="feature">override</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method in a number of different situations. For
 example:
 
--   After calling
-    [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md).
--   After calling
-    [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html).
--   After receiving a call to
-    [setState](https://api.flutter.dev/flutter/widgets/State/setState.html).
--   After a dependency of this
-    [State](https://api.flutter.dev/flutter/widgets/State-class.html)
-    object changes (e.g., an
-    [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.md)
-    referenced by the previous
-    [build](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)
-    changes).
--   After calling
-    [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html)
-    and then reinserting the
-    [State](https://api.flutter.dev/flutter/widgets/State-class.html)
-    object into the tree at another location.
+- After calling
+  [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md).
+- After calling
+  [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html).
+- After receiving a call to
+  [setState](https://api.flutter.dev/flutter/widgets/State/setState.html).
+- After a dependency of this
+  [State](https://api.flutter.dev/flutter/widgets/State-class.html)
+  object changes (e.g., an
+  [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.md)
+  referenced by the previous
+  [build](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)
+  changes).
+- After calling
+  [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html)
+  and then reinserting the
+  [State](https://api.flutter.dev/flutter/widgets/State-class.html)
+  object into the tree at another location.
 
 This method can potentially be called in every frame and should not have
 any side effects beyond building a widget.
@@ -61,7 +98,7 @@ subtree, as determined by calling
 [Widget.canUpdate](https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html).
 
 Typically implementations return a newly created constellation of
-widgets that are configured with information from this widget\'s
+widgets that are configured with information from this widget's
 constructor, the given
 [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html),
 and the internal state of this
@@ -176,17 +213,19 @@ by the first build still refers to
 object, which is preserved across rebuilds, but the framework has
 updated that
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
-object\'s
+object's
 [widget](https://api.flutter.dev/flutter/widgets/State/widget.html)
 property to refer to the new `MyButton` instance and `$`
 prints green, as expected.
 
 See also:
 
--   [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html),
-    which contains the discussion on performance considerations.
+- [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html),
+  which contains the discussion on performance considerations.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -195,11 +234,15 @@ See also:
 Widget build(BuildContext context) 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
@@ -208,9 +251,16 @@ Widget build(BuildContext context)
 
 ##### CreateAgendaItemPageState class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

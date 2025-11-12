@@ -1,23 +1,58 @@
-
-<div>
-
-# directChatDemoData top-level constant
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
-[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]\>]]\>]
-const directChatDemoData
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../index.md)
+2.  [demo_server_data/direct_chat_demo_data.dart](../demo_server_data_direct_chat_demo_data/)
+3.  directChatDemoData constant
 
+<div class="self-name">
+
+directChatDemoData
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="demo_server_data_direct_chat_demo_data/demo_server_data_direct_chat_demo_data-library-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-top-level-property">directChatDemoData</span> top-level constant
+
+</div>
+
+<div class="section multi-line-signature">
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>,
+<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)</span>\></span></span>\></span>
+const <span class="name">directChatDemoData</span>
+
+</div>
+
+<div class="section desc markdown">
 
 This file contains demo data.
 
-It contains a list of type Map\<String, Object\> and sample data of
+It contains a list of type `Map<String, Object>` and sample data of
 chats.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -35,11 +70,15 @@ const directChatDemoData = [
 ];
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../index.md)
 2.  [direct_chat_demo_data](../demo_server_data_direct_chat_demo_data/)
@@ -47,9 +86,16 @@ const directChatDemoData = [
 
 ##### direct_chat_demo_data library
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

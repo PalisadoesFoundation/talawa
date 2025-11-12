@@ -1,112 +1,178 @@
-
-<div>
-
-# Comment class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [models/comment/comment_model.dart](../models_comment_comment_model/)
+3.  Comment class
+
+<div class="self-name">
+
+Comment
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_comment_comment_model/models_comment_comment_model-library-sidebar.html"
+below-sidebar="models_comment_comment_model/Comment-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">Comment</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 This class returns a Comment instance.
 
+</div>
 
+<div class="section">
 
+Annotations  
+- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
+  12)
 
-Annotations
+</div>
 
-:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
-        12)
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[[Comment](../models_comment_comment_model/Comment/Comment.md)][]
+<span class="name">[Comment](../models_comment_comment_model/Comment/Comment.md)</span><span class="signature"></span>  
 
-:   
+<span class="name">[Comment.fromJson](../models_comment_comment_model/Comment/Comment.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
+<div class="constructor-modifier features">
 
-[[Comment.fromJson](../models_comment_comment_model/Comment/Comment.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+factory
 
-:   ::: 
-    factory
-    :::
+</div>
 
+</div>
 
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[createdAt](../models_comment_comment_model/Comment/createdAt.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The creation date of the comment.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[body](../models_comment_comment_model/Comment/body.md)</span> <span class="signature">↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+The text of the comment.
 
-[[creator](../models_comment_comment_model/Comment/creator.md)] [↔ [User](../models_user_user_info/User-class.md)?]
-:   The creator of the comment.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[likeCount](../models_comment_comment_model/Comment/likeCount.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The like count of the comment.
-    ::: features
-    getter/setter pair
-    :::
+</div>
 
-[[post](../models_comment_comment_model/Comment/post.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The post associated with the comment.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[createdAt](../models_comment_comment_model/Comment/createdAt.md)</span> <span class="signature">↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+The creation date of the comment.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[text](../models_comment_comment_model/Comment/text.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   The text of the comment.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">getter/setter pair</span>
 
+</div>
 
+<span class="name">[creator](../models_comment_comment_model/Comment/creator.md)</span> <span class="signature">↔ [User](../models_user_user_info/User-class.md)?</span>  
+The creator of the comment.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[post](../models_comment_comment_model/Comment/post.md)</span> <span class="signature">↔ [Post](../models_post_post_model/Post-class.md)?</span>  
+The post associated with the comment.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods"
+class="section summary offset-anchor inherited">
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
 2.  [comment_model](../models_comment_comment_model/)
@@ -114,9 +180,16 @@ Annotations
 
 ##### comment_model library
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

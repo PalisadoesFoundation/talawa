@@ -1,204 +1,326 @@
-
-<div>
-
-# EventService class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [services/event_service.dart](../services_event_service/)
+3.  EventService class
+
+<div class="self-name">
+
+EventService
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_event_service/services_event_service-library-sidebar.html"
+below-sidebar="services_event_service/EventService-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">EventService</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 EventService class provides different services in the context of Event.
 
 Services include:
 
--   `setOrgStreamSubscription` : to set organization stream subscription
-    for user.
--   `getEvents` : to get all events of the organization.
--   `fetchAttendeesByEvent` : to fetch all attendees of an event.
--   `registerForAnEvent` : to register for an event.
--   `deleteEvent` : to delete an event.
--   `editEvent` : to edit the event.
--   `fetchEventVolunteers` : to fetch all volunteers of an event.
--   `createVolunteerGroup` : to create a volunteer group.
--   `addVolunteerToGroup` : to add a volunteer to a group.
--   `dispose` : to cancel the stream subscription of an organization.
+- `setOrgStreamSubscription` : to set organization stream subscription
+  for user.
+- `getEvents` : to get all events of the organization.
+- `fetchAttendeesByEvent` : to fetch all attendees of an event.
+- `registerForAnEvent` : to register for an event.
+- `deleteEvent` : to delete an event.
+- `editEvent` : to edit the event.
+- `fetchEventVolunteers` : to fetch all volunteers of an event.
+- `createVolunteerGroup` : to create a volunteer group.
+- `addVolunteerToGroup` : to add a volunteer to a group.
+- `dispose` : to cancel the stream subscription of an organization.
 
+</div>
 
+<div class="section">
 
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager-class.md)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span>
+- EventService
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager-class.md)[\<[[Event](../models_events_event_model/Event-class.md)]\>]
-    -   EventService
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[EventService](../services_event_service/EventService/EventService.md)
+<span class="name">[EventService](../services_event_service/EventService/EventService.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-:   feed cacheBox key.
-    ::: features
-    finalinherited
-    :::
+<span class="name">[after](../services_event_service/EventService/after.md)</span> <span class="signature">↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+The after cursor for pagination.
 
-[[currentOrg](../services_event_service/EventService/currentOrg.md)] [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.md)]
-:   The event stream.
-    ::: features
-    no setter
-    :::
+<div class="features">
 
-[[eventStream](../services_event_service/EventService/eventStream.md)] [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]\>]]
-:   The event stream.
-    ::: features
-    no setter
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+</div>
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<span class="name">[cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+feed cacheBox key.
 
+<div class="features">
 
+<span class="feature">final</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[currentOrg](../services_event_service/EventService/currentOrg.md)</span> <span class="signature">→ [OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>  
+The event stream.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[events](../services_event_service/EventService/events.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span>  
+Getter for list of events.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[eventStream](../services_event_service/EventService/eventStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span>\></span></span>  
+The event stream.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[first](../services_event_service/EventService/first.md)</span> <span class="signature">↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?</span>  
+The first number of events to fetch.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[hasMoreEvents](../services_event_service/EventService/hasMoreEvents.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Getter to check if there are more events to fetch.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[pageInfo](../services_event_service/EventService/pageInfo.md)</span> <span class="signature">↔ [PageInfo](../models_page_info_page_info/PageInfo-class.md)</span>  
+page info for the events.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addVolunteerToGroup](../services_event_service/EventService/addVolunteerToGroup.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to add a volunteer to a group.
+<span class="name">[addVolunteerToGroup](../services_event_service/EventService/addVolunteerToGroup.md)</span><span class="signature">(<span id="addVolunteerToGroup-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to add a volunteer to a group.
 
-[[createAgendaItem](../services_event_service/EventService/createAgendaItem.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to create an agenda item.
+<span class="name">[createAgendaItem](../services_event_service/EventService/createAgendaItem.md)</span><span class="signature">(<span id="createAgendaItem-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to create an agenda item.
 
-[[createEvent](../services_event_service/EventService/createEvent.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
-:   This function is used to create an event using a GraphQL mutation.
+<span class="name">[createEvent](../services_event_service/EventService/createEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+This function is used to create an event using a GraphQL mutation.
 
-[[createVolunteerGroup](../services_event_service/EventService/createVolunteerGroup.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to create a volunteer group.
+<span class="name">[createVolunteerGroup](../services_event_service/EventService/createVolunteerGroup.md)</span><span class="signature">(<span id="createVolunteerGroup-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to create a volunteer group.
 
-[[deleteAgendaItem](../services_event_service/EventService/deleteAgendaItem.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to delete an agenda item.
+<span class="name">[deleteAgendaItem](../services_event_service/EventService/deleteAgendaItem.md)</span><span class="signature">(<span id="deleteAgendaItem-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to delete an agenda item.
 
-[[deleteEvent](../services_event_service/EventService/deleteEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
-:   This function is used to delete the event.
+<span class="name">[deleteEvent](../services_event_service/EventService/deleteEvent.md)</span><span class="signature">(<span id="deleteEvent-param-eventId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">eventId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+This function is used to delete the event.
 
-[dispose](../services_event_service/EventService/dispose.md) [→ void ]
-:   This function is used to cancel the stream subscription of an
-    organization.
+<span class="name">[dispose](../services_event_service/EventService/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function is used to cancel the stream subscription of an
+organization.
 
-[[editEvent](../services_event_service/EventService/editEvent.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
-:   This function is used to edit an event.
+<span class="name">[editEvent](../services_event_service/EventService/editEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+This function is used to edit an event.
 
-[[fetchAgendaCategories](../services_event_service/EventService/fetchAgendaCategories.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to create an agenda item.
+<span class="name">[fetchAgendaCategories](../services_event_service/EventService/fetchAgendaCategories.md)</span><span class="signature">(<span id="fetchAgendaCategories-param-orgId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">orgId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to create an agenda item.
 
-[[fetchAgendaItems](../services_event_service/EventService/fetchAgendaItems.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to fetch all agenda items for a specific
-    organization.
+<span class="name">[fetchAgendaItems](../services_event_service/EventService/fetchAgendaItems.md)</span><span class="signature">(<span id="fetchAgendaItems-param-eventId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">eventId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to fetch all agenda items for a specific
+organization.
 
-[[fetchAttendeesByEvent](../services_event_service/EventService/fetchAttendeesByEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to fetch all registrants of an event.
+<span class="name">[fetchAttendeesByEvent](../services_event_service/EventService/fetchAttendeesByEvent.md)</span><span class="signature">(<span id="fetchAttendeesByEvent-param-eventId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">eventId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to fetch all registrants of an event.
 
-[[fetchDataFromApi](../services_event_service/EventService/fetchDataFromApi.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]\>]] ]
-:   Abstract method to be implemented by subclasses to fetch data from
-    an API.
-    ::: features
-    override
-    :::
+<span class="name">[fetchDataFromApi](../services_event_service/EventService/fetchDataFromApi.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span>\></span></span> </span>  
+Abstract method to be implemented by subclasses to fetch data from an
+API.
 
-[[fetchEventsInitial](../services_event_service/EventService/fetchEventsInitial.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   Fetches the initial set of events, loading from the cache first, and
-    then refreshing the feed.
+<div class="features">
 
-[[fetchVolunteerGroupsByEvent](../services_event_service/EventService/fetchVolunteerGroupsByEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.md)]\>]]\>]] ]
-:   This function is used to fetch all volunteer groups for an event.
+<span class="feature">override</span>
 
-[[getEvents](../services_event_service/EventService/getEvents.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function is used to fetch all the events of an organization.
+</div>
 
-[[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]\>]] ]
-:   Fetches new data from the API if online, updates the cache, and
-    returns the data.
-    ::: features
-    inherited
-    :::
+<span class="name">[fetchEventsInitial](../services_event_service/EventService/fetchEventsInitial.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+Fetches the initial set of events, loading from the cache first, and
+then refreshing the feed.
 
-[[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]\>]] ]
-:   Loads the data cached in Hive.
-    ::: features
-    inherited
-    :::
+<span class="name">[fetchVolunteerGroupsByEvent](../services_event_service/EventService/fetchVolunteerGroupsByEvent.md)</span><span class="signature">(<span id="fetchVolunteerGroupsByEvent-param-eventId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">eventId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.md)</span>\></span></span>\></span></span> </span>  
+This function is used to fetch all volunteer groups for an event.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[getEvents](../services_event_service/EventService/getEvents.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function is used to fetch all the events of an organization.
 
-[[refreshFeed](../services_event_service/EventService/refreshFeed.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   Refreshes the event feed by fetching the latest events from the API
-    and updating the event stream.
+<span class="name">[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span>\></span></span> </span>  
+Fetches new data from the API if online, updates the cache, and returns
+the data.
 
-[[registerForAnEvent](../services_event_service/EventService/registerForAnEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to register user for an event.
+<div class="features">
 
-[[removeVolunteerFromGroup](../services_event_service/EventService/removeVolunteerFromGroup.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to remove a volunteer from a group.
+<span class="feature">inherited</span>
 
-[[removeVolunteerGroup](../services_event_service/EventService/removeVolunteerGroup.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to remove a volunteer group.
+</div>
 
-[[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[Event](../models_events_event_model/Event-class.md)]\>]] data]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   Saves a list of data to the cache, replacing any existing data.
-    ::: features
-    inherited
-    :::
+<span class="name">[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span>\></span></span> </span>  
+Loads the data cached in Hive.
 
-[setOrgStreamSubscription](../services_event_service/EventService/setOrgStreamSubscription.md) [→ void ]
-:   This function is used to set stream subscription for an
-    organization.
+<div class="features">
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[updateAgendaItem](../services_event_service/EventService/updateAgendaItem.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] itemId, ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to update an agenda item.
+</div>
 
-[[updateVolunteerGroup](../services_event_service/EventService/updateVolunteerGroup.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] variables]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
-:   This function is used to update the information of a volunteer
-    group.
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
+<div class="features">
 
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[refreshFeed](../services_event_service/EventService/refreshFeed.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+Refreshes the event feed by fetching the latest events from the API and
+updating the event stream.
+
+<span class="name">[registerForAnEvent](../services_event_service/EventService/registerForAnEvent.md)</span><span class="signature">(<span id="registerForAnEvent-param-eventId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">eventId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to register user for an event.
+
+<span class="name">[removeVolunteerFromGroup](../services_event_service/EventService/removeVolunteerFromGroup.md)</span><span class="signature">(<span id="removeVolunteerFromGroup-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to remove a volunteer from a group.
+
+<span class="name">[removeVolunteerGroup](../services_event_service/EventService/removeVolunteerGroup.md)</span><span class="signature">(<span id="removeVolunteerGroup-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to remove a volunteer group.
+
+<span class="name">[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.md)</span><span class="signature">(<span id="saveDataToCache-param-data" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span> <span class="parameter-name">data</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+Saves a list of data to the cache, replacing any existing data.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setOrgStreamSubscription](../services_event_service/EventService/setOrgStreamSubscription.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function is used to set stream subscription for an organization.
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[updateAgendaItem](../services_event_service/EventService/updateAgendaItem.md)</span><span class="signature">(<span id="updateAgendaItem-param-itemId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">itemId</span>, </span><span id="updateAgendaItem-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to update an agenda item.
+
+<span class="name">[updateVolunteerGroup](../services_event_service/EventService/updateVolunteerGroup.md)</span><span class="signature">(<span id="updateVolunteerGroup-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+This function is used to update the information of a volunteer group.
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
 2.  [event_service](../services_event_service/)
@@ -206,9 +328,16 @@ Inheritance
 
 ##### event_service library
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>
