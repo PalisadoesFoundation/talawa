@@ -8,7 +8,7 @@ trap 'echo " Error occurred on line $LINENO. Aborting documentation generation."
 echo "Cleaning old docs..."
 rm -rf docs/docs/auto-docs
 
-echo "📘 Generating Dart documentation using global dartdoc..."
+echo "Generating Dart documentation using global dartdoc..."
 dartdoc --output docs/docs/auto-docs --exclude-packages=test,build
 
 echo "Converting HTML files to Markdown..."
