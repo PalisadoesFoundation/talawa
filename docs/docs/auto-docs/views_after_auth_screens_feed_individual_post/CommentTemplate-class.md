@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CommentTemplate](../views_after_auth_screens_feed_individual_post/CommentTemplate/CommentTemplate.md)</span><span class="signature"></span>  
+<span class="name">[CommentTemplate.new](../views_after_auth_screens_feed_individual_post/CommentTemplate/CommentTemplate.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

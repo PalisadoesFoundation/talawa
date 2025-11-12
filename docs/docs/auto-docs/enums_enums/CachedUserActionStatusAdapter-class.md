@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CachedUserActionStatusAdapter](../enums_enums/CachedUserActionStatusAdapter/CachedUserActionStatusAdapter.md)</span><span class="signature"></span>  
+<span class="name">[CachedUserActionStatusAdapter.new](../enums_enums/CachedUserActionStatusAdapter/CachedUserActionStatusAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

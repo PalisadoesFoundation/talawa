@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[OrganizationFeed](../views_after_auth_screens_feed_organization_feed/OrganizationFeed/OrganizationFeed.md)</span><span class="signature"></span>  
+<span class="name">[OrganizationFeed.new](../views_after_auth_screens_feed_organization_feed/OrganizationFeed/OrganizationFeed.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

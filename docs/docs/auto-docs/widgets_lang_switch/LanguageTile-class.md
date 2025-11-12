@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[LanguageTile](../widgets_lang_switch/LanguageTile/LanguageTile.md)</span><span class="signature"></span>  
+<span class="name">[LanguageTile.new](../widgets_lang_switch/LanguageTile/LanguageTile.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

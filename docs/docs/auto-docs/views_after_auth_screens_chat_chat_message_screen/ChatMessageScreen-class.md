@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ChatMessageScreen](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen/ChatMessageScreen.md)</span><span class="signature"></span>  
+<span class="name">[ChatMessageScreen.new](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen/ChatMessageScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

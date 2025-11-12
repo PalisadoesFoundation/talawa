@@ -45,7 +45,7 @@ Class containing constants for frequency options.
 
 ## Constructors
 
-<span class="name">[Frequency](../constants_recurrence_values/Frequency/Frequency.md)</span><span class="signature"></span>  
+<span class="name">[Frequency.new](../constants_recurrence_values/Frequency/Frequency.md)</span><span class="signature"></span>  
 
 </div>
 

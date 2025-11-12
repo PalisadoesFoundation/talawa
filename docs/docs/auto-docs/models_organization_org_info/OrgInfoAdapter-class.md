@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[OrgInfoAdapter](../models_organization_org_info/OrgInfoAdapter/OrgInfoAdapter.md)</span><span class="signature"></span>  
+<span class="name">[OrgInfoAdapter.new](../models_organization_org_info/OrgInfoAdapter/OrgInfoAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

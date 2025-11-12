@@ -71,7 +71,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity/AppConnectivity.md)</span><span class="signature"></span>  
+<span class="name">[AppConnectivity.new](../view_model_connectivity_view_model/AppConnectivity/AppConnectivity.md)</span><span class="signature"></span>  
 
 </div>
 

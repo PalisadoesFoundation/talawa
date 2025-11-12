@@ -64,7 +64,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CreateGroupBottomSheet](../views_after_auth_screens_chat_create_group_bottom_sheet/CreateGroupBottomSheet/CreateGroupBottomSheet.md)</span><span class="signature"></span>  
+<span class="name">[CreateGroupBottomSheet.new](../views_after_auth_screens_chat_create_group_bottom_sheet/CreateGroupBottomSheet/CreateGroupBottomSheet.md)</span><span class="signature"></span>  
 Creates a CreateGroupBottomSheet widget.
 
 <div class="constructor-modifier features">

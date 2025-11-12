@@ -45,7 +45,7 @@ Manages user sessions and periodically refreshes access tokens.
 
 ## Constructors
 
-<span class="name">[SessionManager](../services_session_manager/SessionManager/SessionManager.md)</span><span class="signature"></span>  
+<span class="name">[SessionManager.new](../services_session_manager/SessionManager/SessionManager.md)</span><span class="signature"></span>  
 
 </div>
 

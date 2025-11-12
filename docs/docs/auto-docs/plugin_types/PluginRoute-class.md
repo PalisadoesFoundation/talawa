@@ -45,7 +45,7 @@ A route contributed by a plugin.
 
 ## Constructors
 
-<span class="name">[PluginRoute](../plugin_types/PluginRoute/PluginRoute.md)</span><span class="signature"></span>  
+<span class="name">[PluginRoute.new](../plugin_types/PluginRoute/PluginRoute.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

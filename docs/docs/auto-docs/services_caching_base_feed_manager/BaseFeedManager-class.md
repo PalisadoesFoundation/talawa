@@ -78,7 +78,7 @@ Implementers
 
 ## Constructors
 
-<span class="name">[BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager/BaseFeedManager.md)</span><span class="signature">(<span id="-param-cacheKey" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">cacheKey</span></span>)</span>  
+<span class="name">[BaseFeedManager.new](../services_caching_base_feed_manager/BaseFeedManager/BaseFeedManager.md)</span><span class="signature">(<span id="-param-cacheKey" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">cacheKey</span></span>)</span>  
 
 </div>
 

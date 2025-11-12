@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SelectLanguage](../views_pre_auth_screens_select_language/SelectLanguage/SelectLanguage.md)</span><span class="signature"></span>  
+<span class="name">[SelectLanguage.new](../views_pre_auth_screens_select_language/SelectLanguage/SelectLanguage.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

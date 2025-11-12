@@ -45,7 +45,7 @@ Basic plugin manifest metadata.
 
 ## Constructors
 
-<span class="name">[PluginManifest](../plugin_types/PluginManifest/PluginManifest.md)</span><span class="signature"></span>  
+<span class="name">[PluginManifest.new](../plugin_types/PluginManifest/PluginManifest.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

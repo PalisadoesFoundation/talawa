@@ -57,7 +57,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[UserConfig](../services_user_config/UserConfig/UserConfig.md)</span><span class="signature"></span>  
+<span class="name">[UserConfig.new](../services_user_config/UserConfig/UserConfig.md)</span><span class="signature"></span>  
 
 </div>
 

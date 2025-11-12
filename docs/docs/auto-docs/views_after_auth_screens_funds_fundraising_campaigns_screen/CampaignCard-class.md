@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CampaignCard](../views_after_auth_screens_funds_fundraising_campaigns_screen/CampaignCard/CampaignCard.md)</span><span class="signature"></span>  
+<span class="name">[CampaignCard.new](../views_after_auth_screens_funds_fundraising_campaigns_screen/CampaignCard/CampaignCard.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

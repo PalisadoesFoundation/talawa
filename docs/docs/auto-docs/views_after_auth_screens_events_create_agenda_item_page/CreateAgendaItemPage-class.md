@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage/CreateAgendaItemPage.md)</span><span class="signature"></span>  
+<span class="name">[CreateAgendaItemPage.new](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage/CreateAgendaItemPage.md)</span><span class="signature"></span>  
 Creates an instance of
 [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md).
 

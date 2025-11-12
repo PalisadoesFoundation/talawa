@@ -45,7 +45,7 @@ Class that handles all the apptour routines.
 
 ## Constructors
 
-<span class="name">[AppTour](../models_app_tour/AppTour/AppTour.md)</span><span class="signature"></span>  
+<span class="name">[AppTour.new](../models_app_tour/AppTour/AppTour.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[TelegramLogo](../custom_painters_telegram_logo/TelegramLogo/TelegramLogo.md)</span><span class="signature"></span>  
+<span class="name">[TelegramLogo.new](../custom_painters_telegram_logo/TelegramLogo/TelegramLogo.md)</span><span class="signature"></span>  
 
 </div>
 

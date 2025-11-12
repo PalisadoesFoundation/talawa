@@ -60,7 +60,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AppTheme](../view_model_theme_view_model/AppTheme/AppTheme.md)</span><span class="signature"></span>  
+<span class="name">[AppTheme.new](../view_model_theme_view_model/AppTheme/AppTheme.md)</span><span class="signature"></span>  
 
 </div>
 

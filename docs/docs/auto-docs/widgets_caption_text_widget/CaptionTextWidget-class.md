@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CaptionTextWidget](../widgets_caption_text_widget/CaptionTextWidget/CaptionTextWidget.md)</span><span class="signature"></span>  
+<span class="name">[CaptionTextWidget.new](../widgets_caption_text_widget/CaptionTextWidget/CaptionTextWidget.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

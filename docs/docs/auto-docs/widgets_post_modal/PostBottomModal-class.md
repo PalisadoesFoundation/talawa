@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PostBottomModal](../widgets_post_modal/PostBottomModal/PostBottomModal.md)</span><span class="signature"></span>  
+<span class="name">[PostBottomModal.new](../widgets_post_modal/PostBottomModal/PostBottomModal.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

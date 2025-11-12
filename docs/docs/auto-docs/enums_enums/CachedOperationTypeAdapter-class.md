@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CachedOperationTypeAdapter](../enums_enums/CachedOperationTypeAdapter/CachedOperationTypeAdapter.md)</span><span class="signature"></span>  
+<span class="name">[CachedOperationTypeAdapter.new](../enums_enums/CachedOperationTypeAdapter/CachedOperationTypeAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

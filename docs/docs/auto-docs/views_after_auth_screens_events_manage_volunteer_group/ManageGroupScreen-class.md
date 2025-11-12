@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ManageGroupScreen](../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen/ManageGroupScreen.md)</span><span class="signature"></span>  
+<span class="name">[ManageGroupScreen.new](../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen/ManageGroupScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[GroupChatTile](../views_after_auth_screens_chat_group_chats/GroupChatTile/GroupChatTile.md)</span><span class="signature"></span>  
+<span class="name">[GroupChatTile.new](../views_after_auth_screens_chat_group_chats/GroupChatTile/GroupChatTile.md)</span><span class="signature"></span>  
 Creates a GroupChatTile widget.
 
 <div class="constructor-modifier features">

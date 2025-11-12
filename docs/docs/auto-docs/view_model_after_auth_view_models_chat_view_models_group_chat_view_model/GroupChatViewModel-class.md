@@ -63,7 +63,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[GroupChatViewModel](../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel/GroupChatViewModel.md)</span><span class="signature"></span>  
+<span class="name">[GroupChatViewModel.new](../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel/GroupChatViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

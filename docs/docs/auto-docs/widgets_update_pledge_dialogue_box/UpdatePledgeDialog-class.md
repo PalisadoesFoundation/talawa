@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[UpdatePledgeDialog](../widgets_update_pledge_dialogue_box/UpdatePledgeDialog/UpdatePledgeDialog.md)</span><span class="signature"></span>  
+<span class="name">[UpdatePledgeDialog.new](../widgets_update_pledge_dialogue_box/UpdatePledgeDialog/UpdatePledgeDialog.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

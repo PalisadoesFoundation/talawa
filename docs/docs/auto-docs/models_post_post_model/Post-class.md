@@ -44,7 +44,7 @@ This class creates a Post model.
 <div class="section">
 
 Annotations  
-- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
+- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
   6)
 
 </div>
@@ -53,7 +53,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[Post](../models_post_post_model/Post/Post.md)</span><span class="signature"></span>  
+<span class="name">[Post.new](../models_post_post_model/Post/Post.md)</span><span class="signature"></span>  
 
 <span class="name">[Post.fromJson](../models_post_post_model/Post/Post.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 Creating a new Post instance from a map structure.

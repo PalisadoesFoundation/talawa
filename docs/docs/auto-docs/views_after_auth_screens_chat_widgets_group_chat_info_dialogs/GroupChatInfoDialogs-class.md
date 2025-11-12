@@ -51,7 +51,7 @@ This class contains static methods for showing:
 
 ## Constructors
 
-<span class="name">[GroupChatInfoDialogs](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/GroupChatInfoDialogs.md)</span><span class="signature"></span>  
+<span class="name">[GroupChatInfoDialogs.new](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/GroupChatInfoDialogs.md)</span><span class="signature"></span>  
 
 </div>
 

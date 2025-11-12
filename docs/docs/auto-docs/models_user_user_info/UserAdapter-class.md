@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[UserAdapter](../models_user_user_info/UserAdapter/UserAdapter.md)</span><span class="signature"></span>  
+<span class="name">[UserAdapter.new](../models_user_user_info/UserAdapter/UserAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

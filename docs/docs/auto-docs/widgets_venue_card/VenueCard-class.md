@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[VenueCard](../widgets_venue_card/VenueCard/VenueCard.md)</span><span class="signature"></span>  
+<span class="name">[VenueCard.new](../widgets_venue_card/VenueCard/VenueCard.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

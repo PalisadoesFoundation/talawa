@@ -51,7 +51,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[CommentService](../services_comment_service/CommentService/CommentService.md)</span><span class="signature"></span>  
+<span class="name">[CommentService.new](../services_comment_service/CommentService/CommentService.md)</span><span class="signature"></span>  
 
 </div>
 

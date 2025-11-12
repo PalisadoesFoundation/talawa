@@ -45,7 +45,7 @@ Injector extension for injecting widgets at specific locations.
 
 ## Constructors
 
-<span class="name">[PluginInjectorExtension](../plugin_types/PluginInjectorExtension/PluginInjectorExtension.md)</span><span class="signature"></span>  
+<span class="name">[PluginInjectorExtension.new](../plugin_types/PluginInjectorExtension/PluginInjectorExtension.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

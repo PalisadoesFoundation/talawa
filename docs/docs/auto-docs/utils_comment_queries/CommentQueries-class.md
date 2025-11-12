@@ -45,7 +45,7 @@ This class creates the queries dealing with comments.
 
 ## Constructors
 
-<span class="name">[CommentQueries](../utils_comment_queries/CommentQueries/CommentQueries.md)</span><span class="signature"></span>  
+<span class="name">[CommentQueries.new](../utils_comment_queries/CommentQueries/CommentQueries.md)</span><span class="signature"></span>  
 
 </div>
 

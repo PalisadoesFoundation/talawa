@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ExploreEvents](../views_after_auth_screens_events_explore_events/ExploreEvents/ExploreEvents.md)</span><span class="signature"></span>  
+<span class="name">[ExploreEvents.new](../views_after_auth_screens_events_explore_events/ExploreEvents/ExploreEvents.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

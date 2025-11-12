@@ -45,7 +45,7 @@ This class creates a MainScreenArgs model.
 
 ## Constructors
 
-<span class="name">[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.md)</span><span class="signature"></span>  
+<span class="name">[MainScreenArgs.new](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.md)</span><span class="signature"></span>  
 
 </div>
 

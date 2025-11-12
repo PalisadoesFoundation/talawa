@@ -45,7 +45,7 @@ Class that represents FocusTarget.
 
 ## Constructors
 
-<span class="name">[FocusTarget](../models_app_tour/FocusTarget/FocusTarget.md)</span><span class="signature"></span>  
+<span class="name">[FocusTarget.new](../models_app_tour/FocusTarget/FocusTarget.md)</span><span class="signature"></span>  
 This returns a widget for a step in a tutorial.
 
 </div>

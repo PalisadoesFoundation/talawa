@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SplashScreen](../splash_screen/SplashScreen/SplashScreen.md)</span><span class="signature"></span>  
+<span class="name">[SplashScreen.new](../splash_screen/SplashScreen/SplashScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

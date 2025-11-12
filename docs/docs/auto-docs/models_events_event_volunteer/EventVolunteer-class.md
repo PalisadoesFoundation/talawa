@@ -46,7 +46,7 @@ EventVolunteer instance.
 
 ## Constructors
 
-<span class="name">[EventVolunteer](../models_events_event_volunteer/EventVolunteer/EventVolunteer.md)</span><span class="signature"></span>  
+<span class="name">[EventVolunteer.new](../models_events_event_volunteer/EventVolunteer/EventVolunteer.md)</span><span class="signature"></span>  
 
 <span class="name">[EventVolunteer.fromJson](../models_events_event_volunteer/EventVolunteer/EventVolunteer.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 <div class="constructor-modifier features">

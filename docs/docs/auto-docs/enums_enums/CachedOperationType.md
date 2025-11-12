@@ -55,7 +55,7 @@ Available extensions
 - [EnumName](https://api.flutter.dev/flutter/dart-core/EnumName.html)
 
 Annotations  
-- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
+- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
   5)
 
 </div>

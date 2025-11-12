@@ -45,7 +45,7 @@ Class containing constants for week days.
 
 ## Constructors
 
-<span class="name">[WeekDays](../constants_recurrence_values/WeekDays/WeekDays.md)</span><span class="signature"></span>  
+<span class="name">[WeekDays.new](../constants_recurrence_values/WeekDays/WeekDays.md)</span><span class="signature"></span>  
 
 </div>
 

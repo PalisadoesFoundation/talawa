@@ -45,7 +45,7 @@ This class contains the required mutations and queries for funds.
 
 ## Constructors
 
-<span class="name">[FundQueries](../utils_fund_queries/FundQueries/FundQueries.md)</span><span class="signature"></span>  
+<span class="name">[FundQueries.new](../utils_fund_queries/FundQueries/FundQueries.md)</span><span class="signature"></span>  
 
 </div>
 

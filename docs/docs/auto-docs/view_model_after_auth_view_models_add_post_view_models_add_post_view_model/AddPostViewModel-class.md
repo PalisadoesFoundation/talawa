@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/AddPostViewModel.md)</span><span class="signature"></span>  
+<span class="name">[AddPostViewModel.new](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/AddPostViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

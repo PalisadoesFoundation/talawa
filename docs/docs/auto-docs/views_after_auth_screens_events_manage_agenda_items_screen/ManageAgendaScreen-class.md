@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ManageAgendaScreen](../views_after_auth_screens_events_manage_agenda_items_screen/ManageAgendaScreen/ManageAgendaScreen.md)</span><span class="signature"></span>  
+<span class="name">[ManageAgendaScreen.new](../views_after_auth_screens_events_manage_agenda_items_screen/ManageAgendaScreen/ManageAgendaScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

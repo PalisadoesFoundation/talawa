@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PostService](../services_post_service/PostService/PostService.md)</span><span class="signature"></span>  
+<span class="name">[PostService.new](../services_post_service/PostService/PostService.md)</span><span class="signature"></span>  
 
 </div>
 

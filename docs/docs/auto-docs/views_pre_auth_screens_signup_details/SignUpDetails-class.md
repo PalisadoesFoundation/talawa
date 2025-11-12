@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SignUpDetails](../views_pre_auth_screens_signup_details/SignUpDetails/SignUpDetails.md)</span><span class="signature"></span>  
+<span class="name">[SignUpDetails.new](../views_pre_auth_screens_signup_details/SignUpDetails/SignUpDetails.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

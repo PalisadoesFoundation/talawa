@@ -49,7 +49,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[OrganizationService](../services_org_service/OrganizationService/OrganizationService.md)</span><span class="signature"></span>  
+<span class="name">[OrganizationService.new](../services_org_service/OrganizationService/OrganizationService.md)</span><span class="signature"></span>  
 
 </div>
 

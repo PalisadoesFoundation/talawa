@@ -58,7 +58,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[NavigationService](../services_navigation_service/NavigationService/NavigationService.md)</span><span class="signature"></span>  
+<span class="name">[NavigationService.new](../services_navigation_service/NavigationService/NavigationService.md)</span><span class="signature"></span>  
 
 </div>
 

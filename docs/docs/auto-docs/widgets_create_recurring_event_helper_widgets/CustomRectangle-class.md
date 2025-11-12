@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomRectangle](../widgets_create_recurring_event_helper_widgets/CustomRectangle/CustomRectangle.md)</span><span class="signature"></span>  
+<span class="name">[CustomRectangle.new](../widgets_create_recurring_event_helper_widgets/CustomRectangle/CustomRectangle.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

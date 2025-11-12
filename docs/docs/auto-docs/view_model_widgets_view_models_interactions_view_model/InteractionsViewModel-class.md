@@ -62,7 +62,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[InteractionsViewModel](../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel/InteractionsViewModel.md)</span><span class="signature"></span>  
+<span class="name">[InteractionsViewModel.new](../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel/InteractionsViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -58,7 +58,7 @@ Implemented types
 
 ## Constructors
 
-<span class="name">[MockHttpClient](../services_graphql_config/MockHttpClient/MockHttpClient.md)</span><span class="signature"></span>  
+<span class="name">[MockHttpClient.new](../services_graphql_config/MockHttpClient/MockHttpClient.md)</span><span class="signature"></span>  
 
 </div>
 

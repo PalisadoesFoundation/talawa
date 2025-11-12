@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[VideoWidget](../widgets_video_widget/VideoWidget/VideoWidget.md)</span><span class="signature"></span>  
+<span class="name">[VideoWidget.new](../widgets_video_widget/VideoWidget/VideoWidget.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

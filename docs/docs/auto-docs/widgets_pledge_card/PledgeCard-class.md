@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PledgeCard](../widgets_pledge_card/PledgeCard/PledgeCard.md)</span><span class="signature"></span>  
+<span class="name">[PledgeCard.new](../widgets_pledge_card/PledgeCard/PledgeCard.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

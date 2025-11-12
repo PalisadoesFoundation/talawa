@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CriticalActionException](../exceptions_critical_action_exception/CriticalActionException/CriticalActionException.md)</span><span class="signature">(<span id="-param-actionError" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">actionError</span></span>)</span>  
+<span class="name">[CriticalActionException.new](../exceptions_critical_action_exception/CriticalActionException/CriticalActionException.md)</span><span class="signature">(<span id="-param-actionError" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">actionError</span></span>)</span>  
 Constructor for
 [CriticalActionException](../exceptions_critical_action_exception/CriticalActionException-class.md).
 

@@ -49,7 +49,7 @@ Inheritance
 - AsymetricKeys
 
 Annotations  
-- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
+- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
   7)
 
 </div>
@@ -58,7 +58,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[AsymetricKeys](../models_asymetric_keys_asymetric_keys/AsymetricKeys/AsymetricKeys.md)</span><span class="signature"></span>  
+<span class="name">[AsymetricKeys.new](../models_asymetric_keys_asymetric_keys/AsymetricKeys/AsymetricKeys.md)</span><span class="signature"></span>  
 
 </div>
 

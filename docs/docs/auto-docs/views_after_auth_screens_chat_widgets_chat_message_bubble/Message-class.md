@@ -60,7 +60,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[Message](../views_after_auth_screens_chat_widgets_chat_message_bubble/Message/Message.md)</span><span class="signature"></span>  
+<span class="name">[Message.new](../views_after_auth_screens_chat_widgets_chat_message_bubble/Message/Message.md)</span><span class="signature"></span>  
 Creates a Message widget.
 
 <div class="constructor-modifier features">

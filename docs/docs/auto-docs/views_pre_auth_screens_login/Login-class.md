@@ -63,7 +63,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[Login](../views_pre_auth_screens_login/Login/Login.md)</span><span class="signature"></span>  
+<span class="name">[Login.new](../views_pre_auth_screens_login/Login/Login.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

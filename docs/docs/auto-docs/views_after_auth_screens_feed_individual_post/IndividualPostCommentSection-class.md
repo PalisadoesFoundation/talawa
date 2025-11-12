@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[IndividualPostCommentSection](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection/IndividualPostCommentSection.md)</span><span class="signature"></span>  
+<span class="name">[IndividualPostCommentSection.new](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection/IndividualPostCommentSection.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

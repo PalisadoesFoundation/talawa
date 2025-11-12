@@ -45,7 +45,7 @@ static class to handle graphql exceptions.
 
 ## Constructors
 
-<span class="name">[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.md)</span><span class="signature"></span>  
+<span class="name">[GraphqlExceptionResolver.new](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.md)</span><span class="signature"></span>  
 
 </div>
 

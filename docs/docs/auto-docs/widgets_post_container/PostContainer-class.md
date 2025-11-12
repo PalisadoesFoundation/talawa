@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PostContainer](../widgets_post_container/PostContainer/PostContainer.md)</span><span class="signature"></span>  
+<span class="name">[PostContainer.new](../widgets_post_container/PostContainer/PostContainer.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

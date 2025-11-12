@@ -45,7 +45,7 @@ Class containing constants for event end types.
 
 ## Constructors
 
-<span class="name">[EventEndTypes](../constants_recurrence_values/EventEndTypes/EventEndTypes.md)</span><span class="signature"></span>  
+<span class="name">[EventEndTypes.new](../constants_recurrence_values/EventEndTypes/EventEndTypes.md)</span><span class="signature"></span>  
 
 </div>
 

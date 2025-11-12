@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ManageVolunteerGroupViewModel](../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel/ManageVolunteerGroupViewModel.md)</span><span class="signature"></span>  
+<span class="name">[ManageVolunteerGroupViewModel.new](../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel/ManageVolunteerGroupViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

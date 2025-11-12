@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ChatPage](../views_after_auth_screens_chat_chat_list_screen/ChatPage/ChatPage.md)</span><span class="signature"></span>  
+<span class="name">[ChatPage.new](../views_after_auth_screens_chat_chat_list_screen/ChatPage/ChatPage.md)</span><span class="signature"></span>  
 Creates a ChatPage widget.
 
 <div class="constructor-modifier features">

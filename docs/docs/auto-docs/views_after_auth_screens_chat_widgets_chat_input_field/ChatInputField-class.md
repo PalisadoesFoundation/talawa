@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ChatInputField](../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField/ChatInputField.md)</span><span class="signature"></span>  
+<span class="name">[ChatInputField.new](../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField/ChatInputField.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

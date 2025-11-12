@@ -45,7 +45,7 @@ This class creates a Option model.
 
 ## Constructors
 
-<span class="name">[Options](../models_options_options/Options/Options.md)</span><span class="signature"></span>  
+<span class="name">[Options.new](../models_options_options/Options/Options.md)</span><span class="signature"></span>  
 
 </div>
 

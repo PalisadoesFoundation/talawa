@@ -47,7 +47,7 @@ Public API a plugin should implement to register itself.
 
 ## Constructors
 
-<span class="name">[TalawaMobilePlugin](../plugin_types/TalawaMobilePlugin/TalawaMobilePlugin.md)</span><span class="signature"></span>  
+<span class="name">[TalawaMobilePlugin.new](../plugin_types/TalawaMobilePlugin/TalawaMobilePlugin.md)</span><span class="signature"></span>  
 
 </div>
 

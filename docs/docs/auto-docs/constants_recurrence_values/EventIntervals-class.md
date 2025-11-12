@@ -45,7 +45,7 @@ Class containing constants for event intervals.
 
 ## Constructors
 
-<span class="name">[EventIntervals](../constants_recurrence_values/EventIntervals/EventIntervals.md)</span><span class="signature"></span>  
+<span class="name">[EventIntervals.new](../constants_recurrence_values/EventIntervals/EventIntervals.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ProfilePage](../views_after_auth_screens_profile_profile_page/ProfilePage/ProfilePage.md)</span><span class="signature"></span>  
+<span class="name">[ProfilePage.new](../views_after_auth_screens_profile_profile_page/ProfilePage/ProfilePage.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[RecurrenceFrequencyDropdown](../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown/RecurrenceFrequencyDropdown.md)</span><span class="signature"></span>  
+<span class="name">[RecurrenceFrequencyDropdown.new](../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown/RecurrenceFrequencyDropdown.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

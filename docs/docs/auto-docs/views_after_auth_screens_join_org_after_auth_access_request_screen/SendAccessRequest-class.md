@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SendAccessRequest](../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest/SendAccessRequest.md)</span><span class="signature"></span>  
+<span class="name">[SendAccessRequest.new](../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest/SendAccessRequest.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

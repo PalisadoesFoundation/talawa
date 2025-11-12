@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[OrganisationInfoScreen](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/OrganisationInfoScreen.md)</span><span class="signature"></span>  
+<span class="name">[OrganisationInfoScreen.new](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/OrganisationInfoScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CachedUserActionAdapter](../models_caching_cached_user_action/CachedUserActionAdapter/CachedUserActionAdapter.md)</span><span class="signature"></span>  
+<span class="name">[CachedUserActionAdapter.new](../models_caching_cached_user_action/CachedUserActionAdapter/CachedUserActionAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

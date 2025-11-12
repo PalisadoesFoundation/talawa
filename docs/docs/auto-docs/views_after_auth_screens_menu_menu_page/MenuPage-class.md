@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[MenuPage](../views_after_auth_screens_menu_menu_page/MenuPage/MenuPage.md)</span><span class="signature"></span>  
+<span class="name">[MenuPage.new](../views_after_auth_screens_menu_menu_page/MenuPage/MenuPage.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

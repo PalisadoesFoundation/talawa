@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventInfoViewModel](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/EventInfoViewModel.md)</span><span class="signature"></span>  
+<span class="name">[EventInfoViewModel.new](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/EventInfoViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

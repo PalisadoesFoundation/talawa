@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SetUrl](../views_pre_auth_screens_set_url/SetUrl/SetUrl.md)</span><span class="signature"></span>  
+<span class="name">[SetUrl.new](../views_pre_auth_screens_set_url/SetUrl/SetUrl.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

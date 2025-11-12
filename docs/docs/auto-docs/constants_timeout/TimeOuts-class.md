@@ -45,7 +45,7 @@ Class to define constant timeout to bring consistency in the code.
 
 ## Constructors
 
-<span class="name">[TimeOuts](../constants_timeout/TimeOuts/TimeOuts.md)</span><span class="signature"></span>  
+<span class="name">[TimeOuts.new](../constants_timeout/TimeOuts/TimeOuts.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomRecurrencePage](../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage/CustomRecurrencePage.md)</span><span class="signature"></span>  
+<span class="name">[CustomRecurrencePage.new](../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage/CustomRecurrencePage.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

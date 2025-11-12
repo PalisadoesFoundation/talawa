@@ -51,7 +51,7 @@ when they are no longer needed.
 
 ## Constructors
 
-<span class="name">[HiveManager](../services_hive_manager/HiveManager/HiveManager.md)</span><span class="signature"></span>  
+<span class="name">[HiveManager.new](../services_hive_manager/HiveManager/HiveManager.md)</span><span class="signature"></span>  
 
 </div>
 

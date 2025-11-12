@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[DateTimeTile](../widgets_event_date_time_tile/DateTimeTile/DateTimeTile.md)</span><span class="signature"></span>  
+<span class="name">[DateTimeTile.new](../widgets_event_date_time_tile/DateTimeTile/DateTimeTile.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

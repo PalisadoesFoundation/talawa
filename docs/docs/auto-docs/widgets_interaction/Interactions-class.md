@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[Interactions](../widgets_interaction/Interactions/Interactions.md)</span><span class="signature"></span>  
+<span class="name">[Interactions.new](../widgets_interaction/Interactions/Interactions.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

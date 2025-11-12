@@ -45,7 +45,7 @@ Apptheme class.
 
 ## Constructors
 
-<span class="name">[AppTheme](../apptheme/AppTheme/AppTheme.md)</span><span class="signature"></span>  
+<span class="name">[AppTheme.new](../apptheme/AppTheme/AppTheme.md)</span><span class="signature"></span>  
 
 </div>
 

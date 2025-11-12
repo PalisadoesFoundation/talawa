@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[OrganizationSearchList](../widgets_organization_search_list/OrganizationSearchList/OrganizationSearchList.md)</span><span class="signature"></span>  
+<span class="name">[OrganizationSearchList.new](../widgets_organization_search_list/OrganizationSearchList/OrganizationSearchList.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

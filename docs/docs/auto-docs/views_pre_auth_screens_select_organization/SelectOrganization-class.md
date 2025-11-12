@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SelectOrganization](../views_pre_auth_screens_select_organization/SelectOrganization/SelectOrganization.md)</span><span class="signature"></span>  
+<span class="name">[SelectOrganization.new](../views_pre_auth_screens_select_organization/SelectOrganization/SelectOrganization.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

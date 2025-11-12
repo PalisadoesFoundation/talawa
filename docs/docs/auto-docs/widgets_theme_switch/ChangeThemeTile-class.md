@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ChangeThemeTile](../widgets_theme_switch/ChangeThemeTile/ChangeThemeTile.md)</span><span class="signature"></span>  
+<span class="name">[ChangeThemeTile.new](../widgets_theme_switch/ChangeThemeTile/ChangeThemeTile.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

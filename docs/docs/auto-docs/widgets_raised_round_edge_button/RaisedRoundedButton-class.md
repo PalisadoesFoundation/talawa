@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[RaisedRoundedButton](../widgets_raised_round_edge_button/RaisedRoundedButton/RaisedRoundedButton.md)</span><span class="signature"></span>  
+<span class="name">[RaisedRoundedButton.new](../widgets_raised_round_edge_button/RaisedRoundedButton/RaisedRoundedButton.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PostWidget](../widgets_post_widget/PostWidget/PostWidget.md)</span><span class="signature"></span>  
+<span class="name">[PostWidget.new](../widgets_post_widget/PostWidget/PostWidget.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

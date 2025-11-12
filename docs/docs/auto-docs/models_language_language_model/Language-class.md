@@ -45,7 +45,7 @@ This class creates an langauge model.
 
 ## Constructors
 
-<span class="name">[Language](../models_language_language_model/Language/Language.md)</span><span class="signature"></span>  
+<span class="name">[Language.new](../models_language_language_model/Language/Language.md)</span><span class="signature"></span>  
 
 </div>
 

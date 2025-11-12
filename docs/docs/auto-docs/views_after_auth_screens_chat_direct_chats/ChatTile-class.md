@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ChatTile](../views_after_auth_screens_chat_direct_chats/ChatTile/ChatTile.md)</span><span class="signature"></span>  
+<span class="name">[ChatTile.new](../views_after_auth_screens_chat_direct_chats/ChatTile/ChatTile.md)</span><span class="signature"></span>  
 Creates a ChatTile widget.
 
 <div class="constructor-modifier features">

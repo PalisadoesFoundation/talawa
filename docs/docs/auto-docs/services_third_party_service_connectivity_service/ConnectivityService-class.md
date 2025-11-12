@@ -59,7 +59,7 @@ It includes methods for:
 
 ## Constructors
 
-<span class="name">[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService/ConnectivityService.md)</span><span class="signature">(<span id="-param-connectivityInstance" class="parameter"><span class="type-annotation">[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.5/connectivity_plus/Connectivity-class.md)</span> <span class="parameter-name">connectivityInstance</span></span>)</span>  
+<span class="name">[ConnectivityService.new](../services_third_party_service_connectivity_service/ConnectivityService/ConnectivityService.md)</span><span class="signature">(<span id="-param-connectivityInstance" class="parameter"><span class="type-annotation">[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.5/connectivity_plus/Connectivity-class.md)</span> <span class="parameter-name">connectivityInstance</span></span>)</span>  
 
 </div>
 

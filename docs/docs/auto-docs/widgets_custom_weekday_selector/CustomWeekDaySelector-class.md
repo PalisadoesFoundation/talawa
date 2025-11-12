@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomWeekDaySelector](../widgets_custom_weekday_selector/CustomWeekDaySelector/CustomWeekDaySelector.md)</span><span class="signature"></span>  
+<span class="name">[CustomWeekDaySelector.new](../widgets_custom_weekday_selector/CustomWeekDaySelector/CustomWeekDaySelector.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

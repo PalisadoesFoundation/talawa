@@ -50,7 +50,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[ChatSubscriptionService](../services_chat_subscription_service/ChatSubscriptionService/ChatSubscriptionService.md)</span><span class="signature"></span>  
+<span class="name">[ChatSubscriptionService.new](../services_chat_subscription_service/ChatSubscriptionService/ChatSubscriptionService.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -46,7 +46,7 @@ be available to users with different languages.
 
 ## Constructors
 
-<span class="name">[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.md)</span><span class="signature">(<span id="-param-locale" class="parameter"><span class="type-annotation">[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)</span> <span class="parameter-name">locale</span>, )</span>  
+<span class="name">[AppLocalizations.new](../utils_app_localization/AppLocalizations/AppLocalizations.md)</span><span class="signature">(<span id="-param-locale" class="parameter"><span class="type-annotation">[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)</span> <span class="parameter-name">locale</span>, )</span>  
 
 </div>
 

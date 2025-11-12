@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventInfoBody](../views_after_auth_screens_events_event_info_body/EventInfoBody/EventInfoBody.md)</span><span class="signature"></span>  
+<span class="name">[EventInfoBody.new](../views_after_auth_screens_events_event_info_body/EventInfoBody/EventInfoBody.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

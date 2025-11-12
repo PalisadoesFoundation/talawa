@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[TalawaErrorDialog](../widgets_talawa_error_dialog/TalawaErrorDialog/TalawaErrorDialog.md)</span><span class="signature">(<span id="-param-errorMessage" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">errorMessage</span>, )</span>  
+<span class="name">[TalawaErrorDialog.new](../widgets_talawa_error_dialog/TalawaErrorDialog/TalawaErrorDialog.md)</span><span class="signature">(<span id="-param-errorMessage" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">errorMessage</span>, )</span>  
 <div class="constructor-modifier features">
 
 const

@@ -65,7 +65,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SetUrlViewModel](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/SetUrlViewModel.md)</span><span class="signature"></span>  
+<span class="name">[SetUrlViewModel.new](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/SetUrlViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -53,7 +53,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[BaseView](../views_base_view/BaseView/BaseView.md)</span><span class="signature"></span>  
+<span class="name">[BaseView.new](../views_base_view/BaseView/BaseView.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

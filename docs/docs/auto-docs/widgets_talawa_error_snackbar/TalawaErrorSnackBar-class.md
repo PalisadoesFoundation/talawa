@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[TalawaErrorSnackBar](../widgets_talawa_error_snackbar/TalawaErrorSnackBar/TalawaErrorSnackBar.md)</span><span class="signature"></span>  
+<span class="name">[TalawaErrorSnackBar.new](../widgets_talawa_error_snackbar/TalawaErrorSnackBar/TalawaErrorSnackBar.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -45,7 +45,7 @@ Handles all of the encryption tasks in the codebase.
 
 ## Constructors
 
-<span class="name">[Encryptor](../utils_encryptor/Encryptor/Encryptor.md)</span><span class="signature"></span>  
+<span class="name">[Encryptor.new](../utils_encryptor/Encryptor/Encryptor.md)</span><span class="signature"></span>  
 
 </div>
 

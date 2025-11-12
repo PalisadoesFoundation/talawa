@@ -46,7 +46,7 @@ application.
 
 ## Constructors
 
-<span class="name">[Pledge](../models_funds_fund_pledges/Pledge/Pledge.md)</span><span class="signature"></span>  
+<span class="name">[Pledge.new](../models_funds_fund_pledges/Pledge/Pledge.md)</span><span class="signature"></span>  
 Constructs a `Pledge` instance.
 
 <span class="name">[Pledge.fromJson](../models_funds_fund_pledges/Pledge/Pledge.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  

@@ -51,7 +51,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[ImageService](../services_image_service/ImageService/ImageService.md)</span><span class="signature"></span>  
+<span class="name">[ImageService.new](../services_image_service/ImageService/ImageService.md)</span><span class="signature"></span>  
 
 </div>
 

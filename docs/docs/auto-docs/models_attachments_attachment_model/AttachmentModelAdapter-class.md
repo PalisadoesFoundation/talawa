@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AttachmentModelAdapter](../models_attachments_attachment_model/AttachmentModelAdapter/AttachmentModelAdapter.md)</span><span class="signature"></span>  
+<span class="name">[AttachmentModelAdapter.new](../models_attachments_attachment_model/AttachmentModelAdapter/AttachmentModelAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

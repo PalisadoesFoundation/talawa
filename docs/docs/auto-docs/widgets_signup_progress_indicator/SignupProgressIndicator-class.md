@@ -68,7 +68,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SignupProgressIndicator](../widgets_signup_progress_indicator/SignupProgressIndicator/SignupProgressIndicator.md)</span><span class="signature"></span>  
+<span class="name">[SignupProgressIndicator.new](../widgets_signup_progress_indicator/SignupProgressIndicator/SignupProgressIndicator.md)</span><span class="signature"></span>  
 
 </div>
 

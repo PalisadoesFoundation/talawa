@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventCalendar](../views_after_auth_screens_events_event_calendar/EventCalendar/EventCalendar.md)</span><span class="signature">(<span id="-param-eventList" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span> <span class="parameter-name">eventList</span>, )</span>  
+<span class="name">[EventCalendar.new](../views_after_auth_screens_events_event_calendar/EventCalendar/EventCalendar.md)</span><span class="signature">(<span id="-param-eventList" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span> <span class="parameter-name">eventList</span>, )</span>  
 <div class="constructor-modifier features">
 
 const

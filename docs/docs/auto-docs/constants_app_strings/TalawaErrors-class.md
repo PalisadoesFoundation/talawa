@@ -45,7 +45,7 @@ Talawa Custom error strings.
 
 ## Constructors
 
-<span class="name">[TalawaErrors](../constants_app_strings/TalawaErrors/TalawaErrors.md)</span><span class="signature"></span>  
+<span class="name">[TalawaErrors.new](../constants_app_strings/TalawaErrors/TalawaErrors.md)</span><span class="signature"></span>  
 
 </div>
 

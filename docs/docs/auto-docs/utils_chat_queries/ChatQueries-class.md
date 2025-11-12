@@ -45,7 +45,7 @@ This class creates the queries dealing with chats.
 
 ## Constructors
 
-<span class="name">[ChatQueries](../utils_chat_queries/ChatQueries/ChatQueries.md)</span><span class="signature"></span>  
+<span class="name">[ChatQueries.new](../utils_chat_queries/ChatQueries/ChatQueries.md)</span><span class="signature"></span>  
 
 </div>
 

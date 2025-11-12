@@ -65,7 +65,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[OrganizationFeedViewModel](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/OrganizationFeedViewModel.md)</span><span class="signature"></span>  
+<span class="name">[OrganizationFeedViewModel.new](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/OrganizationFeedViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

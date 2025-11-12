@@ -45,7 +45,7 @@ Service to handle caching routines.
 
 ## Constructors
 
-<span class="name">[CacheService](../services_caching_cache_service/CacheService/CacheService.md)</span><span class="signature"></span>  
+<span class="name">[CacheService.new](../services_caching_cache_service/CacheService/CacheService.md)</span><span class="signature"></span>  
 Initializes the cache service and the offline action queue.
 
 </div>

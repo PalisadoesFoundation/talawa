@@ -64,7 +64,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[GroupMemberSelector](../views_after_auth_screens_chat_widgets_group_member_selector/GroupMemberSelector/GroupMemberSelector.md)</span><span class="signature"></span>  
+<span class="name">[GroupMemberSelector.new](../views_after_auth_screens_chat_widgets_group_member_selector/GroupMemberSelector/GroupMemberSelector.md)</span><span class="signature"></span>  
 Creates a GroupMemberSelector widget.
 
 <div class="constructor-modifier features">

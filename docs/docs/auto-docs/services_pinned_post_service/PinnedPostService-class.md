@@ -54,7 +54,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PinnedPostService](../services_pinned_post_service/PinnedPostService/PinnedPostService.md)</span><span class="signature"></span>  
+<span class="name">[PinnedPostService.new](../services_pinned_post_service/PinnedPostService/PinnedPostService.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -73,7 +73,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PluginInjector](../plugin_plugin_injector/PluginInjector/PluginInjector.md)</span><span class="signature"></span>  
+<span class="name">[PluginInjector.new](../plugin_plugin_injector/PluginInjector/PluginInjector.md)</span><span class="signature"></span>  
 Creates a widget for rendering plugin injectors.
 
 <div class="constructor-modifier features">

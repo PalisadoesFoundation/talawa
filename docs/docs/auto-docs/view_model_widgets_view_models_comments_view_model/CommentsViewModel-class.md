@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CommentsViewModel](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/CommentsViewModel.md)</span><span class="signature"></span>  
+<span class="name">[CommentsViewModel.new](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/CommentsViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

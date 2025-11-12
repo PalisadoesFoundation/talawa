@@ -57,7 +57,7 @@ This class provides the following functionalities:
 
 ## Constructors
 
-<span class="name">[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.md)</span><span class="signature"></span>  
+<span class="name">[OfflineActionQueue.new](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.md)</span><span class="signature"></span>  
 
 </div>
 

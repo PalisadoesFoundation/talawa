@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PledgesScreen](../views_after_auth_screens_funds_fund_pledges_screen/PledgesScreen/PledgesScreen.md)</span><span class="signature"></span>  
+<span class="name">[PledgesScreen.new](../views_after_auth_screens_funds_fund_pledges_screen/PledgesScreen/PledgesScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -55,7 +55,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AccessScreenViewModel](../view_model_access_request_view_model/AccessScreenViewModel/AccessScreenViewModel.md)</span><span class="signature"></span>  
+<span class="name">[AccessScreenViewModel.new](../view_model_access_request_view_model/AccessScreenViewModel/AccessScreenViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

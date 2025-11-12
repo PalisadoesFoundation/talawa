@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[FundCard](../views_after_auth_screens_funds_funds_screen/FundCard/FundCard.md)</span><span class="signature"></span>  
+<span class="name">[FundCard.new](../views_after_auth_screens_funds_funds_screen/FundCard/FundCard.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

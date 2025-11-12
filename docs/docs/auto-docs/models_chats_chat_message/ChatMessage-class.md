@@ -46,7 +46,7 @@ chat system.
 
 ## Constructors
 
-<span class="name">[ChatMessage](../models_chats_chat_message/ChatMessage/ChatMessage.md)</span><span class="signature"></span>  
+<span class="name">[ChatMessage.new](../models_chats_chat_message/ChatMessage/ChatMessage.md)</span><span class="signature"></span>  
 Constructs a `ChatMessage` instance.
 
 <span class="name">[ChatMessage.fromJson](../models_chats_chat_message/ChatMessage/ChatMessage.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  

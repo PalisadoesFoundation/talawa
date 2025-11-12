@@ -48,7 +48,7 @@ with proper error handling and UI updates based on the action type.
 
 ## Constructors
 
-<span class="name">[ActionHandlerService](../services_user_action_handler/ActionHandlerService/ActionHandlerService.md)</span><span class="signature"></span>  
+<span class="name">[ActionHandlerService.new](../services_user_action_handler/ActionHandlerService/ActionHandlerService.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[DemoViewModel](../views_demo_page_view/DemoViewModel/DemoViewModel.md)</span><span class="signature"></span>  
+<span class="name">[DemoViewModel.new](../views_demo_page_view/DemoViewModel/DemoViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

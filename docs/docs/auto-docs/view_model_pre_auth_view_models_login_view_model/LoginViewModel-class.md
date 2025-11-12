@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[LoginViewModel](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/LoginViewModel.md)</span><span class="signature"></span>  
+<span class="name">[LoginViewModel.new](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/LoginViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

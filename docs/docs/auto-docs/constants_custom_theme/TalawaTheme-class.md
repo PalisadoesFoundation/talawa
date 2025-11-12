@@ -49,7 +49,7 @@ themes.
 
 ## Constructors
 
-<span class="name">[TalawaTheme](../constants_custom_theme/TalawaTheme/TalawaTheme.md)</span><span class="signature"></span>  
+<span class="name">[TalawaTheme.new](../constants_custom_theme/TalawaTheme/TalawaTheme.md)</span><span class="signature"></span>  
 
 </div>
 

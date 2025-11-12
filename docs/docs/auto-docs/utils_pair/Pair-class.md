@@ -53,7 +53,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[Pair](../utils_pair/Pair/Pair.md)</span><span class="signature">(<span id="-param-first" class="parameter"><span class="type-annotation">T</span> <span class="parameter-name">first</span>, </span><span id="-param-second" class="parameter"><span class="type-annotation">U</span> <span class="parameter-name">second</span></span>)</span>  
+<span class="name">[Pair.new](../utils_pair/Pair/Pair.md)</span><span class="signature">(<span id="-param-first" class="parameter"><span class="type-annotation">T</span> <span class="parameter-name">first</span>, </span><span id="-param-second" class="parameter"><span class="type-annotation">U</span> <span class="parameter-name">second</span></span>)</span>  
 Creates a new pair with the given values.
 
 <div class="constructor-modifier features">

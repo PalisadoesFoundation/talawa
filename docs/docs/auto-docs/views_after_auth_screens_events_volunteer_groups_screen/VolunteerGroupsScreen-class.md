@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[VolunteerGroupsScreen](../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen/VolunteerGroupsScreen.md)</span><span class="signature"></span>  
+<span class="name">[VolunteerGroupsScreen.new](../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen/VolunteerGroupsScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -64,7 +64,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[GroupChatMessageScreen](../views_after_auth_screens_chat_group_chat_message_screen/GroupChatMessageScreen/GroupChatMessageScreen.md)</span><span class="signature"></span>  
+<span class="name">[GroupChatMessageScreen.new](../views_after_auth_screens_chat_group_chat_message_screen/GroupChatMessageScreen/GroupChatMessageScreen.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

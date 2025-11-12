@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomRichText](../widgets_rich_text/CustomRichText/CustomRichText.md)</span><span class="signature"></span>  
+<span class="name">[CustomRichText.new](../widgets_rich_text/CustomRichText/CustomRichText.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

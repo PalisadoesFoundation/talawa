@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[JoinOrganisationAfterAuth](../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/JoinOrganisationAfterAuth/JoinOrganisationAfterAuth.md)</span><span class="signature"></span>  
+<span class="name">[JoinOrganisationAfterAuth.new](../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/JoinOrganisationAfterAuth/JoinOrganisationAfterAuth.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

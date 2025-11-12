@@ -45,7 +45,7 @@ conatins all neccessary utils.
 
 ## Constructors
 
-<span class="name">[RecurrenceUtils](../constants_recurrence_values/RecurrenceUtils/RecurrenceUtils.md)</span><span class="signature"></span>  
+<span class="name">[RecurrenceUtils.new](../constants_recurrence_values/RecurrenceUtils/RecurrenceUtils.md)</span><span class="signature"></span>  
 
 </div>
 

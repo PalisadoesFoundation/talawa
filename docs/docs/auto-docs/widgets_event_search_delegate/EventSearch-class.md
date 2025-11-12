@@ -54,7 +54,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventSearch](../widgets_event_search_delegate/EventSearch/EventSearch.md)</span><span class="signature"></span>  
+<span class="name">[EventSearch.new](../widgets_event_search_delegate/EventSearch/EventSearch.md)</span><span class="signature"></span>  
 
 </div>
 

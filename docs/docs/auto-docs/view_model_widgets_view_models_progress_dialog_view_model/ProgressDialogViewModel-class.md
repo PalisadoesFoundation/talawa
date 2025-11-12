@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ProgressDialogViewModel](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel/ProgressDialogViewModel.md)</span><span class="signature"></span>  
+<span class="name">[ProgressDialogViewModel.new](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel/ProgressDialogViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

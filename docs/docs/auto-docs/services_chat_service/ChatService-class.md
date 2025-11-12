@@ -51,7 +51,7 @@ This service acts as a facade that delegates to specialized services:
 
 ## Constructors
 
-<span class="name">[ChatService](../services_chat_service/ChatService/ChatService.md)</span><span class="signature"></span>  
+<span class="name">[ChatService.new](../services_chat_service/ChatService/ChatService.md)</span><span class="signature"></span>  
 
 </div>
 

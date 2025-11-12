@@ -50,7 +50,7 @@ and cached actions.
 
 ## Constructors
 
-<span class="name">[HiveKeys](../constants_constants/HiveKeys/HiveKeys.md)</span><span class="signature"></span>  
+<span class="name">[HiveKeys.new](../constants_constants/HiveKeys/HiveKeys.md)</span><span class="signature"></span>  
 
 </div>
 

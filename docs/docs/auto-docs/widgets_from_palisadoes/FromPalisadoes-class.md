@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[FromPalisadoes](../widgets_from_palisadoes/FromPalisadoes/FromPalisadoes.md)</span><span class="signature"></span>  
+<span class="name">[FromPalisadoes.new](../widgets_from_palisadoes/FromPalisadoes/FromPalisadoes.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

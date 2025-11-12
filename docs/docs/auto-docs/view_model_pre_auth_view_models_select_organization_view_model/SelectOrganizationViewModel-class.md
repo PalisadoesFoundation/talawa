@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[SelectOrganizationViewModel](../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel/SelectOrganizationViewModel.md)</span><span class="signature"></span>  
+<span class="name">[SelectOrganizationViewModel.new](../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel/SelectOrganizationViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

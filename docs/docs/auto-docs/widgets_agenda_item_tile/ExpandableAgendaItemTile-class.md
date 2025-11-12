@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ExpandableAgendaItemTile](../widgets_agenda_item_tile/ExpandableAgendaItemTile/ExpandableAgendaItemTile.md)</span><span class="signature"></span>  
+<span class="name">[ExpandableAgendaItemTile.new](../widgets_agenda_item_tile/ExpandableAgendaItemTile/ExpandableAgendaItemTile.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

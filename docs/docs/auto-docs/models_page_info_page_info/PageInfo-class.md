@@ -51,7 +51,7 @@ there are items before the current page
 
 ## Constructors
 
-<span class="name">[PageInfo](../models_page_info_page_info/PageInfo/PageInfo.md)</span><span class="signature"></span>  
+<span class="name">[PageInfo.new](../models_page_info_page_info/PageInfo/PageInfo.md)</span><span class="signature"></span>  
 
 <span class="name">[PageInfo.fromJson](../models_page_info_page_info/PageInfo/PageInfo.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 <div class="constructor-modifier features">

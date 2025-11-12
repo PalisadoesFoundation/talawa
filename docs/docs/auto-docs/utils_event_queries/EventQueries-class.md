@@ -45,7 +45,7 @@ This class creates queries related to the events.
 
 ## Constructors
 
-<span class="name">[EventQueries](../utils_event_queries/EventQueries/EventQueries.md)</span><span class="signature"></span>  
+<span class="name">[EventQueries.new](../utils_event_queries/EventQueries/EventQueries.md)</span><span class="signature"></span>  
 
 </div>
 

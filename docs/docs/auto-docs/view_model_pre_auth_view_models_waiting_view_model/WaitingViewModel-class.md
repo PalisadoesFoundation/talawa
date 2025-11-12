@@ -60,7 +60,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[WaitingViewModel](../view_model_pre_auth_view_models_waiting_view_model/WaitingViewModel/WaitingViewModel.md)</span><span class="signature"></span>  
+<span class="name">[WaitingViewModel.new](../view_model_pre_auth_view_models_waiting_view_model/WaitingViewModel/WaitingViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -50,7 +50,7 @@ talawa mobile-app.
 
 ## Constructors
 
-<span class="name">[GraphqlConfig](../services_graphql_config/GraphqlConfig/GraphqlConfig.md)</span><span class="signature"></span>  
+<span class="name">[GraphqlConfig.new](../services_graphql_config/GraphqlConfig/GraphqlConfig.md)</span><span class="signature"></span>  
 
 </div>
 

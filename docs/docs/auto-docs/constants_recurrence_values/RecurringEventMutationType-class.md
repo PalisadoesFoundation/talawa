@@ -45,7 +45,7 @@ Class containing constants for recurrence end types.
 
 ## Constructors
 
-<span class="name">[RecurringEventMutationType](../constants_recurrence_values/RecurringEventMutationType/RecurringEventMutationType.md)</span><span class="signature"></span>  
+<span class="name">[RecurringEventMutationType.new](../constants_recurrence_values/RecurringEventMutationType/RecurringEventMutationType.md)</span><span class="signature"></span>  
 
 </div>
 

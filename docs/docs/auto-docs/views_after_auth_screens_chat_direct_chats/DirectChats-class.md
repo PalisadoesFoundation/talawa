@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[DirectChats](../views_after_auth_screens_chat_direct_chats/DirectChats/DirectChats.md)</span><span class="signature"></span>  
+<span class="name">[DirectChats.new](../views_after_auth_screens_chat_direct_chats/DirectChats/DirectChats.md)</span><span class="signature"></span>  
 Creates a DirectChats widget.
 
 <div class="constructor-modifier features">

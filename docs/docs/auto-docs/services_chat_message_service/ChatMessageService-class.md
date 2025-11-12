@@ -53,7 +53,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[ChatMessageService](../services_chat_message_service/ChatMessageService/ChatMessageService.md)</span><span class="signature"></span>  
+<span class="name">[ChatMessageService.new](../services_chat_message_service/ChatMessageService/ChatMessageService.md)</span><span class="signature"></span>  
 
 </div>
 

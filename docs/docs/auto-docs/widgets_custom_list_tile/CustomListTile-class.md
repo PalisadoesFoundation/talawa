@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomListTile](../widgets_custom_list_tile/CustomListTile)</span><span class="signature"></span>  
+<span class="name">[CustomListTile.new](../widgets_custom_list_tile/CustomListTile)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

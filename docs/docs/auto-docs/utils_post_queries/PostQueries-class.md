@@ -45,7 +45,7 @@ This class creates queries related to posts.
 
 ## Constructors
 
-<span class="name">[PostQueries](../utils_post_queries/PostQueries/PostQueries.md)</span><span class="signature"></span>  
+<span class="name">[PostQueries.new](../utils_post_queries/PostQueries/PostQueries.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -45,7 +45,7 @@ This class returns some queries for the application.
 
 ## Constructors
 
-<span class="name">[Queries](../utils_queries/Queries/Queries.md)</span><span class="signature"></span>  
+<span class="name">[Queries.new](../utils_queries/Queries/Queries.md)</span><span class="signature"></span>  
 
 </div>
 

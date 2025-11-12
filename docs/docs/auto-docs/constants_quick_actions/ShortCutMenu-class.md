@@ -46,7 +46,7 @@ with the application. quick_actions package is used for this purpose.
 
 ## Constructors
 
-<span class="name">[ShortCutMenu](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md)</span><span class="signature"></span>  
+<span class="name">[ShortCutMenu.new](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md)</span><span class="signature"></span>  
 
 </div>
 

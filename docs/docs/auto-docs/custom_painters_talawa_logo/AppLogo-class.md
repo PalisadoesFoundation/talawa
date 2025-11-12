@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AppLogo](../custom_painters_talawa_logo/AppLogo/AppLogo.md)</span><span class="signature"></span>  
+<span class="name">[AppLogo.new](../custom_painters_talawa_logo/AppLogo/AppLogo.md)</span><span class="signature"></span>  
 
 </div>
 

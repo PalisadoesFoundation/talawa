@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[MyApp](../main/MyApp/MyApp.md)</span><span class="signature"></span>  
+<span class="name">[MyApp.new](../main/MyApp/MyApp.md)</span><span class="signature"></span>  
 
 </div>
 

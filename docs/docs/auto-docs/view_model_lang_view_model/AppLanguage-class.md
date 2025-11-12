@@ -68,7 +68,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AppLanguage](../view_model_lang_view_model/AppLanguage/AppLanguage.md)</span><span class="signature"></span>  
+<span class="name">[AppLanguage.new](../view_model_lang_view_model/AppLanguage/AppLanguage.md)</span><span class="signature"></span>  
 
 </div>
 

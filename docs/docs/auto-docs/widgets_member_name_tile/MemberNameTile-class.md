@@ -60,7 +60,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[MemberNameTile](../widgets_member_name_tile/MemberNameTile/MemberNameTile.md)</span><span class="signature"></span>  
+<span class="name">[MemberNameTile.new](../widgets_member_name_tile/MemberNameTile/MemberNameTile.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

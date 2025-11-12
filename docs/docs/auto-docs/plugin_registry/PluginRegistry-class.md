@@ -47,7 +47,7 @@ A very small in-memory registry for activated plugins.
 
 ## Constructors
 
-<span class="name">[PluginRegistry](../plugin_registry/PluginRegistry/PluginRegistry.md)</span><span class="signature"></span>  
+<span class="name">[PluginRegistry.new](../plugin_registry/PluginRegistry/PluginRegistry.md)</span><span class="signature"></span>  
 
 </div>
 

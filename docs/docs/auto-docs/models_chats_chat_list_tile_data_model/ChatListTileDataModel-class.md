@@ -47,7 +47,7 @@ that expect the old chat list tile data structure.
 
 ## Constructors
 
-<span class="name">[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.md)</span><span class="signature"></span>  
+<span class="name">[ChatListTileDataModel.new](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.md)</span><span class="signature"></span>  
 
 <span class="name">[ChatListTileDataModel.fromChat](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.fromChat.md)</span><span class="signature">(<span id="fromChat-param-chat" class="parameter"><span class="type-annotation">[Chat](../models_chats_chat/Chat-class.md)</span> <span class="parameter-name">chat</span></span>)</span>  
 Creates a `ChatListTileDataModel` from a `Chat` instance.

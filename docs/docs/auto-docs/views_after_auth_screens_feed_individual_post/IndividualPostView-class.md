@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[IndividualPostView](../views_after_auth_screens_feed_individual_post/IndividualPostView/IndividualPostView.md)</span><span class="signature"></span>  
+<span class="name">[IndividualPostView.new](../views_after_auth_screens_feed_individual_post/IndividualPostView/IndividualPostView.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

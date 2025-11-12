@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PostAdapter](../models_post_post_model/PostAdapter/PostAdapter.md)</span><span class="signature"></span>  
+<span class="name">[PostAdapter.new](../models_post_post_model/PostAdapter/PostAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

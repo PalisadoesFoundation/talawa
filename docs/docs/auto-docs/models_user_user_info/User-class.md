@@ -49,7 +49,7 @@ Inheritance
 - User
 
 Annotations  
-- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
+- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
   1)
 
 </div>
@@ -58,7 +58,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[User](../models_user_user_info/User/User.md)</span><span class="signature"></span>  
+<span class="name">[User.new](../models_user_user_info/User/User.md)</span><span class="signature"></span>  
 
 <span class="name">[User.fromJson](../models_user_user_info/User/User.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span>, )</span>  
 <div class="constructor-modifier features">

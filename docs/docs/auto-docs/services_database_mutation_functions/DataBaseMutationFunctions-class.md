@@ -56,7 +56,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions/DataBaseMutationFunctions.md)</span><span class="signature"></span>  
+<span class="name">[DataBaseMutationFunctions.new](../services_database_mutation_functions/DataBaseMutationFunctions/DataBaseMutationFunctions.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -46,7 +46,7 @@ and retrieving user profile information.
 
 ## Constructors
 
-<span class="name">[UserProfileService](../services_user_profile_service/UserProfileService/UserProfileService.md)</span><span class="signature"></span>  
+<span class="name">[UserProfileService.new](../services_user_profile_service/UserProfileService/UserProfileService.md)</span><span class="signature"></span>  
 
 </div>
 

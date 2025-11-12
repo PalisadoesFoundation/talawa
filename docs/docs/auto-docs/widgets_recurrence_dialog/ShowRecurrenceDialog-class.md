@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ShowRecurrenceDialog](../widgets_recurrence_dialog/ShowRecurrenceDialog/ShowRecurrenceDialog.md)</span><span class="signature"></span>  
+<span class="name">[ShowRecurrenceDialog.new](../widgets_recurrence_dialog/ShowRecurrenceDialog/ShowRecurrenceDialog.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

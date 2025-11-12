@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[DemoOrganizationFeed](../views_demo_screens_organization_feed_demo/DemoOrganizationFeed/DemoOrganizationFeed.md)</span><span class="signature"></span>  
+<span class="name">[DemoOrganizationFeed.new](../views_demo_screens_organization_feed_demo/DemoOrganizationFeed/DemoOrganizationFeed.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

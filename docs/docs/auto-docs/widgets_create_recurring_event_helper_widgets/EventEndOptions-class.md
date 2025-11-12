@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventEndOptions](../widgets_create_recurring_event_helper_widgets/EventEndOptions/EventEndOptions.md)</span><span class="signature"></span>  
+<span class="name">[EventEndOptions.new](../widgets_create_recurring_event_helper_widgets/EventEndOptions/EventEndOptions.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

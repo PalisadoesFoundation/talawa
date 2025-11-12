@@ -45,7 +45,7 @@ A thin manager that wires the registry with bundled plugins.
 
 ## Constructors
 
-<span class="name">[PluginManager](../plugin_manager/PluginManager/PluginManager.md)</span><span class="signature">(<span id="-param-registry" class="parameter"><span class="type-annotation">[PluginRegistry](../plugin_registry/PluginRegistry-class.md)</span> <span class="parameter-name">registry</span></span>)</span>  
+<span class="name">[PluginManager.new](../plugin_manager/PluginManager/PluginManager.md)</span><span class="signature">(<span id="-param-registry" class="parameter"><span class="type-annotation">[PluginRegistry](../plugin_registry/PluginRegistry-class.md)</span> <span class="parameter-name">registry</span></span>)</span>  
 Creates a new plugin manager.
 
 </div>

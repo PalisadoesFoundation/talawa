@@ -45,7 +45,7 @@ A simple menu item contribution for Menu page.
 
 ## Constructors
 
-<span class="name">[PluginMenuItem](../plugin_types/PluginMenuItem/PluginMenuItem.md)</span><span class="signature"></span>  
+<span class="name">[PluginMenuItem.new](../plugin_types/PluginMenuItem/PluginMenuItem.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

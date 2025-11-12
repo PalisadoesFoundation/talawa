@@ -68,7 +68,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel/MainScreenViewModel.md)</span><span class="signature"></span>  
+<span class="name">[MainScreenViewModel.new](../view_model_main_screen_view_model/MainScreenViewModel/MainScreenViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

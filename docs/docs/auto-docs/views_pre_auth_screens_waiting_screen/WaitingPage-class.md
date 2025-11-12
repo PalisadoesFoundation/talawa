@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[WaitingPage](../views_pre_auth_screens_waiting_screen/WaitingPage/WaitingPage.md)</span><span class="signature"></span>  
+<span class="name">[WaitingPage.new](../views_pre_auth_screens_waiting_screen/WaitingPage/WaitingPage.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

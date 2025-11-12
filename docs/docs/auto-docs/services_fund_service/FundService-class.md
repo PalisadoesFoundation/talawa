@@ -46,7 +46,7 @@ Campaigns, and Pledges.
 
 ## Constructors
 
-<span class="name">[FundService](../services_fund_service/FundService/FundService.md)</span><span class="signature"></span>  
+<span class="name">[FundService.new](../services_fund_service/FundService/FundService.md)</span><span class="signature"></span>  
 
 </div>
 

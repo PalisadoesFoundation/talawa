@@ -46,7 +46,7 @@ media.
 
 ## Constructors
 
-<span class="name">[SizeConfig](../services_size_config/SizeConfig/SizeConfig.md)</span><span class="signature"></span>  
+<span class="name">[SizeConfig.new](../services_size_config/SizeConfig/SizeConfig.md)</span><span class="signature"></span>  
 
 </div>
 

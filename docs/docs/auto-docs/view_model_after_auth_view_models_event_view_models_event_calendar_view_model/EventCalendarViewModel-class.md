@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventCalendarViewModel](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/EventCalendarViewModel.md)</span><span class="signature"></span>  
+<span class="name">[EventCalendarViewModel.new](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel/EventCalendarViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

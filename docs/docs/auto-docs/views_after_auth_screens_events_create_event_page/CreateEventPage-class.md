@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage/CreateEventPage.md)</span><span class="signature"></span>  
+<span class="name">[CreateEventPage.new](../views_after_auth_screens_events_create_event_page/CreateEventPage/CreateEventPage.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

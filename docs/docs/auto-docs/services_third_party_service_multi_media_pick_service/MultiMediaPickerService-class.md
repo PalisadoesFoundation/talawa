@@ -53,7 +53,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[MultiMediaPickerService](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/MultiMediaPickerService.md)</span><span class="signature"></span>  
+<span class="name">[MultiMediaPickerService.new](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/MultiMediaPickerService.md)</span><span class="signature"></span>  
 
 </div>
 

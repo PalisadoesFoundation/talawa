@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AddPost](../views_after_auth_screens_add_post_page/AddPost/AddPost.md)</span><span class="signature"></span>  
+<span class="name">[AddPost.new](../views_after_auth_screens_add_post_page/AddPost/AddPost.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

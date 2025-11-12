@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AsymetricKeysAdapter](../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter/AsymetricKeysAdapter.md)</span><span class="signature"></span>  
+<span class="name">[AsymetricKeysAdapter.new](../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter/AsymetricKeysAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

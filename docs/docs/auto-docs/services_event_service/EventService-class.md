@@ -68,7 +68,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventService](../services_event_service/EventService/EventService.md)</span><span class="signature"></span>  
+<span class="name">[EventService.new](../services_event_service/EventService/EventService.md)</span><span class="signature"></span>  
 
 </div>
 

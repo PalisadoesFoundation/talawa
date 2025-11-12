@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[VenueBottomSheet](../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet/VenueBottomSheet.md)</span><span class="signature"></span>  
+<span class="name">[VenueBottomSheet.new](../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet/VenueBottomSheet.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

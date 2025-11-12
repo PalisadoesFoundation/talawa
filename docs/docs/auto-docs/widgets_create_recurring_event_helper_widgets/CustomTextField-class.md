@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomTextField](../widgets_create_recurring_event_helper_widgets/CustomTextField/CustomTextField.md)</span><span class="signature"></span>  
+<span class="name">[CustomTextField.new](../widgets_create_recurring_event_helper_widgets/CustomTextField/CustomTextField.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

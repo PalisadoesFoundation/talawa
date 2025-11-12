@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EditEventForm](../views_after_auth_screens_events_edit_events_form/EditEventForm/EditEventForm.md)</span><span class="signature"></span>  
+<span class="name">[EditEventForm.new](../views_after_auth_screens_events_edit_events_form/EditEventForm/EditEventForm.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

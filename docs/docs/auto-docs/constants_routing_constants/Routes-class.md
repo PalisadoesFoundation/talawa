@@ -46,7 +46,7 @@ call via Routes.splashScreen to access these string.
 
 ## Constructors
 
-<span class="name">[Routes](../constants_routing_constants/Routes/Routes.md)</span><span class="signature"></span>  
+<span class="name">[Routes.new](../constants_routing_constants/Routes/Routes.md)</span><span class="signature"></span>  
 
 </div>
 

@@ -45,7 +45,7 @@ for the name, file hash, MIME type, and object name of the attachment.
 <div class="section">
 
 Annotations  
-- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
+- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
   8)
 
 </div>
@@ -54,7 +54,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[AttachmentModel](../models_attachments_attachment_model/AttachmentModel/AttachmentModel.md)</span><span class="signature"></span>  
+<span class="name">[AttachmentModel.new](../models_attachments_attachment_model/AttachmentModel/AttachmentModel.md)</span><span class="signature"></span>  
 
 <span class="name">[AttachmentModel.fromJson](../models_attachments_attachment_model/AttachmentModel/AttachmentModel.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 <div class="constructor-modifier features">

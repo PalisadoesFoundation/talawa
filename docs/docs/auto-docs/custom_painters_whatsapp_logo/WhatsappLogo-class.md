@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[WhatsappLogo](../custom_painters_whatsapp_logo/WhatsappLogo/WhatsappLogo.md)</span><span class="signature"></span>  
+<span class="name">[WhatsappLogo.new](../custom_painters_whatsapp_logo/WhatsappLogo/WhatsappLogo.md)</span><span class="signature"></span>  
 
 </div>
 

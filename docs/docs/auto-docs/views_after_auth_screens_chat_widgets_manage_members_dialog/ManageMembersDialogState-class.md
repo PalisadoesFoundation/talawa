@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ManageMembersDialogState](../views_after_auth_screens_chat_widgets_manage_members_dialog/ManageMembersDialogState/ManageMembersDialogState.md)</span><span class="signature"></span>  
+<span class="name">[ManageMembersDialogState.new](../views_after_auth_screens_chat_widgets_manage_members_dialog/ManageMembersDialogState/ManageMembersDialogState.md)</span><span class="signature"></span>  
 
 </div>
 

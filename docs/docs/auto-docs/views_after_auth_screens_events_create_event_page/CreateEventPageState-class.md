@@ -55,7 +55,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.md)</span><span class="signature"></span>  
+<span class="name">[CreateEventPageState.new](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.md)</span><span class="signature"></span>  
 
 </div>
 

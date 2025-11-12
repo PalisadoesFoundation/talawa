@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CommentAdapter](../models_comment_comment_model/CommentAdapter/CommentAdapter.md)</span><span class="signature"></span>  
+<span class="name">[CommentAdapter.new](../models_comment_comment_model/CommentAdapter/CommentAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

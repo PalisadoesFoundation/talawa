@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[DemoPageView](../views_demo_page_view/DemoPageView/DemoPageView.md)</span><span class="signature"></span>  
+<span class="name">[DemoPageView.new](../views_demo_page_view/DemoPageView/DemoPageView.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

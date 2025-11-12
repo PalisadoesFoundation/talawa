@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomProgressDialog](../widgets_custom_progress_dialog/CustomProgressDialog/CustomProgressDialog.md)</span><span class="signature"></span>  
+<span class="name">[CustomProgressDialog.new](../widgets_custom_progress_dialog/CustomProgressDialog/CustomProgressDialog.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

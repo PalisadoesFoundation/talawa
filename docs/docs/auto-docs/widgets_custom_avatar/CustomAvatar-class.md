@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomAvatar](../widgets_custom_avatar/CustomAvatar/CustomAvatar.md)</span><span class="signature"></span>  
+<span class="name">[CustomAvatar.new](../widgets_custom_avatar/CustomAvatar/CustomAvatar.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

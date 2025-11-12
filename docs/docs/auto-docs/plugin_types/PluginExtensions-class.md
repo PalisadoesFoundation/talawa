@@ -45,7 +45,7 @@ Plugin extension points.
 
 ## Constructors
 
-<span class="name">[PluginExtensions](../plugin_types/PluginExtensions/PluginExtensions.md)</span><span class="signature"></span>  
+<span class="name">[PluginExtensions.new](../plugin_types/PluginExtensions/PluginExtensions.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

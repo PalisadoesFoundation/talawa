@@ -45,7 +45,7 @@ Adds members to an event.
 
 ## Constructors
 
-<span class="name">[EventBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet/EventBottomSheet.md)</span><span class="signature"></span>  
+<span class="name">[EventBottomSheet.new](../widgets_add_members_bottom_sheet/EventBottomSheet/EventBottomSheet.md)</span><span class="signature"></span>  
 
 </div>
 

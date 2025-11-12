@@ -48,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AttendeeAdapter](../models_events_event_model/AttendeeAdapter/AttendeeAdapter.md)</span><span class="signature"></span>  
+<span class="name">[AttendeeAdapter.new](../models_events_event_model/AttendeeAdapter/AttendeeAdapter.md)</span><span class="signature"></span>  
 
 </div>
 

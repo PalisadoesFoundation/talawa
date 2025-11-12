@@ -62,7 +62,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.md)</span><span class="signature"></span>  
+<span class="name">[CustomDrawerViewModel.new](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

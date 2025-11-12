@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ManageMembersDialog](../views_after_auth_screens_chat_widgets_manage_members_dialog/ManageMembersDialog/ManageMembersDialog.md)</span><span class="signature"></span>  
+<span class="name">[ManageMembersDialog.new](../views_after_auth_screens_chat_widgets_manage_members_dialog/ManageMembersDialog/ManageMembersDialog.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

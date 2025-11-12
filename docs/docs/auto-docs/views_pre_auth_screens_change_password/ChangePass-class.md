@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ChangePass](../views_pre_auth_screens_change_password/ChangePass/ChangePass.md)</span><span class="signature"></span>  
+<span class="name">[ChangePass.new](../views_pre_auth_screens_change_password/ChangePass/ChangePass.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

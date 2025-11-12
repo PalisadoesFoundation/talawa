@@ -68,7 +68,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[FundViewModel](../view_model_after_auth_view_models_fund_view_model_fund_view_model/FundViewModel/FundViewModel.md)</span><span class="signature"></span>  
+<span class="name">[FundViewModel.new](../view_model_after_auth_view_models_fund_view_model_fund_view_model/FundViewModel/FundViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

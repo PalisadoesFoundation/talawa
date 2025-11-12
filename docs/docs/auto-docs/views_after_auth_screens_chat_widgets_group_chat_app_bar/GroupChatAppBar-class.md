@@ -65,7 +65,7 @@ Implemented types
 
 ## Constructors
 
-<span class="name">[GroupChatAppBar](../views_after_auth_screens_chat_widgets_group_chat_app_bar/GroupChatAppBar/GroupChatAppBar.md)</span><span class="signature"></span>  
+<span class="name">[GroupChatAppBar.new](../views_after_auth_screens_chat_widgets_group_chat_app_bar/GroupChatAppBar/GroupChatAppBar.md)</span><span class="signature"></span>  
 Creates a GroupChatAppBar widget.
 
 <div class="constructor-modifier features">

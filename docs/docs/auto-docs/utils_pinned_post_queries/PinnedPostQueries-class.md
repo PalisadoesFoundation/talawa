@@ -46,7 +46,7 @@ organization.
 
 ## Constructors
 
-<span class="name">[PinnedPostQueries](../utils_pinned_post_queries/PinnedPostQueries/PinnedPostQueries.md)</span><span class="signature"></span>  
+<span class="name">[PinnedPostQueries.new](../utils_pinned_post_queries/PinnedPostQueries/PinnedPostQueries.md)</span><span class="signature"></span>  
 
 </div>
 

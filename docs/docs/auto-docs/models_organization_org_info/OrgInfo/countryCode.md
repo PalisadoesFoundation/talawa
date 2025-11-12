@@ -40,7 +40,7 @@ below-sidebar="">
 
 <div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField/HiveField.html)(8)
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(8)
 
 </div>
 

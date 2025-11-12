@@ -60,7 +60,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ProfilePageViewModel](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/ProfilePageViewModel.md)</span><span class="signature"></span>  
+<span class="name">[ProfilePageViewModel.new](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/ProfilePageViewModel.md)</span><span class="signature"></span>  
 
 </div>
 

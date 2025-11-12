@@ -47,7 +47,7 @@ They are used to validate information given by the users.
 
 ## Constructors
 
-<span class="name">[Validator](../utils_validators/Validator/Validator.md)</span><span class="signature"></span>  
+<span class="name">[Validator.new](../utils_validators/Validator/Validator.md)</span><span class="signature"></span>  
 
 </div>
 

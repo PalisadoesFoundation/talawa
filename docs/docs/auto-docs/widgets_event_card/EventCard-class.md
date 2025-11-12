@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventCard](../widgets_event_card/EventCard/EventCard.md)</span><span class="signature"></span>  
+<span class="name">[EventCard.new](../widgets_event_card/EventCard/EventCard.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -51,7 +51,7 @@ This class provides static methods for:
 
 ## Constructors
 
-<span class="name">[ChatUtils](../utils_chat_utils/ChatUtils/ChatUtils.md)</span><span class="signature"></span>  
+<span class="name">[ChatUtils.new](../utils_chat_utils/ChatUtils/ChatUtils.md)</span><span class="signature"></span>  
 
 </div>
 

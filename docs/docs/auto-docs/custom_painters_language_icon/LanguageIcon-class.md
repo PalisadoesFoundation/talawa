@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[LanguageIcon](../custom_painters_language_icon/LanguageIcon/LanguageIcon.md)</span><span class="signature"></span>  
+<span class="name">[LanguageIcon.new](../custom_painters_language_icon/LanguageIcon/LanguageIcon.md)</span><span class="signature"></span>  
 
 </div>
 

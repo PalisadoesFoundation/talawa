@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PinnedPost](../widgets_pinned_post/PinnedPost/PinnedPost.md)</span><span class="signature"></span>  
+<span class="name">[PinnedPost.new](../widgets_pinned_post/PinnedPost/PinnedPost.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

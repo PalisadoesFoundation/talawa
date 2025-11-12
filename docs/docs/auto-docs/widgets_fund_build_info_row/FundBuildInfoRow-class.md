@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[FundBuildInfoRow](../widgets_fund_build_info_row/FundBuildInfoRow/FundBuildInfoRow.md)</span><span class="signature"></span>  
+<span class="name">[FundBuildInfoRow.new](../widgets_fund_build_info_row/FundBuildInfoRow/FundBuildInfoRow.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

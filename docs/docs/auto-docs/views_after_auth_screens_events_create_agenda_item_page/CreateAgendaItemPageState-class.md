@@ -55,7 +55,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CreateAgendaItemPageState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/CreateAgendaItemPageState.md)</span><span class="signature"></span>  
+<span class="name">[CreateAgendaItemPageState.new](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/CreateAgendaItemPageState.md)</span><span class="signature"></span>  
 
 </div>
 

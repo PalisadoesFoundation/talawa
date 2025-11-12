@@ -64,7 +64,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[GroupChats](../views_after_auth_screens_chat_group_chats/GroupChats/GroupChats.md)</span><span class="signature"></span>  
+<span class="name">[GroupChats.new](../views_after_auth_screens_chat_group_chats/GroupChats/GroupChats.md)</span><span class="signature"></span>  
 Creates a GroupChats widget.
 
 <div class="constructor-modifier features">

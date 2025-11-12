@@ -61,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog/CustomAlertDialog.md)</span><span class="signature"></span>  
+<span class="name">[CustomAlertDialog.new](../widgets_custom_alert_dialog/CustomAlertDialog/CustomAlertDialog.md)</span><span class="signature"></span>  
 Constructs a
 [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
 widget.

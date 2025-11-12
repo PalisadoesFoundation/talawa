@@ -58,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomDrawer](../widgets_custom_drawer/CustomDrawer/CustomDrawer.md)</span><span class="signature"></span>  
+<span class="name">[CustomDrawer.new](../widgets_custom_drawer/CustomDrawer/CustomDrawer.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

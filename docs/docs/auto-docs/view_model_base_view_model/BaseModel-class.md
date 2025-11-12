@@ -81,7 +81,7 @@ Implementers
 
 ## Constructors
 
-<span class="name">[BaseModel](../view_model_base_view_model/BaseModel/BaseModel.md)</span><span class="signature"></span>  
+<span class="name">[BaseModel.new](../view_model_base_view_model/BaseModel/BaseModel.md)</span><span class="signature"></span>  
 
 </div>
 

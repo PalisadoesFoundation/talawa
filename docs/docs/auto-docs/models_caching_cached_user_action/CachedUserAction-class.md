@@ -57,7 +57,7 @@ Inheritance
 - CachedUserAction
 
 Annotations  
-- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType/HiveType.html)(typeId:
+- @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
   3)
 
 </div>
@@ -66,7 +66,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[CachedUserAction](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.md)</span><span class="signature"></span>  
+<span class="name">[CachedUserAction.new](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.md)</span><span class="signature"></span>  
 
 <span class="name">[CachedUserAction.fromJson](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 Creates a CachedUserAction from a JSON-compatible map.

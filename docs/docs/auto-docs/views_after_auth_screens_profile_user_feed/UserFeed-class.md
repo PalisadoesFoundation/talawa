@@ -56,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[UserFeed](../views_after_auth_screens_profile_user_feed/UserFeed/UserFeed.md)</span><span class="signature"></span>  
+<span class="name">[UserFeed.new](../views_after_auth_screens_profile_user_feed/UserFeed/UserFeed.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

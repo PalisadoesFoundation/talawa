@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AppSettingsPage](../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage/AppSettingsPage.md)</span><span class="signature"></span>  
+<span class="name">[AppSettingsPage.new](../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage/AppSettingsPage.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

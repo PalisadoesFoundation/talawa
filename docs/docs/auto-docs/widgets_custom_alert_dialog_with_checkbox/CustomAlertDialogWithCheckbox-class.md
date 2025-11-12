@@ -62,7 +62,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomAlertDialogWithCheckbox](../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox/CustomAlertDialogWithCheckbox.md)</span><span class="signature"></span>  
+<span class="name">[CustomAlertDialogWithCheckbox.new](../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox/CustomAlertDialogWithCheckbox.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const

@@ -57,7 +57,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[Recover](../views_pre_auth_screens_recover/Recover/Recover.md)</span><span class="signature"></span>  
+<span class="name">[Recover.new](../views_pre_auth_screens_recover/Recover/Recover.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const
