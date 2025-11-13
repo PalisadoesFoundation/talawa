@@ -46,21 +46,37 @@ jobs:
                 return;
               }
 
-              await github.rest.issues.removeAssignees({
-                owner,
-                repo,
-                issue_number: issueNumber,
-                assignees: [user],
-              });
+              try {
+                await github.rest.issues.removeAssignees({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  assignees: [user],
+                });
 
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: issueNumber,
-                body: `✅ Unassigned @${user} successfully.`,
-              });
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `✅ Unassigned @${user} successfully.`,
+                });
 
-              console.log(`Unassigned ${user} from #${issueNumber}`);
+                console.log(`Unassigned ${user} from #${issueNumber}`);
+              } catch (error) {
+                console.error(`Error unassigning user ${user} from issue #${issueNumber}:`, error);
+                
+                // Attempt to create a fallback comment about the failure
+                try {
+                  await github.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number: issueNumber,
+                    body: `❌ Failed to unassign @${user}. Please try again or contact a maintainer.`,
+                  });
+                } catch (commentError) {
+                  console.error(`Failed to create error comment for user ${user} on issue #${issueNumber}:`, commentError);
+                }
+              }
               return;
             }
 
@@ -96,11 +112,45 @@ jobs:
               }
             } catch (error) {
               console.error("Error fetching org-wide assignments:", error);
+              
+              // Notify the user that the org-wide check failed
+              try {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `❌ **Org-wide assignment check failed**\n\n` +
+                        `Could not verify how many issues @${user} currently has assigned across the organization.\n\n` +
+                        `**Error:** ${error.message || 'Unknown error'}\n\n` +
+                        `Please contact a maintainer or try again later.`,
+                });
+              } catch (commentError) {
+                console.error(`Failed to post error comment for user ${user} on issue #${issueNumber}:`, commentError);
+              }
+              
+              // Mark the workflow run as failed
+              core.setFailed(`Org-wide assignment check failed: ${error.message || error}`);
               return;
             }
 
             console.log(`${user} currently has ${totalAssigned} open issues assigned across ${owner}`);
 
+            // KNOWN RACE CONDITION: There is a time window between calculating totalAssigned
+            // above and actually adding the assignee below where another workflow run (triggered
+            // by a different /assign comment) can assign the same user to a different issue.
+            // This distributed execution limitation means the limit can be transiently exceeded.
+            //
+            // Mitigation options:
+            // 1. Accept small transient violations - simplest approach, limit is eventually
+            //    enforced and violations are rare/temporary in practice.
+            // 2. Use a centralized locking service (e.g., Redis, DynamoDB) to serialize
+            //    assignment decisions across workflow runs.
+            // 3. Implement retry/backoff: re-check totalAssigned immediately before addAssignees,
+            //    and if another assignment snuck in, abort and notify the user.
+            // 4. Use GitHub's assignment as a "lock" - assign first, then check and unassign
+            //    if over limit (but this creates noise in notifications).
+            //
+            // Current implementation: Option 1 (accept transient violations for simplicity).
             if (totalAssigned >= 2) {
               const message = `⚠️ @${user} already has ${totalAssigned} open assignments across the org. Please finish or unassign before taking new ones.`;
               await github.rest.issues.createComment({
@@ -113,18 +163,39 @@ jobs:
               return;
             }
 
-            await github.rest.issues.addAssignees({
-              owner,
-              repo,
-              issue_number: issueNumber,
-              assignees: [user],
-            });
+            try {
+              await github.rest.issues.addAssignees({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                assignees: [user],
+              });
 
-            await github.rest.issues.createComment({
-              owner,
-              repo,
-              issue_number: issueNumber,
-              body: `✅ Assigned @${user} successfully.`,
-            });
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `✅ Assigned @${user} successfully.`,
+              });
 
-            console.log(`Assigned ${user} to #${issueNumber}`);
+              console.log(`Assigned ${user} to #${issueNumber}`);
+            } catch (error) {
+              console.error(`Error assigning user ${user} to issue #${issueNumber}:`, error);
+              
+              // Attempt to create a failure comment to inform the user
+              try {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `❌ **Assignment failed**\n\n` +
+                        `Could not assign @${user} to this issue.\n\n` +
+                        `**Error:** ${error.message || 'Unknown error'}\n\n` +
+                        `Please try again or contact a maintainer.`,
+                });
+              } catch (commentError) {
+                console.error(`Failed to post error comment for user ${user} on issue #${issueNumber}:`, commentError);
+                // Fall back to marking the workflow as failed if we can't even comment
+                core.setFailed(`Assignment failed for ${user} on issue #${issueNumber}: ${error.message || error}`);
+              }
+            }
