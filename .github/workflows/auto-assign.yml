@@ -17,11 +17,11 @@ jobs:
         with:
           github-token: ${{ secrets.ORG_ACCESS_TOKEN }}
           script: |
-            const comment = github.event.comment;
+            const comment = context.payload.comment;
             const body = comment.body.trim();
             const user = comment.user.login;
-            const association = github.event.comment.author_association;
-            const issue = github.event.issue || github.event.pull_request;
+            const association = context.payload.comment.author_association;
+            const issue = context.payload.issue || context.payload.pull_request;
             const issueNumber = issue.number;
             const { owner, repo } = context.repo;
 
