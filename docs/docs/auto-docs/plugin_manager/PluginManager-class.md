@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [plugin/manager.dart](../plugin_manager/)
+2.  [plugin/manager.dart](../plugin_manager/plugin_manager-library.md)
 3.  PluginManager class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ PluginManager
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ A thin manager that wires the registry with bundled plugins.
 
 ## Constructors
 
-<span class="name">[PluginManager.new](../plugin_manager/PluginManager/PluginManager.md)</span><span class="signature">(<span id="-param-registry" class="parameter"><span class="type-annotation">[PluginRegistry](../plugin_registry/PluginRegistry-class.md)</span> <span class="parameter-name">registry</span></span>)</span>  
+<span class="name">[PluginManager](../plugin_manager/PluginManager/PluginManager.md)</span><span class="signature">(<span id="-param-registry" class="parameter"><span class="type-annotation">[PluginRegistry](../plugin_registry/PluginRegistry-class.md)</span> <span class="parameter-name">registry</span></span>)</span>  
 Creates a new plugin manager.
 
 </div>
@@ -110,7 +114,7 @@ setter</span><span class="feature">inherited</span>
 <span class="name">[getInjectors](../plugin_manager/PluginManager/getInjectors.md)</span><span class="signature">(<span id="getInjectors-param-type" class="parameter"><span class="type-annotation">[InjectorType](../plugin_types/InjectorType.md)</span> <span class="parameter-name">type</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginInjectorExtension](../plugin_types/PluginInjectorExtension-class.md)</span>\></span></span> </span>  
 Gets injectors for a specific type.
 
-<span class="name">[getMenuItems](../plugin_manager/PluginManager/getMenuItems.md)</span><span class="signature">(<span id="getMenuItems-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginMenuItem](../plugin_types/PluginMenuItem-class.md)</span>\></span></span> </span>  
+<span class="name">[getMenuItems](../plugin_manager/PluginManager/getMenuItems.md)</span><span class="signature">(<span id="getMenuItems-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginMenuItem](../plugin_types/PluginMenuItem-class.md)</span>\></span></span> </span>  
 Menu items contributed by active plugins.
 
 <span class="name">[initialize](../plugin_manager/PluginManager/initialize.md)</span><span class="signature">(<span id="initialize-param-available" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[TalawaMobilePlugin](../plugin_types/TalawaMobilePlugin-class.md)</span>\></span></span> <span class="parameter-name">available</span>, ) <span class="returntype parameter">→ void</span> </span>  
@@ -178,7 +182,7 @@ Global singleton instance for app-wide plugin access.
 </div>
 
 1.  [talawa](../index.md)
-2.  [manager](../plugin_manager/)
+2.  [manager](../plugin_manager/plugin_manager-library.md)
 3.  PluginManager class
 
 ##### manager library

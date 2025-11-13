@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatQueries-class#constructors.md)
-2.  [new](./ChatQueries/ChatQueries.md)
+2.  [ChatQueries](./ChatQueries/ChatQueries.md)
 3.  [Properties](./ChatQueries-class#instance-properties.md)
 4.  [chatMessageCreate](./ChatQueries/chatMessageCreate.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

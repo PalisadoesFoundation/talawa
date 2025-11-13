@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [custom_painters/telegram_logo.dart](../../custom_painters_telegram_logo/)
+2.  [custom_painters/telegram_logo.dart](../../custom_painters_telegram_logo/custom_painters_telegram_logo-library.md)
 3.  [TelegramLogo](../../custom_painters_telegram_logo/TelegramLogo-class.md)
-4.  TelegramLogo.new constructor
+4.  TelegramLogo constructor
 
 <div class="self-name">
 
-TelegramLogo.new
+TelegramLogo
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -51,9 +55,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [telegram_logo](../../custom_painters_telegram_logo/)
+2.  [telegram_logo](../../custom_painters_telegram_logo/custom_painters_telegram_logo-library.md)
 3.  [TelegramLogo](../../custom_painters_telegram_logo/TelegramLogo-class.md)
-4.  TelegramLogo.new constructor
+4.  TelegramLogo constructor
 
 ##### TelegramLogo class
 

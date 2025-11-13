@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/fund_service.dart](../../services_fund_service/)
+2.  [services/fund_service.dart](../../services_fund_service/services_fund_service-library.md)
 3.  [FundService](../../services_fund_service/FundService-class.md)
-4.  FundService.new constructor
+4.  FundService constructor
 
 <div class="self-name">
 
-FundService.new
+FundService
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_service](../../services_fund_service/)
+2.  [fund_service](../../services_fund_service/services_fund_service-library.md)
 3.  [FundService](../../services_fund_service/FundService-class.md)
-4.  FundService.new constructor
+4.  FundService constructor
 
 ##### FundService class
 

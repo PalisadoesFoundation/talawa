@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/user_config.dart](../../services_user_config/)
+2.  [services/user_config.dart](../../services_user_config/services_user_config-library.md)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentUser property
 
@@ -18,9 +18,13 @@ currentUser
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[User](../../models_user_user_info/User-class.md)</span>
-get <span class="name">currentUser</span>
+<span class="name">currentUser</span>
 
 </div>
 
@@ -67,8 +71,8 @@ User get currentUser => _currentUser!;
 
 <div class="section multi-line-signature">
 
-set <span class="name">currentUser</span>
-<span class="signature">(<span id="currentUser=-param-user"
+<span class="returntype">void</span>
+<span class="name">currentUser=</span><span class="signature">(<span id="currentUser=-param-user"
 class="parameter"><span class="type-annotation">[User](../../models_user_user_info/User-class.md)</span>
 <span class="parameter-name">user</span></span>)</span>
 
@@ -101,7 +105,7 @@ set currentUser(User user)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_config](../../services_user_config/)
+2.  [user_config](../../services_user_config/services_user_config-library.md)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentUser property
 

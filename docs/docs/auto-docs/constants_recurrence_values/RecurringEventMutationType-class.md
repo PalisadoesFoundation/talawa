@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/constants_recurrence_values-library.md)
 3.  RecurringEventMutationType class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ RecurringEventMutationType
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ Class containing constants for recurrence end types.
 
 ## Constructors
 
-<span class="name">[RecurringEventMutationType.new](../constants_recurrence_values/RecurringEventMutationType/RecurringEventMutationType.md)</span><span class="signature"></span>  
+<span class="name">[RecurringEventMutationType](../constants_recurrence_values/RecurringEventMutationType/RecurringEventMutationType.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -140,7 +144,7 @@ Constant representing mutation of current instance only.
 </div>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/)
+2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
 3.  RecurringEventMutationType class
 
 ##### recurrence_values library

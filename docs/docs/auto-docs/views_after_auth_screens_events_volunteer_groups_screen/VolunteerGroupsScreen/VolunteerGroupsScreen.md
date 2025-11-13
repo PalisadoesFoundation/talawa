@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/events/volunteer_groups_screen.dart](../../views_after_auth_screens_events_volunteer_groups_screen/)
+2.  [views/after_auth_screens/events/volunteer_groups_screen.dart](../../views_after_auth_screens_events_volunteer_groups_screen/views_after_auth_screens_events_volunteer_groups_screen-library.md)
 3.  [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)
-4.  VolunteerGroupsScreen.new const constructor
+4.  VolunteerGroupsScreen const constructor
 
 <div class="self-name">
 
-VolunteerGroupsScreen.new
+VolunteerGroupsScreen
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [volunteer_groups_screen](../../views_after_auth_screens_events_volunteer_groups_screen/)
+2.  [volunteer_groups_screen](../../views_after_auth_screens_events_volunteer_groups_screen/views_after_auth_screens_events_volunteer_groups_screen-library.md)
 3.  [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)
-4.  VolunteerGroupsScreen.new const constructor
+4.  VolunteerGroupsScreen const constructor
 
 ##### VolunteerGroupsScreen class
 

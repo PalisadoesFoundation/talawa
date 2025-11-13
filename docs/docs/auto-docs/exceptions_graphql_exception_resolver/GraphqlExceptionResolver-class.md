@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [exceptions/graphql_exception_resolver.dart](../exceptions_graphql_exception_resolver/)
+2.  [exceptions/graphql_exception_resolver.dart](../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
 3.  GraphqlExceptionResolver class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ GraphqlExceptionResolver
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ static class to handle graphql exceptions.
 
 ## Constructors
 
-<span class="name">[GraphqlExceptionResolver.new](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.md)</span><span class="signature"></span>  
+<span class="name">[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -120,7 +124,7 @@ The equality operator.
 
 ## Static Properties
 
-<span class="name">[emailAccountPresent](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/emailAccountPresent.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[emailAccountPresent](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/emailAccountPresent.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -129,7 +133,7 @@ Graphql error for handling.
 
 </div>
 
-<span class="name">[memberRequestExist](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/memberRequestExist.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[memberRequestExist](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/memberRequestExist.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -138,7 +142,7 @@ Graphql error for handling.
 
 </div>
 
-<span class="name">[notifFeatureNotInstalled](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/notifFeatureNotInstalled.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[notifFeatureNotInstalled](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/notifFeatureNotInstalled.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -147,7 +151,7 @@ Graphql error for handling.
 
 </div>
 
-<span class="name">[organizationNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/organizationNotFound.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[organizationNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/organizationNotFound.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -156,7 +160,7 @@ Graphql error for handling.
 
 </div>
 
-<span class="name">[refreshAccessTokenExpiredException](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/refreshAccessTokenExpiredException.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[refreshAccessTokenExpiredException](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/refreshAccessTokenExpiredException.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -165,7 +169,7 @@ Graphql error for handling.
 
 </div>
 
-<span class="name">[userNotAuthenticated](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotAuthenticated.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[userNotAuthenticated](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotAuthenticated.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -174,7 +178,7 @@ Graphql error for handling.
 
 </div>
 
-<span class="name">[userNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotFound.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[userNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotFound.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -183,7 +187,7 @@ Graphql error for handling.
 
 </div>
 
-<span class="name">[wrongCredentials](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/wrongCredentials.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>  
+<span class="name">[wrongCredentials](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/wrongCredentials.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
 Graphql error for handling.
 
 <div class="features">
@@ -213,7 +217,7 @@ The return type is `boolean`.
 </div>
 
 1.  [talawa](../index.md)
-2.  [graphql_exception_resolver](../exceptions_graphql_exception_resolver/)
+2.  [graphql_exception_resolver](../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
 3.  GraphqlExceptionResolver class
 
 ##### graphql_exception_resolver library

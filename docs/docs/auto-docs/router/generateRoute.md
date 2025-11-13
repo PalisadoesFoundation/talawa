@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [router.dart](../router/)
+2.  [router.dart](../router/router-library.md)
 3.  generateRoute function
 
 <div class="self-name">
@@ -17,9 +17,13 @@ generateRoute
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -36,11 +40,11 @@ above-sidebar="router/router-library-sidebar.html" below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Route](https://api.flutter.dev/flutter/widgets/Route-class.html)</span>
+<span class="returntype">Route</span>
 <span class="name">generateRoute</span>(
 
 1.  <span id="generateRoute-param-settings"
-    class="parameter"><span class="type-annotation">[RouteSettings](https://api.flutter.dev/flutter/widgets/RouteSettings-class.md)</span>
+    class="parameter"><span class="type-annotation">RouteSettings</span>
     <span class="parameter-name">settings</span></span>
 
 )
@@ -84,7 +88,7 @@ Route<dynamic> generateRoute(RouteSettings settings)
 </div>
 
 1.  [talawa](../index.md)
-2.  [router](../router/)
+2.  [router](../router/router-library.md)
 3.  generateRoute function
 
 ##### router library

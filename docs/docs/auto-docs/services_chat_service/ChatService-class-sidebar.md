@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatService-class#constructors.md)
-2.  [new](./ChatService/ChatService.md)
+2.  [ChatService](./ChatService/ChatService.md)
 3.  [Properties](./ChatService-class#instance-properties.md)
 4.  [chatListStream](./ChatService/chatListStream.md)
 5.  [chatMessagesStream](./ChatService/chatMessagesStream.md)

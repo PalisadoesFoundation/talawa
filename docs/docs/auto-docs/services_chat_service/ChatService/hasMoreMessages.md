@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/chat_service.dart](../../services_chat_service/)
+2.  [services/chat_service.dart](../../services_chat_service/services_chat_service-library.md)
 3.  [ChatService](../../services_chat_service/ChatService-class.md)
 4.  hasMoreMessages method
 
@@ -18,9 +18,13 @@ hasMoreMessages
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -83,7 +87,7 @@ bool hasMoreMessages(String chatId) =>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_service](../../services_chat_service/)
+2.  [chat_service](../../services_chat_service/services_chat_service-library.md)
 3.  [ChatService](../../services_chat_service/ChatService-class.md)
 4.  hasMoreMessages method
 

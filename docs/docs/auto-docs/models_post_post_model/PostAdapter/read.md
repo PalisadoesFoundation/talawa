@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/post/post_model.dart](../../models_post_post_model/)
+2.  [models/post/post_model.dart](../../models_post_post_model/models_post_post_model-library.md)
 3.  [PostAdapter](../../models_post_post_model/PostAdapter-class.md)
 4.  read method
 
@@ -18,9 +18,13 @@ read
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -87,7 +91,7 @@ Post read(BinaryReader reader)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [post_model](../../models_post_post_model/)
+2.  [post_model](../../models_post_post_model/models_post_post_model-library.md)
 3.  [PostAdapter](../../models_post_post_model/PostAdapter-class.md)
 4.  read method
 

@@ -1,5 +1,5 @@
 1.  [Constructors](./OfflineActionQueue-class#constructors.md)
-2.  [new](./OfflineActionQueue/OfflineActionQueue.md)
+2.  [OfflineActionQueue](./OfflineActionQueue/OfflineActionQueue.md)
 3.  [Properties](./OfflineActionQueue-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

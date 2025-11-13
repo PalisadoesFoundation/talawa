@@ -1,5 +1,5 @@
 1.  [Constructors](./EventQueries-class#constructors.md)
-2.  [new](./EventQueries/EventQueries.md)
+2.  [EventQueries](./EventQueries/EventQueries.md)
 3.  [Properties](./EventQueries-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

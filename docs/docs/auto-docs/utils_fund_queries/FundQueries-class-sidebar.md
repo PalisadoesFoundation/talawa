@@ -1,5 +1,5 @@
 1.  [Constructors](./FundQueries-class#constructors.md)
-2.  [new](./FundQueries/FundQueries.md)
+2.  [FundQueries](./FundQueries/FundQueries.md)
 3.  [Properties](./FundQueries-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

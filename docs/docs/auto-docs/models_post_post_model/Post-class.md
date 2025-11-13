@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/post/post_model.dart](../models_post_post_model/)
+2.  [models/post/post_model.dart](../models_post_post_model/models_post_post_model-library.md)
 3.  Post class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ Post
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -53,7 +57,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[Post.new](../models_post_post_model/Post/Post.md)</span><span class="signature"></span>  
+<span class="name">[Post](../models_post_post_model/Post/Post.md)</span><span class="signature"></span>  
 
 <span class="name">[Post.fromJson](../models_post_post_model/Post/Post.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 Creating a new Post instance from a map structure.
@@ -214,7 +218,7 @@ this is to get duration of post.
 <span class="name">[getPostPinnedDuration](../models_post_post_model/Post/getPostPinnedDuration.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 this is to get duration of pinned post.
 
-<span class="name">[getPresignedUrl](../models_post_post_model/Post/getPresignedUrl.md)</span><span class="signature">(<span id="getPresignedUrl-param-id" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?</span> <span class="parameter-name">id</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[getPresignedUrl](../models_post_post_model/Post/getPresignedUrl.md)</span><span class="signature">(<span id="getPresignedUrl-param-id" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?</span> <span class="parameter-name">id</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to get the presigned URL for a file attachment.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -270,7 +274,7 @@ Fallback URL for post attachments.
 </div>
 
 1.  [talawa](../index.md)
-2.  [post_model](../models_post_post_model/)
+2.  [post_model](../models_post_post_model/models_post_post_model-library.md)
 3.  Post class
 
 ##### post_model library

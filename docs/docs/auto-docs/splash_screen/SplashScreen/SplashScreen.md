@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [splash_screen.dart](../../splash_screen/)
+2.  [splash_screen.dart](../../splash_screen/splash_screen-library.md)
 3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
-4.  SplashScreen.new const constructor
+4.  SplashScreen const constructor
 
 <div class="self-name">
 
-SplashScreen.new
+SplashScreen
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -62,9 +66,9 @@ const
 </div>
 
 1.  [talawa](../../index.md)
-2.  [splash_screen](../../splash_screen/)
+2.  [splash_screen](../../splash_screen/splash_screen-library.md)
 3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
-4.  SplashScreen.new const constructor
+4.  SplashScreen const constructor
 
 ##### SplashScreen class
 

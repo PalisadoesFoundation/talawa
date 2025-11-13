@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/widgets/chat_message_bubble.dart](../../views_after_auth_screens_chat_widgets_chat_message_bubble/)
+2.  [views/after_auth_screens/chat/widgets/chat_message_bubble.dart](../../views_after_auth_screens_chat_widgets_chat_message_bubble/views_after_auth_screens_chat_widgets_chat_message_bubble-library.md)
 3.  [Message](../../views_after_auth_screens_chat_widgets_chat_message_bubble/Message-class.md)
-4.  Message.new const constructor
+4.  Message const constructor
 
 <div class="self-name">
 
-Message.new
+Message
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -46,7 +50,9 @@ const <span class="name">Message</span>
 
 Creates a Message widget.
 
-The `message` parameter is required and contains the chat message data.
+The
+[message](../../views_after_auth_screens_chat_widgets_chat_message_bubble/Message/message.md)
+parameter is required and contains the chat message data.
 
 </div>
 
@@ -69,9 +75,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_message_bubble](../../views_after_auth_screens_chat_widgets_chat_message_bubble/)
+2.  [chat_message_bubble](../../views_after_auth_screens_chat_widgets_chat_message_bubble/views_after_auth_screens_chat_widgets_chat_message_bubble-library.md)
 3.  [Message](../../views_after_auth_screens_chat_widgets_chat_message_bubble/Message-class.md)
-4.  Message.new const constructor
+4.  Message const constructor
 
 ##### Message class
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/demo_page_view.dart](../../views_demo_page_view/)
+2.  [views/demo_page_view.dart](../../views_demo_page_view/views_demo_page_view-library.md)
 3.  [DemoViewModel](../../views_demo_page_view/DemoViewModel-class.md)
 4.  title property
 
@@ -18,9 +18,13 @@ title
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>
-get <span class="name">title</span>
+<span class="name">title</span>
 
 </div>
 
@@ -76,7 +80,7 @@ String get title => _title;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [demo_page_view](../../views_demo_page_view/)
+2.  [demo_page_view](../../views_demo_page_view/views_demo_page_view-library.md)
 3.  [DemoViewModel](../../views_demo_page_view/DemoViewModel-class.md)
 4.  title property
 

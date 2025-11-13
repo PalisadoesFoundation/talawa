@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/navigation_service.dart](../../services_navigation_service/)
+2.  [services/navigation_service.dart](../../services_navigation_service/services_navigation_service-library.md)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  pushDialog method
 
@@ -18,9 +18,13 @@ pushDialog
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -42,7 +46,7 @@ below-sidebar="">
 <span class="name">pushDialog</span>(
 
 1.  <span id="pushDialog-param-dialog"
-    class="parameter"><span class="type-annotation">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.md)</span>
+    class="parameter"><span class="type-annotation">Widget</span>
     <span class="parameter-name">dialog</span></span>
 
 )
@@ -81,7 +85,7 @@ void pushDialog(Widget dialog)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/)
+2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  pushDialog method
 

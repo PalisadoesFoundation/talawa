@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/funds/fund_pledges.dart](../../models_funds_fund_pledges/)
+2.  [models/funds/fund_pledges.dart](../../models_funds_fund_pledges/models_funds_fund_pledges-library.md)
 3.  [Pledge](../../models_funds_fund_pledges/Pledge-class.md)
 4.  Pledge.fromJson factory constructor
 
@@ -18,9 +18,13 @@ Pledge.fromJson
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -78,7 +82,7 @@ factory Pledge.fromJson(Map<String, dynamic> json)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_pledges](../../models_funds_fund_pledges/)
+2.  [fund_pledges](../../models_funds_fund_pledges/models_funds_fund_pledges-library.md)
 3.  [Pledge](../../models_funds_fund_pledges/Pledge-class.md)
 4.  Pledge.fromJson factory constructor
 

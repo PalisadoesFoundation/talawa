@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [plugin/manager.dart](../../plugin_manager/)
+2.  [plugin/manager.dart](../../plugin_manager/plugin_manager-library.md)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  initialize method
 
@@ -18,9 +18,13 @@ initialize
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -80,7 +84,7 @@ void initialize(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [manager](../../plugin_manager/)
+2.  [manager](../../plugin_manager/plugin_manager-library.md)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  initialize method
 

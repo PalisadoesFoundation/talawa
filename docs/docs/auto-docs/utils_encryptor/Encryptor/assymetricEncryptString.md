@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/encryptor.dart](../../utils_encryptor/)
+2.  [utils/encryptor.dart](../../utils_encryptor/utils_encryptor-library.md)
 3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  assymetricEncryptString method
 
@@ -18,9 +18,13 @@ assymetricEncryptString
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ below-sidebar="">
     class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span>
     <span class="parameter-name">data</span>, </span>
 2.  <span id="assymetricEncryptString-param-recipientPublicKey"
-    class="parameter"><span class="type-annotation">dynamic</span>
+    class="parameter"><span class="type-annotation">[RSAPublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/RSAPublicKey-class.html)</span>
     <span class="parameter-name">recipientPublicKey</span></span>
 
 )
@@ -87,7 +91,7 @@ String assymetricEncryptString(String data, RSAPublicKey recipientPublicKey)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [encryptor](../../utils_encryptor/)
+2.  [encryptor](../../utils_encryptor/utils_encryptor-library.md)
 3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  assymetricEncryptString method
 

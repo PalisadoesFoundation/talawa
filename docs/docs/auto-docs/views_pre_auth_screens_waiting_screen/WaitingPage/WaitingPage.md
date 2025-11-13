@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/pre_auth_screens/waiting_screen.dart](../../views_pre_auth_screens_waiting_screen/)
+2.  [views/pre_auth_screens/waiting_screen.dart](../../views_pre_auth_screens_waiting_screen/views_pre_auth_screens_waiting_screen-library.md)
 3.  [WaitingPage](../../views_pre_auth_screens_waiting_screen/WaitingPage-class.md)
-4.  WaitingPage.new const constructor
+4.  WaitingPage const constructor
 
 <div class="self-name">
 
-WaitingPage.new
+WaitingPage
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [waiting_screen](../../views_pre_auth_screens_waiting_screen/)
+2.  [waiting_screen](../../views_pre_auth_screens_waiting_screen/views_pre_auth_screens_waiting_screen-library.md)
 3.  [WaitingPage](../../views_pre_auth_screens_waiting_screen/WaitingPage-class.md)
-4.  WaitingPage.new const constructor
+4.  WaitingPage const constructor
 
 ##### WaitingPage class
 

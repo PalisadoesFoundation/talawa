@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/pre_auth_view_models/select_organization_view_model.dart](../../view_model_pre_auth_view_models_select_organization_view_model/)
+2.  [view_model/pre_auth_view_models/select_organization_view_model.dart](../../view_model_pre_auth_view_models_select_organization_view_model/view_model_pre_auth_view_models_select_organization_view_model-library.md)
 3.  [SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
-4.  SelectOrganizationViewModel.new constructor
+4.  SelectOrganizationViewModel constructor
 
 <div class="self-name">
 
-SelectOrganizationViewModel.new
+SelectOrganizationViewModel
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -51,9 +55,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
+2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/view_model_pre_auth_view_models_select_organization_view_model-library.md)
 3.  [SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
-4.  SelectOrganizationViewModel.new constructor
+4.  SelectOrganizationViewModel constructor
 
 ##### SelectOrganizationViewModel class
 

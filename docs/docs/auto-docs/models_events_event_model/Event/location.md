@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/events/event_model.dart](../../models_events_event_model/)
+2.  [models/events/event_model.dart](../../models_events_event_model/models_events_event_model-library.md)
 3.  [Event](../../models_events_event_model/Event-class.md)
 4.  location property
 
@@ -18,9 +18,13 @@ location
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -81,7 +85,7 @@ String? location;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_model](../../models_events_event_model/)
+2.  [event_model](../../models_events_event_model/models_events_event_model-library.md)
 3.  [Event](../../models_events_event_model/Event-class.md)
 4.  location property
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/)
+2.  [view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/view_model_after_auth_view_models_settings_view_models_app_setting_view_model-library.md)
 3.  [AppSettingViewModel](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/AppSettingViewModel-class.md)
 4.  launchWebsite method
 
@@ -18,9 +18,13 @@ launchWebsite
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,7 +42,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
 <span class="name">launchWebsite</span>(
 
 1.  <span id="launchWebsite-param-url"
@@ -62,7 +66,7 @@ Launches a website using the provided URL.
 **returns**:
 
 - `Future<bool>`: A
-  [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)
+  [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
   that resolves to a
   [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
   value indicating whether the website launch was successful.
@@ -88,7 +92,7 @@ Future<bool> launchWebsite(String url) async => await launchUrlString(url);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_setting_view_model](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/)
+2.  [app_setting_view_model](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/view_model_after_auth_view_models_settings_view_models_app_setting_view_model-library.md)
 3.  [AppSettingViewModel](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/AppSettingViewModel-class.md)
 4.  launchWebsite method
 

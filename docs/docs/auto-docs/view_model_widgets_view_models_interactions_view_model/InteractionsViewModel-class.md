@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [view_model/widgets_view_models/interactions_view_model.dart](../view_model_widgets_view_models_interactions_view_model/)
+2.  [view_model/widgets_view_models/interactions_view_model.dart](../view_model_widgets_view_models_interactions_view_model/view_model_widgets_view_models_interactions_view_model-library.md)
 3.  InteractionsViewModel class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ InteractionsViewModel
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -52,7 +56,6 @@ Methods include:
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - InteractionsViewModel
 
@@ -62,7 +65,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[InteractionsViewModel.new](../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel/InteractionsViewModel.md)</span><span class="signature"></span>  
+<span class="name">[InteractionsViewModel](../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel/InteractionsViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -80,7 +83,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -131,7 +134,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -143,14 +146,8 @@ Register a closure to be called when the object changes.
 <span class="name">[dispose](../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
+[addListener](../view_model_base_view_model/BaseModel/addListener.md)
 will throw after the object is disposed).
-
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
 
 <span class="name">[initialize](../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel/initialize.md)</span><span class="signature">(<span id="initialize-param-postID" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?</span> <span class="parameter-name">postID</span></span>) <span class="returntype parameter">→ void</span> </span>  
 First function to initialize the ViewModel.
@@ -164,7 +161,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
 <div class="features">
@@ -173,7 +170,7 @@ Call all the registered listeners.
 
 </div>
 
-<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -228,7 +225,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [interactions_view_model](../view_model_widgets_view_models_interactions_view_model/)
+2.  [interactions_view_model](../view_model_widgets_view_models_interactions_view_model/view_model_widgets_view_models_interactions_view_model-library.md)
 3.  InteractionsViewModel class
 
 ##### interactions_view_model library

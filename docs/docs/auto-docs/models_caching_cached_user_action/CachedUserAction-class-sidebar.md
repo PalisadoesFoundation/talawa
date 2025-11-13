@@ -1,5 +1,5 @@
 1.  [Constructors](./CachedUserAction-class#constructors.md)
-2.  [new](./CachedUserAction/CachedUserAction.md)
+2.  [CachedUserAction](./CachedUserAction/CachedUserAction.md)
 3.  [fromJson](./CachedUserAction/CachedUserAction.fromJson.md)
 4.  [Properties](./CachedUserAction-class#instance-properties.md)
 5.  [box](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/box.html)

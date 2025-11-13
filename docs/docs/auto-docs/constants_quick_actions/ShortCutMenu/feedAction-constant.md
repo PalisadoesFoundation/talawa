@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [constants/quick_actions.dart](../../constants_quick_actions/)
+2.  [constants/quick_actions.dart](../../constants_quick_actions/constants_quick_actions-library.md)
 3.  [ShortCutMenu](../../constants_quick_actions/ShortCutMenu-class.md)
 4.  feedAction constant
 
@@ -18,9 +18,13 @@ feedAction
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,7 +42,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-dynamic const <span class="name">feedAction</span>
+[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)
+const <span class="name">feedAction</span>
 
 </div>
 
@@ -65,7 +70,7 @@ static const feedAction = ShortcutItem(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [quick_actions](../../constants_quick_actions/)
+2.  [quick_actions](../../constants_quick_actions/constants_quick_actions-library.md)
 3.  [ShortCutMenu](../../constants_quick_actions/ShortCutMenu-class.md)
 4.  feedAction constant
 

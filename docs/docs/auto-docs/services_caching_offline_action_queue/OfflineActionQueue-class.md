@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/caching/offline_action_queue.dart](../services_caching_offline_action_queue/)
+2.  [services/caching/offline_action_queue.dart](../services_caching_offline_action_queue/services_caching_offline_action_queue-library.md)
 3.  OfflineActionQueue class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ OfflineActionQueue
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -57,7 +61,7 @@ This class provides the following functionalities:
 
 ## Constructors
 
-<span class="name">[OfflineActionQueue.new](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.md)</span><span class="signature"></span>  
+<span class="name">[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -92,10 +96,10 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[addAction](../services_caching_offline_action_queue/OfflineActionQueue/addAction.md)</span><span class="signature">(<span id="addAction-param-action" class="parameter"><span class="type-annotation">[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.md)</span> <span class="parameter-name">action</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[addAction](../services_caching_offline_action_queue/OfflineActionQueue/addAction.md)</span><span class="signature">(<span id="addAction-param-action" class="parameter"><span class="type-annotation">[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.md)</span> <span class="parameter-name">action</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Adds an action to the queue with a TTL.
 
-<span class="name">[clearActions](../services_caching_offline_action_queue/OfflineActionQueue/clearActions.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[clearActions](../services_caching_offline_action_queue/OfflineActionQueue/clearActions.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Clears all actions from the queue.
 
 <span class="name">[getActions](../services_caching_offline_action_queue/OfflineActionQueue/getActions.md)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.md)</span>\></span></span> </span>  
@@ -116,10 +120,10 @@ Invoked when a nonexistent method or property is accessed.
 <span class="name">[openQueue](../services_caching_offline_action_queue/OfflineActionQueue/openQueue.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Opens the Hive box for the offline action queue.
 
-<span class="name">[removeAction](../services_caching_offline_action_queue/OfflineActionQueue/removeAction.md)</span><span class="signature">(<span id="removeAction-param-key" class="parameter"><span class="type-annotation">dynamic</span> <span class="parameter-name">key</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[removeAction](../services_caching_offline_action_queue/OfflineActionQueue/removeAction.md)</span><span class="signature">(<span id="removeAction-param-key" class="parameter"><span class="type-annotation">dynamic</span> <span class="parameter-name">key</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Removes a specific action from the queue.
 
-<span class="name">[removeExpiredActions](../services_caching_offline_action_queue/OfflineActionQueue/removeExpiredActions.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[removeExpiredActions](../services_caching_offline_action_queue/OfflineActionQueue/removeExpiredActions.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Removes expired actions from the queue.
 
 <span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -166,7 +170,7 @@ Offline Action Queue box name.
 </div>
 
 1.  [talawa](../index.md)
-2.  [offline_action_queue](../services_caching_offline_action_queue/)
+2.  [offline_action_queue](../services_caching_offline_action_queue/services_caching_offline_action_queue-library.md)
 3.  OfflineActionQueue class
 
 ##### offline_action_queue library

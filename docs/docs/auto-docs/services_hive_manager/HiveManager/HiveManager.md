@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/hive_manager.dart](../../services_hive_manager/)
+2.  [services/hive_manager.dart](../../services_hive_manager/services_hive_manager-library.md)
 3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
-4.  HiveManager.new constructor
+4.  HiveManager constructor
 
 <div class="self-name">
 
-HiveManager.new
+HiveManager
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -51,9 +55,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [hive_manager](../../services_hive_manager/)
+2.  [hive_manager](../../services_hive_manager/services_hive_manager-library.md)
 3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
-4.  HiveManager.new constructor
+4.  HiveManager constructor
 
 ##### HiveManager class
 

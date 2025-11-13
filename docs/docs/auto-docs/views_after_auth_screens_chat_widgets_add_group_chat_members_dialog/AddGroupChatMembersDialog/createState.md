@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/widgets/add_group_chat_members_dialog.dart](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/)
+2.  [views/after_auth_screens/chat/widgets/add_group_chat_members_dialog.dart](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/views_after_auth_screens_chat_widgets_add_group_chat_members_dialog-library.md)
 3.  [AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)
 4.  createState method
 
@@ -18,9 +18,13 @@ createState
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -44,14 +48,8 @@ below-sidebar="">
 
 </div>
 
-<span class="returntype">[State](https://api.flutter.dev/flutter/widgets/State-class.html)<span class="signature">\<<span class="type-parameter">[AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)</span>\></span></span>
+<span class="returntype">State<span class="signature">\<<span class="type-parameter">[AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)</span>\></span></span>
 <span class="name">createState</span>
-
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
 
 </div>
 
@@ -61,9 +59,7 @@ Creates the mutable state for this widget at a given location in the
 tree.
 
 Subclasses should override this method to return a newly created
-instance of their associated
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-subclass:
+instance of their associated `State` subclass:
 
 ``` language-dart
 @override
@@ -71,18 +67,13 @@ State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
-[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html).
-For example, if the widget is inserted into the tree in multiple
-locations, the framework will create a separate
-[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
-for each location. Similarly, if the widget is removed from the tree and
-later inserted into the tree again, the framework will call
+`StatefulWidget`. For example, if the widget is inserted into the tree
+in multiple locations, the framework will create a separate `State`
+object for each location. Similarly, if the widget is removed from the
+tree and later inserted into the tree again, the framework will call
 [createState](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog/createState.md)
-again to create a fresh
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-object, simplifying the lifecycle of
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-objects.
+again to create a fresh `State` object, simplifying the lifecycle of
+`State` objects.
 
 </div>
 
@@ -107,7 +98,7 @@ State<AddGroupChatMembersDialog>  =>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [add_group_chat_members_dialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/)
+2.  [add_group_chat_members_dialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/views_after_auth_screens_chat_widgets_add_group_chat_members_dialog-library.md)
 3.  [AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)
 4.  createState method
 

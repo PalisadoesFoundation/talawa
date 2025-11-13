@@ -1,5 +1,5 @@
 1.  [Constructors](./MainScreenArgs-class#constructors.md)
-2.  [new](./MainScreenArgs/MainScreenArgs.md)
+2.  [MainScreenArgs](./MainScreenArgs/MainScreenArgs.md)
 3.  [Properties](./MainScreenArgs-class#instance-properties.md)
 4.  [fromSignUp](./MainScreenArgs/fromSignUp.md)
 5.  [hashCode](./MainScreenArgs/hashCode.md)

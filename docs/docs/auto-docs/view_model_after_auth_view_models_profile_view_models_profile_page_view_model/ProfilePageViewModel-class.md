@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
+2.  [view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.md)
 3.  ProfilePageViewModel class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ ProfilePageViewModel
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -50,7 +54,6 @@ Methods include:
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - ProfilePageViewModel
 
@@ -60,7 +63,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ProfilePageViewModel.new](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/ProfilePageViewModel.md)</span><span class="signature"></span>  
+<span class="name">[ProfilePageViewModel](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/ProfilePageViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -104,7 +107,7 @@ denomination.
 
 </div>
 
-<span class="name">[donationAmount](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationAmount.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
+<span class="name">[donationAmount](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationAmount.md)</span> <span class="signature">↔ TextEditingController</span>  
 Text Controller for donation Amount.
 
 <div class="features">
@@ -131,7 +134,7 @@ Currency Symbol.
 
 </div>
 
-<span class="name">[donationField](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationField.md)</span> <span class="signature">→ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)</span>  
+<span class="name">[donationField](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationField.md)</span> <span class="signature">→ FocusNode</span>  
 FocusNode for donationField.
 
 <div class="features">
@@ -150,7 +153,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -187,7 +190,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[scaffoldKey](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/scaffoldKey.md)</span> <span class="signature">→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)</span>\></span></span>  
+<span class="name">[scaffoldKey](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/scaffoldKey.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">ScaffoldState</span>\></span></span>  
 GlobalKey for scaffoldKey.
 
 <div class="features">
@@ -228,7 +231,7 @@ Hive Box of user.
 
 ## Methods
 
-<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -240,13 +243,13 @@ Register a closure to be called when the object changes.
 <span class="name">[attachListener](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/attachListener.md)</span><span class="signature">(<span id="attachListener-param-setter" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name">setter</span>(<span id="param-" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name"></span></span>)</span>) <span class="returntype parameter">→ void</span> </span>  
 This widget returns button for domination.
 
-<span class="name">[changeCurrency](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/changeCurrency.md)</span><span class="signature">(<span id="changeCurrency-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span>, </span><span id="changeCurrency-param-setter" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name">setter</span>(<span id="param-" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name"></span></span>)</span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[changeCurrency](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/changeCurrency.md)</span><span class="signature">(<span id="changeCurrency-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span><span id="changeCurrency-param-setter" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name">setter</span>(<span id="param-" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name"></span></span>)</span>) <span class="returntype parameter">→ void</span> </span>  
 This method changes the currency of the user for donation purpose.
 
-<span class="name">[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
+[addListener](../view_model_base_view_model/BaseModel/addListener.md)
 will throw after the object is disposed).
 
 <div class="features">
@@ -255,16 +258,16 @@ will throw after the object is disposed).
 
 </div>
 
-<span class="name">[dominationButton](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/dominationButton.md)</span><span class="signature">(<span id="dominationButton-param-amount" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">amount</span>, </span><span id="dominationButton-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)</span> <span class="parameter-name">context</span>, </span><span id="dominationButton-param-setter" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name">setter</span>(<span id="param-" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name"></span></span>)</span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
+<span class="name">[dominationButton](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/dominationButton.md)</span><span class="signature">(<span id="dominationButton-param-amount" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">amount</span>, </span><span id="dominationButton-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span><span id="dominationButton-param-setter" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name">setter</span>(<span id="param-" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name"></span></span>)</span>) <span class="returntype parameter">→ Widget</span> </span>  
 This widget returns button for domination.
 
-<span class="name">[iconButton](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/iconButton.md)</span><span class="signature">(<span id="iconButton-param-icon" class="parameter"><span class="type-annotation">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.md)</span> <span class="parameter-name">icon</span>, </span><span id="iconButton-param-onTap" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name">onTap</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
+<span class="name">[iconButton](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/iconButton.md)</span><span class="signature">(<span id="iconButton-param-icon" class="parameter"><span class="type-annotation">Widget</span> <span class="parameter-name">icon</span>, </span><span id="iconButton-param-onTap" class="parameter"><span class="type-annotation">void</span> <span class="parameter-name">onTap</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
 This widget returns the button for social media sharing option.
 
 <span class="name">[initialize](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/initialize.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 First function to initialize the viewmodel.
 
-<span class="name">[invite](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/invite.md)</span><span class="signature">(<span id="invite-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[invite](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/invite.md)</span><span class="signature">(<span id="invite-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
 This Function creates a QR Code for latest release .
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -276,7 +279,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
 <div class="features">
@@ -288,7 +291,7 @@ Call all the registered listeners.
 <span class="name">[popBottomSheet](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/popBottomSheet.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 pop the route from `navigationService`.
 
-<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -346,7 +349,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [profile_page_view_model](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
+2.  [profile_page_view_model](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.md)
 3.  ProfilePageViewModel class
 
 ##### profile_page_view_model library

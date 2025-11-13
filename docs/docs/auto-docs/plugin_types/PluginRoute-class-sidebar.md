@@ -1,5 +1,5 @@
 1.  [Constructors](./PluginRoute-class#constructors.md)
-2.  [new](./PluginRoute/PluginRoute.md)
+2.  [PluginRoute](./PluginRoute/PluginRoute.md)
 3.  [Properties](./PluginRoute-class#instance-properties.md)
 4.  [builder](./PluginRoute/builder.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

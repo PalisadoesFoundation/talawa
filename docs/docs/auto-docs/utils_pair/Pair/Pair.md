@@ -8,20 +8,24 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/pair.dart](../../utils_pair/)
+2.  [utils/pair.dart](../../utils_pair/utils_pair-library.md)
 3.  [Pair<span class="signature">\<<span class="type-parameter">T</span>,
     <span class="type-parameter">U</span>\></span>](../../utils_pair/Pair-class.md)
-4.  Pair.new const constructor
+4.  Pair const constructor
 
 <div class="self-name">
 
-Pair.new
+Pair
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -77,10 +81,10 @@ const Pair(this.first, this.second);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [pair](../../utils_pair/)
+2.  [pair](../../utils_pair/utils_pair-library.md)
 3.  [Pair<span class="signature">\<<span class="type-parameter">T</span>,
     <span class="type-parameter">U</span>\></span>](../../utils_pair/Pair-class.md)
-4.  Pair.new const constructor
+4.  Pair const constructor
 
 ##### Pair class
 

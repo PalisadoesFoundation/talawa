@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [utils/queries.dart](../utils_queries/)
+2.  [utils/queries.dart](../utils_queries/utils_queries-library.md)
 3.  Queries class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ Queries
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ This class returns some queries for the application.
 
 ## Constructors
 
-<span class="name">[Queries.new](../utils_queries/Queries/Queries.md)</span><span class="signature"></span>  
+<span class="name">[Queries](../utils_queries/Queries/Queries.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -196,7 +200,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [queries](../utils_queries/)
+2.  [queries](../utils_queries/utils_queries-library.md)
 3.  Queries class
 
 ##### queries library

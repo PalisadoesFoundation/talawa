@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatUser-class#constructors.md)
-2.  [new](./ChatUser/ChatUser.md)
+2.  [ChatUser](./ChatUser/ChatUser.md)
 3.  [fromJson](./ChatUser/ChatUser.fromJson.md)
 4.  [Properties](./ChatUser-class#instance-properties.md)
 5.  [firstName](./ChatUser/firstName.md)

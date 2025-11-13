@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/funds/fund_pledges.dart](../models_funds_fund_pledges/)
+2.  [models/funds/fund_pledges.dart](../models_funds_fund_pledges/models_funds_fund_pledges-library.md)
 3.  Pledge class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ Pledge
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -46,7 +50,7 @@ application.
 
 ## Constructors
 
-<span class="name">[Pledge.new](../models_funds_fund_pledges/Pledge/Pledge.md)</span><span class="signature"></span>  
+<span class="name">[Pledge](../models_funds_fund_pledges/Pledge/Pledge.md)</span><span class="signature"></span>  
 Constructs a `Pledge` instance.
 
 <span class="name">[Pledge.fromJson](../models_funds_fund_pledges/Pledge/Pledge.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
@@ -216,7 +220,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [fund_pledges](../models_funds_fund_pledges/)
+2.  [fund_pledges](../models_funds_fund_pledges/models_funds_fund_pledges-library.md)
 3.  Pledge class
 
 ##### fund_pledges library

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/chat_subscription_service.dart](../../services_chat_subscription_service/)
+2.  [services/chat_subscription_service.dart](../../services_chat_subscription_service/services_chat_subscription_service-library.md)
 3.  [ChatSubscriptionService](../../services_chat_subscription_service/ChatSubscriptionService-class.md)
 4.  stopSubscription method
 
@@ -18,9 +18,13 @@ stopSubscription
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -72,7 +76,7 @@ void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_subscription_service](../../services_chat_subscription_service/)
+2.  [chat_subscription_service](../../services_chat_subscription_service/services_chat_subscription_service-library.md)
 3.  [ChatSubscriptionService](../../services_chat_subscription_service/ChatSubscriptionService-class.md)
 4.  stopSubscription method
 

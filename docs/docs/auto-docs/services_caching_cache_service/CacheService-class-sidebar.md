@@ -1,5 +1,5 @@
 1.  [Constructors](./CacheService-class#constructors.md)
-2.  [new](./CacheService/CacheService.md)
+2.  [CacheService](./CacheService/CacheService.md)
 3.  [Properties](./CacheService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [offlineActionQueue](./CacheService/offlineActionQueue.md)

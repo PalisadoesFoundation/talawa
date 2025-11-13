@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/post_container.dart](../../widgets_post_container/)
+2.  [widgets/post_container.dart](../../widgets_post_container/widgets_post_container-library.md)
 3.  [PostContainer](../../widgets_post_container/PostContainer-class.md)
 4.  fileAttachmentList property
 
@@ -18,9 +18,13 @@ fileAttachmentList
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -74,7 +78,7 @@ final List<AttachmentModel>? fileAttachmentList;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [post_container](../../widgets_post_container/)
+2.  [post_container](../../widgets_post_container/widgets_post_container-library.md)
 3.  [PostContainer](../../widgets_post_container/PostContainer-class.md)
 4.  fileAttachmentList property
 

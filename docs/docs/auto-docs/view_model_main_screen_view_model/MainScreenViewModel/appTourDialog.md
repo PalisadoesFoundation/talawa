@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
 3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  appTourDialog method
 
@@ -18,9 +18,13 @@ appTourDialog
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,11 +42,11 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="returntype">Widget</span>
 <span class="name">appTourDialog</span>(
 
 1.  <span id="appTourDialog-param-ctx"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">ctx</span></span>
 
 )
@@ -59,8 +63,7 @@ Builds and returns an AppTourDialog.
 
 **returns**:
 
-- `Widget`: The built
-  [Dialog](https://api.flutter.dev/flutter/material/Dialog-class.html)
+- `Widget`: The built `Dialog`
 
 </div>
 
@@ -83,7 +86,7 @@ Widget appTourDialog(BuildContext ctx)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
 3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  appTourDialog method
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [utils/app_localization.dart](../utils_app_localization/)
+2.  [utils/app_localization.dart](../utils_app_localization/utils_app_localization-library.md)
 3.  AppLocalizations class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ AppLocalizations
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -46,7 +50,7 @@ be available to users with different languages.
 
 ## Constructors
 
-<span class="name">[AppLocalizations.new](../utils_app_localization/AppLocalizations/AppLocalizations.md)</span><span class="signature">(<span id="-param-locale" class="parameter"><span class="type-annotation">[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)</span> <span class="parameter-name">locale</span>, )</span>  
+<span class="name">[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.md)</span><span class="signature">(<span id="-param-locale" class="parameter"><span class="type-annotation">[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)</span> <span class="parameter-name">locale</span>, )</span>  
 
 </div>
 
@@ -94,9 +98,9 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[load](../utils_app_localization/AppLocalizations/load.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[load](../utils_app_localization/AppLocalizations/load.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 
-<span class="name">[loadTest](../utils_app_localization/AppLocalizations/loadTest.md)</span><span class="signature">(<span id="loadTest-param-locale" class="parameter"><span class="type-annotation">[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)</span> <span class="parameter-name">locale</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[AppLocalizations](../utils_app_localization/AppLocalizations-class.md)</span>\></span></span> </span>  
+<span class="name">[loadTest](../utils_app_localization/AppLocalizations/loadTest.md)</span><span class="signature">(<span id="loadTest-param-locale" class="parameter"><span class="type-annotation">[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)</span> <span class="parameter-name">locale</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[AppLocalizations](../utils_app_localization/AppLocalizations-class.md)</span>\></span></span> </span>  
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
 Invoked when a nonexistent method or property is accessed.
@@ -141,7 +145,7 @@ The equality operator.
 
 ## Static Methods
 
-<span class="name">[of](../utils_app_localization/AppLocalizations/of.md)</span><span class="signature">(<span id="of-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [AppLocalizations](../utils_app_localization/AppLocalizations-class.md)?</span> </span>  
+<span class="name">[of](../utils_app_localization/AppLocalizations/of.md)</span><span class="signature">(<span id="of-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [AppLocalizations](../utils_app_localization/AppLocalizations-class.md)?</span> </span>  
 
 </div>
 
@@ -149,7 +153,7 @@ The equality operator.
 
 ## Constants
 
-<span class="name">[delegate](../utils_app_localization/AppLocalizations/delegate-constant.md)</span> <span class="signature">→ const [LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)<span class="signature">\<<span class="type-parameter">[AppLocalizations](../utils_app_localization/AppLocalizations-class.md)</span>\></span></span>  
+<span class="name">[delegate](../utils_app_localization/AppLocalizations/delegate-constant.md)</span> <span class="signature">→ const LocalizationsDelegate<span class="signature">\<<span class="type-parameter">[AppLocalizations](../utils_app_localization/AppLocalizations-class.md)</span>\></span></span>  
 
 </div>
 
@@ -162,7 +166,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [app_localization](../utils_app_localization/)
+2.  [app_localization](../utils_app_localization/utils_app_localization-library.md)
 3.  AppLocalizations class
 
 ##### app_localization library

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/user/user_info.dart](../../models_user_user_info/)
+2.  [models/user/user_info.dart](../../models_user_user_info/models_user_user_info-library.md)
 3.  [User](../../models_user_user_info/User-class.md)
 4.  name property
 
@@ -18,9 +18,13 @@ name
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>
-get <span class="name">name</span>
+<span class="name">name</span>
 
 </div>
 
@@ -72,7 +76,7 @@ String? get name
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_info](../../models_user_user_info/)
+2.  [user_info](../../models_user_user_info/models_user_user_info-library.md)
 3.  [User](../../models_user_user_info/User-class.md)
 4.  name property
 

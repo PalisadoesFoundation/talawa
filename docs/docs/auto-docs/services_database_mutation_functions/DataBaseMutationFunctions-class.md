@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/database_mutation_functions.dart](../services_database_mutation_functions/)
+2.  [services/database_mutation_functions.dart](../services_database_mutation_functions/services_database_mutation_functions-library.md)
 3.  DataBaseMutationFunctions class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ DataBaseMutationFunctions
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -56,7 +60,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[DataBaseMutationFunctions.new](../services_database_mutation_functions/DataBaseMutationFunctions/DataBaseMutationFunctions.md)</span><span class="signature"></span>  
+<span class="name">[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions/DataBaseMutationFunctions.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -120,25 +124,25 @@ setter</span><span class="feature">inherited</span>
 <span class="name">[clearGraphQLCache](../services_database_mutation_functions/DataBaseMutationFunctions/clearGraphQLCache.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 This function clears the GraphQL cache to ensure fresh data fetch.
 
-<span class="name">[fetchOrgById](../services_database_mutation_functions/DataBaseMutationFunctions/fetchOrgById.md)</span><span class="signature">(<span id="fetchOrgById-param-id" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">id</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
+<span class="name">[fetchOrgById](../services_database_mutation_functions/DataBaseMutationFunctions/fetchOrgById.md)</span><span class="signature">(<span id="fetchOrgById-param-id" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">id</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span> </span>  
 This function fetch the organization using the `id` passed.
 
-<span class="name">[gqlAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthMutation.md)</span><span class="signature">(<span id="gqlAuthMutation-param-mutation" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">mutation</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[gqlAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthMutation.md)</span><span class="signature">(<span id="gqlAuthMutation-param-mutation" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">mutation</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to run the graph-ql mutation for authenticated
 user.
 
-<span class="name">[gqlAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthQuery.md)</span><span class="signature">(<span id="gqlAuthQuery-param-query" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">query</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[gqlAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthQuery.md)</span><span class="signature">(<span id="gqlAuthQuery-param-query" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">query</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to run the graph-ql query for authentication.
 
-<span class="name">[gqlAuthSubscription](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthSubscription.md)</span><span class="signature">(<span id="gqlAuthSubscription-param-subscription" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">subscription</span>, ) <span class="returntype parameter">→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[gqlAuthSubscription](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthSubscription.md)</span><span class="signature">(<span id="gqlAuthSubscription-param-subscription" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">subscription</span>, ) <span class="returntype parameter">→ [Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to run the graph-ql subscription for authenticated
 user.
 
-<span class="name">[gqlNonAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthMutation.md)</span><span class="signature">(<span id="gqlNonAuthMutation-param-mutation" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">mutation</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[gqlNonAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthMutation.md)</span><span class="signature">(<span id="gqlNonAuthMutation-param-mutation" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">mutation</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to run the graph-ql mutation to authenticate the
 non signed-in user.
 
-<span class="name">[gqlNonAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthQuery.md)</span><span class="signature">(<span id="gqlNonAuthQuery-param-query" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">query</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[gqlNonAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthQuery.md)</span><span class="signature">(<span id="gqlNonAuthQuery-param-query" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">query</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to run the graph-ql query for the non signed-in
 user.
 
@@ -159,7 +163,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[refreshAccessToken](../services_database_mutation_functions/DataBaseMutationFunctions/refreshAccessToken.md)</span><span class="signature">(<span id="refreshAccessToken-param-refreshToken" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">refreshToken</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[refreshAccessToken](../services_database_mutation_functions/DataBaseMutationFunctions/refreshAccessToken.md)</span><span class="signature">(<span id="refreshAccessToken-param-refreshToken" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">refreshToken</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 This function is used to refresh the Authenication token to access the
 application.
 
@@ -198,7 +202,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [database_mutation_functions](../services_database_mutation_functions/)
+2.  [database_mutation_functions](../services_database_mutation_functions/services_database_mutation_functions-library.md)
 3.  DataBaseMutationFunctions class
 
 ##### database_mutation_functions library

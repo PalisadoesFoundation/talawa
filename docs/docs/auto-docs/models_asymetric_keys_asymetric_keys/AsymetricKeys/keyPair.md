@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/asymetric_keys/asymetric_keys.dart](../../models_asymetric_keys_asymetric_keys/)
+2.  [models/asymetric_keys/asymetric_keys.dart](../../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
 3.  [AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)
 4.  keyPair property
 
@@ -18,9 +18,13 @@ keyPair
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -44,7 +48,9 @@ below-sidebar="">
 
 </div>
 
-dynamic <span class="name">keyPair</span>
+[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PublicKey-class.html)</span>,
+<span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PrivateKey-class.html)</span>\></span>
+<span class="name">keyPair</span>
 
 <div class="features">
 
@@ -82,7 +88,7 @@ final AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/)
+2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
 3.  [AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)
 4.  keyPair property
 

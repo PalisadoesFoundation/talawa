@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/profile/user_feed.dart](../../views_after_auth_screens_profile_user_feed/)
+2.  [views/after_auth_screens/profile/user_feed.dart](../../views_after_auth_screens_profile_user_feed/views_after_auth_screens_profile_user_feed-library.md)
 3.  [UserFeed](../../views_after_auth_screens_profile_user_feed/UserFeed-class.md)
-4.  UserFeed.new const constructor
+4.  UserFeed const constructor
 
 <div class="self-name">
 
-UserFeed.new
+UserFeed
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ const  : super(key: key);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_feed](../../views_after_auth_screens_profile_user_feed/)
+2.  [user_feed](../../views_after_auth_screens_profile_user_feed/views_after_auth_screens_profile_user_feed-library.md)
 3.  [UserFeed](../../views_after_auth_screens_profile_user_feed/UserFeed-class.md)
-4.  UserFeed.new const constructor
+4.  UserFeed const constructor
 
 ##### UserFeed class
 

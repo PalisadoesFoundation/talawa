@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/hive_manager.dart](../services_hive_manager/)
+2.  [services/hive_manager.dart](../services_hive_manager/services_hive_manager-library.md)
 3.  HiveManager class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ HiveManager
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -51,7 +55,7 @@ when they are no longer needed.
 
 ## Constructors
 
-<span class="name">[HiveManager.new](../services_hive_manager/HiveManager/HiveManager.md)</span><span class="signature"></span>  
+<span class="name">[HiveManager](../services_hive_manager/HiveManager/HiveManager.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -126,23 +130,23 @@ The equality operator.
 
 ## Static Methods
 
-<span class="name">[closeBox](../services_hive_manager/HiveManager/closeBox.md)</span><span class="signature">\<<span class="type-parameter">T</span>\></span><span class="signature">(<span id="closeBox-param-boxName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">boxName</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[closeBox](../services_hive_manager/HiveManager/closeBox.md)</span><span class="signature">\<<span class="type-parameter">T</span>\></span><span class="signature">(<span id="closeBox-param-boxName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">boxName</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Closes the `boxName` named box.
 
-<span class="name">[initializeHive](../services_hive_manager/HiveManager/initializeHive.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[initializeHive](../services_hive_manager/HiveManager/initializeHive.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Initializes Hive with the specified directory.
 
-<span class="name">[openBox](../services_hive_manager/HiveManager/openBox.md)</span><span class="signature">\<<span class="type-parameter">T</span>\></span><span class="signature">(<span id="openBox-param-boxName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">boxName</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[openBox](../services_hive_manager/HiveManager/openBox.md)</span><span class="signature">\<<span class="type-parameter">T</span>\></span><span class="signature">(<span id="openBox-param-boxName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">boxName</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Opens the `boxName` named box.
 
-<span class="name">[registerAdapter](../services_hive_manager/HiveManager/registerAdapter.md)</span><span class="signature">\<<span class="type-parameter">T</span>\></span><span class="signature">(<span id="registerAdapter-param-adapter" class="parameter"><span class="type-annotation">[TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.md)<span class="signature">\<<span class="type-parameter">T</span>\></span></span> <span class="parameter-name">adapter</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[registerAdapter](../services_hive_manager/HiveManager/registerAdapter.md)</span><span class="signature">\<<span class="type-parameter">T</span>\></span><span class="signature">(<span id="registerAdapter-param-adapter" class="parameter"><span class="type-annotation">[TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.md)<span class="signature">\<<span class="type-parameter">T</span>\></span></span> <span class="parameter-name">adapter</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Registers the `adapter` named adapter.
 
-<span class="name">[registerAdapters](../services_hive_manager/HiveManager/registerAdapters.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[registerAdapters](../services_hive_manager/HiveManager/registerAdapters.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Registers the necessary Hive adapters for the models used in the
 application.
 
-<span class="name">[teardownHive](../services_hive_manager/HiveManager/teardownHive.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[teardownHive](../services_hive_manager/HiveManager/teardownHive.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Closes all opened Hive boxes and the Hive instance itself.
 
 </div>
@@ -156,7 +160,7 @@ Closes all opened Hive boxes and the Hive instance itself.
 </div>
 
 1.  [talawa](../index.md)
-2.  [hive_manager](../services_hive_manager/)
+2.  [hive_manager](../services_hive_manager/services_hive_manager-library.md)
 3.  HiveManager class
 
 ##### hive_manager library

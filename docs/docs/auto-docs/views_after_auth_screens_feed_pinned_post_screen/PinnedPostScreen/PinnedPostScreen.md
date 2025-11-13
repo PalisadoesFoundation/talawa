@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/feed/pinned_post_screen.dart](../../views_after_auth_screens_feed_pinned_post_screen/)
+2.  [views/after_auth_screens/feed/pinned_post_screen.dart](../../views_after_auth_screens_feed_pinned_post_screen/views_after_auth_screens_feed_pinned_post_screen-library.md)
 3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)
-4.  PinnedPostScreen.new const constructor
+4.  PinnedPostScreen const constructor
 
 <div class="self-name">
 
-PinnedPostScreen.new
+PinnedPostScreen
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [pinned_post_screen](../../views_after_auth_screens_feed_pinned_post_screen/)
+2.  [pinned_post_screen](../../views_after_auth_screens_feed_pinned_post_screen/views_after_auth_screens_feed_pinned_post_screen-library.md)
 3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)
-4.  PinnedPostScreen.new const constructor
+4.  PinnedPostScreen const constructor
 
 ##### PinnedPostScreen class
 

@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/fund_queries.dart](../../utils_fund_queries/)
+2.  [utils/fund_queries.dart](../../utils_fund_queries/utils_fund_queries-library.md)
 3.  [FundQueries](../../utils_fund_queries/FundQueries-class.md)
-4.  FundQueries.new constructor
+4.  FundQueries constructor
 
 <div class="self-name">
 
-FundQueries.new
+FundQueries
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -51,9 +55,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_queries](../../utils_fund_queries/)
+2.  [fund_queries](../../utils_fund_queries/utils_fund_queries-library.md)
 3.  [FundQueries](../../utils_fund_queries/FundQueries-class.md)
-4.  FundQueries.new constructor
+4.  FundQueries constructor
 
 ##### FundQueries class
 

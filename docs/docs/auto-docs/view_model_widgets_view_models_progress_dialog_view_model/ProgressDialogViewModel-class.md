@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [view_model/widgets_view_models/progress_dialog_view_model.dart](../view_model_widgets_view_models_progress_dialog_view_model/)
+2.  [view_model/widgets_view_models/progress_dialog_view_model.dart](../view_model_widgets_view_models_progress_dialog_view_model/view_model_widgets_view_models_progress_dialog_view_model-library.md)
 3.  ProgressDialogViewModel class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ ProgressDialogViewModel
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -47,7 +51,6 @@ to react to user's input for Progress Dialog Widget.
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - ProgressDialogViewModel
 
@@ -57,7 +60,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[ProgressDialogViewModel.new](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel/ProgressDialogViewModel.md)</span><span class="signature"></span>  
+<span class="name">[ProgressDialogViewModel](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel/ProgressDialogViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -93,7 +96,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -135,7 +138,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -144,10 +147,10 @@ Register a closure to be called when the object changes.
 
 </div>
 
-<span class="name">[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
+[addListener](../view_model_base_view_model/BaseModel/addListener.md)
 will throw after the object is disposed).
 
 <div class="features">
@@ -156,7 +159,7 @@ will throw after the object is disposed).
 
 </div>
 
-<span class="name">[initialise](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[initialise](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Initializes the state of the component by checking the online status and
 updating the view accordingly.
 
@@ -169,7 +172,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
 <div class="features">
@@ -178,7 +181,7 @@ Call all the registered listeners.
 
 </div>
 
-<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -230,7 +233,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [progress_dialog_view_model](../view_model_widgets_view_models_progress_dialog_view_model/)
+2.  [progress_dialog_view_model](../view_model_widgets_view_models_progress_dialog_view_model/view_model_widgets_view_models_progress_dialog_view_model-library.md)
 3.  ProgressDialogViewModel class
 
 ##### progress_dialog_view_model library

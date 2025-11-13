@@ -1,5 +1,5 @@
 1.  [Constructors](./ShortCutMenu-class#constructors.md)
-2.  [new](./ShortCutMenu/ShortCutMenu.md)
+2.  [ShortCutMenu](./ShortCutMenu/ShortCutMenu.md)
 3.  [Properties](./ShortCutMenu-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

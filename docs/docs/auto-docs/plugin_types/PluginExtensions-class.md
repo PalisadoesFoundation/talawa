@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [plugin/types.dart](../plugin_types/)
+2.  [plugin/types.dart](../plugin_types/plugin_types-library.md)
 3.  PluginExtensions class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ PluginExtensions
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ Plugin extension points.
 
 ## Constructors
 
-<span class="name">[PluginExtensions.new](../plugin_types/PluginExtensions/PluginExtensions.md)</span><span class="signature"></span>  
+<span class="name">[PluginExtensions](../plugin_types/PluginExtensions/PluginExtensions.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const
@@ -147,7 +151,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/)
+2.  [types](../plugin_types/plugin_types-library.md)
 3.  PluginExtensions class
 
 ##### types library

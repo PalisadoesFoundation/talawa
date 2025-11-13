@@ -1,5 +1,5 @@
 1.  [Constructors](./Options-class#constructors.md)
-2.  [new](./Options/Options.md)
+2.  [Options](./Options/Options.md)
 3.  [Properties](./Options-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [icon](./Options/icon.md)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/routing_constants.dart](../constants_routing_constants/)
+2.  [constants/routing_constants.dart](../constants_routing_constants/constants_routing_constants-library.md)
 3.  Routes class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ Routes
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -46,7 +50,7 @@ call via Routes.splashScreen to access these string.
 
 ## Constructors
 
-<span class="name">[Routes.new](../constants_routing_constants/Routes/Routes.md)</span><span class="signature"></span>  
+<span class="name">[Routes](../constants_routing_constants/Routes/Routes.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -258,7 +262,7 @@ static variables.
 </div>
 
 1.  [talawa](../index.md)
-2.  [routing_constants](../constants_routing_constants/)
+2.  [routing_constants](../constants_routing_constants/constants_routing_constants-library.md)
 3.  Routes class
 
 ##### routing_constants library

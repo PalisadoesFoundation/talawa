@@ -1,5 +1,5 @@
 1.  [Constructors](./SizeConfig-class#constructors.md)
-2.  [new](./SizeConfig/SizeConfig.md)
+2.  [SizeConfig](./SizeConfig/SizeConfig.md)
 3.  [Properties](./SizeConfig-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

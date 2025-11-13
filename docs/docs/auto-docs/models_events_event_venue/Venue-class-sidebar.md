@@ -1,5 +1,5 @@
 1.  [Constructors](./Venue-class#constructors.md)
-2.  [new](./Venue/Venue.md)
+2.  [Venue](./Venue/Venue.md)
 3.  [fromJson](./Venue/Venue.fromJson.md)
 4.  [Properties](./Venue-class#instance-properties.md)
 5.  [capacity](./Venue/capacity.md)

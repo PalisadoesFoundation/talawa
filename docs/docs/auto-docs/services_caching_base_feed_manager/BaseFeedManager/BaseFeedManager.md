@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/caching/base_feed_manager.dart](../../services_caching_base_feed_manager/)
+2.  [services/caching/base_feed_manager.dart](../../services_caching_base_feed_manager/services_caching_base_feed_manager-library.md)
 3.  [BaseFeedManager<span class="signature">\<<span class="type-parameter">T</span>\></span>](../../services_caching_base_feed_manager/BaseFeedManager-class.md)
-4.  BaseFeedManager.new constructor
+4.  BaseFeedManager constructor
 
 <div class="self-name">
 
-BaseFeedManager.new
+BaseFeedManager
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -67,9 +71,9 @@ BaseFeedManager(this.cacheKey)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [base_feed_manager](../../services_caching_base_feed_manager/)
+2.  [base_feed_manager](../../services_caching_base_feed_manager/services_caching_base_feed_manager-library.md)
 3.  [BaseFeedManager<span class="signature">\<<span class="type-parameter">T</span>\></span>](../../services_caching_base_feed_manager/BaseFeedManager-class.md)
-4.  BaseFeedManager.new constructor
+4.  BaseFeedManager constructor
 
 ##### BaseFeedManager class
 

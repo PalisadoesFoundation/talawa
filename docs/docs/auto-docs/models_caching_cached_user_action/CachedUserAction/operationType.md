@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/caching/cached_user_action.dart](../../models_caching_cached_user_action/)
+2.  [models/caching/cached_user_action.dart](../../models_caching_cached_user_action/models_caching_cached_user_action-library.md)
 3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)
 4.  operationType property
 
@@ -18,9 +18,13 @@ operationType
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -81,7 +85,7 @@ CachedOperationType operationType;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [cached_user_action](../../models_caching_cached_user_action/)
+2.  [cached_user_action](../../models_caching_cached_user_action/models_caching_cached_user_action-library.md)
 3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)
 4.  operationType property
 

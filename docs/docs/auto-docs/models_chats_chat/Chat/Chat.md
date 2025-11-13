@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/chats/chat.dart](../../models_chats_chat/)
+2.  [models/chats/chat.dart](../../models_chats_chat/models_chats_chat-library.md)
 3.  [Chat](../../models_chats_chat/Chat-class.md)
-4.  Chat.new constructor
+4.  Chat constructor
 
 <div class="self-name">
 
-Chat.new
+Chat
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -46,12 +50,20 @@ below-sidebar="">
 
 Constructs a `Chat` instance.
 
-`id` is the unique identifier of the chat. `name` is the name/title of
-the chat. `description` is a description of the chat. `createdAt` is the
-timestamp when the chat was created. `updatedAt` is the timestamp when
-the chat was last updated. `creator` is the user who created the chat.
-`members` is a list of chat members. `messages` is a list of messages in
-the chat.
+[id](../../models_chats_chat/Chat/id.md) is the unique identifier of
+the chat. [name](../../models_chats_chat/Chat/name.md) is the
+name/title of the chat.
+[description](../../models_chats_chat/Chat/description.md) is a
+description of the chat.
+[createdAt](../../models_chats_chat/Chat/createdAt.md) is the
+timestamp when the chat was created.
+[updatedAt](../../models_chats_chat/Chat/updatedAt.md) is the
+timestamp when the chat was last updated.
+[creator](../../models_chats_chat/Chat/creator.md) is the user who
+created the chat. [members](../../models_chats_chat/Chat/members.md)
+is a list of chat members.
+[messages](../../models_chats_chat/Chat/messages.md) is a list of
+messages in the chat.
 
 </div>
 
@@ -74,9 +86,9 @@ the chat.
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat](../../models_chats_chat/)
+2.  [chat](../../models_chats_chat/models_chats_chat-library.md)
 3.  [Chat](../../models_chats_chat/Chat-class.md)
-4.  Chat.new constructor
+4.  Chat constructor
 
 ##### Chat class
 

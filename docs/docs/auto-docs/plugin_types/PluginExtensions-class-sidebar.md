@@ -1,5 +1,5 @@
 1.  [Constructors](./PluginExtensions-class#constructors.md)
-2.  [new](./PluginExtensions/PluginExtensions.md)
+2.  [PluginExtensions](./PluginExtensions/PluginExtensions.md)
 3.  [Properties](./PluginExtensions-class#instance-properties.md)
 4.  [g1](./PluginExtensions/g1.md)
 5.  [g2](./PluginExtensions/g2.md)

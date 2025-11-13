@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/demo_screens/profile_page_demo.dart](../../views_demo_screens_profile_page_demo/)
+2.  [views/demo_screens/profile_page_demo.dart](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
 3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
 4.  guestViewWidget method
 
@@ -18,9 +18,13 @@ guestViewWidget
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,11 +42,11 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="returntype">Widget</span>
 <span class="name">guestViewWidget</span>(
 
 1.  <span id="guestViewWidget-param-context"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -82,7 +86,7 @@ Widget guestViewWidget(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/)
+2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
 3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
 4.  guestViewWidget method
 

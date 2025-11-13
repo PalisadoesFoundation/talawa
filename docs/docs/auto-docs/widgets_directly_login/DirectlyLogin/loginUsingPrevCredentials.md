@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/directly_login.dart](../../widgets_directly_login/)
+2.  [widgets/directly_login.dart](../../widgets_directly_login/widgets_directly_login-library.md)
 3.  [DirectlyLogin](../../widgets_directly_login/DirectlyLogin-class.md)
 4.  loginUsingPrevCredentials method
 
@@ -18,9 +18,13 @@ loginUsingPrevCredentials
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,7 +42,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
 <span class="name">loginUsingPrevCredentials</span>
 
 </div>
@@ -72,7 +76,7 @@ Future<void>  async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [directly_login](../../widgets_directly_login/)
+2.  [directly_login](../../widgets_directly_login/widgets_directly_login-library.md)
 3.  [DirectlyLogin](../../widgets_directly_login/DirectlyLogin-class.md)
 4.  loginUsingPrevCredentials method
 

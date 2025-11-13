@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/custom_list_tile.dart](../../widgets_custom_list_tile/)
+2.  [widgets/custom_list_tile.dart](../../widgets_custom_list_tile/widgets_custom_list_tile-library.md)
 3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
 4.  onTapOption property
 
@@ -18,9 +18,13 @@ onTapOption
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,7 +42,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-dynamic Function<span class="signature"></span>?
+(dynamic Function<span class="signature"></span>?)
 <span class="name">onTapOption</span>
 
 <div class="features">
@@ -74,7 +78,7 @@ final ? onTapOption;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_list_tile](../../widgets_custom_list_tile/)
+2.  [custom_list_tile](../../widgets_custom_list_tile/widgets_custom_list_tile-library.md)
 3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
 4.  onTapOption property
 

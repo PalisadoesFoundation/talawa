@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/events/event_venue.dart](../../models_events_event_venue/)
+2.  [models/events/event_venue.dart](../../models_events_event_venue/models_events_event_venue-library.md)
 3.  [Venue](../../models_events_event_venue/Venue-class.md)
 4.  organizationId property
 
@@ -18,9 +18,13 @@ organizationId
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -74,7 +78,7 @@ final String? organizationId;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_venue](../../models_events_event_venue/)
+2.  [event_venue](../../models_events_event_venue/models_events_event_venue-library.md)
 3.  [Venue](../../models_events_event_venue/Venue-class.md)
 4.  organizationId property
 

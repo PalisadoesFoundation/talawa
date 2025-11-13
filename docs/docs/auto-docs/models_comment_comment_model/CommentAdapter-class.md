@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/comment/comment_model.dart](../models_comment_comment_model/)
+2.  [models/comment/comment_model.dart](../models_comment_comment_model/models_comment_comment_model-library.md)
 3.  CommentAdapter class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ CommentAdapter
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -48,7 +52,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CommentAdapter.new](../models_comment_comment_model/CommentAdapter/CommentAdapter.md)</span><span class="signature"></span>  
+<span class="name">[CommentAdapter](../models_comment_comment_model/CommentAdapter/CommentAdapter.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -153,7 +157,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [comment_model](../models_comment_comment_model/)
+2.  [comment_model](../models_comment_comment_model/models_comment_comment_model-library.md)
 3.  CommentAdapter class
 
 ##### comment_model library

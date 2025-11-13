@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/organization/org_info.dart](../../models_organization_org_info/)
+2.  [models/organization/org_info.dart](../../models_organization_org_info/models_organization_org_info-library.md)
 3.  [OrgInfoAdapter](../../models_organization_org_info/OrgInfoAdapter-class.md)
 4.  write method
 
@@ -18,9 +18,13 @@ write
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -89,7 +93,7 @@ void write(BinaryWriter writer, OrgInfo obj)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [org_info](../../models_organization_org_info/)
+2.  [org_info](../../models_organization_org_info/models_organization_org_info-library.md)
 3.  [OrgInfoAdapter](../../models_organization_org_info/OrgInfoAdapter-class.md)
 4.  write method
 

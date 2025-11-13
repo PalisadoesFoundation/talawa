@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/base_view_model.dart](../../view_model_base_view_model/)
+2.  [view_model/base_view_model.dart](../../view_model_base_view_model/view_model_base_view_model-library.md)
 3.  [BaseModel](../../view_model_base_view_model/BaseModel-class.md)
 4.  setState method
 
@@ -18,9 +18,13 @@ setState
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -67,7 +71,7 @@ void setState(ViewState viewState)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [base_view_model](../../view_model_base_view_model/)
+2.  [base_view_model](../../view_model_base_view_model/view_model_base_view_model-library.md)
 3.  [BaseModel](../../view_model_base_view_model/BaseModel-class.md)
 4.  setState method
 

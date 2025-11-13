@@ -1,5 +1,5 @@
 1.  [Constructors](./OrganizationService-class#constructors.md)
-2.  [new](./OrganizationService/OrganizationService.md)
+2.  [OrganizationService](./OrganizationService/OrganizationService.md)
 3.  [Properties](./OrganizationService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

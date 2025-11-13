@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildSuggestions method
 
@@ -18,9 +18,13 @@ buildSuggestions
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -44,20 +48,14 @@ below-sidebar="">
 
 </div>
 
-<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="returntype">Widget</span>
 <span class="name">buildSuggestions</span>(
 
 1.  <span id="buildSuggestions-param-context"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">context</span></span>
 
 )
-
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
 
 </div>
 
@@ -67,23 +65,18 @@ Suggestions shown in the body of the search page while the user types a
 query into the search field.
 
 The delegate method is called whenever the content of
-[query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)
+[query](../../widgets_event_search_delegate/EventSearch/query.md)
 changes. The suggestions should be based on the current
-[query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)
+[query](../../widgets_event_search_delegate/EventSearch/query.md)
 string. If the query string is empty, it is good practice to show
 suggested queries based on past queries or the current context.
 
-Usually, this method will return a
-[ListView](https://api.flutter.dev/flutter/widgets/ListView-class.html)
-with one
-[ListTile](https://api.flutter.dev/flutter/material/ListTile-class.html)
-per suggestion. When
-[ListTile.onTap](https://api.flutter.dev/flutter/material/ListTile/onTap.html)
-is called,
-[query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)
+Usually, this method will return a `ListView` with one `ListTile` per
+suggestion. When `ListTile.onTap` is called,
+[query](../../widgets_event_search_delegate/EventSearch/query.md)
 should be updated with the corresponding suggestion and the results page
 should be shown by calling
-[showResults](https://api.flutter.dev/flutter/material/SearchDelegate/showResults.html).
+[showResults](../../widgets_event_search_delegate/EventSearch/showResults.md).
 
 </div>
 
@@ -107,7 +100,7 @@ Widget buildSuggestions(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_search_delegate](../../widgets_event_search_delegate/)
+2.  [event_search_delegate](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildSuggestions method
 

@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/events/event_agenda_item.dart](../../models_events_event_agenda_item/)
+2.  [models/events/event_agenda_item.dart](../../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
 3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.md)
-4.  EventAgendaItem.new constructor
+4.  EventAgendaItem constructor
 
 <div class="self-name">
 
-EventAgendaItem.new
+EventAgendaItem
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_agenda_item](../../models_events_event_agenda_item/)
+2.  [event_agenda_item](../../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
 3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.md)
-4.  EventAgendaItem.new constructor
+4.  EventAgendaItem constructor
 
 ##### EventAgendaItem class
 

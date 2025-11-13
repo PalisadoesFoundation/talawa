@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/funds/fundraising_campaigns_screen.dart](../../views_after_auth_screens_funds_fundraising_campaigns_screen/)
+2.  [views/after_auth_screens/funds/fundraising_campaigns_screen.dart](../../views_after_auth_screens_funds_fundraising_campaigns_screen/views_after_auth_screens_funds_fundraising_campaigns_screen-library.md)
 3.  [CampaignCard](../../views_after_auth_screens_funds_fundraising_campaigns_screen/CampaignCard-class.md)
-4.  CampaignCard.new const constructor
+4.  CampaignCard const constructor
 
 <div class="self-name">
 
-CampaignCard.new
+CampaignCard
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fundraising_campaigns_screen](../../views_after_auth_screens_funds_fundraising_campaigns_screen/)
+2.  [fundraising_campaigns_screen](../../views_after_auth_screens_funds_fundraising_campaigns_screen/views_after_auth_screens_funds_fundraising_campaigns_screen-library.md)
 3.  [CampaignCard](../../views_after_auth_screens_funds_fundraising_campaigns_screen/CampaignCard-class.md)
-4.  CampaignCard.new const constructor
+4.  CampaignCard const constructor
 
 ##### CampaignCard class
 

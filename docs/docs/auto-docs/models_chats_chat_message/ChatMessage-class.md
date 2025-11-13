@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/chats/chat_message.dart](../models_chats_chat_message/)
+2.  [models/chats/chat_message.dart](../models_chats_chat_message/models_chats_chat_message-library.md)
 3.  ChatMessage class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ ChatMessage
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -46,7 +50,7 @@ chat system.
 
 ## Constructors
 
-<span class="name">[ChatMessage.new](../models_chats_chat_message/ChatMessage/ChatMessage.md)</span><span class="signature"></span>  
+<span class="name">[ChatMessage](../models_chats_chat_message/ChatMessage/ChatMessage.md)</span><span class="signature"></span>  
 Constructs a `ChatMessage` instance.
 
 <span class="name">[ChatMessage.fromJson](../models_chats_chat_message/ChatMessage/ChatMessage.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
@@ -200,7 +204,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_message](../models_chats_chat_message/)
+2.  [chat_message](../models_chats_chat_message/models_chats_chat_message-library.md)
 3.  ChatMessage class
 
 ##### chat_message library

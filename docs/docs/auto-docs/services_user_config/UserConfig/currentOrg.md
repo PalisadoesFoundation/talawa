@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/user_config.dart](../../services_user_config/)
+2.  [services/user_config.dart](../../services_user_config/services_user_config-library.md)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentOrg property
 
@@ -18,9 +18,13 @@ currentOrg
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)</span>
-get <span class="name">currentOrg</span>
+<span class="name">currentOrg</span>
 
 </div>
 
@@ -67,8 +71,8 @@ OrgInfo get currentOrg => _currentOrg!;
 
 <div class="section multi-line-signature">
 
-set <span class="name">currentOrg</span>
-<span class="signature">(<span id="currentOrg=-param-org"
+<span class="returntype">void</span>
+<span class="name">currentOrg=</span><span class="signature">(<span id="currentOrg=-param-org"
 class="parameter"><span class="type-annotation">[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)</span>
 <span class="parameter-name">org</span></span>)</span>
 
@@ -101,7 +105,7 @@ set currentOrg(OrgInfo org) => _currentOrg = org;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_config](../../services_user_config/)
+2.  [user_config](../../services_user_config/services_user_config-library.md)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentOrg property
 

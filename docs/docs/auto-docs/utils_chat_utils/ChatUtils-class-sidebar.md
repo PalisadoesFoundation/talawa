@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatUtils-class#constructors.md)
-2.  [new](./ChatUtils/ChatUtils.md)
+2.  [ChatUtils](./ChatUtils/ChatUtils.md)
 3.  [Properties](./ChatUtils-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

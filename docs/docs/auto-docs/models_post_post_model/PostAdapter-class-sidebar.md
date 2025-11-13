@@ -1,5 +1,5 @@
 1.  [Constructors](./PostAdapter-class#constructors.md)
-2.  [new](./PostAdapter/PostAdapter.md)
+2.  [PostAdapter](./PostAdapter/PostAdapter.md)
 3.  [Properties](./PostAdapter-class#instance-properties.md)
 4.  [hashCode](./PostAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

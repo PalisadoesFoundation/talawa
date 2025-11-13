@@ -1,5 +1,5 @@
 1.  [Constructors](./PluginMenuItem-class#constructors.md)
-2.  [new](./PluginMenuItem/PluginMenuItem.md)
+2.  [PluginMenuItem](./PluginMenuItem/PluginMenuItem.md)
 3.  [Properties](./PluginMenuItem-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [icon](./PluginMenuItem/icon.md)

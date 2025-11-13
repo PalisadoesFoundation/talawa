@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/lang_switch.dart](../../widgets_lang_switch/)
+2.  [widgets/lang_switch.dart](../../widgets_lang_switch/widgets_lang_switch-library.md)
 3.  [LanguageTile](../../widgets_lang_switch/LanguageTile-class.md)
-4.  LanguageTile.new const constructor
+4.  LanguageTile const constructor
 
 <div class="self-name">
 
-LanguageTile.new
+LanguageTile
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [lang_switch](../../widgets_lang_switch/)
+2.  [lang_switch](../../widgets_lang_switch/widgets_lang_switch-library.md)
 3.  [LanguageTile](../../widgets_lang_switch/LanguageTile-class.md)
-4.  LanguageTile.new const constructor
+4.  LanguageTile const constructor
 
 ##### LanguageTile class
 

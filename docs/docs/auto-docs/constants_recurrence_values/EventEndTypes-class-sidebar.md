@@ -1,5 +1,5 @@
 1.  [Constructors](./EventEndTypes-class#constructors.md)
-2.  [new](./EventEndTypes/EventEndTypes.md)
+2.  [EventEndTypes](./EventEndTypes/EventEndTypes.md)
 3.  [Properties](./EventEndTypes-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

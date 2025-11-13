@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/caching/cached_user_action.dart](../models_caching_cached_user_action/)
+2.  [models/caching/cached_user_action.dart](../models_caching_cached_user_action/models_caching_cached_user_action-library.md)
 3.  CachedUserAction class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ CachedUserAction
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -66,7 +70,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[CachedUserAction.new](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.md)</span><span class="signature"></span>  
+<span class="name">[CachedUserAction](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.md)</span><span class="signature"></span>  
 
 <span class="name">[CachedUserAction.fromJson](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 Creates a CachedUserAction from a JSON-compatible map.
@@ -213,7 +217,7 @@ The variables required for the operation, if any.
 
 ## Methods
 
-<span class="name">[delete](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[delete](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Deletes this object from the box it is stored in.
 
 <div class="features">
@@ -222,7 +226,7 @@ Deletes this object from the box it is stored in.
 
 </div>
 
-<span class="name">[execute](../models_caching_cached_user_action/CachedUserAction/execute.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[execute](../models_caching_cached_user_action/CachedUserAction/execute.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 Executes the cached user action based on its operation type.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -234,7 +238,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[save](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[save](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Persists this object.
 
 <div class="features">
@@ -281,7 +285,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [cached_user_action](../models_caching_cached_user_action/)
+2.  [cached_user_action](../models_caching_cached_user_action/models_caching_cached_user_action-library.md)
 3.  CachedUserAction class
 
 ##### cached_user_action library

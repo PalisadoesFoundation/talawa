@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../../view_model_pre_auth_view_models_set_url_view_model/)
+2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../../view_model_pre_auth_view_models_set_url_view_model/view_model_pre_auth_view_models_set_url_view_model-library.md)
 3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
 4.  url property
 
@@ -18,9 +18,13 @@ url
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,7 +42,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-dynamic <span class="name">url</span>
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+<span class="name">url</span>
 
 <div class="features">
 
@@ -73,7 +78,7 @@ final url = dotenv.get("API_URL");
 </div>
 
 1.  [talawa](../../index.md)
-2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
+2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/view_model_pre_auth_view_models_set_url_view_model-library.md)
 3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
 4.  url property
 

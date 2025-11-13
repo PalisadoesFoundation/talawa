@@ -1,5 +1,5 @@
 1.  [Constructors](./EventBottomSheet-class#constructors.md)
-2.  [new](./EventBottomSheet/EventBottomSheet.md)
+2.  [EventBottomSheet](./EventBottomSheet/EventBottomSheet.md)
 3.  [Properties](./EventBottomSheet-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

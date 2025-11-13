@@ -1,5 +1,5 @@
 1.  [Constructors](./BaseFeedManager-class#constructors.md)
-2.  [new](./BaseFeedManager/BaseFeedManager.md)
+2.  [BaseFeedManager](./BaseFeedManager/BaseFeedManager.md)
 3.  [Properties](./BaseFeedManager-class#instance-properties.md)
 4.  [cacheKey](./BaseFeedManager/cacheKey.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/chat_list_screen.dart](../../views_after_auth_screens_chat_chat_list_screen/)
+2.  [views/after_auth_screens/chat/chat_list_screen.dart](../../views_after_auth_screens_chat_chat_list_screen/views_after_auth_screens_chat_chat_list_screen-library.md)
 3.  [ChatPage](../../views_after_auth_screens_chat_chat_list_screen/ChatPage-class.md)
-4.  ChatPage.new const constructor
+4.  ChatPage const constructor
 
 <div class="self-name">
 
-ChatPage.new
+ChatPage
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -67,9 +71,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_list_screen](../../views_after_auth_screens_chat_chat_list_screen/)
+2.  [chat_list_screen](../../views_after_auth_screens_chat_chat_list_screen/views_after_auth_screens_chat_chat_list_screen-library.md)
 3.  [ChatPage](../../views_after_auth_screens_chat_chat_list_screen/ChatPage-class.md)
-4.  ChatPage.new const constructor
+4.  ChatPage const constructor
 
 ##### ChatPage class
 

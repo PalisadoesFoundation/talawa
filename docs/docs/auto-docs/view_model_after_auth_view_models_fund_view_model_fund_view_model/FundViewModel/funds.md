@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/after_auth_view_models/fund_view_model/fund_view_model.dart](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/)
+2.  [view_model/after_auth_view_models/fund_view_model/fund_view_model.dart](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/view_model_after_auth_view_models_fund_view_model_fund_view_model-library.md)
 3.  [FundViewModel](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/FundViewModel-class.md)
 4.  funds property
 
@@ -18,9 +18,13 @@ funds
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Fund](../../models_funds_fund/Fund-class.md)</span>\></span></span>
-get <span class="name">funds</span>
+<span class="name">funds</span>
 
 </div>
 
@@ -72,7 +76,7 @@ List<Fund> get funds => _funds;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_view_model](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/)
+2.  [fund_view_model](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/view_model_after_auth_view_models_fund_view_model_fund_view_model-library.md)
 3.  [FundViewModel](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/FundViewModel-class.md)
 4.  funds property
 

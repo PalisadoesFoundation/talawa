@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/size_config.dart](../../services_size_config/)
+2.  [services/size_config.dart](../../services_size_config/services_size_config-library.md)
 3.  [SizeConfig](../../services_size_config/SizeConfig-class.md)
 4.  init method
 
@@ -18,9 +18,13 @@ init
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <span class="returntype">void</span> <span class="name">init</span>(
 
 1.  <span id="init-param-context"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -67,7 +71,7 @@ void init(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [size_config](../../services_size_config/)
+2.  [size_config](../../services_size_config/services_size_config-library.md)
 3.  [SizeConfig](../../services_size_config/SizeConfig-class.md)
 4.  init method
 

@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatCoreService-class#constructors.md)
-2.  [new](./ChatCoreService/ChatCoreService.md)
+2.  [ChatCoreService](./ChatCoreService/ChatCoreService.md)
 3.  [Properties](./ChatCoreService-class#instance-properties.md)
 4.  [chatListStream](./ChatCoreService/chatListStream.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

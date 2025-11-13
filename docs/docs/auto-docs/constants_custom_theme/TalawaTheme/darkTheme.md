@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [constants/custom_theme.dart](../../constants_custom_theme/)
+2.  [constants/custom_theme.dart](../../constants_custom_theme/constants_custom_theme-library.md)
 3.  [TalawaTheme](../../constants_custom_theme/TalawaTheme-class.md)
 4.  darkTheme property
 
@@ -18,9 +18,13 @@ darkTheme
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,8 +42,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-[ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)
-<span class="name">darkTheme</span>
+ThemeData <span class="name">darkTheme</span>
 
 <div class="features">
 
@@ -95,7 +98,7 @@ static final darkTheme = ThemeData(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_theme](../../constants_custom_theme/)
+2.  [custom_theme](../../constants_custom_theme/constants_custom_theme-library.md)
 3.  [TalawaTheme](../../constants_custom_theme/TalawaTheme-class.md)
 4.  darkTheme property
 

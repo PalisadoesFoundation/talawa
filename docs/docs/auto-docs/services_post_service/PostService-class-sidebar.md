@@ -1,5 +1,5 @@
 1.  [Constructors](./PostService-class#constructors.md)
-2.  [new](./PostService/PostService.md)
+2.  [PostService](./PostService/PostService.md)
 3.  [Properties](./PostService-class#instance-properties.md)
 4.  [after](./PostService/after.md)
 5.  [before](./PostService/before.md)

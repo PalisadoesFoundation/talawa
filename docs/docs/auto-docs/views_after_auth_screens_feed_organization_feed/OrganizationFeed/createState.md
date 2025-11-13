@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/feed/organization_feed.dart](../../views_after_auth_screens_feed_organization_feed/)
+2.  [views/after_auth_screens/feed/organization_feed.dart](../../views_after_auth_screens_feed_organization_feed/views_after_auth_screens_feed_organization_feed-library.md)
 3.  [OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)
 4.  createState method
 
@@ -18,9 +18,13 @@ createState
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -44,14 +48,8 @@ below-sidebar="">
 
 </div>
 
-<span class="returntype">[State](https://api.flutter.dev/flutter/widgets/State-class.html)<span class="signature">\<<span class="type-parameter">[OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)</span>\></span></span>
+<span class="returntype">State<span class="signature">\<<span class="type-parameter">[OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)</span>\></span></span>
 <span class="name">createState</span>
-
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
 
 </div>
 
@@ -61,9 +59,7 @@ Creates the mutable state for this widget at a given location in the
 tree.
 
 Subclasses should override this method to return a newly created
-instance of their associated
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-subclass:
+instance of their associated `State` subclass:
 
 ``` language-dart
 @override
@@ -71,18 +67,13 @@ State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
-[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html).
-For example, if the widget is inserted into the tree in multiple
-locations, the framework will create a separate
-[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
-for each location. Similarly, if the widget is removed from the tree and
-later inserted into the tree again, the framework will call
+`StatefulWidget`. For example, if the widget is inserted into the tree
+in multiple locations, the framework will create a separate `State`
+object for each location. Similarly, if the widget is removed from the
+tree and later inserted into the tree again, the framework will call
 [createState](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed/createState.md)
-again to create a fresh
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-object, simplifying the lifecycle of
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-objects.
+again to create a fresh `State` object, simplifying the lifecycle of
+`State` objects.
 
 </div>
 
@@ -106,7 +97,7 @@ State<OrganizationFeed>  => ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [organization_feed](../../views_after_auth_screens_feed_organization_feed/)
+2.  [organization_feed](../../views_after_auth_screens_feed_organization_feed/views_after_auth_screens_feed_organization_feed-library.md)
 3.  [OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)
 4.  createState method
 

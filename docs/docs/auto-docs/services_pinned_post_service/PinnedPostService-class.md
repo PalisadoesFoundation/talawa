@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/pinned_post_service.dart](../services_pinned_post_service/)
+2.  [services/pinned_post_service.dart](../services_pinned_post_service/services_pinned_post_service-library.md)
 3.  PinnedPostService class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ PinnedPostService
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -54,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PinnedPostService.new](../services_pinned_post_service/PinnedPostService/PinnedPostService.md)</span><span class="signature"></span>  
+<span class="name">[PinnedPostService](../services_pinned_post_service/PinnedPostService/PinnedPostService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -147,7 +151,7 @@ Getter to access the list of pinned posts.
 
 </div>
 
-<span class="name">[pinnedPostStream](../services_pinned_post_service/PinnedPostService/pinnedPostStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span>  
+<span class="name">[pinnedPostStream](../services_pinned_post_service/PinnedPostService/pinnedPostStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span>  
 Returns a stream of pinned posts.
 
 <div class="features">
@@ -172,7 +176,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[fetchDataFromApi](../services_pinned_post_service/PinnedPostService/fetchDataFromApi.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[fetchDataFromApi](../services_pinned_post_service/PinnedPostService/fetchDataFromApi.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span> </span>  
 Abstract method to be implemented by subclasses to fetch data from an
 API.
 
@@ -182,10 +186,10 @@ API.
 
 </div>
 
-<span class="name">[fetchPostsInitial](../services_pinned_post_service/PinnedPostService/fetchPostsInitial.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[fetchPostsInitial](../services_pinned_post_service/PinnedPostService/fetchPostsInitial.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to load cached data from Hive database.
 
-<span class="name">[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span> </span>  
 Fetches new data from the API if online, updates the cache, and returns
 the data.
 
@@ -195,7 +199,7 @@ the data.
 
 </div>
 
-<span class="name">[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span> </span>  
 Loads the data cached in Hive.
 
 <div class="features">
@@ -213,10 +217,10 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[refreshPinnedPosts](../services_pinned_post_service/PinnedPostService/refreshPinnedPosts.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[refreshPinnedPosts](../services_pinned_post_service/PinnedPostService/refreshPinnedPosts.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Fetches pinned posts from API, updates cache and stream.
 
-<span class="name">[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.md)</span><span class="signature">(<span id="saveDataToCache-param-data" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span> <span class="parameter-name">data</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.md)</span><span class="signature">(<span id="saveDataToCache-param-data" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span> <span class="parameter-name">data</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Saves a list of data to the cache, replacing any existing data.
 
 <div class="features">
@@ -264,7 +268,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [pinned_post_service](../services_pinned_post_service/)
+2.  [pinned_post_service](../services_pinned_post_service/services_pinned_post_service-library.md)
 3.  PinnedPostService class
 
 ##### pinned_post_service library

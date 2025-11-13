@@ -1,5 +1,5 @@
 1.  [Constructors](./AttachmentModel-class#constructors.md)
-2.  [new](./AttachmentModel/AttachmentModel.md)
+2.  [AttachmentModel](./AttachmentModel/AttachmentModel.md)
 3.  [fromJson](./AttachmentModel/AttachmentModel.fromJson.md)
 4.  [Properties](./AttachmentModel-class#instance-properties.md)
 5.  [fileHash](./AttachmentModel/fileHash.md)

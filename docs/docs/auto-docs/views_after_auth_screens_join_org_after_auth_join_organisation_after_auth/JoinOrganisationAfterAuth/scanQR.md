@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart](../../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/)
+2.  [views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart](../../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/views_after_auth_screens_join_org_after_auth_join_organisation_after_auth-library.md)
 3.  [JoinOrganisationAfterAuth](../../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/JoinOrganisationAfterAuth-class.md)
 4.  scanQR method
 
@@ -18,9 +18,13 @@ scanQR
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <span class="returntype">void</span> <span class="name">scanQR</span>(
 
 1.  <span id="scanQR-param-context"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">context</span>, </span>
 2.  <span id="scanQR-param-model"
     class="parameter"><span class="type-annotation">[SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)</span>
@@ -84,7 +88,7 @@ void scanQR(BuildContext context, SelectOrganizationViewModel model)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [join_organisation_after_auth](../../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/)
+2.  [join_organisation_after_auth](../../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/views_after_auth_screens_join_org_after_auth_join_organisation_after_auth-library.md)
 3.  [JoinOrganisationAfterAuth](../../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/JoinOrganisationAfterAuth-class.md)
 4.  scanQR method
 

@@ -21,42 +21,64 @@ env:
 
 jobs:
   Docs-Check:
-      name: Verify Documentation
-      runs-on: ubuntu-latest
-      outputs:
-        docs-valid: ${{ steps.compare.outputs.docs-valid }}
+    name: Verify Documentation
+    runs-on: ubuntu-latest
+    outputs:
+      docs-valid: ${{ steps.compare.outputs.docs-valid }}
 
-      steps:
-        - uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-        - name: Set up Flutter
-          uses: subosito/flutter-action@v2
-          with:
-            flutter-version: ${{ env.FLUTTER_VERSION }}
-            channel: stable
-        - name: Install Pandoc
-          run: |
-            sudo apt-get update
-            sudo apt-get install -y pandoc
-        - name: Copy existing docs
-          run: cp -r docs/docs/auto-docs docs-before
-        - name: Install dependencies
-          run: flutter pub get
-        - name: Regenerate docs
-          run: bash scripts/docusaurus/generate_docs.sh
-        - name: Compare docs
-          id: compare
-          run: |
-            if ! diff -qr docs-before docs/docs/auto-docs; then
-              echo "::error::Documentation was not pre-generated."
-              echo "docs-valid=false" >> $GITHUB_OUTPUT
-              exit 1
-            else
-              echo "docs-valid=true" >> $GITHUB_OUTPUT
-              echo "Documentation OK"
-            fi
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Copy existing docs
+        run: cp -r docs/docs/auto-docs docs-before
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Regenerate docs
+        run: bash scripts/docusaurus/generate_docs.sh
+
+      - name: Compare docs
+        id: compare
+        run: |
+          MISSING=false
+
+          if [ ! -d "docs-before" ]; then
+            echo "::error::Missing folder: docs-before"
+            MISSING=true
+          fi
+
+          if [ ! -d "docs/docs/auto-docs" ]; then
+            echo "::error::Missing folder: docs/docs/auto-docs"
+            MISSING=true
+          fi
+
+          if [ "$MISSING" = true ]; then
+            echo "docs-valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          if ! diff -qr docs-before docs/docs/auto-docs; then
+            echo "::error::Documentation mismatch"
+            echo "docs-valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "docs-valid=true" >> $GITHUB_OUTPUT
+            echo "Documentation OK"
+          fi
   Flutter-Codebase-Check:
     name: Checking codebase
     runs-on: ubuntu-latest

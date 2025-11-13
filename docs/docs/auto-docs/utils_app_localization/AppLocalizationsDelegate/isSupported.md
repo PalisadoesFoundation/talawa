@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/app_localization.dart](../../utils_app_localization/)
+2.  [utils/app_localization.dart](../../utils_app_localization/utils_app_localization-library.md)
 3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
 4.  isSupported method
 
@@ -18,9 +18,13 @@ isSupported
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -52,12 +56,6 @@ below-sidebar="">
     <span class="parameter-name">locale</span></span>
 
 )
-
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
 
 </div>
 
@@ -91,7 +89,7 @@ bool isSupported(Locale locale)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_localization](../../utils_app_localization/)
+2.  [app_localization](../../utils_app_localization/utils_app_localization-library.md)
 3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
 4.  isSupported method
 

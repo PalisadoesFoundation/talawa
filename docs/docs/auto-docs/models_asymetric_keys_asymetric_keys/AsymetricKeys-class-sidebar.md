@@ -1,5 +1,5 @@
 1.  [Constructors](./AsymetricKeys-class#constructors.md)
-2.  [new](./AsymetricKeys/AsymetricKeys.md)
+2.  [AsymetricKeys](./AsymetricKeys/AsymetricKeys.md)
 3.  [Properties](./AsymetricKeys-class#instance-properties.md)
 4.  [box](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/box.html)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

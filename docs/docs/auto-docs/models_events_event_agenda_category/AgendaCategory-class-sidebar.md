@@ -1,5 +1,5 @@
 1.  [Constructors](./AgendaCategory-class#constructors.md)
-2.  [new](./AgendaCategory/AgendaCategory.md)
+2.  [AgendaCategory](./AgendaCategory/AgendaCategory.md)
 3.  [fromJson](./AgendaCategory/AgendaCategory.fromJson.md)
 4.  [Properties](./AgendaCategory-class#instance-properties.md)
 5.  [description](./AgendaCategory/description.md)

@@ -1,5 +1,5 @@
 1.  [Constructors](./HiveManager-class#constructors.md)
-2.  [new](./HiveManager/HiveManager.md)
+2.  [HiveManager](./HiveManager/HiveManager.md)
 3.  [Properties](./HiveManager-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

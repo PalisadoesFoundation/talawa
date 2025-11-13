@@ -1,5 +1,5 @@
 1.  [Constructors](./GroupChatInfoDialogs-class#constructors.md)
-2.  [new](./GroupChatInfoDialogs/GroupChatInfoDialogs.md)
+2.  [GroupChatInfoDialogs](./GroupChatInfoDialogs/GroupChatInfoDialogs.md)
 3.  [Properties](./GroupChatInfoDialogs-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

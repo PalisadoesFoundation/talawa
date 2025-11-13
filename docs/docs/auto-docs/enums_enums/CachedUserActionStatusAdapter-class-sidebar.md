@@ -1,5 +1,5 @@
 1.  [Constructors](./CachedUserActionStatusAdapter-class#constructors.md)
-2.  [new](./CachedUserActionStatusAdapter/CachedUserActionStatusAdapter.md)
+2.  [CachedUserActionStatusAdapter](./CachedUserActionStatusAdapter/CachedUserActionStatusAdapter.md)
 3.  [Properties](./CachedUserActionStatusAdapter-class#instance-properties.md)
 4.  [hashCode](./CachedUserActionStatusAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

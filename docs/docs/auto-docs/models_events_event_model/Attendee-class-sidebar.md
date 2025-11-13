@@ -1,5 +1,5 @@
 1.  [Constructors](./Attendee-class#constructors.md)
-2.  [new](./Attendee/Attendee.md)
+2.  [Attendee](./Attendee/Attendee.md)
 3.  [fromJson](./Attendee/Attendee.fromJson.md)
 4.  [Properties](./Attendee-class#instance-properties.md)
 5.  [firstName](./Attendee/firstName.md)

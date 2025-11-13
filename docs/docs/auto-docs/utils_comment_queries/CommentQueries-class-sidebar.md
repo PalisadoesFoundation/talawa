@@ -1,5 +1,5 @@
 1.  [Constructors](./CommentQueries-class#constructors.md)
-2.  [new](./CommentQueries/CommentQueries.md)
+2.  [CommentQueries](./CommentQueries/CommentQueries.md)
 3.  [Properties](./CommentQueries-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

@@ -1,5 +1,5 @@
 1.  [Constructors](./RecurrenceUtils-class#constructors.md)
-2.  [new](./RecurrenceUtils/RecurrenceUtils.md)
+2.  [RecurrenceUtils](./RecurrenceUtils/RecurrenceUtils.md)
 3.  [Properties](./RecurrenceUtils-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

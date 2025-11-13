@@ -1,5 +1,5 @@
 1.  [Constructors](./PinnedPostService-class#constructors.md)
-2.  [new](./PinnedPostService/PinnedPostService.md)
+2.  [PinnedPostService](./PinnedPostService/PinnedPostService.md)
 3.  [Properties](./PinnedPostService-class#instance-properties.md)
 4.  [after](./PinnedPostService/after.md)
 5.  [before](./PinnedPostService/before.md)

@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/language/language_model.dart](../../models_language_language_model/)
+2.  [models/language/language_model.dart](../../models_language_language_model/models_language_language_model-library.md)
 3.  [Language](../../models_language_language_model/Language-class.md)
-4.  Language.new constructor
+4.  Language constructor
 
 <div class="self-name">
 
-Language.new
+Language
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [language_model](../../models_language_language_model/)
+2.  [language_model](../../models_language_language_model/models_language_language_model-library.md)
 3.  [Language](../../models_language_language_model/Language-class.md)
-4.  Language.new constructor
+4.  Language constructor
 
 ##### Language class
 

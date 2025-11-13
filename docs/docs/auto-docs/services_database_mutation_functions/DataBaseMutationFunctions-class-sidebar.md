@@ -1,5 +1,5 @@
 1.  [Constructors](./DataBaseMutationFunctions-class#constructors.md)
-2.  [new](./DataBaseMutationFunctions/DataBaseMutationFunctions.md)
+2.  [DataBaseMutationFunctions](./DataBaseMutationFunctions/DataBaseMutationFunctions.md)
 3.  [Properties](./DataBaseMutationFunctions-class#instance-properties.md)
 4.  [clientAuth](./DataBaseMutationFunctions/clientAuth.md)
 5.  [clientNonAuth](./DataBaseMutationFunctions/clientNonAuth.md)

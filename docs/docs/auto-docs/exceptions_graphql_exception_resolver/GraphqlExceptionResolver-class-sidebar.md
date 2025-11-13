@@ -1,5 +1,5 @@
 1.  [Constructors](./GraphqlExceptionResolver-class#constructors.md)
-2.  [new](./GraphqlExceptionResolver/GraphqlExceptionResolver.md)
+2.  [GraphqlExceptionResolver](./GraphqlExceptionResolver/GraphqlExceptionResolver.md)
 3.  [Properties](./GraphqlExceptionResolver-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

@@ -1,5 +1,5 @@
 1.  [Constructors](./CachedOperationTypeAdapter-class#constructors.md)
-2.  [new](./CachedOperationTypeAdapter/CachedOperationTypeAdapter.md)
+2.  [CachedOperationTypeAdapter](./CachedOperationTypeAdapter/CachedOperationTypeAdapter.md)
 3.  [Properties](./CachedOperationTypeAdapter-class#instance-properties.md)
 4.  [hashCode](./CachedOperationTypeAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

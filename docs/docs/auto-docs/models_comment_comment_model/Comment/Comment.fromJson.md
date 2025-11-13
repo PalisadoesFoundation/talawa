@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/comment/comment_model.dart](../../models_comment_comment_model/)
+2.  [models/comment/comment_model.dart](../../models_comment_comment_model/models_comment_comment_model-library.md)
 3.  [Comment](../../models_comment_comment_model/Comment-class.md)
 4.  Comment.fromJson factory constructor
 
@@ -18,9 +18,13 @@ Comment.fromJson
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -68,7 +72,7 @@ factory Comment.fromJson(Map<String, dynamic> json)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [comment_model](../../models_comment_comment_model/)
+2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
 3.  [Comment](../../models_comment_comment_model/Comment-class.md)
 4.  Comment.fromJson factory constructor
 

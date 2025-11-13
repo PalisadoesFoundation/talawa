@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [locator.dart](../locator/)
+2.  [locator.dart](../locator/locator-library.md)
 3.  sizeConfig property
 
 <div class="self-name">
@@ -17,9 +17,13 @@ sizeConfig
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -72,7 +76,7 @@ final sizeConfig = locator<SizeConfig>;
 </div>
 
 1.  [talawa](../index.md)
-2.  [locator](../locator/)
+2.  [locator](../locator/locator-library.md)
 3.  sizeConfig property
 
 ##### locator library

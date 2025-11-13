@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/raised_round_edge_button.dart](../../widgets_raised_round_edge_button/)
+2.  [widgets/raised_round_edge_button.dart](../../widgets_raised_round_edge_button/widgets_raised_round_edge_button-library.md)
 3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
 4.  createState method
 
@@ -18,9 +18,13 @@ createState
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -47,12 +51,6 @@ below-sidebar="">
 <span class="returntype">\_RaisedRoundedButtonState</span>
 <span class="name">createState</span>
 
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
-
 </div>
 
 <div class="section desc markdown">
@@ -61,9 +59,7 @@ Creates the mutable state for this widget at a given location in the
 tree.
 
 Subclasses should override this method to return a newly created
-instance of their associated
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-subclass:
+instance of their associated `State` subclass:
 
 ``` language-dart
 @override
@@ -71,18 +67,13 @@ State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
-[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html).
-For example, if the widget is inserted into the tree in multiple
-locations, the framework will create a separate
-[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
-for each location. Similarly, if the widget is removed from the tree and
-later inserted into the tree again, the framework will call
+`StatefulWidget`. For example, if the widget is inserted into the tree
+in multiple locations, the framework will create a separate `State`
+object for each location. Similarly, if the widget is removed from the
+tree and later inserted into the tree again, the framework will call
 [createState](../../widgets_raised_round_edge_button/RaisedRoundedButton/createState.md)
-again to create a fresh
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-object, simplifying the lifecycle of
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)
-objects.
+again to create a fresh `State` object, simplifying the lifecycle of
+`State` objects.
 
 </div>
 
@@ -106,7 +97,7 @@ _RaisedRoundedButtonState  => ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/)
+2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/widgets_raised_round_edge_button-library.md)
 3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
 4.  createState method
 

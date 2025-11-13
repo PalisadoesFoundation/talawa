@@ -1,5 +1,5 @@
 1.  [Constructors](./Frequency-class#constructors.md)
-2.  [new](./Frequency/Frequency.md)
+2.  [Frequency](./Frequency/Frequency.md)
 3.  [Properties](./Frequency-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

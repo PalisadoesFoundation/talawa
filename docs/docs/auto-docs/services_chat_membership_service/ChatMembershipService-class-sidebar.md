@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatMembershipService-class#constructors.md)
-2.  [new](./ChatMembershipService/ChatMembershipService.md)
+2.  [ChatMembershipService](./ChatMembershipService/ChatMembershipService.md)
 3.  [Properties](./ChatMembershipService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [navigationService](./ChatMembershipService/navigationService.md)

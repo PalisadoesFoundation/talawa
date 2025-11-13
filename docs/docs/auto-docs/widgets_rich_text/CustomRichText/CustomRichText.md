@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/rich_text.dart](../../widgets_rich_text/)
+2.  [widgets/rich_text.dart](../../widgets_rich_text/widgets_rich_text-library.md)
 3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
-4.  CustomRichText.new const constructor
+4.  CustomRichText const constructor
 
 <div class="self-name">
 
-CustomRichText.new
+CustomRichText
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -62,9 +66,9 @@ const
 </div>
 
 1.  [talawa](../../index.md)
-2.  [rich_text](../../widgets_rich_text/)
+2.  [rich_text](../../widgets_rich_text/widgets_rich_text-library.md)
 3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
-4.  CustomRichText.new const constructor
+4.  CustomRichText const constructor
 
 ##### CustomRichText class
 

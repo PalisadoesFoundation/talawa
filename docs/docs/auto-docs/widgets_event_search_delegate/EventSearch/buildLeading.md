@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildLeading method
 
@@ -18,9 +18,13 @@ buildLeading
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -44,38 +48,26 @@ below-sidebar="">
 
 </div>
 
-<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="returntype">Widget</span>
 <span class="name">buildLeading</span>(
 
 1.  <span id="buildLeading-param-context"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">context</span></span>
 
 )
-
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
 
 </div>
 
 <div class="section desc markdown">
 
-A widget to display before the current query in the
-[AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
+A widget to display before the current query in the `AppBar`.
 
-Typically an
-[IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)
-configured with a
-[BackButtonIcon](https://api.flutter.dev/flutter/material/BackButtonIcon-class.html)
-that exits the search with
-[close](https://api.flutter.dev/flutter/material/SearchDelegate/close.html).
-One can also use an
-[AnimatedIcon](https://api.flutter.dev/flutter/material/AnimatedIcon-class.html)
-driven by
-[transitionAnimation](https://api.flutter.dev/flutter/material/SearchDelegate/transitionAnimation.html),
+Typically an `IconButton` configured with a `BackButtonIcon` that exits
+the search with
+[close](../../widgets_event_search_delegate/EventSearch/close.md). One
+can also use an `AnimatedIcon` driven by
+[transitionAnimation](../../widgets_event_search_delegate/EventSearch/transitionAnimation.md),
 which animates from e.g. a hamburger menu to the back button as the
 search overlay fades in.
 
@@ -83,8 +75,8 @@ Returns null if no widget should be shown.
 
 See also:
 
-- [AppBar.leading](https://api.flutter.dev/flutter/material/AppBar/leading.html),
-  the intended use for the return value of this method.
+- `AppBar.leading`, the intended use for the return value of this
+  method.
 
 </div>
 
@@ -108,7 +100,7 @@ Widget buildLeading(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_search_delegate](../../widgets_event_search_delegate/)
+2.  [event_search_delegate](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildLeading method
 

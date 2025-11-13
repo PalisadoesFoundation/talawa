@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/post_service.dart](../../services_post_service/)
+2.  [services/post_service.dart](../../services_post_service/services_post_service-library.md)
 3.  [PostService](../../services_post_service/PostService-class.md)
 4.  updatedPostStream property
 
@@ -18,9 +18,13 @@ updatedPostStream
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -40,8 +44,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[Post](../../models_post_post_model/Post-class.md)</span>\></span></span>
-get <span class="name">updatedPostStream</span>
+<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[Post](../../models_post_post_model/Post-class.md)</span>\></span></span>
+<span class="name">updatedPostStream</span>
 
 </div>
 
@@ -72,7 +76,7 @@ Stream<Post> get updatedPostStream => _updatedPostStream;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [post_service](../../services_post_service/)
+2.  [post_service](../../services_post_service/services_post_service-library.md)
 3.  [PostService](../../services_post_service/PostService-class.md)
 4.  updatedPostStream property
 

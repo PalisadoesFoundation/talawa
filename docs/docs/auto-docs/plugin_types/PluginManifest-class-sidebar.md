@@ -1,5 +1,5 @@
 1.  [Constructors](./PluginManifest-class#constructors.md)
-2.  [new](./PluginManifest/PluginManifest.md)
+2.  [PluginManifest](./PluginManifest/PluginManifest.md)
 3.  [Properties](./PluginManifest-class#instance-properties.md)
 4.  [description](./PluginManifest/description.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

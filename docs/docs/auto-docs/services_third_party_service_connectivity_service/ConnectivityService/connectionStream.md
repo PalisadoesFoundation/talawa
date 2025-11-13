@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/third_party_service/connectivity_service.dart](../../services_third_party_service_connectivity_service/)
+2.  [services/third_party_service/connectivity_service.dart](../../services_third_party_service_connectivity_service/services_third_party_service_connectivity_service-library.md)
 3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
 4.  connectionStream property
 
@@ -18,9 +18,13 @@ connectionStream
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -40,8 +44,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)</span>\></span></span>\></span></span>
-get <span class="name">connectionStream</span>
+<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)</span>\></span></span>\></span></span>
+<span class="name">connectionStream</span>
 
 </div>
 
@@ -73,7 +77,7 @@ Stream<List<ConnectivityResult>> get connectionStream =>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [connectivity_service](../../services_third_party_service_connectivity_service/)
+2.  [connectivity_service](../../services_third_party_service_connectivity_service/services_third_party_service_connectivity_service-library.md)
 3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
 4.  connectionStream property
 

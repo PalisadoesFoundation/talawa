@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatSubscriptionService-class#constructors.md)
-2.  [new](./ChatSubscriptionService/ChatSubscriptionService.md)
+2.  [ChatSubscriptionService](./ChatSubscriptionService/ChatSubscriptionService.md)
 3.  [Properties](./ChatSubscriptionService-class#instance-properties.md)
 4.  [chatMessagesStream](./ChatSubscriptionService/chatMessagesStream.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

@@ -1,5 +1,5 @@
 1.  [Constructors](./TalawaMobilePlugin-class#constructors.md)
-2.  [new](./TalawaMobilePlugin/TalawaMobilePlugin.md)
+2.  [TalawaMobilePlugin](./TalawaMobilePlugin/TalawaMobilePlugin.md)
 3.  [Properties](./TalawaMobilePlugin-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [manifest](./TalawaMobilePlugin/manifest.md)

@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/event_card.dart](../../widgets_event_card/)
+2.  [widgets/event_card.dart](../../widgets_event_card/widgets_event_card-library.md)
 3.  [EventCard](../../widgets_event_card/EventCard-class.md)
-4.  EventCard.new const constructor
+4.  EventCard const constructor
 
 <div class="self-name">
 
-EventCard.new
+EventCard
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -61,9 +65,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_card](../../widgets_event_card/)
+2.  [event_card](../../widgets_event_card/widgets_event_card-library.md)
 3.  [EventCard](../../widgets_event_card/EventCard-class.md)
-4.  EventCard.new const constructor
+4.  EventCard const constructor
 
 ##### EventCard class
 

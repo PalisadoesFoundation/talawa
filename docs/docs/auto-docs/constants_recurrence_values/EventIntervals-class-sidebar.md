@@ -1,5 +1,5 @@
 1.  [Constructors](./EventIntervals-class#constructors.md)
-2.  [new](./EventIntervals/EventIntervals.md)
+2.  [EventIntervals](./EventIntervals/EventIntervals.md)
 3.  [Properties](./EventIntervals-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

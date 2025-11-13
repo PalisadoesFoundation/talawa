@@ -1,5 +1,5 @@
 1.  [Constructors](./TimeOuts-class#constructors.md)
-2.  [new](./TimeOuts/TimeOuts.md)
+2.  [TimeOuts](./TimeOuts/TimeOuts.md)
 3.  [Properties](./TimeOuts-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../../view_model_widgets_view_models_custom_drawer_view_model/)
+2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
 3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
 4.  switchAbleOrg property
 
@@ -18,9 +18,13 @@ switchAbleOrg
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -41,7 +45,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)</span>\></span></span>
-get <span class="name">switchAbleOrg</span>
+<span class="name">switchAbleOrg</span>
 
 </div>
 
@@ -68,8 +72,8 @@ List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
 
 <div class="section multi-line-signature">
 
-set <span class="name">switchAbleOrg</span>
-<span class="signature">(<span id="switchAbleOrg=-param-switchableOrg"
+<span class="returntype">void</span>
+<span class="name">switchAbleOrg=</span><span class="signature">(<span id="switchAbleOrg=-param-switchableOrg"
 class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)</span>\></span></span>
 <span class="parameter-name">switchableOrg</span></span>)</span>
 
@@ -103,7 +107,7 @@ set switchAbleOrg(List<OrgInfo> switchableOrg) =>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/)
+2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
 3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
 4.  switchAbleOrg property
 

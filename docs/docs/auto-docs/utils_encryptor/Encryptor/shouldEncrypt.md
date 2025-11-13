@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/encryptor.dart](../../utils_encryptor/)
+2.  [utils/encryptor.dart](../../utils_encryptor/utils_encryptor-library.md)
 3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  shouldEncrypt property
 
@@ -18,9 +18,13 @@ shouldEncrypt
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -78,7 +82,7 @@ static bool shouldEncrypt = false;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [encryptor](../../utils_encryptor/)
+2.  [encryptor](../../utils_encryptor/utils_encryptor-library.md)
 3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  shouldEncrypt property
 

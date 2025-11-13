@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/)
+2.  [view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/view_model_after_auth_view_models_chat_view_models_select_contact_view_model-library.md)
 3.  [SelectContactViewModel](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class.md)
 4.  orgMembersList property
 
@@ -18,9 +18,13 @@ orgMembersList
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -74,7 +78,7 @@ late List<User> orgMembersList = [];
 </div>
 
 1.  [talawa](../../index.md)
-2.  [select_contact_view_model](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/)
+2.  [select_contact_view_model](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/view_model_after_auth_view_models_chat_view_models_select_contact_view_model-library.md)
 3.  [SelectContactViewModel](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class.md)
 4.  orgMembersList property
 

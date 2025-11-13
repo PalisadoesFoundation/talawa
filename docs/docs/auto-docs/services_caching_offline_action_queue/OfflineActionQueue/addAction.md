@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/caching/offline_action_queue.dart](../../services_caching_offline_action_queue/)
+2.  [services/caching/offline_action_queue.dart](../../services_caching_offline_action_queue/services_caching_offline_action_queue-library.md)
 3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
 4.  addAction method
 
@@ -18,9 +18,13 @@ addAction
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,7 +42,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
 <span class="name">addAction</span>(
 
 1.  <span id="addAction-param-action"
@@ -83,7 +87,7 @@ Future<bool> addAction(CachedUserAction action) async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [offline_action_queue](../../services_caching_offline_action_queue/)
+2.  [offline_action_queue](../../services_caching_offline_action_queue/services_caching_offline_action_queue-library.md)
 3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
 4.  addAction method
 

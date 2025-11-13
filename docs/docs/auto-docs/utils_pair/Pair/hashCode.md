@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/pair.dart](../../utils_pair/)
+2.  [utils/pair.dart](../../utils_pair/utils_pair-library.md)
 3.  [Pair<span class="signature">\<<span class="type-parameter">T</span>,
     <span class="type-parameter">U</span>\></span>](../../utils_pair/Pair-class.md)
 4.  hashCode property
@@ -19,9 +19,13 @@ hashCode
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -47,7 +51,7 @@ above-sidebar="utils_pair/Pair-class-sidebar.html" below-sidebar="">
 </div>
 
 <span class="returntype">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>
-get <span class="name">hashCode</span>
+<span class="name">hashCode</span>
 
 <div class="features">
 
@@ -124,7 +128,7 @@ int get hashCode => Object.hash(first, second);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [pair](../../utils_pair/)
+2.  [pair](../../utils_pair/utils_pair-library.md)
 3.  [Pair<span class="signature">\<<span class="type-parameter">T</span>,
     <span class="type-parameter">U</span>\></span>](../../utils_pair/Pair-class.md)
 4.  hashCode property

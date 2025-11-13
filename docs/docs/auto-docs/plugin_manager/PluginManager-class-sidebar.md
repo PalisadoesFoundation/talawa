@@ -1,5 +1,5 @@
 1.  [Constructors](./PluginManager-class#constructors.md)
-2.  [new](./PluginManager/PluginManager.md)
+2.  [PluginManager](./PluginManager/PluginManager.md)
 3.  [Properties](./PluginManager-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [isInitialized](./PluginManager/isInitialized.md)

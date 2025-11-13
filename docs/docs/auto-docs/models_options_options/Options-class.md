@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/options/options.dart](../models_options_options/)
+2.  [models/options/options.dart](../models_options_options/models_options_options-library.md)
 3.  Options class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ Options
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ This class creates a Option model.
 
 ## Constructors
 
-<span class="name">[Options.new](../models_options_options/Options/Options.md)</span><span class="signature"></span>  
+<span class="name">[Options](../models_options_options/Options/Options.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -63,7 +67,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[icon](../models_options_options/Options/icon.md)</span> <span class="signature">↔ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>  
+<span class="name">[icon](../models_options_options/Options/icon.md)</span> <span class="signature">↔ Widget</span>  
 <div class="features">
 
 <span class="feature">getter/setter pair</span>
@@ -94,7 +98,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[trailingIconButton](../models_options_options/Options/trailingIconButton.md)</span> <span class="signature">↔ [IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)?</span>  
+<span class="name">[trailingIconButton](../models_options_options/Options/trailingIconButton.md)</span> <span class="signature">↔ IconButton?</span>  
 <div class="features">
 
 <span class="feature">getter/setter pair</span>
@@ -152,7 +156,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [options](../models_options_options/)
+2.  [options](../models_options_options/models_options_options-library.md)
 3.  Options class
 
 ##### options library

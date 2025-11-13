@@ -1,5 +1,5 @@
 1.  [Constructors](./TalawaTheme-class#constructors.md)
-2.  [new](./TalawaTheme/TalawaTheme.md)
+2.  [TalawaTheme](./TalawaTheme/TalawaTheme.md)
 3.  [Properties](./TalawaTheme-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

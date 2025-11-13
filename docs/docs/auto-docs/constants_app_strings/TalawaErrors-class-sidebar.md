@@ -1,5 +1,5 @@
 1.  [Constructors](./TalawaErrors-class#constructors.md)
-2.  [new](./TalawaErrors/TalawaErrors.md)
+2.  [TalawaErrors](./TalawaErrors/TalawaErrors.md)
 3.  [Properties](./TalawaErrors-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

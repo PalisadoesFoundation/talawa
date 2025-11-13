@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/constants_recurrence_values-library.md)
 3.  RecurrenceUtils class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ RecurrenceUtils
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ conatins all neccessary utils.
 
 ## Constructors
 
-<span class="name">[RecurrenceUtils.new](../constants_recurrence_values/RecurrenceUtils/RecurrenceUtils.md)</span><span class="signature"></span>  
+<span class="name">[RecurrenceUtils](../constants_recurrence_values/RecurrenceUtils/RecurrenceUtils.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -159,7 +163,7 @@ represents all the week days.
 </div>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/)
+2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
 3.  RecurrenceUtils class
 
 ##### recurrence_values library

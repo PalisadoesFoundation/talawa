@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [custom_painters/talawa_logo.dart](../../custom_painters_talawa_logo/)
+2.  [custom_painters/talawa_logo.dart](../../custom_painters_talawa_logo/custom_painters_talawa_logo-library.md)
 3.  [AppLogo](../../custom_painters_talawa_logo/AppLogo-class.md)
-4.  AppLogo.new constructor
+4.  AppLogo constructor
 
 <div class="self-name">
 
-AppLogo.new
+AppLogo
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -51,9 +55,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [talawa_logo](../../custom_painters_talawa_logo/)
+2.  [talawa_logo](../../custom_painters_talawa_logo/custom_painters_talawa_logo-library.md)
 3.  [AppLogo](../../custom_painters_talawa_logo/AppLogo-class.md)
-4.  AppLogo.new constructor
+4.  AppLogo constructor
 
 ##### AppLogo class
 

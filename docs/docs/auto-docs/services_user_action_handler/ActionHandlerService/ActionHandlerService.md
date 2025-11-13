@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/user_action_handler.dart](../../services_user_action_handler/)
+2.  [services/user_action_handler.dart](../../services_user_action_handler/services_user_action_handler-library.md)
 3.  [ActionHandlerService](../../services_user_action_handler/ActionHandlerService-class.md)
-4.  ActionHandlerService.new constructor
+4.  ActionHandlerService constructor
 
 <div class="self-name">
 
-ActionHandlerService.new
+ActionHandlerService
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -51,9 +55,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_action_handler](../../services_user_action_handler/)
+2.  [user_action_handler](../../services_user_action_handler/services_user_action_handler-library.md)
 3.  [ActionHandlerService](../../services_user_action_handler/ActionHandlerService-class.md)
-4.  ActionHandlerService.new constructor
+4.  ActionHandlerService constructor
 
 ##### ActionHandlerService class
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [widgets/custom_avatar.dart](../widgets_custom_avatar/)
+2.  [widgets/custom_avatar.dart](../widgets_custom_avatar/widgets_custom_avatar-library.md)
 3.  CustomAvatar class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ CustomAvatar
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -46,12 +50,8 @@ with a standard background color.
 
 <div class="section">
 
-Inheritance  
-- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-- [DiagnosticableTree](https://api.flutter.dev/flutter/foundation/DiagnosticableTree-class.html)
-- [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-- [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
-- CustomAvatar
+Available Extensions  
+- [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.2/flutter_animate/AnimateWidgetExtensions.html)
 
 </div>
 
@@ -59,7 +59,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomAvatar.new](../widgets_custom_avatar/CustomAvatar/CustomAvatar.md)</span><span class="signature"></span>  
+<span class="name">[CustomAvatar](../widgets_custom_avatar/CustomAvatar/CustomAvatar.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const
@@ -72,7 +72,7 @@ const
 
 ## Properties
 
-<span class="name">[cacheManager](../widgets_custom_avatar/CustomAvatar/cacheManager.md)</span> <span class="signature">→ dynamic</span>  
+<span class="name">[cacheManager](../widgets_custom_avatar/CustomAvatar/cacheManager.md)</span> <span class="signature">→ [BaseCacheManager](https://pub.dev/documentation/flutter_cache_manager/3.4.1/flutter_cache_manager/BaseCacheManager-class.html)?</span>  
 Custom avatar data.
 
 <div class="features">
@@ -99,7 +99,7 @@ Custom avatar data.
 
 </div>
 
-<span class="name">[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+<span class="name">[hashCode](../widgets_custom_avatar/CustomAvatar/hashCode.md)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
 The hash code for this object.
 
 <div class="features">
@@ -127,7 +127,7 @@ Custom avatar data.
 
 </div>
 
-<span class="name">[key](https://api.flutter.dev/flutter/widgets/Widget/key.html)</span> <span class="signature">→ [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?</span>  
+<span class="name">[key](../widgets_custom_avatar/CustomAvatar/key.md)</span> <span class="signature">→ Key?</span>  
 Controls how one widget replaces another widget in the tree.
 
 <div class="features">
@@ -161,19 +161,12 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[build](../widgets_custom_avatar/CustomAvatar/build.md)</span><span class="signature">(<span id="build-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
+<span class="name">[build](../widgets_custom_avatar/CustomAvatar/build.md)</span><span class="signature">(<span id="build-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
 Describes the part of the user interface represented by this widget.
 
-<div class="features">
-
-<span class="feature">override</span>
-
-</div>
-
-<span class="name">[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)</span><span class="signature"> <span class="returntype parameter">→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)</span> </span>  
-Creates a
-[StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)
-to manage this widget's location in the tree.
+<span class="name">[createElement](../widgets_custom_avatar/CustomAvatar/createElement.md)</span><span class="signature"> <span class="returntype parameter">→ StatelessElement</span> </span>  
+Creates a `StatelessElement` to manage this widget's location in the
+tree.
 
 <div class="features">
 
@@ -181,10 +174,9 @@ to manage this widget's location in the tree.
 
 </div>
 
-<span class="name">[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)</span>\></span></span> </span>  
-Returns a list of
-[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
-objects describing this node's children.
+<span class="name">[debugDescribeChildren](../widgets_custom_avatar/CustomAvatar/debugDescribeChildren.md)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">DiagnosticsNode</span>\></span></span> </span>  
+Returns a list of `DiagnosticsNode` objects describing this node's
+children.
 
 <div class="features">
 
@@ -192,7 +184,7 @@ objects describing this node's children.
 
 </div>
 
-<span class="name">[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[debugFillProperties](../widgets_custom_avatar/CustomAvatar/debugFillProperties.md)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">DiagnosticPropertiesBuilder</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Add additional properties associated with the node.
 
 <div class="features">
@@ -210,10 +202,9 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)</span><span class="signature"> <span class="returntype parameter">→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)</span> </span>  
+<span class="name">[toDiagnosticsNode](../widgets_custom_avatar/CustomAvatar/toDiagnosticsNode.md)</span><span class="signature"> <span class="returntype parameter">→ DiagnosticsNode</span> </span>  
 Returns a debug representation of the object that is used by debugging
-tools and by
-[DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
+tools and by `DiagnosticsNode.toStringDeep`.
 
 <div class="features">
 
@@ -221,7 +212,7 @@ tools and by
 
 </div>
 
-<span class="name">[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toString](../widgets_custom_avatar/CustomAvatar/toString.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 A string representation of this object.
 
 <div class="features">
@@ -230,7 +221,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toStringDeep](../widgets_custom_avatar/CustomAvatar/toStringDeep.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Returns a string representation of this node and its descendants.
 
 <div class="features">
@@ -239,7 +230,7 @@ Returns a string representation of this node and its descendants.
 
 </div>
 
-<span class="name">[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toStringShallow](../widgets_custom_avatar/CustomAvatar/toStringShallow.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Returns a one-line detailed description of the object.
 
 <div class="features">
@@ -248,7 +239,7 @@ Returns a one-line detailed description of the object.
 
 </div>
 
-<span class="name">[toStringShort](https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toStringShort](../widgets_custom_avatar/CustomAvatar/toStringShort.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 A short, textual description of this widget.
 
 <div class="features">
@@ -263,7 +254,7 @@ A short, textual description of this widget.
 
 ## Operators
 
-<span class="name">[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+<span class="name">[operator ==](../widgets_custom_avatar/CustomAvatar/operator_equals.md)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
 The equality operator.
 
 <div class="features">
@@ -283,7 +274,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [custom_avatar](../widgets_custom_avatar/)
+2.  [custom_avatar](../widgets_custom_avatar/widgets_custom_avatar-library.md)
 3.  CustomAvatar class
 
 ##### custom_avatar library

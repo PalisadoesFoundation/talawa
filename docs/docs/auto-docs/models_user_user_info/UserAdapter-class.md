@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/user/user_info.dart](../models_user_user_info/)
+2.  [models/user/user_info.dart](../models_user_user_info/models_user_user_info-library.md)
 3.  UserAdapter class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ UserAdapter
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -48,7 +52,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[UserAdapter.new](../models_user_user_info/UserAdapter/UserAdapter.md)</span><span class="signature"></span>  
+<span class="name">[UserAdapter](../models_user_user_info/UserAdapter/UserAdapter.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -153,7 +157,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [user_info](../models_user_user_info/)
+2.  [user_info](../models_user_user_info/models_user_user_info-library.md)
 3.  UserAdapter class
 
 ##### user_info library

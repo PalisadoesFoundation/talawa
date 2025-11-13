@@ -1,5 +1,5 @@
 1.  [Constructors](./ActionHandlerService-class#constructors.md)
-2.  [new](./ActionHandlerService/ActionHandlerService.md)
+2.  [ActionHandlerService](./ActionHandlerService/ActionHandlerService.md)
 3.  [Properties](./ActionHandlerService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

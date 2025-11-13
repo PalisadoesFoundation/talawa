@@ -1,5 +1,5 @@
 1.  [Constructors](./CriticalActionException-class#constructors.md)
-2.  [new](./CriticalActionException/CriticalActionException.md)
+2.  [CriticalActionException](./CriticalActionException/CriticalActionException.md)
 3.  [Properties](./CriticalActionException-class#instance-properties.md)
 4.  [actionError](./CriticalActionException/actionError.md)
 5.  [graphqlErrors](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/graphqlErrors.html)

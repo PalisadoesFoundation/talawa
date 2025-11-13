@@ -1,5 +1,5 @@
 1.  [Constructors](./PageInfo-class#constructors.md)
-2.  [new](./PageInfo/PageInfo.md)
+2.  [PageInfo](./PageInfo/PageInfo.md)
 3.  [fromJson](./PageInfo/PageInfo.fromJson.md)
 4.  [Properties](./PageInfo-class#instance-properties.md)
 5.  [endCursor](./PageInfo/endCursor.md)

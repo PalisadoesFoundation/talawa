@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [plugin/types.dart](../../plugin_types/)
+2.  [plugin/types.dart](../../plugin_types/plugin_types-library.md)
 3.  [PluginRoute](../../plugin_types/PluginRoute-class.md)
 4.  builder property
 
@@ -18,9 +18,13 @@ builder
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,8 +42,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-[WidgetBuilder](https://api.flutter.dev/flutter/widgets/WidgetBuilder.html)
-<span class="name">builder</span>
+WidgetBuilder <span class="name">builder</span>
 
 <div class="features">
 
@@ -74,7 +77,7 @@ final WidgetBuilder builder;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/)
+2.  [types](../../plugin_types/plugin_types-library.md)
 3.  [PluginRoute](../../plugin_types/PluginRoute-class.md)
 4.  builder property
 

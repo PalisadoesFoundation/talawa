@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/pre_auth_screens/signup_details.dart](../../views_pre_auth_screens_signup_details/)
+2.  [views/pre_auth_screens/signup_details.dart](../../views_pre_auth_screens_signup_details/views_pre_auth_screens_signup_details-library.md)
 3.  [SignUpDetails](../../views_pre_auth_screens_signup_details/SignUpDetails-class.md)
 4.  selectedOrg property
 
@@ -18,9 +18,13 @@ selectedOrg
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -74,7 +78,7 @@ final OrgInfo selectedOrg;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [signup_details](../../views_pre_auth_screens_signup_details/)
+2.  [signup_details](../../views_pre_auth_screens_signup_details/views_pre_auth_screens_signup_details-library.md)
 3.  [SignUpDetails](../../views_pre_auth_screens_signup_details/SignUpDetails-class.md)
 4.  selectedOrg property
 

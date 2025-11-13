@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/demo_screens/organization_feed_demo.dart](../../views_demo_screens_organization_feed_demo/)
+2.  [views/demo_screens/organization_feed_demo.dart](../../views_demo_screens_organization_feed_demo/views_demo_screens_organization_feed_demo-library.md)
 3.  [DemoOrganizationFeed](../../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.md)
 4.  demoOrganisationFeedPage method
 
@@ -18,9 +18,13 @@ demoOrganisationFeedPage
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,11 +42,11 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="returntype">Widget</span>
 <span class="name">demoOrganisationFeedPage</span>(
 
 1.  <span id="demoOrganisationFeedPage-param-context"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -82,7 +86,7 @@ Widget demoOrganisationFeedPage(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [organization_feed_demo](../../views_demo_screens_organization_feed_demo/)
+2.  [organization_feed_demo](../../views_demo_screens_organization_feed_demo/views_demo_screens_organization_feed_demo-library.md)
 3.  [DemoOrganizationFeed](../../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.md)
 4.  demoOrganisationFeedPage method
 

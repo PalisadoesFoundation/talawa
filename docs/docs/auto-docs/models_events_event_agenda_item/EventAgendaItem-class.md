@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/events/event_agenda_item.dart](../models_events_event_agenda_item/)
+2.  [models/events/event_agenda_item.dart](../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
 3.  EventAgendaItem class
 
 <div class="self-name">
@@ -17,9 +17,13 @@ EventAgendaItem
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -45,7 +49,7 @@ Model for Event Agenda Item.
 
 ## Constructors
 
-<span class="name">[EventAgendaItem.new](../models_events_event_agenda_item/EventAgendaItem/EventAgendaItem.md)</span><span class="signature"></span>  
+<span class="name">[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem/EventAgendaItem.md)</span><span class="signature"></span>  
 
 <span class="name">[EventAgendaItem.fromJson](../models_events_event_agenda_item/EventAgendaItem/EventAgendaItem.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 <div class="constructor-modifier features">
@@ -230,7 +234,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_agenda_item](../models_events_event_agenda_item/)
+2.  [event_agenda_item](../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
 3.  EventAgendaItem class
 
 ##### event_agenda_item library

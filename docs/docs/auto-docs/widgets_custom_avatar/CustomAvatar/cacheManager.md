@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/custom_avatar.dart](../../widgets_custom_avatar/)
+2.  [widgets/custom_avatar.dart](../../widgets_custom_avatar/widgets_custom_avatar-library.md)
 3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
 4.  cacheManager property
 
@@ -18,9 +18,13 @@ cacheManager
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,7 +42,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-dynamic <span class="name">cacheManager</span>
+[BaseCacheManager](https://pub.dev/documentation/flutter_cache_manager/3.4.1/flutter_cache_manager/BaseCacheManager-class.html)?
+<span class="name">cacheManager</span>
 
 <div class="features">
 
@@ -73,7 +78,7 @@ final BaseCacheManager? cacheManager;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_avatar](../../widgets_custom_avatar/)
+2.  [custom_avatar](../../widgets_custom_avatar/widgets_custom_avatar-library.md)
 3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
 4.  cacheManager property
 

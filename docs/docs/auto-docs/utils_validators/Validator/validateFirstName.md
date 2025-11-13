@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/validators.dart](../../utils_validators/)
+2.  [utils/validators.dart](../../utils_validators/utils_validators-library.md)
 3.  [Validator](../../utils_validators/Validator-class.md)
 4.  validateFirstName static method
 
@@ -18,9 +18,13 @@ validateFirstName
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -82,7 +86,7 @@ static String? validateFirstName(String value)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [validators](../../utils_validators/)
+2.  [validators](../../utils_validators/utils_validators-library.md)
 3.  [Validator](../../utils_validators/Validator-class.md)
 4.  validateFirstName static method
 

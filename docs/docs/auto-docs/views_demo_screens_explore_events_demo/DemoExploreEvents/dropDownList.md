@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/demo_screens/explore_events_demo.dart](../../views_demo_screens_explore_events_demo/)
+2.  [views/demo_screens/explore_events_demo.dart](../../views_demo_screens_explore_events_demo/views_demo_screens_explore_events_demo-library.md)
 3.  [DemoExploreEvents](../../views_demo_screens_explore_events_demo/DemoExploreEvents-class.md)
 4.  dropDownList method
 
@@ -18,9 +18,13 @@ dropDownList
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,14 +42,14 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
+<span class="returntype">Widget</span>
 <span class="name">dropDownList</span>(
 
 1.  <span id="dropDownList-param-model"
     class="parameter"><span class="type-annotation">[ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)</span>
     <span class="parameter-name">model</span>, </span>
 2.  <span id="dropDownList-param-context"
-    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)</span>
+    class="parameter"><span class="type-annotation">BuildContext</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -86,7 +90,7 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [explore_events_demo](../../views_demo_screens_explore_events_demo/)
+2.  [explore_events_demo](../../views_demo_screens_explore_events_demo/views_demo_screens_explore_events_demo-library.md)
 3.  [DemoExploreEvents](../../views_demo_screens_explore_events_demo/DemoExploreEvents-class.md)
 4.  dropDownList method
 

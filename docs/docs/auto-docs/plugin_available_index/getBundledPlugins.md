@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [plugin/available/index.dart](../plugin_available_index/)
+2.  [plugin/available/index.dart](../plugin_available_index/plugin_available_index-library.md)
 3.  getBundledPlugins function
 
 <div class="self-name">
@@ -17,9 +17,13 @@ getBundledPlugins
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -73,7 +77,7 @@ List<TalawaMobilePlugin>  => [];
 </div>
 
 1.  [talawa](../index.md)
-2.  [index](../plugin_available_index/)
+2.  [index](../plugin_available_index/plugin_available_index-library.md)
 3.  getBundledPlugins function
 
 ##### index library

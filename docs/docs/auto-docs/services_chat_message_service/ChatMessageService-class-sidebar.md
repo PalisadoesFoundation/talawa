@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatMessageService-class#constructors.md)
-2.  [new](./ChatMessageService/ChatMessageService.md)
+2.  [ChatMessageService](./ChatMessageService/ChatMessageService.md)
 3.  [Properties](./ChatMessageService-class#instance-properties.md)
 4.  [beforeCursor](./ChatMessageService/beforeCursor.md)
 5.  [chatMessagesStream](./ChatMessageService/chatMessagesStream.md)

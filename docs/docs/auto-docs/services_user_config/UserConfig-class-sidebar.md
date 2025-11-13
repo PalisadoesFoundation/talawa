@@ -1,5 +1,5 @@
 1.  [Constructors](./UserConfig-class#constructors.md)
-2.  [new](./UserConfig/UserConfig.md)
+2.  [UserConfig](./UserConfig/UserConfig.md)
 3.  [Properties](./UserConfig-class#instance-properties.md)
 4.  [currentOrg](./UserConfig/currentOrg.md)
 5.  [currentOrgInfoController](./UserConfig/currentOrgInfoController.md)

@@ -8,19 +8,23 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/create_group_bottom_sheet.dart](../../views_after_auth_screens_chat_create_group_bottom_sheet/)
+2.  [views/after_auth_screens/chat/create_group_bottom_sheet.dart](../../views_after_auth_screens_chat_create_group_bottom_sheet/views_after_auth_screens_chat_create_group_bottom_sheet-library.md)
 3.  [CreateGroupBottomSheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/CreateGroupBottomSheet-class.md)
-4.  CreateGroupBottomSheet.new const constructor
+4.  CreateGroupBottomSheet const constructor
 
 <div class="self-name">
 
-CreateGroupBottomSheet.new
+CreateGroupBottomSheet
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -67,9 +71,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_group_bottom_sheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/)
+2.  [create_group_bottom_sheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/views_after_auth_screens_chat_create_group_bottom_sheet-library.md)
 3.  [CreateGroupBottomSheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/CreateGroupBottomSheet-class.md)
-4.  CreateGroupBottomSheet.new const constructor
+4.  CreateGroupBottomSheet const constructor
 
 ##### CreateGroupBottomSheet class
 

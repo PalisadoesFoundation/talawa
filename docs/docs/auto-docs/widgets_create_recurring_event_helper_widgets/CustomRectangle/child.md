@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
 3.  [CustomRectangle](../../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.md)
 4.  child property
 
@@ -18,9 +18,13 @@ child
 
 </div>
 
-<span id="dark-theme-button" class="material-symbols-outlined"
-aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+<div id="theme-button" class="toggle" title="Toggle brightness">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined"> light_mode </span>
+
+</div>
 
 </div>
 
@@ -38,8 +42,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-<span class="name">child</span>
+Widget <span class="name">child</span>
 
 <div class="features">
 
@@ -74,7 +77,7 @@ final Widget child;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
+2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
 3.  [CustomRectangle](../../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.md)
 4.  child property
 
