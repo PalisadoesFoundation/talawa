@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/queries.dart](../../utils_queries/utils_queries-library.md)
+2.  [utils/queries.dart](../../utils_queries/)
 3.  [Queries](../../utils_queries/Queries-class.md)
 4.  registerUser method
 
@@ -18,13 +18,9 @@ registerUser
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -109,7 +105,7 @@ String registerUser(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [queries](../../utils_queries/utils_queries-library.md)
+2.  [queries](../../utils_queries/)
 3.  [Queries](../../utils_queries/Queries-class.md)
 4.  registerUser method
 

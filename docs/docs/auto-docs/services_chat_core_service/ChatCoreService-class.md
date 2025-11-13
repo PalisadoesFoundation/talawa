@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/chat_core_service.dart](../services_chat_core_service/services_chat_core_service-library.md)
+2.  [services/chat_core_service.dart](../services_chat_core_service/)
 3.  ChatCoreService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ChatCoreService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -57,7 +53,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[ChatCoreService](../services_chat_core_service/ChatCoreService/ChatCoreService.md)</span><span class="signature"></span>  
+<span class="name">[ChatCoreService.new](../services_chat_core_service/ChatCoreService/ChatCoreService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -65,7 +61,7 @@ Services include:
 
 ## Properties
 
-<span class="name">[chatListStream](../services_chat_core_service/ChatCoreService/chatListStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)</span>\></span></span>  
+<span class="name">[chatListStream](../services_chat_core_service/ChatCoreService/chatListStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)</span>\></span></span>  
 Getter for chat list stream.
 
 <div class="features">
@@ -109,16 +105,16 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[createChat](../services_chat_core_service/ChatCoreService/createChat.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)?</span>\></span></span> </span>  
+<span class="name">[createChat](../services_chat_core_service/ChatCoreService/createChat.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)?</span>\></span></span> </span>  
 Creates a new chat.
 
-<span class="name">[deleteChat](../services_chat_core_service/ChatCoreService/deleteChat.md)</span><span class="signature">(<span id="deleteChat-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[deleteChat](../services_chat_core_service/ChatCoreService/deleteChat.md)</span><span class="signature">(<span id="deleteChat-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Deletes a chat.
 
 <span class="name">[dispose](../services_chat_core_service/ChatCoreService/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Disposes the service and closes streams.
 
-<span class="name">[getChatsByUser](../services_chat_core_service/ChatCoreService/getChatsByUser.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[getChatsByUser](../services_chat_core_service/ChatCoreService/getChatsByUser.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)</span>\></span></span>\></span></span> </span>  
 Retrieves all chats for the current user.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -139,7 +135,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[updateChat](../services_chat_core_service/ChatCoreService/updateChat.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[updateChat](../services_chat_core_service/ChatCoreService/updateChat.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Updates a chat's name and/or description.
 
 </div>
@@ -168,7 +164,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_core_service](../services_chat_core_service/services_chat_core_service-library.md)
+2.  [chat_core_service](../services_chat_core_service/)
 3.  ChatCoreService class
 
 ##### chat_core_service library

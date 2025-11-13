@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/navigation_service.dart](../../services_navigation_service/services_navigation_service-library.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  printNavigatorState method
 
@@ -18,13 +18,9 @@ printNavigatorState
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -76,7 +72,7 @@ void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [navigation_service](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  printNavigatorState method
 

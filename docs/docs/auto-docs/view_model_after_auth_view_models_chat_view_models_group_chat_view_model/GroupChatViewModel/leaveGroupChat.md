@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/view_model_after_auth_view_models_chat_view_models_group_chat_view_model-library.md)
+2.  [view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/)
 3.  [GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)
 4.  leaveGroupChat method
 
@@ -18,13 +18,9 @@ leaveGroupChat
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
 <span class="name">leaveGroupChat</span>(
 
 1.  <span id="leaveGroupChat-param-chatId"
@@ -90,7 +86,7 @@ Future<bool> leaveGroupChat(String chatId, Chat chat) async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/view_model_after_auth_view_models_chat_view_models_group_chat_view_model-library.md)
+2.  [group_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/)
 3.  [GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)
 4.  leaveGroupChat method
 

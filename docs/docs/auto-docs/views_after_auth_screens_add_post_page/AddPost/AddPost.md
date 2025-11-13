@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/add_post_page.dart](../../views_after_auth_screens_add_post_page/views_after_auth_screens_add_post_page-library.md)
+2.  [views/after_auth_screens/add_post_page.dart](../../views_after_auth_screens_add_post_page/)
 3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.md)
-4.  AddPost const constructor
+4.  AddPost.new const constructor
 
 <div class="self-name">
 
-AddPost
+AddPost.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [add_post_page](../../views_after_auth_screens_add_post_page/views_after_auth_screens_add_post_page-library.md)
+2.  [add_post_page](../../views_after_auth_screens_add_post_page/)
 3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.md)
-4.  AddPost const constructor
+4.  AddPost.new const constructor
 
 ##### AddPost class
 

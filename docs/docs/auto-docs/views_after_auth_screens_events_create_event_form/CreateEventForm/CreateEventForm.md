@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/events/create_event_form.dart](../../views_after_auth_screens_events_create_event_form/views_after_auth_screens_events_create_event_form-library.md)
+2.  [views/after_auth_screens/events/create_event_form.dart](../../views_after_auth_screens_events_create_event_form/)
 3.  [CreateEventForm](../../views_after_auth_screens_events_create_event_form/CreateEventForm-class.md)
-4.  CreateEventForm const constructor
+4.  CreateEventForm.new const constructor
 
 <div class="self-name">
 
-CreateEventForm
+CreateEventForm.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_event_form](../../views_after_auth_screens_events_create_event_form/views_after_auth_screens_events_create_event_form-library.md)
+2.  [create_event_form](../../views_after_auth_screens_events_create_event_form/)
 3.  [CreateEventForm](../../views_after_auth_screens_events_create_event_form/CreateEventForm-class.md)
-4.  CreateEventForm const constructor
+4.  CreateEventForm.new const constructor
 
 ##### CreateEventForm class
 

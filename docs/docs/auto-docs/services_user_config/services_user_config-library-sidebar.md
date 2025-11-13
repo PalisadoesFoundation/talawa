@@ -1,2 +1,2 @@
-1.  [Classes](./services_user_config-library#classes.md)
+1.  [Classes](./#classes)
 2.  [UserConfig](./UserConfig-class.md)

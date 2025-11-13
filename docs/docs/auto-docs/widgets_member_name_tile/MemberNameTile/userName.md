@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/member_name_tile.dart](../../widgets_member_name_tile/widgets_member_name_tile-library.md)
+2.  [widgets/member_name_tile.dart](../../widgets_member_name_tile/)
 3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
 4.  userName property
 
@@ -18,13 +18,9 @@ userName
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ final String userName;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [member_name_tile](../../widgets_member_name_tile/widgets_member_name_tile-library.md)
+2.  [member_name_tile](../../widgets_member_name_tile/)
 3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
 4.  userName property
 

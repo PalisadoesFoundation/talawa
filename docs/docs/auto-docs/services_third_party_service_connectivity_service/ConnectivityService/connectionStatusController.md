@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/third_party_service/connectivity_service.dart](../../services_third_party_service_connectivity_service/services_third_party_service_connectivity_service-library.md)
+2.  [services/third_party_service/connectivity_service.dart](../../services_third_party_service_connectivity_service/)
 3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
 4.  connectionStatusController property
 
@@ -18,13 +18,9 @@ connectionStatusController
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ late StreamController<List<ConnectivityResult>> connectionStatusController;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [connectivity_service](../../services_third_party_service_connectivity_service/services_third_party_service_connectivity_service-library.md)
+2.  [connectivity_service](../../services_third_party_service_connectivity_service/)
 3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
 4.  connectionStatusController property
 

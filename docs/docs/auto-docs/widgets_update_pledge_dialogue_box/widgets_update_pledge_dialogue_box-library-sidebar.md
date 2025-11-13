@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_update_pledge_dialogue_box-library#classes.md)
+1.  [Classes](./#classes)
 2.  [UpdatePledgeDialog](./UpdatePledgeDialog-class.md)

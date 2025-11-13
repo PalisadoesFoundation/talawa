@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [views/after_auth_screens/events/create_event_page.dart](../views_after_auth_screens_events_create_event_page/views_after_auth_screens_events_create_event_page-library.md)
+2.  [views/after_auth_screens/events/create_event_page.dart](../views_after_auth_screens_events_create_event_page/)
 3.  CreateEventPageState class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ CreateEventPageState
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -48,8 +44,10 @@ in the Organization.
 
 <div class="section">
 
-Available Extensions  
-- [StateExt](https://pub.dev/documentation/tutorial_coach_mark/1.3.3/tutorial_coach_mark/StateExt.html)
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [State](https://api.flutter.dev/flutter/widgets/State-class.html)<span class="signature">\<<span class="type-parameter">[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)</span>\></span>
+- CreateEventPageState
 
 </div>
 
@@ -57,7 +55,7 @@ Available Extensions
 
 ## Constructors
 
-<span class="name">[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.md)</span><span class="signature"></span>  
+<span class="name">[CreateEventPageState.new](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -65,7 +63,7 @@ Available Extensions
 
 ## Properties
 
-<span class="name">[context](../views_after_auth_screens_events_create_event_page/CreateEventPageState/context.md)</span> <span class="signature">→ BuildContext</span>  
+<span class="name">[context](https://api.flutter.dev/flutter/widgets/State/context.html)</span> <span class="signature">→ [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)</span>  
 The location in the tree where this widget builds.
 
 <div class="features">
@@ -85,8 +83,10 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[mounted](../views_after_auth_screens_events_create_event_page/CreateEventPageState/mounted.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
-Whether this `State` object is currently in a tree.
+<span class="name">[mounted](https://api.flutter.dev/flutter/widgets/State/mounted.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether this
+[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
+is currently in a tree.
 
 <div class="features">
 
@@ -114,7 +114,7 @@ venue selected by the user.
 
 </div>
 
-<span class="name">[widget](../views_after_auth_screens_events_create_event_page/CreateEventPageState/widget.md)</span> <span class="signature">→ [CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)</span>  
+<span class="name">[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)</span> <span class="signature">→ [CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)</span>  
 The current configuration.
 
 <div class="features">
@@ -130,10 +130,10 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[activate](../views_after_auth_screens_events_create_event_page/CreateEventPageState/activate.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[activate](https://api.flutter.dev/flutter/widgets/State/activate.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Called when this object is reinserted into the tree after having been
 removed via
-[deactivate](../views_after_auth_screens_events_create_event_page/CreateEventPageState/deactivate.md).
+[deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html).
 
 <div class="features">
 
@@ -141,8 +141,14 @@ removed via
 
 </div>
 
-<span class="name">[build](../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.md)</span><span class="signature">(<span id="build-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
+<span class="name">[build](../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.md)</span><span class="signature">(<span id="build-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
 Describes the part of the user interface represented by this widget.
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 <span class="name">[dateUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater1.md)</span><span class="signature">(<span id="dateUpdater1-param-date" class="parameter"><span class="type-annotation">[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.md)</span> <span class="parameter-name">date</span>, </span><span id="dateUpdater1-param-model" class="parameter"><span class="type-annotation">[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)</span> <span class="parameter-name">model</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Handles the selection and deselection of categories.
@@ -150,7 +156,7 @@ Handles the selection and deselection of categories.
 <span class="name">[dateUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater2.md)</span><span class="signature">(<span id="dateUpdater2-param-date" class="parameter"><span class="type-annotation">[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.md)</span> <span class="parameter-name">date</span>, </span><span id="dateUpdater2-param-model" class="parameter"><span class="type-annotation">[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)</span> <span class="parameter-name">model</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Handles the selection and deselection of categories.
 
-<span class="name">[deactivate](../views_after_auth_screens_events_create_event_page/CreateEventPageState/deactivate.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Called when this object is removed from the tree.
 
 <div class="features">
@@ -159,7 +165,7 @@ Called when this object is removed from the tree.
 
 </div>
 
-<span class="name">[debugFillProperties](../views_after_auth_screens_events_create_event_page/CreateEventPageState/debugFillProperties.md)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">DiagnosticPropertiesBuilder</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Add additional properties associated with the node.
 
 <div class="features">
@@ -168,8 +174,10 @@ Add additional properties associated with the node.
 
 </div>
 
-<span class="name">[didChangeDependencies](../views_after_auth_screens_events_create_event_page/CreateEventPageState/didChangeDependencies.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
-Called when a dependency of this `State` object changes.
+<span class="name">[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Called when a dependency of this
+[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
+changes.
 
 <div class="features">
 
@@ -177,7 +185,7 @@ Called when a dependency of this `State` object changes.
 
 </div>
 
-<span class="name">[didUpdateWidget](../views_after_auth_screens_events_create_event_page/CreateEventPageState/didUpdateWidget.md)</span><span class="signature">(<span id="didUpdateWidget-param-oldWidget" class="parameter">covariant <span class="type-annotation">[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)</span> <span class="parameter-name">oldWidget</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)</span><span class="signature">(<span id="didUpdateWidget-param-oldWidget" class="parameter">covariant <span class="type-annotation">[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)</span> <span class="parameter-name">oldWidget</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Called whenever the widget configuration changes.
 
 <div class="features">
@@ -186,7 +194,7 @@ Called whenever the widget configuration changes.
 
 </div>
 
-<span class="name">[dispose](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Called when this object is removed from the tree permanently.
 
 <div class="features">
@@ -195,7 +203,7 @@ Called when this object is removed from the tree permanently.
 
 </div>
 
-<span class="name">[initState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/initState.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[initState](https://api.flutter.dev/flutter/widgets/State/initState.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Called when this object is inserted into the tree.
 
 <div class="features">
@@ -213,7 +221,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[reassemble](../views_after_auth_screens_events_create_event_page/CreateEventPageState/reassemble.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[reassemble](https://api.flutter.dev/flutter/widgets/State/reassemble.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Called whenever the application is reassembled during debugging, for
 example during hot reload.
 
@@ -223,7 +231,7 @@ example during hot reload.
 
 </div>
 
-<span class="name">[setState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/setState.md)</span><span class="signature">(<span id="setState-param-fn" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">fn</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)</span><span class="signature">(<span id="setState-param-fn" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">fn</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Notify the framework that the internal state of this object has changed.
 
 <div class="features">
@@ -232,15 +240,16 @@ Notify the framework that the internal state of this object has changed.
 
 </div>
 
-<span class="name">[timeUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater1.md)</span><span class="signature">(<span id="timeUpdater1-param-time" class="parameter"><span class="type-annotation">TimeOfDay</span> <span class="parameter-name">time</span>, </span><span id="timeUpdater1-param-model" class="parameter"><span class="type-annotation">[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)</span> <span class="parameter-name">model</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[timeUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater1.md)</span><span class="signature">(<span id="timeUpdater1-param-time" class="parameter"><span class="type-annotation">[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)</span> <span class="parameter-name">time</span>, </span><span id="timeUpdater1-param-model" class="parameter"><span class="type-annotation">[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)</span> <span class="parameter-name">model</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Handles the selection and deselection of categories.
 
-<span class="name">[timeUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater2.md)</span><span class="signature">(<span id="timeUpdater2-param-time" class="parameter"><span class="type-annotation">TimeOfDay</span> <span class="parameter-name">time</span>, </span><span id="timeUpdater2-param-model" class="parameter"><span class="type-annotation">[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)</span> <span class="parameter-name">model</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[timeUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater2.md)</span><span class="signature">(<span id="timeUpdater2-param-time" class="parameter"><span class="type-annotation">[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)</span> <span class="parameter-name">time</span>, </span><span id="timeUpdater2-param-model" class="parameter"><span class="type-annotation">[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)</span> <span class="parameter-name">model</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Handles the selection and deselection of categories.
 
-<span class="name">[toDiagnosticsNode](../views_after_auth_screens_events_create_event_page/CreateEventPageState/toDiagnosticsNode.md)</span><span class="signature"> <span class="returntype parameter">→ DiagnosticsNode</span> </span>  
+<span class="name">[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)</span><span class="signature"> <span class="returntype parameter">→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)</span> </span>  
 Returns a debug representation of the object that is used by debugging
-tools and by `DiagnosticsNode.toStringDeep`.
+tools and by
+[DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
 
 <div class="features">
 
@@ -248,7 +257,7 @@ tools and by `DiagnosticsNode.toStringDeep`.
 
 </div>
 
-<span class="name">[toString](../views_after_auth_screens_events_create_event_page/CreateEventPageState/toString.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 A string representation of this object.
 
 <div class="features">
@@ -257,7 +266,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[toStringShort](../views_after_auth_screens_events_create_event_page/CreateEventPageState/toStringShort.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toStringShort](https://api.flutter.dev/flutter/foundation/Diagnosticable/toStringShort.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 A brief description of this object, usually just the
 [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
 and the
@@ -295,7 +304,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [create_event_page](../views_after_auth_screens_events_create_event_page/views_after_auth_screens_events_create_event_page-library.md)
+2.  [create_event_page](../views_after_auth_screens_events_create_event_page/)
 3.  CreateEventPageState class
 
 ##### create_event_page library

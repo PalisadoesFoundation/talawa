@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/feed/individual_post.dart](../../views_after_auth_screens_feed_individual_post/views_after_auth_screens_feed_individual_post-library.md)
+2.  [views/after_auth_screens/feed/individual_post.dart](../../views_after_auth_screens_feed_individual_post/)
 3.  [IndividualPostView](../../views_after_auth_screens_feed_individual_post/IndividualPostView-class.md)
-4.  IndividualPostView const constructor
+4.  IndividualPostView.new const constructor
 
 <div class="self-name">
 
-IndividualPostView
+IndividualPostView.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [individual_post](../../views_after_auth_screens_feed_individual_post/views_after_auth_screens_feed_individual_post-library.md)
+2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
 3.  [IndividualPostView](../../views_after_auth_screens_feed_individual_post/IndividualPostView-class.md)
-4.  IndividualPostView const constructor
+4.  IndividualPostView.new const constructor
 
 ##### IndividualPostView class
 

@@ -49,7 +49,19 @@ jobs:
         run: flutter pub get
 
       - name: Regenerate docs
-        run: bash scripts/docusaurus/generate_docs.sh
+        run: |
+          # Check if script exists
+          if [ ! -f "scripts/docusaurus/generate_docs.sh" ]; then
+            echo "::error::Documentation generation script not found: scripts/docusaurus/generate_docs.sh"
+            echo "docs-valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          # Make it executable
+          chmod +x scripts/docusaurus/generate_docs.sh
+
+          # Run script with strict error handling
+          bash -e scripts/docusaurus/generate_docs.sh
 
       - name: Compare docs
         id: compare

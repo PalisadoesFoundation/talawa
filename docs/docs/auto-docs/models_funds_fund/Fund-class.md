@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/funds/fund.dart](../models_funds_fund/models_funds_fund-library.md)
+2.  [models/funds/fund.dart](../models_funds_fund/)
 3.  Fund class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ Fund
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ The `Fund` class represents a fund in the application.
 
 ## Constructors
 
-<span class="name">[Fund](../models_funds_fund/Fund/Fund.md)</span><span class="signature"></span>  
+<span class="name">[Fund.new](../models_funds_fund/Fund/Fund.md)</span><span class="signature"></span>  
 Constructs a `Fund` instance.
 
 <span class="name">[Fund.fromJson](../models_funds_fund/Fund/Fund.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
@@ -201,7 +197,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [fund](../models_funds_fund/models_funds_fund-library.md)
+2.  [fund](../models_funds_fund/)
 3.  Fund class
 
 ##### fund library

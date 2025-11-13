@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/profile/user_event.dart](../../views_after_auth_screens_profile_user_event/views_after_auth_screens_profile_user_event-library.md)
+2.  [views/after_auth_screens/profile/user_event.dart](../../views_after_auth_screens_profile_user_event/)
 3.  [UserEvents](../../views_after_auth_screens_profile_user_event/UserEvents-class.md)
-4.  UserEvents const constructor
+4.  UserEvents.new const constructor
 
 <div class="self-name">
 
-UserEvents
+UserEvents.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_event](../../views_after_auth_screens_profile_user_event/views_after_auth_screens_profile_user_event-library.md)
+2.  [user_event](../../views_after_auth_screens_profile_user_event/)
 3.  [UserEvents](../../views_after_auth_screens_profile_user_event/UserEvents-class.md)
-4.  UserEvents const constructor
+4.  UserEvents.new const constructor
 
 ##### UserEvents class
 

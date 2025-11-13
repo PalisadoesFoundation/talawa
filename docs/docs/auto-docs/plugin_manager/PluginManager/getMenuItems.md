@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [plugin/manager.dart](../../plugin_manager/plugin_manager-library.md)
+2.  [plugin/manager.dart](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  getMenuItems method
 
@@ -18,13 +18,9 @@ getMenuItems
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">getMenuItems</span>(
 
 1.  <span id="getMenuItems-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -87,7 +83,7 @@ List<PluginMenuItem> getMenuItems(BuildContext context) =>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [manager](../../plugin_manager/plugin_manager-library.md)
+2.  [manager](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  getMenuItems method
 

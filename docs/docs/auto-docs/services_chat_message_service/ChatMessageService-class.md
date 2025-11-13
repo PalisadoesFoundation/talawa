@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/chat_message_service.dart](../services_chat_message_service/services_chat_message_service-library.md)
+2.  [services/chat_message_service.dart](../services_chat_message_service/)
 3.  ChatMessageService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ChatMessageService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -57,7 +53,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[ChatMessageService](../services_chat_message_service/ChatMessageService/ChatMessageService.md)</span><span class="signature"></span>  
+<span class="name">[ChatMessageService.new](../services_chat_message_service/ChatMessageService/ChatMessageService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -74,7 +70,7 @@ Services include:
 
 </div>
 
-<span class="name">[chatMessagesStream](../services_chat_message_service/ChatMessageService/chatMessagesStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span>  
+<span class="name">[chatMessagesStream](../services_chat_message_service/ChatMessageService/chatMessagesStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span>  
 Getter for chat messages stream.
 
 <div class="features">
@@ -121,13 +117,13 @@ setter</span><span class="feature">inherited</span>
 <span class="name">[dispose](../services_chat_message_service/ChatMessageService/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Disposes the service and closes streams.
 
-<span class="name">[getChatDetails](../services_chat_message_service/ChatMessageService/getChatDetails.md)</span><span class="signature">(<span id="getChatDetails-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)?</span>\></span></span> </span>  
+<span class="name">[getChatDetails](../services_chat_message_service/ChatMessageService/getChatDetails.md)</span><span class="signature">(<span id="getChatDetails-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../models_chats_chat/Chat-class.md)?</span>\></span></span> </span>  
 Retrieves chat details with initial messages.
 
 <span class="name">[hasMoreMessages](../services_chat_message_service/ChatMessageService/hasMoreMessages.md)</span><span class="signature">(<span id="hasMoreMessages-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
 Checks if there are more messages to load for a specific chat.
 
-<span class="name">[loadMoreMessages](../services_chat_message_service/ChatMessageService/loadMoreMessages.md)</span><span class="signature">(<span id="loadMoreMessages-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[loadMoreMessages](../services_chat_message_service/ChatMessageService/loadMoreMessages.md)</span><span class="signature">(<span id="loadMoreMessages-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span>\></span></span> </span>  
 Loads more messages (older messages) for a specific chat.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -139,13 +135,13 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[sendMessage](../services_chat_message_service/ChatMessageService/sendMessage.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)?</span>\></span></span> </span>  
+<span class="name">[sendMessage](../services_chat_message_service/ChatMessageService/sendMessage.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)?</span>\></span></span> </span>  
 Sends a message to a chat.
 
 <span class="name">[stopSubscription](../services_chat_message_service/ChatMessageService/stopSubscription.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Stops the current chat subscription.
 
-<span class="name">[subscribeToChatMessages](../services_chat_message_service/ChatMessageService/subscribeToChatMessages.md)</span><span class="signature">(<span id="subscribeToChatMessages-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ [Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span> </span>  
+<span class="name">[subscribeToChatMessages](../services_chat_message_service/ChatMessageService/subscribeToChatMessages.md)</span><span class="signature">(<span id="subscribeToChatMessages-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span> </span>  
 Subscribes to real-time chat messages for a specific chat.
 
 <span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -183,7 +179,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_message_service](../services_chat_message_service/services_chat_message_service-library.md)
+2.  [chat_message_service](../services_chat_message_service/)
 3.  ChatMessageService class
 
 ##### chat_message_service library

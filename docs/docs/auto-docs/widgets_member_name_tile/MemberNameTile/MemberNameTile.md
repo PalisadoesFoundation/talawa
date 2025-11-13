@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/member_name_tile.dart](../../widgets_member_name_tile/widgets_member_name_tile-library.md)
+2.  [widgets/member_name_tile.dart](../../widgets_member_name_tile/)
 3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
-4.  MemberNameTile const constructor
+4.  MemberNameTile.new const constructor
 
 <div class="self-name">
 
-MemberNameTile
+MemberNameTile.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [member_name_tile](../../widgets_member_name_tile/widgets_member_name_tile-library.md)
+2.  [member_name_tile](../../widgets_member_name_tile/)
 3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
-4.  MemberNameTile const constructor
+4.  MemberNameTile.new const constructor
 
 ##### MemberNameTile class
 

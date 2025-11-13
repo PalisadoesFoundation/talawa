@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/quick_actions.dart](../constants_quick_actions/constants_quick_actions-library.md)
+2.  [constants/quick_actions.dart](../constants_quick_actions/)
 3.  ShortCutMenu class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ShortCutMenu
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,7 +46,7 @@ with the application. quick_actions package is used for this purpose.
 
 ## Constructors
 
-<span class="name">[ShortCutMenu](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md)</span><span class="signature"></span>  
+<span class="name">[ShortCutMenu.new](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -155,7 +151,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [quick_actions](../constants_quick_actions/constants_quick_actions-library.md)
+2.  [quick_actions](../constants_quick_actions/)
 3.  ShortCutMenu class
 
 ##### quick_actions library

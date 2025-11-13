@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/from_palisadoes.dart](../../widgets_from_palisadoes/widgets_from_palisadoes-library.md)
+2.  [widgets/from_palisadoes.dart](../../widgets_from_palisadoes/)
 3.  [FromPalisadoes](../../widgets_from_palisadoes/FromPalisadoes-class.md)
-4.  FromPalisadoes const constructor
+4.  FromPalisadoes.new const constructor
 
 <div class="self-name">
 
-FromPalisadoes
+FromPalisadoes.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [from_palisadoes](../../widgets_from_palisadoes/widgets_from_palisadoes-library.md)
+2.  [from_palisadoes](../../widgets_from_palisadoes/)
 3.  [FromPalisadoes](../../widgets_from_palisadoes/FromPalisadoes-class.md)
-4.  FromPalisadoes const constructor
+4.  FromPalisadoes.new const constructor
 
 ##### FromPalisadoes class
 

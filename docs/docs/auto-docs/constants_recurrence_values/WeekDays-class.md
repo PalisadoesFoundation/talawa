@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/recurrence_values.dart](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
 3.  WeekDays class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ WeekDays
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Class containing constants for week days.
 
 ## Constructors
 
-<span class="name">[WeekDays](../constants_recurrence_values/WeekDays/WeekDays.md)</span><span class="signature"></span>  
+<span class="name">[WeekDays.new](../constants_recurrence_values/WeekDays/WeekDays.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -156,7 +152,7 @@ Constant representing Wednesday.
 </div>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [recurrence_values](../constants_recurrence_values/)
 3.  WeekDays class
 
 ##### recurrence_values library

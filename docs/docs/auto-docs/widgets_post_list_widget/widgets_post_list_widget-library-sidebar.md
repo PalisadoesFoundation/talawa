@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_post_list_widget-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PostListWidget](./PostListWidget-class.md)

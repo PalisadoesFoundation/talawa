@@ -1,5 +1,5 @@
 1.  [Constructors](./AppTheme-class#constructors.md)
-2.  [AppTheme](./AppTheme/AppTheme.md)
+2.  [new](./AppTheme/AppTheme.md)
 3.  [Properties](./AppTheme-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

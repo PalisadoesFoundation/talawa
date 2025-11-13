@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/post_modal.dart](../../widgets_post_modal/widgets_post_modal-library.md)
+2.  [widgets/post_modal.dart](../../widgets_post_modal/)
 3.  [PostBottomModal](../../widgets_post_modal/PostBottomModal-class.md)
 4.  deletePost property
 
@@ -18,13 +18,9 @@ deletePost
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,8 +38,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-(dynamic Function<span class="signature">(<span id="param-"
-class="parameter"><span class="type-annotation">[Post](../../models_post_post_model/Post-class.md)</span></span>)</span>?)
+dynamic Function<span class="signature">(<span id="param-"
+class="parameter"><span class="type-annotation">[Post](../../models_post_post_model/Post-class.md)</span></span>)</span>?
 <span class="name">deletePost</span>
 
 <div class="features">
@@ -80,7 +76,7 @@ final Function(Post)? deletePost;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [post_modal](../../widgets_post_modal/widgets_post_modal-library.md)
+2.  [post_modal](../../widgets_post_modal/)
 3.  [PostBottomModal](../../widgets_post_modal/PostBottomModal-class.md)
 4.  deletePost property
 

@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_member_name_tile-library#classes.md)
+1.  [Classes](./#classes)
 2.  [MemberNameTile](./MemberNameTile-class.md)

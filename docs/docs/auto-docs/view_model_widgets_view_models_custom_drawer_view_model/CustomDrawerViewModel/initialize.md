@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
+2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../../view_model_widgets_view_models_custom_drawer_view_model/)
 3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
 4.  initialize method
 
@@ -18,13 +18,9 @@ initialize
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ below-sidebar="">
     class="parameter"><span class="type-annotation">[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)</span>
     <span class="parameter-name">homeModel</span>, </span>
 2.  <span id="initialize-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -88,7 +84,7 @@ void initialize(MainScreenViewModel homeModel, BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
+2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/)
 3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
 4.  initialize method
 

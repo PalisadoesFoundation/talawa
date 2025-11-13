@@ -1,5 +1,5 @@
 1.  [Constructors](./UserProfileService-class#constructors.md)
-2.  [UserProfileService](./UserProfileService/UserProfileService.md)
+2.  [new](./UserProfileService/UserProfileService.md)
 3.  [Properties](./UserProfileService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

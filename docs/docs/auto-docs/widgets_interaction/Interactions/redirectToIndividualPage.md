@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/interaction.dart](../../widgets_interaction/widgets_interaction-library.md)
+2.  [widgets/interaction.dart](../../widgets_interaction/)
 3.  [Interactions](../../widgets_interaction/Interactions-class.md)
 4.  redirectToIndividualPage property
 
@@ -18,13 +18,9 @@ redirectToIndividualPage
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,9 +38,9 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-(dynamic Function<span class="signature">(<span id="param-p"
+dynamic Function<span class="signature">(<span id="param-p"
 class="parameter"><span class="type-annotation">[Post](../../models_post_post_model/Post-class.md)</span>
-<span class="parameter-name">p</span></span>)</span>?)
+<span class="parameter-name">p</span></span>)</span>?
 <span class="name">redirectToIndividualPage</span>
 
 <div class="features">
@@ -80,7 +76,7 @@ final Function(Post p)? redirectToIndividualPage;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [interaction](../../widgets_interaction/widgets_interaction-library.md)
+2.  [interaction](../../widgets_interaction/)
 3.  [Interactions](../../widgets_interaction/Interactions-class.md)
 4.  redirectToIndividualPage property
 

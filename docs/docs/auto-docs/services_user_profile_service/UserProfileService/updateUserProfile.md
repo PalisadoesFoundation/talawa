@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/user_profile_service.dart](../../services_user_profile_service/services_user_profile_service-library.md)
+2.  [services/user_profile_service.dart](../../services_user_profile_service/)
 3.  [UserProfileService](../../services_user_profile_service/UserProfileService-class.md)
 4.  updateUserProfile method
 
@@ -18,13 +18,9 @@ updateUserProfile
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span>
 <span class="name">updateUserProfile</span>(
 
 1.  <span id="updateUserProfile-param-variables"
@@ -92,7 +88,7 @@ Future<QueryResult<Object?>> updateUserProfile(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_profile_service](../../services_user_profile_service/services_user_profile_service-library.md)
+2.  [user_profile_service](../../services_user_profile_service/)
 3.  [UserProfileService](../../services_user_profile_service/UserProfileService-class.md)
 4.  updateUserProfile method
 

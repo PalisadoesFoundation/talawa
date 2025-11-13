@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/options/options.dart](../../models_options_options/models_options_options-library.md)
+2.  [models/options/options.dart](../../models_options_options/)
 3.  [Options](../../models_options_options/Options-class.md)
 4.  icon property
 
@@ -18,13 +18,9 @@ icon
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-Widget <span class="name">icon</span>
+[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
+<span class="name">icon</span>
 
 <div class="features">
 
@@ -71,7 +68,7 @@ Widget icon;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [options](../../models_options_options/models_options_options-library.md)
+2.  [options](../../models_options_options/)
 3.  [Options](../../models_options_options/Options-class.md)
 4.  icon property
 

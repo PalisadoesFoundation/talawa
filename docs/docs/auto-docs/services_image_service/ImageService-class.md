@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/image_service.dart](../services_image_service/services_image_service-library.md)
+2.  [services/image_service.dart](../services_image_service/)
 3.  ImageService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ImageService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,7 +51,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[ImageService](../services_image_service/ImageService/ImageService.md)</span><span class="signature"></span>  
+<span class="name">[ImageService.new](../services_image_service/ImageService/ImageService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -90,10 +86,10 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[convertToBase64](../services_image_service/ImageService/convertToBase64.md)</span><span class="signature">(<span id="convertToBase64-param-file" class="parameter"><span class="type-annotation">[File](https://api.flutter.dev/flutter/dart-io/File-class.md)</span> <span class="parameter-name">file</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span> </span>  
+<span class="name">[convertToBase64](../services_image_service/ImageService/convertToBase64.md)</span><span class="signature">(<span id="convertToBase64-param-file" class="parameter"><span class="type-annotation">[File](https://api.flutter.dev/flutter/dart-io/File-class.md)</span> <span class="parameter-name">file</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span> </span>  
 Converts the image into Base64 format.
 
-<span class="name">[cropImage](../services_image_service/ImageService/cropImage.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?</span>\></span></span> </span>  
+<span class="name">[cropImage](../services_image_service/ImageService/cropImage.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?</span>\></span></span> </span>  
 Crops the image selected by the user.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -140,7 +136,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [image_service](../services_image_service/services_image_service-library.md)
+2.  [image_service](../services_image_service/)
 3.  ImageService class
 
 ##### image_service library

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/view_model_after_auth_view_models_event_view_models_edit_agenda_view_model-library.md)
+2.  [view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/)
 3.  EditAgendaItemViewModel class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EditAgendaItemViewModel
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,6 +45,7 @@ a_line_ending_with_end_punctuation.
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - EditAgendaItemViewModel
 
@@ -58,7 +55,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EditAgendaItemViewModel](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/EditAgendaItemViewModel.md)</span><span class="signature"></span>  
+<span class="name">[EditAgendaItemViewModel.new](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/EditAgendaItemViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -84,7 +81,7 @@ Get the list of all available categories.
 
 </div>
 
-<span class="name">[descriptionController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/descriptionController.md)</span> <span class="signature">↔ TextEditingController</span>  
+<span class="name">[descriptionController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/descriptionController.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 Controller for the description input field.
 
 <div class="features">
@@ -93,7 +90,7 @@ Controller for the description input field.
 
 </div>
 
-<span class="name">[durationController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/durationController.md)</span> <span class="signature">↔ TextEditingController</span>  
+<span class="name">[durationController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/durationController.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 Controller for the duration input field.
 
 <div class="features">
@@ -112,7 +109,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -157,7 +154,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[titleController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/titleController.md)</span> <span class="signature">↔ TextEditingController</span>  
+<span class="name">[titleController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/titleController.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 Controller for the title input field.
 
 <div class="features">
@@ -166,7 +163,7 @@ Controller for the title input field.
 
 </div>
 
-<span class="name">[urlController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/urlController.md)</span> <span class="signature">↔ TextEditingController</span>  
+<span class="name">[urlController](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/urlController.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 Controller for the URL input field.
 
 <div class="features">
@@ -190,7 +187,7 @@ Get the list of URLs for the agenda item.
 
 ## Methods
 
-<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -208,8 +205,14 @@ Checks if there are any unsaved changes in the form.
 <span class="name">[dispose](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
 will throw after the object is disposed).
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 <span class="name">[initialize](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/initialize.md)</span><span class="signature">(<span id="initialize-param-agendaItem" class="parameter"><span class="type-annotation">[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem-class.md)</span> <span class="parameter-name">agendaItem</span>, </span><span id="initialize-param-categories" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.md)</span>\></span></span> <span class="parameter-name">categories</span></span>) <span class="returntype parameter">→ void</span> </span>  
 aInitializes the ViewModel with the provided agenda item and categories.
@@ -223,7 +226,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
 <div class="features">
@@ -232,13 +235,13 @@ Call all the registered listeners.
 
 </div>
 
-<span class="name">[pickAttachment](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/pickAttachment.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[pickAttachment](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/pickAttachment.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Picks an attachment for the agenda item from the gallery or camera.
 
 <span class="name">[removeAttachment](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/removeAttachment.md)</span><span class="signature">(<span id="removeAttachment-param-image" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">image</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Removes an attachment from the agenda item.
 
-<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -270,7 +273,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[updateAgendaItem](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/updateAgendaItem.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateAgendaItem](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel/updateAgendaItem.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Updates the agenda item with the modified values.
 
 </div>
@@ -299,7 +302,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [edit_agenda_view_model](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/view_model_after_auth_view_models_event_view_models_edit_agenda_view_model-library.md)
+2.  [edit_agenda_view_model](../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/)
 3.  EditAgendaItemViewModel class
 
 ##### edit_agenda_view_model library

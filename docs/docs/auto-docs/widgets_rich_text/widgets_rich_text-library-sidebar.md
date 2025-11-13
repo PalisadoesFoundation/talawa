@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_rich_text-library#classes.md)
+1.  [Classes](./#classes)
 2.  [CustomRichText](./CustomRichText-class.md)

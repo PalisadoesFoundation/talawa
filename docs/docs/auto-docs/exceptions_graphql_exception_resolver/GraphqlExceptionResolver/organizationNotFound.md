@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [exceptions/graphql_exception_resolver.dart](../../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
+2.  [exceptions/graphql_exception_resolver.dart](../../exceptions_graphql_exception_resolver/)
 3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
 4.  organizationNotFound property
 
@@ -18,13 +18,9 @@ organizationNotFound
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)
+[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)
 <span class="name">organizationNotFound</span>
 
 <div class="features">
@@ -79,7 +75,7 @@ static GraphQLError organizationNotFound =
 </div>
 
 1.  [talawa](../../index.md)
-2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
+2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/)
 3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
 4.  organizationNotFound property
 

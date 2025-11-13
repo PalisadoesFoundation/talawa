@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/widgets/group_chat_app_bar.dart](../../views_after_auth_screens_chat_widgets_group_chat_app_bar/views_after_auth_screens_chat_widgets_group_chat_app_bar-library.md)
+2.  [views/after_auth_screens/chat/widgets/group_chat_app_bar.dart](../../views_after_auth_screens_chat_widgets_group_chat_app_bar/)
 3.  [GroupChatAppBar](../../views_after_auth_screens_chat_widgets_group_chat_app_bar/GroupChatAppBar-class.md)
 4.  preferredSize property
 
@@ -18,13 +18,9 @@ preferredSize
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,7 +47,13 @@ below-sidebar="">
 </div>
 
 <span class="returntype">[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)</span>
-<span class="name">preferredSize</span>
+get <span class="name">preferredSize</span>
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 </div>
 
@@ -60,8 +62,10 @@ below-sidebar="">
 The size this widget would prefer if it were otherwise unconstrained.
 
 In many cases it's only necessary to define one preferred dimension. For
-example the `Scaffold` only depends on its app bar's preferred height.
-In that case implementations of this method can just return
+example the
+[Scaffold](https://api.flutter.dev/flutter/material/Scaffold-class.html)
+only depends on its app bar's preferred height. In that case
+implementations of this method can just return
 `Size.fromHeight(myAppBarHeight)`.
 
 </div>
@@ -88,7 +92,7 @@ Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_app_bar](../../views_after_auth_screens_chat_widgets_group_chat_app_bar/views_after_auth_screens_chat_widgets_group_chat_app_bar-library.md)
+2.  [group_chat_app_bar](../../views_after_auth_screens_chat_widgets_group_chat_app_bar/)
 3.  [GroupChatAppBar](../../views_after_auth_screens_chat_widgets_group_chat_app_bar/GroupChatAppBar-class.md)
 4.  preferredSize property
 

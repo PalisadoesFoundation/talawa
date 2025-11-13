@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_pledge_card-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PledgeCard](./PledgeCard-class.md)

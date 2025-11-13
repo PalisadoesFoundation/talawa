@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/org_service.dart](../services_org_service/services_org_service-library.md)
+2.  [services/org_service.dart](../services_org_service/)
 3.  OrganizationService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ OrganizationService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -53,7 +49,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[OrganizationService](../services_org_service/OrganizationService/OrganizationService.md)</span><span class="signature"></span>  
+<span class="name">[OrganizationService.new](../services_org_service/OrganizationService/OrganizationService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -88,7 +84,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[getOrgMembersList](../services_org_service/OrganizationService/getOrgMembersList.md)</span><span class="signature">(<span id="getOrgMembersList-param-orgId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">orgId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[User](../models_user_user_info/User-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[getOrgMembersList](../services_org_service/OrganizationService/getOrgMembersList.md)</span><span class="signature">(<span id="getOrgMembersList-param-orgId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">orgId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[User](../models_user_user_info/User-class.md)</span>\></span></span>\></span></span> </span>  
 Retrieves a list of organization members.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -135,7 +131,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [org_service](../services_org_service/services_org_service-library.md)
+2.  [org_service](../services_org_service/)
 3.  OrganizationService class
 
 ##### org_service library

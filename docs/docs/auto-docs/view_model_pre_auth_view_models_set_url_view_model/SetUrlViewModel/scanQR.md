@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../../view_model_pre_auth_view_models_set_url_view_model/view_model_pre_auth_view_models_set_url_view_model-library.md)
+2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../../view_model_pre_auth_view_models_set_url_view_model/)
 3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
 4.  scanQR method
 
@@ -18,13 +18,9 @@ scanQR
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,7 +41,7 @@ below-sidebar="">
 <span class="returntype">void</span> <span class="name">scanQR</span>(
 
 1.  <span id="scanQR-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -83,7 +79,7 @@ void scanQR(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/view_model_pre_auth_view_models_set_url_view_model-library.md)
+2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
 3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
 4.  scanQR method
 

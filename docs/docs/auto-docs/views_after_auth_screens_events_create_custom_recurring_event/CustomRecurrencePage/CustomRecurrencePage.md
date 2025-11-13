@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/events/create_custom_recurring_event.dart](../../views_after_auth_screens_events_create_custom_recurring_event/views_after_auth_screens_events_create_custom_recurring_event-library.md)
+2.  [views/after_auth_screens/events/create_custom_recurring_event.dart](../../views_after_auth_screens_events_create_custom_recurring_event/)
 3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
-4.  CustomRecurrencePage const constructor
+4.  CustomRecurrencePage.new const constructor
 
 <div class="self-name">
 
-CustomRecurrencePage
+CustomRecurrencePage.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/views_after_auth_screens_events_create_custom_recurring_event-library.md)
+2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/)
 3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
-4.  CustomRecurrencePage const constructor
+4.  CustomRecurrencePage.new const constructor
 
 ##### CustomRecurrencePage class
 

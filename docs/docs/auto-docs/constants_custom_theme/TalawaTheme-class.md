@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/custom_theme.dart](../constants_custom_theme/constants_custom_theme-library.md)
+2.  [constants/custom_theme.dart](../constants_custom_theme/)
 3.  TalawaTheme class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ TalawaTheme
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -53,7 +49,7 @@ themes.
 
 ## Constructors
 
-<span class="name">[TalawaTheme](../constants_custom_theme/TalawaTheme/TalawaTheme.md)</span><span class="signature"></span>  
+<span class="name">[TalawaTheme.new](../constants_custom_theme/TalawaTheme/TalawaTheme.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -128,7 +124,7 @@ The equality operator.
 
 ## Static Properties
 
-<span class="name">[darkTheme](../constants_custom_theme/TalawaTheme/darkTheme.md)</span> <span class="signature">→ ThemeData</span>  
+<span class="name">[darkTheme](../constants_custom_theme/TalawaTheme/darkTheme.md)</span> <span class="signature">→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)</span>  
 Theme for dark mode.
 
 <div class="features">
@@ -137,7 +133,7 @@ Theme for dark mode.
 
 </div>
 
-<span class="name">[lightTheme](../constants_custom_theme/TalawaTheme/lightTheme.md)</span> <span class="signature">→ ThemeData</span>  
+<span class="name">[lightTheme](../constants_custom_theme/TalawaTheme/lightTheme.md)</span> <span class="signature">→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)</span>  
 Theme for light mode.
 
 <div class="features">
@@ -157,7 +153,7 @@ Theme for light mode.
 </div>
 
 1.  [talawa](../index.md)
-2.  [custom_theme](../constants_custom_theme/constants_custom_theme-library.md)
+2.  [custom_theme](../constants_custom_theme/)
 3.  TalawaTheme class
 
 ##### custom_theme library

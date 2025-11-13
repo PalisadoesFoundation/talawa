@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [apptheme.dart](../apptheme/apptheme-library.md)
+2.  [apptheme.dart](../apptheme/)
 3.  AppTheme class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ AppTheme
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Apptheme class.
 
 ## Constructors
 
-<span class="name">[AppTheme](../apptheme/AppTheme/AppTheme.md)</span><span class="signature"></span>  
+<span class="name">[AppTheme.new](../apptheme/AppTheme/AppTheme.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -124,7 +120,7 @@ The equality operator.
 
 ## Static Properties
 
-<span class="name">[bodyText1](../apptheme/AppTheme/bodyText1.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[bodyText1](../apptheme/AppTheme/bodyText1.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -133,7 +129,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[bodyText2](../apptheme/AppTheme/bodyText2.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[bodyText2](../apptheme/AppTheme/bodyText2.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -142,7 +138,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[bodyText3](../apptheme/AppTheme/bodyText3.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[bodyText3](../apptheme/AppTheme/bodyText3.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -151,7 +147,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[button](../apptheme/AppTheme/button.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[button](../apptheme/AppTheme/button.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -160,7 +156,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[headline1](../apptheme/AppTheme/headline1.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[headline1](../apptheme/AppTheme/headline1.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -169,7 +165,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[headline2](../apptheme/AppTheme/headline2.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[headline2](../apptheme/AppTheme/headline2.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -178,7 +174,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[headline3](../apptheme/AppTheme/headline3.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[headline3](../apptheme/AppTheme/headline3.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -187,7 +183,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[headline4](../apptheme/AppTheme/headline4.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[headline4](../apptheme/AppTheme/headline4.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -196,7 +192,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[headline5](../apptheme/AppTheme/headline5.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[headline5](../apptheme/AppTheme/headline5.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -205,7 +201,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[headline6](../apptheme/AppTheme/headline6.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[headline6](../apptheme/AppTheme/headline6.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -214,7 +210,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[overline](../apptheme/AppTheme/overline.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[overline](../apptheme/AppTheme/overline.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -223,7 +219,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[subtitle1](../apptheme/AppTheme/subtitle1.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[subtitle1](../apptheme/AppTheme/subtitle1.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -232,7 +228,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[subtitle2](../apptheme/AppTheme/subtitle2.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[subtitle2](../apptheme/AppTheme/subtitle2.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -241,7 +237,7 @@ Custom theme for the app.
 
 </div>
 
-<span class="name">[title](../apptheme/AppTheme/title.md)</span> <span class="signature">↔ TextStyle</span>  
+<span class="name">[title](../apptheme/AppTheme/title.md)</span> <span class="signature">↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)</span>  
 Custom theme for the app.
 
 <div class="features">
@@ -309,7 +305,7 @@ Custom colors for the app.
 </div>
 
 1.  [talawa](../index.md)
-2.  [apptheme](../apptheme/apptheme-library.md)
+2.  [apptheme](../apptheme/)
 3.  AppTheme class
 
 ##### apptheme library

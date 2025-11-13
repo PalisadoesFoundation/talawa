@@ -1,2 +1,2 @@
-1.  [Classes](./services_user_action_handler-library#classes.md)
+1.  [Classes](./#classes)
 2.  [ActionHandlerService](./ActionHandlerService-class.md)

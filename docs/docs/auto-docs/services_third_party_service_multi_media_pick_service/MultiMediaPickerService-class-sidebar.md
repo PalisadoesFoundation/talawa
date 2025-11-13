@@ -1,5 +1,5 @@
 1.  [Constructors](./MultiMediaPickerService-class#constructors.md)
-2.  [MultiMediaPickerService](./MultiMediaPickerService/MultiMediaPickerService.md)
+2.  [new](./MultiMediaPickerService/MultiMediaPickerService.md)
 3.  [Properties](./MultiMediaPickerService-class#instance-properties.md)
 4.  [fileStream](./MultiMediaPickerService/fileStream.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

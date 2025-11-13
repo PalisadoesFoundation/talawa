@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/event_queries.dart](../../utils_event_queries/utils_event_queries-library.md)
+2.  [utils/event_queries.dart](../../utils_event_queries/)
 3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
 4.  addVolunteerToGroup method
 
@@ -18,13 +18,9 @@ addVolunteerToGroup
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -82,7 +78,7 @@ String
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_queries](../../utils_event_queries/utils_event_queries-library.md)
+2.  [event_queries](../../utils_event_queries/)
 3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
 4.  addVolunteerToGroup method
 

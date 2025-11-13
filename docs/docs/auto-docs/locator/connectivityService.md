@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [locator.dart](../locator/locator-library.md)
+2.  [locator.dart](../locator/)
 3.  connectivityService property
 
 <div class="self-name">
@@ -17,13 +17,9 @@ connectivityService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -76,7 +72,7 @@ final connectivityService = locator<ConnectivityService>;
 </div>
 
 1.  [talawa](../index.md)
-2.  [locator](../locator/locator-library.md)
+2.  [locator](../locator/)
 3.  connectivityService property
 
 ##### locator library

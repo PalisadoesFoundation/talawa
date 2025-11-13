@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/timeout.dart](../constants_timeout/constants_timeout-library.md)
+2.  [constants/timeout.dart](../constants_timeout/)
 3.  TimeOuts class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ TimeOuts
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Class to define constant timeout to bring consistency in the code.
 
 ## Constructors
 
-<span class="name">[TimeOuts](../constants_timeout/TimeOuts/TimeOuts.md)</span><span class="signature"></span>  
+<span class="name">[TimeOuts.new](../constants_timeout/TimeOuts/TimeOuts.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -144,7 +140,7 @@ For small timeout, used for small data fetch.
 </div>
 
 1.  [talawa](../index.md)
-2.  [timeout](../constants_timeout/constants_timeout-library.md)
+2.  [timeout](../constants_timeout/)
 3.  TimeOuts class
 
 ##### timeout library

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/events/create_agenda_item_page.dart](../../views_after_auth_screens_events_create_agenda_item_page/views_after_auth_screens_events_create_agenda_item_page-library.md)
+2.  [views/after_auth_screens/events/create_agenda_item_page.dart](../../views_after_auth_screens_events_create_agenda_item_page/)
 3.  [CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)
 4.  initState method
 
@@ -18,13 +18,9 @@ initState
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,49 +47,59 @@ below-sidebar="">
 <span class="returntype">void</span>
 <span class="name">initState</span>
 
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
 </div>
 
 <div class="section desc markdown">
 
 Called when this object is inserted into the tree.
 
-The framework will call this method exactly once for each `State` object
+The framework will call this method exactly once for each
+[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 it creates.
 
 Override this method to perform initialization that depends on the
 location at which this object was inserted into the tree (i.e.,
-[context](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/context.md))
+[context](https://api.flutter.dev/flutter/widgets/State/context.md))
 or on the widget used to configure this object (i.e.,
-[widget](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/widget.md)).
+[widget](https://api.flutter.dev/flutter/widgets/State/widget.md)).
 
-If a `State`'s
+If a [State](https://api.flutter.dev/flutter/widgets/State-class.html)'s
 [build](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)
 method depends on an object that can itself change state, for example a
-`ChangeNotifier` or
-[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html),
+[ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
+or
+[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html),
 or some other object to which one can subscribe to receive
 notifications, then be sure to subscribe and unsubscribe properly in
 [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md),
-[didUpdateWidget](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didUpdateWidget.md),
+[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html),
 and
-[dispose](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/dispose.md):
+[dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html):
 
 - In
   [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md),
   subscribe to the object.
 - In
-  [didUpdateWidget](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didUpdateWidget.md)
+  [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)
   unsubscribe from the old object and subscribe to the new one if the
   updated widget configuration requires replacing the object.
 - In
-  [dispose](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/dispose.md),
+  [dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html),
   unsubscribe from the object.
 
-You should not use `BuildContext.dependOnInheritedWidgetOfExactType`
+You should not use
+[BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html)
 from this method. However,
-[didChangeDependencies](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didChangeDependencies.md)
+[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html)
 will be called immediately following this method, and
-`BuildContext.dependOnInheritedWidgetOfExactType` can be used there.
+[BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html)
+can be used there.
 
 Implementations of this method should start with a call to the inherited
 method, as in `super.`.
@@ -120,7 +126,7 @@ void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/views_after_auth_screens_events_create_agenda_item_page-library.md)
+2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
 3.  [CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)
 4.  initState method
 

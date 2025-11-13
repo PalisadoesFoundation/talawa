@@ -1,2 +1,2 @@
-1.  [Classes](./services_caching_offline_action_queue-library#classes.md)
+1.  [Classes](./#classes)
 2.  [OfflineActionQueue](./OfflineActionQueue-class.md)

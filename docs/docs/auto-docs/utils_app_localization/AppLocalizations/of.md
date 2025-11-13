@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/app_localization.dart](../../utils_app_localization/utils_app_localization-library.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
 3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
 4.  of static method
 
@@ -18,13 +18,9 @@ of
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">of</span>(
 
 1.  <span id="of-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -72,7 +68,7 @@ static AppLocalizations? of(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_localization](../../utils_app_localization/utils_app_localization-library.md)
+2.  [app_localization](../../utils_app_localization/)
 3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
 4.  of static method
 

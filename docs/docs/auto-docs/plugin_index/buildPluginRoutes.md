@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [plugin/index.dart](../plugin_index/plugin_index-library.md)
+2.  [plugin/index.dart](../plugin_index/)
 3.  buildPluginRoutes function
 
 <div class="self-name">
@@ -17,13 +17,9 @@ buildPluginRoutes
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>,
-<span class="type-parameter">WidgetBuilder</span>\></span></span>
+<span class="type-parameter">[WidgetBuilder](https://api.flutter.dev/flutter/widgets/WidgetBuilder.html)</span>\></span></span>
 <span class="name">buildPluginRoutes</span>
 
 </div>
@@ -80,7 +76,7 @@ Map<String, WidgetBuilder>
 </div>
 
 1.  [talawa](../index.md)
-2.  [index](../plugin_index/plugin_index-library.md)
+2.  [index](../plugin_index/)
 3.  buildPluginRoutes function
 
 ##### index library

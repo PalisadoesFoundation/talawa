@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/organization_search_list.dart](../../widgets_organization_search_list/widgets_organization_search_list-library.md)
+2.  [widgets/organization_search_list.dart](../../widgets_organization_search_list/)
 3.  [OrganizationSearchList](../../widgets_organization_search_list/OrganizationSearchList-class.md)
 4.  model property
 
@@ -18,13 +18,9 @@ model
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ final SelectOrganizationViewModel model;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [organization_search_list](../../widgets_organization_search_list/widgets_organization_search_list-library.md)
+2.  [organization_search_list](../../widgets_organization_search_list/)
 3.  [OrganizationSearchList](../../widgets_organization_search_list/OrganizationSearchList-class.md)
 4.  model property
 

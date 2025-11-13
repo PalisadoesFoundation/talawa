@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
 3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  initialise method
 
@@ -18,13 +18,9 @@ initialise
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">initialise</span>(
 
 1.  <span id="initialise-param-ctx"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">ctx</span>, )
 
 </div>
@@ -86,7 +82,7 @@ void initialise(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [main_screen_view_model](../../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
 3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  initialise method
 

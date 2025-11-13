@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/funds/fund.dart](../../models_funds_fund/models_funds_fund-library.md)
+2.  [models/funds/fund.dart](../../models_funds_fund/)
 3.  [Fund](../../models_funds_fund/Fund-class.md)
-4.  Fund constructor
+4.  Fund.new constructor
 
 <div class="self-name">
 
-Fund
+Fund.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,17 +46,11 @@ below-sidebar="">
 
 Constructs a `Fund` instance.
 
-[id](../../models_funds_fund/Fund/id.md) is the unique identifier of
-the fund. [name](../../models_funds_fund/Fund/name.md) is the name of
-the fund.
-[taxDeductible](../../models_funds_fund/Fund/taxDeductible.md)
-indicates whether the fund is tax-deductible.
-[campaigns](../../models_funds_fund/Fund/campaigns.md) is a list of
-campaign identifiers associated with the fund.
-[createdAt](../../models_funds_fund/Fund/createdAt.md) is the
-timestamp of when the fund was created.
-[updatedAt](../../models_funds_fund/Fund/updatedAt.md) is the
-timestamp of when the fund was last updated.
+`id` is the unique identifier of the fund. `name` is the name of the
+fund. `taxDeductible` indicates whether the fund is tax-deductible.
+`campaigns` is a list of campaign identifiers associated with the fund.
+`createdAt` is the timestamp of when the fund was created. `updatedAt`
+is the timestamp of when the fund was last updated.
 
 </div>
 
@@ -83,9 +73,9 @@ timestamp of when the fund was last updated.
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund](../../models_funds_fund/models_funds_fund-library.md)
+2.  [fund](../../models_funds_fund/)
 3.  [Fund](../../models_funds_fund/Fund-class.md)
-4.  Fund constructor
+4.  Fund.new constructor
 
 ##### Fund class
 

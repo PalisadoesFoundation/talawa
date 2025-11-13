@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/custom_alert_dialog.dart](../../widgets_custom_alert_dialog/widgets_custom_alert_dialog-library.md)
+2.  [widgets/custom_alert_dialog.dart](../../widgets_custom_alert_dialog/)
 3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
 4.  reverse property
 
@@ -18,13 +18,9 @@ reverse
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ final bool reverse;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/widgets_custom_alert_dialog-library.md)
+2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
 3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
 4.  reverse property
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/chats/chat_user.dart](../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [models/chats/chat_user.dart](../models_chats_chat_user/)
 3.  ChatUser class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ChatUser
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ The `ChatUser` class represents a user in the chat system.
 
 ## Constructors
 
-<span class="name">[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.md)</span><span class="signature"></span>  
+<span class="name">[ChatUser.new](../models_chats_chat_user/ChatUser/ChatUser.md)</span><span class="signature"></span>  
 Constructs a `ChatUser` instance.
 
 <span class="name">[ChatUser.fromJson](../models_chats_chat_user/ChatUser/ChatUser.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
@@ -167,7 +163,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_user](../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [chat_user](../models_chats_chat_user/)
 3.  ChatUser class
 
 ##### chat_user library

@@ -1,2 +1,2 @@
-1.  [Classes](./services_navigation_service-library#classes.md)
+1.  [Classes](./#classes)
 2.  [NavigationService](./NavigationService-class.md)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/page_info/page_info.dart](../models_page_info_page_info/models_page_info_page_info-library.md)
+2.  [models/page_info/page_info.dart](../models_page_info_page_info/)
 3.  PageInfo class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ PageInfo
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,7 +51,7 @@ there are items before the current page
 
 ## Constructors
 
-<span class="name">[PageInfo](../models_page_info_page_info/PageInfo/PageInfo.md)</span><span class="signature"></span>  
+<span class="name">[PageInfo.new](../models_page_info_page_info/PageInfo/PageInfo.md)</span><span class="signature"></span>  
 
 <span class="name">[PageInfo.fromJson](../models_page_info_page_info/PageInfo/PageInfo.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 <div class="constructor-modifier features">
@@ -177,7 +173,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [page_info](../models_page_info_page_info/models_page_info_page_info-library.md)
+2.  [page_info](../models_page_info_page_info/)
 3.  PageInfo class
 
 ##### page_info library

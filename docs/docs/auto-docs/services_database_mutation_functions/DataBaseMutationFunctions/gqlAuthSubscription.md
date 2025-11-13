@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/database_mutation_functions.dart](../../services_database_mutation_functions/services_database_mutation_functions-library.md)
+2.  [services/database_mutation_functions.dart](../../services_database_mutation_functions/)
 3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
 4.  gqlAuthSubscription method
 
@@ -18,13 +18,9 @@ gqlAuthSubscription
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span>
+<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span>
 <span class="name">gqlAuthSubscription</span>(
 
 1.  <span id="gqlAuthSubscription-param-subscription"
@@ -87,7 +83,7 @@ Stream<QueryResult<Object?>> gqlAuthSubscription(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [database_mutation_functions](../../services_database_mutation_functions/services_database_mutation_functions-library.md)
+2.  [database_mutation_functions](../../services_database_mutation_functions/)
 3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
 4.  gqlAuthSubscription method
 

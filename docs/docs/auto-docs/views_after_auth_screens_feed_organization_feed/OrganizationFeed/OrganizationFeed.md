@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/feed/organization_feed.dart](../../views_after_auth_screens_feed_organization_feed/views_after_auth_screens_feed_organization_feed-library.md)
+2.  [views/after_auth_screens/feed/organization_feed.dart](../../views_after_auth_screens_feed_organization_feed/)
 3.  [OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)
-4.  OrganizationFeed const constructor
+4.  OrganizationFeed.new const constructor
 
 <div class="self-name">
 
-OrganizationFeed
+OrganizationFeed.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const  : super(key: key);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [organization_feed](../../views_after_auth_screens_feed_organization_feed/views_after_auth_screens_feed_organization_feed-library.md)
+2.  [organization_feed](../../views_after_auth_screens_feed_organization_feed/)
 3.  [OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)
-4.  OrganizationFeed const constructor
+4.  OrganizationFeed.new const constructor
 
 ##### OrganizationFeed class
 

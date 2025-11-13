@@ -1,5 +1,5 @@
 1.  [Constructors](./PinnedPostQueries-class#constructors.md)
-2.  [PinnedPostQueries](./PinnedPostQueries/PinnedPostQueries.md)
+2.  [new](./PinnedPostQueries/PinnedPostQueries.md)
 3.  [Properties](./PinnedPostQueries-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

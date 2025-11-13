@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/widgets/group_chat_dialogs.dart](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/views_after_auth_screens_chat_widgets_group_chat_dialogs-library.md)
+2.  [views/after_auth_screens/chat/widgets/group_chat_dialogs.dart](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/)
 3.  [GroupChatDialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/GroupChatDialogs-class.md)
 4.  showDeleteGroupDialog static method
 
@@ -18,13 +18,9 @@ showDeleteGroupDialog
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">showDeleteGroupDialog</span>(
 
 1.  <span id="showDeleteGroupDialog-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span>, </span>
 2.  <span id="showDeleteGroupDialog-param-model"
     class="parameter"><span class="type-annotation">[GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)</span>
@@ -96,7 +92,7 @@ static void showDeleteGroupDialog(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/views_after_auth_screens_chat_widgets_group_chat_dialogs-library.md)
+2.  [group_chat_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/)
 3.  [GroupChatDialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/GroupChatDialogs-class.md)
 4.  showDeleteGroupDialog static method
 

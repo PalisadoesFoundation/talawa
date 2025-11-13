@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/connectivity_view_model.dart](../../view_model_connectivity_view_model/view_model_connectivity_view_model-library.md)
+2.  [view_model/connectivity_view_model.dart](../../view_model_connectivity_view_model/)
 3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.md)
 4.  connectivityStream property
 
@@ -18,13 +18,9 @@ connectivityStream
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)</span>\></span></span>\></span>
+[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)</span>\></span></span>\></span>
 <span class="name">connectivityStream</span>
 
 <div class="features">
@@ -79,7 +75,7 @@ late final Stream<List<ConnectivityResult>> connectivityStream;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [connectivity_view_model](../../view_model_connectivity_view_model/view_model_connectivity_view_model-library.md)
+2.  [connectivity_view_model](../../view_model_connectivity_view_model/)
 3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.md)
 4.  connectivityStream property
 

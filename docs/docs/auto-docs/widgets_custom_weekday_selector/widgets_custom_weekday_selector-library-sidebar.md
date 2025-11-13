@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_custom_weekday_selector-library#classes.md)
+1.  [Classes](./#classes)
 2.  [CustomWeekDaySelector](./CustomWeekDaySelector-class.md)

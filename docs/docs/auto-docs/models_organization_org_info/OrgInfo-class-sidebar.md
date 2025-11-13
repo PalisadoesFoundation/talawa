@@ -1,5 +1,5 @@
 1.  [Constructors](./OrgInfo-class#constructors.md)
-2.  [OrgInfo](./OrgInfo/OrgInfo.md)
+2.  [new](./OrgInfo/OrgInfo.md)
 3.  [fromJson](./OrgInfo/OrgInfo.fromJson.md)
 4.  [Properties](./OrgInfo-class#instance-properties.md)
 5.  [admins](./OrgInfo/admins.md)

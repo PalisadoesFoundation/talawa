@@ -1,4 +1,4 @@
-1.  [Classes](./widgets_create_recurring_event_helper_widgets-library#classes.md)
+1.  [Classes](./#classes)
 2.  [CustomRectangle](./CustomRectangle-class.md)
 3.  [CustomTextField](./CustomTextField-class.md)
 4.  [EventEndOptions](./EventEndOptions-class.md)

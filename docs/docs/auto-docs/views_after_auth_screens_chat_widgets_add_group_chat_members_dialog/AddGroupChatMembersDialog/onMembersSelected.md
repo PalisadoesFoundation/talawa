@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/widgets/add_group_chat_members_dialog.dart](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/views_after_auth_screens_chat_widgets_add_group_chat_members_dialog-library.md)
+2.  [views/after_auth_screens/chat/widgets/add_group_chat_members_dialog.dart](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/)
 3.  [AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)
 4.  onMembersSelected property
 
@@ -18,13 +18,9 @@ onMembersSelected
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -79,7 +75,7 @@ final Function(List<User>) onMembersSelected;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [add_group_chat_members_dialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/views_after_auth_screens_chat_widgets_add_group_chat_members_dialog-library.md)
+2.  [add_group_chat_members_dialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/)
 3.  [AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)
 4.  onMembersSelected property
 

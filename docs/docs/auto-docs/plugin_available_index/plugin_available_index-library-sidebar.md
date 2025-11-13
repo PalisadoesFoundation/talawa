@@ -1,2 +1,2 @@
-1.  [Functions](./plugin_available_index-library#functions.md)
+1.  [Functions](./#functions)
 2.  [getBundledPlugins](./getBundledPlugins.md)

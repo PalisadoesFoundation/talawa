@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [utils/post_queries.dart](../utils_post_queries/utils_post_queries-library.md)
+2.  [utils/post_queries.dart](../utils_post_queries/)
 3.  PostQueries class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ PostQueries
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ This class creates queries related to posts.
 
 ## Constructors
 
-<span class="name">[PostQueries](../utils_post_queries/PostQueries/PostQueries.md)</span><span class="signature"></span>  
+<span class="name">[PostQueries.new](../utils_post_queries/PostQueries/PostQueries.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -146,7 +142,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [post_queries](../utils_post_queries/utils_post_queries-library.md)
+2.  [post_queries](../utils_post_queries/)
 3.  PostQueries class
 
 ##### post_queries library

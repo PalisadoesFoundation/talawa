@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/pre_auth_screens/recover.dart](../../views_pre_auth_screens_recover/views_pre_auth_screens_recover-library.md)
+2.  [views/pre_auth_screens/recover.dart](../../views_pre_auth_screens_recover/)
 3.  [Recover](../../views_pre_auth_screens_recover/Recover-class.md)
-4.  Recover const constructor
+4.  Recover.new const constructor
 
 <div class="self-name">
 
-Recover
+Recover.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const  : super(key: key);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [recover](../../views_pre_auth_screens_recover/views_pre_auth_screens_recover-library.md)
+2.  [recover](../../views_pre_auth_screens_recover/)
 3.  [Recover](../../views_pre_auth_screens_recover/Recover-class.md)
-4.  Recover const constructor
+4.  Recover.new const constructor
 
 ##### Recover class
 

@@ -1,6 +1,6 @@
-1.  [Constants](./utils_time_conversion-library#constants.md)
+1.  [Constants](./#constants)
 2.  [dateTimeFields](./dateTimeFields-constant.md)
-3.  [Functions](./utils_time_conversion-library#functions.md)
+3.  [Functions](./#functions)
 4.  [combineDateTime](./combineDateTime.md)
 5.  [convertLocalToUTC](./convertLocalToUTC.md)
 6.  [convertUTCToLocal](./convertUTCToLocal.md)

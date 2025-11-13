@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_agenda_item_tile-library#classes.md)
+1.  [Classes](./#classes)
 2.  [ExpandableAgendaItemTile](./ExpandableAgendaItemTile-class.md)

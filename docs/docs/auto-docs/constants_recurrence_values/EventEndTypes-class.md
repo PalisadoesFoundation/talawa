@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/recurrence_values.dart](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
 3.  EventEndTypes class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EventEndTypes
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Class containing constants for event end types.
 
 ## Constructors
 
-<span class="name">[EventEndTypes](../constants_recurrence_values/EventEndTypes/EventEndTypes.md)</span><span class="signature"></span>  
+<span class="name">[EventEndTypes.new](../constants_recurrence_values/EventEndTypes/EventEndTypes.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -145,7 +141,7 @@ Constant representing an event that ends on a specific date.
 </div>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [recurrence_values](../constants_recurrence_values/)
 3.  EventEndTypes class
 
 ##### recurrence_values library

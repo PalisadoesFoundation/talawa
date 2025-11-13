@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/chats/chat_list_tile_data_model.dart](../../models_chats_chat_list_tile_data_model/models_chats_chat_list_tile_data_model-library.md)
+2.  [models/chats/chat_list_tile_data_model.dart](../../models_chats_chat_list_tile_data_model/)
 3.  [ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)
 4.  id property
 
@@ -18,13 +18,9 @@ id
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ String? id;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_list_tile_data_model](../../models_chats_chat_list_tile_data_model/models_chats_chat_list_tile_data_model-library.md)
+2.  [chat_list_tile_data_model](../../models_chats_chat_list_tile_data_model/)
 3.  [ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)
 4.  id property
 

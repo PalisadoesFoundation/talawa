@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_post_modal-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PostBottomModal](./PostBottomModal-class.md)

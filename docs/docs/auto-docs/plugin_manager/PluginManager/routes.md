@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [plugin/manager.dart](../../plugin_manager/plugin_manager-library.md)
+2.  [plugin/manager.dart](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  routes property
 
@@ -18,13 +18,9 @@ routes
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,7 +41,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginRoute](../../plugin_types/PluginRoute-class.md)</span>\></span></span>
-<span class="name">routes</span>
+get <span class="name">routes</span>
 
 </div>
 
@@ -80,7 +76,7 @@ List<PluginRoute> get routes => registry.;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [manager](../../plugin_manager/plugin_manager-library.md)
+2.  [manager](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  routes property
 

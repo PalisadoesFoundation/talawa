@@ -1,2 +1,2 @@
-1.  [Classes](./models_mainscreen_navigation_args-library#classes.md)
+1.  [Classes](./#classes)
 2.  [MainScreenArgs](./MainScreenArgs-class.md)

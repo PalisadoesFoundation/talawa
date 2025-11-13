@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/events/event_agenda_item.dart](../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
+2.  [models/events/event_agenda_item.dart](../models_events_event_agenda_item/)
 3.  ItemType enum
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ItemType
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -52,18 +48,8 @@ Inheritance
 - [Enum](https://api.flutter.dev/flutter/dart-core/Enum-class.html)
 - ItemType
 
-</div>
-
-<div id="constructors" class="section summary offset-anchor">
-
-## Constructors
-
-<span class="name">[ItemType](../models_events_event_agenda_item/ItemType/ItemType.md)</span><span class="signature"></span>  
-<div class="constructor-modifier features">
-
-const
-
-</div>
+Available extensions  
+- [EnumName](https://api.flutter.dev/flutter/dart-core/EnumName.html)
 
 </div>
 
@@ -101,6 +87,21 @@ A numeric identifier for the enumerated value.
 
 <span class="feature">no
 setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[name](https://api.flutter.dev/flutter/dart-core/EnumName/name.html)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+Available on
+[Enum](https://api.flutter.dev/flutter/dart-core/Enum-class.html),
+provided by the
+[EnumName](https://api.flutter.dev/flutter/dart-core/EnumName.html)
+extension
+
+The name of the enum value.
+
+<div class="features">
+
+<span class="feature">no setter</span>
 
 </div>
 
@@ -175,7 +176,7 @@ declaration.
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_agenda_item](../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
+2.  [event_agenda_item](../models_events_event_agenda_item/)
 3.  ItemType enum
 
 ##### event_agenda_item library

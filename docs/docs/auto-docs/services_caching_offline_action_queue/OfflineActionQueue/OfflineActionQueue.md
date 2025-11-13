@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/caching/offline_action_queue.dart](../../services_caching_offline_action_queue/services_caching_offline_action_queue-library.md)
+2.  [services/caching/offline_action_queue.dart](../../services_caching_offline_action_queue/)
 3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
-4.  OfflineActionQueue constructor
+4.  OfflineActionQueue.new constructor
 
 <div class="self-name">
 
-OfflineActionQueue
+OfflineActionQueue.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [offline_action_queue](../../services_caching_offline_action_queue/services_caching_offline_action_queue-library.md)
+2.  [offline_action_queue](../../services_caching_offline_action_queue/)
 3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
-4.  OfflineActionQueue constructor
+4.  OfflineActionQueue.new constructor
 
 ##### OfflineActionQueue class
 

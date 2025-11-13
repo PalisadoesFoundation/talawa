@@ -1,5 +1,5 @@
 1.  [Constructors](./AsymetricKeysAdapter-class#constructors.md)
-2.  [AsymetricKeysAdapter](./AsymetricKeysAdapter/AsymetricKeysAdapter.md)
+2.  [new](./AsymetricKeysAdapter/AsymetricKeysAdapter.md)
 3.  [Properties](./AsymetricKeysAdapter-class#instance-properties.md)
 4.  [hashCode](./AsymetricKeysAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

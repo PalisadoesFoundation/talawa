@@ -1,5 +1,5 @@
 1.  [Constructors](./User-class#constructors.md)
-2.  [User](./User/User.md)
+2.  [new](./User/User.md)
 3.  [fromJson](./User/User.fromJson.md)
 4.  [Properties](./User-class#instance-properties.md)
 5.  [adminFor](./User/adminFor.md)

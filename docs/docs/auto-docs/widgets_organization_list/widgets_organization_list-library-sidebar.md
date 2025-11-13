@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_organization_list-library#classes.md)
+1.  [Classes](./#classes)
 2.  [OrganizationList](./OrganizationList-class.md)

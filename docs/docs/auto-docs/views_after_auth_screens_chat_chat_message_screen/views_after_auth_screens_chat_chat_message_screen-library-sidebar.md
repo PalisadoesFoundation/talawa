@@ -1,2 +1,2 @@
-1.  [Classes](./views_after_auth_screens_chat_chat_message_screen-library#classes.md)
+1.  [Classes](./#classes)
 2.  [ChatMessageScreen](./ChatMessageScreen-class.md)

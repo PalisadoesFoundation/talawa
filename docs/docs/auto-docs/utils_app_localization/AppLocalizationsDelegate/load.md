@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/app_localization.dart](../../utils_app_localization/utils_app_localization-library.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
 3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
 4.  load method
 
@@ -18,13 +18,9 @@ load
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -48,7 +44,7 @@ below-sidebar="">
 
 </div>
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)</span>\></span></span>
 <span class="name">load</span>(
 
 1.  <span id="load-param-locale"
@@ -56,6 +52,12 @@ below-sidebar="">
     <span class="parameter-name">locale</span></span>
 
 )
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 </div>
 
@@ -67,7 +69,7 @@ when the resources have finished loading.
 It's assumed that this method will return an object that contains a
 collection of related string resources (typically defined with one
 method per resource). The object will be retrieved with
-`Localizations.of`.
+[Localizations.of](https://api.flutter.dev/flutter/widgets/Localizations/of.html).
 
 </div>
 
@@ -91,7 +93,7 @@ Future<AppLocalizations> load(Locale locale) async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_localization](../../utils_app_localization/utils_app_localization-library.md)
+2.  [app_localization](../../utils_app_localization/)
 3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
 4.  load method
 

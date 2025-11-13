@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_from_palisadoes-library#classes.md)
+1.  [Classes](./#classes)
 2.  [FromPalisadoes](./FromPalisadoes-class.md)

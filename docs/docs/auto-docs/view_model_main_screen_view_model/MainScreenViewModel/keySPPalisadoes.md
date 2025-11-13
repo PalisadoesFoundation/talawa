@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
+2.  [view_model/main_screen_view_model.dart](../../view_model_main_screen_view_model/)
 3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  keySPPalisadoes property
 
@@ -18,13 +18,9 @@ keySPPalisadoes
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span>
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[State](https://api.flutter.dev/flutter/widgets/State-class.html)<span class="signature">\<<span class="type-parameter">[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)</span>\></span></span>\></span>
 <span class="name">keySPPalisadoes</span>
 
 <div class="features">
@@ -79,7 +75,7 @@ final GlobalKey keySPPalisadoes =
 </div>
 
 1.  [talawa](../../index.md)
-2.  [main_screen_view_model](../../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
 3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  keySPPalisadoes property
 

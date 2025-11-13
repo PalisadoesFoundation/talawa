@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/comment_service.dart](../services_comment_service/services_comment_service-library.md)
+2.  [services/comment_service.dart](../services_comment_service/)
 3.  CommentService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ CommentService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,7 +51,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[CommentService](../services_comment_service/CommentService/CommentService.md)</span><span class="signature"></span>  
+<span class="name">[CommentService.new](../services_comment_service/CommentService/CommentService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -90,10 +86,10 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[createComments](../services_comment_service/CommentService/createComments.md)</span><span class="signature">(<span id="createComments-param-postId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">postId</span>, </span><span id="createComments-param-body" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">body</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[createComments](../services_comment_service/CommentService/createComments.md)</span><span class="signature">(<span id="createComments-param-postId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">postId</span>, </span><span id="createComments-param-body" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">body</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 This function is used to add comment on the post.
 
-<span class="name">[getCommentsForPost](../services_comment_service/CommentService/getCommentsForPost.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span>\></span></span> </span>  
+<span class="name">[getCommentsForPost](../services_comment_service/CommentService/getCommentsForPost.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span>\></span></span> </span>  
 This function is used to get comments on the post.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -140,7 +136,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [comment_service](../services_comment_service/services_comment_service-library.md)
+2.  [comment_service](../services_comment_service/)
 3.  CommentService class
 
 ##### comment_service library

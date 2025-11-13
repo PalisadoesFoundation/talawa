@@ -1,2 +1,2 @@
-1.  [Classes](./plugin_plugin_injector-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PluginInjector](./PluginInjector-class.md)

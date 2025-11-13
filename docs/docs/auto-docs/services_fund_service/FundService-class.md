@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/fund_service.dart](../services_fund_service/services_fund_service-library.md)
+2.  [services/fund_service.dart](../services_fund_service/)
 3.  FundService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ FundService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,7 +46,7 @@ Campaigns, and Pledges.
 
 ## Constructors
 
-<span class="name">[FundService](../services_fund_service/FundService/FundService.md)</span><span class="signature"></span>  
+<span class="name">[FundService.new](../services_fund_service/FundService/FundService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -85,19 +81,19 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[createPledge](../services_fund_service/FundService/createPledge.md)</span><span class="signature">(<span id="createPledge-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[createPledge](../services_fund_service/FundService/createPledge.md)</span><span class="signature">(<span id="createPledge-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to create a new pledge.
 
-<span class="name">[deletePledge](../services_fund_service/FundService/deletePledge.md)</span><span class="signature">(<span id="deletePledge-param-pledgeId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">pledgeId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[deletePledge](../services_fund_service/FundService/deletePledge.md)</span><span class="signature">(<span id="deletePledge-param-pledgeId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">pledgeId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to delete a pledge.
 
-<span class="name">[getCampaigns](../services_fund_service/FundService/getCampaigns.md)</span><span class="signature">(<span id="getCampaigns-param-fundId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">fundId</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Pair](../utils_pair/Pair-class.md)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Campaign](../models_funds_fund_campaign/Campaign-class.md)</span>\></span></span>, <span class="type-parameter">[PageInfo](../models_page_info_page_info/PageInfo-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[getCampaigns](../services_fund_service/FundService/getCampaigns.md)</span><span class="signature">(<span id="getCampaigns-param-fundId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">fundId</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Pair](../utils_pair/Pair-class.md)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Campaign](../models_funds_fund_campaign/Campaign-class.md)</span>\></span></span>, <span class="type-parameter">[PageInfo](../models_page_info_page_info/PageInfo-class.md)</span>\></span></span>\></span></span> </span>  
 This function is used to fetch all campaigns of a fund.
 
-<span class="name">[getFunds](../services_fund_service/FundService/getFunds.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Pair](../utils_pair/Pair-class.md)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Fund](../models_funds_fund/Fund-class.md)</span>\></span></span>, <span class="type-parameter">[PageInfo](../models_page_info_page_info/PageInfo-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[getFunds](../services_fund_service/FundService/getFunds.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Pair](../utils_pair/Pair-class.md)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Fund](../models_funds_fund/Fund-class.md)</span>\></span></span>, <span class="type-parameter">[PageInfo](../models_page_info_page_info/PageInfo-class.md)</span>\></span></span>\></span></span> </span>  
 This function is used to fetch all funds of the organization.
 
-<span class="name">[getPledgesByCampaign](../services_fund_service/FundService/getPledgesByCampaign.md)</span><span class="signature">(<span id="getPledgesByCampaign-param-campaignId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">campaignId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Pledge](../models_funds_fund_pledges/Pledge-class.md)</span>\></span></span>\></span></span> </span>  
+<span class="name">[getPledgesByCampaign](../services_fund_service/FundService/getPledgesByCampaign.md)</span><span class="signature">(<span id="getPledgesByCampaign-param-campaignId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">campaignId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Pledge](../models_funds_fund_pledges/Pledge-class.md)</span>\></span></span>\></span></span> </span>  
 This function is used to fetch pledges by campaign ID.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -118,7 +114,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[updatePledge](../services_fund_service/FundService/updatePledge.md)</span><span class="signature">(<span id="updatePledge-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[updatePledge](../services_fund_service/FundService/updatePledge.md)</span><span class="signature">(<span id="updatePledge-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 This function is used to update an existing pledge.
 
 </div>
@@ -147,7 +143,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [fund_service](../services_fund_service/services_fund_service-library.md)
+2.  [fund_service](../services_fund_service/)
 3.  FundService class
 
 ##### fund_service library

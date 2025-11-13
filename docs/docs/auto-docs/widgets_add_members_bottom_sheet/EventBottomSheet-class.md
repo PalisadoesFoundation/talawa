@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [widgets/add_members_bottom_sheet.dart](../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.md)
+2.  [widgets/add_members_bottom_sheet.dart](../widgets_add_members_bottom_sheet/)
 3.  EventBottomSheet class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EventBottomSheet
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Adds members to an event.
 
 ## Constructors
 
-<span class="name">[EventBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet/EventBottomSheet.md)</span><span class="signature"></span>  
+<span class="name">[EventBottomSheet.new](../widgets_add_members_bottom_sheet/EventBottomSheet/EventBottomSheet.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -131,7 +127,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [add_members_bottom_sheet](../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.md)
+2.  [add_members_bottom_sheet](../widgets_add_members_bottom_sheet/)
 3.  EventBottomSheet class
 
 ##### add_members_bottom_sheet library

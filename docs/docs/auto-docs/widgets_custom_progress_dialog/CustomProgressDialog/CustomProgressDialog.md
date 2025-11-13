@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/custom_progress_dialog.dart](../../widgets_custom_progress_dialog/widgets_custom_progress_dialog-library.md)
+2.  [widgets/custom_progress_dialog.dart](../../widgets_custom_progress_dialog/)
 3.  [CustomProgressDialog](../../widgets_custom_progress_dialog/CustomProgressDialog-class.md)
-4.  CustomProgressDialog const constructor
+4.  CustomProgressDialog.new const constructor
 
 <div class="self-name">
 
-CustomProgressDialog
+CustomProgressDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const  : super(key: key);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_progress_dialog](../../widgets_custom_progress_dialog/widgets_custom_progress_dialog-library.md)
+2.  [custom_progress_dialog](../../widgets_custom_progress_dialog/)
 3.  [CustomProgressDialog](../../widgets_custom_progress_dialog/CustomProgressDialog-class.md)
-4.  CustomProgressDialog const constructor
+4.  CustomProgressDialog.new const constructor
 
 ##### CustomProgressDialog class
 

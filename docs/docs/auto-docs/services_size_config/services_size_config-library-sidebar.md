@@ -1,2 +1,2 @@
-1.  [Classes](./services_size_config-library#classes.md)
+1.  [Classes](./#classes)
 2.  [SizeConfig](./SizeConfig-class.md)

@@ -1,2 +1,2 @@
-1.  [Classes](./models_funds_fund-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Fund](./Fund-class.md)

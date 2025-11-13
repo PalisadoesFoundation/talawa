@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/comment/comment_model.dart](../../models_comment_comment_model/models_comment_comment_model-library.md)
+2.  [models/comment/comment_model.dart](../../models_comment_comment_model/)
 3.  [CommentAdapter](../../models_comment_comment_model/CommentAdapter-class.md)
 4.  hashCode property
 
@@ -18,13 +18,9 @@ hashCode
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,7 +47,7 @@ below-sidebar="">
 </div>
 
 <span class="returntype">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>
-<span class="name">hashCode</span>
+get <span class="name">hashCode</span>
 
 <div class="features">
 
@@ -133,7 +129,7 @@ int get hashCode => typeId.hashCode;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
+2.  [comment_model](../../models_comment_comment_model/)
 3.  [CommentAdapter](../../models_comment_comment_model/CommentAdapter-class.md)
 4.  hashCode property
 

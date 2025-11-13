@@ -1,5 +1,5 @@
 1.  [Constructors](./Comment-class#constructors.md)
-2.  [Comment](./Comment/Comment.md)
+2.  [new](./Comment/Comment.md)
 3.  [fromJson](./Comment/Comment.fromJson.md)
 4.  [Properties](./Comment-class#instance-properties.md)
 5.  [body](./Comment/body.md)

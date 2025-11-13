@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/user_action_handler.dart](../services_user_action_handler/services_user_action_handler-library.md)
+2.  [services/user_action_handler.dart](../services_user_action_handler/)
 3.  ActionHandlerService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ActionHandlerService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -52,7 +48,7 @@ with proper error handling and UI updates based on the action type.
 
 ## Constructors
 
-<span class="name">[ActionHandlerService](../services_user_action_handler/ActionHandlerService/ActionHandlerService.md)</span><span class="signature"></span>  
+<span class="name">[ActionHandlerService.new](../services_user_action_handler/ActionHandlerService/ActionHandlerService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -87,7 +83,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[executeApiCall](../services_user_action_handler/ActionHandlerService/executeApiCall.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span>\></span></span> </span>  
+<span class="name">[executeApiCall](../services_user_action_handler/ActionHandlerService/executeApiCall.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span>\></span></span> </span>  
 Method to execute an API action.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -99,7 +95,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[performAction](../services_user_action_handler/ActionHandlerService/performAction.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[performAction](../services_user_action_handler/ActionHandlerService/performAction.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Processes a user action based on its type, with error handling and UI
 update.
 
@@ -138,7 +134,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [user_action_handler](../services_user_action_handler/services_user_action_handler-library.md)
+2.  [user_action_handler](../services_user_action_handler/)
 3.  ActionHandlerService class
 
 ##### user_action_handler library

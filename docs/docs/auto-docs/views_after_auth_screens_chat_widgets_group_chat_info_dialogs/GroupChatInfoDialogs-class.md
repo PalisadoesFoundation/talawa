@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [views/after_auth_screens/chat/widgets/group_chat_info_dialogs.dart](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/views_after_auth_screens_chat_widgets_group_chat_info_dialogs-library.md)
+2.  [views/after_auth_screens/chat/widgets/group_chat_info_dialogs.dart](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/)
 3.  GroupChatInfoDialogs class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ GroupChatInfoDialogs
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,7 +51,7 @@ This class contains static methods for showing:
 
 ## Constructors
 
-<span class="name">[GroupChatInfoDialogs](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/GroupChatInfoDialogs.md)</span><span class="signature"></span>  
+<span class="name">[GroupChatInfoDialogs.new](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/GroupChatInfoDialogs.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -145,10 +141,10 @@ Navigation service instance.
 
 ## Static Methods
 
-<span class="name">[showEditGroupDialog](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/showEditGroupDialog.md)</span><span class="signature">(<span id="showEditGroupDialog-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span><span id="showEditGroupDialog-param-chat" class="parameter"><span class="type-annotation">[Chat](../models_chats_chat/Chat-class.md)</span> <span class="parameter-name">chat</span>, </span><span id="showEditGroupDialog-param-model" class="parameter"><span class="type-annotation">[GroupChatViewModel](../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)</span> <span class="parameter-name">model</span>, </span><span id="showEditGroupDialog-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[showEditGroupDialog](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/showEditGroupDialog.md)</span><span class="signature">(<span id="showEditGroupDialog-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span>, </span><span id="showEditGroupDialog-param-chat" class="parameter"><span class="type-annotation">[Chat](../models_chats_chat/Chat-class.md)</span> <span class="parameter-name">chat</span>, </span><span id="showEditGroupDialog-param-model" class="parameter"><span class="type-annotation">[GroupChatViewModel](../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)</span> <span class="parameter-name">model</span>, </span><span id="showEditGroupDialog-param-chatId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">chatId</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Shows edit group dialog for admin users.
 
-<span class="name">[showGroupInfo](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/showGroupInfo.md)</span><span class="signature">(<span id="showGroupInfo-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span><span id="showGroupInfo-param-chat" class="parameter"><span class="type-annotation">[Chat](../models_chats_chat/Chat-class.md)</span> <span class="parameter-name">chat</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[showGroupInfo](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/GroupChatInfoDialogs/showGroupInfo.md)</span><span class="signature">(<span id="showGroupInfo-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span>, </span><span id="showGroupInfo-param-chat" class="parameter"><span class="type-annotation">[Chat](../models_chats_chat/Chat-class.md)</span> <span class="parameter-name">chat</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Shows group information dialog.
 
 </div>
@@ -162,7 +158,7 @@ Shows group information dialog.
 </div>
 
 1.  [talawa](../index.md)
-2.  [group_chat_info_dialogs](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/views_after_auth_screens_chat_widgets_group_chat_info_dialogs-library.md)
+2.  [group_chat_info_dialogs](../views_after_auth_screens_chat_widgets_group_chat_info_dialogs/)
 3.  GroupChatInfoDialogs class
 
 ##### group_chat_info_dialogs library

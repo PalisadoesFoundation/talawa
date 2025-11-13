@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/navigation_service.dart](../services_navigation_service/services_navigation_service-library.md)
+2.  [services/navigation_service.dart](../services_navigation_service/)
 3.  NavigationService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ NavigationService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -62,7 +58,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[NavigationService](../services_navigation_service/NavigationService/NavigationService.md)</span><span class="signature"></span>  
+<span class="name">[NavigationService.new](../services_navigation_service/NavigationService/NavigationService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -80,7 +76,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[navigatorKey](../services_navigation_service/NavigationService/navigatorKey.md)</span> <span class="signature">↔ GlobalKey<span class="signature">\<<span class="type-parameter">NavigatorState</span>\></span></span>  
+<span class="name">[navigatorKey](../services_navigation_service/NavigationService/navigatorKey.md)</span> <span class="signature">↔ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[NavigatorState](https://api.flutter.dev/flutter/widgets/NavigatorState-class.html)</span>\></span></span>  
 Key for Navigator State.
 
 <div class="features">
@@ -117,24 +113,24 @@ Invoked when a nonexistent method or property is accessed.
 <span class="name">[pop](../services_navigation_service/NavigationService/pop.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 This function pops the current state.
 
-<span class="name">[popAndPushScreen](../services_navigation_service/NavigationService/popAndPushScreen.md)</span><span class="signature">(<span id="popAndPushScreen-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span> </span>  
+<span class="name">[popAndPushScreen](../services_navigation_service/NavigationService/popAndPushScreen.md)</span><span class="signature">(<span id="popAndPushScreen-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
 This function pop the initial route and push the new route to the
 navigator.
 
 <span class="name">[printNavigatorState](../services_navigation_service/NavigationService/printNavigatorState.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 This function prints current navigation state.
 
-<span class="name">[pushDialog](../services_navigation_service/NavigationService/pushDialog.md)</span><span class="signature">(<span id="pushDialog-param-dialog" class="parameter"><span class="type-annotation">Widget</span> <span class="parameter-name">dialog</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[pushDialog](../services_navigation_service/NavigationService/pushDialog.md)</span><span class="signature">(<span id="pushDialog-param-dialog" class="parameter"><span class="type-annotation">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.md)</span> <span class="parameter-name">dialog</span></span>) <span class="returntype parameter">→ void</span> </span>  
 This function remove all the routes till the particular route and add
 new route.
 
-<span class="name">[pushReplacementScreen](../services_navigation_service/NavigationService/pushReplacementScreen.md)</span><span class="signature">(<span id="pushReplacementScreen-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span> </span>  
+<span class="name">[pushReplacementScreen](../services_navigation_service/NavigationService/pushReplacementScreen.md)</span><span class="signature">(<span id="pushReplacementScreen-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
 This function push the route and replace the screen.
 
-<span class="name">[pushScreen](../services_navigation_service/NavigationService/pushScreen.md)</span><span class="signature">(<span id="pushScreen-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span> </span>  
+<span class="name">[pushScreen](../services_navigation_service/NavigationService/pushScreen.md)</span><span class="signature">(<span id="pushScreen-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
 Pushes a Screen.
 
-<span class="name">[removeAllAndPush](../services_navigation_service/NavigationService/removeAllAndPush.md)</span><span class="signature">(<span id="removeAllAndPush-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, </span><span id="removeAllAndPush-param-tillRoute" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">tillRoute</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span> </span>  
+<span class="name">[removeAllAndPush](../services_navigation_service/NavigationService/removeAllAndPush.md)</span><span class="signature">(<span id="removeAllAndPush-param-routeName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">routeName</span>, </span><span id="removeAllAndPush-param-tillRoute" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">tillRoute</span>, ) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
 This function remove all the routes till the particular route and add
 new route.
 
@@ -186,7 +182,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [navigation_service](../services_navigation_service/services_navigation_service-library.md)
+2.  [navigation_service](../services_navigation_service/)
 3.  NavigationService class
 
 ##### navigation_service library

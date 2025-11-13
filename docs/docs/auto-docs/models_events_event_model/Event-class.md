@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/events/event_model.dart](../models_events_event_model/models_events_event_model-library.md)
+2.  [models/events/event_model.dart](../models_events_event_model/)
 3.  Event class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ Event
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -57,7 +53,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[Event](../models_events_event_model/Event/Event.md)</span><span class="signature"></span>  
+<span class="name">[Event.new](../models_events_event_model/Event/Event.md)</span><span class="signature"></span>  
 
 <span class="name">[Event.fromJson](../models_events_event_model/Event/Event.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 <div class="constructor-modifier features">
@@ -314,7 +310,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_model](../models_events_event_model/models_events_event_model-library.md)
+2.  [event_model](../models_events_event_model/)
 3.  Event class
 
 ##### event_model library

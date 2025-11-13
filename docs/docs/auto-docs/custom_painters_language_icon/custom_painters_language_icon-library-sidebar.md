@@ -1,2 +1,2 @@
-1.  [Classes](./custom_painters_language_icon-library#classes.md)
+1.  [Classes](./#classes)
 2.  [LanguageIcon](./LanguageIcon-class.md)

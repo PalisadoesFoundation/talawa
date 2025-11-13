@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/pre_auth_view_models/login_view_model.dart](../../view_model_pre_auth_view_models_login_view_model/view_model_pre_auth_view_models_login_view_model-library.md)
+2.  [view_model/pre_auth_view_models/login_view_model.dart](../../view_model_pre_auth_view_models_login_view_model/)
 3.  [LoginViewModel](../../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.md)
 4.  passwordFocus property
 
@@ -18,13 +18,9 @@ passwordFocus
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-FocusNode <span class="name">passwordFocus</span>
+[FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)
+<span class="name">passwordFocus</span>
 
 <div class="features">
 
@@ -77,7 +74,7 @@ FocusNode passwordFocus = ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [login_view_model](../../view_model_pre_auth_view_models_login_view_model/view_model_pre_auth_view_models_login_view_model-library.md)
+2.  [login_view_model](../../view_model_pre_auth_view_models_login_view_model/)
 3.  [LoginViewModel](../../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.md)
 4.  passwordFocus property
 

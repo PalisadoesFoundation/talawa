@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/user_config.dart](../../services_user_config/services_user_config-library.md)
+2.  [services/user_config.dart](../../services_user_config/)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentOrgInfoStream property
 
@@ -18,13 +18,9 @@ currentOrgInfoStream
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -44,8 +40,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)</span>\></span></span>
-<span class="name">currentOrgInfoStream</span>
+<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)</span>\></span></span>
+get <span class="name">currentOrgInfoStream</span>
 
 </div>
 
@@ -76,7 +72,7 @@ Stream<OrgInfo> get currentOrgInfoStream => _currentOrgInfoStream;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_config](../../services_user_config/services_user_config-library.md)
+2.  [user_config](../../services_user_config/)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentOrgInfoStream property
 

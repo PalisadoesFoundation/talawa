@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/caption_text_widget.dart](../../widgets_caption_text_widget/widgets_caption_text_widget-library.md)
+2.  [widgets/caption_text_widget.dart](../../widgets_caption_text_widget/)
 3.  [CaptionTextWidget](../../widgets_caption_text_widget/CaptionTextWidget-class.md)
-4.  CaptionTextWidget const constructor
+4.  CaptionTextWidget.new const constructor
 
 <div class="self-name">
 
-CaptionTextWidget
+CaptionTextWidget.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [caption_text_widget](../../widgets_caption_text_widget/widgets_caption_text_widget-library.md)
+2.  [caption_text_widget](../../widgets_caption_text_widget/)
 3.  [CaptionTextWidget](../../widgets_caption_text_widget/CaptionTextWidget-class.md)
-4.  CaptionTextWidget const constructor
+4.  CaptionTextWidget.new const constructor
 
 ##### CaptionTextWidget class
 

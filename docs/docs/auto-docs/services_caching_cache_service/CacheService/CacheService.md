@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/caching/cache_service.dart](../../services_caching_cache_service/services_caching_cache_service-library.md)
+2.  [services/caching/cache_service.dart](../../services_caching_cache_service/)
 3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
-4.  CacheService constructor
+4.  CacheService.new constructor
 
 <div class="self-name">
 
-CacheService
+CacheService.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -71,9 +67,9 @@ Initializes the cache service and the offline action queue.
 </div>
 
 1.  [talawa](../../index.md)
-2.  [cache_service](../../services_caching_cache_service/services_caching_cache_service-library.md)
+2.  [cache_service](../../services_caching_cache_service/)
 3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
-4.  CacheService constructor
+4.  CacheService.new constructor
 
 ##### CacheService class
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
 3.  [CustomTextField](../../widgets_create_recurring_event_helper_widgets/CustomTextField-class.md)
 4.  readOnly property
 
@@ -18,13 +18,9 @@ readOnly
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ final bool readOnly;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
 3.  [CustomTextField](../../widgets_create_recurring_event_helper_widgets/CustomTextField-class.md)
 4.  readOnly property
 

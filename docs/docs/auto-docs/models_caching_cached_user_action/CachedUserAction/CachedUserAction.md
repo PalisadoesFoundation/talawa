@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/caching/cached_user_action.dart](../../models_caching_cached_user_action/models_caching_cached_user_action-library.md)
+2.  [models/caching/cached_user_action.dart](../../models_caching_cached_user_action/)
 3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)
-4.  CachedUserAction constructor
+4.  CachedUserAction.new constructor
 
 <div class="self-name">
 
-CachedUserAction
+CachedUserAction.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [cached_user_action](../../models_caching_cached_user_action/models_caching_cached_user_action-library.md)
+2.  [cached_user_action](../../models_caching_cached_user_action/)
 3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)
-4.  CachedUserAction constructor
+4.  CachedUserAction.new constructor
 
 ##### CachedUserAction class
 

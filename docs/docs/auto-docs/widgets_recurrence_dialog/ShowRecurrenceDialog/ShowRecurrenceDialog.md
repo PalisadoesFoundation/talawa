@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/recurrence_dialog.dart](../../widgets_recurrence_dialog/widgets_recurrence_dialog-library.md)
+2.  [widgets/recurrence_dialog.dart](../../widgets_recurrence_dialog/)
 3.  [ShowRecurrenceDialog](../../widgets_recurrence_dialog/ShowRecurrenceDialog-class.md)
-4.  ShowRecurrenceDialog const constructor
+4.  ShowRecurrenceDialog.new const constructor
 
 <div class="self-name">
 
-ShowRecurrenceDialog
+ShowRecurrenceDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [recurrence_dialog](../../widgets_recurrence_dialog/widgets_recurrence_dialog-library.md)
+2.  [recurrence_dialog](../../widgets_recurrence_dialog/)
 3.  [ShowRecurrenceDialog](../../widgets_recurrence_dialog/ShowRecurrenceDialog-class.md)
-4.  ShowRecurrenceDialog const constructor
+4.  ShowRecurrenceDialog.new const constructor
 
 ##### ShowRecurrenceDialog class
 

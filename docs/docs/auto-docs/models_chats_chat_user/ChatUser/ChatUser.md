@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/chats/chat_user.dart](../../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [models/chats/chat_user.dart](../../models_chats_chat_user/)
 3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
-4.  ChatUser constructor
+4.  ChatUser.new constructor
 
 <div class="self-name">
 
-ChatUser
+ChatUser.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,12 +46,8 @@ below-sidebar="">
 
 Constructs a `ChatUser` instance.
 
-[firstName](../../models_chats_chat_user/ChatUser/firstName.md) is the
-first name of the user.
-[id](../../models_chats_chat_user/ChatUser/id.md) is the unique
-identifier of the user.
-[image](../../models_chats_chat_user/ChatUser/image.md) is the URL of
-the user's profile image.
+`firstName` is the first name of the user. `id` is the unique identifier
+of the user. `image` is the URL of the user's profile image.
 
 </div>
 
@@ -78,9 +70,9 @@ the user's profile image.
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_user](../../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [chat_user](../../models_chats_chat_user/)
 3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
-4.  ChatUser constructor
+4.  ChatUser.new constructor
 
 ##### ChatUser class
 

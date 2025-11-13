@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/chats/chat_list_tile_data_model.dart](../models_chats_chat_list_tile_data_model/models_chats_chat_list_tile_data_model-library.md)
+2.  [models/chats/chat_list_tile_data_model.dart](../models_chats_chat_list_tile_data_model/)
 3.  ChatListTileDataModel class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ChatListTileDataModel
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,7 +47,7 @@ that expect the old chat list tile data structure.
 
 ## Constructors
 
-<span class="name">[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.md)</span><span class="signature"></span>  
+<span class="name">[ChatListTileDataModel.new](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.md)</span><span class="signature"></span>  
 
 <span class="name">[ChatListTileDataModel.fromChat](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.fromChat.md)</span><span class="signature">(<span id="fromChat-param-chat" class="parameter"><span class="type-annotation">[Chat](../models_chats_chat/Chat-class.md)</span> <span class="parameter-name">chat</span></span>)</span>  
 Creates a `ChatListTileDataModel` from a `Chat` instance.
@@ -166,7 +162,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_list_tile_data_model](../models_chats_chat_list_tile_data_model/models_chats_chat_list_tile_data_model-library.md)
+2.  [chat_list_tile_data_model](../models_chats_chat_list_tile_data_model/)
 3.  ChatListTileDataModel class
 
 ##### chat_list_tile_data_model library

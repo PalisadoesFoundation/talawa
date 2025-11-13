@@ -1,2 +1,2 @@
-1.  [Classes](./services_image_service-library#classes.md)
+1.  [Classes](./#classes)
 2.  [ImageService](./ImageService-class.md)

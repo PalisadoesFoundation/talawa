@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [utils/validators.dart](../utils_validators/utils_validators-library.md)
+2.  [utils/validators.dart](../utils_validators/)
 3.  Validator class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ Validator
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,7 +47,7 @@ They are used to validate information given by the users.
 
 ## Constructors
 
-<span class="name">[Validator](../utils_validators/Validator/Validator.md)</span><span class="signature"></span>  
+<span class="name">[Validator.new](../utils_validators/Validator/Validator.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -104,7 +100,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[validateUrlExistence](../utils_validators/Validator/validateUrlExistence.md)</span><span class="signature">(<span id="validateUrlExistence-param-url" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">url</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span>\></span></span> </span>  
+<span class="name">[validateUrlExistence](../utils_validators/Validator/validateUrlExistence.md)</span><span class="signature">(<span id="validateUrlExistence-param-url" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">url</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span>\></span></span> </span>  
 Method to validate already exisiting URL.
 
 </div>
@@ -134,7 +130,7 @@ Method to validate a user's email.
 <span class="name">[validateEventForm](../utils_validators/Validator/validateEventForm.md)</span><span class="signature">(<span id="validateEventForm-param-value" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">value</span>, </span><span id="validateEventForm-param-label" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span> <span class="parameter-name">label</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span> </span>  
 Method to validate event form.
 
-<span class="name">[validateEventTime](../utils_validators/Validator/validateEventTime.md)</span><span class="signature">(<span id="validateEventTime-param-startTime" class="parameter"><span class="type-annotation">TimeOfDay</span> <span class="parameter-name">startTime</span>, </span><span id="validateEventTime-param-endTime" class="parameter"><span class="type-annotation">TimeOfDay</span> <span class="parameter-name">endTime</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span> </span>  
+<span class="name">[validateEventTime](../utils_validators/Validator/validateEventTime.md)</span><span class="signature">(<span id="validateEventTime-param-startTime" class="parameter"><span class="type-annotation">[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)</span> <span class="parameter-name">startTime</span>, </span><span id="validateEventTime-param-endTime" class="parameter"><span class="type-annotation">[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)</span> <span class="parameter-name">endTime</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span> </span>  
 Method to validate event time.
 
 <span class="name">[validateFirstName](../utils_validators/Validator/validateFirstName.md)</span><span class="signature">(<span id="validateFirstName-param-value" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">value</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span> </span>  
@@ -163,7 +159,7 @@ Method to validate an organization's URL.
 </div>
 
 1.  [talawa](../index.md)
-2.  [validators](../utils_validators/utils_validators-library.md)
+2.  [validators](../utils_validators/)
 3.  Validator class
 
 ##### validators library

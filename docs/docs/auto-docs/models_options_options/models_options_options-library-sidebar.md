@@ -1,2 +1,2 @@
-1.  [Classes](./models_options_options-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Options](./Options-class.md)

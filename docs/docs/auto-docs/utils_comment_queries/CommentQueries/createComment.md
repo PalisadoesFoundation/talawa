@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [utils/comment_queries.dart](../../utils_comment_queries/utils_comment_queries-library.md)
+2.  [utils/comment_queries.dart](../../utils_comment_queries/)
 3.  [CommentQueries](../../utils_comment_queries/CommentQueries-class.md)
 4.  createComment method
 
@@ -18,13 +18,9 @@ createComment
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ String
 </div>
 
 1.  [talawa](../../index.md)
-2.  [comment_queries](../../utils_comment_queries/utils_comment_queries-library.md)
+2.  [comment_queries](../../utils_comment_queries/)
 3.  [CommentQueries](../../utils_comment_queries/CommentQueries-class.md)
 4.  createComment method
 

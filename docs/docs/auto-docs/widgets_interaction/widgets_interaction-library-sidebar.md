@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_interaction-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Interactions](./Interactions-class.md)

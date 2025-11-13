@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/view_model_after_auth_view_models_event_view_models_edit_event_view_model-library.md)
+2.  [view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
 3.  EditEventViewModel class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EditEventViewModel
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,6 +51,7 @@ Methods include:
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - EditEventViewModel
 
@@ -64,7 +61,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EditEventViewModel](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/EditEventViewModel.md)</span><span class="signature"></span>  
+<span class="name">[EditEventViewModel.new](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/EditEventViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -72,7 +69,7 @@ Inheritance
 
 ## Properties
 
-<span class="name">[descriptionFocus](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/descriptionFocus.md)</span> <span class="signature">↔ FocusNode</span>  
+<span class="name">[descriptionFocus](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/descriptionFocus.md)</span> <span class="signature">↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)</span>  
 FocusNode to manage focus for the event description text input field.
 
 <div class="features">
@@ -81,7 +78,7 @@ FocusNode to manage focus for the event description text input field.
 
 </div>
 
-<span class="name">[eventDescriptionTextController](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventDescriptionTextController.md)</span> <span class="signature">↔ TextEditingController</span>  
+<span class="name">[eventDescriptionTextController](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventDescriptionTextController.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 TextEditingController to handle the text input for the event
 description.
 
@@ -100,7 +97,7 @@ DateTime to store the selected end date for the event.
 
 </div>
 
-<span class="name">[eventEndTime](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventEndTime.md)</span> <span class="signature">↔ TimeOfDay</span>  
+<span class="name">[eventEndTime](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventEndTime.md)</span> <span class="signature">↔ [TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)</span>  
 TimeOfDay to store the selected end time for the event.
 
 <div class="features">
@@ -109,7 +106,7 @@ TimeOfDay to store the selected end time for the event.
 
 </div>
 
-<span class="name">[eventLocationTextController](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventLocationTextController.md)</span> <span class="signature">↔ TextEditingController</span>  
+<span class="name">[eventLocationTextController](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventLocationTextController.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 TextEditingController to handle the text input for the event location.
 
 <div class="features">
@@ -127,7 +124,7 @@ DateTime to store the selected start date for the event.
 
 </div>
 
-<span class="name">[eventStartTime](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventStartTime.md)</span> <span class="signature">↔ TimeOfDay</span>  
+<span class="name">[eventStartTime](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventStartTime.md)</span> <span class="signature">↔ [TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)</span>  
 TimeOfDay to store the selected start time for the event.
 
 <div class="features">
@@ -136,7 +133,7 @@ TimeOfDay to store the selected start time for the event.
 
 </div>
 
-<span class="name">[eventTitleTextController](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventTitleTextController.md)</span> <span class="signature">↔ TextEditingController</span>  
+<span class="name">[eventTitleTextController](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/eventTitleTextController.md)</span> <span class="signature">↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 TextEditingController to handle the text input for the event title.
 
 <div class="features">
@@ -145,7 +142,7 @@ TextEditingController to handle the text input for the event title.
 
 </div>
 
-<span class="name">[formKey](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/formKey.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">FormState</span>\></span></span>  
+<span class="name">[formKey](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/formKey.md)</span> <span class="signature">→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[FormState](https://api.flutter.dev/flutter/widgets/FormState-class.html)</span>\></span></span>  
 Form key for edit event.
 
 <div class="features">
@@ -164,7 +161,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -202,7 +199,7 @@ registration is required.
 
 </div>
 
-<span class="name">[locationFocus](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/locationFocus.md)</span> <span class="signature">↔ FocusNode</span>  
+<span class="name">[locationFocus](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/locationFocus.md)</span> <span class="signature">↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)</span>  
 FocusNode to manage focus for the event location text input field.
 
 <div class="features">
@@ -229,7 +226,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[titleFocus](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/titleFocus.md)</span> <span class="signature">↔ FocusNode</span>  
+<span class="name">[titleFocus](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/titleFocus.md)</span> <span class="signature">↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)</span>  
 FocusNode to manage focus for the event title text input field.
 
 <div class="features">
@@ -238,7 +235,7 @@ FocusNode to manage focus for the event title text input field.
 
 </div>
 
-<span class="name">[validate](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/validate.md)</span> <span class="signature">↔ AutovalidateMode</span>  
+<span class="name">[validate](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/validate.md)</span> <span class="signature">↔ [AutovalidateMode](https://api.flutter.dev/flutter/widgets/AutovalidateMode.html)</span>  
 Validation flag.
 
 <div class="features">
@@ -253,7 +250,7 @@ Validation flag.
 
 ## Methods
 
-<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -262,10 +259,10 @@ Register a closure to be called when the object changes.
 
 </div>
 
-<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
 will throw after the object is disposed).
 
 <div class="features">
@@ -286,7 +283,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
 <div class="features">
@@ -295,7 +292,7 @@ Call all the registered listeners.
 
 </div>
 
-<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -321,7 +318,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[updateEvent](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/updateEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateEvent](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel/updateEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Updates an existing event with the data from the form.
 
 </div>
@@ -350,7 +347,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [edit_event_view_model](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/view_model_after_auth_view_models_event_view_models_edit_event_view_model-library.md)
+2.  [edit_event_view_model](../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
 3.  EditEventViewModel class
 
 ##### edit_event_view_model library

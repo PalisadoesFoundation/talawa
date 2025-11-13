@@ -1,5 +1,5 @@
 1.  [Constructors](./Event-class#constructors.md)
-2.  [Event](./Event/Event.md)
+2.  [new](./Event/Event.md)
 3.  [fromJson](./Event/Event.fromJson.md)
 4.  [Properties](./Event-class#instance-properties.md)
 5.  [admins](./Event/admins.md)

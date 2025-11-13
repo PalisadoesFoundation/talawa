@@ -1,5 +1,5 @@
 1.  [Constructors](./OrgInfoAdapter-class#constructors.md)
-2.  [OrgInfoAdapter](./OrgInfoAdapter/OrgInfoAdapter.md)
+2.  [new](./OrgInfoAdapter/OrgInfoAdapter.md)
 3.  [Properties](./OrgInfoAdapter-class#instance-properties.md)
 4.  [hashCode](./OrgInfoAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

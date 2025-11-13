@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [models/asymetric_keys/asymetric_keys.dart](../../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [models/asymetric_keys/asymetric_keys.dart](../../models_asymetric_keys_asymetric_keys/)
 3.  [AsymetricKeysAdapter](../../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.md)
 4.  read method
 
@@ -18,13 +18,9 @@ read
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -91,7 +87,7 @@ AsymetricKeys read(BinaryReader reader)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/)
 3.  [AsymetricKeysAdapter](../../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.md)
 4.  read method
 

@@ -1,2 +1,2 @@
-1.  [Classes](./utils_queries-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Queries](./Queries-class.md)

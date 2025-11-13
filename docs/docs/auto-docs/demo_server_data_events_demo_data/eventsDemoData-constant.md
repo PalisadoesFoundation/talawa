@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [demo_server_data/events_demo_data.dart](../demo_server_data_events_demo_data/demo_server_data_events_demo_data-library.md)
+2.  [demo_server_data/events_demo_data.dart](../demo_server_data_events_demo_data/)
 3.  eventsDemoData constant
 
 <div class="self-name">
@@ -17,13 +17,9 @@ eventsDemoData
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -98,7 +94,7 @@ const eventsDemoData = [
 </div>
 
 1.  [talawa](../index.md)
-2.  [events_demo_data](../demo_server_data_events_demo_data/demo_server_data_events_demo_data-library.md)
+2.  [events_demo_data](../demo_server_data_events_demo_data/)
 3.  eventsDemoData constant
 
 ##### events_demo_data library

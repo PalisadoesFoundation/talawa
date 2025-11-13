@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/app_settings/app_settings_page.dart](../../views_after_auth_screens_app_settings_app_settings_page/views_after_auth_screens_app_settings_app_settings_page-library.md)
+2.  [views/after_auth_screens/app_settings/app_settings_page.dart](../../views_after_auth_screens_app_settings_app_settings_page/)
 3.  [AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)
-4.  AppSettingsPage const constructor
+4.  AppSettingsPage.new const constructor
 
 <div class="self-name">
 
-AppSettingsPage
+AppSettingsPage.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_settings_page](../../views_after_auth_screens_app_settings_app_settings_page/views_after_auth_screens_app_settings_app_settings_page-library.md)
+2.  [app_settings_page](../../views_after_auth_screens_app_settings_app_settings_page/)
 3.  [AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)
-4.  AppSettingsPage const constructor
+4.  AppSettingsPage.new const constructor
 
 ##### AppSettingsPage class
 

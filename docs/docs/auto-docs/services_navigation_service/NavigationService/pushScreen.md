@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/navigation_service.dart](../../services_navigation_service/services_navigation_service-library.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  pushScreen method
 
@@ -18,13 +18,9 @@ pushScreen
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span>
 <span class="name">pushScreen</span>(
 
 1.  <span id="pushScreen-param-routeName"
@@ -85,7 +81,7 @@ Future<dynamic> pushScreen(String routeName, )
 </div>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [navigation_service](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  pushScreen method
 

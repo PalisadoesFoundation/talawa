@@ -1,2 +1,2 @@
-1.  [Exceptions](./exceptions_critical_action_exception-library#exceptions.md)
+1.  [Exceptions](./)
 2.  [CriticalActionException](./CriticalActionException-class.md)

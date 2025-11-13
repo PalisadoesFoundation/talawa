@@ -1,4 +1,4 @@
-1.  [Properties](./locator-library#properties.md)
+1.  [Properties](./#properties)
 2.  [actionHandlerService](./actionHandlerService.md)
 3.  [cacheService](./cacheService.md)
 4.  [connectivity](./connectivity.md)
@@ -13,5 +13,5 @@
 13. [sessionManager](./sessionManager.md)
 14. [sizeConfig](./sizeConfig.md)
 15. [userConfig](./userConfig.md)
-16. [Functions](./locator-library#functions.md)
+16. [Functions](./#functions)
 17. [setupLocator](./setupLocator.md)

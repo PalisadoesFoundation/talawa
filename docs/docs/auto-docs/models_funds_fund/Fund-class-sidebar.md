@@ -1,5 +1,5 @@
 1.  [Constructors](./Fund-class#constructors.md)
-2.  [Fund](./Fund/Fund.md)
+2.  [new](./Fund/Fund.md)
 3.  [fromJson](./Fund/Fund.fromJson.md)
 4.  [Properties](./Fund-class#instance-properties.md)
 5.  [campaigns](./Fund/campaigns.md)

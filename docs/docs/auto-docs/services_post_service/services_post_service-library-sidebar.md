@@ -1,2 +1,2 @@
-1.  [Classes](./services_post_service-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PostService](./PostService-class.md)

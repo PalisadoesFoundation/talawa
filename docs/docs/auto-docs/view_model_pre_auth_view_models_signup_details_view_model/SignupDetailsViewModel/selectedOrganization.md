@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/pre_auth_view_models/signup_details_view_model.dart](../../view_model_pre_auth_view_models_signup_details_view_model/view_model_pre_auth_view_models_signup_details_view_model-library.md)
+2.  [view_model/pre_auth_view_models/signup_details_view_model.dart](../../view_model_pre_auth_view_models_signup_details_view_model/)
 3.  [SignupDetailsViewModel](../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.md)
 4.  selectedOrganization property
 
@@ -18,13 +18,9 @@ selectedOrganization
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,7 +74,7 @@ late OrgInfo selectedOrganization;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/view_model_pre_auth_view_models_signup_details_view_model-library.md)
+2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
 3.  [SignupDetailsViewModel](../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.md)
 4.  selectedOrganization property
 

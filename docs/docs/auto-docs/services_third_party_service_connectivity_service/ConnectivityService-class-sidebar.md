@@ -1,5 +1,5 @@
 1.  [Constructors](./ConnectivityService-class#constructors.md)
-2.  [ConnectivityService](./ConnectivityService/ConnectivityService.md)
+2.  [new](./ConnectivityService/ConnectivityService.md)
 3.  [Properties](./ConnectivityService-class#instance-properties.md)
 4.  [connectionStatusController](./ConnectivityService/connectionStatusController.md)
 5.  [connectionStream](./ConnectivityService/connectionStream.md)

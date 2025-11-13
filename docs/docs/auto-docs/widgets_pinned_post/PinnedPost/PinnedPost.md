@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/pinned_post.dart](../../widgets_pinned_post/widgets_pinned_post-library.md)
+2.  [widgets/pinned_post.dart](../../widgets_pinned_post/)
 3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
-4.  PinnedPost const constructor
+4.  PinnedPost.new const constructor
 
 <div class="self-name">
 
-PinnedPost
+PinnedPost.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [pinned_post](../../widgets_pinned_post/widgets_pinned_post-library.md)
+2.  [pinned_post](../../widgets_pinned_post/)
 3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
-4.  PinnedPost const constructor
+4.  PinnedPost.new const constructor
 
 ##### PinnedPost class
 

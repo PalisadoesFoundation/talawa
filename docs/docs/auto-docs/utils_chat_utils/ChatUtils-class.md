@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [utils/chat_utils.dart](../utils_chat_utils/utils_chat_utils-library.md)
+2.  [utils/chat_utils.dart](../utils_chat_utils/)
 3.  ChatUtils class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ChatUtils
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,7 +51,7 @@ This class provides static methods for:
 
 ## Constructors
 
-<span class="name">[ChatUtils](../utils_chat_utils/ChatUtils/ChatUtils.md)</span><span class="signature"></span>  
+<span class="name">[ChatUtils.new](../utils_chat_utils/ChatUtils/ChatUtils.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -177,7 +173,7 @@ Validates if a member can be removed from a group chat.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_utils](../utils_chat_utils/utils_chat_utils-library.md)
+2.  [chat_utils](../utils_chat_utils/)
 3.  ChatUtils class
 
 ##### chat_utils library

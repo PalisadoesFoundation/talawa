@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [widgets/agenda_item_tile.dart](../../widgets_agenda_item_tile/widgets_agenda_item_tile-library.md)
+2.  [widgets/agenda_item_tile.dart](../../widgets_agenda_item_tile/)
 3.  [ExpandableAgendaItemTile](../../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.md)
-4.  ExpandableAgendaItemTile const constructor
+4.  ExpandableAgendaItemTile.new const constructor
 
 <div class="self-name">
 
-ExpandableAgendaItemTile
+ExpandableAgendaItemTile.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [agenda_item_tile](../../widgets_agenda_item_tile/widgets_agenda_item_tile-library.md)
+2.  [agenda_item_tile](../../widgets_agenda_item_tile/)
 3.  [ExpandableAgendaItemTile](../../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.md)
-4.  ExpandableAgendaItemTile const constructor
+4.  ExpandableAgendaItemTile.new const constructor
 
 ##### ExpandableAgendaItemTile class
 

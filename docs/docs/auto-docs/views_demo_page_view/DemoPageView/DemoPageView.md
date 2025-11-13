@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/demo_page_view.dart](../../views_demo_page_view/views_demo_page_view-library.md)
+2.  [views/demo_page_view.dart](../../views_demo_page_view/)
 3.  [DemoPageView](../../views_demo_page_view/DemoPageView-class.md)
-4.  DemoPageView const constructor
+4.  DemoPageView.new const constructor
 
 <div class="self-name">
 
-DemoPageView
+DemoPageView.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const  : super(key: key);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [demo_page_view](../../views_demo_page_view/views_demo_page_view-library.md)
+2.  [demo_page_view](../../views_demo_page_view/)
 3.  [DemoPageView](../../views_demo_page_view/DemoPageView-class.md)
-4.  DemoPageView const constructor
+4.  DemoPageView.new const constructor
 
 ##### DemoPageView class
 

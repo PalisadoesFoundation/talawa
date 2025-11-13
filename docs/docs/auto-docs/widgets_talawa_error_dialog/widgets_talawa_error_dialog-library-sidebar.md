@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_talawa_error_dialog-library#classes.md)
+1.  [Classes](./#classes)
 2.  [TalawaErrorDialog](./TalawaErrorDialog-class.md)

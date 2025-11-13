@@ -1,5 +1,5 @@
 1.  [Constructors](./Language-class#constructors.md)
-2.  [Language](./Language/Language.md)
+2.  [new](./Language/Language.md)
 3.  [Properties](./Language-class#instance-properties.md)
 4.  [countryCode](./Language/countryCode.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

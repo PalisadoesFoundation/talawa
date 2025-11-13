@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/user_profile_service.dart](../services_user_profile_service/services_user_profile_service-library.md)
+2.  [services/user_profile_service.dart](../services_user_profile_service/)
 3.  UserProfileService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ UserProfileService
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,7 +46,7 @@ and retrieving user profile information.
 
 ## Constructors
 
-<span class="name">[UserProfileService](../services_user_profile_service/UserProfileService/UserProfileService.md)</span><span class="signature"></span>  
+<span class="name">[UserProfileService.new](../services_user_profile_service/UserProfileService/UserProfileService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -85,7 +81,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[getUserProfileInfo](../services_user_profile_service/UserProfileService/getUserProfileInfo.md)</span><span class="signature">(<span id="getUserProfileInfo-param-user" class="parameter"><span class="type-annotation">[User](../models_user_user_info/User-class.md)</span> <span class="parameter-name">user</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[getUserProfileInfo](../services_user_profile_service/UserProfileService/getUserProfileInfo.md)</span><span class="signature">(<span id="getUserProfileInfo-param-user" class="parameter"><span class="type-annotation">[User](../models_user_user_info/User-class.md)</span> <span class="parameter-name">user</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 Retrieves user profile information using a GraphQL query.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -106,7 +102,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[updateUserProfile](../services_user_profile_service/UserProfileService/updateUserProfile.md)</span><span class="signature">(<span id="updateUserProfile-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span>?</span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[updateUserProfile](../services_user_profile_service/UserProfileService/updateUserProfile.md)</span><span class="signature">(<span id="updateUserProfile-param-variables" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span>?</span> <span class="parameter-name">variables</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 Updates the user profile using a GraphQL mutation.
 
 </div>
@@ -135,7 +131,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [user_profile_service](../services_user_profile_service/services_user_profile_service-library.md)
+2.  [user_profile_service](../services_user_profile_service/)
 3.  UserProfileService class
 
 ##### user_profile_service library

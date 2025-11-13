@@ -1,2 +1,2 @@
-1.  [Classes](./services_pinned_post_service-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PinnedPostService](./PinnedPostService-class.md)

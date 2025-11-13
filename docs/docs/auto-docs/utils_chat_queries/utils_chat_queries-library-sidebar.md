@@ -1,2 +1,2 @@
-1.  [Classes](./utils_chat_queries-library#classes.md)
+1.  [Classes](./#classes)
 2.  [ChatQueries](./ChatQueries-class.md)

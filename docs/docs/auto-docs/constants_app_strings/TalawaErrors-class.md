@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants/app_strings.dart](../constants_app_strings/constants_app_strings-library.md)
+2.  [constants/app_strings.dart](../constants_app_strings/)
 3.  TalawaErrors class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ TalawaErrors
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Talawa Custom error strings.
 
 ## Constructors
 
-<span class="name">[TalawaErrors](../constants_app_strings/TalawaErrors/TalawaErrors.md)</span><span class="signature"></span>  
+<span class="name">[TalawaErrors.new](../constants_app_strings/TalawaErrors/TalawaErrors.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -202,7 +198,7 @@ Error for signup attempt when offline.
 </div>
 
 1.  [talawa](../index.md)
-2.  [app_strings](../constants_app_strings/constants_app_strings-library.md)
+2.  [app_strings](../constants_app_strings/)
 3.  TalawaErrors class
 
 ##### app_strings library

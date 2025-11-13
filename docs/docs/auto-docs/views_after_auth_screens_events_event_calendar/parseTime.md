@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [views/after_auth_screens/events/event_calendar.dart](../views_after_auth_screens_events_event_calendar/views_after_auth_screens_events_event_calendar-library.md)
+2.  [views/after_auth_screens/events/event_calendar.dart](../views_after_auth_screens_events_event_calendar/)
 3.  parseTime function
 
 <div class="self-name">
@@ -17,13 +17,9 @@ parseTime
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -85,7 +81,7 @@ DateTime parseTime(String time)
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_calendar](../views_after_auth_screens_events_event_calendar/views_after_auth_screens_events_event_calendar-library.md)
+2.  [event_calendar](../views_after_auth_screens_events_event_calendar/)
 3.  parseTime function
 
 ##### event_calendar library

@@ -1,5 +1,5 @@
 1.  [Constructors](./EventService-class#constructors.md)
-2.  [EventService](./EventService/EventService.md)
+2.  [new](./EventService/EventService.md)
 3.  [Properties](./EventService-class#instance-properties.md)
 4.  [after](./EventService/after.md)
 5.  [cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.md)

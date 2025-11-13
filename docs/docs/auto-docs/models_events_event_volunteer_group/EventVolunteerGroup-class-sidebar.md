@@ -1,5 +1,5 @@
 1.  [Constructors](./EventVolunteerGroup-class#constructors.md)
-2.  [EventVolunteerGroup](./EventVolunteerGroup/EventVolunteerGroup.md)
+2.  [new](./EventVolunteerGroup/EventVolunteerGroup.md)
 3.  [fromJson](./EventVolunteerGroup/EventVolunteerGroup.fromJson.md)
 4.  [Properties](./EventVolunteerGroup-class#instance-properties.md)
 5.  [createdAt](./EventVolunteerGroup/createdAt.md)

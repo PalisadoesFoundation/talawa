@@ -1,2 +1,2 @@
-1.  [Classes](./utils_post_queries-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PostQueries](./PostQueries-class.md)

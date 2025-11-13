@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [services/graphql_config.dart](../services_graphql_config/services_graphql_config-library.md)
+2.  [services/graphql_config.dart](../services_graphql_config/)
 3.  GraphqlConfig class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ GraphqlConfig
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -54,7 +50,7 @@ talawa mobile-app.
 
 ## Constructors
 
-<span class="name">[GraphqlConfig](../services_graphql_config/GraphqlConfig/GraphqlConfig.md)</span><span class="signature"></span>  
+<span class="name">[GraphqlConfig.new](../services_graphql_config/GraphqlConfig/GraphqlConfig.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -113,19 +109,19 @@ setter</span><span class="feature">inherited</span>
 
 <span class="name">[clientToQuery](../services_graphql_config/GraphqlConfig/clientToQuery.md)</span><span class="signature"> <span class="returntype parameter">→ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.1/graphql/GraphQLClient-class.html)</span> </span>  
 
-<span class="name">[getInitialPayload](../services_graphql_config/GraphqlConfig/getInitialPayload.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span>\></span></span> </span>  
+<span class="name">[getInitialPayload](../services_graphql_config/GraphqlConfig/getInitialPayload.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span>\></span></span> </span>  
 Get the initial payload for WebSocket connection
 
 <span class="name">[getOrgUrl](../services_graphql_config/GraphqlConfig/getOrgUrl.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 This function is used to get the organization URL.
 
-<span class="name">[getToken](../services_graphql_config/GraphqlConfig/getToken.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span> </span>  
+<span class="name">[getToken](../services_graphql_config/GraphqlConfig/getToken.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span> </span>  
 This function is used to get user the access token.
 
 <span class="name">[initializeForTesting](../services_graphql_config/GraphqlConfig/initializeForTesting.md)</span><span class="signature">(<span id="initializeForTesting-param-apiUrl" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">apiUrl</span></span>) <span class="returntype parameter">→ void</span> </span>  
 This function is used to initialize the GraphQL client for testing.
 
-<span class="name">[isSubscriptionRequest](../services_graphql_config/GraphqlConfig/isSubscriptionRequest.md)</span><span class="signature">(<span id="isSubscriptionRequest-param-request" class="parameter"><span class="type-annotation">[Request](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/Request-class.md)</span> <span class="parameter-name">request</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+<span class="name">[isSubscriptionRequest](../services_graphql_config/GraphqlConfig/isSubscriptionRequest.md)</span><span class="signature">(<span id="isSubscriptionRequest-param-request" class="parameter"><span class="type-annotation">[Request](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/Request-class.md)</span> <span class="parameter-name">request</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
 Check if a request is a subscription
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -204,7 +200,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [graphql_config](../services_graphql_config/services_graphql_config-library.md)
+2.  [graphql_config](../services_graphql_config/)
 3.  GraphqlConfig class
 
 ##### graphql_config library

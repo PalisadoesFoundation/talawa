@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [view_model/theme_view_model.dart](../../view_model_theme_view_model/view_model_theme_view_model-library.md)
+2.  [view_model/theme_view_model.dart](../../view_model_theme_view_model/)
 3.  [AppTheme](../../view_model_theme_view_model/AppTheme-class.md)
 4.  isdarkTheme property
 
@@ -18,13 +18,9 @@ isdarkTheme
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,7 +41,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>
-<span class="name">isdarkTheme</span>
+get <span class="name">isdarkTheme</span>
 
 </div>
 
@@ -76,7 +72,7 @@ bool get isdarkTheme => _isDarkMode;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [theme_view_model](../../view_model_theme_view_model/view_model_theme_view_model-library.md)
+2.  [theme_view_model](../../view_model_theme_view_model/)
 3.  [AppTheme](../../view_model_theme_view_model/AppTheme-class.md)
 4.  isdarkTheme property
 

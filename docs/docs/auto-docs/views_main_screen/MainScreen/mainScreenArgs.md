@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/main_screen.dart](../../views_main_screen/views_main_screen-library.md)
+2.  [views/main_screen.dart](../../views_main_screen/)
 3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
 4.  mainScreenArgs property
 
@@ -18,13 +18,9 @@ mainScreenArgs
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -79,7 +75,7 @@ final MainScreenArgs mainScreenArgs;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [main_screen](../../views_main_screen/views_main_screen-library.md)
+2.  [main_screen](../../views_main_screen/)
 3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
 4.  mainScreenArgs property
 

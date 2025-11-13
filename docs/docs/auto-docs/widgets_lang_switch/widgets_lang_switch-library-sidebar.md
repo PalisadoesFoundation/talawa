@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_lang_switch-library#classes.md)
+1.  [Classes](./#classes)
 2.  [LanguageTile](./LanguageTile-class.md)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [models/events/event_agenda_category.dart](../models_events_event_agenda_category/models_events_event_agenda_category-library.md)
+2.  [models/events/event_agenda_category.dart](../models_events_event_agenda_category/)
 3.  AgendaCategory class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ AgendaCategory
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ This class creates an event agenda category model.
 
 ## Constructors
 
-<span class="name">[AgendaCategory](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.md)</span><span class="signature"></span>  
+<span class="name">[AgendaCategory.new](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.md)</span><span class="signature"></span>  
 
 <span class="name">[AgendaCategory.fromJson](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span></span>)</span>  
 Creates a new `AgendaCategory` instance from a JSON map.
@@ -164,7 +160,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_agenda_category](../models_events_event_agenda_category/models_events_event_agenda_category-library.md)
+2.  [event_agenda_category](../models_events_event_agenda_category/)
 3.  AgendaCategory class
 
 ##### event_agenda_category library

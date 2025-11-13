@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [services/pinned_post_service.dart](../../services_pinned_post_service/services_pinned_post_service-library.md)
+2.  [services/pinned_post_service.dart](../../services_pinned_post_service/)
 3.  [PinnedPostService](../../services_pinned_post_service/PinnedPostService-class.md)
 4.  first property
 
@@ -18,13 +18,9 @@ first
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -79,7 +75,7 @@ int? first = 10;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [pinned_post_service](../../services_pinned_post_service/services_pinned_post_service-library.md)
+2.  [pinned_post_service](../../services_pinned_post_service/)
 3.  [PinnedPostService](../../services_pinned_post_service/PinnedPostService-class.md)
 4.  first property
 

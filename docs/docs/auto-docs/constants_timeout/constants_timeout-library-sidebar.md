@@ -1,2 +1,2 @@
-1.  [Classes](./constants_timeout-library#classes.md)
+1.  [Classes](./#classes)
 2.  [TimeOuts](./TimeOuts-class.md)

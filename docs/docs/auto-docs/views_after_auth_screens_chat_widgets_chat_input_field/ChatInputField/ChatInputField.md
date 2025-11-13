@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [views/after_auth_screens/chat/widgets/chat_input_field.dart](../../views_after_auth_screens_chat_widgets_chat_input_field/views_after_auth_screens_chat_widgets_chat_input_field-library.md)
+2.  [views/after_auth_screens/chat/widgets/chat_input_field.dart](../../views_after_auth_screens_chat_widgets_chat_input_field/)
 3.  [ChatInputField](../../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.md)
-4.  ChatInputField const constructor
+4.  ChatInputField.new const constructor
 
 <div class="self-name">
 
-ChatInputField
+ChatInputField.new
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -65,9 +61,9 @@ const ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_input_field](../../views_after_auth_screens_chat_widgets_chat_input_field/views_after_auth_screens_chat_widgets_chat_input_field-library.md)
+2.  [chat_input_field](../../views_after_auth_screens_chat_widgets_chat_input_field/)
 3.  [ChatInputField](../../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.md)
-4.  ChatInputField const constructor
+4.  ChatInputField.new const constructor
 
 ##### ChatInputField class
 

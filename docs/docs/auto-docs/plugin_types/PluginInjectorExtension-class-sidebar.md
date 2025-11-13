@@ -1,5 +1,5 @@
 1.  [Constructors](./PluginInjectorExtension-class#constructors.md)
-2.  [PluginInjectorExtension](./PluginInjectorExtension/PluginInjectorExtension.md)
+2.  [new](./PluginInjectorExtension/PluginInjectorExtension.md)
 3.  [Properties](./PluginInjectorExtension-class#instance-properties.md)
 4.  [builder](./PluginInjectorExtension/builder.md)
 5.  [description](./PluginInjectorExtension/description.md)

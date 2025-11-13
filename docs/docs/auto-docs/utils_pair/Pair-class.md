@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [utils/pair.dart](../utils_pair/utils_pair-library.md)
+2.  [utils/pair.dart](../utils_pair/)
 3.  Pair<span class="signature">\<<span class="type-parameter">T</span>,
     <span class="type-parameter">U</span>\></span> class
 
@@ -18,13 +18,9 @@ Pair
 
 </div>
 
-<div id="theme-button" class="toggle" title="Toggle brightness">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-dark_mode </span> <span id="light-theme-button"
-class="material-symbols-outlined"> light_mode </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ A simple pair class to hold two values of potentially different types.
 <div class="section">
 
 Annotations  
-- @[immutable](https://pub.dev/documentation/meta/1.16.0/meta/immutable-constant.html)
+- @[immutable](https://api.flutter.dev/flutter/material/immutable-constant.html)
 
 </div>
 
@@ -57,7 +53,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[Pair](../utils_pair/Pair/Pair.md)</span><span class="signature">(<span id="-param-first" class="parameter"><span class="type-annotation">T</span> <span class="parameter-name">first</span>, </span><span id="-param-second" class="parameter"><span class="type-annotation">U</span> <span class="parameter-name">second</span></span>)</span>  
+<span class="name">[Pair.new](../utils_pair/Pair/Pair.md)</span><span class="signature">(<span id="-param-first" class="parameter"><span class="type-annotation">T</span> <span class="parameter-name">first</span>, </span><span id="-param-second" class="parameter"><span class="type-annotation">U</span> <span class="parameter-name">second</span></span>)</span>  
 Creates a new pair with the given values.
 
 <div class="constructor-modifier features">
@@ -160,7 +156,7 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [pair](../utils_pair/utils_pair-library.md)
+2.  [pair](../utils_pair/)
 3.  Pair<span class="signature">\<<span class="type-parameter">T</span>,
     <span class="type-parameter">U</span>\></span> class
 
