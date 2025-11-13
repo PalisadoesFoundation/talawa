@@ -1,0 +1,130 @@
+name: Auto Assign & Unassign (Org-wide Limit)
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  handle-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Handle /assign or /unassign
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.ORG_ACCESS_TOKEN }}
+          script: |
+            const comment = github.event.comment;
+            const body = comment.body.trim();
+            const user = comment.user.login;
+            const association = github.event.comment.author_association;
+            const issue = github.event.issue || github.event.pull_request;
+            const issueNumber = issue.number;
+            const { owner, repo } = context.repo;
+
+            // Ignore bots or external contributors
+            if (comment.user.type === "Bot" || association === "NONE") {
+              console.log("Ignoring bot or external contributor");
+              return;
+            }
+
+            const isAssign = body.startsWith("/assign");
+            const isUnassign = body.startsWith("/unassign");
+
+            if (!isAssign && !isUnassign) {
+              console.log("Not an /assign or /unassign command");
+              return;
+            }
+
+            if (isUnassign) {
+              const currentAssignees = issue.assignees.map(a => a.login);
+              if (!currentAssignees.includes(user)) {
+                console.log(`${user} is not assigned, skipping unassign`);
+                return;
+              }
+
+              await github.rest.issues.removeAssignees({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                assignees: [user],
+              });
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `✅ Unassigned @${user} successfully.`,
+              });
+
+              console.log(`Unassigned ${user} from #${issueNumber}`);
+              return;
+            }
+
+            // For /assign
+            if (issue.assignees.length > 0) {
+              console.log("Already assigned, skipping.");
+              return;
+            }
+
+            console.log(`Checking org-wide assignments for ${user}...`);
+            let totalAssigned = 0;
+
+            try {
+              // Fetch all repos for the org
+              const repos = await github.paginate(github.rest.repos.listForOrg, {
+                org: owner,
+                type: "all",
+                per_page: 100,
+              });
+
+              for (const r of repos) {
+                const assignedIssues = await github.paginate(
+                  github.rest.issues.listForRepo,
+                  {
+                    owner,
+                    repo: r.name,
+                    state: "open",
+                    assignee: user,
+                    per_page: 100,
+                  }
+                );
+                totalAssigned += assignedIssues.length;
+              }
+            } catch (error) {
+              console.error("Error fetching org-wide assignments:", error);
+              return;
+            }
+
+            console.log(`${user} currently has ${totalAssigned} open issues assigned across ${owner}`);
+
+            if (totalAssigned >= 2) {
+              const message = `⚠️ @${user} already has ${totalAssigned} open assignments across the org. Please finish or unassign before taking new ones.`;
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: message,
+              });
+              console.log("Limit reached, skipping assignment");
+              return;
+            }
+
+            await github.rest.issues.addAssignees({
+              owner,
+              repo,
+              issue_number: issueNumber,
+              assignees: [user],
+            });
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issueNumber,
+              body: `✅ Assigned @${user} successfully.`,
+            });
+
+            console.log(`Assigned ${user} to #${issueNumber}`);
