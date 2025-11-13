@@ -9,7 +9,7 @@ echo "Cleaning old docs..."
 rm -rf docs/docs/auto-docs
 
 echo "Generating Dart documentation using global dartdoc..."
-dart doc . --output docs/docs/auto-docs 
+dartdoc --input=./ --output=docs/docs/auto-docs
 
 echo "Converting HTML files to Markdown..."
 find docs/docs/auto-docs -type f -name "*.html" | while read -r file; do
