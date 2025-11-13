@@ -29,12 +29,15 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.32.8"
+          flutter-version: ${{env.FLUTTER_VERSION}}
           channel: "stable"
 
       - name: Install Pandoc
-        run: sudo apt-get install pandoc -y
-
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y pandoc
+            pandoc --version
+   
       - name: Install dependencies
         run: flutter pub get
 
@@ -43,8 +46,8 @@ jobs:
 
       - name: Check for uncommitted documentation changes
         run: |
-          if [[ -n "$(git status --porcelain)" ]]; then
-            echo "::error::❌ Documentation was generated during CI."
+          if [[ -n "$(git status --porcelain -- docs/docs/auto-docs/)" ]]; then
+            echo "::error::Documentation was generated during CI."
             echo "Please run 'bash scripts/docusaurus/generate_docs.sh' locally and commit those files."
             exit 1
           fi
