@@ -1,209 +1,300 @@
-
-<div>
-
-# OrganizationFeedViewModel class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/)
+3.  OrganizationFeedViewModel class
+
+<div class="self-name">
+
+OrganizationFeedViewModel
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/view_model_after_auth_view_models_feed_view_models_organization_feed_view_model-library-sidebar.html"
+below-sidebar="view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">OrganizationFeedViewModel</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 OrganizationFeedViewModel class helps to interact with model to serve
 data to view for organization feed section.
 
 Methods include:
 
--   `setCurrentOrganizationName` : to set current organization name.
--   `fetchNewPosts` : to fetch new posts in the organization.
--   `navigateToIndividualPage` : to navigate to individual page.
--   `navigateToPinnedPostPage` : to navigate to pinned post page.
--   `addNewPost` : to add new post in the organization.
--   `updatedPost` : to update a post in the organization.
+- `setCurrentOrganizationName` : to set current organization name.
+- `fetchNewPosts` : to fetch new posts in the organization.
+- `navigateToIndividualPage` : to navigate to individual page.
+- `navigateToPinnedPostPage` : to navigate to pinned post page.
+- `addNewPost` : to add new post in the organization.
+- `updatedPost` : to update a post in the organization.
 
+</div>
 
+<div class="section">
 
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
+- [BaseModel](../view_model_base_view_model/BaseModel-class.md)
+- OrganizationFeedViewModel
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
-    -   OrganizationFeedViewModel
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[OrganizationFeedViewModel](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/OrganizationFeedViewModel.md)
+<span class="name">[OrganizationFeedViewModel.new](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/OrganizationFeedViewModel.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[currentOrgName](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/currentOrgName.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-:   getter for the currentOrgName.
-    ::: features
-    no setter
-    :::
+<span class="name">[currentOrgName](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/currentOrgName.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+getter for the currentOrgName.
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether any listeners are currently registered.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">no setter</span>
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+</div>
 
-:   ::: features
-    no setterinherited
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[isFetchingPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/isFetchingPosts.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   getter for isFetchingPosts to show loading indicator.
-    ::: features
-    no setter
-    :::
+<div class="features">
 
-[[istest](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/istest.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   flag for the test.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-[[pinnedPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/pinnedPosts.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.md)]\>]]
-:   getter for the pinned post.
-    ::: features
-    no setter
-    :::
+</div>
 
-[[posts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/posts.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.md)]\>]]
-:   getter for the posts.
-    ::: features
-    no setter
-    :::
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether any listeners are currently registered.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-:   ::: features
-    no setterinherited
-    :::
+</div>
 
-[[userPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/userPosts.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.md)]\>]]
-:   Getter for User Posts.
-    ::: features
-    no setter
-    :::
+<span class="name">[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<div class="features">
 
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
+</div>
+
+<span class="name">[isFetchingPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/isFetchingPosts.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+getter for isFetchingPosts to show loading indicator.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[pinnedPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/pinnedPosts.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>  
+getter for the pinned post.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[posts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/posts.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>  
+getter for the posts.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[state](../view_model_base_view_model/BaseModel/state.md)</span> <span class="signature">→ [ViewState](../enums_enums/ViewState.md)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[userPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/userPosts.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span>  
+Getter for User Posts.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Register a closure to be called when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Register a closure to be called when the object changes.
 
-[[addNewPost](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/addNewPost.md)][([[[Post](../models_post_post_model/Post-class.md)] newPost]) → void ]
-:   This function adds new Post.
+<div class="features">
 
-[[buildNewPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/buildNewPosts.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[Post](../models_post_post_model/Post-class.md)]\>]] newPosts]) → void ]
-:   This function initialise `_posts` with `newPosts`.
+<span class="feature">inherited</span>
 
-[dispose](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/dispose.md) [→ void ]
-:   Discards any resources used by the object. After this is called, the
-    object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
-    will throw after the object is disposed).
-    ::: features
-    override
-    :::
+</div>
 
-[fetchNewPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/fetchNewPosts.md) [→ void ]
-:   This function fetches new posts in the organization.
+<span class="name">[addNewPost](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/addNewPost.md)</span><span class="signature">(<span id="addNewPost-param-newPost" class="parameter"><span class="type-annotation">[Post](../models_post_post_model/Post-class.md)</span> <span class="parameter-name">newPost</span></span>) <span class="returntype parameter">→ void</span> </span>  
+This function adds new Post.
 
-[[initialise](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/initialise.md)][ → void ]
-:   To initialize the view model.
+<span class="name">[deletePost](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/deletePost.md)</span><span class="signature">(<span id="deletePost-param-post" class="parameter"><span class="type-annotation">[Post](../models_post_post_model/Post-class.md)</span> <span class="parameter-name">post</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+function to remove the post.
 
-[[navigateToIndividualPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/navigateToIndividualPage.md)][([[[Post](../models_post_post_model/Post-class.md)] post]) → void ]
-:   This function navigate to individual post page..
+<span class="name">[dispose](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
+will throw after the object is disposed).
 
-[navigateToPinnedPostPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/navigateToPinnedPostPage.md) [→ void ]
-:   This function navigate to pinned post page.
+<div class="features">
 
-[nextPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/nextPage.md) [→ void ]
-:   Method to fetch next posts.
+<span class="feature">override</span>
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+</div>
 
-[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html) [→ void ]
-:   Call all the registered listeners.
-    ::: features
-    inherited
-    :::
+<span class="name">[fetchNewPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/fetchNewPosts.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function fetches new posts in the organization.
 
-[previousPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/previousPage.md) [→ void ]
-:   Method to fetch previous posts.
+<span class="name">[initialise](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+To initialize the view model.
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Remove a previously registered closure from the list of closures
-    that are notified when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[navigateToIndividualPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/navigateToIndividualPage.md)</span><span class="signature">(<span id="navigateToIndividualPage-param-post" class="parameter"><span class="type-annotation">[Post](../models_post_post_model/Post-class.md)</span> <span class="parameter-name">post</span></span>) <span class="returntype parameter">→ void</span> </span>  
+This function navigate to individual post page..
 
-[[removePost](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/removePost.md)][([[[Post](../models_post_post_model/Post-class.md)] post]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   function to remove the post.
+<span class="name">[navigateToPinnedPostPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/navigateToPinnedPostPage.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function navigate to pinned post page.
 
-[[setCurrentOrganizationName](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/setCurrentOrganizationName.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] updatedOrganization]) → void ]
-:   This function sets the organization name after update.
+<span class="name">[nextPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/nextPage.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Method to fetch next posts.
 
-[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
-:   ::: features
-    inherited
-    :::
+<div class="features">
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[updatedPost](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/updatedPost.md)][([[[Post](../models_post_post_model/Post-class.md)] post]) → void ]
-:   This function updates the post.
+</div>
 
+<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Call all the registered listeners.
 
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[previousPage](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/previousPage.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Method to fetch previous posts.
+
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Remove a previously registered closure from the list of closures that
+are notified when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setCurrentOrganizationName](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/setCurrentOrganizationName.md)</span><span class="signature">(<span id="setCurrentOrganizationName-param-updatedOrganization" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">updatedOrganization</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function sets the organization name after update.
+
+<span class="name">[setPinnedPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/setPinnedPosts.md)</span><span class="signature">(<span id="setPinnedPosts-param-newPinPosts" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span> <span class="parameter-name">newPinPosts</span></span>) <span class="returntype parameter">→ void</span> </span>  
+This function initialise `_pinnedPosts` with `newPosts`.
+
+<span class="name">[setPosts](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/setPosts.md)</span><span class="signature">(<span id="setPosts-param-newPosts" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Post](../models_post_post_model/Post-class.md)</span>\></span></span> <span class="parameter-name">newPosts</span></span>) <span class="returntype parameter">→ void</span> </span>  
+This function initialise `_posts` with `newPosts`.
+
+<span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[updatedPost](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/updatedPost.md)</span><span class="signature">(<span id="updatedPost-param-post" class="parameter"><span class="type-annotation">[Post](../models_post_post_model/Post-class.md)</span> <span class="parameter-name">post</span></span>) <span class="returntype parameter">→ void</span> </span>  
+This function updates the post.
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
 2.  [organization_feed_view_model](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/)
@@ -211,9 +302,16 @@ Inheritance
 
 ##### organization_feed_view_model library
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

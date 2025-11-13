@@ -1,33 +1,70 @@
-
-<div>
-
-# refreshAccessToken method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
-refreshAccessToken(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
-    refreshToken]
+1.  [talawa](../../index.md)
+2.  [services/database_mutation_functions.dart](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  refreshAccessToken method
+
+<div class="self-name">
+
+refreshAccessToken
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">refreshAccessToken</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
+<span class="name">refreshAccessToken</span>(
+
+1.  <span id="refreshAccessToken-param-refreshToken"
+    class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span>
+    <span class="parameter-name">refreshToken</span></span>
 
 )
 
+</div>
 
+<div class="section desc markdown">
 
 This function is used to refresh the Authenication token to access the
 application.
 
 **params**:
 
--   `refreshToken`: Needed for authentication
+- `refreshToken`: Needed for authentication
 
 **returns**:
 
--   `Future<bool>`: it returns Future of dynamic
+- `Future<bool>`: it returns Future of dynamic
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -35,11 +72,15 @@ application.
 Future<bool> refreshAccessToken(String refreshToken) async 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -48,9 +89,16 @@ Future<bool> refreshAccessToken(String refreshToken) async
 
 ##### DataBaseMutationFunctions class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

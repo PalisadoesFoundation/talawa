@@ -1,22 +1,61 @@
-
-<div>
-
-# messageType property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[MessageType](../../enums_enums/MessageType.md) messageType
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [widgets/talawa_error_dialog.dart](../../widgets_talawa_error_dialog/)
+3.  [TalawaErrorDialog](../../widgets_talawa_error_dialog/TalawaErrorDialog-class.md)
+4.  messageType property
 
-final
+<div class="self-name">
 
+messageType
 
+</div>
 
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_talawa_error_dialog/TalawaErrorDialog-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">messageType</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[MessageType](../../enums_enums/MessageType.md)
+<span class="name">messageType</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 enum to what is the type of error message.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -24,11 +63,15 @@ enum to what is the type of error message.
 final MessageType messageType;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [talawa_error_dialog](../../widgets_talawa_error_dialog/)
@@ -37,9 +80,16 @@ final MessageType messageType;
 
 ##### TalawaErrorDialog class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

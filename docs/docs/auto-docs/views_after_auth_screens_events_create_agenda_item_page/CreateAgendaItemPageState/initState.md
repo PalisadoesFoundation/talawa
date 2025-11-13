@@ -1,10 +1,42 @@
-
-<div>
-
-# initState method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [views/after_auth_screens/events/create_agenda_item_page.dart](../../views_after_auth_screens_events_create_agenda_item_page/)
+3.  [CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)
+4.  initState method
+
+<div class="self-name">
+
+initState
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">initState</span> method
+
+</div>
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -12,13 +44,18 @@
 
 </div>
 
-void 
+<span class="returntype">void</span>
+<span class="name">initState</span>
 
+<div class="features">
 
-override
+<span class="feature">override</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 Called when this object is inserted into the tree.
 
@@ -32,8 +69,7 @@ location at which this object was inserted into the tree (i.e.,
 or on the widget used to configure this object (i.e.,
 [widget](https://api.flutter.dev/flutter/widgets/State/widget.md)).
 
-If a
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)\'s
+If a [State](https://api.flutter.dev/flutter/widgets/State-class.html)'s
 [build](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)
 method depends on an object that can itself change state, for example a
 [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
@@ -46,16 +82,16 @@ notifications, then be sure to subscribe and unsubscribe properly in
 and
 [dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html):
 
--   In
-    [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md),
-    subscribe to the object.
--   In
-    [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)
-    unsubscribe from the old object and subscribe to the new one if the
-    updated widget configuration requires replacing the object.
--   In
-    [dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html),
-    unsubscribe from the object.
+- In
+  [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md),
+  subscribe to the object.
+- In
+  [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)
+  unsubscribe from the old object and subscribe to the new one if the
+  updated widget configuration requires replacing the object.
+- In
+  [dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html),
+  unsubscribe from the object.
 
 You should not use
 [BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html)
@@ -68,7 +104,9 @@ can be used there.
 Implementations of this method should start with a call to the inherited
 method, as in `super.`.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -77,11 +115,15 @@ method, as in `super.`.
 void  
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
@@ -90,9 +132,16 @@ void
 
 ##### CreateAgendaItemPageState class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,14 +1,48 @@
-
-<div>
-
-# CustomAlertDialog constructor
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-const 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [widgets/custom_alert_dialog.dart](../../widgets_custom_alert_dialog/)
+3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
+4.  CustomAlertDialog.new const constructor
 
+<div class="self-name">
+
+CustomAlertDialog.new
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_custom_alert_dialog/CustomAlertDialog-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-constructor">CustomAlertDialog</span> constructor
+
+</div>
+
+<div class="section multi-line-signature">
+
+const <span class="name">CustomAlertDialog</span>
+
+</div>
+
+<div class="section desc markdown">
 
 Constructs a
 [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
@@ -19,12 +53,14 @@ reversed. `success` is the function triggered upon tapping the primary
 action button. `secondaryButtonTap` is the function triggered upon
 tapping the secondary action button. `successText` is the text displayed
 on the primary action button. `dialogTitle` is the title displayed in
-the dialog (default value is \'Confirmation\'). `dialogSubTitle` is the
+the dialog (default value is 'Confirmation'). `dialogSubTitle` is the
 subtitle or message content of the dialog. `secondaryButtonText` is the
 text displayed on the secondary action button (default value is
-\'Close\').
+'Close').
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -32,22 +68,33 @@ text displayed on the secondary action button (default value is
 const ;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
 3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
-4.  CustomAlertDialog const constructor
+4.  CustomAlertDialog.new const constructor
 
 ##### CustomAlertDialog class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

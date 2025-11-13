@@ -20,9 +20,42 @@ env:
   FLUTTER_VERSION: 3.32.8
 
 jobs:
+  Docs-Check:
+    name: Verify Documentation
+    runs-on: ubuntu-latest
+    outputs:
+      docs-valid: ${{ steps.compare.outputs.docs-valid }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copy existing docs
+        run: cp -r docs/docs/auto-docs docs-before
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Regenerate docs
+        run: bash scripts/docusaurus/generate_docs.sh
+
+      - name: Compare docs
+        id: compare
+        run: |
+          if ! diff -qr docs-before docs/docs/auto-docs; then
+            echo "::error::Documentation was not pre-generated."
+            echo "docs-valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "docs-valid=true" >> $GITHUB_OUTPUT
+            echo "Documentation OK"
+          fi
+
   Flutter-Codebase-Check:
     name: Checking codebase
     runs-on: ubuntu-latest
+    needs: [Docs-Check]
+    if: needs.Docs-Check.outputs.docs-valid == 'true'
     permissions:
       contents: write
     #needs: PR-Greeting
@@ -112,9 +145,10 @@ jobs:
           exit 1
 
   Check-Target-Branch:
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    if: needs.Docs-Check.outputs.docs-valid == 'true' && github.actor != 'dependabot[bot]'
     name: Check Target Branch
     runs-on: ubuntu-latest
+    needs: [Docs-Check]
     steps:
       - name: Check if the target branch is develop
         if: github.event.pull_request.base.ref != 'develop'
@@ -124,9 +158,10 @@ jobs:
           exit 1
 
   Check-Sensitive-Files:
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    if: needs.Docs-Check.outputs.docs-valid == 'true' && github.actor != 'dependabot[bot]'
     name: Checks if sensitive files have been changed without authorization
     runs-on: ubuntu-latest
+    needs: [Docs-Check]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -254,9 +289,10 @@ jobs:
           exit 1
 
   Count-Changed-Files:
-    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Checks if number of files changed is acceptable
+    if: needs.Docs-Check.outputs.docs-valid == 'true' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
+    needs: [Docs-Check]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -303,7 +339,8 @@ jobs:
   Flutter-Testing:
     name: Testing codebase
     runs-on: ubuntu-latest
-    needs: [Flutter-Codebase-Check, Python-Compliance]
+    if: needs.Docs-Check.outputs.docs-valid == 'true'
+    needs: [Docs-Check, Flutter-Codebase-Check, Python-Compliance]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -346,7 +383,8 @@ jobs:
   Android-Build:
     name: Testing build for android
     runs-on: ubuntu-latest
-    needs: [Flutter-Testing]
+    if: needs.Docs-Check.outputs.docs-valid == 'true'
+    needs: [Docs-Check, Flutter-Testing]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -371,7 +409,8 @@ jobs:
     permissions:
       contents: write
     runs-on: macos-14
-    needs: Flutter-Testing
+    if: needs.Docs-Check.outputs.docs-valid == 'true'
+    needs: [Docs-Check, Flutter-Testing]
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
@@ -390,9 +429,9 @@ jobs:
   Test-Docusaurus-Deployment:
     name: Test Deployment to https://docs-mobile.talawa.io
     runs-on: ubuntu-latest
-    needs: [iOS-Build, Android-Build]
+    needs: [iOS-Build, Android-Build, Docs-Check]
     # Run only if the develop branch and not dependabot
-    if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop' }}
+    if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop' && needs.Docs-Check.outputs.docs-valid == 'true'}}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -412,6 +451,8 @@ jobs:
   Python-Compliance:
     name: Check Python Code Style
     runs-on: ubuntu-latest
+    if: needs.Docs-Check.outputs.docs-valid == 'true'
+    needs: [Docs-Check]
     steps:
       - name: Checkout
         uses: actions/checkout@v4

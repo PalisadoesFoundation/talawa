@@ -1,19 +1,54 @@
-
-<div>
-
-# ConnectivityService constructor
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-ConnectivityService(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.md)]
-    connectivityInstance]
+1.  [talawa](../../index.md)
+2.  [services/third_party_service/connectivity_service.dart](../../services_third_party_service_connectivity_service/)
+3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
+4.  ConnectivityService.new constructor
+
+<div class="self-name">
+
+ConnectivityService.new
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_third_party_service_connectivity_service/ConnectivityService-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-constructor">ConnectivityService</span> constructor
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="name">ConnectivityService</span>(
+
+1.  <span id="-param-connectivityInstance"
+    class="parameter"><span class="type-annotation">[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.5/connectivity_plus/Connectivity-class.md)</span>
+    <span class="parameter-name">connectivityInstance</span></span>
 
 )
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -23,22 +58,33 @@ ConnectivityService(
 );
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [connectivity_service](../../services_third_party_service_connectivity_service/)
 3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
-4.  ConnectivityService constructor
+4.  ConnectivityService.new constructor
 
 ##### ConnectivityService class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

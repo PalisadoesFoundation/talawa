@@ -1,29 +1,67 @@
-
-<div>
-
-# updateCreatedOrg method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-void updateCreatedOrg(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]\>]]
-    orgList]
+1.  [talawa](../../index.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
+3.  [User](../../models_user_user_info/User-class.md)
+4.  updateCreatedOrg method
+
+<div class="self-name">
+
+updateCreatedOrg
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_user_user_info/User-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">updateCreatedOrg</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">void</span>
+<span class="name">updateCreatedOrg</span>(
+
+1.  <span id="updateCreatedOrg-param-orgList"
+    class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)</span>\></span></span>
+    <span class="parameter-name">orgList</span></span>
 
 )
 
+</div>
 
+<div class="section desc markdown">
 
 Method to updated createdOrganisation list.
 
 **params**:
 
--   `orgList`: List of organsaitions user has created.
+- `orgList`: List of organsaitions user has created.
 
 **returns**: None
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -31,11 +69,15 @@ Method to updated createdOrganisation list.
 void updateCreatedOrg(List<OrgInfo> orgList) 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [user_info](../../models_user_user_info/)
@@ -44,9 +86,16 @@ void updateCreatedOrg(List<OrgInfo> orgList)
 
 ##### User class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>

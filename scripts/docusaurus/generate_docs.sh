@@ -1,27 +1,26 @@
 #!/bin/bash
+# ============================================
+# Generate and clean documentation using global dartdoc
+# ============================================
 
-# Run the Flutter command to generate the docs
-echo "Generating Flutter documentation..."
-flutter pub global run dartdoc --output docs/docs/auto-docs lib
+set -e  # Exit on error
+trap 'echo " Error occurred on line $LINENO. Aborting documentation generation." >&2' ERR
+echo "Cleaning old docs..."
+rm -rf docs/docs/auto-docs
 
-# Convert HTML files to Markdown
+echo "Generating Dart documentation using global dartdoc..."
+dart doc . --output docs/docs/auto-docs 
+
 echo "Converting HTML files to Markdown..."
-find docs/docs/auto-docs -type f -name "*.html" | while read file; do
+find docs/docs/auto-docs -type f -name "*.html" | while read -r file; do
   output_dir="$(dirname "$file")"
-  mkdir -p "$output_dir"
-
-  # Ensure filename case is preserved
   filename=$(basename "$file" .html)
-
-  # Convert HTML to Markdown using pandoc
-  pandoc -f html -t markdown -o "$output_dir/$filename.md" "$file"
-
-  # Delete the original HTML file after conversion
+  pandoc -f html -t gfm -o "$output_dir/$filename.md" "$file"
   rm "$file"
 done
 
-# Fix the markdown using the Python scripts
-echo "Fixing markdown..."
-python scripts/docusaurus/fix_markdown.py
-
-echo "Documentation generation completed."
+echo "Cleaning extra files and fixing Markdown..."
+python3 scripts/docusaurus/fix_markdown.py || {
+  echo "Warning: fix_markdown.py not found or failed — skipping cleanup."
+}
+echo "Documentation generated and cleaned successfully!"

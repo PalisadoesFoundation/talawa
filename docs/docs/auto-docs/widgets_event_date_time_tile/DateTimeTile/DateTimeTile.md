@@ -1,14 +1,48 @@
-
-<div>
-
-# DateTimeTile constructor
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-const 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [widgets/event_date_time_tile.dart](../../widgets_event_date_time_tile/)
+3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.md)
+4.  DateTimeTile.new const constructor
 
+<div class="self-name">
+
+DateTimeTile.new
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_event_date_time_tile/DateTimeTile-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-constructor">DateTimeTile</span> constructor
+
+</div>
+
+<div class="section multi-line-signature">
+
+const <span class="name">DateTimeTile</span>
+
+</div>
+
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -16,22 +50,33 @@ const
 const ;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
 2.  [event_date_time_tile](../../widgets_event_date_time_tile/)
 3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.md)
-4.  DateTimeTile const constructor
+4.  DateTimeTile.new const constructor
 
 ##### DateTimeTile class
 
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
+<span class="no-break"> talawa 1.0.0+1 </span>
