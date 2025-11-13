@@ -19,6 +19,7 @@ import 'package:talawa/utils/time_conversion.dart';
 /// * `gqlNonAuthQuery`
 /// * `refreshAccessToken`
 /// * `fetchOrgById`
+/// * `gqlAuthSubscription`
 class DataBaseMutationFunctions {
   /// Client Auth for handling non-authenticated request.
   late GraphQLClient clientNonAuth;
