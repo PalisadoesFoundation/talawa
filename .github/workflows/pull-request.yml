@@ -21,36 +21,42 @@ env:
 
 jobs:
   Docs-Check:
-    name: Verify Documentation
-    runs-on: ubuntu-latest
-    outputs:
-      docs-valid: ${{ steps.compare.outputs.docs-valid }}
+      name: Verify Documentation
+      runs-on: ubuntu-latest
+      outputs:
+        docs-valid: ${{ steps.compare.outputs.docs-valid }}
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
 
-      - name: Copy existing docs
-        run: cp -r docs/docs/auto-docs docs-before
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Regenerate docs
-        run: bash scripts/docusaurus/generate_docs.sh
-
-      - name: Compare docs
-        id: compare
-        run: |
-          if ! diff -qr docs-before docs/docs/auto-docs; then
-            echo "::error::Documentation was not pre-generated."
-            echo "docs-valid=false" >> $GITHUB_OUTPUT
-            exit 1
-          else
-            echo "docs-valid=true" >> $GITHUB_OUTPUT
-            echo "Documentation OK"
-          fi
-
+        - name: Set up Flutter
+          uses: subosito/flutter-action@v2
+          with:
+            flutter-version: ${{ env.FLUTTER_VERSION }}
+            channel: stable
+        - name: Install Pandoc
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y pandoc
+        - name: Copy existing docs
+          run: cp -r docs/docs/auto-docs docs-before
+        - name: Install dependencies
+          run: flutter pub get
+        - name: Regenerate docs
+          run: bash scripts/docusaurus/generate_docs.sh
+        - name: Compare docs
+          id: compare
+          run: |
+            if ! diff -qr docs-before docs/docs/auto-docs; then
+              echo "::error::Documentation was not pre-generated."
+              echo "docs-valid=false" >> $GITHUB_OUTPUT
+              exit 1
+            else
+              echo "docs-valid=true" >> $GITHUB_OUTPUT
+              echo "Documentation OK"
+            fi
   Flutter-Codebase-Check:
     name: Checking codebase
     runs-on: ubuntu-latest
@@ -430,23 +436,33 @@ jobs:
     name: Test Deployment to https://docs-mobile.talawa.io
     runs-on: ubuntu-latest
     needs: [iOS-Build, Android-Build, Docs-Check]
-    # Run only if the develop branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop' && needs.Docs-Check.outputs.docs-valid == 'true'}}
     steps:
       - uses: actions/checkout@v4
+      # Install pnpm (NO caching here)
       - uses: pnpm/action-setup@v4
         with:
-          cache: pnpm
-          cache-dependency-path: |
-            docs/pnpm-lock.yaml
-            docs/package.json
-      # Run Docusaurus in the ./docs directory
+          version: 9
+          run_install: false
+      # Proper PNPM cache (OFFICIAL recommended method)
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('docs/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      # Install dependencies inside docs folder
       - name: Install dependencies
         working-directory: ./docs
         run: pnpm install --frozen-lockfile
+
+      # Build Docusaurus
       - name: Test building the website
         working-directory: ./docs
         run: pnpm build
+
 
   Python-Compliance:
     name: Check Python Code Style
