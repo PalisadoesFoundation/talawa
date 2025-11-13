@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the addGroupMember method from the GroupChatViewModel class, for the Dart programming language.">
+  <title>addGroupMember method - GroupChatViewModel class - group_chat_view_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/">view_model&#47;after_auth_view_models&#47;chat_view_models&#47;group_chat_view_model.dart</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.html">GroupChatViewModel</a></li>
+    <li class="self-crumb">addGroupMember method</li>
+  </ol>
+  <div class="self-name">addGroupMember</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="view_model_after_auth_view_models_chat_view_models_group_chat_view_model&#47;GroupChatViewModel-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">addGroupMember</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+<span class="name ">addGroupMember</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="addGroupMember-param-chatId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">chatId</span>, </span></li>
+<li><span class="parameter" id="addGroupMember-param-userId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">userId</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Adds a member to the group chat (admin only).</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>chatId</code>: The ID of the group chat</li>
+<li><code>userId</code>: The ID of the user to add</li>
+</ul>
+<p><strong>returns</strong>:</p>
+<ul>
+<li><code>Future&lt;bool&gt;</code>: True if member was added successfully, false otherwise</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; addGroupMember({
+  required String chatId,
+  required String userId,
+}) async {
+  try {
+    &#47;&#47; Find the chat to validate member existence
+    final chatTile =
+        _groupChats.where((chat) =&gt; chat.chat?.id == chatId).firstOrNull;
+    final chat = chatTile?.chat;
+
+    if (chat == null) {
+      navigationService.showTalawaErrorDialog(
+        &#39;Chat not found&#39;,
+        MessageType.error,
+      );
+      return false;
+    }
+
+    chatState = ChatState.loading;
+    notifyListeners();
+
+    final success = await _chatService.addChatMember(
+      chatId: chatId,
+      userId: userId,
+    );
+
+    if (success) {
+      &#47;&#47; Reload chat details to update members list and UI
+      final updated =
+          await _chatService.getChatDetails(chatId, isInitialLoad: false);
+      if (updated != null) {
+        &#47;&#47; Update local chat and list tile
+        chat.members = updated.members;
+        final index =
+            _groupChats.indexWhere((tile) =&gt; tile.chat?.id == chatId);
+        if (index != -1) {
+          _groupChats[index] = ChatListTileDataModel.fromChat(updated);
+        }
+      }
+      navigationService.showTalawaErrorSnackBar(
+        &#39;Member added successfully&#39;,
+        MessageType.info,
+      );
+    }
+
+    return success;
+  } catch (e) {
+    debugPrint(&#39;Error adding group member: $e&#39;);
+    navigationService.showTalawaErrorSnackBar(
+      &#39;Error adding member: Please try again.&#39;,
+      MessageType.error,
+    );
+    return false;
+  } finally {
+    chatState = ChatState.complete;
+    notifyListeners();
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/">group_chat_view_model</a></li>
+    <li><a href="../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.html">GroupChatViewModel</a></li>
+    <li class="self-crumb">addGroupMember method</li>
+</ol>
+
+    <h5>GroupChatViewModel class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

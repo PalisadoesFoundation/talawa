@@ -1,0 +1,13 @@
+1.  [Constructors](./PluginExtensions-class#constructors.md)
+2.  [new](./PluginExtensions/PluginExtensions.md)
+3.  [Properties](./PluginExtensions-class#instance-properties.md)
+4.  [g1](./PluginExtensions/g1.md)
+5.  [g2](./PluginExtensions/g2.md)
+6.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+7.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+8.  [Methods](./PluginExtensions-class#instance-methods.md)
+9.  [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+10. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+11. [Operators](./PluginExtensions-class#operators.md)
+12. [operator
+    ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

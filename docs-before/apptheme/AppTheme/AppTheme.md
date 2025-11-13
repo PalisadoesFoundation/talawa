@@ -1,0 +1,71 @@
+<div id="overlay-under-drawer">
+
+</div>
+
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [apptheme.dart](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  AppTheme.new constructor
+
+<div class="self-name">
+
+AppTheme.new
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="apptheme/AppTheme-class-sidebar.html" below-sidebar="">
+
+<div>
+
+# <span class="kind-constructor">AppTheme</span> constructor
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="name">AppTheme</span>
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
+
+1.  [talawa](../../index.md)
+2.  [apptheme](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  AppTheme.new constructor
+
+##### AppTheme class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+
+</div>
+
+</div>
+
+<span class="no-break"> talawa 1.0.0+1 </span>

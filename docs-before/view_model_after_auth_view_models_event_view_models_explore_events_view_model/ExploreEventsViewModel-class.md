@@ -1,0 +1,310 @@
+<div id="overlay-under-drawer">
+
+</div>
+
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
+3.  ExploreEventsViewModel class
+
+<div class="self-name">
+
+ExploreEventsViewModel
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_event_view_models_explore_events_view_model/view_model_after_auth_view_models_event_view_models_explore_events_view_model-library-sidebar.html"
+below-sidebar="view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">ExploreEventsViewModel</span> class
+
+</div>
+
+<div class="section desc markdown">
+
+ExploreEventsViewModel class helps to interact with model to serve data
+to view for event explore section.
+
+Methods include:
+
+- `fetchNewEvents` : to fetch new events in the organization.
+- `refreshEvents` : to refersh the event.
+- `checkIfExistsAndAddNewEvent` : to check if the event exists or not,
+  if now add a new event.
+- `deleteEvent` : to delete the event.
+- `choseValueFromDropdown` : to return the relevant message in the
+  dropdown after any action.
+
+</div>
+
+<div class="section">
+
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
+- [BaseModel](../view_model_base_view_model/BaseModel-class.md)
+- ExploreEventsViewModel
+
+</div>
+
+<div id="constructors" class="section summary offset-anchor">
+
+## Constructors
+
+<span class="name">[ExploreEventsViewModel.new](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/ExploreEventsViewModel.md)</span><span class="signature"></span>  
+
+</div>
+
+<div id="instance-properties" class="section summary offset-anchor">
+
+## Properties
+
+<span class="name">[chosenValue](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/chosenValue.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+Getter method to retrieve the chosen value.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[demoMode](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/demoMode.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+flag to check if the app is in demo mode.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[emptyListMessage](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/emptyListMessage.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+Getter method to retrieve the empty list message.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[events](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/events.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span>  
+Getter method to retrieve the list of events.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[eventService](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/eventService.md)</span> <span class="signature">→ [EventService](../services_event_service/EventService-class.md)</span>  
+Getter method to retrieve the EventService instance.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether any listeners are currently registered.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[state](../view_model_base_view_model/BaseModel/state.md)</span> <span class="signature">→ [ViewState](../enums_enums/ViewState.md)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[userEvents](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/userEvents.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span>  
+Getter method to retrieve the list of User events.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
+
+## Methods
+
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Register a closure to be called when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[checkIfExistsAndAddNewEvents](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/checkIfExistsAndAddNewEvents.md)</span><span class="signature">(<span id="checkIfExistsAndAddNewEvents-param-newEvents" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span> <span class="parameter-name">newEvents</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function add a new event if the event not exist.
+
+<span class="name">[choseValueFromDropdown](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/choseValueFromDropdown.md)</span><span class="signature">(<span id="choseValueFromDropdown-param-value" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">value</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function takes the choosen value from dropdown and return the
+filter events, if empty list then return relevant message.
+
+<span class="name">[deleteEvent](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/deleteEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function deletes the event.
+
+<span class="name">[dispose](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
+will throw after the object is disposed).
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[fetchNewEvents](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/fetchNewEvents.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function is used to fetch new events in the organization.
+
+<span class="name">[initialise](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+initialiser.
+
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Call all the registered listeners.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[refreshEvents](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/refreshEvents.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function is used to refresh the events in the organization.
+
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Remove a previously registered closure from the list of closures that
+are notified when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
+
+## Operators
+
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
+
+1.  [talawa](../index.md)
+2.  [explore_events_view_model](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
+3.  ExploreEventsViewModel class
+
+##### explore_events_view_model library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+
+</div>
+
+</div>
+
+<span class="no-break"> talawa 1.0.0+1 </span>

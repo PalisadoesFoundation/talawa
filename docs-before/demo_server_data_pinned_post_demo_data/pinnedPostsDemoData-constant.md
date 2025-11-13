@@ -1,0 +1,94 @@
+<div id="overlay-under-drawer">
+
+</div>
+
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [demo_server_data/pinned_post_demo_data.dart](../demo_server_data_pinned_post_demo_data/)
+3.  pinnedPostsDemoData constant
+
+<div class="self-name">
+
+pinnedPostsDemoData
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="demo_server_data_pinned_post_demo_data/demo_server_data_pinned_post_demo_data-library-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-top-level-property">pinnedPostsDemoData</span> top-level constant
+
+</div>
+
+<div class="section multi-line-signature">
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>,
+<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)</span>\></span></span>\></span>
+const <span class="name">pinnedPostsDemoData</span>
+
+</div>
+
+<div class="section desc markdown">
+
+This file contains demo data for pinned posts. It contains a list of
+type `Map<String, Object>` and sample data.
+
+</div>
+
+<div id="source" class="section summary source-code">
+
+## Implementation
+
+``` language-dart
+const pinnedPostsDemoData = [
+  ,
+  ,
+  ,
+  ,
+];
+```
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
+
+1.  [talawa](../index.md)
+2.  [pinned_post_demo_data](../demo_server_data_pinned_post_demo_data/)
+3.  pinnedPostsDemoData constant
+
+##### pinned_post_demo_data library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+
+</div>
+
+</div>
+
+<span class="no-break"> talawa 1.0.0+1 </span>

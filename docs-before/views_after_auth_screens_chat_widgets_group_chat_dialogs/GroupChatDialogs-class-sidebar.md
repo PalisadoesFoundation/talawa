@@ -1,0 +1,17 @@
+1.  [Properties](./GroupChatDialogs-class#instance-properties.md)
+2.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+3.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+4.  [Methods](./GroupChatDialogs-class#instance-methods.md)
+5.  [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+6.  [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+7.  [Operators](./GroupChatDialogs-class#operators.md)
+8.  [operator
+    ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)
+9.  [Static
+    methods](./GroupChatDialogs-class#static-methods.md)
+10. [showAddMembersDialog](./GroupChatDialogs/showAddMembersDialog.md)
+11. [showDeleteGroupDialog](./GroupChatDialogs/showDeleteGroupDialog.md)
+12. [showEditGroupDialog](./GroupChatDialogs/showEditGroupDialog.md)
+13. [showGroupInfo](./GroupChatDialogs/showGroupInfo.md)
+14. [showLeaveGroupDialog](./GroupChatDialogs/showLeaveGroupDialog.md)
+15. [showManageMembersDialog](./GroupChatDialogs/showManageMembersDialog.md)

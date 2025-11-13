@@ -1,0 +1,95 @@
+<div id="overlay-under-drawer">
+
+</div>
+
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [models/events/event_volunteer_group.dart](../../models_events_event_volunteer_group/)
+3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)
+4.  volunteers property
+
+<div class="self-name">
+
+volunteers
+
+</div>
+
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_events_event_volunteer_group/EventVolunteerGroup-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">volunteers</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.md)</span>\></span>?
+<span class="name">volunteers</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
+
+The list of volunteers in the event volunteer group.
+
+</div>
+
+<div id="source" class="section summary source-code">
+
+## Implementation
+
+``` language-dart
+List<EventVolunteer>? volunteers;
+```
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
+
+1.  [talawa](../../index.md)
+2.  [event_volunteer_group](../../models_events_event_volunteer_group/)
+3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)
+4.  volunteers property
+
+##### EventVolunteerGroup class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+
+</div>
+
+</div>
+
+<span class="no-break"> talawa 1.0.0+1 </span>
