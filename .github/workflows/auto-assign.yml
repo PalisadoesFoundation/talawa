@@ -59,6 +59,9 @@ jobs:
 
             // Default assignment limit is 2 if not configured
             const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
+            if (isNaN(maxAssignments)) {
+              throw new Error(`Invalid MAX_OPEN_ASSIGNMENTS value: "${process.env.MAX_OPEN_ASSIGNMENTS}". Must be a positive integer.`);
+            }            
 
             // New contributors cannot auto assign
             if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER') {
@@ -66,7 +69,7 @@ jobs:
                 owner,
                 repo,
                 issue_number: issueNumber,
-                body: `❌ @${user} First time contributors cannot use auto assignment.`,
+                body: `❌ @${user} First time contributors cannot use auto assignment. Please ask to be assigned instead.`,
               });
               return;
             }            
