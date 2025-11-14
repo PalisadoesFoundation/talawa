@@ -1,53 +1,102 @@
-
-<div>
-
-# createdAt property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [post_model](../../models_post_post_model/models_post_post_model-library.md)
+3.  [Post](../../models_post_post_model/Post-class.md)
+4.  createdAt property
+
+<div class="self-name">
+
+createdAt
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_post_post_model/Post-class-sidebar.html"
+below-sidebar="">
 
 <div>
 
-1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(2)
+# <span class="kind-property">createdAt</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(6)
 
 </div>
 
 [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?
-createdAt
+<span class="name">createdAt</span>
 
+<div class="features">
 
-getter/setter pair
+<span class="feature">getter/setter pair</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 Creation timestamp of the post.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
 ``` language-dart
-@HiveField(2)
+@HiveField(6)
 DateTime? createdAt;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [post_model](../../models_post_post_model/)
+2.  [post_model](../../models_post_post_model/models_post_post_model-library.md)
 3.  [Post](../../models_post_post_model/Post-class.md)
 4.  createdAt property
 
 ##### Post class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

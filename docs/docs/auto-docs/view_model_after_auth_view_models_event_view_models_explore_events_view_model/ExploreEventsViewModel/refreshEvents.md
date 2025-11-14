@@ -1,15 +1,53 @@
-
-<div>
-
-# refreshEvents method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/view_model_after_auth_view_models_event_view_models_explore_events_view_model-library.md)
+3.  [ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)
+4.  refreshEvents method
 
+<div class="self-name">
 
+refreshEvents
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">refreshEvents</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
+<span class="name">refreshEvents</span>
+
+</div>
+
+<div class="section desc markdown">
 
 This function is used to refresh the events in the organization.
 
@@ -19,7 +57,9 @@ The function uses `getEvents` method from `EventService`.
 
 **returns**: None
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -27,22 +67,29 @@ The function uses `getEvents` method from `EventService`.
 Future<void>  async 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
+2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/view_model_after_auth_view_models_event_view_models_explore_events_view_model-library.md)
 3.  [ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)
 4.  refreshEvents method
 
 ##### ExploreEventsViewModel class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

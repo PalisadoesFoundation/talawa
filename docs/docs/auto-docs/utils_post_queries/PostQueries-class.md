@@ -1,96 +1,164 @@
-
-<div>
-
-# PostQueries class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [post_queries](../utils_post_queries/utils_post_queries-library.md)
+3.  PostQueries class
+
+<div class="self-name">
+
+PostQueries
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="utils_post_queries/utils_post_queries-library-sidebar.html"
+below-sidebar="utils_post_queries/PostQueries-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">PostQueries</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 This class creates queries related to posts.
 
+</div>
 
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[PostQueries](../utils_post_queries/PostQueries/PostQueries.md)
+<span class="name">[PostQueries](../utils_post_queries/PostQueries/PostQueries.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties"
+class="section summary offset-anchor inherited">
 
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addLike](../utils_post_queries/PostQueries/addLike.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Add Like to a post.
+<span class="name">[addLike](../utils_post_queries/PostQueries/addLike.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Add Like to a post.
 
-[[getPostById](../utils_post_queries/PostQueries/getPostById.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] postId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Getting Post by Post Id.
+<span class="name">[deletePost](../utils_post_queries/PostQueries/deletePost.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Mutation to delete the post.
 
-[[getPostsById](../utils_post_queries/PostQueries/getPostsById.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] after, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] before, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] first, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] last]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Getting Posts by Id.
+<span class="name">[getPostsByOrgID](../utils_post_queries/PostQueries/getPostsByOrgID.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Getting Posts by Id.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[getPresignedUrl](../utils_post_queries/PostQueries/getPresignedUrl.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Getting Presigned URL for uploading a file.
 
-[[removeLike](../utils_post_queries/PostQueries/removeLike.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Remove Like from a post.
+<span class="name">[hasUserVoted](../utils_post_queries/PostQueries/hasUserVoted.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Query to fetch vote details of a post.
 
-[[removePost](../utils_post_queries/PostQueries/removePost.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Mutation to remove the post.
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[uploadPost](../utils_post_queries/PostQueries/uploadPost.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Upload a post to database.
+<span class="feature">inherited</span>
 
+</div>
 
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[uploadPost](../utils_post_queries/PostQueries/uploadPost.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Upload a post to database.
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
-2.  [post_queries](../utils_post_queries/)
+2.  [post_queries](../utils_post_queries/utils_post_queries-library.md)
 3.  PostQueries class
 
-##### post_queries library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

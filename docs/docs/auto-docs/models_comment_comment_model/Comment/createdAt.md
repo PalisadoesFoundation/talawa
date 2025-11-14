@@ -1,10 +1,46 @@
-
-<div>
-
-# createdAt property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
+3.  [Comment](../../models_comment_comment_model/Comment-class.md)
+4.  createdAt property
+
+<div class="self-name">
+
+createdAt
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_comment_comment_model/Comment-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">createdAt</span> property
+
+</div>
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -13,17 +49,23 @@
 </div>
 
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-createdAt
+<span class="name">createdAt</span>
 
+<div class="features">
 
-getter/setter pair
+<span class="feature">getter/setter pair</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 The creation date of the comment.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -32,22 +74,29 @@ The creation date of the comment.
 String? createdAt;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [comment_model](../../models_comment_comment_model/)
+2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
 3.  [Comment](../../models_comment_comment_model/Comment-class.md)
 4.  createdAt property
 
 ##### Comment class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

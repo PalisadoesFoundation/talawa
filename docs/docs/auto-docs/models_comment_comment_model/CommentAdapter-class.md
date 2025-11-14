@@ -1,101 +1,175 @@
-
-<div>
-
-# CommentAdapter class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-Inheritance
+1.  [talawa](../index.md)
+2.  [comment_model](../models_comment_comment_model/models_comment_comment_model-library.md)
+3.  CommentAdapter class
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Comment](../models_comment_comment_model/Comment-class.md)]\>]
-    -   CommentAdapter
+<div class="self-name">
 
+CommentAdapter
 
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_comment_comment_model/models_comment_comment_model-library-sidebar.html"
+below-sidebar="models_comment_comment_model/CommentAdapter-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">CommentAdapter</span> class
+
+</div>
+
+<div class="section">
+
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)<span class="signature">\<<span class="type-parameter">[Comment](../models_comment_comment_model/Comment-class.md)</span>\></span>
+- CommentAdapter
+
+</div>
+
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[CommentAdapter](../models_comment_comment_model/CommentAdapter/CommentAdapter.md)
+<span class="name">[CommentAdapter](../models_comment_comment_model/CommentAdapter/CommentAdapter.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[hashCode](../models_comment_comment_model/CommentAdapter/hashCode.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setteroverride
-    :::
+<span class="name">[hashCode](../models_comment_comment_model/CommentAdapter/hashCode.md)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[typeId](../models_comment_comment_model/CommentAdapter/typeId.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   Called for type registration
-    ::: features
-    final
-    :::
+<span class="feature">no
+setter</span><span class="feature">override</span>
 
+</div>
 
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[typeId](../models_comment_comment_model/CommentAdapter/typeId.md)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+Called for type registration
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
-[[read](../models_comment_comment_model/CommentAdapter/read.md)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)] reader]) [→ [Comment](../models_comment_comment_model/Comment-class.md)] ]
-:   Is called when a value has to be decoded.
-    ::: features
-    override
-    :::
+<div class="features">
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[write](../models_comment_comment_model/CommentAdapter/write.md)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)] writer, ][[[Comment](../models_comment_comment_model/Comment-class.md)] obj]) → void ]
-:   Is called when a value has to be encoded.
-    ::: features
-    override
-    :::
+</div>
 
+<span class="name">[read](../models_comment_comment_model/CommentAdapter/read.md)</span><span class="signature">(<span id="read-param-reader" class="parameter"><span class="type-annotation">[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)</span> <span class="parameter-name">reader</span></span>) <span class="returntype parameter">→ [Comment](../models_comment_comment_model/Comment-class.md)</span> </span>  
+Is called when a value has to be decoded.
 
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[write](../models_comment_comment_model/CommentAdapter/write.md)</span><span class="signature">(<span id="write-param-writer" class="parameter"><span class="type-annotation">[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)</span> <span class="parameter-name">writer</span>, </span><span id="write-param-obj" class="parameter"><span class="type-annotation">[Comment](../models_comment_comment_model/Comment-class.md)</span> <span class="parameter-name">obj</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Is called when a value has to be encoded.
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor">
 
 ## Operators
 
-[[operator ==](../models_comment_comment_model/CommentAdapter/operator_equals.md)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    override
-    :::
+<span class="name">[operator ==](../models_comment_comment_model/CommentAdapter/operator_equals.md)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">override</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
-2.  [comment_model](../models_comment_comment_model/)
+2.  [comment_model](../models_comment_comment_model/models_comment_comment_model-library.md)
 3.  CommentAdapter class
 
-##### comment_model library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

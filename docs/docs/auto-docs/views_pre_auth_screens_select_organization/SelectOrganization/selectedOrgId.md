@@ -1,23 +1,65 @@
-
-<div>
-
-# selectedOrgId property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [select_organization](../../views_pre_auth_screens_select_organization/views_pre_auth_screens_select_organization-library.md)
+3.  [SelectOrganization](../../views_pre_auth_screens_select_organization/SelectOrganization-class.md)
+4.  selectedOrgId property
+
+<div class="self-name">
+
 selectedOrgId
 
+</div>
 
-final
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_pre_auth_screens_select_organization/SelectOrganization-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">selectedOrgId</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+<span class="name">selectedOrgId</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 Contains Integer value for selected org id.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -25,22 +67,29 @@ Contains Integer value for selected org id.
 final String selectedOrgId;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [select_organization](../../views_pre_auth_screens_select_organization/)
+2.  [select_organization](../../views_pre_auth_screens_select_organization/views_pre_auth_screens_select_organization-library.md)
 3.  [SelectOrganization](../../views_pre_auth_screens_select_organization/SelectOrganization-class.md)
 4.  selectedOrgId property
 
 ##### SelectOrganization class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

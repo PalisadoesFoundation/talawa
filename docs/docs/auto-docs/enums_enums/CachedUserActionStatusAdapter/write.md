@@ -1,10 +1,46 @@
-
-<div>
-
-# write method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [enums](../../enums_enums/enums_enums-library.md)
+3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.md)
+4.  write method
+
+<div class="self-name">
+
+write
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="enums_enums/CachedUserActionStatusAdapter-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">write</span> method
+
+</div>
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -12,24 +48,32 @@
 
 </div>
 
-void write(
+<span class="returntype">void</span> <span class="name">write</span>(
 
-1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)]
-    writer, ]
-2.  [[[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.md)]
-    obj]
+1.  <span id="write-param-writer"
+    class="parameter"><span class="type-annotation">[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)</span>
+    <span class="parameter-name">writer</span>, </span>
+2.  <span id="write-param-obj"
+    class="parameter"><span class="type-annotation">[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.md)</span>
+    <span class="parameter-name">obj</span></span>
 
 )
 
+<div class="features">
 
-override
+<span class="feature">override</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 Is called when a value has to be encoded.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -38,22 +82,29 @@ Is called when a value has to be encoded.
 void write(BinaryWriter writer, CachedUserActionStatus obj) 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [enums](../../enums_enums/)
+2.  [enums](../../enums_enums/enums_enums-library.md)
 3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.md)
 4.  write method
 
 ##### CachedUserActionStatusAdapter class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

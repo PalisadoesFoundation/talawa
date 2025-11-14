@@ -1,0 +1,95 @@
+<div id="overlay-under-drawer">
+
+</div>
+
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [group_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/view_model_after_auth_view_models_chat_view_models_group_chat_view_model-library.md)
+3.  [GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)
+4.  chatState property
+
+<div class="self-name">
+
+chatState
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">chatState</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[ChatState](../../enums_enums/ChatState.md)
+<span class="name">chatState</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
+
+State of the chat.
+
+</div>
+
+<div id="source" class="section summary source-code">
+
+## Implementation
+
+``` language-dart
+ChatState chatState = ChatState.initial;
+```
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
+
+1.  [talawa](../../index.md)
+2.  [group_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/view_model_after_auth_view_models_chat_view_models_group_chat_view_model-library.md)
+3.  [GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)
+4.  chatState property
+
+##### GroupChatViewModel class
+
+</div>
+
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+
+</div>
+
+</div>
+
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,194 +1,271 @@
-
-<div>
-
-# EventCard class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [event_card](../widgets_event_card/widgets_event_card-library.md)
+3.  EventCard class
+
+<div class="self-name">
+
+EventCard
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_event_card/widgets_event_card-library-sidebar.html"
+below-sidebar="widgets_event_card/EventCard-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">EventCard</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 This class returns the EventCard widget.
 
+</div>
 
+<div class="section">
 
+Available Extensions  
+- [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.2/flutter_animate/AnimateWidgetExtensions.html)
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [DiagnosticableTree](https://api.flutter.dev/flutter/foundation/DiagnosticableTree-class.html)
-    -   [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)
-    -   EventCard
-
-Available extensions
-
-:   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[[EventCard](../widgets_event_card/EventCard/EventCard.md)][]
+<span class="name">[EventCard](../widgets_event_card/EventCard/EventCard.md)</span><span class="signature">(<span id="-param-key" class="parameter"></span>)</span>  
+<div class="constructor-modifier features">
 
-:   ::: 
-    const
-    :::
+const
 
+</div>
 
+</div>
+
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[event](../widgets_event_card/EventCard/event.md)] [→ [Event](../models_events_event_model/Event-class.md)]
-:   instance of an event.
-    ::: features
-    final
-    :::
+<span class="name">[event](../widgets_event_card/EventCard/event.md)</span> <span class="signature">→ [Event](../models_events_event_model/Event-class.md)</span>  
+instance of an event.
 
-[[eventTitleHighlightedText](../widgets_event_card/EventCard/eventTitleHighlightedText.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   Highlighted text of the event.
-    ::: features
-    final
-    :::
+<div class="features">
 
-[[eventTitleNormalText](../widgets_event_card/EventCard/eventTitleNormalText.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   Eventtile normal text.
-    ::: features
-    final
-    :::
+<span class="feature">final</span>
 
-[[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+</div>
 
-[[isSearchItem](../widgets_event_card/EventCard/isSearchItem.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   This flag indicates that if this event is searchable.
-    ::: features
-    final
-    :::
+<span class="name">[eventTitleHighlightedText](../widgets_event_card/EventCard/eventTitleHighlightedText.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+Highlighted text of the event.
 
-[[key](https://api.flutter.dev/flutter/widgets/Widget/key.html)] [→ [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
-:   Controls how one widget replaces another widget in the tree.
-    ::: features
-    finalinherited
-    :::
+<div class="features">
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">final</span>
 
+</div>
 
+<span class="name">[eventTitleNormalText](../widgets_event_card/EventCard/eventTitleNormalText.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+Eventtile normal text.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[hashCode](../widgets_event_card/EventCard/hashCode.md)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[isSearchItem](../widgets_event_card/EventCard/isSearchItem.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+This flag indicates that if this event is searchable.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[key](../widgets_event_card/EventCard/key.md)</span> <span class="signature">→ Key?</span>  
+Controls how one widget replaces another widget in the tree.
+
+<div class="features">
+
+<span class="feature">final</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][ [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
+<span class="name">[build](../widgets_event_card/EventCard/build.md)</span><span class="signature">(<span id="build-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
+Describes the part of the user interface represented by this widget.
 
-:   Available on
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
-    provided by the
-    [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-    extension
+<span class="name">[createElement](../widgets_event_card/EventCard/createElement.md)</span><span class="signature"> <span class="returntype parameter">→ StatelessElement</span> </span>  
+Creates a `StatelessElement` to manage this widget's location in the
+tree.
 
-    Wraps the target
-    [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-    in an
-    [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
-    instance, and returns the instance for chaining calls. Ex.
-    `myWidget.` is equivalent to `Animate(child: myWidget)`.
+<div class="features">
 
-[[build](../widgets_event_card/EventCard/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
-:   Describes the part of the user interface represented by this widget.
-    ::: features
-    override
-    :::
+<span class="feature">inherited</span>
 
-[[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)][ [→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)] ]
-:   Creates a
-    [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)
-    to manage this widget\'s location in the tree.
-    ::: features
-    inherited
-    :::
+</div>
 
-[[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)][ [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]\>]] ]
-:   Returns a list of
-    [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
-    objects describing this node\'s children.
-    ::: features
-    inherited
-    :::
+<span class="name">[debugDescribeChildren](../widgets_event_card/EventCard/debugDescribeChildren.md)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">DiagnosticsNode</span>\></span></span> </span>  
+Returns a list of `DiagnosticsNode` objects describing this node's
+children.
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
-:   Add additional properties associated with the node.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][ [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
-:   Returns a debug representation of the object that is used by
-    debugging tools and by
-    [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
-    ::: features
-    inherited
-    :::
+</div>
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="name">[debugFillProperties](../widgets_event_card/EventCard/debugFillProperties.md)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">DiagnosticPropertiesBuilder</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Add additional properties associated with the node.
 
-[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Returns a string representation of this node and its descendants.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   Returns a one-line detailed description of the object.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[toStringShort](https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A short, textual description of this widget.
-    ::: features
-    inherited
-    :::
+</div>
 
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toDiagnosticsNode](../widgets_event_card/EventCard/toDiagnosticsNode.md)</span><span class="signature">(<span id="toDiagnosticsNode-param-name" class="parameter"></span>) <span class="returntype parameter">→ DiagnosticsNode</span> </span>  
+Returns a debug representation of the object that is used by debugging
+tools and by `DiagnosticsNode.toStringDeep`.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](../widgets_event_card/EventCard/toString.md)</span><span class="signature">(<span id="toString-param-minLevel" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toStringDeep](../widgets_event_card/EventCard/toStringDeep.md)</span><span class="signature">(<span id="toStringDeep-param-prefixLineOne" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Returns a string representation of this node and its descendants.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toStringShallow](../widgets_event_card/EventCard/toStringShallow.md)</span><span class="signature">(<span id="toStringShallow-param-joiner" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+Returns a one-line detailed description of the object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toStringShort](../widgets_event_card/EventCard/toStringShort.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A short, textual description of this widget.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](../widgets_event_card/EventCard/operator_equals.md)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
-2.  [event_card](../widgets_event_card/)
+2.  [event_card](../widgets_event_card/widgets_event_card-library.md)
 3.  EventCard class
 
-##### event_card library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,0 +1,103 @@
+<div id="overlay-under-drawer">
+
+</div>
+
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [post_model](../../models_post_post_model/models_post_post_model-library.md)
+3.  [Post](../../models_post_post_model/Post-class.md)
+4.  voteType property
+
+<div class="self-name">
+
+voteType
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_post_post_model/Post-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">voteType</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(9)
+
+</div>
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+<span class="name">voteType</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
+
+Variable to check the type of vote on the post by the user (if not voted
+then null).
+
+</div>
+
+<div id="source" class="section summary source-code">
+
+## Implementation
+
+``` language-dart
+@HiveField(9)
+String? voteType;
+```
+
+</div>
+
+</div>
+
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
+
+1.  [talawa](../../index.md)
+2.  [post_model](../../models_post_post_model/models_post_post_model-library.md)
+3.  [Post](../../models_post_post_model/Post-class.md)
+4.  voteType property
+
+##### Post class
+
+</div>
+
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+
+</div>
+
+</div>
+
+<span class="no-break"> talawa 1.0.0+1 </span>

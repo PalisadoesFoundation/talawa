@@ -1,10 +1,46 @@
-
-<div>
-
-# initState method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/views_after_auth_screens_events_create_agenda_item_page-library.md)
+3.  [CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)
+4.  initState method
+
+<div class="self-name">
+
+initState
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">initState</span> method
+
+</div>
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -12,63 +48,59 @@
 
 </div>
 
-void 
+<span class="returntype">void</span>
+<span class="name">initState</span>
 
+</div>
 
-override
-
-
-
+<div class="section desc markdown">
 
 Called when this object is inserted into the tree.
 
-The framework will call this method exactly once for each
-[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
+The framework will call this method exactly once for each `State` object
 it creates.
 
 Override this method to perform initialization that depends on the
 location at which this object was inserted into the tree (i.e.,
-[context](https://api.flutter.dev/flutter/widgets/State/context.md))
+[context](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/context.md))
 or on the widget used to configure this object (i.e.,
-[widget](https://api.flutter.dev/flutter/widgets/State/widget.md)).
+[widget](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/widget.md)).
 
-If a
-[State](https://api.flutter.dev/flutter/widgets/State-class.html)\'s
+If a `State`'s
 [build](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)
 method depends on an object that can itself change state, for example a
-[ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-or
-[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html),
+`ChangeNotifier` or
+[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html),
 or some other object to which one can subscribe to receive
 notifications, then be sure to subscribe and unsubscribe properly in
 [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md),
-[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html),
+[didUpdateWidget](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didUpdateWidget.md),
 and
-[dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html):
+[dispose](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/dispose.md):
 
--   In
-    [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md),
-    subscribe to the object.
--   In
-    [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)
-    unsubscribe from the old object and subscribe to the new one if the
-    updated widget configuration requires replacing the object.
--   In
-    [dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html),
-    unsubscribe from the object.
+- In
+  [initState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md),
+  subscribe to the object.
+- In
+  [didUpdateWidget](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didUpdateWidget.md)
+  unsubscribe from the old object and subscribe to the new one if the
+  updated widget configuration requires replacing the object.
+- In
+  [dispose](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/dispose.md),
+  unsubscribe from the object.
 
-You should not use
-[BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html)
+You should not use `BuildContext.dependOnInheritedWidgetOfExactType`
 from this method. However,
-[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html)
+[didChangeDependencies](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didChangeDependencies.md)
 will be called immediately following this method, and
-[BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html)
-can be used there.
+`BuildContext.dependOnInheritedWidgetOfExactType` can be used there.
 
 Implementations of this method should start with a call to the inherited
 method, as in `super.`.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -77,22 +109,29 @@ method, as in `super.`.
 void  
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
+2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/views_after_auth_screens_events_create_agenda_item_page-library.md)
 3.  [CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)
 4.  initState method
 
 ##### CreateAgendaItemPageState class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

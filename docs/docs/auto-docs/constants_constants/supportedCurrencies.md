@@ -1,19 +1,58 @@
-
-<div>
-
-# supportedCurrencies top-level property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [constants](../constants_constants/constants_constants-library.md)
+3.  supportedCurrencies property
+
+<div class="self-name">
+
 supportedCurrencies
 
+</div>
 
-getter/setter pair
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="constants_constants/constants_constants-library-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-top-level-property">supportedCurrencies</span> top-level property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span>
+<span class="name">supportedCurrencies</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 A list of supported currency codes used in the application.
 
@@ -21,7 +60,9 @@ Each currency code is represented as a string in the list. This list is
 used to ensure that the application supports various currencies for
 transactions, conversions, or displays.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -123,21 +164,28 @@ List<String> supportedCurrencies = [
 ];
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/)
+2.  [constants](../constants_constants/constants_constants-library.md)
 3.  supportedCurrencies property
 
 ##### constants library
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,257 +1,385 @@
-
-<div>
-
-# CreateAgendaItemPageState class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [create_agenda_item_page](../views_after_auth_screens_events_create_agenda_item_page/views_after_auth_screens_events_create_agenda_item_page-library.md)
+3.  CreateAgendaItemPageState class
+
+<div class="self-name">
+
+CreateAgendaItemPageState
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_events_create_agenda_item_page/views_after_auth_screens_events_create_agenda_item_page-library-sidebar.html"
+below-sidebar="views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">CreateAgendaItemPageState</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 State class for
 [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md).
 
+</div>
 
+<div class="section">
 
+Available Extensions  
+- [StateExt](https://pub.dev/documentation/tutorial_coach_mark/1.3.3/tutorial_coach_mark/StateExt.html)
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)]\>]
-    -   CreateAgendaItemPageState
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[CreateAgendaItemPageState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/CreateAgendaItemPageState.md)
+<span class="name">[CreateAgendaItemPageState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/CreateAgendaItemPageState.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[attachments](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/attachments.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
-:   List of base64 encoded attachments associated with the agenda item.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[attachments](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/attachments.md)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span>  
+List of base64 encoded attachments associated with the agenda item.
 
-[[context](https://api.flutter.dev/flutter/widgets/State/context.html)] [→ [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
-:   The location in the tree where this widget builds.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[descController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
-:   Controller for the agenda item description input field.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[descFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
-:   Focus node for the description input field.
-    ::: features
-    getter/setter pair
-    :::
+</div>
 
-[[durationController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
-:   Controller for the duration input field.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[context](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/context.md)</span> <span class="signature">→ BuildContext</span>  
+The location in the tree where this widget builds.
 
-[[durationFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
-:   Focus node for the duration input field.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-[[mounted](https://api.flutter.dev/flutter/widgets/State/mounted.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether this
-    [State](https://api.flutter.dev/flutter/widgets/State-class.html)
-    object is currently in a tree.
-    ::: features
-    no setterinherited
-    :::
+</div>
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<span class="name">[descController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descController.md)</span> <span class="signature">↔ TextEditingController</span>  
+Controller for the agenda item description input field.
 
-[[selectedCategories](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/selectedCategories.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.md)]\>]]
-:   List of selected categories for the agenda item.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[titleController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
-:   Controller for the agenda item title input field.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[titleFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
-:   Focus node for the title input field.
-    ::: features
-    getter/setter pair
-    :::
+</div>
 
-[[urlController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
-:   Controller for the URL input field.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[descFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descFocus.md)</span> <span class="signature">↔ FocusNode</span>  
+Focus node for the description input field.
 
-[[urlFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
-:   Focus node for the URL input field.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[urls](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urls.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
-:   List of URLs associated with the agenda item.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)]
-:   The current configuration.
-    ::: features
-    no setterinherited
-    :::
+</div>
 
+<span class="name">[durationController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationController.md)</span> <span class="signature">↔ TextEditingController</span>  
+Controller for the duration input field.
 
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[durationFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationFocus.md)</span> <span class="signature">↔ FocusNode</span>  
+Focus node for the duration input field.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[mounted](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/mounted.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether this `State` object is currently in a tree.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[selectedCategories](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/selectedCategories.md)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.md)</span>\></span></span>  
+List of selected categories for the agenda item.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[titleController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleController.md)</span> <span class="signature">↔ TextEditingController</span>  
+Controller for the agenda item title input field.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[titleFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleFocus.md)</span> <span class="signature">↔ FocusNode</span>  
+Focus node for the title input field.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[urlController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlController.md)</span> <span class="signature">↔ TextEditingController</span>  
+Controller for the URL input field.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[urlFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlFocus.md)</span> <span class="signature">↔ FocusNode</span>  
+Focus node for the URL input field.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[urls](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urls.md)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span>  
+List of URLs associated with the agenda item.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[widget](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/widget.md)</span> <span class="signature">→ [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)</span>  
+The current configuration.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[activate](https://api.flutter.dev/flutter/widgets/State/activate.html) [→ void ]
-:   Called when this object is reinserted into the tree after having
-    been removed via
-    [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html).
-    ::: features
-    inherited
-    :::
+<span class="name">[activate](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/activate.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Called when this object is reinserted into the tree after having been
+removed via
+[deactivate](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/deactivate.md).
 
-[[build](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
-:   Describes the part of the user interface represented by this widget.
-    ::: features
-    override
-    :::
+<div class="features">
 
-[deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html) [→ void ]
-:   Called when this object is removed from the tree.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
-:   Add additional properties associated with the node.
-    ::: features
-    inherited
-    :::
+</div>
 
-[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html) [→ void ]
-:   Called when a dependency of this
-    [State](https://api.flutter.dev/flutter/widgets/State-class.html)
-    object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[build](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)</span><span class="signature">(<span id="build-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
+Describes the part of the user interface represented by this widget.
 
-[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)] oldWidget]) → void ]
-:   Called whenever the widget configuration changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[deactivate](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/deactivate.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Called when this object is removed from the tree.
 
-[dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html) [→ void ]
-:   Called when this object is removed from the tree permanently.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[initState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md) [→ void ]
-:   Called when this object is inserted into the tree.
-    ::: features
-    override
-    :::
+<span class="feature">inherited</span>
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+</div>
 
-[reassemble](https://api.flutter.dev/flutter/widgets/State/reassemble.html) [→ void ]
-:   Called whenever the application is reassembled during debugging, for
-    example during hot reload.
-    ::: features
-    inherited
-    :::
+<span class="name">[debugFillProperties](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/debugFillProperties.md)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">DiagnosticPropertiesBuilder</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Add additional properties associated with the node.
 
-[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] fn]) → void ]
-:   Notify the framework that the internal state of this object has
-    changed.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][ [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
-:   Returns a debug representation of the object that is used by
-    debugging tools and by
-    [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+</div>
 
-[[toStringShort](https://api.flutter.dev/flutter/foundation/Diagnosticable/toStringShort.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A brief description of this object, usually just the
-    [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
-    and the
-    [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html).
-    ::: features
-    inherited
-    :::
+<span class="name">[didChangeDependencies](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didChangeDependencies.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Called when a dependency of this `State` object changes.
 
+<div class="features">
 
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[didUpdateWidget](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/didUpdateWidget.md)</span><span class="signature">(<span id="didUpdateWidget-param-oldWidget" class="parameter">covariant <span class="type-annotation">[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)</span> <span class="parameter-name">oldWidget</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Called whenever the widget configuration changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[dispose](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Called when this object is removed from the tree permanently.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[initState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Called when this object is inserted into the tree.
+
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[reassemble](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/reassemble.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Called whenever the application is reassembled during debugging, for
+example during hot reload.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/setState.md)</span><span class="signature">(<span id="setState-param-fn" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">fn</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Notify the framework that the internal state of this object has changed.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toDiagnosticsNode](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/toDiagnosticsNode.md)</span><span class="signature">(<span id="toDiagnosticsNode-param-name" class="parameter"></span>) <span class="returntype parameter">→ DiagnosticsNode</span> </span>  
+Returns a debug representation of the object that is used by debugging
+tools and by `DiagnosticsNode.toStringDeep`.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/toString.md)</span><span class="signature">(<span id="toString-param-minLevel" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toStringShort](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/toStringShort.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A brief description of this object, usually just the
+[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+and the
+[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html).
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
-2.  [create_agenda_item_page](../views_after_auth_screens_events_create_agenda_item_page/)
+2.  [create_agenda_item_page](../views_after_auth_screens_events_create_agenda_item_page/views_after_auth_screens_events_create_agenda_item_page-library.md)
 3.  CreateAgendaItemPageState class
 
-##### create_agenda_item_page library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

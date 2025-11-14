@@ -1,138 +1,235 @@
-
-<div>
-
-# GraphqlExceptionResolver class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [graphql_exception_resolver](../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
+3.  GraphqlExceptionResolver class
+
+<div class="self-name">
+
+GraphqlExceptionResolver
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library-sidebar.html"
+below-sidebar="exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">GraphqlExceptionResolver</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 static class to handle graphql exceptions.
 
+</div>
 
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.md)
+<span class="name">[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties"
+class="section summary offset-anchor inherited">
 
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods"
+class="section summary offset-anchor inherited">
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="static-properties" class="section summary offset-anchor">
 
 ## Static Properties
 
-[[emailAccountPresent](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/emailAccountPresent.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[emailAccountPresent](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/emailAccountPresent.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
 
-[[memberRequestExist](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/memberRequestExist.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[notifFeatureNotInstalled](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/notifFeatureNotInstalled.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[organizationNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/organizationNotFound.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+</div>
 
-[[refreshAccessTokenExpiredException](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/refreshAccessTokenExpiredException.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[memberRequestExist](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/memberRequestExist.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
 
-[[userNotAuthenticated](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotAuthenticated.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[userNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotFound.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[wrongCredentials](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/wrongCredentials.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
-:   Graphql error for handling.
-    ::: features
-    getter/setter pair
-    :::
+</div>
 
+<span class="name">[notifFeatureNotInstalled](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/notifFeatureNotInstalled.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
 
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[organizationNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/organizationNotFound.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[refreshAccessTokenExpiredException](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/refreshAccessTokenExpiredException.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[userNotAuthenticated](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotAuthenticated.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[userNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotFound.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[wrongCredentials](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/wrongCredentials.md)</span> <span class="signature">↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>  
+Graphql error for handling.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div id="static-methods" class="section summary offset-anchor">
 
 ## Static Methods
 
-[[encounteredExceptionOrError](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/encounteredExceptionOrError.md)][([[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.md)] exception, ) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
-:   This function is used to check if any exceptions or error
-    encountered. The return type is `boolean`.
+<span class="name">[encounteredExceptionOrError](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/encounteredExceptionOrError.md)</span><span class="signature">(<span id="encounteredExceptionOrError-param-exception" class="parameter"><span class="type-annotation">[OperationException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException-class.md)</span> <span class="parameter-name">exception</span>, </span><span id="encounteredExceptionOrError-param-showSnackBar" class="parameter"></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span> </span>  
+This function is used to check if any exceptions or error encountered.
+The return type is `boolean`.
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../index.md)
-2.  [graphql_exception_resolver](../exceptions_graphql_exception_resolver/)
+2.  [graphql_exception_resolver](../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
 3.  GraphqlExceptionResolver class
 
-##### graphql_exception_resolver library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

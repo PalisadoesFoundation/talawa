@@ -1,20 +1,61 @@
-
-<div>
-
-# volunteerGroups property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)]\>]]
-get volunteerGroups
+1.  [talawa](../../index.md)
+2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/view_model_after_auth_view_models_event_view_models_event_info_view_model-library.md)
+3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
+4.  volunteerGroups property
 
+<div class="self-name">
 
+volunteerGroups
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">volunteerGroups</span> property
+
+</div>
+
+<div id="getter" class="section">
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)</span>\></span></span>
+<span class="name">volunteerGroups</span>
+
+</div>
+
+<div class="section desc markdown">
 
 List of volunteer groups of an event.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -22,23 +63,31 @@ List of volunteer groups of an event.
 List<EventVolunteerGroup> get volunteerGroups => _volunteerGroups;
 ```
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
+2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/view_model_after_auth_view_models_event_view_models_event_info_view_model-library.md)
 3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
 4.  volunteerGroups property
 
 ##### EventInfoViewModel class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

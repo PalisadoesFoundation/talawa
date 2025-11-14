@@ -1,41 +1,83 @@
-
-<div>
-
-# createVolunteerGroup method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)?]\>]]
-createVolunteerGroup(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[Event](../../models_events_event_model/Event-class.md)]
-    event, ]
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-    groupName,
-    ]
-3.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-    volunteersRequired]
+1.  [talawa](../../index.md)
+2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/view_model_after_auth_view_models_event_view_models_event_info_view_model-library.md)
+3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
+4.  createVolunteerGroup method
+
+<div class="self-name">
+
+createVolunteerGroup
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">createVolunteerGroup</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)?</span>\></span></span>
+<span class="name">createVolunteerGroup</span>(
+
+1.  <span id="createVolunteerGroup-param-event"
+    class="parameter"><span class="type-annotation">[Event](../../models_events_event_model/Event-class.md)</span>
+    <span class="parameter-name">event</span>, </span>
+2.  <span id="createVolunteerGroup-param-groupName"
+    class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>
+    <span class="parameter-name">groupName</span>, </span>
+3.  <span id="createVolunteerGroup-param-volunteersRequired"
+    class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>
+    <span class="parameter-name">volunteersRequired</span></span>
 
 )
 
+</div>
 
+<div class="section desc markdown">
 
 This function is used to create a new volunteer group for an event.
 
 **params**:
 
--   `event`: Name of the group
--   `groupName`: Name of the group
--   `volunteersRequired`: Total number of volunteers required for the
-    group
+- `event`: Name of the group
+- `groupName`: Name of the group
+- `volunteersRequired`: Total number of volunteers required for the
+  group
 
 **returns**:
 
--   `Future<EventVolunteerGroup?>`: returns the new volunteer group for
-    an event
+- `Future<EventVolunteerGroup?>`: returns the new volunteer group for an
+  event
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -47,22 +89,29 @@ Future<EventVolunteerGroup?> createVolunteerGroup(
 ) async 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
+2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/view_model_after_auth_view_models_event_view_models_event_info_view_model-library.md)
 3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
 4.  createVolunteerGroup method
 
 ##### EventInfoViewModel class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

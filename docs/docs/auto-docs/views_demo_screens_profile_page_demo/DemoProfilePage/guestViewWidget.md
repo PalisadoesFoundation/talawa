@@ -1,32 +1,73 @@
-
-<div>
-
-# guestViewWidget method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
-guestViewWidget(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
-    context]
+1.  [talawa](../../index.md)
+2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
+3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
+4.  guestViewWidget method
+
+<div class="self-name">
+
+guestViewWidget
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_demo_screens_profile_page_demo/DemoProfilePage-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">guestViewWidget</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">Widget</span>
+<span class="name">guestViewWidget</span>(
+
+1.  <span id="guestViewWidget-param-context"
+    class="parameter"><span class="type-annotation">BuildContext</span>
+    <span class="parameter-name">context</span></span>
 
 )
 
+</div>
 
+<div class="section desc markdown">
 
 guestViewWidget, this widget is shown if user is not logged in.
 
 **params**:
 
--   `context`: Build context to perform context related operation
+- `context`: Build context to perform context related operation
 
 **returns**:
 
--   `Widget`: Widget
+- `Widget`: Widget
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -34,22 +75,29 @@ guestViewWidget, this widget is shown if user is not logged in.
 Widget guestViewWidget(BuildContext context) 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/)
+2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
 3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
 4.  guestViewWidget method
 
 ##### DemoProfilePage class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,37 +1,76 @@
-
-<div>
-
-# languages top-level property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Language](../models_language_language_model/Language-class.md)]\>]
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [constants](../constants_constants/constants_constants-library.md)
+3.  languages property
+
+<div class="self-name">
+
 languages
 
+</div>
 
-getter/setter pair
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="constants_constants/constants_constants-library-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-top-level-property">languages</span> top-level property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Language](../models_language_language_model/Language-class.md)</span>\></span>
+<span class="name">languages</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 This file contains the prototypes of all the supported languages and
 currencies used in the application.
 
-A list of
-[Language](../models_language_language_model/Language-class.md)
-objects representing the languages supported by the application.
+A list of `Language` objects representing the languages supported by the
+application.
 
-Each [Language](../models_language_language_model/Language-class.md)
-object contains the following properties:
+Each `Language` object contains the following properties:
 
--   `countryCode`: The country code associated with the language.
--   `langCode`: The language code representing the language.
--   `langName`: The name of the language in its native script.
--   `langSample`: A sample text phrase in the language, used for display
-    purposes.
+- `countryCode`: The country code associated with the language.
+- `langCode`: The language code representing the language.
+- `langName`: The name of the language in its native script.
+- `langSample`: A sample text phrase in the language, used for display
+  purposes.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -88,21 +127,28 @@ List<Language> languages = [
 ];
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/)
+2.  [constants](../constants_constants/constants_constants-library.md)
 3.  languages property
 
 ##### constants library
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

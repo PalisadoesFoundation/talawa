@@ -1,23 +1,65 @@
-
-<div>
-
-# wrongCredentials property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
+3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
+4.  wrongCredentials property
+
+<div class="self-name">
+
 wrongCredentials
 
+</div>
 
-getter/setter pair
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">wrongCredentials</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)
+<span class="name">wrongCredentials</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 Graphql error for handling.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -26,22 +68,29 @@ static GraphQLError wrongCredentials =
     const GraphQLError(message: TalawaErrors.wrongCredentials);
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/)
+2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
 3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
 4.  wrongCredentials property
 
 ##### GraphqlExceptionResolver class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

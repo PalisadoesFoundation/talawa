@@ -1,23 +1,64 @@
-
-<div>
-
-# model top-level property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [add_post_page](../views_after_auth_screens_add_post_page/views_after_auth_screens_add_post_page-library.md)
+3.  model property
+
+<div class="self-name">
+
 model
 
+</div>
 
-getter/setter pair
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_add_post_page/views_after_auth_screens_add_post_page-library-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-top-level-property">model</span> top-level property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)
+<span class="name">model</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 Add Post View Model.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -25,21 +66,28 @@ Add Post View Model.
 late AddPostViewModel model;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../index.md)
-2.  [add_post_page](../views_after_auth_screens_add_post_page/)
+2.  [add_post_page](../views_after_auth_screens_add_post_page/views_after_auth_screens_add_post_page-library.md)
 3.  model property
 
 ##### add_post_page library
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

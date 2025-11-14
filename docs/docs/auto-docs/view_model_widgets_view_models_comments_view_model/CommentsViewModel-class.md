@@ -1,171 +1,286 @@
-
-<div>
-
-# CommentsViewModel class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [comments_view_model](../view_model_widgets_view_models_comments_view_model/view_model_widgets_view_models_comments_view_model-library.md)
+3.  CommentsViewModel class
+
+<div class="self-name">
+
+CommentsViewModel
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_widgets_view_models_comments_view_model/view_model_widgets_view_models_comments_view_model-library-sidebar.html"
+below-sidebar="view_model_widgets_view_models_comments_view_model/CommentsViewModel-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">CommentsViewModel</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 CommentsViewModel class helps to serve the data from model and to react
-to user\'s input for Comment Widget.
+to user's input for Comment Widget.
 
 Methods include:
 
--   `getComments` : to get all comments on the post.
--   `createComment` : to add comment on the post.
+- `getComments` : to get all comments on the post.
+- `createComment` : to add comment on the post.
 
+</div>
 
+<div class="section">
 
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [BaseModel](../view_model_base_view_model/BaseModel-class.md)
+- CommentsViewModel
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
-    -   CommentsViewModel
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[CommentsViewModel](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/CommentsViewModel.md)
+<span class="name">[CommentsViewModel](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/CommentsViewModel.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[commentList](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/commentList.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comment](../models_comment_comment_model/Comment-class.md)]\>]]
-:   comment list getter.
-    ::: features
-    no setter
-    :::
+<span class="name">[commentList](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/commentList.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Comment](../models_comment_comment_model/Comment-class.md)</span>\></span></span>  
+comment list getter.
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether any listeners are currently registered.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">no setter</span>
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+</div>
 
-:   ::: features
-    no setterinherited
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[postId](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/postId.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-:   Id of current post.
-    ::: features
-    no setter
-    :::
+<div class="features">
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
+</div>
 
-:   ::: features
-    no setterinherited
-    :::
+<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether any listeners are currently registered.
 
+<div class="features">
 
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[hasNextPage](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/hasNextPage.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+This function is used to get if there is a next page of comments
+available.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[pageInfo](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/pageInfo.md)</span> <span class="signature">↔ [PageInfo](../models_page_info_page_info/PageInfo-class.md)</span>  
+page Info of the current comments.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[postId](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/postId.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+Id of current post.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[state](../view_model_base_view_model/BaseModel/state.md)</span> <span class="signature">→ [ViewState](../enums_enums/ViewState.md)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addCommentLocally](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/addCommentLocally.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] msg]) → void ]
-:   This function add comment locally.
+<span class="name">[addCommentLocally](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/addCommentLocally.md)</span><span class="signature">(<span id="addCommentLocally-param-msg" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">msg</span></span>) <span class="returntype parameter">→ void</span> </span>  
+This function add comment locally.
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Register a closure to be called when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Register a closure to be called when the object changes.
 
-[[createComment](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/createComment.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] msg]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function add comment on the post. The function uses
-    `createComments` method provided by Comment Service.
+<div class="features">
 
-[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
-:   Discards any resources used by the object. After this is called, the
-    object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
-    will throw after the object is disposed).
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[getComments](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/getComments.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function is used to get all comments on the post.
+</div>
 
-[[initialise](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/initialise.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] postID]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function is used to initialise the CommentViewModel.
+<span class="name">[createComment](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/createComment.md)</span><span class="signature">(<span id="createComment-param-msg" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">msg</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function add comment on the post. The function uses
+`createComments` method provided by Comment Service.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+will throw after the object is disposed).
 
-[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html) [→ void ]
-:   Call all the registered listeners.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Remove a previously registered closure from the list of closures
-    that are notified when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
+</div>
 
-:   ::: features
-    inherited
-    :::
+<span class="name">[fetchNextPage](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/fetchNextPage.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function is used to fetch next page of comments if available.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="name">[getComments](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/getComments.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function is used to get all comments on the post.
 
+<span class="name">[initialise](../view_model_widgets_view_models_comments_view_model/CommentsViewModel/initialise.md)</span><span class="signature">(<span id="initialise-param-postID" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">postID</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function is used to initialise the CommentViewModel.
 
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Call all the registered listeners.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Remove a previously registered closure from the list of closures that
+are notified when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
-2.  [comments_view_model](../view_model_widgets_view_models_comments_view_model/)
+2.  [comments_view_model](../view_model_widgets_view_models_comments_view_model/view_model_widgets_view_models_comments_view_model-library.md)
 3.  CommentsViewModel class
 
-##### comments_view_model library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

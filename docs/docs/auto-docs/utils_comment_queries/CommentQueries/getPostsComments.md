@@ -1,55 +1,95 @@
-
-<div>
-
-# getPostsComments method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-getPostsComments(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
-    postId]
+1.  [talawa](../../index.md)
+2.  [comment_queries](../../utils_comment_queries/utils_comment_queries-library.md)
+3.  [CommentQueries](../../utils_comment_queries/CommentQueries-class.md)
+4.  getPostsComments method
 
-)
+<div class="self-name">
 
+getPostsComments
 
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="utils_comment_queries/CommentQueries-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">getPostsComments</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>
+<span class="name">getPostsComments</span>
+
+</div>
+
+<div class="section desc markdown">
 
 Get all comments for a post.
 
-**params**:
-
--   `postId`: The id of the post to get comments for.
+**params**: None
 
 **returns**:
 
--   `String`: The query for getting all comments for a post.
+- `String`: The query for getting all comments for a post.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
 ``` language-dart
-String getPostsComments(String postId) 
+String  
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [comment_queries](../../utils_comment_queries/)
+2.  [comment_queries](../../utils_comment_queries/utils_comment_queries-library.md)
 3.  [CommentQueries](../../utils_comment_queries/CommentQueries-class.md)
 4.  getPostsComments method
 
 ##### CommentQueries class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,46 +1,87 @@
-
-<div>
-
-# pinnedPost property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]
-pinnedPost
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [pinned_post](../../widgets_pinned_post/widgets_pinned_post-library.md)
+3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
+4.  PinnedPost const constructor
 
-final
+<div class="self-name">
 
+PinnedPost
 
+</div>
 
+<div id="theme-button" class="toggle">
 
-contains the pinned post.
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_pinned_post/PinnedPost-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-constructor">PinnedPost</span> constructor
+
+</div>
+
+<div class="section multi-line-signature">
+
+const <span class="name">PinnedPost</span>(
+
+1.  <span id="-param-key"
+    class="parameter"></span>
+
+)
+
+</div>
+
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
 ``` language-dart
-final List<Post> pinnedPost;
+const PinnedPost
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [pinned_post](../../widgets_pinned_post/)
+2.  [pinned_post](../../widgets_pinned_post/widgets_pinned_post-library.md)
 3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
-4.  pinnedPost property
+4.  PinnedPost const constructor
 
 ##### PinnedPost class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,23 +1,65 @@
-
-<div>
-
-# reverse property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/widgets_custom_alert_dialog_with_checkbox-library.md)
+3.  [CustomAlertDialogWithCheckbox](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.md)
+4.  reverse property
+
+<div class="self-name">
+
 reverse
 
+</div>
 
-final
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">reverse</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+<span class="name">reverse</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 Indicates whether the order of action buttons should be reversed.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -25,22 +67,29 @@ Indicates whether the order of action buttons should be reversed.
 final bool reverse;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/)
+2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/widgets_custom_alert_dialog_with_checkbox-library.md)
 3.  [CustomAlertDialogWithCheckbox](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.md)
 4.  reverse property
 
 ##### CustomAlertDialogWithCheckbox class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

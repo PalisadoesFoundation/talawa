@@ -1,24 +1,66 @@
-
-<div>
-
-# hidePassword property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/view_model_pre_auth_view_models_signup_details_view_model-library.md)
+3.  [SignupDetailsViewModel](../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.md)
+4.  hidePassword property
+
+<div class="self-name">
+
 hidePassword
 
+</div>
 
-getter/setter pair
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">hidePassword</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+<span class="name">hidePassword</span>
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 Boolean to toggle password visibility (true for hidden, false for
 visible).
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -26,22 +68,29 @@ visible).
 bool hidePassword = true;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
+2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/view_model_pre_auth_view_models_signup_details_view_model-library.md)
 3.  [SignupDetailsViewModel](../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.md)
 4.  hidePassword property
 
 ##### SignupDetailsViewModel class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,159 +1,266 @@
-
-<div>
-
-# SelectContactViewModel class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [select_contact_view_model](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/view_model_after_auth_view_models_chat_view_models_select_contact_view_model-library.md)
+3.  SelectContactViewModel class
+
+<div class="self-name">
+
+SelectContactViewModel
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_chat_view_models_select_contact_view_model/view_model_after_auth_view_models_chat_view_models_select_contact_view_model-library-sidebar.html"
+below-sidebar="view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">SelectContactViewModel</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 SelectContactViewModel class have different functions to interact with
 model.
 
 Functions include:
 
--   `getCurrentOrgUsersList` : to get all users of current organization.
+- `getCurrentOrgUsersList` : to get all users of current organization.
+- `createChatWithUser` : to create a new chat with selected user.
 
+</div>
 
+<div class="section">
 
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [BaseModel](../view_model_base_view_model/BaseModel-class.md)
+- SelectContactViewModel
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
-    -   SelectContactViewModel
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[SelectContactViewModel](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/SelectContactViewModel.md)
+<span class="name">[SelectContactViewModel](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/SelectContactViewModel.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether any listeners are currently registered.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-:   ::: features
-    no setterinherited
-    :::
+</div>
 
-[[orgMembersList](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/orgMembersList.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../models_user_user_info/User-class.md)]\>]]
-:   orgMembersList is used to store all users of current organization.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether any listeners are currently registered.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-:   ::: features
-    no setterinherited
-    :::
+</div>
 
+<span class="name">[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<div class="features">
 
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[orgMembersList](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/orgMembersList.md)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[User](../models_user_user_info/User-class.md)</span>\></span></span>  
+orgMembersList is used to store all users of current organization.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[state](../view_model_base_view_model/BaseModel/state.md)</span> <span class="signature">→ [ViewState](../enums_enums/ViewState.md)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[userConfig](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/userConfig.md)</span> <span class="signature">→ [UserConfig](../services_user_config/UserConfig-class.md)</span>  
+User configuration service for accessing current user and organization
+information.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Register a closure to be called when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Register a closure to be called when the object changes.
 
-[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
-:   Discards any resources used by the object. After this is called, the
-    object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
-    will throw after the object is disposed).
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[getCurrentOrgUsersList](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/getCurrentOrgUsersList.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   function to get all users of current organization.
+<span class="feature">inherited</span>
 
-[initialise](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/initialise.md) [→ void ]
-:   This function initializes the
-    [SelectContactViewModel](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class.md)
-    class.
+</div>
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[checkExistingChat](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/checkExistingChat.md)</span><span class="signature">(<span id="checkExistingChat-param-selectedUser" class="parameter"><span class="type-annotation">[User](../models_user_user_info/User-class.md)</span> <span class="parameter-name">selectedUser</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>\></span></span> </span>  
+Helper method to check if a chat already exists with the given user.
 
-[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html) [→ void ]
-:   Call all the registered listeners.
-    ::: features
-    inherited
-    :::
+<span class="name">[createChatWithUser](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/createChatWithUser.md)</span><span class="signature">(<span id="createChatWithUser-param-selectedUser" class="parameter"><span class="type-annotation">[User](../models_user_user_info/User-class.md)</span> <span class="parameter-name">selectedUser</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>\></span></span> </span>  
+Function to create a new chat with a selected user.
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Remove a previously registered closure from the list of closures
-    that are notified when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+will throw after the object is disposed).
 
-[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
+<div class="features">
 
-:   ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+</div>
 
+<span class="name">[getCurrentOrgUsersList](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/getCurrentOrgUsersList.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+function to get all users of current organization.
 
+<span class="name">[initialise](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function initializes the
+[SelectContactViewModel](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class.md)
+class.
+
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Call all the registered listeners.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Remove a previously registered closure from the list of closures that
+are notified when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
-2.  [select_contact_view_model](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/)
+2.  [select_contact_view_model](../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/view_model_after_auth_view_models_chat_view_models_select_contact_view_model-library.md)
 3.  SelectContactViewModel class
 
-##### select_contact_view_model library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

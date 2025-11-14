@@ -1,217 +1,330 @@
-
-<div>
-
-# AddPostViewModel class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [add_post_view_model](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/view_model_after_auth_view_models_add_post_view_models_add_post_view_model-library.md)
+3.  AddPostViewModel class
+
+<div class="self-name">
+
+AddPostViewModel
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_add_post_view_models_add_post_view_model/view_model_after_auth_view_models_add_post_view_models_add_post_view_model-library-sidebar.html"
+below-sidebar="view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">AddPostViewModel</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 AddPostViewModel class have different functions.
 
 They are used to interact with the model to add a new post in the
 organization.
 
+</div>
 
+<div class="section">
 
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [BaseModel](../view_model_base_view_model/BaseModel-class.md)
+- AddPostViewModel
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
-    -   AddPostViewModel
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/AddPostViewModel.md)][]
+<span class="name">[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/AddPostViewModel.md)</span><span class="signature">(<span id="-param-demoMode" class="parameter"></span>)</span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[controller](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/controller.md)] [→ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
-:   The main text controller of the post body.
-    ::: features
-    no setter
-    :::
+<span class="name">[controller](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/controller.md)</span> <span class="signature">→ TextEditingController</span>  
+The main text controller of the post body.
 
-[[demoMode](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/demoMode.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether the app is running in Demo Mode.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+<span class="feature">no setter</span>
 
-[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether any listeners are currently registered.
-    ::: features
-    no setterinherited
-    :::
+</div>
 
-[[imageFile](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/imageFile.md)] [→ [File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]
-:   The image file that is to be uploaded.
-    ::: features
-    no setter
-    :::
+<span class="name">[demoMode](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/demoMode.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether the app is running in Demo Mode.
 
-[[imageInBase64](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/imageInBase64.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   Getter to access the base64 type.
-    ::: features
-    no setter
-    :::
+<div class="features">
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+<span class="feature">getter/setter pair</span>
 
-:   ::: features
-    no setterinherited
-    :::
+</div>
 
-[[orgName](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/orgName.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-:   The organisation name.
-    ::: features
-    no setter
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<div class="features">
 
-[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-:   ::: features
-    no setterinherited
-    :::
+</div>
 
-[[textHashTagController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/textHashTagController.md)] [→ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
-:   The main text controller of the hashtag.
-    ::: features
-    no setter
-    :::
+<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether any listeners are currently registered.
 
-[[titleController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/titleController.md)] [→ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
-:   The text controller of the title body.
-    ::: features
-    no setter
-    :::
+<div class="features">
 
-[[userName](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/userName.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
-:   The username of the currentUser.
-    ::: features
-    no setter
-    :::
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-[[userPic](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/userPic.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
-:   User profile picture.
-    ::: features
-    no setter
-    :::
+</div>
 
+<span class="name">[imageFile](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/imageFile.md)</span> <span class="signature">→ [File](https://api.flutter.dev/flutter/dart-io/File-class.html)?</span>  
+The image file that is to be uploaded.
 
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[imageInBase64](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/imageInBase64.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+Getter to access the base64 type.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[orgName](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/orgName.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+The organisation name.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[state](../view_model_base_view_model/BaseModel/state.md)</span> <span class="signature">→ [ViewState](../enums_enums/ViewState.md)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[textHashTagController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/textHashTagController.md)</span> <span class="signature">→ TextEditingController</span>  
+The main text controller of the hashtag.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[titleController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/titleController.md)</span> <span class="signature">→ TextEditingController</span>  
+The text controller of the title body.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[userName](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/userName.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+The username of the currentUser.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+<span class="name">[userPic](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/userPic.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+User profile picture.
+
+<div class="features">
+
+<span class="feature">no setter</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Register a closure to be called when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Register a closure to be called when the object changes.
 
-[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
-:   Discards any resources used by the object. After this is called, the
-    object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
-    will throw after the object is disposed).
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[getImageFromGallery](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/getImageFromGallery.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function is used to get the image from gallery.
+<span class="feature">inherited</span>
 
-[initialise](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/initialise.md) [→ void ]
-:   This function is usedto do initialisation of stuff in the view
-    model.
+</div>
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+will throw after the object is disposed).
 
-[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html) [→ void ]
-:   Call all the registered listeners.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[removeImage](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/removeImage.md) [→ void ]
-:   This function removes the image selected.
+<span class="feature">inherited</span>
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Remove a previously registered closure from the list of closures
-    that are notified when the object changes.
-    ::: features
-    inherited
-    :::
+</div>
 
-[[setImageFile](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/setImageFile.md)][([[[File](https://api.flutter.dev/flutter/dart-io/File-class.md)?] file]) → void ]
-:   Method to set image.
+<span class="name">[getImageFromGallery](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/getImageFromGallery.md)</span><span class="signature">(<span id="getImageFromGallery-param-camera" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function is used to get the image from gallery.
 
-[[setImageInBase64](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/setImageInBase64.md)][([[[File](https://api.flutter.dev/flutter/dart-io/File-class.md)] file]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   Method to set Image in Bsse64.
+<span class="name">[initialise](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function is usedto do initialisation of stuff in the view model.
 
-[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
-:   ::: features
-    inherited
-    :::
+<div class="features">
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[uploadPost](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/uploadPost.md)][ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
-:   This function uploads the post finally, and navigate the success
-    message or error message in Snack Bar.
+</div>
 
+<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Call all the registered listeners.
 
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[removeImage](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/removeImage.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function removes the image selected.
+
+<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Remove a previously registered closure from the list of closures that
+are notified when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setImageFile](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/setImageFile.md)</span><span class="signature">(<span id="setImageFile-param-file" class="parameter"><span class="type-annotation">[File](https://api.flutter.dev/flutter/dart-io/File-class.md)?</span> <span class="parameter-name">file</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Method to set image.
+
+<span class="name">[setImageInBase64](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/setImageInBase64.md)</span><span class="signature">(<span id="setImageInBase64-param-file" class="parameter"><span class="type-annotation">[File](https://api.flutter.dev/flutter/dart-io/File-class.md)</span> <span class="parameter-name">file</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+Method to set Image in Bsse64.
+
+<span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[uploadPost](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/uploadPost.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function uploads the post finally, and navigate the success message
+or error message in Snack Bar.
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+
+<div id="header-search-sidebar" class="hidden-l">
+
+</div>
 
 1.  [talawa](../index.md)
-2.  [add_post_view_model](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
+2.  [add_post_view_model](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/view_model_after_auth_view_models_add_post_view_models_add_post_view_model-library.md)
 3.  AddPostViewModel class
 
-##### add_post_view_model library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

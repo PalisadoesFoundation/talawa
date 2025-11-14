@@ -1,26 +1,68 @@
-
-<div>
-
-# model property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [organization_list](../../widgets_organization_list/widgets_organization_list-library.md)
+3.  [OrganizationList](../../widgets_organization_list/OrganizationList-class.md)
+4.  model property
+
+<div class="self-name">
+
 model
 
+</div>
 
-final
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_organization_list/OrganizationList-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">model</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
+<span class="name">model</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 [model](../../widgets_organization_list/OrganizationList/model.md) is
 a type of
 [SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
 which provides methods to handle the data for this component.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -28,22 +70,29 @@ which provides methods to handle the data for this component.
 final SelectOrganizationViewModel model;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [organization_list](../../widgets_organization_list/)
+2.  [organization_list](../../widgets_organization_list/widgets_organization_list-library.md)
 3.  [OrganizationList](../../widgets_organization_list/OrganizationList-class.md)
 4.  model property
 
 ##### OrganizationList class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,23 +1,65 @@
-
-<div>
-
-# progressLabel property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [signup_progress_indicator](../../widgets_signup_progress_indicator/widgets_signup_progress_indicator-library.md)
+3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)
+4.  progressLabel property
+
+<div class="self-name">
+
 progressLabel
 
+</div>
 
-final
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_signup_progress_indicator/SignupProgressIndicator-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">progressLabel</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span>
+<span class="name">progressLabel</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 The list of labels for each step in the progress indicator.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -29,22 +71,29 @@ final List<String> progressLabel = [
 ];
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [signup_progress_indicator](../../widgets_signup_progress_indicator/)
+2.  [signup_progress_indicator](../../widgets_signup_progress_indicator/widgets_signup_progress_indicator-library.md)
 3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)
 4.  progressLabel property
 
 ##### SignupProgressIndicator class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

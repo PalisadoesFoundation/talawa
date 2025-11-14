@@ -1,2 +1,2 @@
-1.  [Classes](./#classes)
-2.  [NewsPost](./NewsPost-class.md)
+1.  [Classes](./widgets_post_widget-library#classes.md)
+2.  [PostWidget](./PostWidget-class.md)

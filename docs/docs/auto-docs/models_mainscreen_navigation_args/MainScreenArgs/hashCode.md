@@ -1,11 +1,48 @@
-
-<div>
-
-# hashCode property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [mainscreen_navigation_args](../../models_mainscreen_navigation_args/models_mainscreen_navigation_args-library.md)
+3.  [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.md)
+4.  hashCode property
+
+<div class="self-name">
+
+hashCode
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_mainscreen_navigation_args/MainScreenArgs-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">hashCode</span> property
+
+</div>
+
+<div id="getter" class="section">
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -13,21 +50,27 @@
 
 </div>
 
-[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-get hashCode
+<span class="returntype">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>
+<span class="name">hashCode</span>
 
+<div class="features">
 
-override
+<span class="feature">override</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 Overrides the hashCode getter to generate a hash code based on the
 properties of the MainScreenArgs instance.
 
 Returns an integer value representing the combined hash codes.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -37,23 +80,31 @@ int get hashCode =>
     fromSignUp.hashCode ^ mainScreenIndex.hashCode ^ toggleDemoMode.hashCode;
 ```
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [mainscreen_navigation_args](../../models_mainscreen_navigation_args/)
+2.  [mainscreen_navigation_args](../../models_mainscreen_navigation_args/models_mainscreen_navigation_args-library.md)
 3.  [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.md)
 4.  hashCode property
 
 ##### MainScreenArgs class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

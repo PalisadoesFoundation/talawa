@@ -1,23 +1,66 @@
-
-<div>
-
-# onSelected property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-void
-Function[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]])]? onSelected
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+3.  [RecurrenceFrequencyDropdown](../../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)
+4.  onSelected property
 
-final
+<div class="self-name">
 
+onSelected
 
+</div>
 
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">onSelected</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+(void Function<span class="signature">(<span id="param-"
+class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span></span>)</span>?)
+<span class="name">onSelected</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 Callback to be executed when selected value changes.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -25,22 +68,29 @@ Callback to be executed when selected value changes.
 final void Function(String)? onSelected;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
+2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
 3.  [RecurrenceFrequencyDropdown](../../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)
 4.  onSelected property
 
 ##### RecurrenceFrequencyDropdown class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,10 +1,46 @@
-
-<div>
-
-# organization property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [event_model](../../models_events_event_model/models_events_event_model-library.md)
+3.  [Event](../../models_events_event_model/Event-class.md)
+4.  organization property
+
+<div class="self-name">
+
+organization
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="models_events_event_model/Event-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">organization</span> property
+
+</div>
+
+<div class="section multi-line-signature">
 
 <div>
 
@@ -13,17 +49,23 @@
 </div>
 
 [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)?
-organization
+<span class="name">organization</span>
 
+<div class="features">
 
-getter/setter pair
+<span class="feature">getter/setter pair</span>
 
+</div>
 
+</div>
 
+<div class="section desc markdown">
 
 The organization of the event.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -32,22 +74,29 @@ The organization of the event.
 OrgInfo? organization;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [event_model](../../models_events_event_model/)
+2.  [event_model](../../models_events_event_model/models_events_event_model-library.md)
 3.  [Event](../../models_events_event_model/Event-class.md)
 4.  organization property
 
 ##### Event class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

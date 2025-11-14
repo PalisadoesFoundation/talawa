@@ -1,32 +1,73 @@
-
-<div>
-
-# registerForAnEvent method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
-registerForAnEvent(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
-    eventId]
+1.  [talawa](../../index.md)
+2.  [event_service](../../services_event_service/services_event_service-library.md)
+3.  [EventService](../../services_event_service/EventService-class.md)
+4.  registerForAnEvent method
+
+<div class="self-name">
+
+registerForAnEvent
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_event_service/EventService-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">registerForAnEvent</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span>
+<span class="name">registerForAnEvent</span>(
+
+1.  <span id="registerForAnEvent-param-eventId"
+    class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span>
+    <span class="parameter-name">eventId</span></span>
 
 )
 
+</div>
 
+<div class="section desc markdown">
 
 This function is used to register user for an event.
 
 **params**:
 
--   `eventId`: id of an event.
+- `eventId`: id of an event.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the event registration.
+- `Future<dynamic>`: Information about the event registration.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -34,22 +75,29 @@ This function is used to register user for an event.
 Future<dynamic> registerForAnEvent(String eventId) async 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [event_service](../../services_event_service/)
+2.  [event_service](../../services_event_service/services_event_service-library.md)
 3.  [EventService](../../services_event_service/EventService-class.md)
 4.  registerForAnEvent method
 
 ##### EventService class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

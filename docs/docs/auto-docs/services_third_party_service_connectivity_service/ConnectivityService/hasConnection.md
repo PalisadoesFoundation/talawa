@@ -1,15 +1,53 @@
-
-<div>
-
-# hasConnection method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [connectivity_service](../../services_third_party_service_connectivity_service/services_third_party_service_connectivity_service-library.md)
+3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
+4.  hasConnection method
 
+<div class="self-name">
 
+hasConnection
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_third_party_service_connectivity_service/ConnectivityService-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">hasConnection</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span>
+<span class="name">hasConnection</span>
+
+</div>
+
+<div class="section desc markdown">
 
 This function checks if the device currently has any type of network
 connection.
@@ -18,10 +56,12 @@ connection.
 
 **returns**:
 
--   `Future<bool>`: indicating whether the device has a network
-    connection.
+- `Future<bool>`: indicating whether the device has a network
+  connection.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -29,22 +69,29 @@ connection.
 Future<bool>  async 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [connectivity_service](../../services_third_party_service_connectivity_service/)
+2.  [connectivity_service](../../services_third_party_service_connectivity_service/services_third_party_service_connectivity_service-library.md)
 3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
 4.  hasConnection method
 
 ##### ConnectivityService class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

@@ -1,15 +1,53 @@
-
-<div>
-
-# initialise method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [progress_dialog_view_model](../../view_model_widgets_view_models_progress_dialog_view_model/view_model_widgets_view_models_progress_dialog_view_model-library.md)
+3.  [ProgressDialogViewModel](../../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class.md)
+4.  initialise method
 
+<div class="self-name">
 
+initialise
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">initialise</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
+<span class="name">initialise</span>
+
+</div>
+
+<div class="section desc markdown">
 
 Initializes the state of the component by checking the online status and
 updating the view accordingly.
@@ -19,10 +57,10 @@ This method performs the following actions:
 1.  Sets the view state to busy to indicate that an initialization
     process is underway.
 2.  Checks the online status of the application.
-    -   If the app is offline, it sets the `connectivityPresent` flag to
-        `false`.
-    -   If the app is online, it sets the `connectivityPresent` flag to
-        `true`.
+    - If the app is offline, it sets the `connectivityPresent` flag to
+      `false`.
+    - If the app is online, it sets the `connectivityPresent` flag to
+      `true`.
 3.  Updates the view state to idle after the online status check is
     complete.
 
@@ -30,7 +68,9 @@ This method performs the following actions:
 
 **returns**: None
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -38,22 +78,29 @@ This method performs the following actions:
 Future<void>  async 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [progress_dialog_view_model](../../view_model_widgets_view_models_progress_dialog_view_model/)
+2.  [progress_dialog_view_model](../../view_model_widgets_view_models_progress_dialog_view_model/view_model_widgets_view_models_progress_dialog_view_model-library.md)
 3.  [ProgressDialogViewModel](../../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class.md)
 4.  initialise method
 
 ##### ProgressDialogViewModel class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

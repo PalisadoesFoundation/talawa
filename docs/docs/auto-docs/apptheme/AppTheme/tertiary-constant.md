@@ -1,19 +1,58 @@
-
-<div>
-
-# tertiary constant
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[Color](https://api.flutter.dev/flutter/painting/Color-class.html) const
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [apptheme](../../apptheme/apptheme-library.md)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  tertiary constant
+
+<div class="self-name">
+
 tertiary
 
+</div>
 
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="apptheme/AppTheme-class-sidebar.html" below-sidebar="">
+
+<div>
+
+# <span class="kind-property">tertiary</span> constant
+
+</div>
+
+<div class="section multi-line-signature">
+
+[Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html) const
+<span class="name">tertiary</span>
+
+</div>
+
+<div class="section desc markdown">
 
 Custom colors for the app.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -21,22 +60,29 @@ Custom colors for the app.
 static const Color tertiary = Color(0xFFA16938);
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [apptheme](../../apptheme/)
+2.  [apptheme](../../apptheme/apptheme-library.md)
 3.  [AppTheme](../../apptheme/AppTheme-class.md)
 4.  tertiary constant
 
 ##### AppTheme class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

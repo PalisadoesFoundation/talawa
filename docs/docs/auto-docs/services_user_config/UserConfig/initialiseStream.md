@@ -1,14 +1,53 @@
-
-<div>
-
-# initialiseStream method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-void 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [user_config](../../services_user_config/services_user_config-library.md)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  initialiseStream method
 
+<div class="self-name">
+
+initialiseStream
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_user_config/UserConfig-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">initialiseStream</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">void</span>
+<span class="name">initialiseStream</span>
+
+</div>
+
+<div class="section desc markdown">
 
 initialise.
 
@@ -16,7 +55,9 @@ initialise.
 
 **returns**: None
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -24,22 +65,29 @@ initialise.
 void  
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [user_config](../../services_user_config/)
+2.  [user_config](../../services_user_config/services_user_config-library.md)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  initialiseStream method
 
 ##### UserConfig class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

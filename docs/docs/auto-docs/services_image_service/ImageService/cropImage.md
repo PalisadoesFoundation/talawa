@@ -1,31 +1,75 @@
-
-<div>
-
-# cropImage method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]]
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [image_service](../../services_image_service/services_image_service-library.md)
+3.  [ImageService](../../services_image_service/ImageService-class.md)
+4.  cropImage method
 
+<div class="self-name">
 
+cropImage
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_image_service/ImageService-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">cropImage</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?</span>\></span></span>
+<span class="name">cropImage</span>(
+
+1.  <span id="cropImage-param-imageFile" class="parameter"></span>
+
+)
+
+</div>
+
+<div class="section desc markdown">
 
 Crops the image selected by the user.
 
 **params**:
 
--   `imageFile`: the image file to be cropped.
+- `imageFile`: the image file to be cropped.
 
 **returns**:
 
--   `Future<File?>`: the image after been cropped.
+- `Future<File?>`: the image after been cropped.
 
 **throws**:
 
--   `Exception`: If an error occurs during the image cropping process.
+- `Exception`: If an error occurs during the image cropping process.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -33,22 +77,29 @@ Crops the image selected by the user.
 Future<File?>  async 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [image_service](../../services_image_service/)
+2.  [image_service](../../services_image_service/services_image_service-library.md)
 3.  [ImageService](../../services_image_service/ImageService-class.md)
 4.  cropImage method
 
 ##### ImageService class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

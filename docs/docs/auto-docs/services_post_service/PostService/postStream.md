@@ -1,20 +1,61 @@
-
-<div>
-
-# postStream property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]]\>]]
-get postStream
+1.  [talawa](../../index.md)
+2.  [post_service](../../services_post_service/services_post_service-library.md)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  postStream property
 
+<div class="self-name">
 
+postStream
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="services_post_service/PostService-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">postStream</span> property
+
+</div>
+
+<div id="getter" class="section">
+
+<div class="section multi-line-signature">
+
+<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Post](../../models_post_post_model/Post-class.md)</span>\></span></span>\></span></span>
+<span class="name">postStream</span>
+
+</div>
+
+<div class="section desc markdown">
 
 Getter for Stream of posts.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -22,23 +63,31 @@ Getter for Stream of posts.
 Stream<List<Post>> get postStream => _postStream;
 ```
 
+</div>
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [post_service](../../services_post_service/)
+2.  [post_service](../../services_post_service/services_post_service-library.md)
 3.  [PostService](../../services_post_service/PostService-class.md)
 4.  postStream property
 
 ##### PostService class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

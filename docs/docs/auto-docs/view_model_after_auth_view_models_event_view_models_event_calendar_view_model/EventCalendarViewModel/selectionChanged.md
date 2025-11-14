@@ -1,30 +1,72 @@
-
-<div>
-
-# selectionChanged method
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-void selectionChanged(
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
-1.  [[[DateRangePickerSelectionChangedArgs](https://pub.dev/documentation/syncfusion_flutter_datepicker/28.2.3/datepicker/DateRangePickerSelectionChangedArgs-class.md)]
-    args]
+1.  [talawa](../../index.md)
+2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/view_model_after_auth_view_models_event_view_models_event_calendar_view_model-library.md)
+3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
+4.  selectionChanged method
+
+<div class="self-name">
+
+selectionChanged
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-method">selectionChanged</span> method
+
+</div>
+
+<div class="section multi-line-signature">
+
+<span class="returntype">void</span>
+<span class="name">selectionChanged</span>(
+
+1.  <span id="selectionChanged-param-args"
+    class="parameter"><span class="type-annotation">[DateRangePickerSelectionChangedArgs](https://pub.dev/documentation/syncfusion_flutter_datepicker/28.2.12/datepicker/DateRangePickerSelectionChangedArgs-class.md)</span>
+    <span class="parameter-name">args</span></span>
 
 )
 
+</div>
 
+<div class="section desc markdown">
 
 function to be triggered when selection is changed.
 
 **params**:
 
--   `args`: Object of type DateRangePickerSelectionChangedArgs, The
-    selected dates or ranges changes in the SfDateRangePicker.
+- `args`: Object of type DateRangePickerSelectionChangedArgs, The
+  selected dates or ranges changes in the SfDateRangePicker.
 
 **returns**: None
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -32,22 +74,29 @@ function to be triggered when selection is changed.
 void selectionChanged(DateRangePickerSelectionChangedArgs args) 
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
+2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/view_model_after_auth_view_models_event_view_models_event_calendar_view_model-library.md)
 3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
 4.  selectionChanged method
 
 ##### EventCalendarViewModel class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

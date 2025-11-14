@@ -1,23 +1,65 @@
-
-<div>
-
-# model property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../../index.md)
+2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/views_after_auth_screens_events_create_custom_recurring_event-library.md)
+3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
+4.  model property
+
+<div class="self-name">
+
 model
 
+</div>
 
-final
+<div id="theme-button" class="toggle">
 
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
 
+</div>
 
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">model</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)
+<span class="name">model</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 Instance of create event view model.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -25,22 +67,29 @@ Instance of create event view model.
 final CreateEventViewModel model;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/)
+2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/views_after_auth_screens_events_create_custom_recurring_event-library.md)
 3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
 4.  model property
 
 ##### CustomRecurrencePage class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>

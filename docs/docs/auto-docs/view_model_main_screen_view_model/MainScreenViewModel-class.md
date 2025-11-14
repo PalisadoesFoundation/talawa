@@ -1,444 +1,636 @@
-
-<div>
-
-# MainScreenViewModel class
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
+
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
+
+1.  [talawa](../index.md)
+2.  [main_screen_view_model](../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
+3.  MainScreenViewModel class
+
+<div class="self-name">
+
+MainScreenViewModel
+
+</div>
+
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="view_model_main_screen_view_model/view_model_main_screen_view_model-library-sidebar.html"
+below-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html">
+
+<div>
+
+# <span class="kind-class">MainScreenViewModel</span> class
+
+</div>
+
+<div class="section desc markdown">
 
 MainScreenViewModel class provide methods to interact with the modal to
-serve data in user\'s action in Main Screen Views.
+serve data in user's action in Main Screen Views.
 
 The functions in this class are mainly in the context of Tutorials for
 different componenets of the App.
 
 Functions include:
 
--   `showTutorial`
--   `showHome`
--   `tourEventTargets`
--   `tourAddPost`
--   `tourChat`
--   `tourProfile`
+- `showTutorial`
+- `showHome`
+- `tourEventTargets`
+- `tourAddPost`
+- `tourChat`
+- `tourProfile`
 
+</div>
 
+<div class="section">
 
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [BaseModel](../view_model_base_view_model/BaseModel-class.md)
+- MainScreenViewModel
 
-Inheritance
+</div>
 
-:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
-    -   MainScreenViewModel
-
-
+<div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel/MainScreenViewModel.md)
+<span class="name">[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel/MainScreenViewModel.md)</span><span class="signature"></span>  
 
-:   
+</div>
 
-
+<div id="instance-properties" class="section summary offset-anchor">
 
 ## Properties
 
-[[appTour](../view_model_main_screen_view_model/MainScreenViewModel/appTour.md)] [↔ [AppTour](../models_app_tour/AppTour-class.md)]
-:   tutorialCoachMark consist of coach used to give tutorial.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[appTour](../view_model_main_screen_view_model/MainScreenViewModel/appTour.md)</span> <span class="signature">↔ [AppTour](../models_app_tour/AppTour-class.md)</span>  
+tutorialCoachMark consist of coach used to give tutorial.
 
-[[context](../view_model_main_screen_view_model/MainScreenViewModel/context.md)] [↔ [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
-:   context consist of parent info.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[currentPageIndex](../view_model_main_screen_view_model/MainScreenViewModel/currentPageIndex.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   var for current page in index.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
-:   The hash code for this object.
-    ::: features
-    no setterinherited
-    :::
+</div>
 
-[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   Whether any listeners are currently registered.
-    ::: features
-    no setterinherited
-    :::
+<span class="name">[context](../view_model_main_screen_view_model/MainScreenViewModel/context.md)</span> <span class="signature">↔ BuildContext</span>  
+context consist of parent info.
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+<div class="features">
 
-:   ::: features
-    no setterinherited
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[keyBNChat](../view_model_main_screen_view_model/MainScreenViewModel/keyBNChat.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[keyBNDemoEvents](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoEvents.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="name">[currentPageIndex](../view_model_main_screen_view_model/MainScreenViewModel/currentPageIndex.md)</span> <span class="signature">↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+var for current page in index.
 
-[[keyBNDemoHome](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoHome.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<div class="features">
 
-[[keyBNDemoPost](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoPost.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[keyBNDemoProfile](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoProfile.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[keyBNEvents](../view_model_main_screen_view_model/MainScreenViewModel/keyBNEvents.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="name">[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+The hash code for this object.
 
-[[keyBNHome](../view_model_main_screen_view_model/MainScreenViewModel/keyBNHome.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<div class="features">
 
-[[keyBNPost](../view_model_main_screen_view_model/MainScreenViewModel/keyBNPost.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-[[keyBNProfile](../view_model_main_screen_view_model/MainScreenViewModel/keyBNProfile.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[keySEAdd](../view_model_main_screen_view_model/MainScreenViewModel/keySEAdd.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+Whether any listeners are currently registered.
 
-[[keySECard](../view_model_main_screen_view_model/MainScreenViewModel/keySECard.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<div class="features">
 
-[[keySECategoryMenu](../view_model_main_screen_view_model/MainScreenViewModel/keySECategoryMenu.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-[[keySEDateFilter](../view_model_main_screen_view_model/MainScreenViewModel/keySEDateFilter.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[keySHMenuIcon](../view_model_main_screen_view_model/MainScreenViewModel/keySHMenuIcon.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="name">[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<div class="features">
 
-[[keySHOrgName](../view_model_main_screen_view_model/MainScreenViewModel/keySHOrgName.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
 
-[[keySHPinnedPost](../view_model_main_screen_view_model/MainScreenViewModel/keySHPinnedPost.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[keySHPost](../view_model_main_screen_view_model/MainScreenViewModel/keySHPost.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="name">[keyBNChat](../view_model_main_screen_view_model/MainScreenViewModel/keyBNChat.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
 
-[[keySPAppSetting](../view_model_main_screen_view_model/MainScreenViewModel/keySPAppSetting.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<div class="features">
 
-[[keySPDonateUs](../view_model_main_screen_view_model/MainScreenViewModel/keySPDonateUs.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="feature">final</span>
 
-[[keySPEditProfile](../view_model_main_screen_view_model/MainScreenViewModel/keySPEditProfile.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[keySPHelp](../view_model_main_screen_view_model/MainScreenViewModel/keySPHelp.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="name">[keyBNDemoEvents](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoEvents.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
 
-[[keySPInvite](../view_model_main_screen_view_model/MainScreenViewModel/keySPInvite.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<div class="features">
 
-[[keySPLogout](../view_model_main_screen_view_model/MainScreenViewModel/keySPLogout.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="feature">final</span>
 
-[[keySPPalisadoes](../view_model_main_screen_view_model/MainScreenViewModel/keySPPalisadoes.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[navBarItems](../view_model_main_screen_view_model/MainScreenViewModel/navBarItems.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[BottomNavigationBarItem](https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html)]\>]]
-:   Actual
-    [BottomNavigationBarItem](https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html)s
-    that show up on the screen.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[keyBNDemoHome](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoHome.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
 
-[[pages](../view_model_main_screen_view_model/MainScreenViewModel/pages.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]\>]]
-:   Contains the Widgets to be rendered for corresponding navbar items.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[pluginList](../view_model_main_screen_view_model/MainScreenViewModel/pluginList.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)]
-:   list of all the pluginList.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">final</span>
 
-[[pluginPrototypeData](../view_model_main_screen_view_model/MainScreenViewModel/pluginPrototypeData.md)] [↔ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)]
-:   Maps the feature names with their proper Icon and Page.
-    ::: features
-    getter/setter pair
-    :::
+</div>
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
-:   A representation of the runtime type of the object.
-    ::: features
-    no setterinherited
-    :::
+<span class="name">[keyBNDemoPost](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoPost.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
 
-[[showAppTour](../view_model_main_screen_view_model/MainScreenViewModel/showAppTour.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   bool to determine if we wanna show the apptour.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
+<span class="feature">final</span>
 
-:   ::: features
-    no setterinherited
-    :::
+</div>
 
-[[targets](../view_model_main_screen_view_model/MainScreenViewModel/targets.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../models_app_tour/FocusTarget-class.md)]\>]]
-:   array of target.
-    ::: features
-    final
-    :::
+<span class="name">[keyBNDemoProfile](../view_model_main_screen_view_model/MainScreenViewModel/keyBNDemoProfile.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
 
-[[testMode](../view_model_main_screen_view_model/MainScreenViewModel/testMode.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   flag to represent if app is in testMode.
-    ::: features
-    getter/setter pair
-    :::
+<div class="features">
 
-[[tourComplete](../view_model_main_screen_view_model/MainScreenViewModel/tourComplete.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   bool to determine if apptour is complete.
-    ::: features
-    getter/setter pair
-    :::
+<span class="feature">final</span>
 
-[[tourSkipped](../view_model_main_screen_view_model/MainScreenViewModel/tourSkipped.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   bool to determine if apptour is skipped.
-    ::: features
-    getter/setter pair
-    :::
+</div>
 
+<span class="name">[keyBNEvents](../view_model_main_screen_view_model/MainScreenViewModel/keyBNEvents.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
 
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyBNFunds](../view_model_main_screen_view_model/MainScreenViewModel/keyBNFunds.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyBNHome](../view_model_main_screen_view_model/MainScreenViewModel/keyBNHome.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyBNPost](../view_model_main_screen_view_model/MainScreenViewModel/keyBNPost.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyBNProfile](../view_model_main_screen_view_model/MainScreenViewModel/keyBNProfile.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyDrawerCurOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerCurOrg.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyDrawerJoinOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerJoinOrg.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyDrawerLeaveCurrentOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerLeaveCurrentOrg.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keyDrawerSwitchableOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerSwitchableOrg.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySEAdd](../view_model_main_screen_view_model/MainScreenViewModel/keySEAdd.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySECard](../view_model_main_screen_view_model/MainScreenViewModel/keySECard.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySECategoryMenu](../view_model_main_screen_view_model/MainScreenViewModel/keySECategoryMenu.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySEDateFilter](../view_model_main_screen_view_model/MainScreenViewModel/keySEDateFilter.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySHMenuIcon](../view_model_main_screen_view_model/MainScreenViewModel/keySHMenuIcon.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySHOrgName](../view_model_main_screen_view_model/MainScreenViewModel/keySHOrgName.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySHPinnedPost](../view_model_main_screen_view_model/MainScreenViewModel/keySHPinnedPost.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySHPost](../view_model_main_screen_view_model/MainScreenViewModel/keySHPost.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySPAppSetting](../view_model_main_screen_view_model/MainScreenViewModel/keySPAppSetting.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySPDonateUs](../view_model_main_screen_view_model/MainScreenViewModel/keySPDonateUs.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySPEditProfile](../view_model_main_screen_view_model/MainScreenViewModel/keySPEditProfile.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySPHelp](../view_model_main_screen_view_model/MainScreenViewModel/keySPHelp.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySPInvite](../view_model_main_screen_view_model/MainScreenViewModel/keySPInvite.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySPLogout](../view_model_main_screen_view_model/MainScreenViewModel/keySPLogout.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[keySPPalisadoes](../view_model_main_screen_view_model/MainScreenViewModel/keySPPalisadoes.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[navBarItems](../view_model_main_screen_view_model/MainScreenViewModel/navBarItems.md)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">BottomNavigationBarItem</span>\></span></span>  
+Actual `BottomNavigationBarItem`s that show up on the screen.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[pages](../view_model_main_screen_view_model/MainScreenViewModel/pages.md)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">Widget</span>\></span></span>  
+Contains the Widgets to be rendered for corresponding navbar items.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)</span> <span class="signature">→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)</span>  
+A representation of the runtime type of the object.
+
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[scaffoldKey](../view_model_main_screen_view_model/MainScreenViewModel/scaffoldKey.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">ScaffoldState</span>\></span></span>  
+static variables.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[showAppTour](../view_model_main_screen_view_model/MainScreenViewModel/showAppTour.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+bool to determine if we wanna show the apptour.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[state](../view_model_base_view_model/BaseModel/state.md)</span> <span class="signature">→ [ViewState](../enums_enums/ViewState.md)</span>  
+<div class="features">
+
+<span class="feature">no
+setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[targets](../view_model_main_screen_view_model/MainScreenViewModel/targets.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[FocusTarget](../models_app_tour/FocusTarget-class.md)</span>\></span></span>  
+array of target.
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+<span class="name">[tourComplete](../view_model_main_screen_view_model/MainScreenViewModel/tourComplete.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+bool to determine if apptour is complete.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+<span class="name">[tourSkipped](../view_model_main_screen_view_model/MainScreenViewModel/tourSkipped.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+bool to determine if apptour is skipped.
+
+<div class="features">
+
+<span class="feature">getter/setter pair</span>
+
+</div>
+
+</div>
+
+<div id="instance-methods" class="section summary offset-anchor">
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Register a closure to be called when the object changes.
-    ::: features
-    inherited
-    :::
+<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Register a closure to be called when the object changes.
 
-[[appTourDialog](../view_model_main_screen_view_model/MainScreenViewModel/appTourDialog.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] ctx]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
-:   Builds and returns an AppTourDialog.
+<div class="features">
 
-[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
-:   Discards any resources used by the object. After this is called, the
-    object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
-    will throw after the object is disposed).
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[[fetchAndAddPlugins](../view_model_main_screen_view_model/MainScreenViewModel/fetchAndAddPlugins.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) → void ]
-:   Dynamically adds `BottomNavigationBarItems` in
-    `BottomNavigationBar`.
+</div>
 
-[[initialise](../view_model_main_screen_view_model/MainScreenViewModel/initialise.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] ctx, ) → void ]
-:   Initalizing function.
+<span class="name">[appTourDialog](../view_model_main_screen_view_model/MainScreenViewModel/appTourDialog.md)</span><span class="signature">(<span id="appTourDialog-param-ctx" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">ctx</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
+Builds and returns an AppTourDialog.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
-:   Invoked when a nonexistent method or property is accessed.
-    ::: features
-    inherited
-    :::
+<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+will throw after the object is disposed).
 
-[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html) [→ void ]
-:   Call all the registered listeners.
-    ::: features
-    inherited
-    :::
+<div class="features">
 
-[[onTabTapped](../view_model_main_screen_view_model/MainScreenViewModel/onTabTapped.md)][([[[int](https://api.flutter.dev/flutter/dart-core/int-class.md)] index]) → void ]
-:   Handles click on
-    [BottomNavigationBarItem](https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html).
+<span class="feature">inherited</span>
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
-:   Remove a previously registered closure from the list of closures
-    that are notified when the object changes.
-    ::: features
-    inherited
-    :::
+</div>
 
-[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
+<span class="name">[initialise](../view_model_main_screen_view_model/MainScreenViewModel/initialise.md)</span><span class="signature">(<span id="initialise-param-ctx" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">ctx</span>, </span><span id="initialise-param-fromSignUp" class="parameter"></span>) <span class="returntype parameter">→ void</span> </span>  
+Initalizing function.
 
-:   ::: features
-    inherited
-    :::
+<span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
+Invoked when a nonexistent method or property is accessed.
 
-[[showHome](../view_model_main_screen_view_model/MainScreenViewModel/showHome.md)][([[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.md)] clickedTarget]) → void ]
-:   This function shows the Home screen.
+<div class="features">
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
-:   A string representation of this object.
-    ::: features
-    inherited
-    :::
+<span class="feature">inherited</span>
 
-[tourAddPost](../view_model_main_screen_view_model/MainScreenViewModel/tourAddPost.md) [→ void ]
-:   This function show the tutorial to add Post in the organization.
+</div>
 
-[tourChat](../view_model_main_screen_view_model/MainScreenViewModel/tourChat.md) [→ void ]
-:   This function show the tour of chats.
+<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+Call all the registered listeners.
 
-[tourEventTargets](../view_model_main_screen_view_model/MainScreenViewModel/tourEventTargets.md) [→ void ]
-:   This function show the tutorial for Events.
+<div class="features">
 
-[[tourHomeTargets](../view_model_main_screen_view_model/MainScreenViewModel/tourHomeTargets.md)][(\[[[[UserConfig](../services_user_config/UserConfig-class.md)?] givenUserConfig]\]) → void ]
-:   Starts the tour and info to be displayed is mentioned in this
-    functions.
+<span class="feature">inherited</span>
 
-[tourProfile](../view_model_main_screen_view_model/MainScreenViewModel/tourProfile.md) [→ void ]
-:   This function show the tutorial for the profile page.
+</div>
 
+<span class="name">[onTabTapped](../view_model_main_screen_view_model/MainScreenViewModel/onTabTapped.md)</span><span class="signature">(<span id="onTabTapped-param-index" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.md)</span> <span class="parameter-name">index</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Handles click on `BottomNavigationBarItem`.
 
+<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Remove a previously registered closure from the list of closures that
+are notified when the object changes.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[setupNavigationItems](../view_model_main_screen_view_model/MainScreenViewModel/setupNavigationItems.md)</span><span class="signature">(<span id="setupNavigationItems-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
+Dynamically adds `BottomNavigationBarItems` in `BottomNavigationBar`.
+
+<span class="name">[showHome](../view_model_main_screen_view_model/MainScreenViewModel/showHome.md)</span><span class="signature">(<span id="showHome-param-clickedTarget" class="parameter"><span class="type-annotation">[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.3.3/tutorial_coach_mark/TargetFocus-class.md)</span> <span class="parameter-name">clickedTarget</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+This function shows the Home screen.
+
+<span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+A string representation of this object.
+
+<div class="features">
+
+<span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[tourAddPost](../view_model_main_screen_view_model/MainScreenViewModel/tourAddPost.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function show the tutorial to add Post in the organization.
+
+<span class="name">[tourChat](../view_model_main_screen_view_model/MainScreenViewModel/tourChat.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function show the tour of chats.
+
+<span class="name">[tourEventTargets](../view_model_main_screen_view_model/MainScreenViewModel/tourEventTargets.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function show the tutorial for Events.
+
+<span class="name">[tourHomeTargets](../view_model_main_screen_view_model/MainScreenViewModel/tourHomeTargets.md)</span><span class="signature">(<span id="tourHomeTargets-param-givenUserConfig" class="parameter">\[<span class="type-annotation">[UserConfig](../services_user_config/UserConfig-class.md)?</span> <span class="parameter-name">givenUserConfig</span>\]</span>) <span class="returntype parameter">→ void</span> </span>  
+Starts the tour and info to be displayed is mentioned in this functions.
+
+<span class="name">[tourProfile](../view_model_main_screen_view_model/MainScreenViewModel/tourProfile.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+This function show the tutorial for the profile page.
+
+</div>
+
+<div id="operators" class="section summary offset-anchor inherited">
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
-:   The equality operator.
-    ::: features
-    inherited
-    :::
+<span class="name">[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+The equality operator.
 
+<div class="features">
 
+<span class="feature">inherited</span>
+
+</div>
+
+</div>
+
+<div id="static-properties" class="section summary offset-anchor">
 
 ## Static Properties
 
-[[demoMode](../view_model_main_screen_view_model/MainScreenViewModel/demoMode.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
-:   flag to represent if app is in demoMode.
-    ::: features
-    getter/setter pair
-    :::
+<span class="name">[demoMode](../view_model_main_screen_view_model/MainScreenViewModel/demoMode.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+flag to represent if app is in demoMode.
 
-[[keyDrawerCurOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerCurOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<div class="features">
 
-[[keyDrawerJoinOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerJoinOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+<span class="feature">getter/setter pair</span>
 
-[[keyDrawerLeaveCurrentOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerLeaveCurrentOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[keyDrawerSwitchableOrg](../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerSwitchableOrg.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
-[[scaffoldKey](../view_model_main_screen_view_model/MainScreenViewModel/scaffoldKey.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)]\>]]
-:   static variables.
-    ::: features
-    final
-    :::
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
-
-
+</div>
 
 1.  [talawa](../index.md)
-2.  [main_screen_view_model](../view_model_main_screen_view_model/)
+2.  [main_screen_view_model](../view_model_main_screen_view_model/view_model_main_screen_view_model-library.md)
 3.  MainScreenViewModel class
 
-##### main_screen_view_model library
+<div id="dartdoc-sidebar-left-content">
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
+<span class="no-break"> talawa 1.0.0+1 </span>

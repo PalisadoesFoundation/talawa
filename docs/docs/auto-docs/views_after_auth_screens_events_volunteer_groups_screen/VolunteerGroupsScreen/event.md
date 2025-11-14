@@ -1,22 +1,65 @@
-
-<div>
-
-# event property
+<div id="overlay-under-drawer">
 
 </div>
 
+<div id="title">
 
-[Event](../../models_events_event_model/Event-class.md) event
+<span id="sidenav-left-toggle" class="material-symbols-outlined"
+role="button" tabindex="0">menu</span>
 
+1.  [talawa](../../index.md)
+2.  [volunteer_groups_screen](../../views_after_auth_screens_events_volunteer_groups_screen/views_after_auth_screens_events_volunteer_groups_screen-library.md)
+3.  [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)
+4.  event property
 
-final
+<div class="self-name">
 
+event
 
+</div>
 
+<div id="theme-button" class="toggle">
+
+<span id="dark-theme-button" class="material-symbols-outlined">
+brightness_4 </span> <span id="light-theme-button"
+class="material-symbols-outlined"> brightness_5 </span>
+
+</div>
+
+</div>
+
+<div role="main">
+
+<div id="dartdoc-main-content" class="main-content"
+above-sidebar="views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class-sidebar.html"
+below-sidebar="">
+
+<div>
+
+# <span class="kind-property">event</span> property
+
+</div>
+
+<div class="section multi-line-signature">
+
+[Event](../../models_events_event_model/Event-class.md)
+<span class="name">event</span>
+
+<div class="features">
+
+<span class="feature">final</span>
+
+</div>
+
+</div>
+
+<div class="section desc markdown">
 
 The event for which volunteer groups are displayed.
 
+</div>
 
+<div id="source" class="section summary source-code">
 
 ## Implementation
 
@@ -24,22 +67,29 @@ The event for which volunteer groups are displayed.
 final Event event;
 ```
 
+</div>
 
+</div>
 
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
 
+<div id="header-search-sidebar" class="hidden-l">
 
-
+</div>
 
 1.  [talawa](../../index.md)
-2.  [volunteer_groups_screen](../../views_after_auth_screens_events_volunteer_groups_screen/)
+2.  [volunteer_groups_screen](../../views_after_auth_screens_events_volunteer_groups_screen/views_after_auth_screens_events_volunteer_groups_screen-library.md)
 3.  [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)
 4.  event property
 
 ##### VolunteerGroupsScreen class
 
+</div>
 
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 
+</div>
 
+</div>
 
-
-
+<span class="no-break"> talawa 1.0.0+1 </span>
