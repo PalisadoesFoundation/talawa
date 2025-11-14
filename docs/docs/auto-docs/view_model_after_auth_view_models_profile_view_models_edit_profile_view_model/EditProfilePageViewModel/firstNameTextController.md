@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [edit_profile_view_model](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/view_model_after_auth_view_models_profile_view_models_edit_profile_view_model-library.md)
+2.  [view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
 3.  [EditProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class.md)
 4.  firstNameTextController property
 
@@ -18,13 +18,9 @@ firstNameTextController
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-TextEditingController <span class="name">firstNameTextController</span>
+[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
+<span class="name">firstNameTextController</span>
 
 <div class="features">
 
@@ -77,11 +74,15 @@ late TextEditingController firstNameTextController;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [edit_profile_view_model](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/view_model_after_auth_view_models_profile_view_models_edit_profile_view_model-library.md)
+2.  [edit_profile_view_model](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
 3.  [EditProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class.md)
 4.  firstNameTextController property
 
 ##### EditProfilePageViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

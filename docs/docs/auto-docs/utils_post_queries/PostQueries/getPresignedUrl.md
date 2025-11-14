@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [post_queries](../../utils_post_queries/utils_post_queries-library.md)
+2.  [utils/post_queries.dart](../../utils_post_queries/)
 3.  [PostQueries](../../utils_post_queries/PostQueries-class.md)
 4.  getPresignedUrl method
 
@@ -18,13 +18,9 @@ getPresignedUrl
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ String
 </div>
 
 1.  [talawa](../../index.md)
-2.  [post_queries](../../utils_post_queries/utils_post_queries-library.md)
+2.  [post_queries](../../utils_post_queries/)
 3.  [PostQueries](../../utils_post_queries/PostQueries-class.md)
 4.  getPresignedUrl method
 
 ##### PostQueries class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

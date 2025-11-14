@@ -1,5 +1,5 @@
 1.  [Constructors](./Routes-class#constructors.md)
-2.  [Routes](./Routes/Routes.md)
+2.  [new](./Routes/Routes.md)
 3.  [Properties](./Routes-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

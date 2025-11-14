@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [fundraising_campaigns_screen](../../views_after_auth_screens_funds_fundraising_campaigns_screen/views_after_auth_screens_funds_fundraising_campaigns_screen-library.md)
+2.  [views/after_auth_screens/funds/fundraising_campaigns_screen.dart](../../views_after_auth_screens_funds_fundraising_campaigns_screen/)
 3.  [CampaignCard](../../views_after_auth_screens_funds_fundraising_campaigns_screen/CampaignCard-class.md)
-4.  CampaignCard const constructor
+4.  CampaignCard.new const constructor
 
 <div class="self-name">
 
-CampaignCard
+CampaignCard.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CampaignCard</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">CampaignCard</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">CampaignCard</span>(
 ## Implementation
 
 ``` language-dart
-const CampaignCard
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const CampaignCard
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fundraising_campaigns_screen](../../views_after_auth_screens_funds_fundraising_campaigns_screen/views_after_auth_screens_funds_fundraising_campaigns_screen-library.md)
+2.  [fundraising_campaigns_screen](../../views_after_auth_screens_funds_fundraising_campaigns_screen/)
 3.  [CampaignCard](../../views_after_auth_screens_funds_fundraising_campaigns_screen/CampaignCard-class.md)
-4.  CampaignCard const constructor
+4.  CampaignCard.new const constructor
 
 ##### CampaignCard class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

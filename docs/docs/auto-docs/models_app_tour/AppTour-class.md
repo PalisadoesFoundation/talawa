@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [app_tour](../models_app_tour/models_app_tour-library.md)
+2.  [models/app_tour.dart](../models_app_tour/)
 3.  AppTour class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ AppTour
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Class that handles all the apptour routines.
 
 ## Constructors
 
-<span class="name">[AppTour](../models_app_tour/AppTour/AppTour.md)</span><span class="signature">(<span id="-param-model" class="parameter"></span>)</span>  
+<span class="name">[AppTour.new](../models_app_tour/AppTour/AppTour.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -110,7 +106,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[showTutorial](../models_app_tour/AppTour/showTutorial.md)</span><span class="signature">(<span id="showTutorial-param-onClickTarget" class="parameter"></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[showTutorial](../models_app_tour/AppTour/showTutorial.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 This function show tutorial to user.
 
 <span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -148,8 +144,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [app_tour](../models_app_tour/models_app_tour-library.md)
+2.  [app_tour](../models_app_tour/)
 3.  AppTour class
+
+##### app_tour library
 
 <div id="dartdoc-sidebar-left-content">
 

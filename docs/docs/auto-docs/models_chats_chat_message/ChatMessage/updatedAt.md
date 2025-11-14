@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_message](../../models_chats_chat_message/models_chats_chat_message-library.md)
+2.  [models/chats/chat_message.dart](../../models_chats_chat_message/)
 3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
 4.  updatedAt property
 
@@ -18,13 +18,9 @@ updatedAt
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ String? updatedAt;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_message](../../models_chats_chat_message/models_chats_chat_message-library.md)
+2.  [chat_message](../../models_chats_chat_message/)
 3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
 4.  updatedAt property
 
 ##### ChatMessage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

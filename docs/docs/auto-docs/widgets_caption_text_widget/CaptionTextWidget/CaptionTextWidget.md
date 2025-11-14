@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [caption_text_widget](../../widgets_caption_text_widget/widgets_caption_text_widget-library.md)
+2.  [widgets/caption_text_widget.dart](../../widgets_caption_text_widget/)
 3.  [CaptionTextWidget](../../widgets_caption_text_widget/CaptionTextWidget-class.md)
-4.  CaptionTextWidget const constructor
+4.  CaptionTextWidget.new const constructor
 
 <div class="self-name">
 
-CaptionTextWidget
+CaptionTextWidget.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CaptionTextWidget</span>(
-
-1.  <span id="-param-caption" class="parameter"></span>
-
-)
+const <span class="name">CaptionTextWidget</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">CaptionTextWidget</span>(
 ## Implementation
 
 ``` language-dart
-const CaptionTextWidget
+const ;
 ```
 
 </div>
@@ -69,11 +61,15 @@ const CaptionTextWidget
 </div>
 
 1.  [talawa](../../index.md)
-2.  [caption_text_widget](../../widgets_caption_text_widget/widgets_caption_text_widget-library.md)
+2.  [caption_text_widget](../../widgets_caption_text_widget/)
 3.  [CaptionTextWidget](../../widgets_caption_text_widget/CaptionTextWidget-class.md)
-4.  CaptionTextWidget const constructor
+4.  CaptionTextWidget.new const constructor
 
 ##### CaptionTextWidget class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

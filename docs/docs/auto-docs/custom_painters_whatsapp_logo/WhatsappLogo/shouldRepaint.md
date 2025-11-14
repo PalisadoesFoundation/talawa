@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [whatsapp_logo](../../custom_painters_whatsapp_logo/custom_painters_whatsapp_logo-library.md)
+2.  [custom_painters/whatsapp_logo.dart](../../custom_painters_whatsapp_logo/)
 3.  [WhatsappLogo](../../custom_painters_whatsapp_logo/WhatsappLogo-class.md)
 4.  shouldRepaint method
 
@@ -18,13 +18,9 @@ shouldRepaint
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -53,20 +49,29 @@ below-sidebar="">
 
 1.  <span id="shouldRepaint-param-oldDelegate"
     class="parameter">covariant
-    <span class="type-annotation">CustomPainter</span>
+    <span class="type-annotation">[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)</span>
     <span class="parameter-name">oldDelegate</span></span>
 
 )
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 </div>
 
 <div class="section desc markdown">
 
 Called whenever a new instance of the custom painter delegate class is
-provided to the `RenderCustomPaint` object, or any time that a new
-`CustomPaint` object is created with a new instance of the custom
-painter delegate class (which amounts to the same thing, because the
-latter is implemented in terms of the former).
+provided to the
+[RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
+object, or any time that a new
+[CustomPaint](https://api.flutter.dev/flutter/widgets/CustomPaint-class.html)
+object is created with a new instance of the custom painter delegate
+class (which amounts to the same thing, because the latter is
+implemented in terms of the former).
 
 If the new instance represents different information than the old
 instance, then the method should return true, otherwise it should return
@@ -88,9 +93,13 @@ method will get called without
 being called at all (e.g. if the box changes size).
 
 If a custom delegate has a particularly expensive paint function such
-that repaints should be avoided as much as possible, a `RepaintBoundary`
-or `RenderRepaintBoundary` (or other render object with
-`RenderObject.isRepaintBoundary` set to true) might be helpful.
+that repaints should be avoided as much as possible, a
+[RepaintBoundary](https://api.flutter.dev/flutter/widgets/RepaintBoundary-class.html)
+or
+[RenderRepaintBoundary](https://api.flutter.dev/flutter/rendering/RenderRepaintBoundary-class.html)
+(or other render object with
+[RenderObject.isRepaintBoundary](https://api.flutter.dev/flutter/rendering/RenderObject/isRepaintBoundary.md)
+set to true) might be helpful.
 
 The `oldDelegate` argument will never be null.
 
@@ -116,11 +125,15 @@ bool shouldRepaint(covariant CustomPainter oldDelegate)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [whatsapp_logo](../../custom_painters_whatsapp_logo/custom_painters_whatsapp_logo-library.md)
+2.  [whatsapp_logo](../../custom_painters_whatsapp_logo/)
 3.  [WhatsappLogo](../../custom_painters_whatsapp_logo/WhatsappLogo-class.md)
 4.  shouldRepaint method
 
 ##### WhatsappLogo class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

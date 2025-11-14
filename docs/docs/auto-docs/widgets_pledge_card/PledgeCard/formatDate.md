@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [pledge_card](../../widgets_pledge_card/widgets_pledge_card-library.md)
+2.  [widgets/pledge_card.dart](../../widgets_pledge_card/)
 3.  [PledgeCard](../../widgets_pledge_card/PledgeCard-class.md)
 4.  formatDate method
 
@@ -18,13 +18,9 @@ formatDate
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -87,11 +83,15 @@ String formatDate(DateTime? date)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [pledge_card](../../widgets_pledge_card/widgets_pledge_card-library.md)
+2.  [pledge_card](../../widgets_pledge_card/)
 3.  [PledgeCard](../../widgets_pledge_card/PledgeCard-class.md)
 4.  formatDate method
 
 ##### PledgeCard class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

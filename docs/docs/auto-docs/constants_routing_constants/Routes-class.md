@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [routing_constants](../constants_routing_constants/constants_routing_constants-library.md)
+2.  [constants/routing_constants.dart](../constants_routing_constants/)
 3.  Routes class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ Routes
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,7 +46,7 @@ call via Routes.splashScreen to access these string.
 
 ## Constructors
 
-<span class="name">[Routes](../constants_routing_constants/Routes/Routes.md)</span><span class="signature"></span>  
+<span class="name">[Routes.new](../constants_routing_constants/Routes/Routes.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -128,380 +124,128 @@ The equality operator.
 <span class="name">[addPostScreen](../constants_routing_constants/Routes/addPostScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variable to access addPostScreen.
 
-<div>
-
-<span class="signature">`'/addpostscreen'`</span>
-
-</div>
-
 <span class="name">[addTask](../constants_routing_constants/Routes/addTask-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`'/addTask'`</span>
-
-</div>
 
 <span class="name">[appSettings](../constants_routing_constants/Routes/appSettings-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`'/appSettingsPage'`</span>
-
-</div>
-
 <span class="name">[calendar](../constants_routing_constants/Routes/calendar-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`'/calendar'`</span>
-
-</div>
 
 <span class="name">[chatMessageScreen](../constants_routing_constants/Routes/chatMessageScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`'/chatMessageScreen'`</span>
-
-</div>
-
 <span class="name">[createEventPage](../constants_routing_constants/Routes/createEventPage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/createEventPage"`</span>
-
-</div>
 
 <span class="name">[customRecurrencePage](../constants_routing_constants/Routes/customRecurrencePage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/customRecurrencePage"`</span>
-
-</div>
-
 <span class="name">[demoExploreEventsScreen](../constants_routing_constants/Routes/demoExploreEventsScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/demoExploreEvents"`</span>
-
-</div>
 
 <span class="name">[demoHomeScreen](../constants_routing_constants/Routes/demoHomeScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/demoHomeScreen"`</span>
-
-</div>
-
 <span class="name">[demoPageViewRoute](../constants_routing_constants/Routes/demoPageViewRoute-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/demoPageViewRoute"`</span>
-
-</div>
 
 <span class="name">[demoProfilePage](../constants_routing_constants/Routes/demoProfilePage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/demoProfilePage"`</span>
-
-</div>
-
 <span class="name">[editEventPage](../constants_routing_constants/Routes/editEventPage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/editEventPage"`</span>
-
-</div>
 
 <span class="name">[editProfilePage](../constants_routing_constants/Routes/editProfilePage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/editProfilePage"`</span>
-
-</div>
-
 <span class="name">[editTask](../constants_routing_constants/Routes/editTask-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`'/editTask'`</span>
-
-</div>
 
 <span class="name">[eventInfoPage](../constants_routing_constants/Routes/eventInfoPage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/eventInfo"`</span>
-
-</div>
-
 <span class="name">[eventTasks](../constants_routing_constants/Routes/eventTasks-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`'/event_tasks'`</span>
-
-</div>
 
 <span class="name">[exploreEventsScreen](../constants_routing_constants/Routes/exploreEventsScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/exploreEvents"`</span>
-
-</div>
-
 <span class="name">[groupChatMessageScreen](../constants_routing_constants/Routes/groupChatMessageScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`'/groupChatMessageScreen'`</span>
-
-</div>
 
 <span class="name">[homeScreen](../constants_routing_constants/Routes/homeScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/homeScreen"`</span>
-
-</div>
-
 <span class="name">[individualPost](../constants_routing_constants/Routes/individualPost-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/individualPost"`</span>
-
-</div>
 
 <span class="name">[joinOrg](../constants_routing_constants/Routes/joinOrg-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`'/joinOrg'`</span>
-
-</div>
-
 <span class="name">[languageSelectionRoute](../constants_routing_constants/Routes/languageSelectionRoute-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/selectLang"`</span>
-
-</div>
 
 <span class="name">[loginScreen](../constants_routing_constants/Routes/loginScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/login"`</span>
-
-</div>
-
 <span class="name">[mainScreen](../constants_routing_constants/Routes/mainScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/mainScreen"`</span>
-
-</div>
 
 <span class="name">[manageVolunteerGroup](../constants_routing_constants/Routes/manageVolunteerGroup-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variable to access Manage volunteer group screen.
 
-<div>
-
-<span class="signature">`'/manageVolunteerScreen'`</span>
-
-</div>
-
 <span class="name">[menuPage](../constants_routing_constants/Routes/menuPage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variable to access Menu page.
-
-<div>
-
-<span class="signature">`'/menuPage'`</span>
-
-</div>
 
 <span class="name">[orgInfoScreen](../constants_routing_constants/Routes/orgInfoScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variable to access org info screen.
 
-<div>
-
-<span class="signature">`'/OrganisationInfoScreen'`</span>
-
-</div>
-
 <span class="name">[pinnedPostPage](../constants_routing_constants/Routes/pinnedPostPage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/pinnedPostPage"`</span>
-
-</div>
 
 <span class="name">[pinnedPostScreen](../constants_routing_constants/Routes/pinnedPostScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variable to access pinnedpostscreen.
 
-<div>
-
-<span class="signature">`'/pinnedpostscreen'`</span>
-
-</div>
-
 <span class="name">[profilePage](../constants_routing_constants/Routes/profilePage-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/profilePage"`</span>
-
-</div>
 
 <span class="name">[progressDialog](../constants_routing_constants/Routes/progressDialog-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/progress"`</span>
-
-</div>
-
 <span class="name">[recoverScreen](../constants_routing_constants/Routes/recoverScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/recover"`</span>
-
-</div>
 
 <span class="name">[requestAccess](../constants_routing_constants/Routes/requestAccess-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`'/requestAccess'`</span>
-
-</div>
-
 <span class="name">[selectContact](../constants_routing_constants/Routes/selectContact-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`'/selectContact'`</span>
-
-</div>
 
 <span class="name">[selectOrgScreen](../constants_routing_constants/Routes/selectOrgScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/selectOrg"`</span>
-
-</div>
-
 <span class="name">[setUrlScreen](../constants_routing_constants/Routes/setUrlScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/setUrl"`</span>
-
-</div>
 
 <span class="name">[signupDetailScreen](../constants_routing_constants/Routes/signupDetailScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/signupDetails"`</span>
-
-</div>
-
 <span class="name">[splashScreen](../constants_routing_constants/Routes/splashScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/"`</span>
-
-</div>
 
 <span class="name">[updateScreen](../constants_routing_constants/Routes/updateScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
 
-<div>
-
-<span class="signature">`"/update"`</span>
-
-</div>
-
 <span class="name">[userTasks](../constants_routing_constants/Routes/userTasks-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`'/user_tasks'`</span>
-
-</div>
 
 <span class="name">[volunteerGroupScreen](../constants_routing_constants/Routes/volunteerGroupScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variable to access volunteer groups screen.
 
-<div>
-
-<span class="signature">`'/volunteerScreen'`</span>
-
-</div>
-
 <span class="name">[waitingScreen](../constants_routing_constants/Routes/waitingScreen-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 static variables.
-
-<div>
-
-<span class="signature">`"/waiting"`</span>
-
-</div>
 
 </div>
 
@@ -514,8 +258,10 @@ static variables.
 </div>
 
 1.  [talawa](../index.md)
-2.  [routing_constants](../constants_routing_constants/constants_routing_constants-library.md)
+2.  [routing_constants](../constants_routing_constants/)
 3.  Routes class
+
+##### routing_constants library
 
 <div id="dartdoc-sidebar-left-content">
 

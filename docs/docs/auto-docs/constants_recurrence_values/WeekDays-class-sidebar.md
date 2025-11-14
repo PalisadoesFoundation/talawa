@@ -1,5 +1,5 @@
 1.  [Constructors](./WeekDays-class#constructors.md)
-2.  [WeekDays](./WeekDays/WeekDays.md)
+2.  [new](./WeekDays/WeekDays.md)
 3.  [Properties](./WeekDays-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

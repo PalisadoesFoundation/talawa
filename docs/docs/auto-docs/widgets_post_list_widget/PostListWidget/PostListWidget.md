@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [post_list_widget](../../widgets_post_list_widget/widgets_post_list_widget-library.md)
+2.  [widgets/post_list_widget.dart](../../widgets_post_list_widget/)
 3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.md)
-4.  PostListWidget const constructor
+4.  PostListWidget.new const constructor
 
 <div class="self-name">
 
-PostListWidget
+PostListWidget.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">PostListWidget</span>(
-
-1.  <span id="-param-key"
-    class="parameter">
-
-)
+const <span class="name">PostListWidget</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">PostListWidget</span>(
 ## Implementation
 
 ``` language-dart
-const PostListWidget
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const PostListWidget
 </div>
 
 1.  [talawa](../../index.md)
-2.  [post_list_widget](../../widgets_post_list_widget/widgets_post_list_widget-library.md)
+2.  [post_list_widget](../../widgets_post_list_widget/)
 3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.md)
-4.  PostListWidget const constructor
+4.  PostListWidget.new const constructor
 
 ##### PostListWidget class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [queries](../../utils_queries/utils_queries-library.md)
+2.  [utils/queries.dart](../../utils_queries/)
 3.  [Queries](../../utils_queries/Queries-class.md)
 4.  createDonation method
 
@@ -18,13 +18,9 @@ createDonation
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -62,7 +58,7 @@ below-sidebar="">
     <span class="parameter-name">payPalId</span>, </span>
 6.  <span id="createDonation-param-amount"
     class="parameter"><span class="type-annotation">[double](https://api.flutter.dev/flutter/dart-core/double-class.html)</span>
-    <span class="parameter-name">amount</span></span>
+    <span class="parameter-name">amount</span>, </span>
 
 )
 
@@ -116,11 +112,15 @@ String createDonation(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [queries](../../utils_queries/utils_queries-library.md)
+2.  [queries](../../utils_queries/)
 3.  [Queries](../../utils_queries/Queries-class.md)
 4.  createDonation method
 
 ##### Queries class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

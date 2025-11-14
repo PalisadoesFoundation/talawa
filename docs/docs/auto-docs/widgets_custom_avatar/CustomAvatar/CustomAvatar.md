@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [custom_avatar](../../widgets_custom_avatar/widgets_custom_avatar-library.md)
+2.  [widgets/custom_avatar.dart](../../widgets_custom_avatar/)
 3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
-4.  CustomAvatar const constructor
+4.  CustomAvatar.new const constructor
 
 <div class="self-name">
 
-CustomAvatar
+CustomAvatar.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CustomAvatar</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">CustomAvatar</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">CustomAvatar</span>(
 ## Implementation
 
 ``` language-dart
-const CustomAvatar
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const CustomAvatar
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_avatar](../../widgets_custom_avatar/widgets_custom_avatar-library.md)
+2.  [custom_avatar](../../widgets_custom_avatar/)
 3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
-4.  CustomAvatar const constructor
+4.  CustomAvatar.new const constructor
 
 ##### CustomAvatar class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

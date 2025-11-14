@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [validators](../../utils_validators/utils_validators-library.md)
+2.  [utils/validators.dart](../../utils_validators/)
 3.  [Validator](../../utils_validators/Validator-class.md)
 4.  validateEventTime static method
 
@@ -18,13 +18,9 @@ validateEventTime
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,10 +42,10 @@ below-sidebar="">
 <span class="name">validateEventTime</span>(
 
 1.  <span id="validateEventTime-param-startTime"
-    class="parameter"><span class="type-annotation">TimeOfDay</span>
+    class="parameter"><span class="type-annotation">[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)</span>
     <span class="parameter-name">startTime</span>, </span>
 2.  <span id="validateEventTime-param-endTime"
-    class="parameter"><span class="type-annotation">TimeOfDay</span>
+    class="parameter"><span class="type-annotation">[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)</span>
     <span class="parameter-name">endTime</span></span>
 
 )
@@ -90,11 +86,15 @@ static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [validators](../../utils_validators/utils_validators-library.md)
+2.  [validators](../../utils_validators/)
 3.  [Validator](../../utils_validators/Validator-class.md)
 4.  validateEventTime static method
 
 ##### Validator class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

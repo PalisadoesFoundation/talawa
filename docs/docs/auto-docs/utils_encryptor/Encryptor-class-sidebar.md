@@ -1,5 +1,5 @@
 1.  [Constructors](./Encryptor-class#constructors.md)
-2.  [Encryptor](./Encryptor/Encryptor.md)
+2.  [new](./Encryptor/Encryptor.md)
 3.  [Properties](./Encryptor-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

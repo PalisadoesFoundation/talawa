@@ -1,2 +1,2 @@
-1.  [Classes](./views_base_view-library#classes.md)
+1.  [Classes](./#classes)
 2.  [BaseView](./BaseView-class.md)

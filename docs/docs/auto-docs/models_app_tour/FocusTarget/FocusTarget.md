@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [models/app_tour.dart](../../models_app_tour/)
 3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
-4.  FocusTarget constructor
+4.  FocusTarget.new constructor
 
 <div class="self-name">
 
-FocusTarget
+FocusTarget.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">FocusTarget</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+<span class="name">FocusTarget</span>
 
 </div>
 
@@ -77,7 +69,7 @@ This returns a widget for a step in a tutorial.
 ## Implementation
 
 ``` language-dart
-FocusTarget
+ 
 ```
 
 </div>
@@ -91,11 +83,15 @@ FocusTarget
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [app_tour](../../models_app_tour/)
 3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
-4.  FocusTarget constructor
+4.  FocusTarget.new constructor
 
 ##### FocusTarget class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

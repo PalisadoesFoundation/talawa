@@ -1,2 +1,2 @@
-1.  [Classes](./exceptions_graphql_exception_resolver-library#classes.md)
+1.  [Classes](./#classes)
 2.  [GraphqlExceptionResolver](./GraphqlExceptionResolver-class.md)

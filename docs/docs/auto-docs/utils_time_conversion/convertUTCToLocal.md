@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [time_conversion](../utils_time_conversion/utils_time_conversion-library.md)
+2.  [utils/time_conversion.dart](../utils_time_conversion/)
 3.  convertUTCToLocal function
 
 <div class="self-name">
@@ -17,13 +17,9 @@ convertUTCToLocal
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -86,10 +82,14 @@ String convertUTCToLocal(String? utcTime)
 </div>
 
 1.  [talawa](../index.md)
-2.  [time_conversion](../utils_time_conversion/utils_time_conversion-library.md)
+2.  [time_conversion](../utils_time_conversion/)
 3.  convertUTCToLocal function
 
 ##### time_conversion library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

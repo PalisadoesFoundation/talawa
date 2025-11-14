@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [page_info](../../models_page_info_page_info/models_page_info_page_info-library.md)
+2.  [models/page_info/page_info.dart](../../models_page_info_page_info/)
 3.  [PageInfo](../../models_page_info_page_info/PageInfo-class.md)
-4.  PageInfo constructor
+4.  PageInfo.new constructor
 
 <div class="self-name">
 
-PageInfo
+PageInfo.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">PageInfo</span>(
-
-1.  <span id="-param-startCursor"
-    class="parameter"></span>
-
-)
+<span class="name">PageInfo</span>
 
 </div>
 
@@ -56,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-PageInfo
+;
 ```
 
 </div>
@@ -70,11 +61,15 @@ PageInfo
 </div>
 
 1.  [talawa](../../index.md)
-2.  [page_info](../../models_page_info_page_info/models_page_info_page_info-library.md)
+2.  [page_info](../../models_page_info_page_info/)
 3.  [PageInfo](../../models_page_info_page_info/PageInfo-class.md)
-4.  PageInfo constructor
+4.  PageInfo.new constructor
 
 ##### PageInfo class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [user_config](../../services_user_config/services_user_config-library.md)
+2.  [services/user_config.dart](../../services_user_config/)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  saveCurrentOrgInHive method
 
@@ -18,13 +18,9 @@ saveCurrentOrgInHive
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -84,11 +80,15 @@ void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_config](../../services_user_config/services_user_config-library.md)
+2.  [user_config](../../services_user_config/)
 3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  saveCurrentOrgInHive method
 
 ##### UserConfig class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

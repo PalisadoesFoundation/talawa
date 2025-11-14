@@ -1,5 +1,5 @@
 1.  [Constructors](./EventAdapter-class#constructors.md)
-2.  [EventAdapter](./EventAdapter/EventAdapter.md)
+2.  [new](./EventAdapter/EventAdapter.md)
 3.  [Properties](./EventAdapter-class#instance-properties.md)
 4.  [hashCode](./EventAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

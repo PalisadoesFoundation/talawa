@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [registry](../plugin_registry/plugin_registry-library.md)
+2.  [plugin/registry.dart](../plugin_registry/)
 3.  PluginRegistry class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ PluginRegistry
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,7 +47,7 @@ A very small in-memory registry for activated plugins.
 
 ## Constructors
 
-<span class="name">[PluginRegistry](../plugin_registry/PluginRegistry/PluginRegistry.md)</span><span class="signature"></span>  
+<span class="name">[PluginRegistry.new](../plugin_registry/PluginRegistry/PluginRegistry.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -100,7 +96,7 @@ Removes all registered plugins.
 <span class="name">[collectInjectors](../plugin_registry/PluginRegistry/collectInjectors.md)</span><span class="signature">(<span id="collectInjectors-param-type" class="parameter"><span class="type-annotation">[InjectorType](../plugin_types/InjectorType.md)</span> <span class="parameter-name">type</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginInjectorExtension](../plugin_types/PluginInjectorExtension-class.md)</span>\></span></span> </span>  
 Collects injectors for a specific type.
 
-<span class="name">[collectMenuItems](../plugin_registry/PluginRegistry/collectMenuItems.md)</span><span class="signature">(<span id="collectMenuItems-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginMenuItem](../plugin_types/PluginMenuItem-class.md)</span>\></span></span> </span>  
+<span class="name">[collectMenuItems](../plugin_registry/PluginRegistry/collectMenuItems.md)</span><span class="signature">(<span id="collectMenuItems-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginMenuItem](../plugin_types/PluginMenuItem-class.md)</span>\></span></span> </span>  
 Collects menu items from registered plugins.
 
 <span class="name">[collectRoutes](../plugin_registry/PluginRegistry/collectRoutes.md)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginRoute](../plugin_types/PluginRoute-class.md)</span>\></span></span> </span>  
@@ -156,8 +152,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [registry](../plugin_registry/plugin_registry-library.md)
+2.  [registry](../plugin_registry/)
 3.  PluginRegistry class
+
+##### registry library
 
 <div id="dartdoc-sidebar-left-content">
 

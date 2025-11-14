@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [event_info_view_model](../view_model_after_auth_view_models_event_view_models_event_info_view_model/view_model_after_auth_view_models_event_view_models_event_info_view_model-library.md)
+2.  [view_model/after_auth_view_models/event_view_models/event_info_view_model.dart](../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
 3.  EventInfoViewModel class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EventInfoViewModel
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,6 +46,7 @@ the event information data.
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - EventInfoViewModel
 
@@ -59,7 +56,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[EventInfoViewModel](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/EventInfoViewModel.md)</span><span class="signature"></span>  
+<span class="name">[EventInfoViewModel.new](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/EventInfoViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -131,7 +128,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -191,7 +188,7 @@ List of volunteer groups of an event.
 
 ## Methods
 
-<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -200,19 +197,19 @@ Register a closure to be called when the object changes.
 
 </div>
 
-<span class="name">[createAgendaItem](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/createAgendaItem.md)</span><span class="signature">(<span id="createAgendaItem-param-title" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem-class.md)?</span>\></span></span> </span>  
+<span class="name">[createAgendaItem](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/createAgendaItem.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem-class.md)?</span>\></span></span> </span>  
 This function is used to create a new agenda item for an event.
 
-<span class="name">[createVolunteerGroup](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/createVolunteerGroup.md)</span><span class="signature">(<span id="createVolunteerGroup-param-event" class="parameter"><span class="type-annotation">[Event](../models_events_event_model/Event-class.md)</span> <span class="parameter-name">event</span>, </span><span id="createVolunteerGroup-param-groupName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">groupName</span>, </span><span id="createVolunteerGroup-param-volunteersRequired" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span> <span class="parameter-name">volunteersRequired</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.md)?</span>\></span></span> </span>  
+<span class="name">[createVolunteerGroup](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/createVolunteerGroup.md)</span><span class="signature">(<span id="createVolunteerGroup-param-event" class="parameter"><span class="type-annotation">[Event](../models_events_event_model/Event-class.md)</span> <span class="parameter-name">event</span>, </span><span id="createVolunteerGroup-param-groupName" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> <span class="parameter-name">groupName</span>, </span><span id="createVolunteerGroup-param-volunteersRequired" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span> <span class="parameter-name">volunteersRequired</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.md)?</span>\></span></span> </span>  
 This function is used to create a new volunteer group for an event.
 
-<span class="name">[deleteAgendaItem](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/deleteAgendaItem.md)</span><span class="signature">(<span id="deleteAgendaItem-param-id" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">id</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[deleteAgendaItem](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/deleteAgendaItem.md)</span><span class="signature">(<span id="deleteAgendaItem-param-id" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">id</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to delete an agenda item.
 
-<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
 will throw after the object is disposed).
 
 <div class="features">
@@ -221,19 +218,19 @@ will throw after the object is disposed).
 
 </div>
 
-<span class="name">[fetchAgendaItems](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/fetchAgendaItems.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[fetchAgendaItems](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/fetchAgendaItems.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to fetch all agenda items of an organization.
 
-<span class="name">[fetchCategories](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/fetchCategories.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[fetchCategories](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/fetchCategories.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to fecth all agenda categories of an organisation.
 
-<span class="name">[fetchVolunteerGroups](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/fetchVolunteerGroups.md)</span><span class="signature">(<span id="fetchVolunteerGroups-param-eventId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">eventId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[fetchVolunteerGroups](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/fetchVolunteerGroups.md)</span><span class="signature">(<span id="fetchVolunteerGroups-param-eventId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">eventId</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Fetches all volunteer groups for the current event.
 
 <span class="name">[getFabTitle](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/getFabTitle.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 The funtion returns title to be displayed on Floating Action Button.
 
-<span class="name">[initialize](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/initialize.md)</span><span class="signature">(<span id="initialize-param-args" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[initialize](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/initialize.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 This function initializes the EventInfoViewModel class with the required
 arguments.
 
@@ -246,7 +243,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
 <div class="features">
@@ -255,10 +252,10 @@ Call all the registered listeners.
 
 </div>
 
-<span class="name">[registerForEvent](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/registerForEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[registerForEvent](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/registerForEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 The function allows user to register for an event.
 
-<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -268,7 +265,7 @@ are notified when the object changes.
 
 </div>
 
-<span class="name">[reorderAgendaItems](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/reorderAgendaItems.md)</span><span class="signature">(<span id="reorderAgendaItems-param-oldIndex" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.md)</span> <span class="parameter-name">oldIndex</span>, </span><span id="reorderAgendaItems-param-newIndex" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span> <span class="parameter-name">newIndex</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[reorderAgendaItems](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/reorderAgendaItems.md)</span><span class="signature">(<span id="reorderAgendaItems-param-oldIndex" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.md)</span> <span class="parameter-name">oldIndex</span>, </span><span id="reorderAgendaItems-param-newIndex" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span> <span class="parameter-name">newIndex</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to redorder the sequence of agenda items.
 
 <span class="name">[setSelectedCategories](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/setSelectedCategories.md)</span><span class="signature">(<span id="setSelectedCategories-param-categories" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.md)</span>\></span></span> <span class="parameter-name">categories</span></span>) <span class="returntype parameter">→ void</span> </span>  
@@ -290,7 +287,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[updateAgendaItemSequence](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/updateAgendaItemSequence.md)</span><span class="signature">(<span id="updateAgendaItemSequence-param-itemId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">itemId</span>, </span><span id="updateAgendaItemSequence-param-newSequence" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span> <span class="parameter-name">newSequence</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateAgendaItemSequence](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel/updateAgendaItemSequence.md)</span><span class="signature">(<span id="updateAgendaItemSequence-param-itemId" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">itemId</span>, </span><span id="updateAgendaItemSequence-param-newSequence" class="parameter"><span class="type-annotation">[int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span> <span class="parameter-name">newSequence</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to update the sequence of an agenda item.
 
 </div>
@@ -319,8 +316,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_info_view_model](../view_model_after_auth_view_models_event_view_models_event_info_view_model/view_model_after_auth_view_models_event_view_models_event_info_view_model-library.md)
+2.  [event_info_view_model](../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
 3.  EventInfoViewModel class
+
+##### event_info_view_model library
 
 <div id="dartdoc-sidebar-left-content">
 

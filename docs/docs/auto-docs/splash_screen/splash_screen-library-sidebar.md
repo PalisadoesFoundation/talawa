@@ -1,2 +1,2 @@
-1.  [Classes](./splash_screen-library#classes.md)
+1.  [Classes](./#classes)
 2.  [SplashScreen](./SplashScreen-class.md)

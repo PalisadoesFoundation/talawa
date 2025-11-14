@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/constants_constants-library.md)
+2.  [constants/constants.dart](../constants_constants/)
 3.  languages property
 
 <div class="self-name">
@@ -17,13 +17,9 @@ languages
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -57,10 +53,12 @@ below-sidebar="">
 This file contains the prototypes of all the supported languages and
 currencies used in the application.
 
-A list of `Language` objects representing the languages supported by the
-application.
+A list of
+[Language](../models_language_language_model/Language-class.md)
+objects representing the languages supported by the application.
 
-Each `Language` object contains the following properties:
+Each [Language](../models_language_language_model/Language-class.md)
+object contains the following properties:
 
 - `countryCode`: The country code associated with the language.
 - `langCode`: The language code representing the language.
@@ -138,10 +136,14 @@ List<Language> languages = [
 </div>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/constants_constants-library.md)
+2.  [constants](../constants_constants/)
 3.  languages property
 
 ##### constants library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

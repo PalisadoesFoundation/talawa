@@ -1,5 +1,5 @@
 1.  [Constructors](./FundService-class#constructors.md)
-2.  [FundService](./FundService/FundService.md)
+2.  [new](./FundService/FundService.md)
 3.  [Properties](./FundService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

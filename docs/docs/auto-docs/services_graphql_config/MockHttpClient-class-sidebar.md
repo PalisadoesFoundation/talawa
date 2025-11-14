@@ -1,5 +1,5 @@
 1.  [Constructors](./MockHttpClient-class#constructors.md)
-2.  [MockHttpClient](./MockHttpClient/MockHttpClient.md)
+2.  [new](./MockHttpClient/MockHttpClient.md)
 3.  [Properties](./MockHttpClient-class#instance-properties.md)
 4.  [hashCode](https://pub.dev/documentation/mockito/5.4.4/mockito/Mock/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

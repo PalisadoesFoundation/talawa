@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_pinned_post-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PinnedPost](./PinnedPost-class.md)

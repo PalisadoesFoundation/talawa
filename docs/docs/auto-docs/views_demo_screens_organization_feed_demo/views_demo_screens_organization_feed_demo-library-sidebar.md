@@ -1,2 +1,2 @@
-1.  [Classes](./views_demo_screens_organization_feed_demo-library#classes.md)
+1.  [Classes](./#classes)
 2.  [DemoOrganizationFeed](./DemoOrganizationFeed-class.md)

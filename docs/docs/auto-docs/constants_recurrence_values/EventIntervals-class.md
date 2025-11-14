@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
 3.  EventIntervals class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EventIntervals
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Class containing constants for event intervals.
 
 ## Constructors
 
-<span class="name">[EventIntervals](../constants_recurrence_values/EventIntervals/EventIntervals.md)</span><span class="signature"></span>  
+<span class="name">[EventIntervals.new](../constants_recurrence_values/EventIntervals/EventIntervals.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -127,38 +123,14 @@ The equality operator.
 <span class="name">[daily](../constants_recurrence_values/EventIntervals/daily-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing an event that occurs every day.
 
-<div>
-
-<span class="signature">`'day'`</span>
-
-</div>
-
 <span class="name">[monthly](../constants_recurrence_values/EventIntervals/monthly-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing an event that occurs every month.
-
-<div>
-
-<span class="signature">`'month'`</span>
-
-</div>
 
 <span class="name">[weekly](../constants_recurrence_values/EventIntervals/weekly-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing an event that occurs every week.
 
-<div>
-
-<span class="signature">`'week'`</span>
-
-</div>
-
 <span class="name">[yearly](../constants_recurrence_values/EventIntervals/yearly-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing an event that occurs every year.
-
-<div>
-
-<span class="signature">`'year'`</span>
-
-</div>
 
 </div>
 
@@ -171,8 +143,10 @@ Constant representing an event that occurs every year.
 </div>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [recurrence_values](../constants_recurrence_values/)
 3.  EventIntervals class
+
+##### recurrence_values library
 
 <div id="dartdoc-sidebar-left-content">
 

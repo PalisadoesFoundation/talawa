@@ -1,2 +1,2 @@
-1.  [Classes](./models_funds_fund_pledges-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Pledge](./Pledge-class.md)

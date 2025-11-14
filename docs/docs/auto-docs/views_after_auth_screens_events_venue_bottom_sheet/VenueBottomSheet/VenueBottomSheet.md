@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [venue_bottom_sheet](../../views_after_auth_screens_events_venue_bottom_sheet/views_after_auth_screens_events_venue_bottom_sheet-library.md)
+2.  [views/after_auth_screens/events/venue_bottom_sheet.dart](../../views_after_auth_screens_events_venue_bottom_sheet/)
 3.  [VenueBottomSheet](../../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet-class.md)
-4.  VenueBottomSheet const constructor
+4.  VenueBottomSheet.new const constructor
 
 <div class="self-name">
 
-VenueBottomSheet
+VenueBottomSheet.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">VenueBottomSheet</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">VenueBottomSheet</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">VenueBottomSheet</span>(
 ## Implementation
 
 ``` language-dart
-const VenueBottomSheet
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const VenueBottomSheet
 </div>
 
 1.  [talawa](../../index.md)
-2.  [venue_bottom_sheet](../../views_after_auth_screens_events_venue_bottom_sheet/views_after_auth_screens_events_venue_bottom_sheet-library.md)
+2.  [venue_bottom_sheet](../../views_after_auth_screens_events_venue_bottom_sheet/)
 3.  [VenueBottomSheet](../../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet-class.md)
-4.  VenueBottomSheet const constructor
+4.  VenueBottomSheet.new const constructor
 
 ##### VenueBottomSheet class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

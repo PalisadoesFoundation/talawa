@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [app_tour](../models_app_tour/models_app_tour-library.md)
+2.  [models/app_tour.dart](../models_app_tour/)
 3.  FocusTarget class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ FocusTarget
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Class that represents FocusTarget.
 
 ## Constructors
 
-<span class="name">[FocusTarget](../models_app_tour/FocusTarget/FocusTarget.md)</span><span class="signature">(<span id="-param-key" class="parameter"></span>)</span>  
+<span class="name">[FocusTarget.new](../models_app_tour/FocusTarget/FocusTarget.md)</span><span class="signature"></span>  
 This returns a widget for a step in a tutorial.
 
 </div>
@@ -76,7 +72,7 @@ instance of AppTour.
 
 </div>
 
-<span class="name">[crossAlign](../models_app_tour/FocusTarget/crossAlign.md)</span> <span class="signature">↔ CrossAxisAlignment</span>  
+<span class="name">[crossAlign](../models_app_tour/FocusTarget/crossAlign.md)</span> <span class="signature">↔ [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)</span>  
 crossAxisAlignment.
 
 <div class="features">
@@ -131,7 +127,7 @@ true current target ends ths appTour.
 
 </div>
 
-<span class="name">[key](../models_app_tour/FocusTarget/key.md)</span> <span class="signature">↔ GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span></span>  
+<span class="name">[key](../models_app_tour/FocusTarget/key.md)</span> <span class="signature">↔ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[State](https://api.flutter.dev/flutter/widgets/State-class.html)<span class="signature">\<<span class="type-parameter">[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)</span>\></span></span>\></span></span>  
 represents the key of the target that is intended to be focused.
 
 <div class="features">
@@ -149,7 +145,7 @@ keyName of the target in mainScreenViewModel.
 
 </div>
 
-<span class="name">[next](../models_app_tour/FocusTarget/next.md)</span> <span class="signature">↔ (dynamic Function<span class="signature"></span>?)</span>  
+<span class="name">[next](../models_app_tour/FocusTarget/next.md)</span> <span class="signature">↔ dynamic Function<span class="signature"></span>?</span>  
 next callback that is executed on pressing this target.
 
 <div class="features">
@@ -158,7 +154,7 @@ next callback that is executed on pressing this target.
 
 </div>
 
-<span class="name">[nextCrossAlign](../models_app_tour/FocusTarget/nextCrossAlign.md)</span> <span class="signature">↔ CrossAxisAlignment</span>  
+<span class="name">[nextCrossAlign](../models_app_tour/FocusTarget/nextCrossAlign.md)</span> <span class="signature">↔ [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)</span>  
 next target's crossAxisAlignment.
 
 <div class="features">
@@ -177,7 +173,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[skipAlignment](../models_app_tour/FocusTarget/skipAlignment.md)</span> <span class="signature">↔ Alignment</span>  
+<span class="name">[skipAlignment](../models_app_tour/FocusTarget/skipAlignment.md)</span> <span class="signature">↔ [Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html)</span>  
 skip alignment configuration.
 
 <div class="features">
@@ -237,8 +233,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [app_tour](../models_app_tour/models_app_tour-library.md)
+2.  [app_tour](../models_app_tour/)
 3.  FocusTarget class
+
+##### app_tour library
 
 <div id="dartdoc-sidebar-left-content">
 

@@ -1,2 +1,2 @@
-1.  [Classes](./utils_chat_utils-library#classes.md)
+1.  [Classes](./#classes)
 2.  [ChatUtils](./ChatUtils-class.md)

@@ -8,25 +8,21 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [base_view](../../views_base_view/views_base_view-library.md)
+2.  [views/base_view.dart](../../views_base_view/)
 3.  [BaseView<span class="signature">\<<span class="type-parameter">T
     extends
     ChangeNotifier</span>\></span>](../../views_base_view/BaseView-class.md)
-4.  BaseView const constructor
+4.  BaseView.new const constructor
 
 <div class="self-name">
 
-BaseView
+BaseView.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,11 +41,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 const <span class="name">BaseView\<<span class="type-parameter">T
-extends ChangeNotifier</span>\></span>(
-
-1.  <span id="-param-builder" class="parameter">
-
-)
+extends ChangeNotifier</span>\></span>
 
 </div>
 
@@ -58,7 +50,7 @@ extends ChangeNotifier</span>\></span>(
 ## Implementation
 
 ``` language-dart
-const BaseView
+const ;
 ```
 
 </div>
@@ -72,13 +64,17 @@ const BaseView
 </div>
 
 1.  [talawa](../../index.md)
-2.  [base_view](../../views_base_view/views_base_view-library.md)
+2.  [base_view](../../views_base_view/)
 3.  [BaseView<span class="signature">\<<span class="type-parameter">T
     extends
     ChangeNotifier</span>\></span>](../../views_base_view/BaseView-class.md)
-4.  BaseView const constructor
+4.  BaseView.new const constructor
 
 ##### BaseView class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

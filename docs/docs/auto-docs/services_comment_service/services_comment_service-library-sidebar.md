@@ -1,2 +1,2 @@
-1.  [Classes](./services_comment_service-library#classes.md)
+1.  [Classes](./#classes)
 2.  [CommentService](./CommentService-class.md)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_calendar](../../views_after_auth_screens_events_event_calendar/views_after_auth_screens_events_event_calendar-library.md)
+2.  [views/after_auth_screens/events/event_calendar.dart](../../views_after_auth_screens_events_event_calendar/)
 3.  [EventCalendar](../../views_after_auth_screens_events_event_calendar/EventCalendar-class.md)
 4.  calendarViewSelection method
 
@@ -18,13 +18,9 @@ calendarViewSelection
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">PopupMenuButton<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span>
+<span class="returntype">[PopupMenuButton](https://api.flutter.dev/flutter/material/PopupMenuButton-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>\></span></span>
 <span class="name">calendarViewSelection</span>(
 
 1.  <span id="calendarViewSelection-param-model"
@@ -86,11 +82,15 @@ PopupMenuButton<String> calendarViewSelection(EventCalendarViewModel model)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_calendar](../../views_after_auth_screens_events_event_calendar/views_after_auth_screens_events_event_calendar-library.md)
+2.  [event_calendar](../../views_after_auth_screens_events_event_calendar/)
 3.  [EventCalendar](../../views_after_auth_screens_events_event_calendar/EventCalendar-class.md)
 4.  calendarViewSelection method
 
 ##### EventCalendar class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

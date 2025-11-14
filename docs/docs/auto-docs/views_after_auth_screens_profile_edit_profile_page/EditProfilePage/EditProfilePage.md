@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [edit_profile_page](../../views_after_auth_screens_profile_edit_profile_page/views_after_auth_screens_profile_edit_profile_page-library.md)
+2.  [views/after_auth_screens/profile/edit_profile_page.dart](../../views_after_auth_screens_profile_edit_profile_page/)
 3.  [EditProfilePage](../../views_after_auth_screens_profile_edit_profile_page/EditProfilePage-class.md)
-4.  EditProfilePage const constructor
+4.  EditProfilePage.new const constructor
 
 <div class="self-name">
 
-EditProfilePage
+EditProfilePage.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">EditProfilePage</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">EditProfilePage</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">EditProfilePage</span>(
 ## Implementation
 
 ``` language-dart
-const EditProfilePage
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const EditProfilePage
 </div>
 
 1.  [talawa](../../index.md)
-2.  [edit_profile_page](../../views_after_auth_screens_profile_edit_profile_page/views_after_auth_screens_profile_edit_profile_page-library.md)
+2.  [edit_profile_page](../../views_after_auth_screens_profile_edit_profile_page/)
 3.  [EditProfilePage](../../views_after_auth_screens_profile_edit_profile_page/EditProfilePage-class.md)
-4.  EditProfilePage const constructor
+4.  EditProfilePage.new const constructor
 
 ##### EditProfilePage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

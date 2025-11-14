@@ -12,7 +12,7 @@ title: "CustomListTile"
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [custom_list_tile](../../widgets_custom_list_tile/widgets_custom_list_tile-library.md)
+2.  [widgets/custom_list_tile.dart](../../widgets_custom_list_tile/)
 3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
 4.  index property
 
@@ -22,13 +22,9 @@ index
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -82,11 +78,15 @@ final int index;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_list_tile](../../widgets_custom_list_tile/widgets_custom_list_tile-library.md)
+2.  [custom_list_tile](../../widgets_custom_list_tile/)
 3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
 4.  index property
 
 ##### CustomListTile class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

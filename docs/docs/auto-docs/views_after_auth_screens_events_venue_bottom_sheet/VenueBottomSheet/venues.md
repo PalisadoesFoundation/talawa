@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [venue_bottom_sheet](../../views_after_auth_screens_events_venue_bottom_sheet/views_after_auth_screens_events_venue_bottom_sheet-library.md)
+2.  [views/after_auth_screens/events/venue_bottom_sheet.dart](../../views_after_auth_screens_events_venue_bottom_sheet/)
 3.  [VenueBottomSheet](../../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet-class.md)
 4.  venues property
 
@@ -18,13 +18,9 @@ venues
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final List<Venue> venues;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [venue_bottom_sheet](../../views_after_auth_screens_events_venue_bottom_sheet/views_after_auth_screens_events_venue_bottom_sheet-library.md)
+2.  [venue_bottom_sheet](../../views_after_auth_screens_events_venue_bottom_sheet/)
 3.  [VenueBottomSheet](../../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet-class.md)
 4.  venues property
 
 ##### VenueBottomSheet class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

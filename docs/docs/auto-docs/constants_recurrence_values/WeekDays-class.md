@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [constants/recurrence_values.dart](../constants_recurrence_values/)
 3.  WeekDays class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ WeekDays
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Class containing constants for week days.
 
 ## Constructors
 
-<span class="name">[WeekDays](../constants_recurrence_values/WeekDays/WeekDays.md)</span><span class="signature"></span>  
+<span class="name">[WeekDays.new](../constants_recurrence_values/WeekDays/WeekDays.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -127,65 +123,23 @@ The equality operator.
 <span class="name">[friday](../constants_recurrence_values/WeekDays/friday-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing Friday.
 
-<div>
-
-<span class="signature">`'FRIDAY'`</span>
-
-</div>
-
 <span class="name">[monday](../constants_recurrence_values/WeekDays/monday-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing Monday.
-
-<div>
-
-<span class="signature">`'MONDAY'`</span>
-
-</div>
 
 <span class="name">[saturday](../constants_recurrence_values/WeekDays/saturday-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing Saturday.
 
-<div>
-
-<span class="signature">`'SATURDAY'`</span>
-
-</div>
-
 <span class="name">[sunday](../constants_recurrence_values/WeekDays/sunday-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing Sunday.
-
-<div>
-
-<span class="signature">`'SUNDAY'`</span>
-
-</div>
 
 <span class="name">[thursday](../constants_recurrence_values/WeekDays/thursday-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing Thursday.
 
-<div>
-
-<span class="signature">`'THURSDAY'`</span>
-
-</div>
-
 <span class="name">[tuesday](../constants_recurrence_values/WeekDays/tuesday-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing Tuesday.
 
-<div>
-
-<span class="signature">`'TUESDAY'`</span>
-
-</div>
-
 <span class="name">[wednesday](../constants_recurrence_values/WeekDays/wednesday-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 Constant representing Wednesday.
-
-<div>
-
-<span class="signature">`'WEDNESDAY'`</span>
-
-</div>
 
 </div>
 
@@ -198,8 +152,10 @@ Constant representing Wednesday.
 </div>
 
 1.  [talawa](../index.md)
-2.  [recurrence_values](../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [recurrence_values](../constants_recurrence_values/)
 3.  WeekDays class
+
+##### recurrence_values library
 
 <div id="dartdoc-sidebar-left-content">
 

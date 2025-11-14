@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [recurrence_dialog](../../widgets_recurrence_dialog/widgets_recurrence_dialog-library.md)
+2.  [widgets/recurrence_dialog.dart](../../widgets_recurrence_dialog/)
 3.  [ShowRecurrenceDialog](../../widgets_recurrence_dialog/ShowRecurrenceDialog-class.md)
 4.  model property
 
@@ -18,13 +18,9 @@ model
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final CreateEventViewModel model;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [recurrence_dialog](../../widgets_recurrence_dialog/widgets_recurrence_dialog-library.md)
+2.  [recurrence_dialog](../../widgets_recurrence_dialog/)
 3.  [ShowRecurrenceDialog](../../widgets_recurrence_dialog/ShowRecurrenceDialog-class.md)
 4.  model property
 
 ##### ShowRecurrenceDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

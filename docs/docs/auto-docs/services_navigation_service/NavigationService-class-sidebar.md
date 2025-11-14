@@ -1,5 +1,5 @@
 1.  [Constructors](./NavigationService-class#constructors.md)
-2.  [NavigationService](./NavigationService/NavigationService.md)
+2.  [new](./NavigationService/NavigationService.md)
 3.  [Properties](./NavigationService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [navigatorKey](./NavigationService/navigatorKey.md)

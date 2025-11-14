@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [progress_dialog_view_model](../../view_model_widgets_view_models_progress_dialog_view_model/view_model_widgets_view_models_progress_dialog_view_model-library.md)
+2.  [view_model/widgets_view_models/progress_dialog_view_model.dart](../../view_model_widgets_view_models_progress_dialog_view_model/)
 3.  [ProgressDialogViewModel](../../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class.md)
-4.  ProgressDialogViewModel constructor
+4.  ProgressDialogViewModel.new constructor
 
 <div class="self-name">
 
-ProgressDialogViewModel
+ProgressDialogViewModel.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,11 +51,15 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [progress_dialog_view_model](../../view_model_widgets_view_models_progress_dialog_view_model/view_model_widgets_view_models_progress_dialog_view_model-library.md)
+2.  [progress_dialog_view_model](../../view_model_widgets_view_models_progress_dialog_view_model/)
 3.  [ProgressDialogViewModel](../../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class.md)
-4.  ProgressDialogViewModel constructor
+4.  ProgressDialogViewModel.new constructor
 
 ##### ProgressDialogViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

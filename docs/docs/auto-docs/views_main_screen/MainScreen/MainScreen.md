@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [main_screen](../../views_main_screen/views_main_screen-library.md)
+2.  [views/main_screen.dart](../../views_main_screen/)
 3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
-4.  MainScreen const constructor
+4.  MainScreen.new const constructor
 
 <div class="self-name">
 
-MainScreen
+MainScreen.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">MainScreen</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">MainScreen</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">MainScreen</span>(
 ## Implementation
 
 ``` language-dart
-const MainScreen
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const MainScreen
 </div>
 
 1.  [talawa](../../index.md)
-2.  [main_screen](../../views_main_screen/views_main_screen-library.md)
+2.  [main_screen](../../views_main_screen/)
 3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
-4.  MainScreen const constructor
+4.  MainScreen.new const constructor
 
 ##### MainScreen class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

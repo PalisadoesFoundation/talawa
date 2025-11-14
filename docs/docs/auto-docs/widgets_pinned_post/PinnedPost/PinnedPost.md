@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [pinned_post](../../widgets_pinned_post/widgets_pinned_post-library.md)
+2.  [widgets/pinned_post.dart](../../widgets_pinned_post/)
 3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
-4.  PinnedPost const constructor
+4.  PinnedPost.new const constructor
 
 <div class="self-name">
 
-PinnedPost
+PinnedPost.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">PinnedPost</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">PinnedPost</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">PinnedPost</span>(
 ## Implementation
 
 ``` language-dart
-const PinnedPost
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const PinnedPost
 </div>
 
 1.  [talawa](../../index.md)
-2.  [pinned_post](../../widgets_pinned_post/widgets_pinned_post-library.md)
+2.  [pinned_post](../../widgets_pinned_post/)
 3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
-4.  PinnedPost const constructor
+4.  PinnedPost.new const constructor
 
 ##### PinnedPost class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_utils](../../utils_chat_utils/utils_chat_utils-library.md)
+2.  [utils/chat_utils.dart](../../utils_chat_utils/)
 3.  [ChatUtils](../../utils_chat_utils/ChatUtils-class.md)
 4.  categorizeChats static method
 
@@ -18,13 +18,9 @@ categorizeChats
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -88,11 +84,15 @@ static Map<String, List<Chat>> categorizeChats(List<Chat> chats)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_utils](../../utils_chat_utils/utils_chat_utils-library.md)
+2.  [chat_utils](../../utils_chat_utils/)
 3.  [ChatUtils](../../utils_chat_utils/ChatUtils-class.md)
 4.  categorizeChats static method
 
 ##### ChatUtils class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

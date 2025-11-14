@@ -1,2 +1,2 @@
-1.  [Classes](./utils_pair-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Pair](./Pair-class.md)

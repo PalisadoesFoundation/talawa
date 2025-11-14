@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [org_info_screen](../../views_after_auth_screens_org_info_screen/views_after_auth_screens_org_info_screen-library.md)
+2.  [views/after_auth_screens/org_info_screen.dart](../../views_after_auth_screens_org_info_screen/)
 3.  [OrganisationInfoScreen](../../views_after_auth_screens_org_info_screen/OrganisationInfoScreen-class.md)
-4.  OrganisationInfoScreen const constructor
+4.  OrganisationInfoScreen.new const constructor
 
 <div class="self-name">
 
-OrganisationInfoScreen
+OrganisationInfoScreen.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">OrganisationInfoScreen</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">OrganisationInfoScreen</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">OrganisationInfoScreen</span>(
 ## Implementation
 
 ``` language-dart
-const OrganisationInfoScreen
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const OrganisationInfoScreen
 </div>
 
 1.  [talawa](../../index.md)
-2.  [org_info_screen](../../views_after_auth_screens_org_info_screen/views_after_auth_screens_org_info_screen-library.md)
+2.  [org_info_screen](../../views_after_auth_screens_org_info_screen/)
 3.  [OrganisationInfoScreen](../../views_after_auth_screens_org_info_screen/OrganisationInfoScreen-class.md)
-4.  OrganisationInfoScreen const constructor
+4.  OrganisationInfoScreen.new const constructor
 
 ##### OrganisationInfoScreen class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_strings](../../constants_app_strings/constants_app_strings-library.md)
+2.  [constants/app_strings.dart](../../constants_app_strings/)
 3.  [TalawaErrors](../../constants_app_strings/TalawaErrors-class.md)
 4.  postCreationFailed constant
 
@@ -18,13 +18,9 @@ postCreationFailed
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -73,11 +69,15 @@ static const String postCreationFailed =
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_strings](../../constants_app_strings/constants_app_strings-library.md)
+2.  [app_strings](../../constants_app_strings/)
 3.  [TalawaErrors](../../constants_app_strings/TalawaErrors-class.md)
 4.  postCreationFailed constant
 
 ##### TalawaErrors class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

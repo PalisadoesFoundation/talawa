@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [interaction](../../widgets_interaction/widgets_interaction-library.md)
+2.  [widgets/interaction.dart](../../widgets_interaction/)
 3.  [Interactions](../../widgets_interaction/Interactions-class.md)
-4.  Interactions const constructor
+4.  Interactions.new const constructor
 
 <div class="self-name">
 
-Interactions
+Interactions.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">Interactions</span>(
-
-1.  <span id="-param-key"
-    class="parameter">
-
-)
+const <span class="name">Interactions</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">Interactions</span>(
 ## Implementation
 
 ``` language-dart
-const Interactions
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const Interactions
 </div>
 
 1.  [talawa](../../index.md)
-2.  [interaction](../../widgets_interaction/widgets_interaction-library.md)
+2.  [interaction](../../widgets_interaction/)
 3.  [Interactions](../../widgets_interaction/Interactions-class.md)
-4.  Interactions const constructor
+4.  Interactions.new const constructor
 
 ##### Interactions class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

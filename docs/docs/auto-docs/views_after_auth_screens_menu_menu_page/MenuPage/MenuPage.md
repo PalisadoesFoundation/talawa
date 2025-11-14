@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [menu_page](../../views_after_auth_screens_menu_menu_page/views_after_auth_screens_menu_menu_page-library.md)
+2.  [views/after_auth_screens/menu/menu_page.dart](../../views_after_auth_screens_menu_menu_page/)
 3.  [MenuPage](../../views_after_auth_screens_menu_menu_page/MenuPage-class.md)
-4.  MenuPage const constructor
+4.  MenuPage.new const constructor
 
 <div class="self-name">
 
-MenuPage
+MenuPage.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">MenuPage</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">MenuPage</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">MenuPage</span>(
 ## Implementation
 
 ``` language-dart
-const MenuPage
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const MenuPage
 </div>
 
 1.  [talawa](../../index.md)
-2.  [menu_page](../../views_after_auth_screens_menu_menu_page/views_after_auth_screens_menu_menu_page-library.md)
+2.  [menu_page](../../views_after_auth_screens_menu_menu_page/)
 3.  [MenuPage](../../views_after_auth_screens_menu_menu_page/MenuPage-class.md)
-4.  MenuPage const constructor
+4.  MenuPage.new const constructor
 
 ##### MenuPage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

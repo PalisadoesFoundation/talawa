@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [talawa_logo](../../custom_painters_talawa_logo/custom_painters_talawa_logo-library.md)
+2.  [custom_painters/talawa_logo.dart](../../custom_painters_talawa_logo/)
 3.  [AppLogo](../../custom_painters_talawa_logo/AppLogo-class.md)
 4.  paint method
 
@@ -18,13 +18,9 @@ paint
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -59,6 +55,12 @@ below-sidebar="">
 
 )
 
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
 </div>
 
 <div class="section desc markdown">
@@ -88,17 +90,32 @@ potentially hilarious but confusing results.
 
 To paint text on a
 [Canvas](https://api.flutter.dev/flutter/dart-ui/Canvas-class.html), use
-a `TextPainter`.
+a
+[TextPainter](https://api.flutter.dev/flutter/painting/TextPainter-class.html).
 
 To paint an image on a
 [Canvas](https://api.flutter.dev/flutter/dart-ui/Canvas-class.html):
 
-1.  Obtain an `ImageStream`, for example by calling
-    `ImageProvider.resolve` on an `AssetImage` or `NetworkImage` object.
+1.  Obtain an
+    [ImageStream](https://api.flutter.dev/flutter/painting/ImageStream-class.html),
+    for example by calling
+    [ImageProvider.resolve](https://api.flutter.dev/flutter/painting/ImageProvider/resolve.html)
+    on an
+    [AssetImage](https://api.flutter.dev/flutter/painting/AssetImage-class.html)
+    or
+    [NetworkImage](https://api.flutter.dev/flutter/painting/NetworkImage-class.html)
+    object.
 
-2.  Whenever the `ImageStream`'s underlying `ImageInfo` object changes
-    (see `ImageStream.addListener`), create a new instance of your
-    custom paint delegate, giving it the new `ImageInfo` object.
+2.  Whenever the
+    [ImageStream](https://api.flutter.dev/flutter/painting/ImageStream-class.html)'s
+    underlying
+    [ImageInfo](https://api.flutter.dev/flutter/painting/ImageInfo-class.html)
+    object changes (see
+    [ImageStream.addListener](https://api.flutter.dev/flutter/painting/ImageStream/addListener.md)),
+    create a new instance of your custom paint delegate, giving it the
+    new
+    [ImageInfo](https://api.flutter.dev/flutter/painting/ImageInfo-class.html)
+    object.
 
 3.  In your delegate's
     [paint](../../custom_painters_talawa_logo/AppLogo/paint.md)
@@ -107,8 +124,11 @@ To paint an image on a
     [Canvas.drawImageRect](https://api.flutter.dev/flutter/dart-ui/Canvas/drawImageRect.html),
     or
     [Canvas.drawImageNine](https://api.flutter.dev/flutter/dart-ui/Canvas/drawImageNine.html)
-    methods to paint the `ImageInfo.image` object, applying the
-    `ImageInfo.scale` value to obtain the correct rendering size.
+    methods to paint the
+    [ImageInfo.image](https://api.flutter.dev/flutter/painting/ImageInfo/image.html)
+    object, applying the
+    [ImageInfo.scale](https://api.flutter.dev/flutter/painting/ImageInfo/scale.html)
+    value to obtain the correct rendering size.
 
 </div>
 
@@ -132,11 +152,15 @@ void paint(Canvas canvas, Size size)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [talawa_logo](../../custom_painters_talawa_logo/custom_painters_talawa_logo-library.md)
+2.  [talawa_logo](../../custom_painters_talawa_logo/)
 3.  [AppLogo](../../custom_painters_talawa_logo/AppLogo-class.md)
 4.  paint method
 
 ##### AppLogo class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

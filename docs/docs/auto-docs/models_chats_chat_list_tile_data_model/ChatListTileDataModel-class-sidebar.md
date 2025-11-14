@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatListTileDataModel-class#constructors.md)
-2.  [ChatListTileDataModel](./ChatListTileDataModel/ChatListTileDataModel.md)
+2.  [new](./ChatListTileDataModel/ChatListTileDataModel.md)
 3.  [fromChat](./ChatListTileDataModel/ChatListTileDataModel.fromChat.md)
 4.  [Properties](./ChatListTileDataModel-class#instance-properties.md)
 5.  [chat](./ChatListTileDataModel/chat.md)

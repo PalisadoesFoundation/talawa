@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [models/app_tour.dart](../../models_app_tour/)
 3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
 4.  isCircle property
 
@@ -18,13 +18,9 @@ isCircle
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ bool isCircle;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [app_tour](../../models_app_tour/)
 3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
 4.  isCircle property
 
 ##### FocusTarget class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

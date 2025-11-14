@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [access_request_screen](../../views_after_auth_screens_join_org_after_auth_access_request_screen/views_after_auth_screens_join_org_after_auth_access_request_screen-library.md)
+2.  [views/after_auth_screens/join_org_after_auth/access_request_screen.dart](../../views_after_auth_screens_join_org_after_auth_access_request_screen/)
 3.  [SendAccessRequest](../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.md)
-4.  SendAccessRequest const constructor
+4.  SendAccessRequest.new const constructor
 
 <div class="self-name">
 
-SendAccessRequest
+SendAccessRequest.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">SendAccessRequest</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">SendAccessRequest</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">SendAccessRequest</span>(
 ## Implementation
 
 ``` language-dart
-const SendAccessRequest
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const SendAccessRequest
 </div>
 
 1.  [talawa](../../index.md)
-2.  [access_request_screen](../../views_after_auth_screens_join_org_after_auth_access_request_screen/views_after_auth_screens_join_org_after_auth_access_request_screen-library.md)
+2.  [access_request_screen](../../views_after_auth_screens_join_org_after_auth_access_request_screen/)
 3.  [SendAccessRequest](../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.md)
-4.  SendAccessRequest const constructor
+4.  SendAccessRequest.new const constructor
 
 ##### SendAccessRequest class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

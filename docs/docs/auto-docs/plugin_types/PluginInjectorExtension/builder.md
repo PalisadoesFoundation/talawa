@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../../plugin_types/)
 3.  [PluginInjectorExtension](../../plugin_types/PluginInjectorExtension-class.md)
 4.  builder property
 
@@ -18,13 +18,9 @@ builder
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,11 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-Widget Function<span class="signature">(<span id="param-context"
-class="parameter"><span class="type-annotation">BuildContext</span>
+[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
+Function<span class="signature">(<span id="param-context"
+class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
 <span class="parameter-name">context</span>,
-</span><span id="param-data"
-class="parameter"></span>)</span>
+)</span>
 <span class="name">builder</span>
 
 <div class="features">
@@ -83,11 +79,15 @@ final Widget Function(BuildContext context, )
 </div>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [types](../../plugin_types/)
 3.  [PluginInjectorExtension](../../plugin_types/PluginInjectorExtension-class.md)
 4.  builder property
 
 ##### PluginInjectorExtension class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

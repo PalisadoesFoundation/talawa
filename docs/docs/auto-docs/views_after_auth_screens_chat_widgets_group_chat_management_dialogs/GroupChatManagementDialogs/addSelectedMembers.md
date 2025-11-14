@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_management_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/views_after_auth_screens_chat_widgets_group_chat_management_dialogs-library.md)
+2.  [views/after_auth_screens/chat/widgets/group_chat_management_dialogs.dart](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/)
 3.  [GroupChatManagementDialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/GroupChatManagementDialogs-class.md)
 4.  addSelectedMembers static method
 
@@ -18,13 +18,9 @@ addSelectedMembers
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
 <span class="name">addSelectedMembers</span>(
 
 1.  <span id="addSelectedMembers-param-selectedMembers"
@@ -96,11 +92,15 @@ static Future<void> addSelectedMembers(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_management_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/views_after_auth_screens_chat_widgets_group_chat_management_dialogs-library.md)
+2.  [group_chat_management_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/)
 3.  [GroupChatManagementDialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/GroupChatManagementDialogs-class.md)
 4.  addSelectedMembers static method
 
 ##### GroupChatManagementDialogs class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

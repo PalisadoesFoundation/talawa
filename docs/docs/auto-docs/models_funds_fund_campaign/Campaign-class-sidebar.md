@@ -1,5 +1,5 @@
 1.  [Constructors](./Campaign-class#constructors.md)
-2.  [Campaign](./Campaign/Campaign.md)
+2.  [new](./Campaign/Campaign.md)
 3.  [fromJson](./Campaign/Campaign.fromJson.md)
 4.  [Properties](./Campaign-class#instance-properties.md)
 5.  [currency](./Campaign/currency.md)

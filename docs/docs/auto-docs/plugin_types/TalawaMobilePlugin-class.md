@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../plugin_types/)
 3.  TalawaMobilePlugin class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ TalawaMobilePlugin
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,7 +47,7 @@ Public API a plugin should implement to register itself.
 
 ## Constructors
 
-<span class="name">[TalawaMobilePlugin](../plugin_types/TalawaMobilePlugin/TalawaMobilePlugin.md)</span><span class="signature"></span>  
+<span class="name">[TalawaMobilePlugin.new](../plugin_types/TalawaMobilePlugin/TalawaMobilePlugin.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -97,7 +93,7 @@ setter</span><span class="feature">inherited</span>
 <span class="name">[getExtensions](../plugin_types/TalawaMobilePlugin/getExtensions.md)</span><span class="signature"> <span class="returntype parameter">→ [PluginExtensions](../plugin_types/PluginExtensions-class.md)</span> </span>  
 Returns extension points (injectors) for this plugin.
 
-<span class="name">[getMenuItems](../plugin_types/TalawaMobilePlugin/getMenuItems.md)</span><span class="signature">(<span id="getMenuItems-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginMenuItem](../plugin_types/PluginMenuItem-class.md)</span>\></span></span> </span>  
+<span class="name">[getMenuItems](../plugin_types/TalawaMobilePlugin/getMenuItems.md)</span><span class="signature">(<span id="getMenuItems-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginMenuItem](../plugin_types/PluginMenuItem-class.md)</span>\></span></span> </span>  
 Returns menu items to inject into the Menu page.
 
 <span class="name">[getRoutes](../plugin_types/TalawaMobilePlugin/getRoutes.md)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[PluginRoute](../plugin_types/PluginRoute-class.md)</span>\></span></span> </span>  
@@ -147,8 +143,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [types](../plugin_types/)
 3.  TalawaMobilePlugin class
+
+##### types library
 
 <div id="dartdoc-sidebar-left-content">
 

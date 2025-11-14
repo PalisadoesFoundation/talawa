@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [fund_pledges](../../models_funds_fund_pledges/models_funds_fund_pledges-library.md)
+2.  [models/funds/fund_pledges.dart](../../models_funds_fund_pledges/)
 3.  [Pledge](../../models_funds_fund_pledges/Pledge-class.md)
-4.  Pledge constructor
+4.  Pledge.new constructor
 
 <div class="self-name">
 
-Pledge
+Pledge.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">Pledge</span>(
-
-1.  <span id="-param-id"
-    class="parameter"></span>
-
-)
+<span class="name">Pledge</span>
 
 </div>
 
@@ -55,18 +46,10 @@ below-sidebar="">
 
 Constructs a `Pledge` instance.
 
-[id](../../models_funds_fund_pledges/Pledge/id.md) is the unique
-identifier of the pledge.
-[amount](../../models_funds_fund_pledges/Pledge/amount.md) is the
-amount pledged.
-[pledger](../../models_funds_fund_pledges/Pledge/pledger.md) is the
-user who made the pledge.
-[campaign](../../models_funds_fund_pledges/Pledge/campaign.md) is the
-campaign associated with the pledge.
-[startDate](../../models_funds_fund_pledges/Pledge/startDate.md) is
-the start date of the pledge.
-[endDate](../../models_funds_fund_pledges/Pledge/endDate.md) is the
-end date of the pledge.
+`id` is the unique identifier of the pledge. `amount` is the amount
+pledged. `pledger` is the user who made the pledge. `campaign` is the
+campaign associated with the pledge. `startDate` is the start date of
+the pledge. `endDate` is the end date of the pledge.
 
 </div>
 
@@ -75,7 +58,7 @@ end date of the pledge.
 ## Implementation
 
 ``` language-dart
-Pledge
+;
 ```
 
 </div>
@@ -89,11 +72,15 @@ Pledge
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_pledges](../../models_funds_fund_pledges/models_funds_fund_pledges-library.md)
+2.  [fund_pledges](../../models_funds_fund_pledges/)
 3.  [Pledge](../../models_funds_fund_pledges/Pledge-class.md)
-4.  Pledge constructor
+4.  Pledge.new constructor
 
 ##### Pledge class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

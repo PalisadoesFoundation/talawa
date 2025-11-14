@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [manage_agenda_items_screen](../../views_after_auth_screens_events_manage_agenda_items_screen/views_after_auth_screens_events_manage_agenda_items_screen-library.md)
+2.  [views/after_auth_screens/events/manage_agenda_items_screen.dart](../../views_after_auth_screens_events_manage_agenda_items_screen/)
 3.  [ManageAgendaScreen](../../views_after_auth_screens_events_manage_agenda_items_screen/ManageAgendaScreen-class.md)
-4.  ManageAgendaScreen const constructor
+4.  ManageAgendaScreen.new const constructor
 
 <div class="self-name">
 
-ManageAgendaScreen
+ManageAgendaScreen.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">ManageAgendaScreen</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">ManageAgendaScreen</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">ManageAgendaScreen</span>(
 ## Implementation
 
 ``` language-dart
-const ManageAgendaScreen
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const ManageAgendaScreen
 </div>
 
 1.  [talawa](../../index.md)
-2.  [manage_agenda_items_screen](../../views_after_auth_screens_events_manage_agenda_items_screen/views_after_auth_screens_events_manage_agenda_items_screen-library.md)
+2.  [manage_agenda_items_screen](../../views_after_auth_screens_events_manage_agenda_items_screen/)
 3.  [ManageAgendaScreen](../../views_after_auth_screens_events_manage_agenda_items_screen/ManageAgendaScreen-class.md)
-4.  ManageAgendaScreen const constructor
+4.  ManageAgendaScreen.new const constructor
 
 ##### ManageAgendaScreen class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

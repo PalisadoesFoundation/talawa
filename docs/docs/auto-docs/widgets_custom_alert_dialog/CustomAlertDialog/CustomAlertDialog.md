@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/widgets_custom_alert_dialog-library.md)
+2.  [widgets/custom_alert_dialog.dart](../../widgets_custom_alert_dialog/)
 3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
-4.  CustomAlertDialog const constructor
+4.  CustomAlertDialog.new const constructor
 
 <div class="self-name">
 
-CustomAlertDialog
+CustomAlertDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CustomAlertDialog</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">CustomAlertDialog</span>
 
 </div>
 
@@ -57,20 +48,14 @@ Constructs a
 [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
 widget.
 
-[reverse](../../widgets_custom_alert_dialog/CustomAlertDialog/reverse.md)
-indicates whether the order of action buttons should be reversed.
-[success](../../widgets_custom_alert_dialog/CustomAlertDialog/success.md)
-is the function triggered upon tapping the primary action button.
-[secondaryButtonTap](../../widgets_custom_alert_dialog/CustomAlertDialog/secondaryButtonTap.md)
-is the function triggered upon tapping the secondary action button.
-[successText](../../widgets_custom_alert_dialog/CustomAlertDialog/successText.md)
-is the text displayed on the primary action button.
-[dialogTitle](../../widgets_custom_alert_dialog/CustomAlertDialog/dialogTitle.md)
-is the title displayed in the dialog (default value is 'Confirmation').
-[dialogSubTitle](../../widgets_custom_alert_dialog/CustomAlertDialog/dialogSubTitle.md)
-is the subtitle or message content of the dialog.
-[secondaryButtonText](../../widgets_custom_alert_dialog/CustomAlertDialog/secondaryButtonText.md)
-is the text displayed on the secondary action button (default value is
+`reverse` indicates whether the order of action buttons should be
+reversed. `success` is the function triggered upon tapping the primary
+action button. `secondaryButtonTap` is the function triggered upon
+tapping the secondary action button. `successText` is the text displayed
+on the primary action button. `dialogTitle` is the title displayed in
+the dialog (default value is 'Confirmation'). `dialogSubTitle` is the
+subtitle or message content of the dialog. `secondaryButtonText` is the
+text displayed on the secondary action button (default value is
 'Close').
 
 </div>
@@ -80,7 +65,7 @@ is the text displayed on the secondary action button (default value is
 ## Implementation
 
 ``` language-dart
-const CustomAlertDialog
+const ;
 ```
 
 </div>
@@ -94,11 +79,15 @@ const CustomAlertDialog
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/widgets_custom_alert_dialog-library.md)
+2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
 3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
-4.  CustomAlertDialog const constructor
+4.  CustomAlertDialog.new const constructor
 
 ##### CustomAlertDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

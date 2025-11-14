@@ -1,2 +1,2 @@
-1.  [Classes](./services_database_mutation_functions-library#classes.md)
+1.  [Classes](./#classes)
 2.  [DataBaseMutationFunctions](./DataBaseMutationFunctions-class.md)

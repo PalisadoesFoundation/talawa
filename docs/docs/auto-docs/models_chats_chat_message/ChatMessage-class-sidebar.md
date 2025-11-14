@@ -1,5 +1,5 @@
 1.  [Constructors](./ChatMessage-class#constructors.md)
-2.  [ChatMessage](./ChatMessage/ChatMessage.md)
+2.  [new](./ChatMessage/ChatMessage.md)
 3.  [fromJson](./ChatMessage/ChatMessage.fromJson.md)
 4.  [Properties](./ChatMessage-class#instance-properties.md)
 5.  [body](./ChatMessage/body.md)

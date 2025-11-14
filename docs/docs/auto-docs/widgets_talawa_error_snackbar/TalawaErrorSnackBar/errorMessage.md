@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [talawa_error_snackbar](../../widgets_talawa_error_snackbar/widgets_talawa_error_snackbar-library.md)
+2.  [widgets/talawa_error_snackbar.dart](../../widgets_talawa_error_snackbar/)
 3.  [TalawaErrorSnackBar](../../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.md)
 4.  errorMessage property
 
@@ -18,13 +18,9 @@ errorMessage
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final String errorMessage;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [talawa_error_snackbar](../../widgets_talawa_error_snackbar/widgets_talawa_error_snackbar-library.md)
+2.  [talawa_error_snackbar](../../widgets_talawa_error_snackbar/)
 3.  [TalawaErrorSnackBar](../../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.md)
 4.  errorMessage property
 
 ##### TalawaErrorSnackBar class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

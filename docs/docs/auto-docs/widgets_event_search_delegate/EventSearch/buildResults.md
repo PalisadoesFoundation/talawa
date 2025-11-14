@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_search_delegate](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildResults method
 
@@ -18,13 +18,9 @@ buildResults
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -48,14 +44,20 @@ below-sidebar="">
 
 </div>
 
-<span class="returntype">Widget</span>
+<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
 <span class="name">buildResults</span>(
 
 1.  <span id="buildResults-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span></span>
 
 )
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 </div>
 
@@ -64,20 +66,22 @@ below-sidebar="">
 The results shown after the user submits a search from the search page.
 
 The current value of
-[query](../../widgets_event_search_delegate/EventSearch/query.md) can
-be used to determine what the user searched for.
+[query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)
+can be used to determine what the user searched for.
 
 This method might be applied more than once to the same query. If your
 [buildResults](../../widgets_event_search_delegate/EventSearch/buildResults.md)
 method is computationally expensive, you may want to cache the search
 results for one or more queries.
 
-Typically, this method returns a `ListView` with the search results.
-When the user taps on a particular search result,
-[close](../../widgets_event_search_delegate/EventSearch/close.md)
+Typically, this method returns a
+[ListView](https://api.flutter.dev/flutter/widgets/ListView-class.html)
+with the search results. When the user taps on a particular search
+result,
+[close](https://api.flutter.dev/flutter/material/SearchDelegate/close.html)
 should be called with the selected result as argument. This will close
 the search page and communicate the result back to the initial caller of
-`showSearch`.
+[showSearch](https://api.flutter.dev/flutter/material/showSearch.html).
 
 </div>
 
@@ -101,11 +105,15 @@ Widget buildResults(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_search_delegate](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
+2.  [event_search_delegate](../../widgets_event_search_delegate/)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildResults method
 
 ##### EventSearch class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

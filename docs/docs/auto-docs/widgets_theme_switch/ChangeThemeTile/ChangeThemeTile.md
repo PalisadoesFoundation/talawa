@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [theme_switch](../../widgets_theme_switch/widgets_theme_switch-library.md)
+2.  [widgets/theme_switch.dart](../../widgets_theme_switch/)
 3.  [ChangeThemeTile](../../widgets_theme_switch/ChangeThemeTile-class.md)
-4.  ChangeThemeTile const constructor
+4.  ChangeThemeTile.new const constructor
 
 <div class="self-name">
 
-ChangeThemeTile
+ChangeThemeTile.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">ChangeThemeTile</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">ChangeThemeTile</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">ChangeThemeTile</span>(
 ## Implementation
 
 ``` language-dart
-const ChangeThemeTile
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const ChangeThemeTile
 </div>
 
 1.  [talawa](../../index.md)
-2.  [theme_switch](../../widgets_theme_switch/widgets_theme_switch-library.md)
+2.  [theme_switch](../../widgets_theme_switch/)
 3.  [ChangeThemeTile](../../widgets_theme_switch/ChangeThemeTile-class.md)
-4.  ChangeThemeTile const constructor
+4.  ChangeThemeTile.new const constructor
 
 ##### ChangeThemeTile class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

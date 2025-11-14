@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [multi_media_pick_service](../../services_third_party_service_multi_media_pick_service/services_third_party_service_multi_media_pick_service-library.md)
+2.  [services/third_party_service/multi_media_pick_service.dart](../../services_third_party_service_multi_media_pick_service/)
 3.  [MultiMediaPickerService](../../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.md)
 4.  permissionDeniedDialog method
 
@@ -18,13 +18,9 @@ permissionDeniedDialog
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -82,11 +78,15 @@ CustomAlertDialog
 </div>
 
 1.  [talawa](../../index.md)
-2.  [multi_media_pick_service](../../services_third_party_service_multi_media_pick_service/services_third_party_service_multi_media_pick_service-library.md)
+2.  [multi_media_pick_service](../../services_third_party_service_multi_media_pick_service/)
 3.  [MultiMediaPickerService](../../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.md)
 4.  permissionDeniedDialog method
 
 ##### MultiMediaPickerService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

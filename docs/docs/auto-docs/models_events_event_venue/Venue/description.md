@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_venue](../../models_events_event_venue/models_events_event_venue-library.md)
+2.  [models/events/event_venue.dart](../../models_events_event_venue/)
 3.  [Venue](../../models_events_event_venue/Venue-class.md)
 4.  description property
 
@@ -18,13 +18,9 @@ description
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final String? description;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_venue](../../models_events_event_venue/models_events_event_venue-library.md)
+2.  [event_venue](../../models_events_event_venue/)
 3.  [Venue](../../models_events_event_venue/Venue-class.md)
 4.  description property
 
 ##### Venue class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

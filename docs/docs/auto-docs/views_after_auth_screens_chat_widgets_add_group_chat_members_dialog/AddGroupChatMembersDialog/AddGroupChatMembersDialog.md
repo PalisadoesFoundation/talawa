@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [add_group_chat_members_dialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/views_after_auth_screens_chat_widgets_add_group_chat_members_dialog-library.md)
+2.  [views/after_auth_screens/chat/widgets/add_group_chat_members_dialog.dart](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/)
 3.  [AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)
-4.  AddGroupChatMembersDialog const constructor
+4.  AddGroupChatMembersDialog.new const constructor
 
 <div class="self-name">
 
-AddGroupChatMembersDialog
+AddGroupChatMembersDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">AddGroupChatMembersDialog</span>(
-
-1.  <span id="-param-key"
-    class="parameter">
-
-)
+const <span class="name">AddGroupChatMembersDialog</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">AddGroupChatMembersDialog</span>(
 ## Implementation
 
 ``` language-dart
-const AddGroupChatMembersDialog
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const AddGroupChatMembersDialog
 </div>
 
 1.  [talawa](../../index.md)
-2.  [add_group_chat_members_dialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/views_after_auth_screens_chat_widgets_add_group_chat_members_dialog-library.md)
+2.  [add_group_chat_members_dialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/)
 3.  [AddGroupChatMembersDialog](../../views_after_auth_screens_chat_widgets_add_group_chat_members_dialog/AddGroupChatMembersDialog-class.md)
-4.  AddGroupChatMembersDialog const constructor
+4.  AddGroupChatMembersDialog.new const constructor
 
 ##### AddGroupChatMembersDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

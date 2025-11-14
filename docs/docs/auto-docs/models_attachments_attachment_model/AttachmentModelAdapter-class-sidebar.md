@@ -1,5 +1,5 @@
 1.  [Constructors](./AttachmentModelAdapter-class#constructors.md)
-2.  [AttachmentModelAdapter](./AttachmentModelAdapter/AttachmentModelAdapter.md)
+2.  [new](./AttachmentModelAdapter/AttachmentModelAdapter.md)
 3.  [Properties](./AttachmentModelAdapter-class#instance-properties.md)
 4.  [hashCode](./AttachmentModelAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

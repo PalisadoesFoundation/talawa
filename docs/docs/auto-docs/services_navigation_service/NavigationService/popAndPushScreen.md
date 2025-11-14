@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  popAndPushScreen method
 
@@ -18,13 +18,9 @@ popAndPushScreen
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,16 +38,12 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span>
 <span class="name">popAndPushScreen</span>(
 
 1.  <span id="popAndPushScreen-param-routeName"
     class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span>
-    <span class="parameter-name">routeName</span>, </span>
-2.  <span id="popAndPushScreen-param-arguments"
-    class="parameter"></span>
-
-)
+    <span class="parameter-name">routeName</span>, )
 
 </div>
 
@@ -91,11 +83,15 @@ Future<dynamic> popAndPushScreen(String routeName, )
 </div>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [navigation_service](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  popAndPushScreen method
 
 ##### NavigationService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

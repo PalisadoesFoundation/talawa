@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [enums](../../enums_enums/enums_enums-library.md)
+2.  [enums/enums.dart](../../enums_enums/)
 3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.md)
 4.  operator == method
 
@@ -18,13 +18,9 @@ operator ==
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -123,11 +119,15 @@ bool operator ==(Object other) =>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [enums](../../enums_enums/enums_enums-library.md)
+2.  [enums](../../enums_enums/)
 3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.md)
 4.  operator == method
 
 ##### CachedUserActionStatusAdapter class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

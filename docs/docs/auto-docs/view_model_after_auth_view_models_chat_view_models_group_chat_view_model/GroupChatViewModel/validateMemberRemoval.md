@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/view_model_after_auth_view_models_chat_view_models_group_chat_view_model-library.md)
+2.  [view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/)
 3.  [GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)
 4.  validateMemberRemoval method
 
@@ -18,13 +18,9 @@ validateMemberRemoval
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -44,12 +40,7 @@ below-sidebar="">
 
 <span class="returntype">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>,
 <span class="type-parameter">dynamic</span>\></span></span>
-<span class="name">validateMemberRemoval</span>(
-
-1.  <span id="validateMemberRemoval-param-chatId"
-    class="parameter"></span>
-
-)
+<span class="name">validateMemberRemoval</span>
 
 </div>
 
@@ -88,11 +79,15 @@ Map<String, dynamic>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/view_model_after_auth_view_models_chat_view_models_group_chat_view_model-library.md)
+2.  [group_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/)
 3.  [GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)
 4.  validateMemberRemoval method
 
 ##### GroupChatViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [user_info](../../models_user_user_info/models_user_user_info-library.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
 3.  [User](../../models_user_user_info/User-class.md)
 4.  User.fromJson factory constructor
 
@@ -18,13 +18,9 @@ User.fromJson
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -47,11 +43,7 @@ below-sidebar="">
 1.  <span id="fromJson-param-json"
     class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>,
     <span class="type-parameter">dynamic</span>\></span></span>
-    <span class="parameter-name">json</span>, </span>
-2.  <span id="fromJson-param-fromOrg"
-    class="parameter"></span>
-
-)
+    <span class="parameter-name">json</span>, )
 
 </div>
 
@@ -74,11 +66,15 @@ factory User.fromJson(Map<String, dynamic> json, )
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_info](../../models_user_user_info/models_user_user_info-library.md)
+2.  [user_info](../../models_user_user_info/)
 3.  [User](../../models_user_user_info/User-class.md)
 4.  User.fromJson factory constructor
 
 ##### User class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

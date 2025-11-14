@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_input_field](../../views_after_auth_screens_chat_widgets_chat_input_field/views_after_auth_screens_chat_widgets_chat_input_field-library.md)
+2.  [views/after_auth_screens/chat/widgets/chat_input_field.dart](../../views_after_auth_screens_chat_widgets_chat_input_field/)
 3.  [ChatInputField](../../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.md)
-4.  ChatInputField const constructor
+4.  ChatInputField.new const constructor
 
 <div class="self-name">
 
-ChatInputField
+ChatInputField.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">ChatInputField</span>(
-
-1.  <span id="-param-chatId" class="parameter"></span>
-
-)
+const <span class="name">ChatInputField</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">ChatInputField</span>(
 ## Implementation
 
 ``` language-dart
-const ChatInputField
+const ;
 ```
 
 </div>
@@ -69,11 +61,15 @@ const ChatInputField
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_input_field](../../views_after_auth_screens_chat_widgets_chat_input_field/views_after_auth_screens_chat_widgets_chat_input_field-library.md)
+2.  [chat_input_field](../../views_after_auth_screens_chat_widgets_chat_input_field/)
 3.  [ChatInputField](../../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.md)
-4.  ChatInputField const constructor
+4.  ChatInputField.new const constructor
 
 ##### ChatInputField class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

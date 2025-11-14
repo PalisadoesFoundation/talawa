@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/widgets_raised_round_edge_button-library.md)
+2.  [widgets/raised_round_edge_button.dart](../../widgets_raised_round_edge_button/)
 3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
-4.  RaisedRoundedButton const constructor
+4.  RaisedRoundedButton.new const constructor
 
 <div class="self-name">
 
-RaisedRoundedButton
+RaisedRoundedButton.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">RaisedRoundedButton</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">RaisedRoundedButton</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">RaisedRoundedButton</span>(
 ## Implementation
 
 ``` language-dart
-const RaisedRoundedButton
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const RaisedRoundedButton
 </div>
 
 1.  [talawa](../../index.md)
-2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/widgets_raised_round_edge_button-library.md)
+2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/)
 3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
-4.  RaisedRoundedButton const constructor
+4.  RaisedRoundedButton.new const constructor
 
 ##### RaisedRoundedButton class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

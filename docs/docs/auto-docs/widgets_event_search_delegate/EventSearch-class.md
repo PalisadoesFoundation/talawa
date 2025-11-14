@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [event_search_delegate](../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
+2.  [widgets/event_search_delegate.dart](../widgets_event_search_delegate/)
 3.  EventSearch class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EventSearch
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,11 +41,20 @@ This class returns a list of the events which match the search query.
 
 </div>
 
+<div class="section">
+
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [SearchDelegate](https://api.flutter.dev/flutter/material/SearchDelegate-class.html)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span>
+- EventSearch
+
+</div>
+
 <div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-<span class="name">[EventSearch](../widgets_event_search_delegate/EventSearch/EventSearch.md)</span><span class="signature">(<span id="-param-eventList" class="parameter"></span>)</span>  
+<span class="name">[EventSearch.new](../widgets_event_search_delegate/EventSearch/EventSearch.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -57,7 +62,7 @@ This class returns a list of the events which match the search query.
 
 ## Properties
 
-<span class="name">[autocorrect](../widgets_event_search_delegate/EventSearch/autocorrect.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[autocorrect](https://api.flutter.dev/flutter/material/SearchDelegate/autocorrect.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether to enable autocorrection.
 
 <div class="features">
@@ -66,7 +71,7 @@ Whether to enable autocorrection.
 
 </div>
 
-<span class="name">[automaticallyImplyLeading](../widgets_event_search_delegate/EventSearch/automaticallyImplyLeading.md)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span>  
+<span class="name">[automaticallyImplyLeading](https://api.flutter.dev/flutter/material/SearchDelegate/automaticallyImplyLeading.html)</span> <span class="signature">↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span>  
 Controls whether we should try to imply the leading widget if null.
 
 <div class="features">
@@ -76,7 +81,7 @@ pair</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[enableSuggestions](../widgets_event_search_delegate/EventSearch/enableSuggestions.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[enableSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/enableSuggestions.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether to show input suggestions as the user types.
 
 <div class="features">
@@ -113,7 +118,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[keyboardType](../widgets_event_search_delegate/EventSearch/keyboardType.md)</span> <span class="signature">→ TextInputType?</span>  
+<span class="name">[keyboardType](https://api.flutter.dev/flutter/material/SearchDelegate/keyboardType.html)</span> <span class="signature">→ [TextInputType](https://api.flutter.dev/flutter/services/TextInputType-class.html)?</span>  
 The type of action button to use for the keyboard.
 
 <div class="features">
@@ -122,8 +127,10 @@ The type of action button to use for the keyboard.
 
 </div>
 
-<span class="name">[leadingWidth](../widgets_event_search_delegate/EventSearch/leadingWidth.md)</span> <span class="signature">↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?</span>  
-Defines the width of `AppBar.leading` widget.
+<span class="name">[leadingWidth](https://api.flutter.dev/flutter/material/SearchDelegate/leadingWidth.html)</span> <span class="signature">↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?</span>  
+Defines the width of
+[AppBar.leading](https://api.flutter.dev/flutter/material/AppBar/leading.html)
+widget.
 
 <div class="features">
 
@@ -132,8 +139,9 @@ pair</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[query](../widgets_event_search_delegate/EventSearch/query.md)</span> <span class="signature">↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
-The current query string shown in the `AppBar`.
+<span class="name">[query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)</span> <span class="signature">↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+The current query string shown in the
+[AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
 
 <div class="features">
 
@@ -152,8 +160,10 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[searchFieldDecorationTheme](../widgets_event_search_delegate/EventSearch/searchFieldDecorationTheme.md)</span> <span class="signature">→ InputDecorationTheme?</span>  
-The `InputDecorationTheme` used to configure the search field's visuals.
+<span class="name">[searchFieldDecorationTheme](https://api.flutter.dev/flutter/material/SearchDelegate/searchFieldDecorationTheme.html)</span> <span class="signature">→ [InputDecorationTheme](https://api.flutter.dev/flutter/material/InputDecorationTheme-class.html)?</span>  
+The
+[InputDecorationTheme](https://api.flutter.dev/flutter/material/InputDecorationTheme-class.html)
+used to configure the search field's visuals.
 
 <div class="features">
 
@@ -161,7 +171,7 @@ The `InputDecorationTheme` used to configure the search field's visuals.
 
 </div>
 
-<span class="name">[searchFieldLabel](../widgets_event_search_delegate/EventSearch/searchFieldLabel.md)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
+<span class="name">[searchFieldLabel](https://api.flutter.dev/flutter/material/SearchDelegate/searchFieldLabel.html)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?</span>  
 The hint text that is shown in the search field when it is empty.
 
 <div class="features">
@@ -170,9 +180,9 @@ The hint text that is shown in the search field when it is empty.
 
 </div>
 
-<span class="name">[searchFieldStyle](../widgets_event_search_delegate/EventSearch/searchFieldStyle.md)</span> <span class="signature">→ TextStyle?</span>  
+<span class="name">[searchFieldStyle](https://api.flutter.dev/flutter/material/SearchDelegate/searchFieldStyle.html)</span> <span class="signature">→ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)?</span>  
 The style of the
-[searchFieldLabel](../widgets_event_search_delegate/EventSearch/searchFieldLabel.md).
+[searchFieldLabel](https://api.flutter.dev/flutter/material/SearchDelegate/searchFieldLabel.html).
 
 <div class="features">
 
@@ -180,7 +190,7 @@ The style of the
 
 </div>
 
-<span class="name">[textInputAction](../widgets_event_search_delegate/EventSearch/textInputAction.md)</span> <span class="signature">→ TextInputAction</span>  
+<span class="name">[textInputAction](https://api.flutter.dev/flutter/material/SearchDelegate/textInputAction.html)</span> <span class="signature">→ [TextInputAction](https://api.flutter.dev/flutter/services/TextInputAction.html)</span>  
 The text input action configuring the soft keyboard to a particular
 action button.
 
@@ -190,8 +200,9 @@ action button.
 
 </div>
 
-<span class="name">[transitionAnimation](../widgets_event_search_delegate/EventSearch/transitionAnimation.md)</span> <span class="signature">→ Animation<span class="signature">\<<span class="type-parameter">[double](https://api.flutter.dev/flutter/dart-core/double-class.html)</span>\></span></span>  
-`Animation` triggered when the search pages fades in or out.
+<span class="name">[transitionAnimation](https://api.flutter.dev/flutter/material/SearchDelegate/transitionAnimation.html)</span> <span class="signature">→ [Animation](https://api.flutter.dev/flutter/animation/Animation-class.html)<span class="signature">\<<span class="type-parameter">[double](https://api.flutter.dev/flutter/dart-core/double-class.html)</span>\></span></span>  
+[Animation](https://api.flutter.dev/flutter/animation/Animation-class.html)
+triggered when the search pages fades in or out.
 
 <div class="features">
 
@@ -206,7 +217,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[appBarTheme](../widgets_event_search_delegate/EventSearch/appBarTheme.md)</span><span class="signature">(<span id="appBarTheme-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ ThemeData</span> </span>  
+<span class="name">[appBarTheme](https://api.flutter.dev/flutter/material/SearchDelegate/appBarTheme.html)</span><span class="signature">(<span id="appBarTheme-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)</span> </span>  
 The theme used to configure the search page.
 
 <div class="features">
@@ -215,11 +226,19 @@ The theme used to configure the search page.
 
 </div>
 
-<span class="name">[buildActions](../widgets_event_search_delegate/EventSearch/buildActions.md)</span><span class="signature">(<span id="buildActions-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">Widget</span>\></span></span> </span>  
-Widgets to display after the search query in the `AppBar`.
+<span class="name">[buildActions](../widgets_event_search_delegate/EventSearch/buildActions.md)</span><span class="signature">(<span id="buildActions-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>\></span></span> </span>  
+Widgets to display after the search query in the
+[AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
 
-<span class="name">[buildBottom](../widgets_event_search_delegate/EventSearch/buildBottom.md)</span><span class="signature">(<span id="buildBottom-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ PreferredSizeWidget?</span> </span>  
-Widget to display across the bottom of the `AppBar`.
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[buildBottom](https://api.flutter.dev/flutter/material/SearchDelegate/buildBottom.html)</span><span class="signature">(<span id="buildBottom-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [PreferredSizeWidget](https://api.flutter.dev/flutter/widgets/PreferredSizeWidget-class.html)?</span> </span>  
+Widget to display across the bottom of the
+[AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
 
 <div class="features">
 
@@ -227,8 +246,9 @@ Widget to display across the bottom of the `AppBar`.
 
 </div>
 
-<span class="name">[buildFlexibleSpace](../widgets_event_search_delegate/EventSearch/buildFlexibleSpace.md)</span><span class="signature">(<span id="buildFlexibleSpace-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget?</span> </span>  
-Widget to display a flexible space in the `AppBar`.
+<span class="name">[buildFlexibleSpace](https://api.flutter.dev/flutter/material/SearchDelegate/buildFlexibleSpace.html)</span><span class="signature">(<span id="buildFlexibleSpace-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)?</span> </span>  
+Widget to display a flexible space in the
+[AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
 
 <div class="features">
 
@@ -236,20 +256,39 @@ Widget to display a flexible space in the `AppBar`.
 
 </div>
 
-<span class="name">[buildLeading](../widgets_event_search_delegate/EventSearch/buildLeading.md)</span><span class="signature">(<span id="buildLeading-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
-A widget to display before the current query in the `AppBar`.
+<span class="name">[buildLeading](../widgets_event_search_delegate/EventSearch/buildLeading.md)</span><span class="signature">(<span id="buildLeading-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
+A widget to display before the current query in the
+[AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
 
-<span class="name">[buildResults](../widgets_event_search_delegate/EventSearch/buildResults.md)</span><span class="signature">(<span id="buildResults-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[buildResults](../widgets_event_search_delegate/EventSearch/buildResults.md)</span><span class="signature">(<span id="buildResults-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
 The results shown after the user submits a search from the search page.
 
-<span class="name">[buildSuggestions](../widgets_event_search_delegate/EventSearch/buildSuggestions.md)</span><span class="signature">(<span id="buildSuggestions-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[buildSuggestions](../widgets_event_search_delegate/EventSearch/buildSuggestions.md)</span><span class="signature">(<span id="buildSuggestions-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
 Suggestions shown in the body of the search page while the user types a
 query into the search field.
 
-<span class="name">[buildSuggestionsSucess](../widgets_event_search_delegate/EventSearch/buildSuggestionsSucess.md)</span><span class="signature">(<span id="buildSuggestionsSucess-param-suggestions" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span> <span class="parameter-name">suggestions</span></span>) <span class="returntype parameter">→ Widget</span> </span>  
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[buildSuggestionsSucess](../widgets_event_search_delegate/EventSearch/buildSuggestionsSucess.md)</span><span class="signature">(<span id="buildSuggestionsSucess-param-suggestions" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[Event](../models_events_event_model/Event-class.md)</span>\></span></span> <span class="parameter-name">suggestions</span></span>) <span class="returntype parameter">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span> </span>  
 Builds the suggestion success widget.
 
-<span class="name">[close](../widgets_event_search_delegate/EventSearch/close.md)</span><span class="signature">(<span id="close-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span><span id="close-param-result" class="parameter"><span class="type-annotation">[Event](../models_events_event_model/Event-class.md)</span> <span class="parameter-name">result</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[close](https://api.flutter.dev/flutter/material/SearchDelegate/close.html)</span><span class="signature">(<span id="close-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span>, </span><span id="close-param-result" class="parameter"><span class="type-annotation">[Event](../models_events_event_model/Event-class.md)</span> <span class="parameter-name">result</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Closes the search page and returns to the underlying route.
 
 <div class="features">
@@ -258,7 +297,7 @@ Closes the search page and returns to the underlying route.
 
 </div>
 
-<span class="name">[dispose](../widgets_event_search_delegate/EventSearch/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[dispose](https://api.flutter.dev/flutter/material/SearchDelegate/dispose.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Releases the resources.
 
 <div class="features">
@@ -276,12 +315,13 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[showResults](../widgets_event_search_delegate/EventSearch/showResults.md)</span><span class="signature">(<span id="showResults-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[showResults](https://api.flutter.dev/flutter/material/SearchDelegate/showResults.html)</span><span class="signature">(<span id="showResults-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Transition from the suggestions returned by
-[buildSuggestions](../widgets_event_search_delegate/EventSearch/buildSuggestions.md)
-to the [query](../widgets_event_search_delegate/EventSearch/query.md)
+[buildSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/buildSuggestions.html)
+to the
+[query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)
 results returned by
-[buildResults](../widgets_event_search_delegate/EventSearch/buildResults.md).
+[buildResults](https://api.flutter.dev/flutter/material/SearchDelegate/buildResults.html).
 
 <div class="features">
 
@@ -289,11 +329,11 @@ results returned by
 
 </div>
 
-<span class="name">[showSuggestions](../widgets_event_search_delegate/EventSearch/showSuggestions.md)</span><span class="signature">(<span id="showSuggestions-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[showSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/showSuggestions.html)</span><span class="signature">(<span id="showSuggestions-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Transition from showing the results returned by
-[buildResults](../widgets_event_search_delegate/EventSearch/buildResults.md)
+[buildResults](https://api.flutter.dev/flutter/material/SearchDelegate/buildResults.html)
 to showing the suggestions returned by
-[buildSuggestions](../widgets_event_search_delegate/EventSearch/buildSuggestions.md).
+[buildSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/buildSuggestions.html).
 
 <div class="features">
 
@@ -336,8 +376,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_search_delegate](../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
+2.  [event_search_delegate](../widgets_event_search_delegate/)
 3.  EventSearch class
+
+##### event_search_delegate library
 
 <div id="dartdoc-sidebar-left-content">
 

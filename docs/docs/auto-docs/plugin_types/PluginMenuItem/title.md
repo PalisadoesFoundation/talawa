@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../../plugin_types/)
 3.  [PluginMenuItem](../../plugin_types/PluginMenuItem-class.md)
 4.  title property
 
@@ -18,13 +18,9 @@ title
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final String title;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [types](../../plugin_types/)
 3.  [PluginMenuItem](../../plugin_types/PluginMenuItem-class.md)
 4.  title property
 
 ##### PluginMenuItem class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

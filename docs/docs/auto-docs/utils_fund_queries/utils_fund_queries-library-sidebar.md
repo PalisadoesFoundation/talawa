@@ -1,2 +1,2 @@
-1.  [Classes](./utils_fund_queries-library#classes.md)
+1.  [Classes](./#classes)
 2.  [FundQueries](./FundQueries-class.md)

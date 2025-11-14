@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [add_members_bottom_sheet](../../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.md)
+2.  [widgets/add_members_bottom_sheet.dart](../../widgets_add_members_bottom_sheet/)
 3.  [EventBottomSheet](../../widgets_add_members_bottom_sheet/EventBottomSheet-class.md)
 4.  addUserBottomSheet method
 
@@ -18,13 +18,9 @@ addUserBottomSheet
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -43,12 +39,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">void</span>
-<span class="name">addUserBottomSheet</span>(
-
-1.  <span id="addUserBottomSheet-param-context"
-    class="parameter"></span>
-
-)
+<span class="name">addUserBottomSheet</span>
 
 </div>
 
@@ -84,11 +75,15 @@ void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [add_members_bottom_sheet](../../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.md)
+2.  [add_members_bottom_sheet](../../widgets_add_members_bottom_sheet/)
 3.  [EventBottomSheet](../../widgets_add_members_bottom_sheet/EventBottomSheet-class.md)
 4.  addUserBottomSheet method
 
 ##### EventBottomSheet class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

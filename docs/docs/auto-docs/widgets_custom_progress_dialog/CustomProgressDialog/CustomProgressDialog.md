@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [custom_progress_dialog](../../widgets_custom_progress_dialog/widgets_custom_progress_dialog-library.md)
+2.  [widgets/custom_progress_dialog.dart](../../widgets_custom_progress_dialog/)
 3.  [CustomProgressDialog](../../widgets_custom_progress_dialog/CustomProgressDialog-class.md)
-4.  CustomProgressDialog const constructor
+4.  CustomProgressDialog.new const constructor
 
 <div class="self-name">
 
-CustomProgressDialog
+CustomProgressDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CustomProgressDialog</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">CustomProgressDialog</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">CustomProgressDialog</span>(
 ## Implementation
 
 ``` language-dart
-const CustomProgressDialog
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const CustomProgressDialog
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_progress_dialog](../../widgets_custom_progress_dialog/widgets_custom_progress_dialog-library.md)
+2.  [custom_progress_dialog](../../widgets_custom_progress_dialog/)
 3.  [CustomProgressDialog](../../widgets_custom_progress_dialog/CustomProgressDialog-class.md)
-4.  CustomProgressDialog const constructor
+4.  CustomProgressDialog.new const constructor
 
 ##### CustomProgressDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [access_request_view_model](../../view_model_access_request_view_model/view_model_access_request_view_model-library.md)
+2.  [view_model/access_request_view_model.dart](../../view_model_access_request_view_model/)
 3.  [AccessScreenViewModel](../../view_model_access_request_view_model/AccessScreenViewModel-class.md)
 4.  optionalMessageController property
 
@@ -18,13 +18,9 @@ optionalMessageController
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-TextEditingController
+[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
 <span class="name">optionalMessageController</span>
 
 <div class="features">
@@ -78,11 +74,15 @@ final optionalMessageController = ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [access_request_view_model](../../view_model_access_request_view_model/view_model_access_request_view_model-library.md)
+2.  [access_request_view_model](../../view_model_access_request_view_model/)
 3.  [AccessScreenViewModel](../../view_model_access_request_view_model/AccessScreenViewModel-class.md)
 4.  optionalMessageController property
 
 ##### AccessScreenViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

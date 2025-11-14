@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../plugin_types/)
 3.  PluginMenuItem class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ PluginMenuItem
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ A simple menu item contribution for Menu page.
 
 ## Constructors
 
-<span class="name">[PluginMenuItem](../plugin_types/PluginMenuItem/PluginMenuItem.md)</span><span class="signature">(<span id="-param-title" class="parameter"></span>)</span>  
+<span class="name">[PluginMenuItem.new](../plugin_types/PluginMenuItem/PluginMenuItem.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const
@@ -72,7 +68,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[icon](../plugin_types/PluginMenuItem/icon.md)</span> <span class="signature">→ IconData</span>  
+<span class="name">[icon](../plugin_types/PluginMenuItem/icon.md)</span> <span class="signature">→ [IconData](https://api.flutter.dev/flutter/widgets/IconData-class.html)</span>  
 Icon to display.
 
 <div class="features">
@@ -169,8 +165,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [types](../plugin_types/)
 3.  PluginMenuItem class
+
+##### types library
 
 <div id="dartdoc-sidebar-left-content">
 

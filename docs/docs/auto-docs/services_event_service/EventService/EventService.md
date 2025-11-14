@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_service](../../services_event_service/services_event_service-library.md)
+2.  [services/event_service.dart](../../services_event_service/)
 3.  [EventService](../../services_event_service/EventService-class.md)
-4.  EventService constructor
+4.  EventService.new constructor
 
 <div class="self-name">
 
-EventService
+EventService.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-EventService
+ : super(HiveKeys.eventFeedKey) 
 ```
 
 </div>
@@ -65,11 +61,15 @@ EventService
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_service](../../services_event_service/services_event_service-library.md)
+2.  [event_service](../../services_event_service/)
 3.  [EventService](../../services_event_service/EventService-class.md)
-4.  EventService constructor
+4.  EventService.new constructor
 
 ##### EventService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [group_member_selector](../../views_after_auth_screens_chat_widgets_group_member_selector/views_after_auth_screens_chat_widgets_group_member_selector-library.md)
+2.  [views/after_auth_screens/chat/widgets/group_member_selector.dart](../../views_after_auth_screens_chat_widgets_group_member_selector/)
 3.  [GroupMemberSelector](../../views_after_auth_screens_chat_widgets_group_member_selector/GroupMemberSelector-class.md)
-4.  GroupMemberSelector const constructor
+4.  GroupMemberSelector.new const constructor
 
 <div class="self-name">
 
-GroupMemberSelector
+GroupMemberSelector.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">GroupMemberSelector</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">GroupMemberSelector</span>
 
 </div>
 
@@ -62,7 +53,7 @@ Creates a GroupMemberSelector widget.
 ## Implementation
 
 ``` language-dart
-const GroupMemberSelector
+const ;
 ```
 
 </div>
@@ -76,11 +67,15 @@ const GroupMemberSelector
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_member_selector](../../views_after_auth_screens_chat_widgets_group_member_selector/views_after_auth_screens_chat_widgets_group_member_selector-library.md)
+2.  [group_member_selector](../../views_after_auth_screens_chat_widgets_group_member_selector/)
 3.  [GroupMemberSelector](../../views_after_auth_screens_chat_widgets_group_member_selector/GroupMemberSelector-class.md)
-4.  GroupMemberSelector const constructor
+4.  GroupMemberSelector.new const constructor
 
 ##### GroupMemberSelector class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

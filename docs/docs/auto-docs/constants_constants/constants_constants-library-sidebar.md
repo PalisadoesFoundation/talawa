@@ -1,5 +1,5 @@
-1.  [Classes](./constants_constants-library#classes.md)
+1.  [Classes](./#classes)
 2.  [HiveKeys](./HiveKeys-class.md)
-3.  [Properties](./constants_constants-library#properties.md)
+3.  [Properties](./#properties)
 4.  [languages](./languages.md)
 5.  [supportedCurrencies](./supportedCurrencies.md)

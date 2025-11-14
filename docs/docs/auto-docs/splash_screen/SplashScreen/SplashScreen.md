@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [splash_screen](../../splash_screen/splash_screen-library.md)
+2.  [splash_screen.dart](../../splash_screen/)
 3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
-4.  SplashScreen const constructor
+4.  SplashScreen.new const constructor
 
 <div class="self-name">
 
-SplashScreen
+SplashScreen.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">SplashScreen</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">SplashScreen</span>
 
 </div>
 
@@ -55,7 +47,8 @@ const <span class="name">SplashScreen</span>(
 ## Implementation
 
 ``` language-dart
-const SplashScreen
+const 
+    : super(key: key);
 ```
 
 </div>
@@ -69,11 +62,15 @@ const SplashScreen
 </div>
 
 1.  [talawa](../../index.md)
-2.  [splash_screen](../../splash_screen/splash_screen-library.md)
+2.  [splash_screen](../../splash_screen/)
 3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
-4.  SplashScreen const constructor
+4.  SplashScreen.new const constructor
 
 ##### SplashScreen class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

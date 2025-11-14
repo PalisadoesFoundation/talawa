@@ -1,5 +1,5 @@
 1.  [Constructors](./PostQueries-class#constructors.md)
-2.  [PostQueries](./PostQueries/PostQueries.md)
+2.  [new](./PostQueries/PostQueries.md)
 3.  [Properties](./PostQueries-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

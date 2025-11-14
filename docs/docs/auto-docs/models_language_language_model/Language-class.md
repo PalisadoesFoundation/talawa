@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [language_model](../models_language_language_model/models_language_language_model-library.md)
+2.  [models/language/language_model.dart](../models_language_language_model/)
 3.  Language class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ Language
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ This class creates an langauge model.
 
 ## Constructors
 
-<span class="name">[Language](../models_language_language_model/Language/Language.md)</span><span class="signature">(<span id="-param-countryCode" class="parameter"></span>)</span>  
+<span class="name">[Language.new](../models_language_language_model/Language/Language.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -156,8 +152,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [language_model](../models_language_language_model/models_language_language_model-library.md)
+2.  [language_model](../models_language_language_model/)
 3.  Language class
+
+##### language_model library
 
 <div id="dartdoc-sidebar-left-content">
 

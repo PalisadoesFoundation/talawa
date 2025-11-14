@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [user_config](../services_user_config/services_user_config-library.md)
+2.  [services/user_config.dart](../services_user_config/)
 3.  UserConfig class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ UserConfig
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -61,7 +57,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[UserConfig](../services_user_config/UserConfig/UserConfig.md)</span><span class="signature"></span>  
+<span class="name">[UserConfig.new](../services_user_config/UserConfig/UserConfig.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -87,7 +83,7 @@ Retrieves the stream controller for current organization information.
 
 </div>
 
-<span class="name">[currentOrgInfoStream](../services_user_config/UserConfig/currentOrgInfoStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span>  
+<span class="name">[currentOrgInfoStream](../services_user_config/UserConfig/currentOrgInfoStream.md)</span> <span class="signature">→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span>  
 Retrieves the stream of current organization information.
 
 <div class="features">
@@ -161,7 +157,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[performLogout](../services_user_config/UserConfig/performLogout.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
+<span class="name">[performLogout](../services_user_config/UserConfig/performLogout.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[QueryResult](https://pub.dev/documentation/graphql/5.2.1/graphql/QueryResult-class.html)<span class="signature">\<<span class="type-parameter">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?</span>\></span></span>\></span></span> </span>  
 Performs client-side logout
 
 <span class="name">[saveCurrentOrgInHive](../services_user_config/UserConfig/saveCurrentOrgInHive.md)</span><span class="signature">(<span id="saveCurrentOrgInHive-param-saveOrgAsCurrent" class="parameter"><span class="type-annotation">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span> <span class="parameter-name">saveOrgAsCurrent</span></span>) <span class="returntype parameter">→ void</span> </span>  
@@ -179,28 +175,28 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[updateAccessToken](../services_user_config/UserConfig/updateAccessToken.md)</span><span class="signature">(<span id="updateAccessToken-param-accessToken" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateAccessToken](../services_user_config/UserConfig/updateAccessToken.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Updates the access token of the user.
 
-<span class="name">[updateUser](../services_user_config/UserConfig/updateUser.md)</span><span class="signature">(<span id="updateUser-param-updatedUserDetails" class="parameter"><span class="type-annotation">[User](../models_user_user_info/User-class.md)</span> <span class="parameter-name">updatedUserDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[updateUser](../services_user_config/UserConfig/updateUser.md)</span><span class="signature">(<span id="updateUser-param-updatedUserDetails" class="parameter"><span class="type-annotation">[User](../models_user_user_info/User-class.md)</span> <span class="parameter-name">updatedUserDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Updates the user details.
 
-<span class="name">[updateUserAdminOrg](../services_user_config/UserConfig/updateUserAdminOrg.md)</span><span class="signature">(<span id="updateUserAdminOrg-param-orgDetails" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateUserAdminOrg](../services_user_config/UserConfig/updateUserAdminOrg.md)</span><span class="signature">(<span id="updateUserAdminOrg-param-orgDetails" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Updates the organization admin.
 
-<span class="name">[updateUserCreatedOrg](../services_user_config/UserConfig/updateUserCreatedOrg.md)</span><span class="signature">(<span id="updateUserCreatedOrg-param-orgDetails" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateUserCreatedOrg](../services_user_config/UserConfig/updateUserCreatedOrg.md)</span><span class="signature">(<span id="updateUserCreatedOrg-param-orgDetails" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Updates the user created organization.
 
-<span class="name">[updateUserJoinedOrg](../services_user_config/UserConfig/updateUserJoinedOrg.md)</span><span class="signature">(<span id="updateUserJoinedOrg-param-orgDetails" class="parameter"><span class="type-annotation">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateUserJoinedOrg](../services_user_config/UserConfig/updateUserJoinedOrg.md)</span><span class="signature">(<span id="updateUserJoinedOrg-param-orgDetails" class="parameter"><span class="type-annotation">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Updates the user joined organization.
 
-<span class="name">[updateUserMemberRequestOrg](../services_user_config/UserConfig/updateUserMemberRequestOrg.md)</span><span class="signature">(<span id="updateUserMemberRequestOrg-param-orgDetails" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[updateUserMemberRequestOrg](../services_user_config/UserConfig/updateUserMemberRequestOrg.md)</span><span class="signature">(<span id="updateUserMemberRequestOrg-param-orgDetails" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span>\></span></span> <span class="parameter-name">orgDetails</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Updates the user request to join the organization.
 
-<span class="name">[userLoggedIn](../services_user_config/UserConfig/userLoggedIn.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[userLoggedIn](../services_user_config/UserConfig/userLoggedIn.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 This function is used to log in the user.
 
-<span class="name">[userLogOut](../services_user_config/UserConfig/userLogOut.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[userLogOut](../services_user_config/UserConfig/userLogOut.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Logs out the current user.
 
 </div>
@@ -229,8 +225,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [user_config](../services_user_config/services_user_config-library.md)
+2.  [user_config](../services_user_config/)
 3.  UserConfig class
+
+##### user_config library
 
 <div id="dartdoc-sidebar-left-content">
 

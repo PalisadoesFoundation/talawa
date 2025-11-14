@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [create_group_bottom_sheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/views_after_auth_screens_chat_create_group_bottom_sheet-library.md)
+2.  [views/after_auth_screens/chat/create_group_bottom_sheet.dart](../../views_after_auth_screens_chat_create_group_bottom_sheet/)
 3.  [CreateGroupBottomSheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/CreateGroupBottomSheet-class.md)
-4.  CreateGroupBottomSheet const constructor
+4.  CreateGroupBottomSheet.new const constructor
 
 <div class="self-name">
 
-CreateGroupBottomSheet
+CreateGroupBottomSheet.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CreateGroupBottomSheet</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">CreateGroupBottomSheet</span>
 
 </div>
 
@@ -62,7 +53,7 @@ Creates a CreateGroupBottomSheet widget.
 ## Implementation
 
 ``` language-dart
-const CreateGroupBottomSheet
+const ;
 ```
 
 </div>
@@ -76,11 +67,15 @@ const CreateGroupBottomSheet
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_group_bottom_sheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/views_after_auth_screens_chat_create_group_bottom_sheet-library.md)
+2.  [create_group_bottom_sheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/)
 3.  [CreateGroupBottomSheet](../../views_after_auth_screens_chat_create_group_bottom_sheet/CreateGroupBottomSheet-class.md)
-4.  CreateGroupBottomSheet const constructor
+4.  CreateGroupBottomSheet.new const constructor
 
 ##### CreateGroupBottomSheet class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

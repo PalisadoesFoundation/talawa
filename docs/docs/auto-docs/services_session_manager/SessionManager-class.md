@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [session_manager](../services_session_manager/services_session_manager-library.md)
+2.  [services/session_manager.dart](../services_session_manager/)
 3.  SessionManager class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ SessionManager
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Manages user sessions and periodically refreshes access tokens.
 
 ## Constructors
 
-<span class="name">[SessionManager](../services_session_manager/SessionManager/SessionManager.md)</span><span class="signature"></span>  
+<span class="name">[SessionManager.new](../services_session_manager/SessionManager/SessionManager.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -104,7 +100,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[refreshSession](../services_session_manager/SessionManager/refreshSession.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[refreshSession](../services_session_manager/SessionManager/refreshSession.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Asynchronously refreshes the user session.
 
 <span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -142,8 +138,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [session_manager](../services_session_manager/services_session_manager-library.md)
+2.  [session_manager](../services_session_manager/)
 3.  SessionManager class
+
+##### session_manager library
 
 <div id="dartdoc-sidebar-left-content">
 

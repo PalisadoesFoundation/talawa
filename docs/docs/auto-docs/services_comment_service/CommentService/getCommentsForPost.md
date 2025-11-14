@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [comment_service](../../services_comment_service/services_comment_service-library.md)
+2.  [services/comment_service.dart](../../services_comment_service/)
 3.  [CommentService](../../services_comment_service/CommentService-class.md)
 4.  getCommentsForPost method
 
@@ -18,13 +18,9 @@ getCommentsForPost
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,14 +38,9 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>,
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>,
 <span class="type-parameter">dynamic</span>\></span></span>\></span></span>
-<span class="name">getCommentsForPost</span>(
-
-1.  <span id="getCommentsForPost-param-postId"
-    class="parameter"></span>
-
-)
+<span class="name">getCommentsForPost</span>
 
 </div>
 
@@ -93,11 +84,15 @@ Future<Map<String, dynamic>>  async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [comment_service](../../services_comment_service/services_comment_service-library.md)
+2.  [comment_service](../../services_comment_service/)
 3.  [CommentService](../../services_comment_service/CommentService-class.md)
 4.  getCommentsForPost method
 
 ##### CommentService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [invite_child](../widgets_invite_child/widgets_invite_child-library.md)
+2.  [widgets/invite_child.dart](../widgets_invite_child/)
 3.  iconButton function
 
 <div class="self-name">
@@ -17,13 +17,9 @@ iconButton
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -41,20 +37,18 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">Widget</span>
+<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
 <span class="name">iconButton</span>(
 
 1.  <span id="iconButton-param-key"
     class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span>
     <span class="parameter-name">key</span>, </span>
 2.  <span id="iconButton-param-icon"
-    class="parameter"><span class="type-annotation">Widget</span>
+    class="parameter"><span class="type-annotation">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
     <span class="parameter-name">icon</span>, </span>
 3.  <span id="iconButton-param-onTap"
     class="parameter"><span class="type-annotation">void</span>
-    <span class="parameter-name">onTap</span>(</span>
-
-    )
+    <span class="parameter-name">onTap</span></span>
 
 )
 
@@ -96,10 +90,14 @@ Widget iconButton(String key, Widget icon, void  onTap)
 </div>
 
 1.  [talawa](../index.md)
-2.  [invite_child](../widgets_invite_child/widgets_invite_child-library.md)
+2.  [invite_child](../widgets_invite_child/)
 3.  iconButton function
 
 ##### invite_child library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/widgets_update_pledge_dialogue_box-library.md)
+2.  [widgets/update_pledge_dialogue_box.dart](../../widgets_update_pledge_dialogue_box/)
 3.  [UpdatePledgeDialog](../../widgets_update_pledge_dialogue_box/UpdatePledgeDialog-class.md)
-4.  UpdatePledgeDialog const constructor
+4.  UpdatePledgeDialog.new const constructor
 
 <div class="self-name">
 
-UpdatePledgeDialog
+UpdatePledgeDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">UpdatePledgeDialog</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">UpdatePledgeDialog</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">UpdatePledgeDialog</span>(
 ## Implementation
 
 ``` language-dart
-const UpdatePledgeDialog
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const UpdatePledgeDialog
 </div>
 
 1.  [talawa](../../index.md)
-2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/widgets_update_pledge_dialogue_box-library.md)
+2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/)
 3.  [UpdatePledgeDialog](../../widgets_update_pledge_dialogue_box/UpdatePledgeDialog-class.md)
-4.  UpdatePledgeDialog const constructor
+4.  UpdatePledgeDialog.new const constructor
 
 ##### UpdatePledgeDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

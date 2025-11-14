@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [options](../../models_options_options/models_options_options-library.md)
+2.  [models/options/options.dart](../../models_options_options/)
 3.  [Options](../../models_options_options/Options-class.md)
-4.  Options constructor
+4.  Options.new constructor
 
 <div class="self-name">
 
-Options
+Options.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">Options</span>(
-
-1.  <span id="-param-icon" class="parameter"></span>
-
-)
+<span class="name">Options</span>
 
 </div>
 
@@ -55,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-Options
+;
 ```
 
 </div>
@@ -69,11 +61,15 @@ Options
 </div>
 
 1.  [talawa](../../index.md)
-2.  [options](../../models_options_options/models_options_options-library.md)
+2.  [options](../../models_options_options/)
 3.  [Options](../../models_options_options/Options-class.md)
-4.  Options constructor
+4.  Options.new constructor
 
 ##### Options class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

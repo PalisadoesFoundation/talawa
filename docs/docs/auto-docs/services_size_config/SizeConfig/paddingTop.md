@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [size_config](../../services_size_config/services_size_config-library.md)
+2.  [services/size_config.dart](../../services_size_config/)
 3.  [SizeConfig](../../services_size_config/SizeConfig-class.md)
 4.  paddingTop property
 
@@ -18,13 +18,9 @@ paddingTop
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -72,11 +68,15 @@ static double? paddingTop;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [size_config](../../services_size_config/services_size_config-library.md)
+2.  [size_config](../../services_size_config/)
 3.  [SizeConfig](../../services_size_config/SizeConfig-class.md)
 4.  paddingTop property
 
 ##### SizeConfig class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

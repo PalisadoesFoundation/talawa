@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [hive_manager](../../services_hive_manager/services_hive_manager-library.md)
+2.  [services/hive_manager.dart](../../services_hive_manager/)
 3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
 4.  openBox\<<span class="type-parameter">T</span>\> static method
 
@@ -18,13 +18,9 @@ openBox
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
 <span class="name">openBox</span>\<<span class="type-parameter">T</span>\>(
 
 1.  <span id="openBox-param-boxName"
@@ -84,11 +80,15 @@ static Future<void> openBox<T>(String boxName) async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [hive_manager](../../services_hive_manager/services_hive_manager-library.md)
+2.  [hive_manager](../../services_hive_manager/)
 3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
 4.  openBox\<<span class="type-parameter">T</span>\> static method
 
 ##### HiveManager class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

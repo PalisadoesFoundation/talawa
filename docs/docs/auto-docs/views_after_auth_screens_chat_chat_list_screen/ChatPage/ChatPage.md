@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_list_screen](../../views_after_auth_screens_chat_chat_list_screen/views_after_auth_screens_chat_chat_list_screen-library.md)
+2.  [views/after_auth_screens/chat/chat_list_screen.dart](../../views_after_auth_screens_chat_chat_list_screen/)
 3.  [ChatPage](../../views_after_auth_screens_chat_chat_list_screen/ChatPage-class.md)
-4.  ChatPage const constructor
+4.  ChatPage.new const constructor
 
 <div class="self-name">
 
-ChatPage
+ChatPage.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">ChatPage</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">ChatPage</span>
 
 </div>
 
@@ -62,7 +53,7 @@ Creates a ChatPage widget.
 ## Implementation
 
 ``` language-dart
-const ChatPage
+const ;
 ```
 
 </div>
@@ -76,11 +67,15 @@ const ChatPage
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_list_screen](../../views_after_auth_screens_chat_chat_list_screen/views_after_auth_screens_chat_chat_list_screen-library.md)
+2.  [chat_list_screen](../../views_after_auth_screens_chat_chat_list_screen/)
 3.  [ChatPage](../../views_after_auth_screens_chat_chat_list_screen/ChatPage-class.md)
-4.  ChatPage const constructor
+4.  ChatPage.new const constructor
 
 ##### ChatPage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

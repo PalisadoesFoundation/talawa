@@ -1,2 +1,2 @@
-1.  [Classes](./constants_custom_theme-library#classes.md)
+1.  [Classes](./#classes)
 2.  [TalawaTheme](./TalawaTheme-class.md)

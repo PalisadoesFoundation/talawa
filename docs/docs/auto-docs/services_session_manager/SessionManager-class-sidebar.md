@@ -1,5 +1,5 @@
 1.  [Constructors](./SessionManager-class#constructors.md)
-2.  [SessionManager](./SessionManager/SessionManager.md)
+2.  [new](./SessionManager/SessionManager.md)
 3.  [Properties](./SessionManager-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [refreshInterval](./SessionManager/refreshInterval.md)

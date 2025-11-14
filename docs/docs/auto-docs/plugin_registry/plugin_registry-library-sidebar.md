@@ -1,2 +1,2 @@
-1.  [Classes](./plugin_registry-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PluginRegistry](./PluginRegistry-class.md)

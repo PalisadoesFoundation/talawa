@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
+2.  [exceptions/graphql_exception_resolver.dart](../../exceptions_graphql_exception_resolver/)
 3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
 4.  encounteredExceptionOrError static method
 
@@ -18,13 +18,9 @@ encounteredExceptionOrError
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -47,11 +43,7 @@ below-sidebar="">
 
 1.  <span id="encounteredExceptionOrError-param-exception"
     class="parameter"><span class="type-annotation">[OperationException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException-class.md)</span>
-    <span class="parameter-name">exception</span>, </span>
-2.  <span id="encounteredExceptionOrError-param-showSnackBar"
-    class="parameter"></span>
-
-)
+    <span class="parameter-name">exception</span>, )
 
 </div>
 
@@ -93,11 +85,15 @@ static bool? encounteredExceptionOrError(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/exceptions_graphql_exception_resolver-library.md)
+2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/)
 3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
 4.  encounteredExceptionOrError static method
 
 ##### GraphqlExceptionResolver class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

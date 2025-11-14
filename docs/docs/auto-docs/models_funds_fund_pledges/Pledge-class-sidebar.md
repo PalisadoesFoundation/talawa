@@ -1,5 +1,5 @@
 1.  [Constructors](./Pledge-class#constructors.md)
-2.  [Pledge](./Pledge/Pledge.md)
+2.  [new](./Pledge/Pledge.md)
 3.  [fromJson](./Pledge/Pledge.fromJson.md)
 4.  [Properties](./Pledge-class#instance-properties.md)
 5.  [amount](./Pledge/amount.md)

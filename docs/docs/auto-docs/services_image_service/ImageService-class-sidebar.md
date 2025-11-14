@@ -1,5 +1,5 @@
 1.  [Constructors](./ImageService-class#constructors.md)
-2.  [ImageService](./ImageService/ImageService.md)
+2.  [new](./ImageService/ImageService.md)
 3.  [Properties](./ImageService-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

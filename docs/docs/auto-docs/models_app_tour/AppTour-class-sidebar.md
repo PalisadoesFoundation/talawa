@@ -1,5 +1,5 @@
 1.  [Constructors](./AppTour-class#constructors.md)
-2.  [AppTour](./AppTour/AppTour.md)
+2.  [new](./AppTour/AppTour.md)
 3.  [Properties](./AppTour-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [model](./AppTour/model.md)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [individual_post](../../views_after_auth_screens_feed_individual_post/views_after_auth_screens_feed_individual_post-library.md)
+2.  [views/after_auth_screens/feed/individual_post.dart](../../views_after_auth_screens_feed_individual_post/)
 3.  [CommentTemplate](../../views_after_auth_screens_feed_individual_post/CommentTemplate-class.md)
 4.  comment property
 
@@ -18,13 +18,9 @@ comment
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final Comment comment;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [individual_post](../../views_after_auth_screens_feed_individual_post/views_after_auth_screens_feed_individual_post-library.md)
+2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
 3.  [CommentTemplate](../../views_after_auth_screens_feed_individual_post/CommentTemplate-class.md)
 4.  comment property
 
 ##### CommentTemplate class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [interactions_view_model](../../view_model_widgets_view_models_interactions_view_model/view_model_widgets_view_models_interactions_view_model-library.md)
+2.  [view_model/widgets_view_models/interactions_view_model.dart](../../view_model_widgets_view_models_interactions_view_model/)
 3.  [InteractionsViewModel](../../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel-class.md)
 4.  postID property
 
@@ -18,13 +18,9 @@ postID
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,7 +41,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>
-<span class="name">postID</span>
+get <span class="name">postID</span>
 
 </div>
 
@@ -76,11 +72,15 @@ String get postID => _postID ?? '';
 </div>
 
 1.  [talawa](../../index.md)
-2.  [interactions_view_model](../../view_model_widgets_view_models_interactions_view_model/view_model_widgets_view_models_interactions_view_model-library.md)
+2.  [interactions_view_model](../../view_model_widgets_view_models_interactions_view_model/)
 3.  [InteractionsViewModel](../../view_model_widgets_view_models_interactions_view_model/InteractionsViewModel-class.md)
 4.  postID property
 
 ##### InteractionsViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [post_service](../../services_post_service/services_post_service-library.md)
+2.  [services/post_service.dart](../../services_post_service/)
 3.  [PostService](../../services_post_service/PostService-class.md)
 4.  last property
 
@@ -18,13 +18,9 @@ last
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -79,11 +75,15 @@ int? last;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [post_service](../../services_post_service/services_post_service-library.md)
+2.  [post_service](../../services_post_service/)
 3.  [PostService](../../services_post_service/PostService-class.md)
 4.  last property
 
 ##### PostService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

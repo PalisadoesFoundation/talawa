@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [whatsapp_logo](../custom_painters_whatsapp_logo/custom_painters_whatsapp_logo-library.md)
+2.  [custom_painters/whatsapp_logo.dart](../custom_painters_whatsapp_logo/)
 3.  WhatsappLogo class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ WhatsappLogo
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -48,11 +44,21 @@ canvas to draw different shapes.
 
 </div>
 
+<div class="section">
+
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [Listenable](https://api.flutter.dev/flutter/foundation/Listenable-class.html)
+- [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)
+- WhatsappLogo
+
+</div>
+
 <div id="constructors" class="section summary offset-anchor">
 
 ## Constructors
 
-<span class="name">[WhatsappLogo](../custom_painters_whatsapp_logo/WhatsappLogo/WhatsappLogo.md)</span><span class="signature"></span>  
+<span class="name">[WhatsappLogo.new](../custom_painters_whatsapp_logo/WhatsappLogo/WhatsappLogo.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -81,7 +87,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[semanticsBuilder](../custom_painters_whatsapp_logo/WhatsappLogo/semanticsBuilder.md)</span> <span class="signature">→ SemanticsBuilderCallback?</span>  
+<span class="name">[semanticsBuilder](https://api.flutter.dev/flutter/rendering/CustomPainter/semanticsBuilder.html)</span> <span class="signature">→ [SemanticsBuilderCallback](https://api.flutter.dev/flutter/rendering/SemanticsBuilderCallback.html)?</span>  
 Returns a function that builds semantic information for the picture
 drawn by this painter.
 
@@ -98,7 +104,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[addListener](../custom_painters_whatsapp_logo/WhatsappLogo/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](https://api.flutter.dev/flutter/rendering/CustomPainter/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be notified when it is time to repaint.
 
 <div class="features">
@@ -107,7 +113,7 @@ Register a closure to be notified when it is time to repaint.
 
 </div>
 
-<span class="name">[hitTest](../custom_painters_whatsapp_logo/WhatsappLogo/hitTest.md)</span><span class="signature">(<span id="hitTest-param-position" class="parameter"><span class="type-annotation">[Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.md)</span> <span class="parameter-name">position</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span> </span>  
+<span class="name">[hitTest](https://api.flutter.dev/flutter/rendering/CustomPainter/hitTest.html)</span><span class="signature">(<span id="hitTest-param-position" class="parameter"><span class="type-annotation">[Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.md)</span> <span class="parameter-name">position</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?</span> </span>  
 Called whenever a hit test is being performed on an object that is using
 this custom paint delegate.
 
@@ -132,7 +138,13 @@ Called whenever the object needs to paint. The given
 its coordinate space configured such that the origin is at the top left
 of the box. The area of the box is the size of the `size` argument.
 
-<span class="name">[removeListener](../custom_painters_whatsapp_logo/WhatsappLogo/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[removeListener](https://api.flutter.dev/flutter/rendering/CustomPainter/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 the object notifies when it is time to repaint.
 
@@ -142,12 +154,15 @@ the object notifies when it is time to repaint.
 
 </div>
 
-<span class="name">[shouldRebuildSemantics](../custom_painters_whatsapp_logo/WhatsappLogo/shouldRebuildSemantics.md)</span><span class="signature">(<span id="shouldRebuildSemantics-param-oldDelegate" class="parameter">covariant <span class="type-annotation">CustomPainter</span> <span class="parameter-name">oldDelegate</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+<span class="name">[shouldRebuildSemantics](https://api.flutter.dev/flutter/rendering/CustomPainter/shouldRebuildSemantics.html)</span><span class="signature">(<span id="shouldRebuildSemantics-param-oldDelegate" class="parameter">covariant <span class="type-annotation">[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)</span> <span class="parameter-name">oldDelegate</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
 Called whenever a new instance of the custom painter delegate class is
-provided to the `RenderCustomPaint` object, or any time that a new
-`CustomPaint` object is created with a new instance of the custom
-painter delegate class (which amounts to the same thing, because the
-latter is implemented in terms of the former).
+provided to the
+[RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
+object, or any time that a new
+[CustomPaint](https://api.flutter.dev/flutter/widgets/CustomPaint-class.html)
+object is created with a new instance of the custom painter delegate
+class (which amounts to the same thing, because the latter is
+implemented in terms of the former).
 
 <div class="features">
 
@@ -155,14 +170,23 @@ latter is implemented in terms of the former).
 
 </div>
 
-<span class="name">[shouldRepaint](../custom_painters_whatsapp_logo/WhatsappLogo/shouldRepaint.md)</span><span class="signature">(<span id="shouldRepaint-param-oldDelegate" class="parameter">covariant <span class="type-annotation">CustomPainter</span> <span class="parameter-name">oldDelegate</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+<span class="name">[shouldRepaint](../custom_painters_whatsapp_logo/WhatsappLogo/shouldRepaint.md)</span><span class="signature">(<span id="shouldRepaint-param-oldDelegate" class="parameter">covariant <span class="type-annotation">[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)</span> <span class="parameter-name">oldDelegate</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
 Called whenever a new instance of the custom painter delegate class is
-provided to the `RenderCustomPaint` object, or any time that a new
-`CustomPaint` object is created with a new instance of the custom
-painter delegate class (which amounts to the same thing, because the
-latter is implemented in terms of the former).
+provided to the
+[RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
+object, or any time that a new
+[CustomPaint](https://api.flutter.dev/flutter/widgets/CustomPaint-class.html)
+object is created with a new instance of the custom painter delegate
+class (which amounts to the same thing, because the latter is
+implemented in terms of the former).
 
-<span class="name">[toString](../custom_painters_whatsapp_logo/WhatsappLogo/toString.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[toString](https://api.flutter.dev/flutter/rendering/CustomPainter/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 A string representation of this object.
 
 <div class="features">
@@ -197,8 +221,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [whatsapp_logo](../custom_painters_whatsapp_logo/custom_painters_whatsapp_logo-library.md)
+2.  [whatsapp_logo](../custom_painters_whatsapp_logo/)
 3.  WhatsappLogo class
+
+##### whatsapp_logo library
 
 <div id="dartdoc-sidebar-left-content">
 

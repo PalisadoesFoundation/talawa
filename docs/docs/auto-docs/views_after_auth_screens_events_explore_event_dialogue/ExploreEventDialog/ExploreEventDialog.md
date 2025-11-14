@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [explore_event_dialogue](../../views_after_auth_screens_events_explore_event_dialogue/views_after_auth_screens_events_explore_event_dialogue-library.md)
+2.  [views/after_auth_screens/events/explore_event_dialogue.dart](../../views_after_auth_screens_events_explore_event_dialogue/)
 3.  [ExploreEventDialog](../../views_after_auth_screens_events_explore_event_dialogue/ExploreEventDialog-class.md)
-4.  ExploreEventDialog const constructor
+4.  ExploreEventDialog.new const constructor
 
 <div class="self-name">
 
-ExploreEventDialog
+ExploreEventDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">ExploreEventDialog</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">ExploreEventDialog</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">ExploreEventDialog</span>(
 ## Implementation
 
 ``` language-dart
-const ExploreEventDialog
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const ExploreEventDialog
 </div>
 
 1.  [talawa](../../index.md)
-2.  [explore_event_dialogue](../../views_after_auth_screens_events_explore_event_dialogue/views_after_auth_screens_events_explore_event_dialogue-library.md)
+2.  [explore_event_dialogue](../../views_after_auth_screens_events_explore_event_dialogue/)
 3.  [ExploreEventDialog](../../views_after_auth_screens_events_explore_event_dialogue/ExploreEventDialog-class.md)
-4.  ExploreEventDialog const constructor
+4.  ExploreEventDialog.new const constructor
 
 ##### ExploreEventDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [cache_service](../../services_caching_cache_service/services_caching_cache_service-library.md)
+2.  [services/caching/cache_service.dart](../../services_caching_cache_service/)
 3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
 4.  offlineResult property
 
@@ -18,13 +18,9 @@ offlineResult
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -84,11 +80,15 @@ static final QueryResult offlineResult = QueryResult(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [cache_service](../../services_caching_cache_service/services_caching_cache_service-library.md)
+2.  [cache_service](../../services_caching_cache_service/)
 3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
 4.  offlineResult property
 
 ##### CacheService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

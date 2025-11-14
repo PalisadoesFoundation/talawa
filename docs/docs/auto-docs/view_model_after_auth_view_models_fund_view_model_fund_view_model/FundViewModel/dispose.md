@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [fund_view_model](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/view_model_after_auth_view_models_fund_view_model_fund_view_model-library.md)
+2.  [view_model/after_auth_view_models/fund_view_model/fund_view_model.dart](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/)
 3.  [FundViewModel](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/FundViewModel-class.md)
 4.  dispose method
 
@@ -18,13 +18,9 @@ dispose
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,13 +46,19 @@ below-sidebar="">
 
 <span class="returntype">void</span> <span class="name">dispose</span>
 
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
 </div>
 
 <div class="section desc markdown">
 
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](../../view_model_base_view_model/BaseModel/addListener.md)
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
 will throw after the object is disposed).
 
 This method should only be called by the object's owner.
@@ -87,11 +89,15 @@ void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_view_model](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/view_model_after_auth_view_models_fund_view_model_fund_view_model-library.md)
+2.  [fund_view_model](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/)
 3.  [FundViewModel](../../view_model_after_auth_view_models_fund_view_model_fund_view_model/FundViewModel-class.md)
 4.  dispose method
 
 ##### FundViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

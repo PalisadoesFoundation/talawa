@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [directly_login](../../widgets_directly_login/widgets_directly_login-library.md)
+2.  [widgets/directly_login.dart](../../widgets_directly_login/)
 3.  [DirectlyLogin](../../widgets_directly_login/DirectlyLogin-class.md)
-4.  DirectlyLogin const constructor
+4.  DirectlyLogin.new const constructor
 
 <div class="self-name">
 
-DirectlyLogin
+DirectlyLogin.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">DirectlyLogin</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">DirectlyLogin</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">DirectlyLogin</span>(
 ## Implementation
 
 ``` language-dart
-const DirectlyLogin
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const DirectlyLogin
 </div>
 
 1.  [talawa](../../index.md)
-2.  [directly_login](../../widgets_directly_login/widgets_directly_login-library.md)
+2.  [directly_login](../../widgets_directly_login/)
 3.  [DirectlyLogin](../../widgets_directly_login/DirectlyLogin-class.md)
-4.  DirectlyLogin const constructor
+4.  DirectlyLogin.new const constructor
 
 ##### DirectlyLogin class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

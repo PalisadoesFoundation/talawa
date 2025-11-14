@@ -1,5 +1,5 @@
 1.  [Constructors](./Post-class#constructors.md)
-2.  [Post](./Post/Post.md)
+2.  [new](./Post/Post.md)
 3.  [fromJson](./Post/Post.fromJson.md)
 4.  [Properties](./Post-class#instance-properties.md)
 5.  [attachments](./Post/attachments.md)

@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/view_model_after_auth_view_models_event_view_models_explore_events_view_model-library.md)
+2.  [view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
 3.  [ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)
-4.  ExploreEventsViewModel constructor
+4.  ExploreEventsViewModel.new constructor
 
 <div class="self-name">
 
-ExploreEventsViewModel
+ExploreEventsViewModel.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">ExploreEventsViewModel</span>(
-
-1.  <span id="-param-demoMode"
-    class="parameter"></span>
-
-)
+<span class="name">ExploreEventsViewModel</span>
 
 </div>
 
@@ -56,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-ExploreEventsViewModel
+;
 ```
 
 </div>
@@ -70,11 +61,15 @@ ExploreEventsViewModel
 </div>
 
 1.  [talawa](../../index.md)
-2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/view_model_after_auth_view_models_event_view_models_explore_events_view_model-library.md)
+2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
 3.  [ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)
-4.  ExploreEventsViewModel constructor
+4.  ExploreEventsViewModel.new constructor
 
 ##### ExploreEventsViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

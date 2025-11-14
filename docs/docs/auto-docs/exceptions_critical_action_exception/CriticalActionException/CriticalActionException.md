@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [critical_action_exception](../../exceptions_critical_action_exception/exceptions_critical_action_exception-library.md)
+2.  [exceptions/critical_action_exception.dart](../../exceptions_critical_action_exception/)
 3.  [CriticalActionException](../../exceptions_critical_action_exception/CriticalActionException-class.md)
-4.  CriticalActionException constructor
+4.  CriticalActionException.new constructor
 
 <div class="self-name">
 
-CriticalActionException
+CriticalActionException.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -57,9 +53,8 @@ below-sidebar="">
 Constructor for
 [CriticalActionException](../../exceptions_critical_action_exception/CriticalActionException-class.md).
 
-Takes a
-[actionError](../../exceptions_critical_action_exception/CriticalActionException/actionError.md)
-message that describes the specific error encountered.
+Takes a `actionError` message that describes the specific error
+encountered.
 
 </div>
 
@@ -68,7 +63,7 @@ message that describes the specific error encountered.
 ## Implementation
 
 ``` language-dart
-CriticalActionException
+CriticalActionException(this.actionError);
 ```
 
 </div>
@@ -82,11 +77,15 @@ CriticalActionException
 </div>
 
 1.  [talawa](../../index.md)
-2.  [critical_action_exception](../../exceptions_critical_action_exception/exceptions_critical_action_exception-library.md)
+2.  [critical_action_exception](../../exceptions_critical_action_exception/)
 3.  [CriticalActionException](../../exceptions_critical_action_exception/CriticalActionException-class.md)
-4.  CriticalActionException constructor
+4.  CriticalActionException.new constructor
 
 ##### CriticalActionException class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

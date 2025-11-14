@@ -1,2 +1,2 @@
-1.  [Classes](./services_chat_core_service-library#classes.md)
+1.  [Classes](./#classes)
 2.  [ChatCoreService](./ChatCoreService-class.md)

@@ -1,5 +1,5 @@
 1.  [Constructors](./UserAdapter-class#constructors.md)
-2.  [UserAdapter](./UserAdapter/UserAdapter.md)
+2.  [new](./UserAdapter/UserAdapter.md)
 3.  [Properties](./UserAdapter-class#instance-properties.md)
 4.  [hashCode](./UserAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

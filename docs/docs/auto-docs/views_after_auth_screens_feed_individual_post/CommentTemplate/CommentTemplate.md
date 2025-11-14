@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [individual_post](../../views_after_auth_screens_feed_individual_post/views_after_auth_screens_feed_individual_post-library.md)
+2.  [views/after_auth_screens/feed/individual_post.dart](../../views_after_auth_screens_feed_individual_post/)
 3.  [CommentTemplate](../../views_after_auth_screens_feed_individual_post/CommentTemplate-class.md)
-4.  CommentTemplate const constructor
+4.  CommentTemplate.new const constructor
 
 <div class="self-name">
 
-CommentTemplate
+CommentTemplate.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CommentTemplate</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">CommentTemplate</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">CommentTemplate</span>(
 ## Implementation
 
 ``` language-dart
-const CommentTemplate
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const CommentTemplate
 </div>
 
 1.  [talawa](../../index.md)
-2.  [individual_post](../../views_after_auth_screens_feed_individual_post/views_after_auth_screens_feed_individual_post-library.md)
+2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
 3.  [CommentTemplate](../../views_after_auth_screens_feed_individual_post/CommentTemplate-class.md)
-4.  CommentTemplate const constructor
+4.  CommentTemplate.new const constructor
 
 ##### CommentTemplate class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

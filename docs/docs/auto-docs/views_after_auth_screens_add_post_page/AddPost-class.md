@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [add_post_page](../views_after_auth_screens_add_post_page/views_after_auth_screens_add_post_page-library.md)
+2.  [views/after_auth_screens/add_post_page.dart](../views_after_auth_screens_add_post_page/)
 3.  AddPost class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ AddPost
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -47,7 +43,14 @@ AddPost returns a widget to add(upload) the post.
 
 <div class="section">
 
-Available Extensions  
+Inheritance  
+- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [DiagnosticableTree](https://api.flutter.dev/flutter/foundation/DiagnosticableTree-class.html)
+- [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
+- [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
+- AddPost
+
+Available extensions  
 - [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.2/flutter_animate/AnimateWidgetExtensions.html)
 
 </div>
@@ -56,7 +59,7 @@ Available Extensions
 
 ## Constructors
 
-<span class="name">[AddPost](../views_after_auth_screens_add_post_page/AddPost/AddPost.md)</span><span class="signature">(<span id="-param-key" class="parameter"></span>)</span>  
+<span class="name">[AddPost.new](../views_after_auth_screens_add_post_page/AddPost/AddPost.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const
@@ -69,7 +72,7 @@ const
 
 ## Properties
 
-<span class="name">[drawerKey](../views_after_auth_screens_add_post_page/AddPost/drawerKey.md)</span> <span class="signature">→ GlobalKey<span class="signature">\<<span class="type-parameter">ScaffoldState</span>\></span>?</span>  
+<span class="name">[drawerKey](../views_after_auth_screens_add_post_page/AddPost/drawerKey.md)</span> <span class="signature">→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)</span>\></span>?</span>  
 DrawerKey.
 
 <div class="features">
@@ -78,7 +81,7 @@ DrawerKey.
 
 </div>
 
-<span class="name">[hashCode](../views_after_auth_screens_add_post_page/AddPost/hashCode.md)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
+<span class="name">[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)</span> <span class="signature">→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)</span>  
 The hash code for this object.
 
 <div class="features">
@@ -88,7 +91,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[key](../views_after_auth_screens_add_post_page/AddPost/key.md)</span> <span class="signature">→ Key?</span>  
+<span class="name">[key](https://api.flutter.dev/flutter/widgets/Widget/key.html)</span> <span class="signature">→ [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?</span>  
 Controls how one widget replaces another widget in the tree.
 
 <div class="features">
@@ -113,9 +116,24 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[createElement](../views_after_auth_screens_add_post_page/AddPost/createElement.md)</span><span class="signature"> <span class="returntype parameter">→ StatefulElement</span> </span>  
-Creates a `StatefulElement` to manage this widget's location in the
-tree.
+<span class="name">[animate](https://pub.dev/documentation/flutter_animate/4.5.2/flutter_animate/AnimateWidgetExtensions/animate.html)</span><span class="signature"> <span class="returntype parameter">→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.2/flutter_animate/Animate-class.html)</span> </span>  
+Available on
+[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
+provided by the
+[AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.2/flutter_animate/AnimateWidgetExtensions.html)
+extension
+
+Wraps the target
+[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html) in
+an
+[Animate](https://pub.dev/documentation/flutter_animate/4.5.2/flutter_animate/Animate-class.html)
+instance, and returns the instance for chaining calls. Ex.
+`myWidget.` is equivalent to `Animate(child: myWidget)`.
+
+<span class="name">[createElement](https://api.flutter.dev/flutter/widgets/StatefulWidget/createElement.html)</span><span class="signature"> <span class="returntype parameter">→ [StatefulElement](https://api.flutter.dev/flutter/widgets/StatefulElement-class.html)</span> </span>  
+Creates a
+[StatefulElement](https://api.flutter.dev/flutter/widgets/StatefulElement-class.html)
+to manage this widget's location in the tree.
 
 <div class="features">
 
@@ -123,13 +141,20 @@ tree.
 
 </div>
 
-<span class="name">[createState](../views_after_auth_screens_add_post_page/AddPost/createState.md)</span><span class="signature"> <span class="returntype parameter">→ State<span class="signature">\<<span class="type-parameter">[AddPost](../views_after_auth_screens_add_post_page/AddPost-class.md)</span>\></span></span> </span>  
+<span class="name">[createState](../views_after_auth_screens_add_post_page/AddPost/createState.md)</span><span class="signature"> <span class="returntype parameter">→ [State](https://api.flutter.dev/flutter/widgets/State-class.html)<span class="signature">\<<span class="type-parameter">[AddPost](../views_after_auth_screens_add_post_page/AddPost-class.md)</span>\></span></span> </span>  
 Creates the mutable state for this widget at a given location in the
 tree.
 
-<span class="name">[debugDescribeChildren](../views_after_auth_screens_add_post_page/AddPost/debugDescribeChildren.md)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">DiagnosticsNode</span>\></span></span> </span>  
-Returns a list of `DiagnosticsNode` objects describing this node's
-children.
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)</span><span class="signature"> <span class="returntype parameter">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)</span>\></span></span> </span>  
+Returns a list of
+[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
+objects describing this node's children.
 
 <div class="features">
 
@@ -137,7 +162,7 @@ children.
 
 </div>
 
-<span class="name">[debugFillProperties](../views_after_auth_screens_add_post_page/AddPost/debugFillProperties.md)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">DiagnosticPropertiesBuilder</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)</span><span class="signature">(<span id="debugFillProperties-param-properties" class="parameter"><span class="type-annotation">[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)</span> <span class="parameter-name">properties</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Add additional properties associated with the node.
 
 <div class="features">
@@ -155,9 +180,10 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[toDiagnosticsNode](../views_after_auth_screens_add_post_page/AddPost/toDiagnosticsNode.md)</span><span class="signature">(<span id="toDiagnosticsNode-param-name" class="parameter"></span>) <span class="returntype parameter">→ DiagnosticsNode</span> </span>  
+<span class="name">[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)</span><span class="signature"> <span class="returntype parameter">→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)</span> </span>  
 Returns a debug representation of the object that is used by debugging
-tools and by `DiagnosticsNode.toStringDeep`.
+tools and by
+[DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
 
 <div class="features">
 
@@ -165,7 +191,7 @@ tools and by `DiagnosticsNode.toStringDeep`.
 
 </div>
 
-<span class="name">[toString](../views_after_auth_screens_add_post_page/AddPost/toString.md)</span><span class="signature">(<span id="toString-param-minLevel" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 A string representation of this object.
 
 <div class="features">
@@ -174,7 +200,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[toStringDeep](../views_after_auth_screens_add_post_page/AddPost/toStringDeep.md)</span><span class="signature">(<span id="toStringDeep-param-prefixLineOne" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Returns a string representation of this node and its descendants.
 
 <div class="features">
@@ -183,7 +209,7 @@ Returns a string representation of this node and its descendants.
 
 </div>
 
-<span class="name">[toStringShallow](../views_after_auth_screens_add_post_page/AddPost/toStringShallow.md)</span><span class="signature">(<span id="toStringShallow-param-joiner" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Returns a one-line detailed description of the object.
 
 <div class="features">
@@ -192,7 +218,7 @@ Returns a one-line detailed description of the object.
 
 </div>
 
-<span class="name">[toStringShort](../views_after_auth_screens_add_post_page/AddPost/toStringShort.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[toStringShort](https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 A short, textual description of this widget.
 
 <div class="features">
@@ -207,7 +233,7 @@ A short, textual description of this widget.
 
 ## Operators
 
-<span class="name">[operator ==](../views_after_auth_screens_add_post_page/AddPost/operator_equals.md)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
+<span class="name">[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)</span><span class="signature">(<span id="==-param-other" class="parameter"><span class="type-annotation">[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)</span> <span class="parameter-name">other</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
 The equality operator.
 
 <div class="features">
@@ -227,8 +253,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [add_post_page](../views_after_auth_screens_add_post_page/views_after_auth_screens_add_post_page-library.md)
+2.  [add_post_page](../views_after_auth_screens_add_post_page/)
 3.  AddPost class
+
+##### add_post_page library
 
 <div id="dartdoc-sidebar-left-content">
 

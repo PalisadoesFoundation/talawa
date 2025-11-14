@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [user_feed](../../views_after_auth_screens_profile_user_feed/views_after_auth_screens_profile_user_feed-library.md)
+2.  [views/after_auth_screens/profile/user_feed.dart](../../views_after_auth_screens_profile_user_feed/)
 3.  [UserFeed](../../views_after_auth_screens_profile_user_feed/UserFeed-class.md)
-4.  UserFeed const constructor
+4.  UserFeed.new const constructor
 
 <div class="self-name">
 
-UserFeed
+UserFeed.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">UserFeed</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">UserFeed</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">UserFeed</span>(
 ## Implementation
 
 ``` language-dart
-const UserFeed
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const UserFeed
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_feed](../../views_after_auth_screens_profile_user_feed/views_after_auth_screens_profile_user_feed-library.md)
+2.  [user_feed](../../views_after_auth_screens_profile_user_feed/)
 3.  [UserFeed](../../views_after_auth_screens_profile_user_feed/UserFeed-class.md)
-4.  UserFeed const constructor
+4.  UserFeed.new const constructor
 
 ##### UserFeed class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

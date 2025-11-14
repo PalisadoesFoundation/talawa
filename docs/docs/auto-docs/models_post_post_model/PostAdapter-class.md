@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [post_model](../models_post_post_model/models_post_post_model-library.md)
+2.  [models/post/post_model.dart](../models_post_post_model/)
 3.  PostAdapter class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ PostAdapter
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -52,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[PostAdapter](../models_post_post_model/PostAdapter/PostAdapter.md)</span><span class="signature"></span>  
+<span class="name">[PostAdapter.new](../models_post_post_model/PostAdapter/PostAdapter.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -157,8 +153,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [post_model](../models_post_post_model/models_post_post_model-library.md)
+2.  [post_model](../models_post_post_model/)
 3.  PostAdapter class
+
+##### post_model library
 
 <div id="dartdoc-sidebar-left-content">
 

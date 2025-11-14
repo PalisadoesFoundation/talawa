@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/views_after_auth_screens_events_create_event_page-library.md)
+2.  [views/after_auth_screens/events/create_event_page.dart](../../views_after_auth_screens_events_create_event_page/)
 3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)
 4.  timeUpdater2 method
 
@@ -18,13 +18,9 @@ timeUpdater2
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">timeUpdater2</span>(
 
 1.  <span id="timeUpdater2-param-time"
-    class="parameter"><span class="type-annotation">TimeOfDay</span>
+    class="parameter"><span class="type-annotation">[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)</span>
     <span class="parameter-name">time</span>, </span>
 2.  <span id="timeUpdater2-param-model"
     class="parameter"><span class="type-annotation">[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)</span>
@@ -88,11 +84,15 @@ void timeUpdater2(TimeOfDay time, CreateEventViewModel model)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/views_after_auth_screens_events_create_event_page-library.md)
+2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
 3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)
 4.  timeUpdater2 method
 
 ##### CreateEventPageState class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

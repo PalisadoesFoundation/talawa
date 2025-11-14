@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [chat_membership_service](../services_chat_membership_service/services_chat_membership_service-library.md)
+2.  [services/chat_membership_service.dart](../services_chat_membership_service/)
 3.  ChatMembershipService class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ChatMembershipService
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -57,7 +53,7 @@ Services include:
 
 ## Constructors
 
-<span class="name">[ChatMembershipService](../services_chat_membership_service/ChatMembershipService/ChatMembershipService.md)</span><span class="signature"></span>  
+<span class="name">[ChatMembershipService.new](../services_chat_membership_service/ChatMembershipService/ChatMembershipService.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -100,13 +96,13 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[addChatMember](../services_chat_membership_service/ChatMembershipService/addChatMember.md)</span><span class="signature">(<span id="addChatMember-param-chatId" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[addChatMember](../services_chat_membership_service/ChatMembershipService/addChatMember.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Adds a member to an existing chat.
 
-<span class="name">[createChatMembership](../services_chat_membership_service/ChatMembershipService/createChatMembership.md)</span><span class="signature">(<span id="createChatMembership-param-chatId" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[createChatMembership](../services_chat_membership_service/ChatMembershipService/createChatMembership.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Creates a chat membership (adds a user to a chat).
 
-<span class="name">[fetchChatMembers](../services_chat_membership_service/ChatMembershipService/fetchChatMembers.md)</span><span class="signature">(<span id="fetchChatMembers-param-chatId" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span>?</span>\></span></span> </span>  
+<span class="name">[fetchChatMembers](../services_chat_membership_service/ChatMembershipService/fetchChatMembers.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span>?</span>\></span></span> </span>  
 Fetches members of a specific chat with pagination support.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -118,7 +114,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[removeChatMember](../services_chat_membership_service/ChatMembershipService/removeChatMember.md)</span><span class="signature">(<span id="removeChatMember-param-chatId" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
+<span class="name">[removeChatMember](../services_chat_membership_service/ChatMembershipService/removeChatMember.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>\></span></span> </span>  
 Removes a member from a chat.
 
 <span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -156,8 +152,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_membership_service](../services_chat_membership_service/services_chat_membership_service-library.md)
+2.  [chat_membership_service](../services_chat_membership_service/)
 3.  ChatMembershipService class
+
+##### chat_membership_service library
 
 <div id="dartdoc-sidebar-left-content">
 

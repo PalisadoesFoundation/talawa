@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_service](../../services_chat_service/services_chat_service-library.md)
+2.  [services/chat_service.dart](../../services_chat_service/)
 3.  [ChatService](../../services_chat_service/ChatService-class.md)
-4.  ChatService constructor
+4.  ChatService.new constructor
 
 <div class="self-name">
 
-ChatService
+ChatService.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">ChatService</span>(
-
-1.  <span id="-param-coreService"
-    class="parameter"></span>
-
-)
+<span class="name">ChatService</span>
 
 </div>
 
@@ -56,7 +47,9 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-ChatService
+  : _coreService = coreService ?? ,
+      _membershipService = membershipService ?? ,
+      _messageService = messageService ?? ;
 ```
 
 </div>
@@ -70,11 +63,15 @@ ChatService
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_service](../../services_chat_service/services_chat_service-library.md)
+2.  [chat_service](../../services_chat_service/)
 3.  [ChatService](../../services_chat_service/ChatService-class.md)
-4.  ChatService constructor
+4.  ChatService.new constructor
 
 ##### ChatService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

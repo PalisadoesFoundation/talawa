@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [direct_chat_demo_data](../demo_server_data_direct_chat_demo_data/demo_server_data_direct_chat_demo_data-library.md)
+2.  [demo_server_data/direct_chat_demo_data.dart](../demo_server_data_direct_chat_demo_data/)
 3.  directChatDemoData constant
 
 <div class="self-name">
@@ -17,13 +17,9 @@ directChatDemoData
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -85,10 +81,14 @@ const directChatDemoData = [
 </div>
 
 1.  [talawa](../index.md)
-2.  [direct_chat_demo_data](../demo_server_data_direct_chat_demo_data/demo_server_data_direct_chat_demo_data-library.md)
+2.  [direct_chat_demo_data](../demo_server_data_direct_chat_demo_data/)
 3.  directChatDemoData constant
 
 ##### direct_chat_demo_data library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [routing_constants](../../constants_routing_constants/constants_routing_constants-library.md)
+2.  [constants/routing_constants.dart](../../constants_routing_constants/)
 3.  [Routes](../../constants_routing_constants/Routes-class.md)
 4.  individualPost constant
 
@@ -18,13 +18,9 @@ individualPost
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -72,11 +68,15 @@ static const String individualPost = "/individualPost";
 </div>
 
 1.  [talawa](../../index.md)
-2.  [routing_constants](../../constants_routing_constants/constants_routing_constants-library.md)
+2.  [routing_constants](../../constants_routing_constants/)
 3.  [Routes](../../constants_routing_constants/Routes-class.md)
 4.  individualPost constant
 
 ##### Routes class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

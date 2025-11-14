@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [constants](../../constants_constants/constants_constants-library.md)
+2.  [constants/constants.dart](../../constants_constants/)
 3.  [HiveKeys](../../constants_constants/HiveKeys-class.md)
 4.  eventFeedKey constant
 
@@ -18,13 +18,9 @@ eventFeedKey
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -72,11 +68,15 @@ static const eventFeedKey = 'event_feed_key';
 </div>
 
 1.  [talawa](../../index.md)
-2.  [constants](../../constants_constants/constants_constants-library.md)
+2.  [constants](../../constants_constants/)
 3.  [HiveKeys](../../constants_constants/HiveKeys-class.md)
 4.  eventFeedKey constant
 
 ##### HiveKeys class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

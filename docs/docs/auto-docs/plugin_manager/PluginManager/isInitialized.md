@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [manager](../../plugin_manager/plugin_manager-library.md)
+2.  [plugin/manager.dart](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  isInitialized property
 
@@ -18,13 +18,9 @@ isInitialized
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,7 +41,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>
-<span class="name">isInitialized</span>
+get <span class="name">isInitialized</span>
 
 </div>
 
@@ -80,11 +76,15 @@ bool get isInitialized => _initialized;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [manager](../../plugin_manager/plugin_manager-library.md)
+2.  [manager](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  isInitialized property
 
 ##### PluginManager class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

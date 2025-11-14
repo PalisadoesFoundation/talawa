@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/views_after_auth_screens_chat_widgets_group_chat_dialogs-library.md)
+2.  [views/after_auth_screens/chat/widgets/group_chat_dialogs.dart](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/)
 3.  [GroupChatDialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/GroupChatDialogs-class.md)
 4.  showEditGroupDialog static method
 
@@ -18,13 +18,9 @@ showEditGroupDialog
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">showEditGroupDialog</span>(
 
 1.  <span id="showEditGroupDialog-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span>, </span>
 2.  <span id="showEditGroupDialog-param-chat"
     class="parameter"><span class="type-annotation">[Chat](../../models_chats_chat/Chat-class.md)</span>
@@ -56,7 +52,7 @@ below-sidebar="">
     <span class="parameter-name">model</span>, </span>
 4.  <span id="showEditGroupDialog-param-chatId"
     class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>
-    <span class="parameter-name">chatId</span></span>
+    <span class="parameter-name">chatId</span>, </span>
 
 )
 
@@ -101,11 +97,15 @@ static void showEditGroupDialog(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/views_after_auth_screens_chat_widgets_group_chat_dialogs-library.md)
+2.  [group_chat_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/)
 3.  [GroupChatDialogs](../../views_after_auth_screens_chat_widgets_group_chat_dialogs/GroupChatDialogs-class.md)
 4.  showEditGroupDialog static method
 
 ##### GroupChatDialogs class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

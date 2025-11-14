@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [set_url](../../views_pre_auth_screens_set_url/views_pre_auth_screens_set_url-library.md)
+2.  [views/pre_auth_screens/set_url.dart](../../views_pre_auth_screens_set_url/)
 3.  [SetUrl](../../views_pre_auth_screens_set_url/SetUrl-class.md)
-4.  SetUrl const constructor
+4.  SetUrl.new const constructor
 
 <div class="self-name">
 
-SetUrl
+SetUrl.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">SetUrl</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">SetUrl</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">SetUrl</span>(
 ## Implementation
 
 ``` language-dart
-const SetUrl
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const SetUrl
 </div>
 
 1.  [talawa](../../index.md)
-2.  [set_url](../../views_pre_auth_screens_set_url/views_pre_auth_screens_set_url-library.md)
+2.  [set_url](../../views_pre_auth_screens_set_url/)
 3.  [SetUrl](../../views_pre_auth_screens_set_url/SetUrl-class.md)
-4.  SetUrl const constructor
+4.  SetUrl.new const constructor
 
 ##### SetUrl class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

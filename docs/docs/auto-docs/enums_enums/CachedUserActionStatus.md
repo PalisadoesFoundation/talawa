@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [enums](../enums_enums/enums_enums-library.md)
+2.  [enums/enums.dart](../enums_enums/)
 3.  CachedUserActionStatus enum
 
 <div class="self-name">
@@ -17,13 +17,9 @@ CachedUserActionStatus
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -54,22 +50,12 @@ Inheritance
 - [Enum](https://api.flutter.dev/flutter/dart-core/Enum-class.html)
 - CachedUserActionStatus
 
+Available extensions  
+- [EnumName](https://api.flutter.dev/flutter/dart-core/EnumName.html)
+
 Annotations  
 - @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
   4)
-
-</div>
-
-<div id="constructors" class="section summary offset-anchor">
-
-## Constructors
-
-<span class="name">[CachedUserActionStatus](../enums_enums/CachedUserActionStatus/CachedUserActionStatus.md)</span><span class="signature"></span>  
-<div class="constructor-modifier features">
-
-const
-
-</div>
 
 </div>
 
@@ -86,7 +72,7 @@ The user action has been successfully completed.
 </div>
 
 <div id="instance-properties"
-class="section summary offset-anchorinherited">
+class="section summary offset-anchor inherited">
 
 ## Properties
 
@@ -107,6 +93,21 @@ A numeric identifier for the enumerated value.
 
 <span class="feature">no
 setter</span><span class="feature">inherited</span>
+
+</div>
+
+<span class="name">[name](https://api.flutter.dev/flutter/dart-core/EnumName/name.html)</span> <span class="signature">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
+Available on
+[Enum](https://api.flutter.dev/flutter/dart-core/Enum-class.html),
+provided by the
+[EnumName](https://api.flutter.dev/flutter/dart-core/EnumName.html)
+extension
+
+The name of the enum value.
+
+<div class="features">
+
+<span class="feature">no setter</span>
 
 </div>
 
@@ -170,12 +171,6 @@ The equality operator.
 A constant List of the values in this enum, in order of their
 declaration.
 
-<div>
-
-<span class="signature">`[pending, completed]`</span>
-
-</div>
-
 </div>
 
 </div>
@@ -187,10 +182,14 @@ declaration.
 </div>
 
 1.  [talawa](../index.md)
-2.  [enums](../enums_enums/enums_enums-library.md)
+2.  [enums](../enums_enums/)
 3.  CachedUserActionStatus enum
 
 ##### enums library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

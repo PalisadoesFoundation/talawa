@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
 3.  [CustomRectangle](../../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.md)
-4.  CustomRectangle const constructor
+4.  CustomRectangle.new const constructor
 
 <div class="self-name">
 
-CustomRectangle
+CustomRectangle.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CustomRectangle</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">CustomRectangle</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">CustomRectangle</span>(
 ## Implementation
 
 ``` language-dart
-const CustomRectangle
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const CustomRectangle
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
 3.  [CustomRectangle](../../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.md)
-4.  CustomRectangle const constructor
+4.  CustomRectangle.new const constructor
 
 ##### CustomRectangle class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

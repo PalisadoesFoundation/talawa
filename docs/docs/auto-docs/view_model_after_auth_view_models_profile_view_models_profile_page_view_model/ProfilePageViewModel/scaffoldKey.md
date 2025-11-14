@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.md)
+2.  [view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
 3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
 4.  scaffoldKey property
 
@@ -18,13 +18,9 @@ scaffoldKey
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-GlobalKey<span class="signature">\<<span class="type-parameter">ScaffoldState</span>\></span>
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)</span>\></span>
 <span class="name">scaffoldKey</span>
 
 <div class="features">
@@ -78,11 +74,15 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.md)
+2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
 3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
 4.  scaffoldKey property
 
 ##### ProfilePageViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

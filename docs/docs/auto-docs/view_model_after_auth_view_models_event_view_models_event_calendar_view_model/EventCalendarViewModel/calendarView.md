@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/view_model_after_auth_view_models_event_view_models_event_calendar_view_model-library.md)
+2.  [view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
 3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
 4.  calendarView property
 
@@ -18,13 +18,9 @@ calendarView
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,7 +41,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[CalendarView](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.12/calendar/CalendarView.html)</span>
-<span class="name">calendarView</span>
+get <span class="name">calendarView</span>
 
 </div>
 
@@ -76,11 +72,15 @@ CalendarView get calendarView => _calendarView;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/view_model_after_auth_view_models_event_view_models_event_calendar_view_model-library.md)
+2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
 3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
 4.  calendarView property
 
 ##### EventCalendarViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../plugin_types/)
 3.  PluginInjectorExtension class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ PluginInjectorExtension
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Injector extension for injecting widgets at specific locations.
 
 ## Constructors
 
-<span class="name">[PluginInjectorExtension](../plugin_types/PluginInjectorExtension/PluginInjectorExtension.md)</span><span class="signature">(<span id="-param-pluginId" class="parameter"></span>)</span>  
+<span class="name">[PluginInjectorExtension.new](../plugin_types/PluginInjectorExtension/PluginInjectorExtension.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const
@@ -62,7 +58,7 @@ const
 
 ## Properties
 
-<span class="name">[builder](../plugin_types/PluginInjectorExtension/builder.md)</span> <span class="signature">→ Widget Function<span class="signature">(<span id="param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span><span id="param-data" class="parameter"></span>)</span></span>  
+<span class="name">[builder](../plugin_types/PluginInjectorExtension/builder.md)</span> <span class="signature">→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html) Function<span class="signature">(<span id="param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span>, )</span></span>  
 Build function with optional data.
 
 <div class="features">
@@ -178,8 +174,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [types](../plugin_types/)
 3.  PluginInjectorExtension class
+
+##### types library
 
 <div id="dartdoc-sidebar-left-content">
 

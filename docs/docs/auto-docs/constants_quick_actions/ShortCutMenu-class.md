@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [quick_actions](../constants_quick_actions/constants_quick_actions-library.md)
+2.  [constants/quick_actions.dart](../constants_quick_actions/)
 3.  ShortCutMenu class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ShortCutMenu
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,7 +46,7 @@ with the application. quick_actions package is used for this purpose.
 
 ## Constructors
 
-<span class="name">[ShortCutMenu](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md)</span><span class="signature"></span>  
+<span class="name">[ShortCutMenu.new](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -125,7 +121,7 @@ The equality operator.
 
 ## Static Properties
 
-<span class="name">[quickActionsList](../constants_quick_actions/ShortCutMenu/quickActionsList.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/types_types/ShortcutItem-class.html)</span>\></span></span>  
+<span class="name">[quickActionsList](../constants_quick_actions/ShortCutMenu/quickActionsList.md)</span> <span class="signature">→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)</span>\></span></span>  
 <div class="features">
 
 <span class="feature">final</span>
@@ -138,26 +134,11 @@ The equality operator.
 
 ## Constants
 
-<span class="name">[chatAction](../constants_quick_actions/ShortCutMenu/chatAction-constant.md)</span> <span class="signature">→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/types_types/ShortcutItem-class.html)</span>  
-<div>
+<span class="name">[chatAction](../constants_quick_actions/ShortCutMenu/chatAction-constant.md)</span> <span class="signature">→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)</span>  
 
-<span class="signature">[`ShortcutItem`](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/types_types/ShortcutItem/ShortcutItem.html)`(type: "chat_action", localizedTitle: "Messages", icon: "chat_icon")`</span>
+<span class="name">[eventAction](../constants_quick_actions/ShortCutMenu/eventAction-constant.md)</span> <span class="signature">→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)</span>  
 
-</div>
-
-<span class="name">[eventAction](../constants_quick_actions/ShortCutMenu/eventAction-constant.md)</span> <span class="signature">→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/types_types/ShortcutItem-class.html)</span>  
-<div>
-
-<span class="signature">[`ShortcutItem`](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/types_types/ShortcutItem/ShortcutItem.html)`(type: "events_action", localizedTitle: "Events", icon: "event_icon")`</span>
-
-</div>
-
-<span class="name">[feedAction](../constants_quick_actions/ShortCutMenu/feedAction-constant.md)</span> <span class="signature">→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/types_types/ShortcutItem-class.html)</span>  
-<div>
-
-<span class="signature">[`ShortcutItem`](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/types_types/ShortcutItem/ShortcutItem.html)`(type: "feed_action", localizedTitle: "NewsFeed", icon: "newsfeed_icon")`</span>
-
-</div>
+<span class="name">[feedAction](../constants_quick_actions/ShortCutMenu/feedAction-constant.md)</span> <span class="signature">→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)</span>  
 
 </div>
 
@@ -170,8 +151,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [quick_actions](../constants_quick_actions/constants_quick_actions-library.md)
+2.  [quick_actions](../constants_quick_actions/)
 3.  ShortCutMenu class
+
+##### quick_actions library
 
 <div id="dartdoc-sidebar-left-content">
 

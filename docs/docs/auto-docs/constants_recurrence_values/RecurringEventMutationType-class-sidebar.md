@@ -1,5 +1,5 @@
 1.  [Constructors](./RecurringEventMutationType-class#constructors.md)
-2.  [RecurringEventMutationType](./RecurringEventMutationType/RecurringEventMutationType.md)
+2.  [new](./RecurringEventMutationType/RecurringEventMutationType.md)
 3.  [Properties](./RecurringEventMutationType-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

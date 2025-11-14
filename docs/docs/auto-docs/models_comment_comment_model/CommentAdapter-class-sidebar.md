@@ -1,5 +1,5 @@
 1.  [Constructors](./CommentAdapter-class#constructors.md)
-2.  [CommentAdapter](./CommentAdapter/CommentAdapter.md)
+2.  [new](./CommentAdapter/CommentAdapter.md)
 3.  [Properties](./CommentAdapter-class#instance-properties.md)
 4.  [hashCode](./CommentAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

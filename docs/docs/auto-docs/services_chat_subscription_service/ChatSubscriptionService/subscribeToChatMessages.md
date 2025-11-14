@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_subscription_service](../../services_chat_subscription_service/services_chat_subscription_service-library.md)
+2.  [services/chat_subscription_service.dart](../../services_chat_subscription_service/)
 3.  [ChatSubscriptionService](../../services_chat_subscription_service/ChatSubscriptionService-class.md)
 4.  subscribeToChatMessages method
 
@@ -18,13 +18,9 @@ subscribeToChatMessages
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span>
+<span class="returntype">[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)<span class="signature">\<<span class="type-parameter">[ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)</span>\></span></span>
 <span class="name">subscribeToChatMessages</span>(
 
 1.  <span id="subscribeToChatMessages-param-chatId"
@@ -87,11 +83,15 @@ Stream<ChatMessage> subscribeToChatMessages(String chatId)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_subscription_service](../../services_chat_subscription_service/services_chat_subscription_service-library.md)
+2.  [chat_subscription_service](../../services_chat_subscription_service/)
 3.  [ChatSubscriptionService](../../services_chat_subscription_service/ChatSubscriptionService-class.md)
 4.  subscribeToChatMessages method
 
 ##### ChatSubscriptionService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

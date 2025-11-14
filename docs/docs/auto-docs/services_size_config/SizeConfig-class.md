@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [size_config](../services_size_config/services_size_config-library.md)
+2.  [services/size_config.dart](../services_size_config/)
 3.  SizeConfig class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ SizeConfig
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -50,7 +46,7 @@ media.
 
 ## Constructors
 
-<span class="name">[SizeConfig](../services_size_config/SizeConfig/SizeConfig.md)</span><span class="signature"></span>  
+<span class="name">[SizeConfig.new](../services_size_config/SizeConfig/SizeConfig.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -85,7 +81,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[init](../services_size_config/SizeConfig/init.md)</span><span class="signature">(<span id="init-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[init](../services_size_config/SizeConfig/init.md)</span><span class="signature">(<span id="init-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
 Invoked when a nonexistent method or property is accessed.
@@ -188,8 +184,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [size_config](../services_size_config/services_size_config-library.md)
+2.  [size_config](../services_size_config/)
 3.  SizeConfig class
+
+##### size_config library
 
 <div id="dartdoc-sidebar-left-content">
 

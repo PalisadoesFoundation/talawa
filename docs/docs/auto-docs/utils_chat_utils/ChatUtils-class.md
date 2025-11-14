@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [chat_utils](../utils_chat_utils/utils_chat_utils-library.md)
+2.  [utils/chat_utils.dart](../utils_chat_utils/)
 3.  ChatUtils class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ ChatUtils
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,7 +51,7 @@ This class provides static methods for:
 
 ## Constructors
 
-<span class="name">[ChatUtils](../utils_chat_utils/ChatUtils/ChatUtils.md)</span><span class="signature"></span>  
+<span class="name">[ChatUtils.new](../utils_chat_utils/ChatUtils/ChatUtils.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -154,16 +150,16 @@ Determines if a chat is a direct chat (exactly 2 members).
 <span class="name">[isGroupChat](../utils_chat_utils/ChatUtils/isGroupChat.md)</span><span class="signature">(<span id="isGroupChat-param-chat" class="parameter"><span class="type-annotation">[Chat](../models_chats_chat/Chat-class.md)</span> <span class="parameter-name">chat</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
 Determines if a chat is a group chat (3 or more members).
 
-<span class="name">[validateAdminAction](../utils_chat_utils/ChatUtils/validateAdminAction.md)</span><span class="signature">(<span id="validateAdminAction-param-chat" class="parameter"></span>) <span class="returntype parameter">→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> </span>  
+<span class="name">[validateAdminAction](../utils_chat_utils/ChatUtils/validateAdminAction.md)</span><span class="signature"> <span class="returntype parameter">→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> </span>  
 Checks if a user can perform admin actions on a chat.
 
-<span class="name">[validateGroupLeave](../utils_chat_utils/ChatUtils/validateGroupLeave.md)</span><span class="signature">(<span id="validateGroupLeave-param-chat" class="parameter"></span>) <span class="returntype parameter">→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> </span>  
+<span class="name">[validateGroupLeave](../utils_chat_utils/ChatUtils/validateGroupLeave.md)</span><span class="signature"> <span class="returntype parameter">→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> </span>  
 Validates if a user can leave a group chat.
 
 <span class="name">[validateGroupName](../utils_chat_utils/ChatUtils/validateGroupName.md)</span><span class="signature">(<span id="validateGroupName-param-name" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">name</span></span>) <span class="returntype parameter">→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> </span>  
 Validates if a chat name is appropriate for a group.
 
-<span class="name">[validateMemberRemoval](../utils_chat_utils/ChatUtils/validateMemberRemoval.md)</span><span class="signature">(<span id="validateMemberRemoval-param-chat" class="parameter"></span>) <span class="returntype parameter">→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> </span>  
+<span class="name">[validateMemberRemoval](../utils_chat_utils/ChatUtils/validateMemberRemoval.md)</span><span class="signature"> <span class="returntype parameter">→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> </span>  
 Validates if a member can be removed from a group chat.
 
 </div>
@@ -177,8 +173,10 @@ Validates if a member can be removed from a group chat.
 </div>
 
 1.  [talawa](../index.md)
-2.  [chat_utils](../utils_chat_utils/utils_chat_utils-library.md)
+2.  [chat_utils](../utils_chat_utils/)
 3.  ChatUtils class
+
+##### chat_utils library
 
 <div id="dartdoc-sidebar-left-content">
 

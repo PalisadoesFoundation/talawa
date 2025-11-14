@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_venue](../../models_events_event_venue/models_events_event_venue-library.md)
+2.  [models/events/event_venue.dart](../../models_events_event_venue/)
 3.  [Venue](../../models_events_event_venue/Venue-class.md)
-4.  Venue constructor
+4.  Venue.new constructor
 
 <div class="self-name">
 
-Venue
+Venue.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">Venue</span>(
-
-1.  <span id="-param-id"
-    class="parameter"></span>
-
-)
+<span class="name">Venue</span>
 
 </div>
 
@@ -55,18 +46,11 @@ below-sidebar="">
 
 Constructs a `Venue` instance.
 
-[id](../../models_events_event_venue/Venue/id.md) is the unique
-identifier of the venue.
-[capacity](../../models_events_event_venue/Venue/capacity.md) is the
-maximum number of people the venue can accommodate.
-[description](../../models_events_event_venue/Venue/description.md)
-provides additional details about the venue.
-[imageUrl](../../models_events_event_venue/Venue/imageUrl.md) is the
-URL of the venue's image.
-[name](../../models_events_event_venue/Venue/name.md) is the name of
-the venue.
-[organizationId](../../models_events_event_venue/Venue/organizationId.md)
-is the identifier of the organization to which the venue belongs.
+`id` is the unique identifier of the venue. `capacity` is the maximum
+number of people the venue can accommodate. `description` provides
+additional details about the venue. `imageUrl` is the URL of the venue's
+image. `name` is the name of the venue. `organizationId` is the
+identifier of the organization to which the venue belongs.
 
 </div>
 
@@ -75,7 +59,7 @@ is the identifier of the organization to which the venue belongs.
 ## Implementation
 
 ``` language-dart
-Venue
+;
 ```
 
 </div>
@@ -89,11 +73,15 @@ Venue
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_venue](../../models_events_event_venue/models_events_event_venue-library.md)
+2.  [event_venue](../../models_events_event_venue/)
 3.  [Venue](../../models_events_event_venue/Venue-class.md)
-4.  Venue constructor
+4.  Venue.new constructor
 
 ##### Venue class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

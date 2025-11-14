@@ -1,5 +1,5 @@
 1.  [Constructors](./EventAgendaItem-class#constructors.md)
-2.  [EventAgendaItem](./EventAgendaItem/EventAgendaItem.md)
+2.  [new](./EventAgendaItem/EventAgendaItem.md)
 3.  [fromJson](./EventAgendaItem/EventAgendaItem.fromJson.md)
 4.  [Properties](./EventAgendaItem-class#instance-properties.md)
 5.  [attachments](./EventAgendaItem/attachments.md)

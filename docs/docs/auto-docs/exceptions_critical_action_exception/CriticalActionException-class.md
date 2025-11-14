@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [critical_action_exception](../exceptions_critical_action_exception/exceptions_critical_action_exception-library.md)
+2.  [exceptions/critical_action_exception.dart](../exceptions_critical_action_exception/)
 3.  CriticalActionException class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ CriticalActionException
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -62,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CriticalActionException](../exceptions_critical_action_exception/CriticalActionException/CriticalActionException.md)</span><span class="signature">(<span id="-param-actionError" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">actionError</span></span>)</span>  
+<span class="name">[CriticalActionException.new](../exceptions_critical_action_exception/CriticalActionException/CriticalActionException.md)</span><span class="signature">(<span id="-param-actionError" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">actionError</span></span>)</span>  
 Constructor for
 [CriticalActionException](../exceptions_critical_action_exception/CriticalActionException-class.md).
 
@@ -81,7 +77,7 @@ The error message associated with this critical action.
 
 </div>
 
-<span class="name">[graphqlErrors](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/graphqlErrors.html)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.html)</span>\></span></span>  
+<span class="name">[graphqlErrors](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/graphqlErrors.html)</span> <span class="signature">↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)</span>\></span></span>  
 Any graphql errors returned from the operation
 
 <div class="features">
@@ -101,7 +97,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[linkException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/linkException.html)</span> <span class="signature">↔ [LinkException](https://pub.dev/documentation/gql_link/1.0.1-alpha+1730759315378/link/LinkException-class.html)?</span>  
+<span class="name">[linkException](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/linkException.html)</span> <span class="signature">↔ [LinkException](https://pub.dev/documentation/gql_link/1.0.1-alpha+1730759315378/graphql_flutter/LinkException-class.html)?</span>  
 Errors encountered during execution such as network or cache errors
 
 <div class="features">
@@ -143,7 +139,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[addError](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/addError.html)</span><span class="signature">(<span id="addError-param-error" class="parameter"><span class="type-annotation">[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/GraphQLError-class.md)</span> <span class="parameter-name">error</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addError](https://pub.dev/documentation/graphql/5.2.1/graphql/OperationException/addError.html)</span><span class="signature">(<span id="addError-param-error" class="parameter"><span class="type-annotation">[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.md)</span> <span class="parameter-name">error</span></span>) <span class="returntype parameter">→ void</span> </span>  
 <div class="features">
 
 <span class="feature">inherited</span>
@@ -194,8 +190,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [critical_action_exception](../exceptions_critical_action_exception/exceptions_critical_action_exception-library.md)
+2.  [critical_action_exception](../exceptions_critical_action_exception/)
 3.  CriticalActionException class
+
+##### critical_action_exception library
 
 <div id="dartdoc-sidebar-left-content">
 

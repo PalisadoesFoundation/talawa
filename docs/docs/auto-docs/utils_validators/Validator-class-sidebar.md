@@ -1,5 +1,5 @@
 1.  [Constructors](./Validator-class#constructors.md)
-2.  [Validator](./Validator/Validator.md)
+2.  [new](./Validator/Validator.md)
 3.  [Properties](./Validator-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

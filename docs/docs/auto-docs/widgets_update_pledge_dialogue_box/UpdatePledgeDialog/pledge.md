@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/widgets_update_pledge_dialogue_box-library.md)
+2.  [widgets/update_pledge_dialogue_box.dart](../../widgets_update_pledge_dialogue_box/)
 3.  [UpdatePledgeDialog](../../widgets_update_pledge_dialogue_box/UpdatePledgeDialog-class.md)
 4.  pledge property
 
@@ -18,13 +18,9 @@ pledge
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final Pledge pledge;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/widgets_update_pledge_dialogue_box-library.md)
+2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/)
 3.  [UpdatePledgeDialog](../../widgets_update_pledge_dialogue_box/UpdatePledgeDialog-class.md)
 4.  pledge property
 
 ##### UpdatePledgeDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

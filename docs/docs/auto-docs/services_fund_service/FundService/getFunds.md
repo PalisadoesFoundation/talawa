@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [fund_service](../../services_fund_service/services_fund_service-library.md)
+2.  [services/fund_service.dart](../../services_fund_service/)
 3.  [FundService](../../services_fund_service/FundService-class.md)
 4.  getFunds method
 
@@ -18,13 +18,9 @@ getFunds
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,14 +38,9 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[Pair](../../utils_pair/Pair-class.md)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Fund](../../models_funds_fund/Fund-class.md)</span>\></span></span>,
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[Pair](../../utils_pair/Pair-class.md)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Fund](../../models_funds_fund/Fund-class.md)</span>\></span></span>,
 <span class="type-parameter">[PageInfo](../../models_page_info_page_info/PageInfo-class.md)</span>\></span></span>\></span></span>
-<span class="name">getFunds</span>(
-
-1.  <span id="getFunds-param-first"
-    class="parameter"></span>
-
-)
+<span class="name">getFunds</span>
 
 </div>
 
@@ -90,11 +81,15 @@ Future<Pair<List<Fund>, PageInfo>>  async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_service](../../services_fund_service/services_fund_service-library.md)
+2.  [fund_service](../../services_fund_service/)
 3.  [FundService](../../services_fund_service/FundService-class.md)
 4.  getFunds method
 
 ##### FundService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
 3.  [RecurrenceFrequencyDropdown](../../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)
-4.  RecurrenceFrequencyDropdown const constructor
+4.  RecurrenceFrequencyDropdown.new const constructor
 
 <div class="self-name">
 
-RecurrenceFrequencyDropdown
+RecurrenceFrequencyDropdown.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">RecurrenceFrequencyDropdown</span>(
-
-1.  <span id="-param-model" class="parameter"></span>
-
-)
+const <span class="name">RecurrenceFrequencyDropdown</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">RecurrenceFrequencyDropdown</span>(
 ## Implementation
 
 ``` language-dart
-const RecurrenceFrequencyDropdown
+const ;
 ```
 
 </div>
@@ -69,11 +61,15 @@ const RecurrenceFrequencyDropdown
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
 3.  [RecurrenceFrequencyDropdown](../../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)
-4.  RecurrenceFrequencyDropdown const constructor
+4.  RecurrenceFrequencyDropdown.new const constructor
 
 ##### RecurrenceFrequencyDropdown class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

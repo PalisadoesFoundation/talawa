@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [asymetric_keys](../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [models/asymetric_keys/asymetric_keys.dart](../models_asymetric_keys_asymetric_keys/)
 3.  AsymetricKeys class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ AsymetricKeys
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -62,7 +58,7 @@ Annotations
 
 ## Constructors
 
-<span class="name">[AsymetricKeys](../models_asymetric_keys_asymetric_keys/AsymetricKeys/AsymetricKeys.md)</span><span class="signature">(<span id="-param-keyPair" class="parameter"></span>)</span>  
+<span class="name">[AsymetricKeys.new](../models_asymetric_keys_asymetric_keys/AsymetricKeys/AsymetricKeys.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -112,7 +108,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[keyPair](../models_asymetric_keys_asymetric_keys/AsymetricKeys/keyPair.md)</span> <span class="signature">→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/api/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PrivateKey-class.html)</span>\></span></span>  
+<span class="name">[keyPair](../models_asymetric_keys_asymetric_keys/AsymetricKeys/keyPair.md)</span> <span class="signature">→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PrivateKey-class.html)</span>\></span></span>  
 The key pair to work with.
 
 <div class="features">
@@ -138,7 +134,7 @@ class="section summary offset-anchor inherited">
 
 ## Methods
 
-<span class="name">[delete](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[delete](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Deletes this object from the box it is stored in.
 
 <div class="features">
@@ -156,7 +152,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[save](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[save](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Persists this object.
 
 <div class="features">
@@ -200,8 +196,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [asymetric_keys](../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [asymetric_keys](../models_asymetric_keys_asymetric_keys/)
 3.  AsymetricKeys class
+
+##### asymetric_keys library
 
 <div id="dartdoc-sidebar-left-content">
 

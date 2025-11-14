@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [graphql_config](../../services_graphql_config/services_graphql_config-library.md)
+2.  [services/graphql_config.dart](../../services_graphql_config/)
 3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
 4.  displayImgRoute property
 
@@ -18,13 +18,9 @@ displayImgRoute
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -72,11 +68,15 @@ String? displayImgRoute;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [graphql_config](../../services_graphql_config/services_graphql_config-library.md)
+2.  [graphql_config](../../services_graphql_config/)
 3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
 4.  displayImgRoute property
 
 ##### GraphqlConfig class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

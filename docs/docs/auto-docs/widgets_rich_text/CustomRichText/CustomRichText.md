@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [rich_text](../../widgets_rich_text/widgets_rich_text-library.md)
+2.  [widgets/rich_text.dart](../../widgets_rich_text/)
 3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
-4.  CustomRichText const constructor
+4.  CustomRichText.new const constructor
 
 <div class="self-name">
 
-CustomRichText
+CustomRichText.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CustomRichText</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">CustomRichText</span>
 
 </div>
 
@@ -55,7 +47,8 @@ const <span class="name">CustomRichText</span>(
 ## Implementation
 
 ``` language-dart
-const CustomRichText
+const 
+    : super(key: key);
 ```
 
 </div>
@@ -69,11 +62,15 @@ const CustomRichText
 </div>
 
 1.  [talawa](../../index.md)
-2.  [rich_text](../../widgets_rich_text/widgets_rich_text-library.md)
+2.  [rich_text](../../widgets_rich_text/)
 3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
-4.  CustomRichText const constructor
+4.  CustomRichText.new const constructor
 
 ##### CustomRichText class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

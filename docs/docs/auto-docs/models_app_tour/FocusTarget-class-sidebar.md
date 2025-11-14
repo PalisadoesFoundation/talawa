@@ -1,5 +1,5 @@
 1.  [Constructors](./FocusTarget-class#constructors.md)
-2.  [FocusTarget](./FocusTarget/FocusTarget.md)
+2.  [new](./FocusTarget/FocusTarget.md)
 3.  [Properties](./FocusTarget-class#instance-properties.md)
 4.  [align](./FocusTarget/align.md)
 5.  [appTour](./FocusTarget/appTour.md)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [manager](../../plugin_manager/plugin_manager-library.md)
+2.  [plugin/manager.dart](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  initialize method
 
@@ -18,13 +18,9 @@ initialize
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -47,11 +43,7 @@ below-sidebar="">
 
 1.  <span id="initialize-param-available"
     class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">[TalawaMobilePlugin](../../plugin_types/TalawaMobilePlugin-class.md)</span>\></span></span>
-    <span class="parameter-name">available</span>, </span>
-2.  <span id="initialize-param-active"
-    class="parameter"></span>
-
-)
+    <span class="parameter-name">available</span>, )
 
 </div>
 
@@ -88,11 +80,15 @@ void initialize(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [manager](../../plugin_manager/plugin_manager-library.md)
+2.  [manager](../../plugin_manager/)
 3.  [PluginManager](../../plugin_manager/PluginManager-class.md)
 4.  initialize method
 
 ##### PluginManager class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [connectivity_view_model](../../view_model_connectivity_view_model/view_model_connectivity_view_model-library.md)
+2.  [view_model/connectivity_view_model.dart](../../view_model_connectivity_view_model/)
 3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.md)
 4.  showSnackbar static method
 
@@ -18,13 +18,9 @@ showSnackbar
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -43,11 +39,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">void</span>
-<span class="name">showSnackbar</span>(
-
-1.  <span id="showSnackbar-param-isOnline" class="parameter"></span>
-
-)
+<span class="name">showSnackbar</span>
 
 </div>
 
@@ -82,11 +74,15 @@ static void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [connectivity_view_model](../../view_model_connectivity_view_model/view_model_connectivity_view_model-library.md)
+2.  [connectivity_view_model](../../view_model_connectivity_view_model/)
 3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.md)
 4.  showSnackbar static method
 
 ##### AppConnectivity class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [org_info](../../models_organization_org_info/models_organization_org_info-library.md)
+2.  [models/organization/org_info.dart](../../models_organization_org_info/)
 3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
 4.  admins property
 
@@ -18,13 +18,9 @@ admins
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -85,11 +81,15 @@ List<User>? admins;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [org_info](../../models_organization_org_info/models_organization_org_info-library.md)
+2.  [org_info](../../models_organization_org_info/)
 3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
 4.  admins property
 
 ##### OrgInfo class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

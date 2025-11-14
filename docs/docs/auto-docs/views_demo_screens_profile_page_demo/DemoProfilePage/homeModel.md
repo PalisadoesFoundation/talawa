@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
+2.  [views/demo_screens/profile_page_demo.dart](../../views_demo_screens_profile_page_demo/)
 3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
 4.  homeModel property
 
@@ -18,13 +18,9 @@ homeModel
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final MainScreenViewModel? homeModel;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
+2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/)
 3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
 4.  homeModel property
 
 ##### DemoProfilePage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

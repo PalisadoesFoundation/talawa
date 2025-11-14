@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [rich_text](../../widgets_rich_text/widgets_rich_text-library.md)
+2.  [widgets/rich_text.dart](../../widgets_rich_text/)
 3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
 4.  words property
 
@@ -18,13 +18,9 @@ words
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -73,11 +69,15 @@ final List<Map<String, dynamic>> words;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [rich_text](../../widgets_rich_text/widgets_rich_text-library.md)
+2.  [rich_text](../../widgets_rich_text/)
 3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
 4.  words property
 
 ##### CustomRichText class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

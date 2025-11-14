@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [hive_manager](../../services_hive_manager/services_hive_manager-library.md)
+2.  [services/hive_manager.dart](../../services_hive_manager/)
 3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
-4.  HiveManager constructor
+4.  HiveManager.new constructor
 
 <div class="self-name">
 
-HiveManager
+HiveManager.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,11 +51,15 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [hive_manager](../../services_hive_manager/services_hive_manager-library.md)
+2.  [hive_manager](../../services_hive_manager/)
 3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
-4.  HiveManager constructor
+4.  HiveManager.new constructor
 
 ##### HiveManager class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [language_model](../../models_language_language_model/models_language_language_model-library.md)
+2.  [models/language/language_model.dart](../../models_language_language_model/)
 3.  [Language](../../models_language_language_model/Language-class.md)
 4.  countryCode property
 
@@ -18,13 +18,9 @@ countryCode
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -72,11 +68,15 @@ final String countryCode;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [language_model](../../models_language_language_model/models_language_language_model-library.md)
+2.  [language_model](../../models_language_language_model/)
 3.  [Language](../../models_language_language_model/Language-class.md)
 4.  countryCode property
 
 ##### Language class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

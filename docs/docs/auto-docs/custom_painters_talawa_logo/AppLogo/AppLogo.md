@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [talawa_logo](../../custom_painters_talawa_logo/custom_painters_talawa_logo-library.md)
+2.  [custom_painters/talawa_logo.dart](../../custom_painters_talawa_logo/)
 3.  [AppLogo](../../custom_painters_talawa_logo/AppLogo-class.md)
-4.  AppLogo constructor
+4.  AppLogo.new constructor
 
 <div class="self-name">
 
-AppLogo
+AppLogo.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,11 +51,15 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [talawa_logo](../../custom_painters_talawa_logo/custom_painters_talawa_logo-library.md)
+2.  [talawa_logo](../../custom_painters_talawa_logo/)
 3.  [AppLogo](../../custom_painters_talawa_logo/AppLogo-class.md)
-4.  AppLogo constructor
+4.  AppLogo.new constructor
 
 ##### AppLogo class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

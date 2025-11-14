@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [fund_campaign](../../models_funds_fund_campaign/models_funds_fund_campaign-library.md)
+2.  [models/funds/fund_campaign.dart](../../models_funds_fund_campaign/)
 3.  [Campaign](../../models_funds_fund_campaign/Campaign-class.md)
-4.  Campaign constructor
+4.  Campaign.new constructor
 
 <div class="self-name">
 
-Campaign
+Campaign.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">Campaign</span>(
-
-1.  <span id="-param-id"
-    class="parameter"></span>
-
-)
+<span class="name">Campaign</span>
 
 </div>
 
@@ -55,24 +46,14 @@ below-sidebar="">
 
 Constructs a `FundraisingCampaign` instance.
 
-[id](../../models_funds_fund_campaign/Campaign/id.md) is the unique
-identifier of the campaign.
-[fundId](../../models_funds_fund_campaign/Campaign/fundId.md) is the
-identifier of the fund to which the campaign belongs.
-[name](../../models_funds_fund_campaign/Campaign/name.md) is the name
-of the campaign.
-[startDate](../../models_funds_fund_campaign/Campaign/startDate.md) is
-the start date of the campaign.
-[endDate](../../models_funds_fund_campaign/Campaign/endDate.md) is the
-end date of the campaign.
-[currency](../../models_funds_fund_campaign/Campaign/currency.md) is
-the currency used for the campaign.
-[pledges](../../models_funds_fund_campaign/Campaign/pledges.md) is a
-list of pledge identifiers associated with the campaign.
-[pledgedAmount](../../models_funds_fund_campaign/Campaign/pledgedAmount.md)
-is the total amount pledged to the campaign.
-[goalAmount](../../models_funds_fund_campaign/Campaign/goalAmount.md)
-is the funding goal of the campaign.
+`id` is the unique identifier of the campaign. `fundId` is the
+identifier of the fund to which the campaign belongs. `name` is the name
+of the campaign. `startDate` is the start date of the campaign.
+`endDate` is the end date of the campaign. `currency` is the currency
+used for the campaign. `pledges` is a list of pledge identifiers
+associated with the campaign. `pledgedAmount` is the total amount
+pledged to the campaign. `goalAmount` is the funding goal of the
+campaign.
 
 </div>
 
@@ -81,7 +62,7 @@ is the funding goal of the campaign.
 ## Implementation
 
 ``` language-dart
-Campaign
+;
 ```
 
 </div>
@@ -95,11 +76,15 @@ Campaign
 </div>
 
 1.  [talawa](../../index.md)
-2.  [fund_campaign](../../models_funds_fund_campaign/models_funds_fund_campaign-library.md)
+2.  [fund_campaign](../../models_funds_fund_campaign/)
 3.  [Campaign](../../models_funds_fund_campaign/Campaign-class.md)
-4.  Campaign constructor
+4.  Campaign.new constructor
 
 ##### Campaign class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

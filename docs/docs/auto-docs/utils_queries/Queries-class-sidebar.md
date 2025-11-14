@@ -1,5 +1,5 @@
 1.  [Constructors](./Queries-class#constructors.md)
-2.  [Queries](./Queries/Queries.md)
+2.  [new](./Queries/Queries.md)
 3.  [Properties](./Queries-class#instance-properties.md)
 4.  [fetchJoinInOrg](./Queries/fetchJoinInOrg.md)
 5.  [fetchJoinInOrgByName](./Queries/fetchJoinInOrgByName.md)

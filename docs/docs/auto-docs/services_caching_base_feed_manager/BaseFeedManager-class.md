@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [base_feed_manager](../services_caching_base_feed_manager/services_caching_base_feed_manager-library.md)
+2.  [services/caching/base_feed_manager.dart](../services_caching_base_feed_manager/)
 3.  BaseFeedManager<span class="signature">\<<span class="type-parameter">T</span>\></span>
     class
 
@@ -18,13 +18,9 @@ BaseFeedManager
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -82,7 +78,7 @@ Implementers
 
 ## Constructors
 
-<span class="name">[BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager/BaseFeedManager.md)</span><span class="signature">(<span id="-param-cacheKey" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">cacheKey</span></span>)</span>  
+<span class="name">[BaseFeedManager.new](../services_caching_base_feed_manager/BaseFeedManager/BaseFeedManager.md)</span><span class="signature">(<span id="-param-cacheKey" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">cacheKey</span></span>)</span>  
 
 </div>
 
@@ -125,15 +121,15 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[fetchDataFromApi](../services_caching_base_feed_manager/BaseFeedManager/fetchDataFromApi.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">T</span>\></span></span>\></span></span> </span>  
+<span class="name">[fetchDataFromApi](../services_caching_base_feed_manager/BaseFeedManager/fetchDataFromApi.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">T</span>\></span></span>\></span></span> </span>  
 Abstract method to be implemented by subclasses to fetch data from an
 API.
 
-<span class="name">[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">T</span>\></span></span>\></span></span> </span>  
+<span class="name">[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">T</span>\></span></span>\></span></span> </span>  
 Fetches new data from the API if online, updates the cache, and returns
 the data.
 
-<span class="name">[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">T</span>\></span></span>\></span></span> </span>  
+<span class="name">[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">T</span>\></span></span>\></span></span> </span>  
 Loads the data cached in Hive.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -145,7 +141,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.md)</span><span class="signature">(<span id="saveDataToCache-param-data" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">T</span>\></span></span> <span class="parameter-name">data</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.md)</span><span class="signature">(<span id="saveDataToCache-param-data" class="parameter"><span class="type-annotation">[List](https://api.flutter.dev/flutter/dart-core/List-class.md)<span class="signature">\<<span class="type-parameter">T</span>\></span></span> <span class="parameter-name">data</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Saves a list of data to the cache, replacing any existing data.
 
 <span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -183,9 +179,11 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [base_feed_manager](../services_caching_base_feed_manager/services_caching_base_feed_manager-library.md)
+2.  [base_feed_manager](../services_caching_base_feed_manager/)
 3.  BaseFeedManager<span class="signature">\<<span class="type-parameter">T</span>\></span>
     class
+
+##### base_feed_manager library
 
 <div id="dartdoc-sidebar-left-content">
 

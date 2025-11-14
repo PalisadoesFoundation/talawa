@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [user_info](../models_user_user_info/models_user_user_info-library.md)
+2.  [models/user/user_info.dart](../models_user_user_info/)
 3.  User class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ User
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -62,9 +58,9 @@ Annotations
 
 ## Constructors
 
-<span class="name">[User](../models_user_user_info/User/User.md)</span><span class="signature">(<span id="-param-adminFor" class="parameter"></span>)</span>  
+<span class="name">[User.new](../models_user_user_info/User/User.md)</span><span class="signature"></span>  
 
-<span class="name">[User.fromJson](../models_user_user_info/User/User.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span>, </span><span id="fromJson-param-fromOrg" class="parameter"></span>)</span>  
+<span class="name">[User.fromJson](../models_user_user_info/User/User.fromJson.md)</span><span class="signature">(<span id="fromJson-param-json" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">json</span>, )</span>  
 <div class="constructor-modifier features">
 
 factory
@@ -243,7 +239,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[delete](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[delete](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Deletes this object from the box it is stored in.
 
 <div class="features">
@@ -264,7 +260,7 @@ Invoked when a nonexistent method or property is accessed.
 <span class="name">[print](../models_user_user_info/User/print.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Method to print the User details.
 
-<span class="name">[save](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[save](https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Persists this object.
 
 <div class="features">
@@ -323,8 +319,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [user_info](../models_user_user_info/models_user_user_info-library.md)
+2.  [user_info](../models_user_user_info/)
 3.  User class
+
+##### user_info library
 
 <div id="dartdoc-sidebar-left-content">
 

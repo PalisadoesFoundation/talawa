@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../../plugin_types/)
 3.  [TalawaMobilePlugin](../../plugin_types/TalawaMobilePlugin-class.md)
 4.  getMenuItems abstract method
 
@@ -18,13 +18,9 @@ getMenuItems
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">getMenuItems</span>(
 
 1.  <span id="getMenuItems-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -86,11 +82,15 @@ List<PluginMenuItem> getMenuItems(BuildContext context);
 </div>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [types](../../plugin_types/)
 3.  [TalawaMobilePlugin](../../plugin_types/TalawaMobilePlugin-class.md)
 4.  getMenuItems abstract method
 
 ##### TalawaMobilePlugin class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

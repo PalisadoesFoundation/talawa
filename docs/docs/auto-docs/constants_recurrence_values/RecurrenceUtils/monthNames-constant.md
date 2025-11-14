@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [recurrence_values](../../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [constants/recurrence_values.dart](../../constants_recurrence_values/)
 3.  [RecurrenceUtils](../../constants_recurrence_values/RecurrenceUtils-class.md)
 4.  monthNames constant
 
@@ -18,13 +18,9 @@ monthNames
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -85,11 +81,15 @@ static const List<String> monthNames = [
 </div>
 
 1.  [talawa](../../index.md)
-2.  [recurrence_values](../../constants_recurrence_values/constants_recurrence_values-library.md)
+2.  [recurrence_values](../../constants_recurrence_values/)
 3.  [RecurrenceUtils](../../constants_recurrence_values/RecurrenceUtils-class.md)
 4.  monthNames constant
 
 ##### RecurrenceUtils class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

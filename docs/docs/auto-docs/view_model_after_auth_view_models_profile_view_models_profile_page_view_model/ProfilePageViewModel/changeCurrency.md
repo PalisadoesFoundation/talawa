@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.md)
+2.  [view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
 3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
 4.  changeCurrency method
 
@@ -18,13 +18,9 @@ changeCurrency
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,16 +42,14 @@ below-sidebar="">
 <span class="name">changeCurrency</span>(
 
 1.  <span id="changeCurrency-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span>, </span>
 2.  <span id="changeCurrency-param-setter"
     class="parameter"><span class="type-annotation">void</span>
     <span class="parameter-name">setter</span>(</span>
     1.  <span id="param-"
         class="parameter"><span class="type-annotation">void</span>
-        <span class="parameter-name"></span>(</span>
-
-        )
+        <span class="parameter-name"></span></span>
 
     )
 
@@ -98,11 +92,15 @@ void changeCurrency(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.md)
+2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
 3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
 4.  changeCurrency method
 
 ##### ProfilePageViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

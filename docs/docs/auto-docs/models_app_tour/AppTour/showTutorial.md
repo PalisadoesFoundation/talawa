@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [models/app_tour.dart](../../models_app_tour/)
 3.  [AppTour](../../models_app_tour/AppTour-class.md)
 4.  showTutorial method
 
@@ -18,13 +18,9 @@ showTutorial
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -43,12 +39,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">void</span>
-<span class="name">showTutorial</span>(
-
-1.  <span id="showTutorial-param-onClickTarget"
-    class="parameter"></span>
-
-)
+<span class="name">showTutorial</span>
 
 </div>
 
@@ -87,11 +78,15 @@ void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [app_tour](../../models_app_tour/)
 3.  [AppTour](../../models_app_tour/AppTour-class.md)
 4.  showTutorial method
 
 ##### AppTour class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

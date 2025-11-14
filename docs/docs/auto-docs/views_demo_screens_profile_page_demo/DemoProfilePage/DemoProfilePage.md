@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
+2.  [views/demo_screens/profile_page_demo.dart](../../views_demo_screens_profile_page_demo/)
 3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
-4.  DemoProfilePage const constructor
+4.  DemoProfilePage.new const constructor
 
 <div class="self-name">
 
-DemoProfilePage
+DemoProfilePage.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">DemoProfilePage</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">DemoProfilePage</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">DemoProfilePage</span>(
 ## Implementation
 
 ``` language-dart
-const DemoProfilePage
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const DemoProfilePage
 </div>
 
 1.  [talawa](../../index.md)
-2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/views_demo_screens_profile_page_demo-library.md)
+2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/)
 3.  [DemoProfilePage](../../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)
-4.  DemoProfilePage const constructor
+4.  DemoProfilePage.new const constructor
 
 ##### DemoProfilePage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

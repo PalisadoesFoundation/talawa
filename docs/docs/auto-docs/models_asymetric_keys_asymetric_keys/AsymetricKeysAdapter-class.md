@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [asymetric_keys](../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [models/asymetric_keys/asymetric_keys.dart](../models_asymetric_keys_asymetric_keys/)
 3.  AsymetricKeysAdapter class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ AsymetricKeysAdapter
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -52,7 +48,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AsymetricKeysAdapter](../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter/AsymetricKeysAdapter.md)</span><span class="signature"></span>  
+<span class="name">[AsymetricKeysAdapter.new](../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter/AsymetricKeysAdapter.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -157,8 +153,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [asymetric_keys](../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [asymetric_keys](../models_asymetric_keys_asymetric_keys/)
 3.  AsymetricKeysAdapter class
+
+##### asymetric_keys library
 
 <div id="dartdoc-sidebar-left-content">
 

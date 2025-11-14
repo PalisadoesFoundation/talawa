@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [fund_queries](../utils_fund_queries/utils_fund_queries-library.md)
+2.  [utils/fund_queries.dart](../utils_fund_queries/)
 3.  FundQueries class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ FundQueries
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ This class contains the required mutations and queries for funds.
 
 ## Constructors
 
-<span class="name">[FundQueries](../utils_fund_queries/FundQueries/FundQueries.md)</span><span class="signature"></span>  
+<span class="name">[FundQueries.new](../utils_fund_queries/FundQueries/FundQueries.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -146,8 +142,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [fund_queries](../utils_fund_queries/utils_fund_queries-library.md)
+2.  [fund_queries](../utils_fund_queries/)
 3.  FundQueries class
+
+##### fund_queries library
 
 <div id="dartdoc-sidebar-left-content">
 

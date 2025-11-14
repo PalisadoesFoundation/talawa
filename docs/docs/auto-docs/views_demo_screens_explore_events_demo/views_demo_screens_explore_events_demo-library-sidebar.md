@@ -1,2 +1,2 @@
-1.  [Classes](./views_demo_screens_explore_events_demo-library#classes.md)
+1.  [Classes](./#classes)
 2.  [DemoExploreEvents](./DemoExploreEvents-class.md)

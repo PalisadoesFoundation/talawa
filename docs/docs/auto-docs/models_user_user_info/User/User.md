@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [user_info](../../models_user_user_info/models_user_user_info-library.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
 3.  [User](../../models_user_user_info/User-class.md)
-4.  User constructor
+4.  User.new constructor
 
 <div class="self-name">
 
-User
+User.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">User</span>(
-
-1.  <span id="-param-adminFor"
-    class="parameter"></span>
-
-)
+<span class="name">User</span>
 
 </div>
 
@@ -56,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-User
+;
 ```
 
 </div>
@@ -70,11 +61,15 @@ User
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_info](../../models_user_user_info/models_user_user_info-library.md)
+2.  [user_info](../../models_user_user_info/)
 3.  [User](../../models_user_user_info/User-class.md)
-4.  User constructor
+4.  User.new constructor
 
 ##### User class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

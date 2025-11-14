@@ -1,2 +1,2 @@
-1.  [Classes](./services_event_service-library#classes.md)
+1.  [Classes](./#classes)
 2.  [EventService](./EventService-class.md)

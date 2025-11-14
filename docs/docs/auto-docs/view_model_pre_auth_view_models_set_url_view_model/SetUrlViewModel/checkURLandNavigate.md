@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/view_model_pre_auth_view_models_set_url_view_model-library.md)
+2.  [view_model/pre_auth_view_models/set_url_view_model.dart](../../view_model_pre_auth_view_models_set_url_view_model/)
 3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
 4.  checkURLandNavigate method
 
@@ -18,13 +18,9 @@ checkURLandNavigate
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span>
 <span class="name">checkURLandNavigate</span>(
 
 1.  <span id="checkURLandNavigate-param-navigateTo"
@@ -88,11 +84,15 @@ Future<void> checkURLandNavigate(String navigateTo, String argument) async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/view_model_pre_auth_view_models_set_url_view_model-library.md)
+2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
 3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
 4.  checkURLandNavigate method
 
 ##### SetUrlViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

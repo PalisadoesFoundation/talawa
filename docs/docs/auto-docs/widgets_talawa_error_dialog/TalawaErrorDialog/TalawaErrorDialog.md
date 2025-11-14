@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [talawa_error_dialog](../../widgets_talawa_error_dialog/widgets_talawa_error_dialog-library.md)
+2.  [widgets/talawa_error_dialog.dart](../../widgets_talawa_error_dialog/)
 3.  [TalawaErrorDialog](../../widgets_talawa_error_dialog/TalawaErrorDialog-class.md)
-4.  TalawaErrorDialog const constructor
+4.  TalawaErrorDialog.new const constructor
 
 <div class="self-name">
 
-TalawaErrorDialog
+TalawaErrorDialog.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,11 +42,7 @@ const <span class="name">TalawaErrorDialog</span>(
 
 1.  <span id="-param-errorMessage"
     class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span>
-    <span class="parameter-name">errorMessage</span>, </span>
-2.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+    <span class="parameter-name">errorMessage</span>, )
 
 </div>
 
@@ -59,7 +51,8 @@ const <span class="name">TalawaErrorDialog</span>(
 ## Implementation
 
 ``` language-dart
-const TalawaErrorDialog
+const TalawaErrorDialog(
+  this.errorMessage, );
 ```
 
 </div>
@@ -73,11 +66,15 @@ const TalawaErrorDialog
 </div>
 
 1.  [talawa](../../index.md)
-2.  [talawa_error_dialog](../../widgets_talawa_error_dialog/widgets_talawa_error_dialog-library.md)
+2.  [talawa_error_dialog](../../widgets_talawa_error_dialog/)
 3.  [TalawaErrorDialog](../../widgets_talawa_error_dialog/TalawaErrorDialog-class.md)
-4.  TalawaErrorDialog const constructor
+4.  TalawaErrorDialog.new const constructor
 
 ##### TalawaErrorDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

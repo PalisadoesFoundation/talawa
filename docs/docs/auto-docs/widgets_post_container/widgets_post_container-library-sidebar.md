@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_post_container-library#classes.md)
+1.  [Classes](./#classes)
 2.  [PostContainer](./PostContainer-class.md)

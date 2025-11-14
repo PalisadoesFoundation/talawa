@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_event_search_delegate-library#classes.md)
+1.  [Classes](./#classes)
 2.  [EventSearch](./EventSearch-class.md)

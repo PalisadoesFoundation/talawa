@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/views_after_auth_screens_events_create_custom_recurring_event-library.md)
+2.  [views/after_auth_screens/events/create_custom_recurring_event.dart](../../views_after_auth_screens_events_create_custom_recurring_event/)
 3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
-4.  CustomRecurrencePage const constructor
+4.  CustomRecurrencePage.new const constructor
 
 <div class="self-name">
 
-CustomRecurrencePage
+CustomRecurrencePage.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">CustomRecurrencePage</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">CustomRecurrencePage</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">CustomRecurrencePage</span>(
 ## Implementation
 
 ``` language-dart
-const CustomRecurrencePage
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const CustomRecurrencePage
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/views_after_auth_screens_events_create_custom_recurring_event-library.md)
+2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/)
 3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
-4.  CustomRecurrencePage const constructor
+4.  CustomRecurrencePage.new const constructor
 
 ##### CustomRecurrencePage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

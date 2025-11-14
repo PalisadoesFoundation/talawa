@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [user_info](../../models_user_user_info/models_user_user_info-library.md)
+2.  [models/user/user_info.dart](../../models_user_user_info/)
 3.  [User](../../models_user_user_info/User-class.md)
 4.  email property
 
@@ -18,13 +18,9 @@ email
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -85,11 +81,15 @@ String? email;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_info](../../models_user_user_info/models_user_user_info-library.md)
+2.  [user_info](../../models_user_user_info/)
 3.  [User](../../models_user_user_info/User-class.md)
 4.  email property
 
 ##### User class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

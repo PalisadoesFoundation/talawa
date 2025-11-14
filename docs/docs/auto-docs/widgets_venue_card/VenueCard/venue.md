@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [venue_card](../../widgets_venue_card/widgets_venue_card-library.md)
+2.  [widgets/venue_card.dart](../../widgets_venue_card/)
 3.  [VenueCard](../../widgets_venue_card/VenueCard-class.md)
 4.  venue property
 
@@ -18,13 +18,9 @@ venue
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final Venue venue;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [venue_card](../../widgets_venue_card/widgets_venue_card-library.md)
+2.  [venue_card](../../widgets_venue_card/)
 3.  [VenueCard](../../widgets_venue_card/VenueCard-class.md)
 4.  venue property
 
 ##### VenueCard class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

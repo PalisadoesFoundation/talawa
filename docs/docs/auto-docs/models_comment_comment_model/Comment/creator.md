@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
+2.  [models/comment/comment_model.dart](../../models_comment_comment_model/)
 3.  [Comment](../../models_comment_comment_model/Comment-class.md)
 4.  creator property
 
@@ -18,13 +18,9 @@ creator
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -85,11 +81,15 @@ User? creator;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
+2.  [comment_model](../../models_comment_comment_model/)
 3.  [Comment](../../models_comment_comment_model/Comment-class.md)
 4.  creator property
 
 ##### Comment class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

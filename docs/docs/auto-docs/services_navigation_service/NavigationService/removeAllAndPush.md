@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  removeAllAndPush method
 
@@ -18,13 +18,9 @@ removeAllAndPush
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)</span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)</span>
 <span class="name">removeAllAndPush</span>(
 
 1.  <span id="removeAllAndPush-param-routeName"
@@ -50,11 +46,7 @@ below-sidebar="">
     <span class="parameter-name">routeName</span>, </span>
 2.  <span id="removeAllAndPush-param-tillRoute"
     class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>
-    <span class="parameter-name">tillRoute</span>, </span>
-3.  <span id="removeAllAndPush-param-arguments"
-    class="parameter"></span>
-
-)
+    <span class="parameter-name">tillRoute</span>, )
 
 </div>
 
@@ -97,11 +89,15 @@ Future<dynamic> removeAllAndPush(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [navigation_service](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  removeAllAndPush method
 
 ##### NavigationService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

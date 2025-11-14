@@ -1,2 +1,2 @@
-1.  [Classes](./utils_encryptor-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Encryptor](./Encryptor-class.md)

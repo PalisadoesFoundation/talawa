@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [language_model](../../models_language_language_model/models_language_language_model-library.md)
+2.  [models/language/language_model.dart](../../models_language_language_model/)
 3.  [Language](../../models_language_language_model/Language-class.md)
-4.  Language constructor
+4.  Language.new constructor
 
 <div class="self-name">
 
-Language
+Language.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">Language</span>(
-
-1.  <span id="-param-countryCode" class="parameter"></span>
-
-)
+<span class="name">Language</span>
 
 </div>
 
@@ -55,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-Language
+;
 ```
 
 </div>
@@ -69,11 +61,15 @@ Language
 </div>
 
 1.  [talawa](../../index.md)
-2.  [language_model](../../models_language_language_model/models_language_language_model-library.md)
+2.  [language_model](../../models_language_language_model/)
 3.  [Language](../../models_language_language_model/Language-class.md)
-4.  Language constructor
+4.  Language.new constructor
 
 ##### Language class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

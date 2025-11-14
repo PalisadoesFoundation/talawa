@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_date_time_tile](../../widgets_event_date_time_tile/widgets_event_date_time_tile-library.md)
+2.  [widgets/event_date_time_tile.dart](../../widgets_event_date_time_tile/)
 3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.md)
-4.  DateTimeTile const constructor
+4.  DateTimeTile.new const constructor
 
 <div class="self-name">
 
-DateTimeTile
+DateTimeTile.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">DateTimeTile</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">DateTimeTile</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">DateTimeTile</span>(
 ## Implementation
 
 ``` language-dart
-const DateTimeTile
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const DateTimeTile
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_date_time_tile](../../widgets_event_date_time_tile/widgets_event_date_time_tile-library.md)
+2.  [event_date_time_tile](../../widgets_event_date_time_tile/)
 3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.md)
-4.  DateTimeTile const constructor
+4.  DateTimeTile.new const constructor
 
 ##### DateTimeTile class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

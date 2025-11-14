@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [models/app_tour.dart](../../models_app_tour/)
 3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
 4.  key property
 
@@ -18,13 +18,9 @@ key
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-GlobalKey<span class="signature">\<<span class="type-parameter">State<span class="signature">\<<span class="type-parameter">StatefulWidget</span>\></span></span>\></span>
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[State](https://api.flutter.dev/flutter/widgets/State-class.html)<span class="signature">\<<span class="type-parameter">[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)</span>\></span></span>\></span>
 <span class="name">key</span>
 
 <div class="features">
@@ -78,11 +74,15 @@ GlobalKey key;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_tour](../../models_app_tour/models_app_tour-library.md)
+2.  [app_tour](../../models_app_tour/)
 3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
 4.  key property
 
 ##### FocusTarget class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

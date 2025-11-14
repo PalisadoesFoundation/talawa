@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_search_delegate](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
+2.  [widgets/event_search_delegate.dart](../../widgets_event_search_delegate/)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildActions method
 
@@ -18,13 +18,9 @@ buildActions
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -48,34 +44,41 @@ below-sidebar="">
 
 </div>
 
-<span class="returntype">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">Widget</span>\></span></span>
+<span class="returntype">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>\></span></span>
 <span class="name">buildActions</span>(
 
 1.  <span id="buildActions-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span></span>
 
 )
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 </div>
 
 <div class="section desc markdown">
 
-Widgets to display after the search query in the `AppBar`.
+Widgets to display after the search query in the
+[AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
 
 If the
-[query](../../widgets_event_search_delegate/EventSearch/query.md) is
-not empty, this should typically contain a button to clear the query and
-show the suggestions again (via
-[showSuggestions](../../widgets_event_search_delegate/EventSearch/showSuggestions.md))
+[query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)
+is not empty, this should typically contain a button to clear the query
+and show the suggestions again (via
+[showSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/showSuggestions.md))
 if the results are currently shown.
 
 Returns null if no widget should be shown.
 
 See also:
 
-- `AppBar.actions`, the intended use for the return value of this
-  method.
+- [AppBar.actions](https://api.flutter.dev/flutter/material/AppBar/actions.html),
+  the intended use for the return value of this method.
 
 </div>
 
@@ -99,11 +102,15 @@ List<Widget> buildActions(BuildContext context)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_search_delegate](../../widgets_event_search_delegate/widgets_event_search_delegate-library.md)
+2.  [event_search_delegate](../../widgets_event_search_delegate/)
 3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildActions method
 
 ##### EventSearch class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

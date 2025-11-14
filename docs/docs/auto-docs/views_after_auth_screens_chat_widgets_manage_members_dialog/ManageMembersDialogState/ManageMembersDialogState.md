@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [manage_members_dialog](../../views_after_auth_screens_chat_widgets_manage_members_dialog/views_after_auth_screens_chat_widgets_manage_members_dialog-library.md)
+2.  [views/after_auth_screens/chat/widgets/manage_members_dialog.dart](../../views_after_auth_screens_chat_widgets_manage_members_dialog/)
 3.  [ManageMembersDialogState](../../views_after_auth_screens_chat_widgets_manage_members_dialog/ManageMembersDialogState-class.md)
-4.  ManageMembersDialogState constructor
+4.  ManageMembersDialogState.new constructor
 
 <div class="self-name">
 
-ManageMembersDialogState
+ManageMembersDialogState.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,11 +51,15 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [manage_members_dialog](../../views_after_auth_screens_chat_widgets_manage_members_dialog/views_after_auth_screens_chat_widgets_manage_members_dialog-library.md)
+2.  [manage_members_dialog](../../views_after_auth_screens_chat_widgets_manage_members_dialog/)
 3.  [ManageMembersDialogState](../../views_after_auth_screens_chat_widgets_manage_members_dialog/ManageMembersDialogState-class.md)
-4.  ManageMembersDialogState constructor
+4.  ManageMembersDialogState.new constructor
 
 ##### ManageMembersDialogState class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

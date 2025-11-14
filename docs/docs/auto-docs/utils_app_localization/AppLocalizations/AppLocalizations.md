@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_localization](../../utils_app_localization/utils_app_localization-library.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
 3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
-4.  AppLocalizations constructor
+4.  AppLocalizations.new constructor
 
 <div class="self-name">
 
-AppLocalizations
+AppLocalizations.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,11 +42,7 @@ below-sidebar="">
 
 1.  <span id="-param-locale"
     class="parameter"><span class="type-annotation">[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)</span>
-    <span class="parameter-name">locale</span>, </span>
-2.  <span id="-param-isTest"
-    class="parameter"></span>
-
-)
+    <span class="parameter-name">locale</span>, )
 
 </div>
 
@@ -59,7 +51,8 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-AppLocalizations
+AppLocalizations(
+  this.locale, );
 ```
 
 </div>
@@ -73,11 +66,15 @@ AppLocalizations
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_localization](../../utils_app_localization/utils_app_localization-library.md)
+2.  [app_localization](../../utils_app_localization/)
 3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
-4.  AppLocalizations constructor
+4.  AppLocalizations.new constructor
 
 ##### AppLocalizations class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

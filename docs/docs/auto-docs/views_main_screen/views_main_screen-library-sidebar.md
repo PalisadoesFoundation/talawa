@@ -1,2 +1,2 @@
-1.  [Classes](./views_main_screen-library#classes.md)
+1.  [Classes](./#classes)
 2.  [MainScreen](./MainScreen-class.md)

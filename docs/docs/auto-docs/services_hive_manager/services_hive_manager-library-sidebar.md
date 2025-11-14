@@ -1,2 +1,2 @@
-1.  [Classes](./services_hive_manager-library#classes.md)
+1.  [Classes](./#classes)
 2.  [HiveManager](./HiveManager-class.md)

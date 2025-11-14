@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_service](../../services_event_service/services_event_service-library.md)
+2.  [services/event_service.dart](../../services_event_service/)
 3.  [EventService](../../services_event_service/EventService-class.md)
 4.  hasMoreEvents property
 
@@ -18,13 +18,9 @@ hasMoreEvents
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -45,7 +41,7 @@ below-sidebar="">
 <div class="section multi-line-signature">
 
 <span class="returntype">[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>
-<span class="name">hasMoreEvents</span>
+get <span class="name">hasMoreEvents</span>
 
 </div>
 
@@ -76,11 +72,15 @@ bool get hasMoreEvents => pageInfo.hasNextPage ?? false;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_service](../../services_event_service/services_event_service-library.md)
+2.  [event_service](../../services_event_service/)
 3.  [EventService](../../services_event_service/EventService-class.md)
 4.  hasMoreEvents property
 
 ##### EventService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

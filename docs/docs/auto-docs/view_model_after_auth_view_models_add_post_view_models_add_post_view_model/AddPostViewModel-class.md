@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [add_post_view_model](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/view_model_after_auth_view_models_add_post_view_models_add_post_view_model-library.md)
+2.  [view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
 3.  AddPostViewModel class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ AddPostViewModel
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -52,6 +48,7 @@ organization.
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - AddPostViewModel
 
@@ -61,7 +58,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/AddPostViewModel.md)</span><span class="signature">(<span id="-param-demoMode" class="parameter"></span>)</span>  
+<span class="name">[AddPostViewModel.new](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/AddPostViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -69,7 +66,7 @@ Inheritance
 
 ## Properties
 
-<span class="name">[controller](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/controller.md)</span> <span class="signature">→ TextEditingController</span>  
+<span class="name">[controller](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/controller.md)</span> <span class="signature">→ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 The main text controller of the post body.
 
 <div class="features">
@@ -97,7 +94,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -160,7 +157,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[textHashTagController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/textHashTagController.md)</span> <span class="signature">→ TextEditingController</span>  
+<span class="name">[textHashTagController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/textHashTagController.md)</span> <span class="signature">→ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 The main text controller of the hashtag.
 
 <div class="features">
@@ -169,7 +166,7 @@ The main text controller of the hashtag.
 
 </div>
 
-<span class="name">[titleController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/titleController.md)</span> <span class="signature">→ TextEditingController</span>  
+<span class="name">[titleController](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/titleController.md)</span> <span class="signature">→ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)</span>  
 The text controller of the title body.
 
 <div class="features">
@@ -202,7 +199,7 @@ User profile picture.
 
 ## Methods
 
-<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -211,10 +208,10 @@ Register a closure to be called when the object changes.
 
 </div>
 
-<span class="name">[dispose](../view_model_base_view_model/BaseModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
 will throw after the object is disposed).
 
 <div class="features">
@@ -223,7 +220,7 @@ will throw after the object is disposed).
 
 </div>
 
-<span class="name">[getImageFromGallery](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/getImageFromGallery.md)</span><span class="signature">(<span id="getImageFromGallery-param-camera" class="parameter"></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[getImageFromGallery](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/getImageFromGallery.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 This function is used to get the image from gallery.
 
 <span class="name">[initialise](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/initialise.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
@@ -238,7 +235,7 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[notifyListeners](../view_model_base_view_model/BaseModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[notifyListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
 <div class="features">
@@ -250,7 +247,7 @@ Call all the registered listeners.
 <span class="name">[removeImage](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/removeImage.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 This function removes the image selected.
 
-<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -263,7 +260,7 @@ are notified when the object changes.
 <span class="name">[setImageFile](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/setImageFile.md)</span><span class="signature">(<span id="setImageFile-param-file" class="parameter"><span class="type-annotation">[File](https://api.flutter.dev/flutter/dart-io/File-class.md)?</span> <span class="parameter-name">file</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Method to set image.
 
-<span class="name">[setImageInBase64](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/setImageInBase64.md)</span><span class="signature">(<span id="setImageInBase64-param-file" class="parameter"><span class="type-annotation">[File](https://api.flutter.dev/flutter/dart-io/File-class.md)</span> <span class="parameter-name">file</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[setImageInBase64](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/setImageInBase64.md)</span><span class="signature">(<span id="setImageInBase64-param-file" class="parameter"><span class="type-annotation">[File](https://api.flutter.dev/flutter/dart-io/File-class.md)</span> <span class="parameter-name">file</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Method to set Image in Bsse64.
 
 <span class="name">[setState](../view_model_base_view_model/BaseModel/setState.md)</span><span class="signature">(<span id="setState-param-viewState" class="parameter"><span class="type-annotation">[ViewState](../enums_enums/ViewState.md)</span> <span class="parameter-name">viewState</span></span>) <span class="returntype parameter">→ void</span> </span>  
@@ -282,7 +279,7 @@ A string representation of this object.
 
 </div>
 
-<span class="name">[uploadPost](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/uploadPost.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[uploadPost](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel/uploadPost.md)</span><span class="signature"> <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 This function uploads the post finally, and navigate the success message
 or error message in Snack Bar.
 
@@ -312,8 +309,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [add_post_view_model](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/view_model_after_auth_view_models_add_post_view_models_add_post_view_model-library.md)
+2.  [add_post_view_model](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
 3.  AddPostViewModel class
+
+##### add_post_view_model library
 
 <div id="dartdoc-sidebar-left-content">
 

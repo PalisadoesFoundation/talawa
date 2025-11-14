@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [login](../../views_pre_auth_screens_login/views_pre_auth_screens_login-library.md)
+2.  [views/pre_auth_screens/login.dart](../../views_pre_auth_screens_login/)
 3.  [Login](../../views_pre_auth_screens_login/Login-class.md)
-4.  Login const constructor
+4.  Login.new const constructor
 
 <div class="self-name">
 
-Login
+Login.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">Login</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">Login</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">Login</span>(
 ## Implementation
 
 ``` language-dart
-const Login
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const Login
 </div>
 
 1.  [talawa](../../index.md)
-2.  [login](../../views_pre_auth_screens_login/views_pre_auth_screens_login-library.md)
+2.  [login](../../views_pre_auth_screens_login/)
 3.  [Login](../../views_pre_auth_screens_login/Login-class.md)
-4.  Login const constructor
+4.  Login.new const constructor
 
 ##### Login class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

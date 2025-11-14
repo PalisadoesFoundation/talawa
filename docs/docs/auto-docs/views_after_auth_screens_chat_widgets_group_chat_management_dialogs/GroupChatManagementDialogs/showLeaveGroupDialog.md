@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_management_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/views_after_auth_screens_chat_widgets_group_chat_management_dialogs-library.md)
+2.  [views/after_auth_screens/chat/widgets/group_chat_management_dialogs.dart](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/)
 3.  [GroupChatManagementDialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/GroupChatManagementDialogs-class.md)
 4.  showLeaveGroupDialog static method
 
@@ -18,13 +18,9 @@ showLeaveGroupDialog
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">showLeaveGroupDialog</span>(
 
 1.  <span id="showLeaveGroupDialog-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)</span>
     <span class="parameter-name">context</span>, </span>
 2.  <span id="showLeaveGroupDialog-param-model"
     class="parameter"><span class="type-annotation">[GroupChatViewModel](../../view_model_after_auth_view_models_chat_view_models_group_chat_view_model/GroupChatViewModel-class.md)</span>
@@ -56,7 +52,7 @@ below-sidebar="">
     <span class="parameter-name">chatId</span>, </span>
 4.  <span id="showLeaveGroupDialog-param-chat"
     class="parameter"><span class="type-annotation">[Chat](../../models_chats_chat/Chat-class.md)</span>
-    <span class="parameter-name">chat</span></span>
+    <span class="parameter-name">chat</span>, </span>
 
 )
 
@@ -101,11 +97,15 @@ static void showLeaveGroupDialog(
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chat_management_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/views_after_auth_screens_chat_widgets_group_chat_management_dialogs-library.md)
+2.  [group_chat_management_dialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/)
 3.  [GroupChatManagementDialogs](../../views_after_auth_screens_chat_widgets_group_chat_management_dialogs/GroupChatManagementDialogs-class.md)
 4.  showLeaveGroupDialog static method
 
 ##### GroupChatManagementDialogs class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

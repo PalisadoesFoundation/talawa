@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [widgets/create_recurring_event_helper_widgets.dart](../../widgets_create_recurring_event_helper_widgets/)
 3.  [RecurrenceFrequencyDropdown](../../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)
 4.  onSelected property
 
@@ -18,13 +18,9 @@ onSelected
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,8 +38,8 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-(void Function<span class="signature">(<span id="param-"
-class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span></span>)</span>?)
+void Function<span class="signature">(<span id="param-"
+class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span></span>)</span>?
 <span class="name">onSelected</span>
 
 <div class="features">
@@ -79,11 +75,15 @@ final void Function(String)? onSelected;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/widgets_create_recurring_event_helper_widgets-library.md)
+2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
 3.  [RecurrenceFrequencyDropdown](../../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)
 4.  onSelected property
 
 ##### RecurrenceFrequencyDropdown class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

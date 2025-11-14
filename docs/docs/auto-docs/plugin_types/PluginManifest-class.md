@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../plugin_types/)
 3.  PluginManifest class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ PluginManifest
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Basic plugin manifest metadata.
 
 ## Constructors
 
-<span class="name">[PluginManifest](../plugin_types/PluginManifest/PluginManifest.md)</span><span class="signature">(<span id="-param-id" class="parameter"></span>)</span>  
+<span class="name">[PluginManifest.new](../plugin_types/PluginManifest/PluginManifest.md)</span><span class="signature"></span>  
 <div class="constructor-modifier features">
 
 const
@@ -160,8 +156,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [types](../plugin_types/plugin_types-library.md)
+2.  [types](../plugin_types/)
 3.  PluginManifest class
+
+##### types library
 
 <div id="dartdoc-sidebar-left-content">
 

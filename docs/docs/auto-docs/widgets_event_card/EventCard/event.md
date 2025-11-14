@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_card](../../widgets_event_card/widgets_event_card-library.md)
+2.  [widgets/event_card.dart](../../widgets_event_card/)
 3.  [EventCard](../../widgets_event_card/EventCard-class.md)
 4.  event property
 
@@ -18,13 +18,9 @@ event
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final Event event;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_card](../../widgets_event_card/widgets_event_card-library.md)
+2.  [event_card](../../widgets_event_card/)
 3.  [EventCard](../../widgets_event_card/EventCard-class.md)
 4.  event property
 
 ##### EventCard class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

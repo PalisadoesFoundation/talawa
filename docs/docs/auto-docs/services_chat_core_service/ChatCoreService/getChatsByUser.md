@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_core_service](../../services_chat_core_service/services_chat_core_service-library.md)
+2.  [services/chat_core_service.dart](../../services_chat_core_service/)
 3.  [ChatCoreService](../../services_chat_core_service/ChatCoreService-class.md)
 4.  getChatsByUser method
 
@@ -18,13 +18,9 @@ getChatsByUser
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../../models_chats_chat/Chat-class.md)</span>\></span></span>\></span></span>
+<span class="returntype">[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[List](https://api.flutter.dev/flutter/dart-core/List-class.html)<span class="signature">\<<span class="type-parameter">[Chat](../../models_chats_chat/Chat-class.md)</span>\></span></span>\></span></span>
 <span class="name">getChatsByUser</span>
 
 </div>
@@ -79,11 +75,15 @@ Future<List<Chat>>  async
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_core_service](../../services_chat_core_service/services_chat_core_service-library.md)
+2.  [chat_core_service](../../services_chat_core_service/)
 3.  [ChatCoreService](../../services_chat_core_service/ChatCoreService-class.md)
 4.  getChatsByUser method
 
 ##### ChatCoreService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

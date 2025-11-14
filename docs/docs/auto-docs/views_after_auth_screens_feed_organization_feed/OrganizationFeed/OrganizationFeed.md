@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [organization_feed](../../views_after_auth_screens_feed_organization_feed/views_after_auth_screens_feed_organization_feed-library.md)
+2.  [views/after_auth_screens/feed/organization_feed.dart](../../views_after_auth_screens_feed_organization_feed/)
 3.  [OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)
-4.  OrganizationFeed const constructor
+4.  OrganizationFeed.new const constructor
 
 <div class="self-name">
 
-OrganizationFeed
+OrganizationFeed.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">OrganizationFeed</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">OrganizationFeed</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">OrganizationFeed</span>(
 ## Implementation
 
 ``` language-dart
-const OrganizationFeed
+const  : super(key: key);
 ```
 
 </div>
@@ -69,11 +61,15 @@ const OrganizationFeed
 </div>
 
 1.  [talawa](../../index.md)
-2.  [organization_feed](../../views_after_auth_screens_feed_organization_feed/views_after_auth_screens_feed_organization_feed-library.md)
+2.  [organization_feed](../../views_after_auth_screens_feed_organization_feed/)
 3.  [OrganizationFeed](../../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)
-4.  OrganizationFeed const constructor
+4.  OrganizationFeed.new const constructor
 
 ##### OrganizationFeed class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

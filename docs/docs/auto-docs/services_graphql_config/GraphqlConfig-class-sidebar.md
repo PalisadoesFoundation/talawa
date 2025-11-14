@@ -1,5 +1,5 @@
 1.  [Constructors](./GraphqlConfig-class#constructors.md)
-2.  [GraphqlConfig](./GraphqlConfig/GraphqlConfig.md)
+2.  [new](./GraphqlConfig/GraphqlConfig.md)
 3.  [Properties](./GraphqlConfig-class#instance-properties.md)
 4.  [displayImgRoute](./GraphqlConfig/displayImgRoute.md)
 5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)

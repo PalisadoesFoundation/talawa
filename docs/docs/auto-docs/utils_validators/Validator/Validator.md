@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [validators](../../utils_validators/utils_validators-library.md)
+2.  [utils/validators.dart](../../utils_validators/)
 3.  [Validator](../../utils_validators/Validator-class.md)
-4.  Validator constructor
+4.  Validator.new constructor
 
 <div class="self-name">
 
-Validator
+Validator.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,11 +51,15 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [validators](../../utils_validators/utils_validators-library.md)
+2.  [validators](../../utils_validators/)
 3.  [Validator](../../utils_validators/Validator-class.md)
-4.  Validator constructor
+4.  Validator.new constructor
 
 ##### Validator class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

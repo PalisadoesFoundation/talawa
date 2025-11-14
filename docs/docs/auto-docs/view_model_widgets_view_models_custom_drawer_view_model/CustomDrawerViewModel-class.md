@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [custom_drawer_view_model](../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
+2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../view_model_widgets_view_models_custom_drawer_view_model/)
 3.  CustomDrawerViewModel class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ CustomDrawerViewModel
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -56,6 +52,7 @@ Functions include:
 
 Inheritance  
 - [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 - [BaseModel](../view_model_base_view_model/BaseModel-class.md)
 - CustomDrawerViewModel
 
@@ -65,7 +62,7 @@ Inheritance
 
 ## Constructors
 
-<span class="name">[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.md)</span><span class="signature"></span>  
+<span class="name">[CustomDrawerViewModel.new](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -73,7 +70,7 @@ Inheritance
 
 ## Properties
 
-<span class="name">[controller](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.md)</span> <span class="signature">→ ScrollController</span>  
+<span class="name">[controller](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.md)</span> <span class="signature">→ [ScrollController](https://api.flutter.dev/flutter/widgets/ScrollController-class.html)</span>  
 Scroll controller for managing scrolling behavior.
 
 <div class="features">
@@ -92,7 +89,7 @@ setter</span><span class="feature">inherited</span>
 
 </div>
 
-<span class="name">[hasListeners](../view_model_base_view_model/BaseModel/hasListeners.md)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
+<span class="name">[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)</span> <span class="signature">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span>  
 Whether any listeners are currently registered.
 
 <div class="features">
@@ -171,7 +168,7 @@ guidance.
 
 ## Methods
 
-<span class="name">[addListener](../view_model_base_view_model/BaseModel/addListener.md)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)</span><span class="signature">(<span id="addListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Register a closure to be called when the object changes.
 
 <div class="features">
@@ -183,13 +180,19 @@ Register a closure to be called when the object changes.
 <span class="name">[dispose](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-[addListener](../view_model_base_view_model/BaseModel/addListener.md)
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
 will throw after the object is disposed).
+
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
 
 <span class="name">[exitAlertDialog](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/exitAlertDialog.md)</span><span class="signature"> <span class="returntype parameter">→ [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.md)</span> </span>  
 returns an exit alert dialog.
 
-<span class="name">[initialize](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.md)</span><span class="signature">(<span id="initialize-param-homeModel" class="parameter"><span class="type-annotation">[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)</span> <span class="parameter-name">homeModel</span>, </span><span id="initialize-param-context" class="parameter"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[initialize](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.md)</span><span class="signature">(<span id="initialize-param-homeModel" class="parameter"><span class="type-annotation">[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)</span> <span class="parameter-name">homeModel</span>, </span><span id="initialize-param-context" class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)</span> <span class="parameter-name">context</span></span>) <span class="returntype parameter">→ void</span> </span>  
 initializer.
 
 <span class="name">[isPresentinSwitchableOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/isPresentinSwitchableOrg.md)</span><span class="signature">(<span id="isPresentinSwitchableOrg-param-switchToOrg" class="parameter"><span class="type-annotation">[OrgInfo](../models_organization_org_info/OrgInfo-class.md)</span> <span class="parameter-name">switchToOrg</span></span>) <span class="returntype parameter">→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)</span> </span>  
@@ -207,7 +210,13 @@ Invoked when a nonexistent method or property is accessed.
 <span class="name">[notifyListeners](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/notifyListeners.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 Call all the registered listeners.
 
-<span class="name">[removeListener](../view_model_base_view_model/BaseModel/removeListener.md)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
+<span class="name">[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)</span><span class="signature">(<span id="removeListener-param-listener" class="parameter"><span class="type-annotation">[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)</span> <span class="parameter-name">listener</span></span>) <span class="returntype parameter">→ void</span> </span>  
 Remove a previously registered closure from the list of closures that
 are notified when the object changes.
 
@@ -265,8 +274,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [custom_drawer_view_model](../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
+2.  [custom_drawer_view_model](../view_model_widgets_view_models_custom_drawer_view_model/)
 3.  CustomDrawerViewModel class
+
+##### custom_drawer_view_model library
 
 <div id="dartdoc-sidebar-left-content">
 

@@ -1,2 +1,2 @@
-1.  [Classes](./models_events_event_volunteer-library#classes.md)
+1.  [Classes](./#classes)
 2.  [EventVolunteer](./EventVolunteer-class.md)

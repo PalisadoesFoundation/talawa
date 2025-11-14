@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/constants_constants-library.md)
+2.  [constants/constants.dart](../constants_constants/)
 3.  supportedCurrencies property
 
 <div class="self-name">
@@ -17,13 +17,9 @@ supportedCurrencies
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -175,10 +171,14 @@ List<String> supportedCurrencies = [
 </div>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/constants_constants-library.md)
+2.  [constants](../constants_constants/)
 3.  supportedCurrencies property
 
 ##### constants library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

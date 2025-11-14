@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [group_chats](../../views_after_auth_screens_chat_group_chats/views_after_auth_screens_chat_group_chats-library.md)
+2.  [views/after_auth_screens/chat/group_chats.dart](../../views_after_auth_screens_chat_group_chats/)
 3.  [GroupChatTile](../../views_after_auth_screens_chat_group_chats/GroupChatTile-class.md)
 4.  model property
 
@@ -18,13 +18,9 @@ model
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final GroupChatViewModel model;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [group_chats](../../views_after_auth_screens_chat_group_chats/views_after_auth_screens_chat_group_chats-library.md)
+2.  [group_chats](../../views_after_auth_screens_chat_group_chats/)
 3.  [GroupChatTile](../../views_after_auth_screens_chat_group_chats/GroupChatTile-class.md)
 4.  model property
 
 ##### GroupChatTile class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

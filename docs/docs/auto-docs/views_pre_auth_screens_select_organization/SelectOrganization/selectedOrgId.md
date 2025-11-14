@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [select_organization](../../views_pre_auth_screens_select_organization/views_pre_auth_screens_select_organization-library.md)
+2.  [views/pre_auth_screens/select_organization.dart](../../views_pre_auth_screens_select_organization/)
 3.  [SelectOrganization](../../views_pre_auth_screens_select_organization/SelectOrganization-class.md)
 4.  selectedOrgId property
 
@@ -18,13 +18,9 @@ selectedOrgId
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final String selectedOrgId;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [select_organization](../../views_pre_auth_screens_select_organization/views_pre_auth_screens_select_organization-library.md)
+2.  [select_organization](../../views_pre_auth_screens_select_organization/)
 3.  [SelectOrganization](../../views_pre_auth_screens_select_organization/SelectOrganization-class.md)
 4.  selectedOrgId property
 
 ##### SelectOrganization class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

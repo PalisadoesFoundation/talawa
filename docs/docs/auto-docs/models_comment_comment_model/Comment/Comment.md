@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
+2.  [models/comment/comment_model.dart](../../models_comment_comment_model/)
 3.  [Comment](../../models_comment_comment_model/Comment-class.md)
-4.  Comment constructor
+4.  Comment.new constructor
 
 <div class="self-name">
 
-Comment
+Comment.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">Comment</span>(
-
-1.  <span id="-param-body"
-    class="parameter"></span>
-
-)
+<span class="name">Comment</span>
 
 </div>
 
@@ -56,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-Comment
+;
 ```
 
 </div>
@@ -70,11 +61,15 @@ Comment
 </div>
 
 1.  [talawa](../../index.md)
-2.  [comment_model](../../models_comment_comment_model/models_comment_comment_model-library.md)
+2.  [comment_model](../../models_comment_comment_model/)
 3.  [Comment](../../models_comment_comment_model/Comment-class.md)
-4.  Comment constructor
+4.  Comment.new constructor
 
 ##### Comment class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

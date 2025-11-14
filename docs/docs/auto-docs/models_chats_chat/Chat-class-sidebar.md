@@ -1,5 +1,5 @@
 1.  [Constructors](./Chat-class#constructors.md)
-2.  [Chat](./Chat/Chat.md)
+2.  [new](./Chat/Chat.md)
 3.  [fromJson](./Chat/Chat.fromJson.md)
 4.  [Properties](./Chat-class#instance-properties.md)
 5.  [createdAt](./Chat/createdAt.md)

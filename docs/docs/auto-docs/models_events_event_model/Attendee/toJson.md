@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_model](../../models_events_event_model/models_events_event_model-library.md)
+2.  [models/events/event_model.dart](../../models_events_event_model/)
 3.  [Attendee](../../models_events_event_model/Attendee-class.md)
 4.  toJson method
 
@@ -18,13 +18,9 @@ toJson
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -83,11 +79,15 @@ Map<String, dynamic>
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_model](../../models_events_event_model/models_events_event_model-library.md)
+2.  [event_model](../../models_events_event_model/)
 3.  [Attendee](../../models_events_event_model/Attendee-class.md)
 4.  toJson method
 
 ##### Attendee class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

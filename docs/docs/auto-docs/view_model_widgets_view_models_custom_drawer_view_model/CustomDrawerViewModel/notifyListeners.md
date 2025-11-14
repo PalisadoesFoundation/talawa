@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
+2.  [view_model/widgets_view_models/custom_drawer_view_model.dart](../../view_model_widgets_view_models_custom_drawer_view_model/)
 3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
 4.  notifyListeners method
 
@@ -18,13 +18,9 @@ notifyListeners
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,6 +47,12 @@ below-sidebar="">
 <span class="returntype">void</span>
 <span class="name">notifyListeners</span>
 
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
 </div>
 
 <div class="section desc markdown">
@@ -63,7 +65,7 @@ will not be visited. Listeners that are removed during this iteration
 will not be visited after they are removed.
 
 Exceptions thrown by listeners will be caught and reported using
-`FlutterError.reportError`.
+[FlutterError.reportError](https://api.flutter.dev/flutter/foundation/FlutterError/reportError.html).
 
 This method must not be called after
 [dispose](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.md)
@@ -72,7 +74,7 @@ has been called.
 Surprising behavior can result when reentrantly removing a listener
 (e.g. in response to a notification) that has been registered multiple
 times. See the discussion at
-[removeListener](../../view_model_base_view_model/BaseModel/removeListener.md).
+[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html).
 
 </div>
 
@@ -96,11 +98,15 @@ void
 </div>
 
 1.  [talawa](../../index.md)
-2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.md)
+2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/)
 3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
 4.  notifyListeners method
 
 ##### CustomDrawerViewModel class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

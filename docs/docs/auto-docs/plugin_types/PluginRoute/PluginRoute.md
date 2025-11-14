@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [plugin/types.dart](../../plugin_types/)
 3.  [PluginRoute](../../plugin_types/PluginRoute-class.md)
-4.  PluginRoute const constructor
+4.  PluginRoute.new const constructor
 
 <div class="self-name">
 
-PluginRoute
+PluginRoute.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">PluginRoute</span>(
-
-1.  <span id="-param-routeName" class="parameter"></span>
-
-)
+const <span class="name">PluginRoute</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">PluginRoute</span>(
 ## Implementation
 
 ``` language-dart
-const PluginRoute
+const ;
 ```
 
 </div>
@@ -69,11 +61,15 @@ const PluginRoute
 </div>
 
 1.  [talawa](../../index.md)
-2.  [types](../../plugin_types/plugin_types-library.md)
+2.  [types](../../plugin_types/)
 3.  [PluginRoute](../../plugin_types/PluginRoute-class.md)
-4.  PluginRoute const constructor
+4.  PluginRoute.new const constructor
 
 ##### PluginRoute class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

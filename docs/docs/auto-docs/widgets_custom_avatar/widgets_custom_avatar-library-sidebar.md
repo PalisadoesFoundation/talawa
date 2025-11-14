@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_custom_avatar-library#classes.md)
+1.  [Classes](./#classes)
 2.  [CustomAvatar](./CustomAvatar-class.md)

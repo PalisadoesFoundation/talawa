@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [user_event](../../views_after_auth_screens_profile_user_event/views_after_auth_screens_profile_user_event-library.md)
+2.  [views/after_auth_screens/profile/user_event.dart](../../views_after_auth_screens_profile_user_event/)
 3.  [UserEvents](../../views_after_auth_screens_profile_user_event/UserEvents-class.md)
-4.  UserEvents const constructor
+4.  UserEvents.new const constructor
 
 <div class="self-name">
 
-UserEvents
+UserEvents.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,11 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">UserEvents</span>(
-
-1.  <span id="-param-key" class="parameter"></span>
-
-)
+const <span class="name">UserEvents</span>
 
 </div>
 
@@ -55,7 +47,7 @@ const <span class="name">UserEvents</span>(
 ## Implementation
 
 ``` language-dart
-const UserEvents
+const ;
 ```
 
 </div>
@@ -69,11 +61,15 @@ const UserEvents
 </div>
 
 1.  [talawa](../../index.md)
-2.  [user_event](../../views_after_auth_screens_profile_user_event/views_after_auth_screens_profile_user_event-library.md)
+2.  [user_event](../../views_after_auth_screens_profile_user_event/)
 3.  [UserEvents](../../views_after_auth_screens_profile_user_event/UserEvents-class.md)
-4.  UserEvents const constructor
+4.  UserEvents.new const constructor
 
 ##### UserEvents class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

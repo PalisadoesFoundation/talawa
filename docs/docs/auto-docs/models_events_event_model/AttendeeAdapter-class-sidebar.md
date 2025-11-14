@@ -1,5 +1,5 @@
 1.  [Constructors](./AttendeeAdapter-class#constructors.md)
-2.  [AttendeeAdapter](./AttendeeAdapter/AttendeeAdapter.md)
+2.  [new](./AttendeeAdapter/AttendeeAdapter.md)
 3.  [Properties](./AttendeeAdapter-class#instance-properties.md)
 4.  [hashCode](./AttendeeAdapter/hashCode.md)
 5.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)

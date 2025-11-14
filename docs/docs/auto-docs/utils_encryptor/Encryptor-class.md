@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [encryptor](../utils_encryptor/utils_encryptor-library.md)
+2.  [utils/encryptor.dart](../utils_encryptor/)
 3.  Encryptor class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ Encryptor
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Handles all of the encryption tasks in the codebase.
 
 ## Constructors
 
-<span class="name">[Encryptor](../utils_encryptor/Encryptor/Encryptor.md)</span><span class="signature"></span>  
+<span class="name">[Encryptor.new](../utils_encryptor/Encryptor/Encryptor.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -84,16 +80,16 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[assymetricDecryptString](../utils_encryptor/Encryptor/assymetricDecryptString.md)</span><span class="signature">(<span id="assymetricDecryptString-param-data" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">data</span>, </span><span id="assymetricDecryptString-param-privateKey" class="parameter"><span class="type-annotation">[RSAPrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/api.asymmetric/RSAPrivateKey-class.html)</span> <span class="parameter-name">privateKey</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[assymetricDecryptString](../utils_encryptor/Encryptor/assymetricDecryptString.md)</span><span class="signature">(<span id="assymetricDecryptString-param-data" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">data</span>, </span><span id="assymetricDecryptString-param-privateKey" class="parameter"><span class="type-annotation">[RSAPrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/RSAPrivateKey-class.html)</span> <span class="parameter-name">privateKey</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Encrypts the given string data with user's Private Key.
 
-<span class="name">[assymetricEncryptString](../utils_encryptor/Encryptor/assymetricEncryptString.md)</span><span class="signature">(<span id="assymetricEncryptString-param-data" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">data</span>, </span><span id="assymetricEncryptString-param-recipientPublicKey" class="parameter"><span class="type-annotation">[RSAPublicKey](https://pub.dev/documentation/pointycastle/4.0.0/api.asymmetric/RSAPublicKey-class.html)</span> <span class="parameter-name">recipientPublicKey</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[assymetricEncryptString](../utils_encryptor/Encryptor/assymetricEncryptString.md)</span><span class="signature">(<span id="assymetricEncryptString-param-data" class="parameter"><span class="type-annotation">[String](https://api.flutter.dev/flutter/dart-core/String-class.md)</span> <span class="parameter-name">data</span>, </span><span id="assymetricEncryptString-param-recipientPublicKey" class="parameter"><span class="type-annotation">[RSAPublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/RSAPublicKey-class.html)</span> <span class="parameter-name">recipientPublicKey</span></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Encrypts the given string data with Recipient's Public Key.
 
-<span class="name">[generateRSAKeyPair](../utils_encryptor/Encryptor/generateRSAKeyPair.md)</span><span class="signature"> <span class="returntype parameter">→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/api/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PrivateKey-class.html)</span>\></span></span> </span>  
+<span class="name">[generateRSAKeyPair](../utils_encryptor/Encryptor/generateRSAKeyPair.md)</span><span class="signature"> <span class="returntype parameter">→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PrivateKey-class.html)</span>\></span></span> </span>  
 Generates RSA Key Pairs (Public/Private).
 
-<span class="name">[loadKeyPair](../utils_encryptor/Encryptor/loadKeyPair.md)</span><span class="signature">(<span id="loadKeyPair-param-hive" class="parameter"><span class="type-annotation">[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.md)</span> <span class="parameter-name">hive</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/api/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PrivateKey-class.html)</span>\></span></span>\></span></span> </span>  
+<span class="name">[loadKeyPair](../utils_encryptor/Encryptor/loadKeyPair.md)</span><span class="signature">(<span id="loadKeyPair-param-hive" class="parameter"><span class="type-annotation">[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.md)</span> <span class="parameter-name">hive</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PrivateKey-class.html)</span>\></span></span>\></span></span> </span>  
 Loads secret keys from the Hive db.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -105,10 +101,10 @@ Invoked when a nonexistent method or property is accessed.
 
 </div>
 
-<span class="name">[receiveMessage](../utils_encryptor/Encryptor/receiveMessage.md)</span><span class="signature">(<span id="receiveMessage-param-message" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">message</span>, </span><span id="receiveMessage-param-hive" class="parameter"><span class="type-annotation">[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)</span> <span class="parameter-name">hive</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[receiveMessage](../utils_encryptor/Encryptor/receiveMessage.md)</span><span class="signature">(<span id="receiveMessage-param-message" class="parameter"><span class="type-annotation">[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)<span class="signature">\<<span class="type-parameter">[String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>, <span class="type-parameter">dynamic</span>\></span></span> <span class="parameter-name">message</span>, </span><span id="receiveMessage-param-hive" class="parameter"><span class="type-annotation">[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)</span> <span class="parameter-name">hive</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Helper function to decrypt the message.
 
-<span class="name">[saveKeyPair](../utils_encryptor/Encryptor/saveKeyPair.md)</span><span class="signature">(<span id="saveKeyPair-param-keyPair" class="parameter"><span class="type-annotation">[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/api/AsymmetricKeyPair-class.md)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PrivateKey-class.html)</span>\></span></span> <span class="parameter-name">keyPair</span>, </span><span id="saveKeyPair-param-hive" class="parameter"><span class="type-annotation">[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)</span> <span class="parameter-name">hive</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
+<span class="name">[saveKeyPair](../utils_encryptor/Encryptor/saveKeyPair.md)</span><span class="signature">(<span id="saveKeyPair-param-keyPair" class="parameter"><span class="type-annotation">[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/AsymmetricKeyPair-class.md)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PublicKey-class.html)</span>, <span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PrivateKey-class.html)</span>\></span></span> <span class="parameter-name">keyPair</span>, </span><span id="saveKeyPair-param-hive" class="parameter"><span class="type-annotation">[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)</span> <span class="parameter-name">hive</span></span>) <span class="returntype parameter">→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<span class="signature">\<<span class="type-parameter">void</span>\></span></span> </span>  
 Saves the generated key pair to local storage.
 
 <span class="name">[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -170,8 +166,10 @@ Encrypts a given string with SHA256 Encryption.
 </div>
 
 1.  [talawa](../index.md)
-2.  [encryptor](../utils_encryptor/utils_encryptor-library.md)
+2.  [encryptor](../utils_encryptor/)
 3.  Encryptor class
+
+##### encryptor library
 
 <div id="dartdoc-sidebar-left-content">
 

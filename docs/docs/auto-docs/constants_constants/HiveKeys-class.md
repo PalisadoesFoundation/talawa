@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/constants_constants-library.md)
+2.  [constants/constants.dart](../constants_constants/)
 3.  HiveKeys class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ HiveKeys
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -54,7 +50,7 @@ and cached actions.
 
 ## Constructors
 
-<span class="name">[HiveKeys](../constants_constants/HiveKeys/HiveKeys.md)</span><span class="signature"></span>  
+<span class="name">[HiveKeys.new](../constants_constants/HiveKeys/HiveKeys.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -133,77 +129,29 @@ The equality operator.
 The key used to identify the Hive box that stores asymmetric keys for
 the user.
 
-<div>
-
-<span class="signature">`'user_keys'`</span>
-
-</div>
-
 <span class="name">[eventFeedKey](../constants_constants/HiveKeys/eventFeedKey-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 The key used to identify the Hive box that stores the event feed data.
-
-<div>
-
-<span class="signature">`'event_feed_key'`</span>
-
-</div>
 
 <span class="name">[offlineActionQueueKey](../constants_constants/HiveKeys/offlineActionQueueKey-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 The key used to identify the Hive box that stores the offline action
 queue.
 
-<div>
-
-<span class="signature">`'offline_action_queue'`</span>
-
-</div>
-
 <span class="name">[orgBoxKey](../constants_constants/HiveKeys/orgBoxKey-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 The key used to identify the Hive box that stores the current
 organization's information.
 
-<div>
-
-<span class="signature">`'currentOrg'`</span>
-
-</div>
-
 <span class="name">[pinnedPostKey](../constants_constants/HiveKeys/pinnedPostKey-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 The key used to identify the Hive box that stores pinned posts.
-
-<div>
-
-<span class="signature">`'pinned_posts_key'`</span>
-
-</div>
 
 <span class="name">[postFeedKey](../constants_constants/HiveKeys/postFeedKey-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 The key used to identify the Hive box that stores the post feed data.
 
-<div>
-
-<span class="signature">`'post_feed_key'`</span>
-
-</div>
-
 <span class="name">[urlBoxKey](../constants_constants/HiveKeys/urlBoxKey-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 The key used to identify the Hive box that stores URLs.
-
-<div>
-
-<span class="signature">`'url'`</span>
-
-</div>
 
 <span class="name">[userBoxKey](../constants_constants/HiveKeys/userBoxKey-constant.md)</span> <span class="signature">→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span>  
 The key used to identify the Hive box that stores the current user
 information.
-
-<div>
-
-<span class="signature">`'currentUser'`</span>
-
-</div>
 
 </div>
 
@@ -216,8 +164,10 @@ information.
 </div>
 
 1.  [talawa](../index.md)
-2.  [constants](../constants_constants/constants_constants-library.md)
+2.  [constants](../constants_constants/)
 3.  HiveKeys class
+
+##### constants library
 
 <div id="dartdoc-sidebar-left-content">
 

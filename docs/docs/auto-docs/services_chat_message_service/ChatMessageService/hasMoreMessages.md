@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_message_service](../../services_chat_message_service/services_chat_message_service-library.md)
+2.  [services/chat_message_service.dart](../../services_chat_message_service/)
 3.  [ChatMessageService](../../services_chat_message_service/ChatMessageService-class.md)
 4.  hasMoreMessages method
 
@@ -18,13 +18,9 @@ hasMoreMessages
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -86,11 +82,15 @@ bool hasMoreMessages(String chatId)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_message_service](../../services_chat_message_service/services_chat_message_service-library.md)
+2.  [chat_message_service](../../services_chat_message_service/)
 3.  [ChatMessageService](../../services_chat_message_service/ChatMessageService-class.md)
 4.  hasMoreMessages method
 
 ##### ChatMessageService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

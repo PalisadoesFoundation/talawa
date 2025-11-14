@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/widgets_update_pledge_dialogue_box-library.md)
+2.  [widgets/update_pledge_dialogue_box.dart](../../widgets_update_pledge_dialogue_box/)
 3.  [UpdatePledgeDialog](../../widgets_update_pledge_dialogue_box/UpdatePledgeDialog-class.md)
 4.  createState method
 
@@ -18,13 +18,9 @@ createState
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -51,6 +47,12 @@ below-sidebar="">
 <span class="returntype">\_UpdatePledgeDialogState</span>
 <span class="name">createState</span>
 
+<div class="features">
+
+<span class="feature">override</span>
+
+</div>
+
 </div>
 
 <div class="section desc markdown">
@@ -59,7 +61,9 @@ Creates the mutable state for this widget at a given location in the
 tree.
 
 Subclasses should override this method to return a newly created
-instance of their associated `State` subclass:
+instance of their associated
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+subclass:
 
 ``` language-dart
 @override
@@ -67,13 +71,18 @@ State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
-`StatefulWidget`. For example, if the widget is inserted into the tree
-in multiple locations, the framework will create a separate `State`
-object for each location. Similarly, if the widget is removed from the
-tree and later inserted into the tree again, the framework will call
+[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html).
+For example, if the widget is inserted into the tree in multiple
+locations, the framework will create a separate
+[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
+for each location. Similarly, if the widget is removed from the tree and
+later inserted into the tree again, the framework will call
 [createState](../../widgets_update_pledge_dialogue_box/UpdatePledgeDialog/createState.md)
-again to create a fresh `State` object, simplifying the lifecycle of
-`State` objects.
+again to create a fresh
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+object, simplifying the lifecycle of
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+objects.
 
 </div>
 
@@ -97,11 +106,15 @@ _UpdatePledgeDialogState  => ;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/widgets_update_pledge_dialogue_box-library.md)
+2.  [update_pledge_dialogue_box](../../widgets_update_pledge_dialogue_box/)
 3.  [UpdatePledgeDialog](../../widgets_update_pledge_dialogue_box/UpdatePledgeDialog-class.md)
 4.  createState method
 
 ##### UpdatePledgeDialog class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

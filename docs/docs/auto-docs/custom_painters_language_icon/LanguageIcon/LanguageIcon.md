@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [language_icon](../../custom_painters_language_icon/custom_painters_language_icon-library.md)
+2.  [custom_painters/language_icon.dart](../../custom_painters_language_icon/)
 3.  [LanguageIcon](../../custom_painters_language_icon/LanguageIcon-class.md)
-4.  LanguageIcon constructor
+4.  LanguageIcon.new constructor
 
 <div class="self-name">
 
-LanguageIcon
+LanguageIcon.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -55,11 +51,15 @@ below-sidebar="">
 </div>
 
 1.  [talawa](../../index.md)
-2.  [language_icon](../../custom_painters_language_icon/custom_painters_language_icon-library.md)
+2.  [language_icon](../../custom_painters_language_icon/)
 3.  [LanguageIcon](../../custom_painters_language_icon/LanguageIcon-class.md)
-4.  LanguageIcon constructor
+4.  LanguageIcon.new constructor
 
 ##### LanguageIcon class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

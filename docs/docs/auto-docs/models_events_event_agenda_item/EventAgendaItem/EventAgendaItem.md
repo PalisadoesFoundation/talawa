@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [event_agenda_item](../../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
+2.  [models/events/event_agenda_item.dart](../../models_events_event_agenda_item/)
 3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.md)
-4.  EventAgendaItem constructor
+4.  EventAgendaItem.new constructor
 
 <div class="self-name">
 
-EventAgendaItem
+EventAgendaItem.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">EventAgendaItem</span>(
-
-1.  <span id="-param-id"
-    class="parameter"></span>
-
-)
+<span class="name">EventAgendaItem</span>
 
 </div>
 
@@ -56,7 +47,7 @@ below-sidebar="">
 ## Implementation
 
 ``` language-dart
-EventAgendaItem
+;
 ```
 
 </div>
@@ -70,11 +61,15 @@ EventAgendaItem
 </div>
 
 1.  [talawa](../../index.md)
-2.  [event_agenda_item](../../models_events_event_agenda_item/models_events_event_agenda_item-library.md)
+2.  [event_agenda_item](../../models_events_event_agenda_item/)
 3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.md)
-4.  EventAgendaItem constructor
+4.  EventAgendaItem.new constructor
 
 ##### EventAgendaItem class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

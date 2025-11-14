@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [models/asymetric_keys/asymetric_keys.dart](../../models_asymetric_keys_asymetric_keys/)
 3.  [AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)
 4.  keyPair property
 
@@ -18,13 +18,9 @@ keyPair
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -48,8 +44,8 @@ below-sidebar="">
 
 </div>
 
-[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/api/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PublicKey-class.html)</span>,
-<span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/api/PrivateKey-class.html)</span>\></span>
+[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/AsymmetricKeyPair-class.html)<span class="signature">\<<span class="type-parameter">[PublicKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PublicKey-class.html)</span>,
+<span class="type-parameter">[PrivateKey](https://pub.dev/documentation/pointycastle/4.0.0/pointycastle/PrivateKey-class.html)</span>\></span>
 <span class="name">keyPair</span>
 
 <div class="features">
@@ -88,11 +84,15 @@ final AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/models_asymetric_keys_asymetric_keys-library.md)
+2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/)
 3.  [AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)
 4.  keyPair property
 
 ##### AsymetricKeys class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

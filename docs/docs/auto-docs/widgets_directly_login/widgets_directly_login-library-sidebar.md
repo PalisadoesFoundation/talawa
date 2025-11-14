@@ -1,2 +1,2 @@
-1.  [Classes](./widgets_directly_login-library#classes.md)
+1.  [Classes](./#classes)
 2.  [DirectlyLogin](./DirectlyLogin-class.md)

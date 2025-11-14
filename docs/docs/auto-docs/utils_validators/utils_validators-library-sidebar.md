@@ -1,2 +1,2 @@
-1.  [Classes](./utils_validators-library#classes.md)
+1.  [Classes](./#classes)
 2.  [Validator](./Validator-class.md)

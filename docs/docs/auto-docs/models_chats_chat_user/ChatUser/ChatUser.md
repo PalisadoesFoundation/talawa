@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_user](../../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [models/chats/chat_user.dart](../../models_chats_chat_user/)
 3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
-4.  ChatUser constructor
+4.  ChatUser.new constructor
 
 <div class="self-name">
 
-ChatUser
+ChatUser.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="name">ChatUser</span>(
-
-1.  <span id="-param-firstName"
-    class="parameter"></span>
-
-)
+<span class="name">ChatUser</span>
 
 </div>
 
@@ -55,12 +46,8 @@ below-sidebar="">
 
 Constructs a `ChatUser` instance.
 
-[firstName](../../models_chats_chat_user/ChatUser/firstName.md) is the
-first name of the user.
-[id](../../models_chats_chat_user/ChatUser/id.md) is the unique
-identifier of the user.
-[image](../../models_chats_chat_user/ChatUser/image.md) is the URL of
-the user's profile image.
+`firstName` is the first name of the user. `id` is the unique identifier
+of the user. `image` is the URL of the user's profile image.
 
 </div>
 
@@ -69,7 +56,7 @@ the user's profile image.
 ## Implementation
 
 ``` language-dart
-ChatUser
+;
 ```
 
 </div>
@@ -83,11 +70,15 @@ ChatUser
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_user](../../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [chat_user](../../models_chats_chat_user/)
 3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
-4.  ChatUser constructor
+4.  ChatUser.new constructor
 
 ##### ChatUser class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

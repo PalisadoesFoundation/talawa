@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_user](../../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [models/chats/chat_user.dart](../../models_chats_chat_user/)
 3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
 4.  id property
 
@@ -18,13 +18,9 @@ id
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ String? id;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_user](../../models_chats_chat_user/models_chats_chat_user-library.md)
+2.  [chat_user](../../models_chats_chat_user/)
 3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
 4.  id property
 
 ##### ChatUser class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

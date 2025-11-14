@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [event_filter_bottomsheet](../views_after_auth_screens_events_event_filter_bottomsheet/views_after_auth_screens_events_event_filter_bottomsheet-library.md)
+2.  [views/after_auth_screens/events/event_filter_bottomsheet.dart](../views_after_auth_screens_events_event_filter_bottomsheet/)
 3.  dropDownList function
 
 <div class="self-name">
@@ -17,13 +17,9 @@ dropDownList
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -41,14 +37,14 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-<span class="returntype">Widget</span>
+<span class="returntype">[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)</span>
 <span class="name">dropDownList</span>(
 
 1.  <span id="dropDownList-param-model"
     class="parameter"><span class="type-annotation">[ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)</span>
     <span class="parameter-name">model</span>, </span>
 2.  <span id="dropDownList-param-context"
-    class="parameter"><span class="type-annotation">BuildContext</span>
+    class="parameter"><span class="type-annotation">[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)</span>
     <span class="parameter-name">context</span></span>
 
 )
@@ -92,10 +88,14 @@ Widget dropDownList(
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_filter_bottomsheet](../views_after_auth_screens_events_event_filter_bottomsheet/views_after_auth_screens_events_event_filter_bottomsheet-library.md)
+2.  [event_filter_bottomsheet](../views_after_auth_screens_events_event_filter_bottomsheet/)
 3.  dropDownList function
 
 ##### event_filter_bottomsheet library
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

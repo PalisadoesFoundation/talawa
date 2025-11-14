@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [services/navigation_service.dart](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  navigatorKey property
 
@@ -18,13 +18,9 @@ navigatorKey
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,7 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-GlobalKey<span class="signature">\<<span class="type-parameter">NavigatorState</span>\></span>
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)<span class="signature">\<<span class="type-parameter">[NavigatorState](https://api.flutter.dev/flutter/widgets/NavigatorState-class.html)</span>\></span>
 <span class="name">navigatorKey</span>
 
 <div class="features">
@@ -78,11 +74,15 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [navigation_service](../../services_navigation_service/services_navigation_service-library.md)
+2.  [navigation_service](../../services_navigation_service/)
 3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  navigatorKey property
 
 ##### NavigationService class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

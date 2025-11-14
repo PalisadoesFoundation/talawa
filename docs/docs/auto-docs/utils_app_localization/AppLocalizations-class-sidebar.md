@@ -1,5 +1,5 @@
 1.  [Constructors](./AppLocalizations-class#constructors.md)
-2.  [AppLocalizations](./AppLocalizations/AppLocalizations.md)
+2.  [new](./AppLocalizations/AppLocalizations.md)
 3.  [Properties](./AppLocalizations-class#instance-properties.md)
 4.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
 5.  [isTest](./AppLocalizations/isTest.md)

@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [event_queries](../utils_event_queries/utils_event_queries-library.md)
+2.  [utils/event_queries.dart](../utils_event_queries/)
 3.  EventQueries class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EventQueries
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ This class creates queries related to the events.
 
 ## Constructors
 
-<span class="name">[EventQueries](../utils_event_queries/EventQueries/EventQueries.md)</span><span class="signature"></span>  
+<span class="name">[EventQueries.new](../utils_event_queries/EventQueries/EventQueries.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -148,7 +144,7 @@ A string representation of this object.
 <span class="name">[updateAgendaItem](../utils_event_queries/EventQueries/updateAgendaItem.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Creates a GraphQL mutation for updating an agenda item.
 
-<span class="name">[updateEvent](../utils_event_queries/EventQueries/updateEvent.md)</span><span class="signature">(<span id="updateEvent-param-eventId" class="parameter"></span>) <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
+<span class="name">[updateEvent](../utils_event_queries/EventQueries/updateEvent.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
 Creates a GraphQL mutation for updating an event.
 
 <span class="name">[updateVolunteerGroupMutation](../utils_event_queries/EventQueries/updateVolunteerGroupMutation.md)</span><span class="signature"> <span class="returntype parameter">→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)</span> </span>  
@@ -180,8 +176,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [event_queries](../utils_event_queries/utils_event_queries-library.md)
+2.  [event_queries](../utils_event_queries/)
 3.  EventQueries class
+
+##### event_queries library
 
 <div id="dartdoc-sidebar-left-content">
 

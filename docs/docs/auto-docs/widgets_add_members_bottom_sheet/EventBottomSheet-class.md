@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../index.md)
-2.  [add_members_bottom_sheet](../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.md)
+2.  [widgets/add_members_bottom_sheet.dart](../widgets_add_members_bottom_sheet/)
 3.  EventBottomSheet class
 
 <div class="self-name">
@@ -17,13 +17,9 @@ EventBottomSheet
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -49,7 +45,7 @@ Adds members to an event.
 
 ## Constructors
 
-<span class="name">[EventBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet/EventBottomSheet.md)</span><span class="signature"></span>  
+<span class="name">[EventBottomSheet.new](../widgets_add_members_bottom_sheet/EventBottomSheet/EventBottomSheet.md)</span><span class="signature"></span>  
 
 </div>
 
@@ -84,7 +80,7 @@ setter</span><span class="feature">inherited</span>
 
 ## Methods
 
-<span class="name">[addUserBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet/addUserBottomSheet.md)</span><span class="signature">(<span id="addUserBottomSheet-param-context" class="parameter"></span>) <span class="returntype parameter">→ void</span> </span>  
+<span class="name">[addUserBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet/addUserBottomSheet.md)</span><span class="signature"> <span class="returntype parameter">→ void</span> </span>  
 This function creates a modal material design bottom sheet.
 
 <span class="name">[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)</span><span class="signature">(<span id="noSuchMethod-param-invocation" class="parameter"><span class="type-annotation">[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)</span> <span class="parameter-name">invocation</span></span>) <span class="returntype parameter">→ dynamic</span> </span>  
@@ -131,8 +127,10 @@ The equality operator.
 </div>
 
 1.  [talawa](../index.md)
-2.  [add_members_bottom_sheet](../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.md)
+2.  [add_members_bottom_sheet](../widgets_add_members_bottom_sheet/)
 3.  EventBottomSheet class
+
+##### add_members_bottom_sheet library
 
 <div id="dartdoc-sidebar-left-content">
 

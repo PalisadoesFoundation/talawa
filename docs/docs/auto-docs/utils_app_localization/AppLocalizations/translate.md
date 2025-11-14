@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_localization](../../utils_app_localization/utils_app_localization-library.md)
+2.  [utils/app_localization.dart](../../utils_app_localization/)
 3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
 4.  translate method
 
@@ -18,13 +18,9 @@ translate
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -72,11 +68,15 @@ String? translate(String? key)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_localization](../../utils_app_localization/utils_app_localization-library.md)
+2.  [app_localization](../../utils_app_localization/)
 3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
 4.  translate method
 
 ##### AppLocalizations class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

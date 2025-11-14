@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [select_contact](../../views_after_auth_screens_chat_select_contact/views_after_auth_screens_chat_select_contact-library.md)
+2.  [views/after_auth_screens/chat/select_contact.dart](../../views_after_auth_screens_chat_select_contact/)
 3.  [SelectContact](../../views_after_auth_screens_chat_select_contact/SelectContact-class.md)
-4.  SelectContact const constructor
+4.  SelectContact.new const constructor
 
 <div class="self-name">
 
-SelectContact
+SelectContact.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">SelectContact</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">SelectContact</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">SelectContact</span>(
 ## Implementation
 
 ``` language-dart
-const SelectContact
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const SelectContact
 </div>
 
 1.  [talawa](../../index.md)
-2.  [select_contact](../../views_after_auth_screens_chat_select_contact/views_after_auth_screens_chat_select_contact-library.md)
+2.  [select_contact](../../views_after_auth_screens_chat_select_contact/)
 3.  [SelectContact](../../views_after_auth_screens_chat_select_contact/SelectContact-class.md)
-4.  SelectContact const constructor
+4.  SelectContact.new const constructor
 
 ##### SelectContact class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

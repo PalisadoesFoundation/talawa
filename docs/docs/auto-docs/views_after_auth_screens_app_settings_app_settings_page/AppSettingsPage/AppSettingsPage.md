@@ -8,23 +8,19 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [app_settings_page](../../views_after_auth_screens_app_settings_app_settings_page/views_after_auth_screens_app_settings_app_settings_page-library.md)
+2.  [views/after_auth_screens/app_settings/app_settings_page.dart](../../views_after_auth_screens_app_settings_app_settings_page/)
 3.  [AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)
-4.  AppSettingsPage const constructor
+4.  AppSettingsPage.new const constructor
 
 <div class="self-name">
 
-AppSettingsPage
+AppSettingsPage.new
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -42,12 +38,7 @@ below-sidebar="">
 
 <div class="section multi-line-signature">
 
-const <span class="name">AppSettingsPage</span>(
-
-1.  <span id="-param-key"
-    class="parameter"></span>
-
-)
+const <span class="name">AppSettingsPage</span>
 
 </div>
 
@@ -56,7 +47,7 @@ const <span class="name">AppSettingsPage</span>(
 ## Implementation
 
 ``` language-dart
-const AppSettingsPage
+const ;
 ```
 
 </div>
@@ -70,11 +61,15 @@ const AppSettingsPage
 </div>
 
 1.  [talawa](../../index.md)
-2.  [app_settings_page](../../views_after_auth_screens_app_settings_app_settings_page/views_after_auth_screens_app_settings_app_settings_page-library.md)
+2.  [app_settings_page](../../views_after_auth_screens_app_settings_app_settings_page/)
 3.  [AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)
-4.  AppSettingsPage const constructor
+4.  AppSettingsPage.new const constructor
 
 ##### AppSettingsPage class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

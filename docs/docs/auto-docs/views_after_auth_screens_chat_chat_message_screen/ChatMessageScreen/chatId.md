@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [chat_message_screen](../../views_after_auth_screens_chat_chat_message_screen/views_after_auth_screens_chat_chat_message_screen-library.md)
+2.  [views/after_auth_screens/chat/chat_message_screen.dart](../../views_after_auth_screens_chat_chat_message_screen/)
 3.  [ChatMessageScreen](../../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.md)
 4.  chatId property
 
@@ -18,13 +18,9 @@ chatId
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -78,11 +74,15 @@ final String chatId;
 </div>
 
 1.  [talawa](../../index.md)
-2.  [chat_message_screen](../../views_after_auth_screens_chat_chat_message_screen/views_after_auth_screens_chat_chat_message_screen-library.md)
+2.  [chat_message_screen](../../views_after_auth_screens_chat_chat_message_screen/)
 3.  [ChatMessageScreen](../../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.md)
 4.  chatId property
 
 ##### ChatMessageScreen class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 

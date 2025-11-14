@@ -1,5 +1,5 @@
 1.  [Constructors](./Pair-class#constructors.md)
-2.  [Pair](./Pair/Pair.md)
+2.  [new](./Pair/Pair.md)
 3.  [Properties](./Pair-class#instance-properties.md)
 4.  [first](./Pair/first.md)
 5.  [hashCode](./Pair/hashCode.md)

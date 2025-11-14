@@ -8,7 +8,7 @@
 role="button" tabindex="0">menu</span>
 
 1.  [talawa](../../index.md)
-2.  [graphql_config](../../services_graphql_config/services_graphql_config-library.md)
+2.  [services/graphql_config.dart](../../services_graphql_config/)
 3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
 4.  isSubscriptionRequest method
 
@@ -18,13 +18,9 @@ isSubscriptionRequest
 
 </div>
 
-<div id="theme-button" class="toggle">
-
-<span id="dark-theme-button" class="material-symbols-outlined">
-brightness_4 </span> <span id="light-theme-button"
-class="material-symbols-outlined"> brightness_5 </span>
-
-</div>
+<span id="dark-theme-button" class="material-symbols-outlined"
+aria-hidden="true"> dark_mode </span> <span id="light-theme-button"
+class="material-symbols-outlined" aria-hidden="true"> light_mode </span>
 
 </div>
 
@@ -46,7 +42,7 @@ below-sidebar="">
 <span class="name">isSubscriptionRequest</span>(
 
 1.  <span id="isSubscriptionRequest-param-request"
-    class="parameter"><span class="type-annotation">[Request](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/execution/Request-class.md)</span>
+    class="parameter"><span class="type-annotation">[Request](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/Request-class.md)</span>
     <span class="parameter-name">request</span></span>
 
 )
@@ -78,11 +74,15 @@ bool isSubscriptionRequest(Request request)
 </div>
 
 1.  [talawa](../../index.md)
-2.  [graphql_config](../../services_graphql_config/services_graphql_config-library.md)
+2.  [graphql_config](../../services_graphql_config/)
 3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
 4.  isSubscriptionRequest method
 
 ##### GraphqlConfig class
+
+<div id="dartdoc-sidebar-left-content">
+
+</div>
 
 </div>
 
