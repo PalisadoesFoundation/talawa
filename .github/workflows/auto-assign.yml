@@ -30,7 +30,6 @@ jobs:
             const issue = context.payload.issue || context.payload.pull_request;
             const issueNumber = issue.number;
             const { owner, repo } = context.repo;
-            const activeRepos = repos.filter(r => !r.archived);
 
             // Default assignment limit is 2 if not configured
             const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
@@ -113,6 +112,7 @@ jobs:
               });
 
               // Filter out archived repositories
+              const activeRepos = repos.filter(r => !r.archived);
               for (const r of activeRepos) {
                 try {
                   const assignedIssues = await github.paginate(
