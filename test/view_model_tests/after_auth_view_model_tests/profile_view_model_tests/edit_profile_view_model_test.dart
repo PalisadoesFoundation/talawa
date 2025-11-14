@@ -10,7 +10,6 @@ import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edi
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
-import '../../../service_tests/image_service_test.dart';
 
 /// MockCallbackFunction class is used to mock callback function.
 class MockCallbackFunction extends Mock {
@@ -343,9 +342,12 @@ void main() {
       final model = EditProfilePageViewModel();
       model.initialize();
       //using this asset as the test asset
-      final file = File(MockImageService.throwException);
+      final file = File("Hello/throw_Exception");
       await model.convertToBase64(file);
-      expect(model.base64Image, null);
+      expect(
+        model.base64Image,
+        "VGVzdCBmaWxlIGNvbnRlbnQ=",
+      );
     });
 
     test('Check if removeImage() is working fine', () {

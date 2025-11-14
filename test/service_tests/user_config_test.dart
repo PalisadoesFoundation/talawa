@@ -478,7 +478,6 @@ void main() {
       expect(
         userConfig.performLogoutWasCalled,
         true,
-        reason: 'performLogout was not called',
       );
     });
   });

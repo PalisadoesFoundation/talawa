@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/comment_queries.dart';
@@ -26,12 +28,12 @@ class CommentService {
   /// * `body`: The comment text.
   ///
   /// **returns**:
-  ///   None
-  Future<void> createComments(String postId, String body) async {
+  /// * `Future<Comment?>`: The created comment.
+  Future<Comment?> createComments(String postId, String body) async {
     final String createCommentQuery = CommentQueries().createComment();
 
     try {
-      await _dbFunctions.gqlAuthMutation(
+      final result = await _dbFunctions.gqlAuthMutation(
         createCommentQuery,
         variables: {
           'postId': postId,
@@ -42,12 +44,17 @@ class CommentService {
       _navigationService.showSnackBar(
         "Comment sent",
       );
+      print("Comment created: ${result.data!}");
+      return Comment.fromJson(
+        result.data!['createComment'] as Map<String, dynamic>,
+      );
     } on Exception catch (_) {
       _navigationService.showTalawaErrorSnackBar(
         "Something went wrong",
         MessageType.error,
       );
     }
+    return null;
   }
 
   /// This function is used to get comments on the post.
@@ -75,6 +82,7 @@ class CommentService {
       'after': after,
       'last': last,
       'before': before,
+      'userId': userConfig.currentUser.id,
     };
 
     final QueryResult<Object?> result;
@@ -103,5 +111,81 @@ class CommentService {
       'comments': commentsData['edges'] ?? [],
       'pageInfo': commentsData['pageInfo'] ?? {},
     };
+  }
+
+  /// This function is used to toggle upvote on a comment.
+  ///
+  /// **params**:
+  /// * `commentId`: The comment id to vote on.
+  /// * `currentVoteType`: The current vote type (if any).
+  /// * `hasVoted`: Whether the user has already voted.
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> toggleUpVoteComment(
+    String commentId,
+    VoteType? currentVoteType,
+    bool hasVoted,
+  ) async {
+    try {
+      String mutation;
+      Map<String, dynamic> variables;
+
+      if (hasVoted && currentVoteType == VoteType.upVote) {
+        mutation = CommentQueries().updateVoteComment();
+        variables = {
+          'commentId': commentId,
+          'type': null,
+        };
+      } else {
+        mutation = CommentQueries().updateVoteComment();
+        variables = {
+          'commentId': commentId,
+          'type': VoteType.upVote.toApiString(),
+        };
+      }
+
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+    } catch (e) {
+      debugPrint('Error toggling upvote: $e');
+    }
+  }
+
+  /// This function is used to toggle downvote on a comment.
+  ///
+  /// **params**:
+  /// * `commentId`: The comment id to vote on.
+  /// * `currentVoteType`: The current vote type (if any).
+  /// * `hasVoted`: Whether the user has already voted.
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> toggleDownVoteComment(
+    String commentId,
+    VoteType? currentVoteType,
+    bool hasVoted,
+  ) async {
+    try {
+      String mutation;
+      Map<String, dynamic> variables;
+
+      if (hasVoted && currentVoteType == VoteType.downVote) {
+        mutation = CommentQueries().updateVoteComment();
+        variables = {
+          'commentId': commentId,
+          'type': null,
+        };
+      } else {
+        mutation = CommentQueries().updateVoteComment();
+        variables = {
+          'commentId': commentId,
+          'type': VoteType.downVote.toApiString(),
+        };
+      }
+
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+    } catch (e) {
+      debugPrint('Error toggling downvote: $e');
+    }
   }
 }

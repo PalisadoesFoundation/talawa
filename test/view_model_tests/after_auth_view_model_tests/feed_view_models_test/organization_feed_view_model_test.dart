@@ -89,8 +89,8 @@ void main() {
       expect(model.currentOrgName, 'Updated Organization Name');
     });
 
-    test('Test fetchNewPosts function', () {
-      model.fetchNewPosts();
+    test('Test refreshPosts function', () {
+      model.refreshPosts();
       verify(locator<PostService>().refreshFeed());
     });
 
@@ -155,11 +155,6 @@ void main() {
     model.nextPage();
     expect(model.posts.isEmpty, true);
   });
-  test("test previousPage", () {
-    model.previousPage();
-    expect(model.posts.isEmpty, true);
-  });
-
   test('navigateToPinnedPostPage calls pushScreen with pinned posts', () {
     final navigationService = locator<NavigationService>();
     final viewModel = OrganizationFeedViewModel();

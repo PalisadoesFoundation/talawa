@@ -85,7 +85,6 @@ class EditProfilePageViewModel extends BaseModel {
       base64Image = await imageService.convertToBase64(file);
       return base64Image!;
     } catch (error) {
-      print(error);
       return '';
     }
   }

@@ -2,16 +2,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/services/user_action_handler.dart';
-import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/comment_interactions_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
 void main() {
-  late InteractionsViewModel viewModel;
+  late CommentInteractionsViewModel viewModel;
   late MockActionHandlerService mockActionHandlerService;
+
   setUp(() {
     // Register basic services from test helpers (without ActionHandlerService)
     registerServices();
@@ -19,7 +20,7 @@ void main() {
     // Register our local ActionHandlerService mock specifically for this test
     mockActionHandlerService = getAndRegisterLocalActionHandlerService();
 
-    viewModel = InteractionsViewModel();
+    viewModel = CommentInteractionsViewModel();
 
     // Reset mocks and set up behavior
     reset(mockActionHandlerService);
@@ -53,12 +54,12 @@ void main() {
     // Clean up general services
     unregisterServices();
   });
-  group('InteractionsViewModel Tests', () {
-    group('toggleUpVotePost', () {
-      test('should add upvote when post has no vote', () async {
+  group('CommentInteractionsViewModel Tests', () {
+    group('toggleUpVoteComment', () {
+      test('should add upvote when comment has no vote', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -66,19 +67,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 6);
-        expect(post.downvotesCount, 3);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.upvotesCount, 6);
+        expect(comment.downvotesCount, 3);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
 
-      test('should remove upvote when post is already upvoted', () async {
+      test('should remove upvote when comment is already upvoted', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: true,
@@ -86,19 +87,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 4);
-        expect(post.downvotesCount, 3);
-        expect(post.hasVoted, false);
-        expect(post.voteType, VoteType.none);
+        expect(comment.upvotesCount, 4);
+        expect(comment.downvotesCount, 3);
+        expect(comment.hasVoted, false);
+        expect(comment.voteType, VoteType.none);
       });
 
       test('should change from downvote to upvote', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: true,
@@ -106,19 +107,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 6);
-        expect(post.downvotesCount, 2);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.upvotesCount, 6);
+        expect(comment.downvotesCount, 2);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
 
       test('should handle null vote counts gracefully', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: null,
           downvotesCount: null,
           hasVoted: false,
@@ -126,19 +127,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 1);
-        expect(post.downvotesCount, null);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.upvotesCount, 1);
+        expect(comment.downvotesCount, null);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
 
       test('should handle null hasVoted field', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: null,
@@ -146,21 +147,21 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 6);
-        expect(post.downvotesCount, 3);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.upvotesCount, 6);
+        expect(comment.downvotesCount, 3);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
     });
 
-    group('toggleDownVotePost', () {
-      test('should add downvote when post has no vote', () async {
+    group('toggleDownVoteComment', () {
+      test('should add downvote when comment has no vote', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -168,19 +169,20 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 5);
-        expect(post.downvotesCount, 4);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.downVote);
+        expect(comment.upvotesCount, 5);
+        expect(comment.downvotesCount, 4);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.downVote);
       });
 
-      test('should remove downvote when post is already downvoted', () async {
+      test('should remove downvote when comment is already downvoted',
+          () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: true,
@@ -188,19 +190,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 5);
-        expect(post.downvotesCount, 2);
-        expect(post.hasVoted, false);
-        expect(post.voteType, VoteType.none);
+        expect(comment.upvotesCount, 5);
+        expect(comment.downvotesCount, 2);
+        expect(comment.hasVoted, false);
+        expect(comment.voteType, VoteType.none);
       });
 
       test('should change from upvote to downvote', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: true,
@@ -208,19 +210,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 4);
-        expect(post.downvotesCount, 4);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.downVote);
+        expect(comment.upvotesCount, 4);
+        expect(comment.downvotesCount, 4);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.downVote);
       });
 
       test('should handle null vote counts gracefully', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: null,
           downvotesCount: null,
           hasVoted: false,
@@ -228,19 +230,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, null);
-        expect(post.downvotesCount, 1);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.downVote);
+        expect(comment.upvotesCount, null);
+        expect(comment.downvotesCount, 1);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.downVote);
       });
 
       test('should handle null hasVoted field', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: null,
@@ -248,21 +250,21 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 5);
-        expect(post.downvotesCount, 4);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.downVote);
+        expect(comment.upvotesCount, 5);
+        expect(comment.downvotesCount, 4);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.downVote);
       });
 
       test(
           'should handle edge case of upvote count being 1 when changing to downvote',
           () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 1,
           downvotesCount: 0,
           hasVoted: true,
@@ -270,21 +272,21 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 0);
-        expect(post.downvotesCount, 1);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.downVote);
+        expect(comment.upvotesCount, 0);
+        expect(comment.downvotesCount, 1);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.downVote);
       });
     });
 
     group('UI State Notifications', () {
       test('should notify listeners when upvoting', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -297,7 +299,7 @@ void main() {
         });
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
         expect(listenerCalled, true);
@@ -305,8 +307,8 @@ void main() {
 
       test('should notify listeners when downvoting', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -319,7 +321,7 @@ void main() {
         });
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert
         expect(listenerCalled, true);
@@ -327,8 +329,8 @@ void main() {
 
       test('should notify listeners when removing votes', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: true,
@@ -341,7 +343,7 @@ void main() {
         });
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
         expect(listenerCalled, true);
@@ -351,8 +353,8 @@ void main() {
     group('Service Integration', () {
       test('should work with ActionHandlerService for upvote', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -360,18 +362,18 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert - Service integration is working (updateUI was called)
-        expect(post.upvotesCount, 6);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.upvotesCount, 6);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
 
       test('should work with ActionHandlerService for downvote', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -379,20 +381,20 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
 
         // Assert - Service integration is working (updateUI was called)
-        expect(post.downvotesCount, 4);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.downVote);
+        expect(comment.downvotesCount, 4);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.downVote);
       });
     });
 
     group('Edge Cases and Error Handling', () {
-      test('should handle post with zero votes', () async {
+      test('should handle comment with zero votes', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 0,
           downvotesCount: 0,
           hasVoted: false,
@@ -400,19 +402,19 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert
-        expect(post.upvotesCount, 1);
-        expect(post.downvotesCount, 0);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.upvotesCount, 1);
+        expect(comment.downvotesCount, 0);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
 
       test('should handle multiple rapid vote changes', () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -421,24 +423,24 @@ void main() {
 
         // Act - Multiple rapid changes
         // Step 1: Add upvote (5->6 upvotes, hasVoted=true, voteType=upVote)
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
         // Step 2: Change to downvote (6->5 upvotes, 3->4 downvotes, voteType=downVote)
-        await viewModel.toggleDownVotePost(post);
+        await viewModel.toggleDownVoteComment(comment);
         // Step 3: Change back to upvote (5->6 upvotes, 4->3 downvotes, voteType=upVote)
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert - Final state should be upvoted
-        expect(post.upvotesCount, 6);
-        expect(post.downvotesCount, 3);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.upvotesCount, 6);
+        expect(comment.downvotesCount, 3);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
 
-      test('should preserve post data integrity during vote operations',
+      test('should preserve comment data integrity during vote operations',
           () async {
         // Arrange
-        final post = Post(
-          id: 'post1',
+        final comment = Comment(
+          id: 'comment1',
           upvotesCount: 5,
           downvotesCount: 3,
           hasVoted: false,
@@ -446,13 +448,13 @@ void main() {
         );
 
         // Act
-        await viewModel.toggleUpVotePost(post);
+        await viewModel.toggleUpVoteComment(comment);
 
         // Assert - Other properties should remain unchanged
-        expect(post.id, 'post1');
-        expect(post.upvotesCount, 6);
-        expect(post.hasVoted, true);
-        expect(post.voteType, VoteType.upVote);
+        expect(comment.id, 'comment1');
+        expect(comment.upvotesCount, 6);
+        expect(comment.hasVoted, true);
+        expect(comment.voteType, VoteType.upVote);
       });
     });
   });
