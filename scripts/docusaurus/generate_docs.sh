@@ -21,7 +21,7 @@ python3 scripts/docusaurus/fix_markdown.py docs/docs/auto-docs || true
 echo "Final check..."
 count=$(find docs/docs/auto-docs -name "*.md" | wc -l)
 if [ "$count" -eq 0 ]; then
-  echo "❌ Error: No markdown files were generated."
+  echo "Error: No markdown files were generated."
   exit 1
 else
   echo "✔ Markdown files generated: $count"
