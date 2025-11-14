@@ -1,18 +1,23 @@
 #!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
-# Check if any Dart files have changed
+# Only run docs generation when dart files are staged
 if git diff --name-only --cached | grep -q '\.dart$'; then
   echo "Dart files changed. Generating docs..."
-  
-  # Run the Generate Docs script
-  if ! scripts/docusaurus/generate_docs.sh; then
+
+  if ! bash scripts/docusaurus/generate_docs.sh; then
     echo "Error: Documentation generation failed. Aborting commit."
     exit 1
   fi
-  
-  # Add the generated docs to the commit
-  git add docs/docs/auto-docs
-else
-  echo "No Dart files changed. Skipping doc generation."
-fi
 
+  # If docs produced changes relative to index, fail the commit so dev re-stages
+  if git status --porcelain | grep -q "docs/docs/auto-docs"; then
+    echo "::error::Documentation changed by generation. Please 'git add' the updated docs and re-run commit."
+    echo "Run: git add docs/docs/auto-docs && git commit --amend --no-edit (or create a new commit)"
+    exit 1
+  fi
+
+  echo "Docs are up-to-date (no new changes staged)."
+else
+  echo "No Dart files staged. Skipping doc generation."
+fi

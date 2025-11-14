@@ -1,27 +1,28 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Run the Flutter command to generate the docs
-echo "Generating Flutter documentation..."
-flutter pub global run dartdoc --output docs/docs/auto-docs lib
+echo "Cleaning old docs..."
+rm -rf docs/docs/auto-docs
+mkdir -p docs/docs/auto-docs
 
-# Convert HTML files to Markdown
-echo "Converting HTML files to Markdown..."
-find docs/docs/auto-docs -type f -name "*.html" | while read file; do
-  output_dir="$(dirname "$file")"
-  mkdir -p "$output_dir"
+echo "Generating HTML docs..."
+dartdoc --output docs/docs/auto-docs
 
-  # Ensure filename case is preserved
-  filename=$(basename "$file" .html)
-
-  # Convert HTML to Markdown using pandoc
-  pandoc -f html -t markdown -o "$output_dir/$filename.md" "$file"
-
-  # Delete the original HTML file after conversion
+echo "Converting HTML → Markdown..."
+find docs/docs/auto-docs -type f -name "*.html" | while read -r file; do
+  out="${file%.html}.md"
+  pandoc -f html -t gfm "$file" -o "$out"
   rm "$file"
 done
 
-# Fix the markdown using the Python scripts
-echo "Fixing markdown..."
-python scripts/docusaurus/fix_markdown.py
+echo "Running Markdown cleanup..."
+python3 scripts/docusaurus/fix_markdown.py docs/docs/auto-docs || true
 
-echo "Documentation generation completed."
+echo "Final check..."
+count=$(find docs/docs/auto-docs -name "*.md" | wc -l)
+if [ "$count" -eq 0 ]; then
+  echo "❌ Error: No markdown files were generated."
+  exit 1
+else
+  echo "✔ Markdown files generated: $count"
+fi
