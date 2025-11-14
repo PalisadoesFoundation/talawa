@@ -207,7 +207,6 @@ jobs:
               
               // Mark the workflow run as failed
               throw new Error(`Assignment failed for ${user} on issue #${issueNumber}: ${error.message || error}`);
-              return;
             }
 
             console.log(`${user} currently has ${totalAssigned} open issues assigned across ${owner}`);
@@ -244,6 +243,10 @@ jobs:
             try {        
               let reCheckCount = 0;
               for (const r of activeRepos) {
+
+                // Exit early once limit is detected                
+                if (totalAssigned >= userMaxAssignments) break;  
+
                 try {
                   const assignedIssues = await github.paginate(
                     github.rest.issues.listForRepo,
@@ -253,6 +256,7 @@ jobs:
                       state: "open",
                       assignee: user,
                       per_page: 100,
+                      max_items: 500,  // Limit to first 500 repos to avoid excessive API calls                      
                     }
                   );
                   reCheckCount += assignedIssues.length;
@@ -310,6 +314,6 @@ jobs:
               } catch (commentError) {
                 console.error(`Failed to post error comment for user ${user} on issue #${issueNumber}:`, commentError);
                 // Fall back to marking the workflow as failed if we can't even comment
-                throw new Error(`Org-wide assignment check failed: ${error.message || error}`);
+                throw new Error(`Assignment failed and unable to notify user: ${error.message || error}`);
               }
             }
