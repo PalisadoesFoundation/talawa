@@ -30,6 +30,7 @@ jobs:
             const issue = context.payload.issue || context.payload.pull_request;
             const issueNumber = issue.number;
             const { owner, repo } = context.repo;
+            const core = require('@actions/core');
 
             // Default assignment limit is 2 if not configured
             const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
@@ -190,20 +191,24 @@ jobs:
             }
 
             // Re-verify the count immediately before assignment
-            try {
+            try {        
               let reCheckCount = 0;
               for (const r of activeRepos) {
-                const assignedIssues = await github.paginate(
-                  github.rest.issues.listForRepo,
-                  {
-                    owner,
-                    repo: r.name,
-                    state: "open",
-                    assignee: user,
-                    per_page: 100,
-                  }
-                );
-                reCheckCount += assignedIssues.length;
+                try {
+                  const assignedIssues = await github.paginate(
+                    github.rest.issues.listForRepo,
+                    {
+                      owner,
+                      repo: r.name,
+                      state: "open",
+                      assignee: user,
+                      per_page: 100,
+                    }
+                  );
+                  reCheckCount += assignedIssues.length;
+                } catch (repoError) {
+                  console.warn(`Skipping ${r.name} during re-check: ${repoError.message}`);
+                }                
               }
               
               if (reCheckCount >= maxAssignments) {
