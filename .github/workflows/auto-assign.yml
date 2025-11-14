@@ -56,7 +56,7 @@ jobs:
               if (!currentAssignees.includes(user)) {
                 console.log(`${user} is not assigned, skipping unassign`);
                 return;
-              }
+              }           
 
               try {
                 await github.rest.issues.removeAssignees({
@@ -98,6 +98,10 @@ jobs:
               console.log(`${user} is already assigned, skipping.`);
               return;
             }
+            if (currentAssignees.length > 0) {
+              console.log("Issue already assigned to someone else, skipping.");
+              return;
+            }   
 
             console.log(`Checking org-wide assignments for ${user}...`);
             let totalAssigned = 0;
