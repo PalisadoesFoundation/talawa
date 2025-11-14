@@ -93,6 +93,7 @@ jobs:
                 issue_number: issueNumber,
                 body: `❌ @${user} This workflow only supports self-assignment. Use \`/assign\` without specifying a username.`,
               });
+              return;
             }            
 
             if (isUnassign) {
@@ -248,7 +249,7 @@ jobs:
               for (const r of activeRepos) {
 
                 // Exit early once limit is detected                
-                if (totalAssigned >= maxAssignments) break;  
+                if (reCheckCount >= maxAssignments) break;  
 
                 try {
                   const assignedIssues = await github.paginate(
