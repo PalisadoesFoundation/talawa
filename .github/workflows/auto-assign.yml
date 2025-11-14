@@ -59,12 +59,19 @@ jobs:
 
             // Default assignment limit is 2 if not configured
             const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
+            if (isNaN(maxAssignments)) {
+              throw new Error(`Invalid MAX_OPEN_ASSIGNMENTS value: "${process.env.MAX_OPEN_ASSIGNMENTS}". Must be a positive integer.`);
+            }            
 
-            // New contributors get only 1 assignment
-            let userMaxAssignments = maxAssignments;
+            // New contributors cannot auto assign
             if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER') {
-              userMaxAssignments = 1; 
-              console.log(`User ${user} is a first-time contributor, limiting to 1 assignment`);
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `❌ @${user} First time contributors cannot use auto assignment. Please ask to be assigned instead.`,
+              });
+              return;
             }            
 
             // Ignore bots only
@@ -162,7 +169,7 @@ jobs:
               for (const r of activeRepos) {
                 
                 // Exit early once limit is detected                
-                if (totalAssigned >= userMaxAssignments) break;  
+                if (totalAssigned >= maxAssignments) break;  
 
                 try {
                   const assignedIssues = await github.paginate(
@@ -227,7 +234,7 @@ jobs:
             //    if over limit (but this creates noise in notifications).
             //
             // Current implementation: Option 1 (accept transient violations for simplicity).
-            if (totalAssigned >= userMaxAssignments) {
+            if (totalAssigned >= maxAssignments) {
               const message = `⚠️ @${user} already has ${totalAssigned} open assignments across the org. Please finish or unassign before taking new ones.`;
               await github.rest.issues.createComment({
                 owner,
@@ -245,7 +252,7 @@ jobs:
               for (const r of activeRepos) {
 
                 // Exit early once limit is detected                
-                if (totalAssigned >= userMaxAssignments) break;  
+                if (reCheckCount >= maxAssignments) break;  
 
                 try {
                   const assignedIssues = await github.paginate(
@@ -265,7 +272,7 @@ jobs:
                 }                
               }
               
-              if (reCheckCount >= userMaxAssignments) {
+              if (reCheckCount >= maxAssignments) {
                 const message = `⚠️ @${user}, another issue was assigned to you while processing this request. You now have ${reCheckCount} open assignments. Please finish or unassign before taking new ones.`;
                 await github.rest.issues.createComment({
                   owner,
