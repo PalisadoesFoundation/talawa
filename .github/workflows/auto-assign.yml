@@ -10,6 +10,7 @@ env:
 jobs:
   handle-comment:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       issues: write
       pull-requests: write
@@ -55,7 +56,6 @@ jobs:
             const issue = context.payload.issue || context.payload.pull_request;
             const issueNumber = issue.number;
             const { owner, repo } = context.repo;
-            const core = require('@actions/core');
 
             // Default assignment limit is 2 if not configured
             const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
@@ -146,6 +146,7 @@ jobs:
 
             console.log(`Checking org-wide assignments for ${user}...`);
             let totalAssigned = 0;
+            let activeRepos = [];
 
             try {
               // Fetch all repos for the org
@@ -153,11 +154,16 @@ jobs:
                 org: owner,
                 type: "all",
                 per_page: 100,
+                max_items: 500,  // Limit to first 500 repos to avoid excessive API calls                      
               });
 
               // Filter out archived repositories
-              const activeRepos = repos.filter(r => !r.archived);
+              activeRepos = repos.filter(r => !r.archived);
               for (const r of activeRepos) {
+                
+                // Exit early once limit is detected                
+                if (totalAssigned >= userMaxAssignments) break;  
+
                 try {
                   const assignedIssues = await github.paginate(
                     github.rest.issues.listForRepo,
@@ -167,6 +173,7 @@ jobs:
                       state: "open",
                       assignee: user,
                       per_page: 100,
+                      max_items: 500,  // Limit to first 500 repos to avoid excessive API calls                      
                     }
                   );
                   totalAssigned += assignedIssues.length;
@@ -199,7 +206,7 @@ jobs:
               }
               
               // Mark the workflow run as failed
-              core.setFailed(`Org-wide assignment check failed: ${error.message || error}`);
+              throw new Error(`Assignment failed for ${user} on issue #${issueNumber}: ${error.message || error}`);
               return;
             }
 
@@ -303,6 +310,6 @@ jobs:
               } catch (commentError) {
                 console.error(`Failed to post error comment for user ${user} on issue #${issueNumber}:`, commentError);
                 // Fall back to marking the workflow as failed if we can't even comment
-                core.setFailed(`Assignment failed for ${user} on issue #${issueNumber}: ${error.message || error}`);
+                throw new Error(`Org-wide assignment check failed: ${error.message || error}`);
               }
             }
