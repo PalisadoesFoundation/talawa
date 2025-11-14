@@ -25,9 +25,9 @@ jobs:
             const issueNumber = issue.number;
             const { owner, repo } = context.repo;
 
-            // Ignore bots or external contributors
-            if (comment.user.type === "Bot" || association === "NONE") {
-              console.log("Ignoring bot or external contributor");
+            // Ignore bots only
+            if (comment.user.type === "Bot") {
+              console.log("Ignoring bot");
               return;
             }
 
