@@ -35,6 +35,13 @@ jobs:
             // Default assignment limit is 2 if not configured
             const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
 
+            // New contributors get only 1 assignment
+            let userMaxAssignments = maxAssignments;
+            if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER') {
+              userMaxAssignments = 1; 
+              console.log(`User ${user} is a first-time contributor, limiting to 1 assignment`);
+            }            
+
             // Ignore bots only
             if (comment.user.type === "Bot") {
               console.log("Ignoring bot");
@@ -178,7 +185,7 @@ jobs:
             //    if over limit (but this creates noise in notifications).
             //
             // Current implementation: Option 1 (accept transient violations for simplicity).
-            if (totalAssigned >= maxAssignments) {
+            if (totalAssigned >= userMaxAssignments) {
               const message = `⚠️ @${user} already has ${totalAssigned} open assignments across the org. Please finish or unassign before taking new ones.`;
               await github.rest.issues.createComment({
                 owner,
@@ -211,7 +218,7 @@ jobs:
                 }                
               }
               
-              if (reCheckCount >= maxAssignments) {
+              if (reCheckCount >= userMaxAssignments) {
                 const message = `⚠️ @${user}, another issue was assigned to you while processing this request. You now have ${reCheckCount} open assignments. Please finish or unassign before taking new ones.`;
                 await github.rest.issues.createComment({
                   owner,
