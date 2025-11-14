@@ -23,12 +23,6 @@ jobs:
           # - org:read (to enumerate organization repos)
           github-token: ${{ secrets.ORG_ACCESS_TOKEN }}
           script: |
-            // Check if we have the required token
-            if (!process.env.GITHUB_TOKEN || process.env.GITHUB_TOKEN === process.env.SECRETS_GITHUB_TOKEN) {
-              core.setFailed('ORG_ACCESS_TOKEN secret is required but not configured');
-              return;
-            }
-
             const comment = context.payload.comment;
             const body = (comment.body || "").trim();
             const user = comment.user.login;
@@ -36,6 +30,10 @@ jobs:
             const issue = context.payload.issue || context.payload.pull_request;
             const issueNumber = issue.number;
             const { owner, repo } = context.repo;
+            const activeRepos = repos.filter(r => !r.archived);
+
+            // Default assignment limit is 2 if not configured
+            const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
 
             // Ignore bots only
             if (comment.user.type === "Bot") {
@@ -115,7 +113,6 @@ jobs:
               });
 
               // Filter out archived repositories
-              const activeRepos = repos.filter(r => !r.archived);
               for (const r of activeRepos) {
                 try {
                   const assignedIssues = await github.paginate(
@@ -180,7 +177,7 @@ jobs:
             //    if over limit (but this creates noise in notifications).
             //
             // Current implementation: Option 1 (accept transient violations for simplicity).
-            if (totalAssigned >= parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2')) {
+            if (totalAssigned >= maxAssignments) {
               const message = `⚠️ @${user} already has ${totalAssigned} open assignments across the org. Please finish or unassign before taking new ones.`;
               await github.rest.issues.createComment({
                 owner,
@@ -209,7 +206,7 @@ jobs:
                 reCheckCount += assignedIssues.length;
               }
               
-              if (reCheckCount >= parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2')) {
+              if (reCheckCount >= maxAssignments) {
                 const message = `⚠️ @${user}, another issue was assigned to you while processing this request. You now have ${reCheckCount} open assignments. Please finish or unassign before taking new ones.`;
                 await github.rest.issues.createComment({
                   owner,
