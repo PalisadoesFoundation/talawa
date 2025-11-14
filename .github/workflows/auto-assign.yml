@@ -4,9 +4,13 @@ on:
   issue_comment:
     types: [created]
 
+env:
+  MAX_OPEN_ASSIGNMENTS: 2
+
 jobs:
   handle-comment:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       issues: write
       pull-requests: write
@@ -15,15 +19,60 @@ jobs:
       - name: Handle /assign or /unassign
         uses: actions/github-script@v7
         with:
+          # ORG_ACCESS_TOKEN must have the following scopes:
+          # - repo (or public_repo if using public repos only)
+          # - org:read (to enumerate organization repos)
           github-token: ${{ secrets.ORG_ACCESS_TOKEN }}
           script: |
+            /**
+            * Auto-assign workflow for organization-wide issue assignment limits
+            * 
+            * Features:
+            * - Self-assignment only: Users comment /assign to assign themselves
+            * - Organization-wide limit: Enforces MAX_OPEN_ASSIGNMENTS across all org repos
+            * - Race condition mitigation: Re-checks assignment count before final assignment
+            * 
+            * Required GitHub Token Permissions (ORG_ACCESS_TOKEN):
+            * - repo (or public_repo for public repos only)
+            * - org:read (to enumerate organization repositories)
+            * 
+            * Configuration:
+            * - MAX_OPEN_ASSIGNMENTS: Maximum open issues per user (default: 2)
+            * 
+            * Commands:
+            * - /assign: Self-assign an issue (if under limit)
+            * - /unassign: Remove self-assignment from an issue
+            * 
+            * Limitations:
+            * - Small race condition window exists between checks and assignment
+            * - Only self-assignment supported (cannot assign others)
+            * - Requires archived repos to be properly marked in GitHub
+            */
+
             const comment = context.payload.comment;
-            const body = comment.body.trim();
+            const body = (comment.body || "").trim();
             const user = comment.user.login;
             const association = context.payload.comment.author_association;
             const issue = context.payload.issue || context.payload.pull_request;
             const issueNumber = issue.number;
             const { owner, repo } = context.repo;
+
+            // Default assignment limit is 2 if not configured
+            const maxAssignments = parseInt(process.env.MAX_OPEN_ASSIGNMENTS || '2');
+            if (isNaN(maxAssignments)) {
+              throw new Error(`Invalid MAX_OPEN_ASSIGNMENTS value: "${process.env.MAX_OPEN_ASSIGNMENTS}". Must be a positive integer.`);
+            }            
+
+            // New contributors cannot auto assign
+            if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER') {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `❌ @${user} First time contributors cannot use auto assignment. Please ask to be assigned instead.`,
+              });
+              return;
+            }            
 
             // Ignore bots only
             if (comment.user.type === "Bot") {
@@ -39,12 +88,23 @@ jobs:
               return;
             }
 
+            // After checking isAssign
+            if (isAssign && body.trim() !== "/assign") {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `❌ @${user} This workflow only supports self-assignment. Use \`/assign\` without specifying a username.`,
+              });
+              return;
+            }            
+
             if (isUnassign) {
               const currentAssignees = issue.assignees.map(a => a.login);
               if (!currentAssignees.includes(user)) {
                 console.log(`${user} is not assigned, skipping unassign`);
                 return;
-              }
+              }           
 
               try {
                 await github.rest.issues.removeAssignees({
@@ -81,13 +141,19 @@ jobs:
             }
 
             // For /assign
-            if (issue.assignees.length > 0) {
-              console.log("Already assigned, skipping.");
+            const currentAssignees = issue.assignees.map(a => a.login);
+            if (currentAssignees.includes(user)) {
+              console.log(`${user} is already assigned, skipping.`);
               return;
             }
+            if (currentAssignees.length > 0) {
+              console.log("Issue already assigned to someone else, skipping.");
+              return;
+            }   
 
             console.log(`Checking org-wide assignments for ${user}...`);
             let totalAssigned = 0;
+            let activeRepos = [];
 
             try {
               // Fetch all repos for the org
@@ -95,21 +161,39 @@ jobs:
                 org: owner,
                 type: "all",
                 per_page: 100,
+                max_items: 500,  // Limit to first 500 repos to avoid excessive API calls                      
               });
 
-              for (const r of repos) {
-                const assignedIssues = await github.paginate(
-                  github.rest.issues.listForRepo,
-                  {
-                    owner,
-                    repo: r.name,
-                    state: "open",
-                    assignee: user,
-                    per_page: 100,
-                  }
-                );
-                totalAssigned += assignedIssues.length;
+              // Filter out archived repositories
+              activeRepos = repos.filter(r => !r.archived);
+              for (const r of activeRepos) {
+                
+                // Exit early once limit is detected                
+                if (totalAssigned >= maxAssignments) break;  
+
+                try {
+                  const assignedIssues = await github.paginate(
+                    github.rest.issues.listForRepo,
+                    {
+                      owner,
+                      repo: r.name,
+                      state: "open",
+                      assignee: user,
+                      per_page: 100,
+                      max_items: 500,  // Limit to first 500 repos to avoid excessive API calls                      
+                    }
+                  );
+                  totalAssigned += assignedIssues.length;
+                } catch (repoError) {
+                  console.warn(`Skipping ${r.name}: ${repoError.message}`);
+                  // Continue with other repos
+                }
               }
+
+              // With many repos in the org, we could hit GitHub API rate limits.
+              const rateLimit = await github.rest.rateLimit.get();
+              console.log(`Remaining rate limit: ${rateLimit.data.rate.remaining}`);
+
             } catch (error) {
               console.error("Error fetching org-wide assignments:", error);
               
@@ -129,8 +213,7 @@ jobs:
               }
               
               // Mark the workflow run as failed
-              core.setFailed(`Org-wide assignment check failed: ${error.message || error}`);
-              return;
+              throw new Error(`Assignment failed for ${user} on issue #${issueNumber}: ${error.message || error}`);
             }
 
             console.log(`${user} currently has ${totalAssigned} open issues assigned across ${owner}`);
@@ -151,7 +234,7 @@ jobs:
             //    if over limit (but this creates noise in notifications).
             //
             // Current implementation: Option 1 (accept transient violations for simplicity).
-            if (totalAssigned >= 2) {
+            if (totalAssigned >= maxAssignments) {
               const message = `⚠️ @${user} already has ${totalAssigned} open assignments across the org. Please finish or unassign before taking new ones.`;
               await github.rest.issues.createComment({
                 owner,
@@ -161,6 +244,48 @@ jobs:
               });
               console.log("Limit reached, skipping assignment");
               return;
+            }
+
+            // Re-verify the count immediately before assignment
+            try {        
+              let reCheckCount = 0;
+              for (const r of activeRepos) {
+
+                // Exit early once limit is detected                
+                if (reCheckCount >= maxAssignments) break;  
+
+                try {
+                  const assignedIssues = await github.paginate(
+                    github.rest.issues.listForRepo,
+                    {
+                      owner,
+                      repo: r.name,
+                      state: "open",
+                      assignee: user,
+                      per_page: 100,
+                      max_items: 500,  // Limit to first 500 repos to avoid excessive API calls                      
+                    }
+                  );
+                  reCheckCount += assignedIssues.length;
+                } catch (repoError) {
+                  console.warn(`Skipping ${r.name} during re-check: ${repoError.message}`);
+                }                
+              }
+              
+              if (reCheckCount >= maxAssignments) {
+                const message = `⚠️ @${user}, another issue was assigned to you while processing this request. You now have ${reCheckCount} open assignments. Please finish or unassign before taking new ones.`;
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: message,
+                });
+                console.log("Limit reached after re-check, aborting assignment");
+                return;
+              }
+            } catch (error) {
+              console.error("Error during assignment re-check:", error);
+              // Continue with assignment since we already passed the first check
             }
 
             try {
@@ -196,6 +321,6 @@ jobs:
               } catch (commentError) {
                 console.error(`Failed to post error comment for user ${user} on issue #${issueNumber}:`, commentError);
                 // Fall back to marking the workflow as failed if we can't even comment
-                core.setFailed(`Assignment failed for ${user} on issue #${issueNumber}: ${error.message || error}`);
+                throw new Error(`Assignment failed and unable to notify user: ${error.message || error}`);
               }
             }
