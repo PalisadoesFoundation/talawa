@@ -23,6 +23,31 @@ jobs:
           # - org:read (to enumerate organization repos)
           github-token: ${{ secrets.ORG_ACCESS_TOKEN }}
           script: |
+            /**
+            * Auto-assign workflow for organization-wide issue assignment limits
+            * 
+            * Features:
+            * - Self-assignment only: Users comment /assign to assign themselves
+            * - Organization-wide limit: Enforces MAX_OPEN_ASSIGNMENTS across all org repos
+            * - Race condition mitigation: Re-checks assignment count before final assignment
+            * 
+            * Required GitHub Token Permissions (ORG_ACCESS_TOKEN):
+            * - repo (or public_repo for public repos only)
+            * - org:read (to enumerate organization repositories)
+            * 
+            * Configuration:
+            * - MAX_OPEN_ASSIGNMENTS: Maximum open issues per user (default: 2)
+            * 
+            * Commands:
+            * - /assign: Self-assign an issue (if under limit)
+            * - /unassign: Remove self-assignment from an issue
+            * 
+            * Limitations:
+            * - Small race condition window exists between checks and assignment
+            * - Only self-assignment supported (cannot assign others)
+            * - Requires archived repos to be properly marked in GitHub
+            */
+
             const comment = context.payload.comment;
             const body = (comment.body || "").trim();
             const user = comment.user.login;
@@ -55,6 +80,17 @@ jobs:
               console.log("Not an /assign or /unassign command");
               return;
             }
+
+            // After checking isAssign
+            if (isAssign && body.trim() !== "/assign") {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `❌ @${user} This workflow only supports self-assignment. Use \`/assign\` without specifying a username.`,
+              });
+              return;
+            }            
 
             if (isUnassign) {
               const currentAssignees = issue.assignees.map(a => a.login);
