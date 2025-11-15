@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/plugin/plugin_injector.dart';
+import 'package:talawa/plugin/types.dart';
 import 'package:talawa/widgets/caption_text_widget.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/interaction.dart';
@@ -88,7 +90,19 @@ class PostWidget extends StatelessWidget {
               /// showing caption if attachments are not present.
               child: post.attachments != null && post.attachments!.isNotEmpty
                   ? PostContainer(fileAttachmentList: post.attachments)
-                  : CaptionTextWidget(caption: post.caption ?? ''),
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CaptionTextWidget(caption: post.caption ?? ''),
+                        PluginInjector(
+                          injectorType: InjectorType.g2,
+                          data: {
+                            'caption': post.caption ?? '',
+                            'postId': post.id,
+                          },
+                        ),
+                      ],
+                    ),
               onTap: () => redirectToIndividualPage?.call(post),
             ),
             Column(
@@ -103,7 +117,21 @@ class PostWidget extends StatelessWidget {
                     /// showing caption if attachments are present.
                     if (post.attachments != null &&
                         post.attachments!.isNotEmpty)
-                      CaptionTextWidget(caption: post.caption ?? ''),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CaptionTextWidget(caption: post.caption ?? ''),
+                            PluginInjector(
+                              injectorType: InjectorType.g2,
+                              data: {
+                                'caption': post.caption ?? '',
+                                'postId': post.id,
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ],
