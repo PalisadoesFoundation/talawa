@@ -135,7 +135,7 @@ jobs:
                 return;
               }    
             }
-            
+
             if (isUnassign) {
               const currentAssignees = issue.assignees.map(a => a.login);
               if (!currentAssignees.includes(user)) {
