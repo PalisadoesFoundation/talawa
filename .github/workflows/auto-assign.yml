@@ -81,6 +81,12 @@ jobs:
 
             // After checking isAssign
             if (isAssign && body.trim() !== "/assign") {
+
+              if (body.trim() !== "/unassign") {
+                console.log("Invalid /unassign command (must be exact)");
+                return;
+              }
+
               await github.rest.issues.createComment({
                 owner,
                 repo,
