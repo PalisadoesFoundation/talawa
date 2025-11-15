@@ -63,8 +63,41 @@ jobs:
               throw new Error(`Invalid MAX_OPEN_ASSIGNMENTS value: "${process.env.MAX_OPEN_ASSIGNMENTS}". Must be a positive integer.`);
             }            
 
+            /**
+            * NOTE
+            *
+            * List of possible user association values: https://docs.github.com/en/graphql/reference/enums
+            * 
+            * COLLABORATOR
+            * Author has been invited to collaborate on the repository.
+            * 
+            * CONTRIBUTOR
+            * Author has previously committed to the repository.
+            * 
+            * FIRST_TIMER
+            * Author has not previously committed to GitHub.
+            * 
+            * FIRST_TIME_CONTRIBUTOR
+            * Author has not previously committed to the repository.
+            * 
+            * MANNEQUIN
+            * Author is a placeholder for an unclaimed user.
+            * 
+            * MEMBER
+            * Author is a member of the organization that owns the repository.
+            * 
+            * NONE
+            * Author has no association with the repository.
+            * 
+            * OWNER
+            * Author is the owner of the repository.
+            */
+
+            // Log the type of user association
+            console.log(`Commenting user ${user} is a ${association}`);
+
             // New contributors cannot auto assign
-            if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER') {
+            if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER' || association === 'NONE') {
               await github.rest.issues.createComment({
                 owner,
                 repo,
