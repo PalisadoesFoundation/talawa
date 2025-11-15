@@ -10,6 +10,8 @@ env:
 jobs:
   handle-comment:
     runs-on: ubuntu-latest
+    # Only runs on issue comments, not those of pull requests
+    if: github.event.issue.pull_request == null
     timeout-minutes: 15
     permissions:
       issues: write
@@ -63,6 +65,31 @@ jobs:
               throw new Error(`Invalid MAX_OPEN_ASSIGNMENTS value: "${process.env.MAX_OPEN_ASSIGNMENTS}". Must be a positive integer.`);
             }            
 
+            // Ignore bots only
+            if (comment.user.type === "Bot") {
+              console.log("Ignoring bot");
+              return;
+            }
+
+            const isAssign = body.startsWith("/assign");
+            const isUnassign = body.startsWith("/unassign");
+
+            if (!isAssign && !isUnassign) {
+              console.log("Not an /assign or /unassign command");
+              return;
+            }
+
+            // After checking isAssign
+            if (isAssign && body.trim() !== "/assign") {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `❌ @${user} This workflow only supports self-assignment. Use \`/assign\` without specifying a username.`,
+              });
+              return;
+            }            
+
             /**
             * NOTE
             *
@@ -96,42 +123,19 @@ jobs:
             // Log the type of user association
             console.log(`Commenting user ${user} is a ${association}`);
 
-            // New contributors cannot auto assign
-            if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER' || association === 'NONE') {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: issueNumber,
-                body: `❌ @${user} First time contributors cannot use auto assignment. Please ask to be assigned instead.`,
-              });
-              return;
-            }            
-
-            // Ignore bots only
-            if (comment.user.type === "Bot") {
-              console.log("Ignoring bot");
-              return;
+            // New contributors cannot auto assign themselves, but they can unassign themselves
+            if (isAssign) {
+              if (association === 'FIRST_TIME_CONTRIBUTOR' || association === 'FIRST_TIMER' || association === 'NONE') {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `❌ @${user} First time contributors cannot use auto assignment. Please ask to be assigned instead.`,
+                });
+                return;
+              }    
             }
-
-            const isAssign = body.startsWith("/assign");
-            const isUnassign = body.startsWith("/unassign");
-
-            if (!isAssign && !isUnassign) {
-              console.log("Not an /assign or /unassign command");
-              return;
-            }
-
-            // After checking isAssign
-            if (isAssign && body.trim() !== "/assign") {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: issueNumber,
-                body: `❌ @${user} This workflow only supports self-assignment. Use \`/assign\` without specifying a username.`,
-              });
-              return;
-            }            
-
+            
             if (isUnassign) {
               const currentAssignees = issue.assignees.map(a => a.login);
               if (!currentAssignees.includes(user)) {
