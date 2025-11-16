@@ -63,8 +63,11 @@ class ChatQueries {
           members(last: 30) {
             edges {
               node {
-                id
-                name
+                role
+                user {
+                  id
+                  name
+                }
               }
             }
           }
@@ -126,8 +129,11 @@ class ChatQueries {
             }
             edges {
               node {
-                id
-                name
+                role
+                user {
+                  id
+                  name
+                }
               }
             }
           }
@@ -163,8 +169,11 @@ class ChatQueries {
             edges {
               cursor
               node {
-                id
-                name
+                role
+                user {
+                  id
+                  name
+                }
               }
             }
           }
