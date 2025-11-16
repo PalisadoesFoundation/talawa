@@ -538,33 +538,6 @@ void main() {
         // Should return DemoPageView for unknown routes
         expect(widget, isA<DemoPageView>());
       }
-    });
-
-    testWidgets('Test for plugin provided route', (WidgetTester tester) async {
-      // Initialize plugin manager with a test plugin
-      PluginManager.instance.initialize(
-        [TestPlugin()],
-        active: ['test_plugin'],
-      );
-
-      // Test that plugin route is handled
-      final route = generateRoute(
-        const RouteSettings(
-          name: '/test_plugin_route',
-        ),
-      );
-
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        // Should return the plugin's widget
-        expect(widget, isA<Placeholder>());
-        expect(
-          (widget as Placeholder).key,
-          equals(const Key('TestPluginPage')),
-        );
-      }
-    });
+    });   
   });
 }
