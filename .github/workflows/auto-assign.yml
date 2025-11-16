@@ -81,12 +81,6 @@ jobs:
 
             // After checking isAssign
             if (isAssign && body.trim() !== "/assign") {
-
-              if (body.trim() !== "/unassign") {
-                console.log("Invalid /unassign command (must be exact)");
-                return;
-              }
-
               await github.rest.issues.createComment({
                 owner,
                 repo,
@@ -143,6 +137,18 @@ jobs:
             }
 
             if (isUnassign) {
+
+              if (body.trim() !== "/unassign") {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `❌ @${user} This workflow only using \`/unassign\` without additional text.`,
+                });
+                console.log("Invalid /unassign command (must be exact)");
+                return;
+              }
+
               const currentAssignees = issue.assignees.map(a => a.login);
               if (!currentAssignees.includes(user)) {
                 console.log(`${user} is not assigned, skipping unassign`);
