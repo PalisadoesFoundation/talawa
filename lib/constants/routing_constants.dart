@@ -4,6 +4,9 @@ class Routes {
   /// static variables.
   static const String demoPageViewRoute = "/demoPageViewRoute";
 
+  /// Demo page route.
+  static const String demoPage = "/demoPage";
+
   /// static variables.
   static const String splashScreen = "/";
 
@@ -59,10 +62,13 @@ class Routes {
   static const String eventInfoPage = "/eventInfo";
 
   /// static variables.
-  static const String createEventPage = "/createEventPage";
+  static const String eventPageForm = "/eventPageForm";
 
   /// static variables.
   static const String customRecurrencePage = "/customRecurrencePage";
+
+  /// static variables.
+  static const String editCustomRecurrencePage = "/editCustomRecurrencePage";
 
   /// static variables.
   static const String profilePage = "/profilePage";

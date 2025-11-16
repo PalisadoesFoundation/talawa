@@ -1,8 +1,8 @@
 // ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/agenda_item_tile.dart';
 
@@ -12,7 +12,7 @@ void main() {
   setUp(() {
     testAgendaItem = EventAgendaItem(
       id: '1',
-      title: 'Test Agenda Item',
+      name: 'Test Agenda Item',
       description: 'Test Description',
       duration: '00:30',
       sequence: 1,
@@ -92,7 +92,7 @@ void main() {
     testWidgets('Handles empty lists correctly', (WidgetTester tester) async {
       testAgendaItem = EventAgendaItem(
         id: '1',
-        title: 'Test Agenda Item',
+        name: 'Test Agenda Item',
         duration: '00:30',
         sequence: 1,
         categories: [],
@@ -168,7 +168,7 @@ void main() {
           (WidgetTester tester) async {
         testAgendaItem = EventAgendaItem(
           id: '1',
-          title: 'Test Agenda Item',
+          name: 'Test Agenda Item',
           description: 'Test Description',
           duration: '00:30',
           sequence: 1,
@@ -197,7 +197,7 @@ void main() {
           (WidgetTester tester) async {
         testAgendaItem = EventAgendaItem(
           id: '1',
-          title: 'Test Agenda Item',
+          name: 'Test Agenda Item',
           description: 'Test Description',
           duration: '00:30',
           sequence: 1,
@@ -225,7 +225,7 @@ void main() {
           (WidgetTester tester) async {
         testAgendaItem = EventAgendaItem(
           id: '1',
-          title: 'Test Agenda Item',
+          name: 'Test Agenda Item',
           description: 'Test Description',
           duration: '00:30',
           sequence: 1,
@@ -258,7 +258,7 @@ void main() {
 
         testAgendaItem = EventAgendaItem(
           id: '1',
-          title: 'Test Agenda Item',
+          name: 'Test Agenda Item',
           description: 'Test Description',
           duration: '00:30',
           sequence: 1,
@@ -289,7 +289,7 @@ void main() {
           (WidgetTester tester) async {
         testAgendaItem = EventAgendaItem(
           id: '1',
-          title: 'Test Agenda Item',
+          name: 'Test Agenda Item',
           description: 'Test Description',
           duration: '00:30',
           sequence: 1,
@@ -323,7 +323,7 @@ void main() {
           (WidgetTester tester) async {
         testAgendaItem = EventAgendaItem(
           id: '1',
-          title: 'Test Agenda Item',
+          name: 'Test Agenda Item',
           description: 'Test Description',
           duration: '00:30',
           sequence: 1,

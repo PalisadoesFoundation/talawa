@@ -81,7 +81,7 @@ void main() {
       expect(routes.containsKey('/plugin_plugin2_route_0'), isTrue);
     });
 
-    test('routes should be valid WidgetBuilders', () async {
+    test('routes should be valid WidgetBuilders', () {
       final plugin = MockPlugin('plugin1');
 
       PluginManager.instance.initialize(

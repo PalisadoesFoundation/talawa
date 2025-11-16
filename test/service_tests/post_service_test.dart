@@ -605,7 +605,9 @@ class TestablePostService extends PostService {
   }
 
   @override
-  Future<List<Post>> getNewFeedAndRefreshCache() async {
+  Future<List<Post>> getNewFeedAndRefreshCache({
+    Map<String, dynamic>? params,
+  }) async {
     return [
       Post(
         id: 'test_post',
