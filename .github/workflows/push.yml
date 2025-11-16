@@ -171,14 +171,14 @@ jobs:
     name: iOS Build and Release
     permissions:
       contents: write
-    runs-on: macos-latest
+    runs-on: macos-14
     needs: Flutter-Testing
     
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: "16.1"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
