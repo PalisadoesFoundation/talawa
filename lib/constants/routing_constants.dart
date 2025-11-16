@@ -129,4 +129,7 @@ class Routes {
 
   ///static variable to access Manage volunteer group screen.
   static const String manageVolunteerGroup = '/manageVolunteerScreen';
+
+  /// static variable to access Menu page.
+  static const String menuPage = '/menuPage';
 }

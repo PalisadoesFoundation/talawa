@@ -3,12 +3,18 @@
 
 # Production
 /build
+/.docusaurus-debug.log
+/build-stats.json
+docs/.docusaurus-debug.log
+docs/build-stats.json
 
 # Generated files
 .docusaurus
 .cache-loader
-.package-lock.json
 package-lock.json
+yarn.lock
+.eslintcache
+tsconfig.tsbuildinfo
 
 # Misc
 .DS_Store
@@ -20,3 +26,4 @@ package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+

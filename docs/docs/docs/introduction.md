@@ -1,6 +1,6 @@
 ---
 id: introduction
-title: Overview
+title: Introduction
 slug: /
 ---
 
