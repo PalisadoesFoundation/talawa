@@ -129,10 +129,10 @@ void main() {
     });
 
     test('Test EventVolunteer constructor with all parameters', () {
-      final creator = User(id: "creatorId", firstName: "Creator");
+      final creator = User(id: "creatorId", name: "Creator");
       final event = Event(id: 'eventId', name: 'Test Event');
       final group = EventVolunteerGroup(id: 'groupId', name: 'Test Group');
-      final user = User(id: "userId", firstName: "Volunteer");
+      final user = User(id: "userId", name: "Volunteer");
 
       final eventVolunteer = EventVolunteer(
         id: 'volunteerId',

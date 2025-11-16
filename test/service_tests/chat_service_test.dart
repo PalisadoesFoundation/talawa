@@ -1,20 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
-import 'package:talawa/services/chat_core_service.dart';
-import 'package:talawa/services/chat_membership_service.dart';
-import 'package:talawa/services/chat_message_service.dart';
 import 'package:talawa/services/chat_service.dart';
 
 import '../helpers/test_helpers.dart';
-import 'chat_service_test.mocks.dart';
+import '../helpers/test_helpers.mocks.dart';
 
-@GenerateMocks([ChatCoreService, ChatMembershipService, ChatMessageService])
 void main() {
   group('ChatService Delegation Tests', () {
     late MockChatCoreService mockCoreService;
