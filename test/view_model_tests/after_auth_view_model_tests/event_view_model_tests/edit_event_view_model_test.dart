@@ -520,7 +520,7 @@ void main() {
       }
     });
 
-    test('execute method detects no changes scenario', () async {
+    test('execute method detects no changes scenario', () {
       final testEvent = Event(
         id: 'event2',
         name: 'Test Event',
@@ -537,7 +537,7 @@ void main() {
       expect(() => model.execute(), returnsNormally);
     });
 
-    test('execute method handles recurrence type scenarios', () async {
+    test('execute method handles recurrence type scenarios', () {
       final recurrenceRule = RecurrenceRule(
         frequency: Frequency.weekly,
         interval: 1,

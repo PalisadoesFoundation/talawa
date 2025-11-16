@@ -352,7 +352,7 @@ class EditEventViewModel extends BaseEventViewModel {
   /// * `Future<String?>`: Selected recurrence update type
   Future<String?> _showRecurrenceUpdateOptionDialog({
     required bool isRecurrenceSettingsEdit,
-  }) async {
+  }) {
     return showDialog<String>(
       context: navigationService.navigatorKey.currentContext!,
       builder: (context) => AlertDialog(

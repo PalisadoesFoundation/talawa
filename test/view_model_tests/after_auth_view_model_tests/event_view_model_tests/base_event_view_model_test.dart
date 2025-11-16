@@ -213,8 +213,7 @@ void main() {
       expect(model.recurrenceLabel, isNotEmpty);
     });
 
-    test('pickStartDate updates start date and adjusts end date if needed',
-        () async {
+    test('pickStartDate updates start date and adjusts end date if needed', () {
       final model = CreateEventViewModel();
       final notifyListenerCallback = MockCallbackFunction();
       model.addListener(notifyListenerCallback);
@@ -231,8 +230,7 @@ void main() {
       verify(notifyListenerCallback()).called(greaterThan(0));
     });
 
-    test('pickStartTime adjusts end time if it becomes before start time',
-        () async {
+    test('pickStartTime adjusts end time if it becomes before start time', () {
       final model = CreateEventViewModel();
       model.isAllDay = false;
       model.eventStartDate = DateTime.now();

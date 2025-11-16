@@ -513,7 +513,7 @@ void main() {
     });
 
     group('disposal', () {
-      test('dispose closes all streams', () async {
+      test('dispose closes all streams', () {
         chatCoreService.dispose();
         // Test passes if no exceptions are thrown
         expect(true, isTrue);

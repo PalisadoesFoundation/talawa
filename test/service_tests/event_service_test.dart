@@ -374,7 +374,7 @@ void main() {
         expect(events[1].name, "Test Event 2");
       });
 
-      test('fetchDataFromApi - throws exception when data is null', () async {
+      test('fetchDataFromApi - throws exception when data is null', () {
         final query = EventQueries().fetchOrgEvents();
 
         when(
@@ -898,7 +898,7 @@ void main() {
         expect(result[1].id, 'groupId2');
       });
 
-      test('fetchVolunteerGroupsByEvent - throws on error', () async {
+      test('fetchVolunteerGroupsByEvent - throws on error', () {
         const eventId = 'eventId123';
 
         when(
