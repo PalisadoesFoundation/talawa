@@ -105,7 +105,7 @@ flutter:
     - lang/
     - .env
   fonts:
-    - family: product-sans>
+    - family: product-sans
       fonts:
         - asset: assets/fonts/ProductSans-Regular.ttf
         - asset: assets/fonts/ProductSans-Medium.ttf
