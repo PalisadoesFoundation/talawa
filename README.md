@@ -48,3 +48,4 @@ Core features include:
 1. Visit our [YouTube Channel playlists](https://www.youtube.com/@PalisadoesOrganization/playlists) for more insights
    1. The "Getting Started - Developers" videos are extremely helpful for new open source contributors.
 
+# CI retry
