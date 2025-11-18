@@ -37,7 +37,8 @@ void main() {
       'should set up tutorial correctly and handle skip/tap actions',
       (tester) async {
         // Set up our test dependencies
-        final navigation = app_locator.locator<NavigationService>() as FakeNavigationService;
+        final navigation =
+            app_locator.locator<NavigationService>() as FakeNavigationService;
         late FakeMainScreenViewModel viewModel;
         late BuildContext capturedContext;
 
@@ -83,7 +84,7 @@ void main() {
         final mockTargetFocus = MockTargetFocus();
         final FocusTarget mockedTarget = FocusTarget(
           key: GlobalKey(),
-          keyName: 'mock-target', 
+          keyName: 'mock-target',
           description: 'Mock target description',
           appTour: appTour,
         )..focusWidget = mockTargetFocus;
@@ -185,7 +186,7 @@ void main() {
           ..tutorialCoachMark = mockTutorial;
 
         bool nextCallbackTriggered = false;
-        
+
         // Create a focus target with various properties
         final FocusTarget focusTarget = FocusTarget(
           key: GlobalKey(),
@@ -205,12 +206,15 @@ void main() {
 
         // Test content building
         final List<TargetContent> contents = focusTarget.focusWidget.contents!;
-        final FakeTutorialCoachMarkController fakeController = FakeTutorialCoachMarkController();
+        final FakeTutorialCoachMarkController fakeController =
+            FakeTutorialCoachMarkController();
         final mockController = MockTutorialCoachMarkController();
 
         // Check description content
         final TargetContent descriptionContent = contents[0];
-        final Container descriptionWidget = descriptionContent.builder!(capturedContext, fakeController) as Container;
+        final Container descriptionWidget =
+            descriptionContent.builder!(capturedContext, fakeController)
+                as Container;
         final Column descriptionColumn = descriptionWidget.child! as Column;
         final Text descriptionText = descriptionColumn.children.first as Text;
         expect(descriptionText.data, 'Detail Description');
@@ -231,7 +235,9 @@ void main() {
 
         // Set up mock and test next button
         when(mockTutorial.next()).thenReturn(null);
-        final GestureDetector nextButton = nextContent.builder!(capturedContext, fakeController) as GestureDetector;
+        final GestureDetector nextButton =
+            nextContent.builder!(capturedContext, fakeController)
+                as GestureDetector;
         final Column nextColumn = nextButton.child as Column;
         final Text nextText = nextColumn.children.first as Text;
         expect(nextText.data, 'COMPLETE');
@@ -251,7 +257,7 @@ void main() {
         expect(focusTarget.focusWidget.enableOverlayTab, true);
       },
     );
-    
+
     // TODO: Add more tests for different alignments and edge cases
     // testWidgets('should handle bottom alignment correctly', ...
     // testWidgets('should work with different cross alignments', ...

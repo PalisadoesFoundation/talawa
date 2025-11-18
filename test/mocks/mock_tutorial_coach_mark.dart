@@ -7,7 +7,7 @@ class MockTutorialCoachMark extends Mock implements TutorialCoachMark {}
 
 class MockTargetFocus extends Mock implements TargetFocus {}
 
-class MockTutorialCoachMarkController extends Mock 
+class MockTutorialCoachMarkController extends Mock
     implements TutorialCoachMarkController {}
 
 // Learning notes:

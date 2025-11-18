@@ -11,7 +11,7 @@ class FakeMainScreenViewModel extends MainScreenViewModel {
 
   // Keep track of which tab was last tapped during tests
   int? lastTappedIndex;
-  
+
   // Count how many times tabs were tapped
   int tabTapCount = 0;
 
@@ -19,7 +19,7 @@ class FakeMainScreenViewModel extends MainScreenViewModel {
   void onTabTapped(int index) {
     lastTappedIndex = index;
     tabTapCount++;
-    
+
     // Still call the parent method to maintain normal behavior
     super.onTabTapped(index);
   }
@@ -65,7 +65,7 @@ class FakeNavigationService extends NavigationService {
     popCalled = true;
     print('Navigation pop called in fake service'); // debug
   }
-  
+
   // Other methods we might need later...
   // @override
   // void pushScreen(String route) {
