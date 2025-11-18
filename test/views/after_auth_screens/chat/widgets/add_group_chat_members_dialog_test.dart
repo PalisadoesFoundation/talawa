@@ -73,20 +73,17 @@ void main() {
       mockMembers = [
         User(
           id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
+          name: 'John Doe',
           email: 'john.doe@example.com',
         ),
         User(
           id: 'user2',
-          firstName: 'Jane',
-          lastName: 'Smith',
+          name: 'Jane Smith',
           email: 'jane.smith@example.com',
         ),
         User(
           id: 'user3',
-          firstName: 'Bob',
-          lastName: 'Wilson',
+          name: 'Bob Wilson',
           email: 'bob.wilson@example.com',
         ),
       ];
@@ -250,17 +247,17 @@ void main() {
       final membersWithMissingInfo = [
         User(
           id: 'user1',
-          firstName: null,
+          name: null,
           email: 'test@example.com',
         ),
         User(
           id: 'user2',
-          firstName: '',
+          name: '',
           email: null,
         ),
         User(
           id: 'user3',
-          firstName: 'Valid',
+          name: 'Valid',
           email: 'valid@example.com',
         ),
       ];
@@ -345,12 +342,12 @@ void main() {
       final membersWithEmptyNames = [
         User(
           id: 'user1',
-          firstName: '',
+          name: '',
           email: 'empty@example.com',
         ),
         User(
           id: 'user2',
-          firstName: 'A',
+          name: 'A',
           email: 'single@example.com',
         ),
       ];

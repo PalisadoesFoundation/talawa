@@ -34,7 +34,10 @@ Future<void> main() async {
     throw Exception("Failed to load environment variables: $error");
   });
 
-  setupLocator();
+  await setupLocator();
+
+  final appConnectivity = locator<AppConnectivity>();
+  await appConnectivity.initialise();
 
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());

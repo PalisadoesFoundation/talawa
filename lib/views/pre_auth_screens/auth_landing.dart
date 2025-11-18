@@ -5,20 +5,19 @@ import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/auth_landing_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 /// This widget lets a user sign in/up with the organization url.
 ///
-/// The user can enter an organization through the QR code scanner,
-/// or enter the organization URL and then login.
+/// enter the organization URL and then login.
 /// There is also a signup option which navigates to a screen for the user
 /// to select an organization.
 /// At the bottom, there is also a gesture detector for changing the language.
 class SetUrl extends StatefulWidget {
-  const SetUrl({required Key key}) : super(key: key);
+  const SetUrl({super.key});
 
   @override
   _SetUrlState createState() => _SetUrlState();
@@ -27,49 +26,29 @@ class SetUrl extends StatefulWidget {
 class _SetUrlState extends State<SetUrl> {
   @override
   Widget build(BuildContext context) {
-    print("built");
-    return BaseView<SetUrlViewModel>(
+    return BaseView<AuthLandingViewModel>(
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('SetUrlScreenScaffold'),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(
+          body: LayoutBuilder(builder: (context, constraints) {
+            return SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth! * 0.06,
                 SizeConfig.safeBlockVertical! * 4,
                 SizeConfig.screenWidth! * 0.06,
                 0.0,
               ),
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight,
-              alignment: Alignment.center,
-              child: SingleChildScrollView(
-                child: Form(
-                  key: model.formKey,
-                  autovalidateMode: model.validate,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: constraints.maxHeight,
+                ),
+                child: IntrinsicHeight(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        alignment: Alignment.centerRight,
-                        margin: EdgeInsets.only(
-                          top: SizeConfig.safeBlockVertical! * 2,
-                        ),
-                        // QR code scanner for joining the organization.
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.qr_code_scanner,
-                            size: 30,
-                            semanticLabel: 'Join Organisation with QR',
-                          ),
-                          onPressed: () => model.scanQR(context),
-                          // model.scanQR(context),
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsets.only(
                           top: SizeConfig.screenHeight! * 0.08,
@@ -85,7 +64,50 @@ class _SetUrlState extends State<SetUrl> {
                       ),
                       CustomRichText(
                         key: const Key('UrlPageText'),
-                        words: model.greeting,
+                        words:
+
+                            /// greeting message.
+                            [
+                          {
+                            'text': 'Join ',
+                            'textStyle': Theme.of(
+                              navigationService.navigatorKey.currentContext!,
+                            ).textTheme.titleLarge!.copyWith(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          },
+                          {
+                            'text': 'and ',
+                            'textStyle': Theme.of(
+                              navigationService.navigatorKey.currentContext!,
+                            ).textTheme.headlineSmall,
+                          },
+                          {
+                            'text': 'Collaborate ',
+                            'textStyle': Theme.of(
+                              navigationService.navigatorKey.currentContext!,
+                            ).textTheme.titleLarge!.copyWith(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          },
+                          {
+                            'text': 'with your ',
+                            'textStyle': Theme.of(
+                              navigationService.navigatorKey.currentContext!,
+                            ).textTheme.headlineSmall,
+                          },
+                          {
+                            'text': 'Organizations',
+                            'textStyle': Theme.of(
+                              navigationService.navigatorKey.currentContext!,
+                            ).textTheme.headlineSmall!.copyWith(
+                                  fontSize: 24,
+                                  color: const Color(0xFF4285F4),
+                                ),
+                          },
+                        ],
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.086,
@@ -100,11 +122,7 @@ class _SetUrlState extends State<SetUrl> {
                           await model.checkURLandNavigate('/login', '');
                         },
                         showArrow: true,
-                        textColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
+                        textColor: Theme.of(context).primaryColor,
                         backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
@@ -122,11 +140,7 @@ class _SetUrlState extends State<SetUrl> {
                         showArrow: true,
                         textColor:
                             Theme.of(context).colorScheme.secondaryContainer,
-                        backgroundColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
+                        backgroundColor: Theme.of(context).primaryColor,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.06,
@@ -176,8 +190,8 @@ class _SetUrlState extends State<SetUrl> {
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          }),
         );
       },
     );

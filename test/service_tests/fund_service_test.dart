@@ -238,7 +238,7 @@ void main() {
 
     group('Exception and Error Cases', () {
       group('getFunds exceptions', () {
-        test('throws exception when organization ID is empty', () async {
+        test('throws exception when organization ID is empty', () {
           // Mock userConfig with empty org ID
           when(userConfig.currentOrg).thenReturn(
             OrgInfo(id: '', name: 'Test Org'),
@@ -250,7 +250,7 @@ void main() {
           );
         });
 
-        test('throws exception when GraphQL returns null data', () async {
+        test('throws exception when GraphQL returns null data', () {
           final query = FundQueries().fetchOrgFunds();
 
           final mockResult = QueryResult(
@@ -278,7 +278,7 @@ void main() {
           );
         });
 
-        test('throws exception when GraphQL returns exception', () async {
+        test('throws exception when GraphQL returns exception', () {
           final query = FundQueries().fetchOrgFunds();
 
           final mockResult = QueryResult(
@@ -311,7 +311,7 @@ void main() {
           );
         });
 
-        test('throws exception when database function throws', () async {
+        test('throws exception when database function throws', () {
           final query = FundQueries().fetchOrgFunds();
 
           when(
@@ -335,7 +335,7 @@ void main() {
       });
 
       group('getCampaigns exceptions', () {
-        test('throws exception when GraphQL returns null data', () async {
+        test('throws exception when GraphQL returns null data', () {
           final query = FundQueries().fetchCampaignsByFund();
 
           final mockResult = QueryResult(
@@ -363,7 +363,7 @@ void main() {
           );
         });
 
-        test('throws exception when GraphQL returns exception', () async {
+        test('throws exception when GraphQL returns exception', () {
           final query = FundQueries().fetchCampaignsByFund();
 
           final mockResult = QueryResult(
@@ -396,7 +396,7 @@ void main() {
           );
         });
 
-        test('throws exception when database function throws', () async {
+        test('throws exception when database function throws', () {
           final query = FundQueries().fetchCampaignsByFund();
 
           when(
@@ -420,7 +420,7 @@ void main() {
       });
 
       group('getPledgesByCampaign exceptions', () {
-        test('throws exception when GraphQL returns null data', () async {
+        test('throws exception when GraphQL returns null data', () {
           final query = FundQueries().fetchPledgesByCampaign();
 
           final mockResult = QueryResult(
@@ -448,7 +448,7 @@ void main() {
           );
         });
 
-        test('throws exception when pledges data is null', () async {
+        test('throws exception when pledges data is null', () {
           final query = FundQueries().fetchPledgesByCampaign();
 
           final mockResult = QueryResult(
@@ -478,7 +478,7 @@ void main() {
           );
         });
 
-        test('throws exception when database function throws', () async {
+        test('throws exception when database function throws', () {
           final query = FundQueries().fetchPledgesByCampaign();
 
           when(
@@ -502,7 +502,7 @@ void main() {
       });
 
       group('createPledge exceptions', () {
-        test('throws exception when database function throws', () async {
+        test('throws exception when database function throws', () {
           final query = FundQueries().createPledge();
 
           when(
@@ -559,7 +559,7 @@ void main() {
       });
 
       group('updatePledge exceptions', () {
-        test('throws exception when database function throws', () async {
+        test('throws exception when database function throws', () {
           final query = FundQueries().updatePledge();
 
           when(
@@ -616,7 +616,7 @@ void main() {
       });
 
       group('deletePledge exceptions', () {
-        test('throws exception when database function throws', () async {
+        test('throws exception when database function throws', () {
           final query = FundQueries().deletePledge();
 
           when(
