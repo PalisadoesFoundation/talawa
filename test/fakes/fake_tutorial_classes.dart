@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
