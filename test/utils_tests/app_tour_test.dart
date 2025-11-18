@@ -212,10 +212,16 @@ void main() {
 
         // Check description content
         final TargetContent descriptionContent = contents[0];
-        final Container descriptionWidget =
-            descriptionContent.builder!(capturedContext, fakeController)
-                as Container;
+        final Widget? descriptionWidgetMaybe =
+            descriptionContent.builder?.call(capturedContext, fakeController);
+        expect(descriptionWidgetMaybe, isNotNull);
+        if (descriptionWidgetMaybe is! Container) {
+          fail('Description content did not return a Container');
+        }
+        final Container descriptionWidget = descriptionWidgetMaybe;
+
         final Column descriptionColumn = descriptionWidget.child! as Column;
+
         final Text descriptionText = descriptionColumn.children.first as Text;
         expect(descriptionText.data, 'Detail Description');
         expect(descriptionColumn.crossAxisAlignment, CrossAxisAlignment.center);
@@ -235,11 +241,24 @@ void main() {
 
         // Set up mock and test next button
         when(mockTutorial.next()).thenReturn(null);
-        final GestureDetector nextButton =
-            nextContent.builder!(capturedContext, fakeController)
-                as GestureDetector;
-        final Column nextColumn = nextButton.child as Column;
-        final Text nextText = nextColumn.children.first as Text;
+        final Widget? nextButtonMaybe =
+            nextContent.builder?.call(capturedContext, fakeController);
+        expect(nextButtonMaybe, isNotNull);
+        if (nextButtonMaybe is! GestureDetector) {
+          fail('Next content did not return a GestureDetector');
+        }
+        final GestureDetector nextButton = nextButtonMaybe;
+        final Widget? nextColumnMaybe = nextButton.child;
+        expect(nextColumnMaybe, isNotNull);
+        if (nextColumnMaybe is! Column) {
+          fail('Next button child was not a Column');
+        }
+        final Column nextColumn = nextColumnMaybe;
+        final Widget nextTextWidget = nextColumn.children.first;
+        if (nextTextWidget is! Text) {
+          fail('Next button label was not a Text widget');
+        }
+        final Text nextText = nextTextWidget;
         expect(nextText.data, 'COMPLETE');
         expect(nextColumn.crossAxisAlignment, CrossAxisAlignment.center);
         expect(nextButton.onTap, isNotNull);
