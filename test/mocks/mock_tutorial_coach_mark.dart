@@ -12,7 +12,7 @@ class MockTutorialCoachMarkController extends Mock
 
 // Learning notes:
 // - Mockito is pretty powerful for testing Flutter widgets
-// - Context initialization is crucial for widget tests to work properly  
+// - Context initialization is crucial for widget tests to work properly
 // - Need to make sure all dependencies are mocked or provided
 // - Still getting the hang of when to use mocks vs fakes
 
