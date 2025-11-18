@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Installation | Talawa Mobile Documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://docs-mobile.talawa.io/docs/installation"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Installation | Talawa Mobile Documentation"><meta data-rh="true" name="description" content="We recommend that you follow these steps before beginning development work on the Talawa mobile app."><meta data-rh="true" property="og:description" content="We recommend that you follow these steps before beginning development work on the Talawa mobile app."><link data-rh="true" rel="icon" href="/img/icons/logo.png"><link data-rh="true" rel="canonical" href="https://docs-mobile.talawa.io/docs/installation"><link data-rh="true" rel="alternate" href="https://docs-mobile.talawa.io/docs/installation" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs-mobile.talawa.io/docs/installation" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Installation","item":"https://docs-mobile.talawa.io/docs/installation"}]}</script><link rel="stylesheet" href="https://docs.talawa.io/css/styles-latest.css"><link rel="stylesheet" href="/assets/css/styles.2dd7f2cb.css">
-<script src="/assets/js/runtime~main.a27cb167.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.271901a3.js" defer="defer"></script>
 <script src="/assets/js/main.b02eac91.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -88,13 +88,87 @@
 <h3 class="anchor anchorTargetStickyNavbar_c6fW" id="mobile-app-installation">Mobile App Installation<a href="#mobile-app-installation" class="hash-link" aria-label="Direct link to Mobile App Installation" title="Direct link to Mobile App Installation" translate="no">​</a></h3>
 <p>We have tried to make the process simple. Here&#x27;s what you need to do.</p>
 <ol>
+<li class="">In Android Studio<!-- -->
+<ol>
+<li class="">Make sure you have installed the `Android SDK Command Line Tools&quot;</li>
+<li class="">Navigate to Project Structure<!-- -->
+<ol>
+<li class="">On Windows/Linux: Click File &gt; Project Structure...</li>
+<li class="">On macOS: Click Android Studio &gt; Settings... (or Preferences...) &gt; Project Structure</li>
+</ol>
+</li>
+<li class="">Select the SDK Location</li>
+<li class="">Apply and save the settings</li>
+</ol>
+</li>
+<li class="">From the CLI<!-- -->
+<ol>
 <li class="">Clone and change into the project.<!-- -->
-<div class="language-sh codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-sh codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ git clone https://github.com/PalisadoesFoundation/talawa.git</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ cd talawa</span><br></span></code></pre></div></div>
+<div class="language-bash codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-bash codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ git clone https://github.com/PalisadoesFoundation/talawa.git</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ cd talawa</span><br></span></code></pre></div></div>
+</li>
+<li class="">We recommend using FVM to ensure you are running the correct version of Flutter.<!-- -->
+<ol>
+<li class="">Install FVM using the instructions on the FVM website</li>
+</ol>
+<ul>
+<li class=""><a href="https://fvm.app" target="_blank" rel="noopener noreferrer" class="">https://fvm.app</a></li>
+</ul>
+<ol>
+<li class="">Ensure you are using Flutter version <code>3.32.8</code></li>
+</ol>
+<ul>
+<li class=""><code>fvm use 3.32.8</code></li>
+</ul>
 </li>
 <li class="">Install packages.<!-- -->
-<div class="language-sh codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-sh codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ cd talawa_lint</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ flutter pub get</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ cd ..</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ flutter pub get</span><br></span></code></pre></div></div>
+<div class="language-bash codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-bash codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ cd talawa_lint</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ fvm flutter pub get</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ cd ..</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ fvm flutter pub get</span><br></span></code></pre></div></div>
+</li>
+<li class="">Run the <code>flutter doctor</code> command to determine whether everything is OK.<!-- -->
+<ol>
+<li class="">Here is the specific command.<!-- -->
+<div class="language-bash codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-bash codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ fvm flutter doctor</span><br></span></code></pre></div></div>
+</li>
+<li class="">Fix any issues the command output suggests need rectification.<!-- -->
+<ol>
+<li class=""><strong>Note</strong>: Though you may have setup an SDK in Android Studio, the configuration may have to be setup separately on the CLI.<!-- -->
+<ol>
+<li class="">Here is an example SDK error:<!-- -->
+<div class="language-text codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-text codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">[✗] Android toolchain - develop for Android devices</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   ✗ Unable to locate Android SDK.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      Install Android Studio from: https://developer.android.com/studio/index.html</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      On first launch it will assist you in installing the Android SDK components.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      (or visit https://flutter.dev/to/linux-android-setup for detailed instructions).</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      If the Android SDK has been installed to a custom location, please use</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      `flutter config --android-sdk` to update to that location.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span></code></pre></div></div>
+</li>
+<li class="">You will need to run the <code>flutter config --android-sdk</code> command to correct the CLI configuration. On a Linux based system this will typically be <code>~/Android/Sdk/</code>. Here is an example.<!-- -->
+<div class="language-text codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-text codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ fvm flutter config --android-sdk /PATH/TO/Android/Sdk/  </span><br></span></code></pre></div></div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="">For a first time installation, you will need to accept the Flutter licences agreements.<!-- -->
+<div class="language-text codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-text codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ fvm flutter doctor --android-licenses</span><br></span></code></pre></div></div>
+</li>
+<li class="">Run the application<!-- -->
+<ol>
+<li class="">Using a virtual device<!-- -->
+<ol>
+<li class="">Create and launch an Android Virtual Device</li>
+<li class="">Run the application</li>
+<li class=""><strong>Note:</strong> In some cases the run icon in your IDE may be disabled, and you&#x27;ll need to use the CLI<!-- -->
+<div class="language-text codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-text codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ fvm flutter run</span><br></span></code></pre></div></div>
+</li>
+</ol>
+</li>
+<li class="">Using your phone<!-- -->
+<ol>
+<li class="">Enable USB debugging</li>
+<li class="">Connect your phone</li>
+</ol>
+</li>
+</ol>
 </li>
 <li class="">Start developing!</li>
+</ol>
+</li>
 </ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_a9Yg"><a href="https://github.com/PalisadoesFoundation/talawa/edit/develop/docs/docs/docs/getting-started/installation.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_KPW8" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_Lq2y"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Introduction</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/operation"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Operation</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_vezH thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#prerequisites" class="table-of-contents__link toc-highlight">Prerequisites</a></li><li><a href="#installation-for-end-users" class="table-of-contents__link toc-highlight">Installation for End Users</a></li><li><a href="#installation-for-developers" class="table-of-contents__link toc-highlight">Installation for Developers</a><ul><li><a href="#talawa-mobile-app-setup" class="table-of-contents__link toc-highlight">Talawa Mobile App Setup</a></li><li><a href="#mobile-app-installation" class="table-of-contents__link toc-highlight">Mobile App Installation</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/PalisadoesFoundation" target="_blank" rel="noopener noreferrer" class="footer__link-item footer__icon footer__slack">Slack</a></li><li class="footer__item"><a href="https://www.palisadoes.org/news/" target="_blank" rel="noopener noreferrer" class="footer__link-item footer__icon footer__news">News</a></li><li class="footer__item"><a href="https://www.palisadoes.org/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item footer__icon footer__contact">Contact Us</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Social Media</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://twitter.com/palisadoesorg?lang=en" target="_blank" rel="noopener noreferrer" class="footer__link-item footer__icon footer__twitter"> Twitter</a></li><li class="footer__item"><a href="https://www.facebook.com/palisadoesproject/" target="_blank" rel="noopener noreferrer" class="footer__link-item footer__icon footer__facebook"> Facebook</a></li><li class="footer__item"><a href="https://www.instagram.com/palisadoes/?hl=en" target="_blank" rel="noopener noreferrer" class="footer__link-item footer__icon footer__instagram"> Instagram</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Development</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/PalisadoesFoundation" target="_blank" rel="noopener noreferrer" class="footer__link-item footer__icon footer__github"> GitHub</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 The Palisadoes Foundation, LLC. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
