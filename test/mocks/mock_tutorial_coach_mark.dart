@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 // Mocks for testing the tutorial functionality
-// Had some trouble with real objects in tests, so using mocks instead
+// Had some trouble with the real objects in tests, so using mocks instead
 class MockTutorialCoachMark extends Mock implements TutorialCoachMark {}
 
 class MockTargetFocus extends Mock implements TargetFocus {}
