@@ -29,7 +29,7 @@ void main() {
     });
 
     group('subscribeToChatMessages', () {
-      test('returns a stream', () async {
+      test('returns a stream', () {
         const chatId = 'chat123';
 
         final result = chatSubscriptionService.subscribeToChatMessages(chatId);
@@ -244,7 +244,7 @@ void main() {
         );
       });
 
-      test('dispose closes all streams and stops subscription', () async {
+      test('dispose closes all streams and stops subscription', () {
         expect(() => chatSubscriptionService.dispose(), returnsNormally);
       });
     });

@@ -79,17 +79,16 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 height: SizeConfig.screenHeight! * 0.05,
                               ), //Input field for the first name of the user.
                               TextFormField(
-                                key: const Key('FirstNameInputField'),
-                                controller: model.firstName,
+                                key: const Key('NameInputField'),
+                                controller: model.name,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 autofillHints: const <String>[
-                                  AutofillHints.givenName,
+                                  AutofillHints.name,
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
-                                  final String? msg =
-                                      Validator.validateFirstName(
+                                  final String? msg = Validator.validateName(
                                     value!,
                                   );
                                   if (msg == null) {
@@ -97,7 +96,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   }
                                   return AppLocalizations.of(context)!
                                       .translate(
-                                    Validator.validateFirstName(
+                                    Validator.validateName(
                                       value,
                                     ),
                                   );
@@ -106,45 +105,9 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   hintText: AppLocalizations.of(
                                     context,
                                   )!
-                                      .translate('First Name Hint'),
+                                      .translate('Name Hint'),
                                   labelText:
-                                      '${AppLocalizations.of(context)!.translate("Enter your first name")}*',
-                                  labelStyle:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                              ),
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * 0.015,
-                              ), //Input field for the last name of the user.
-                              TextFormField(
-                                key: const Key('LastNameInputField'),
-                                controller: model.lastName,
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.text,
-                                autofillHints: const <String>[
-                                  AutofillHints.familyName,
-                                ],
-                                enableSuggestions: true,
-                                validator: (value) {
-                                  final String? msg =
-                                      Validator.validateLastName(
-                                    value!,
-                                  );
-                                  if (msg == null) {
-                                    return null;
-                                  }
-                                  return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validateLastName(value),
-                                  );
-                                },
-                                decoration: InputDecoration(
-                                  hintText: AppLocalizations.of(
-                                    context,
-                                  )!
-                                      .translate('Last Name Hint'),
-                                  labelText:
-                                      '${AppLocalizations.of(context)!.translate("Enter your last name")}*',
+                                      '${AppLocalizations.of(context)!.translate("Enter your name")}*',
                                   labelStyle:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),

@@ -47,7 +47,7 @@ void main() {
       );
 
       when(mockUserConfig.currentUser).thenReturn(
-        User(id: 'user1', firstName: 'Admin'),
+        User(id: 'user1', name: 'Admin'),
       );
     });
 

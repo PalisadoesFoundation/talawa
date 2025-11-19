@@ -101,7 +101,7 @@ void main() {
         when(mockDirectChatViewModel.chats).thenReturn([testChat]);
         when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
         when(mockUserConfig.currentUser).thenReturn(
-          User(id: 'currentUser', firstName: 'Current'),
+          User(id: 'currentUser', name: 'Current'),
         );
 
         // Act
@@ -203,7 +203,7 @@ void main() {
         when(mockDirectChatViewModel.chats).thenReturn([testChat]);
         when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
         when(mockUserConfig.currentUser).thenReturn(
-          User(id: 'currentUser', firstName: 'Current'),
+          User(id: 'currentUser', name: 'Current'),
         );
 
         // Create a flag to track if refreshChats was called
@@ -398,7 +398,7 @@ void main() {
         (tester) async {
       // Arrange
       when(mockUserConfig.currentUser).thenReturn(
-        User(id: 'currentUser', firstName: 'Current'),
+        User(id: 'currentUser', name: 'Current'),
       );
 
       final testChat = ChatListTileDataModel(
@@ -428,7 +428,7 @@ void main() {
         (tester) async {
       // Arrange - This covers the orElse case where all users have the same ID
       when(mockUserConfig.currentUser).thenReturn(
-        User(id: 'currentUser', firstName: 'Current'),
+        User(id: 'currentUser', name: 'Current'),
       );
 
       final testChat = ChatListTileDataModel(

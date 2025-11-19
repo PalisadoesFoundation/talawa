@@ -45,10 +45,10 @@ import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/views/main_screen.dart';
+import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
-import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
 
 import 'helpers/test_helpers.dart';
@@ -289,8 +289,8 @@ void main() {
       final route = generateRoute(
         RouteSettings(name: Routes.requestAccess, arguments: orgInfo),
       );
-      expect(route, isA<CupertinoPageRoute>());
-      if (route is CupertinoPageRoute) {
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<SendAccessRequest>());

@@ -27,9 +27,9 @@ void main() {
   });
 
   group('fund view model tests', () {
-    test('initialise sets loading flags and calls fetchFunds', () async {
+    test('initialise sets loading flags and calls fetchFunds', () {
       when(fundService.getFunds()).thenAnswer(
-        (_) async => Future.value(
+        (_) => Future.value(
           Pair(
             [Fund(id: 'f1', name: 'Fund 1')],
             PageInfo(hasNextPage: false, hasPreviousPage: false),
@@ -103,14 +103,14 @@ void main() {
       verify(fundService.getPledgesByCampaign('c1')).called(2);
     });
 
-    test('sortFunds changes sort option and fetches funds', () async {
+    test('sortFunds changes sort option and fetches funds', () {
       when(fundService.getFunds())
           .thenAnswer((_) async => Pair([], PageInfo()));
       viewModel.sortFunds('createdAt_ASC');
       expect(viewModel.fundSortOption, 'createdAt_ASC');
     });
 
-    test('searchFunds filters funds by name', () async {
+    test('searchFunds filters funds by name', () {
       viewModel.funds.addAll(
         [Fund(id: 'f1', name: 'Alpha'), Fund(id: 'f2', name: 'Beta')],
       );
@@ -119,7 +119,7 @@ void main() {
       expect(viewModel.filteredFunds.first.name, 'Alpha');
     });
 
-    test('dispose cancels stream subscription', () async {
+    test('dispose cancels stream subscription', () {
       viewModel.dispose();
       // No error should occur
     });
@@ -411,7 +411,7 @@ void main() {
       expect(viewModel.parentcampaignId, 'c1');
     });
 
-    test('createPledge method exists and can be called', () async {
+    test('createPledge method exists and can be called', () {
       viewModel.parentcampaignId = 'c1';
       // This tests that the method doesn't throw when called
       // We can't easily test the service call without mocking conflicts
@@ -419,7 +419,7 @@ void main() {
     });
 
     // Test updatePledge
-    test('updatePledge method exists and can be called', () async {
+    test('updatePledge method exists and can be called', () {
       viewModel.parentcampaignId = 'c1';
       expect(() => viewModel.updatePledge({'id': 'p1'}), returnsNormally);
     });

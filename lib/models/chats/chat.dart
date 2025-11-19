@@ -1,3 +1,4 @@
+import 'package:talawa/models/chats/chat_member.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 
@@ -39,20 +40,36 @@ class Chat {
     if (json['members'] != null) {
       final membersData = json['members'];
       if (membersData is Map<String, dynamic> && membersData['edges'] != null) {
-        // Handle GraphQL paginated response format
+        // Handle GraphQL paginated response format with new ChatMember structure
         final edges = membersData['edges'] as List<dynamic>;
         members = edges.map((dynamic edge) {
           final edgeMap = edge as Map<String, dynamic>;
-          return ChatUser.fromJson(edgeMap['node'] as Map<String, dynamic>);
+          final nodeData = edgeMap['node'] as Map<String, dynamic>;
+
+          // Check if the node contains the new ChatMember structure (with 'user' field)
+          if (nodeData.containsKey('user')) {
+            // New API format: node is a ChatMember with nested user
+            final chatMember = ChatMember.fromJson(nodeData);
+            return chatMember.user;
+          } else {
+            // Old API format or fallback: node is directly a User
+            return ChatUser.fromJson(nodeData);
+          }
         }).toList();
       } else if (membersData is List<dynamic>) {
         // Handle simple list format
-        members = membersData
-            .map(
-              (dynamic member) =>
-                  ChatUser.fromJson(member as Map<String, dynamic>),
-            )
-            .toList();
+        members = membersData.map(
+          (dynamic member) {
+            final memberMap = member as Map<String, dynamic>;
+            // Check if it's the new ChatMember structure
+            if (memberMap.containsKey('user')) {
+              final chatMember = ChatMember.fromJson(memberMap);
+              return chatMember.user;
+            } else {
+              return ChatUser.fromJson(memberMap);
+            }
+          },
+        ).toList();
       }
     }
 

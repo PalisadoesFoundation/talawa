@@ -58,8 +58,7 @@ void main() {
 
       final currentUser = User(
         id: 'current-user',
-        firstName: 'Current',
-        lastName: 'User',
+        name: 'Current User',
         email: 'current@example.com',
       );
 
@@ -67,20 +66,17 @@ void main() {
         currentUser,
         User(
           id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
+          name: 'John Doe',
           email: 'john@example.com',
         ),
         User(
           id: 'user2',
-          firstName: 'Jane',
-          lastName: 'Smith',
+          name: 'Jane Smith',
           email: 'jane@example.com',
         ),
         User(
           id: 'user3',
-          firstName: 'Bob',
-          lastName: 'Wilson',
+          name: 'Bob Wilson',
           email: 'bob@example.com',
         ),
       ];
@@ -604,8 +600,7 @@ void main() {
         100,
         (index) => User(
           id: 'user$index',
-          firstName: 'User',
-          lastName: '$index',
+          name: 'User $index',
           email: 'user$index@example.com',
         ),
       );
@@ -641,9 +636,9 @@ void main() {
     testWidgets('should handle members with null IDs',
         (WidgetTester tester) async {
       final membersWithNullIds = [
-        User(id: 'current-user', firstName: 'Current', lastName: 'User'),
-        User(id: null, firstName: 'Invalid', lastName: 'User'),
-        User(id: 'valid-user', firstName: 'Valid', lastName: 'User'),
+        User(id: 'current-user', name: 'Current User'),
+        User(id: null, name: 'Invalid User'),
+        User(id: 'valid-user', name: 'Valid User'),
       ];
 
       when(mockOrgService.getOrgMembersList('org1'))

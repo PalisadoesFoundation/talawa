@@ -1,20 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
-import 'package:talawa/services/chat_core_service.dart';
-import 'package:talawa/services/chat_membership_service.dart';
-import 'package:talawa/services/chat_message_service.dart';
 import 'package:talawa/services/chat_service.dart';
 
 import '../helpers/test_helpers.dart';
-import 'chat_service_test.mocks.dart';
+import '../helpers/test_helpers.mocks.dart';
 
-@GenerateMocks([ChatCoreService, ChatMembershipService, ChatMessageService])
 void main() {
   group('ChatService Delegation Tests', () {
     late MockChatCoreService mockCoreService;
@@ -472,7 +467,7 @@ void main() {
     });
 
     group('Error Handling', () {
-      test('handles core service failures gracefully', () async {
+      test('handles core service failures gracefully', () {
         // Arrange
         when(
           mockCoreService.createChat(
@@ -488,7 +483,7 @@ void main() {
         );
       });
 
-      test('handles membership service failures gracefully', () async {
+      test('handles membership service failures gracefully', () {
         // Arrange
         when(
           mockMembershipService.addChatMember(
@@ -507,7 +502,7 @@ void main() {
         );
       });
 
-      test('handles message service failures gracefully', () async {
+      test('handles message service failures gracefully', () {
         // Arrange
         when(
           mockMessageService.sendMessage(
