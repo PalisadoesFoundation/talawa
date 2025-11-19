@@ -19,8 +19,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() async {
-    // Clear any existing services and set up fresh ones for each test
-    await app_locator.locator.reset();
+    // Set up fresh services for each test
     app_locator.locator.registerSingleton<NavigationService>(
       FakeNavigationService(),
     );
@@ -42,6 +41,9 @@ void main() {
         late FakeMainScreenViewModel viewModel;
         late BuildContext capturedContext;
 
+        // Create the key before building the widget so we can mount it
+        final primaryTargetKey = GlobalKey();
+
         // Build a test widget with proper context
         await tester.pumpWidget(
           MaterialApp(
@@ -62,7 +64,10 @@ void main() {
                   drawer: const Drawer(
                     child: Center(child: Text('drawer')),
                   ),
-                  body: const SizedBox.shrink(),
+                  body: Container(
+                    key: primaryTargetKey,
+                    child: const Text('Organization Name'),
+                  ),
                 );
               },
             ),
@@ -74,7 +79,7 @@ void main() {
         // Create app tour and some test targets
         final appTour = AppTour(model: viewModel);
         final FocusTarget primaryTarget = FocusTarget(
-          key: GlobalKey(),
+          key: primaryTargetKey,
           keyName: 'org-name',
           description: 'Current Organization Name',
           appTour: appTour,
@@ -239,8 +244,6 @@ void main() {
           SizeConfig.screenHeight! * 0.025,
         );
 
-        // Set up mock and test next button
-        when(mockTutorial.next()).thenReturn(null);
         final Widget? nextButtonMaybe =
             nextContent.builder?.call(capturedContext, fakeController);
         expect(nextButtonMaybe, isNotNull);
@@ -264,6 +267,7 @@ void main() {
         expect(nextButton.onTap, isNotNull);
 
         // Test next button tap
+        // The implementation calls appTour.tutorialCoachMark.next(), not controller.next()
         nextButton.onTap!();
         expect(nextCallbackTriggered, isTrue);
         verify(mockTutorial.next()).called(1);
@@ -276,9 +280,5 @@ void main() {
         expect(focusTarget.focusWidget.enableOverlayTab, true);
       },
     );
-
-    // TODO: Add more tests for different alignments and edge cases
-    // testWidgets('should handle bottom alignment correctly', ...
-    // testWidgets('should work with different cross alignments', ...
   });
 }
