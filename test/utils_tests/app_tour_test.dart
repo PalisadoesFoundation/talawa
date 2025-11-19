@@ -18,7 +18,7 @@ void main() {
   // Need this for widget tests to work
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() async {
+  setUp(() {
     // Set up fresh services for each test
     app_locator.locator.registerSingleton<NavigationService>(
       FakeNavigationService(),
