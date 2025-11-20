@@ -83,10 +83,21 @@ We have tried to make the process simple. Here's what you need to do.
        $ git clone https://github.com/PalisadoesFoundation/talawa.git
        $ cd talawa
        ```
-   2. We recommend using FVM to ensure you are running the correct version of Flutter.
+   1. The `.env` file contains the URL of the Talawa API instance that the app will use. There is a `.env.example` file that you can use as a starter. 
+      1. Copy `.env.example` to become `.env`
+            ```bash
+            $ cp .env.example .env
+            ```       
+      2. Edit the `.env` file and update the URL with that of the API. The default value will not work.
+         1. If you are running the Talawa mobile app in an emulator mode on your local system, then the IPv4 address to `127.0.0.1` will be the required value.
+            ```
+            `API_URL=http://<IPv4>:4000/graphql`
+            ```
+         2. If you are running the app on a tethered device on the same network as your development system running the API, then the IP address will need to be that of the network interface of your development system.
+   2. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
       1. Install FVM using the instructions on the FVM website
         - https://fvm.app
-      1. Ensure you are using Flutter version `3.32.8` 
+      2. Ensure you are using Flutter version `3.32.8` 
         - `fvm use 3.32.8`
    3. Install packages.
       ```bash
@@ -100,7 +111,7 @@ We have tried to make the process simple. Here's what you need to do.
          ```bash
          $ fvm flutter doctor
          ```      
-      1. Fix any issues the command output suggests need rectification. 
+      2. Fix any issues the command output suggests need rectification. 
          1. **Note**: Though you may have setup an SDK in Android Studio, the configuration may have to be setup separately on the CLI.
             1. Here is an example SDK error:
                ```
@@ -113,7 +124,7 @@ We have tried to make the process simple. Here's what you need to do.
                      `flutter config --android-sdk` to update to that location.
 
                ```
-            1. You will need to run the `flutter config --android-sdk` command to correct the CLI configuration. On a Linux based system this will typically be `~/Android/Sdk/`. Here is an example.
+            2. You will need to run the `flutter config --android-sdk` command to correct the CLI configuration. On a Linux based system this will typically be `~/Android/Sdk/`. Here is an example.
                ```
                $ fvm flutter config --android-sdk /PATH/TO/Android/Sdk/  
                ```
