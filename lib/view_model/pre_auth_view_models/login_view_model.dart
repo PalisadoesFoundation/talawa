@@ -118,7 +118,6 @@ class LoginViewModel extends BaseModel {
       }
     } catch (e) {
       // Silently handle if service is not available
-      print('Failed to load URL from storage: $e');
     }
   }
 
