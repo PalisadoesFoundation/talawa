@@ -329,6 +329,11 @@ class SignupDetailsViewModel extends BaseModel {
   void dispose() {
     urlController.dispose();
     urlFocus.dispose();
+    confirmPassword.dispose();
+    firstName.dispose();
+    lastName.dispose();
+    password.dispose();
+    email.dispose();
     super.dispose();
   }
 }

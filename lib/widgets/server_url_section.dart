@@ -60,12 +60,19 @@ class ServerUrlSection extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(width: 8),
-                if (urlController.text.isNotEmpty)
-                  const Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                    size: 20,
-                  ),
+                ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: urlController,
+                  builder: (context, value, child) {
+                    if (value.text.isNotEmpty) {
+                      return const Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 20,
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
               ],
             ),
             IconButton(
@@ -122,18 +129,25 @@ class ServerUrlSection extends StatelessWidget {
           )
         else
           // Show current URL when collapsed
-          if (urlController.text.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(
-                urlController.text,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
-                    ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
+          ValueListenableBuilder<TextEditingValue>(
+            valueListenable: urlController,
+            builder: (context, value, child) {
+              if (value.text.isNotEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    value.text,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
       ],
     );
   }

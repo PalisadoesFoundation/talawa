@@ -288,6 +288,10 @@ class LoginViewModel extends BaseModel {
   void dispose() {
     urlController.dispose();
     urlFocus.dispose();
+    email.dispose();
+    password.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
     super.dispose();
   }
 }
