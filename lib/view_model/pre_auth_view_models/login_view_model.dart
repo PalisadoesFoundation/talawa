@@ -64,10 +64,6 @@ class LoginViewModel extends BaseModel {
   /// Controls visibility of the server URL input field.
   bool showUrlField = false;
 
-  /// Key constants for Hive storage.
-  static const String urlKey = "url";
-  static const String imageUrlKey = "imageUrl";
-
   /// Initializes the greeting message.and loads the current server URL.
   ///
   /// **params**:

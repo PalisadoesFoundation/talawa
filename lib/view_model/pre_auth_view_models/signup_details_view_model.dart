@@ -11,7 +11,6 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/url_update_service.dart';
 import 'package:talawa/utils/encryptor.dart';
-import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -64,10 +63,6 @@ class SignupDetailsViewModel extends BaseModel {
 
   /// Controls visibility of the server URL input field.
   bool showUrlField = false;
-
-  /// Key constants for Hive storage.
-  static const String urlKey = "url";
-  static const String imageUrlKey = "imageUrl";
 
   /// Initializes the greeting message for a selected organization.and loads the current server URL.
   ///
