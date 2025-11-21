@@ -281,5 +281,7 @@
   "Members": " सदस्य",
   "Remember me": "मुझे याद रखें",
   "Login directly with": "इसके साथ सीधे लॉगिन करें",
-  "Continue Without Organization": "संगठन के बिना जारी रखें"
+  "Continue Without Organization": "संगठन के बिना जारी रखें",
+  "Server URL": "सर्वर URL",
+  "Enter Server URL": "सर्वर URL दर्ज करें"
 }

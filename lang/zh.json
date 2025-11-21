@@ -281,5 +281,7 @@
   "Members": "成员",
   "Remember me": "记住我",
   "Login directly with": "直接登录",
-  "Continue Without Organization": "继续没有组织"
+  "Continue Without Organization": "无需组织继续",
+  "Server URL": "服务器URL",
+  "Enter Server URL": "输入服务器URL"
 }

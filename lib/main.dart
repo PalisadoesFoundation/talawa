@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as fs;
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,9 +22,13 @@ Future<void> main() async {
   // Returns an instance of the binding that implements WidgetsBinding.
   WidgetsFlutterBinding.ensureInitialized();
 
-  final Directory dir = await path.getApplicationDocumentsDirectory();
-
-  await HiveManager.initializeHive(dir: dir);
+  // Handle web platform differently as path_provider doesn't work on web
+  if (kIsWeb) {
+    await HiveManager.initializeHive();
+  } else {
+    final Directory dir = await path.getApplicationDocumentsDirectory();
+    await HiveManager.initializeHive(dir: dir);
+  }
 
   setupLocator();
 

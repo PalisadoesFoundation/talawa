@@ -279,7 +279,9 @@
   "Organisation on different server, logout and scan qr again": "Organização em servidor diferente, faça logout e escaneie o QR novamente",
   "Post was deleted if you had the rights!": "A postagem foi excluída se você tiver os direitos!",
   "Members": "Membros",
-  "Remember me": "Lembre-se de mim", 
-  "Login directly with": "Entrar diretamente com",
-  "Continue Without Organization": "Continuar sem organização"
+  "Remember me": "Lembre-se de mim",
+  "Login directly with": "Faça login diretamente com",
+  "Continue Without Organization": "Continuar sem organização",
+  "Server URL": "URL do servidor",
+  "Enter Server URL": "Digite a URL do servidor"
 }

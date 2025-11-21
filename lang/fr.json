@@ -278,8 +278,10 @@
   "Start time must be before end time": "L'heure de début doit être antérieure à l'heure de fin",
   "Organisation on different server, logout and scan qr again": "Organisation sur un serveur différent, déconnectez-vous et scannez à nouveau le code QR",
   "Post was deleted if you had the rights!": "Le message a été supprimé si vous aviez les droits !",
-  "Members": " Membres",
+  "Members": "Membres",
   "Remember me": "Souviens-toi de moi",
-  "Login directly with": "Se connecter directement avec",
-  "Continue Without Organization": "Continuer sans organisation"
+  "Login directly with": "Connectez-vous directement avec",
+  "Continue Without Organization": "Continuer sans organisation",
+  "Server URL": "URL du serveur",
+  "Enter Server URL": "Entrez l'URL du serveur"
 }

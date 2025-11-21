@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -9,6 +10,7 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/encryptor.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -53,7 +55,20 @@ class SignupDetailsViewModel extends BaseModel {
   /// Boolean to toggle password visibility (true for hidden, false for visible).
   bool hidePassword = true;
 
-  /// Initializes the greeting message for a selected organization.
+  /// TextEditingController for handling server URL input field.
+  TextEditingController urlController = TextEditingController();
+
+  /// FocusNode to manage focus for the URL input field.
+  FocusNode urlFocus = FocusNode();
+
+  /// Controls visibility of the server URL input field.
+  bool showUrlField = false;
+
+  /// Key constants for Hive storage.
+  static const String urlKey = "url";
+  static const String imageUrlKey = "imageUrl";
+
+  /// Initializes the greeting message for a selected organization.and loads the current server URL.
   ///
   /// **params**:
   /// * `org`: OrgInfo - the organization information to set as selected.
@@ -90,6 +105,86 @@ class SignupDetailsViewModel extends BaseModel {
             .copyWith(fontSize: 24),
       },
     ];
+    loadCurrentUrl();
+  }
+
+  /// Loads the current server URL from Hive storage.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void loadCurrentUrl() {
+    final box = Hive.box('url');
+    final String? currentUrl = box.get(urlKey) as String?;
+    if (currentUrl != null && currentUrl.trim().isNotEmpty) {
+      urlController.text = currentUrl;
+    }
+  }
+
+  /// Toggles the visibility of the server URL input field.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void toggleUrlField() {
+    showUrlField = !showUrlField;
+    notifyListeners();
+  }
+
+  /// Updates the server URL in Hive storage and GraphQL config.
+  ///
+  /// **params**:
+  /// * `newUrl`: The new server URL to save
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: Returns true if URL is valid and saved successfully
+  Future<bool> updateServerUrl(String newUrl) async {
+    final String trimmedUrl = newUrl.trim();
+    
+    // Validate URL format
+    final String? validationError = Validator.validateURL(trimmedUrl);
+    if (validationError != null) {
+      navigationService.showTalawaErrorSnackBar(
+        validationError,
+        MessageType.error,
+      );
+      return false;
+    }
+
+    // Check if URL exists
+    navigationService.pushDialog(
+      const CustomProgressDialog(
+        key: Key('UrlValidationProgress'),
+      ),
+    );
+
+    final bool? urlExists =
+        await locator<Validator>().validateUrlExistence(trimmedUrl);
+    
+    navigationService.pop();
+
+    if (urlExists == true) {
+      // Save URL to storage
+      final box = Hive.box('url');
+      box.put(urlKey, trimmedUrl);
+      box.put(imageUrlKey, "$trimmedUrl/talawa/");
+      
+      // Update GraphQL config
+      graphqlConfig.getOrgUrl();
+      
+      navigationService.showSnackBar("Server URL updated successfully");
+      return true;
+    } else {
+      navigationService.showTalawaErrorSnackBar(
+        "URL doesn't exist or no connection. Please check and try again.",
+        MessageType.error,
+      );
+      return false;
+    }
   }
 
   /// Initiates the sign-up process.
