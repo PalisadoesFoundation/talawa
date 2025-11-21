@@ -111,10 +111,14 @@ class LoginViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void loadCurrentUrl() {
-    final box = Hive.box('url');
-    final String? currentUrl = box.get(urlKey) as String?;
-    if (currentUrl != null && currentUrl.trim().isNotEmpty) {
-      urlController.text = currentUrl;
+    try {
+      final currentUrl = locator<UrlUpdateService>().getCurrentUrl();
+      if (currentUrl.isNotEmpty) {
+        urlController.text = currentUrl;
+      }
+    } catch (e) {
+      // Silently handle if service is not available
+      print('Failed to load URL from storage: $e');
     }
   }
 
