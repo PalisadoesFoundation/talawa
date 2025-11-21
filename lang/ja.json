@@ -283,5 +283,8 @@
   "Login directly with": "次で直接ログイン",
   "Continue Without Organization": "組織なしで続行",
   "Server URL": "サーバーURL",
-  "Enter Server URL": "サーバーURLを入力"
+  "Enter Server URL": "サーバーURLを入力",
+  "URL updated successfully": "URLが正常に更新されました",
+  "URL doesn't exist/no connection": "URLが存在しないか、接続がありません。確認して再試行してください。",
+  "Error updating URL": "URLの更新中にエラーが発生しました。再試行してください。"
 }

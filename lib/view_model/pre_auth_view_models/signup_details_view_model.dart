@@ -144,8 +144,7 @@ class SignupDetailsViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<bool>`: Returns true if URL is valid and saved successfully
   Future<bool> updateServerUrl(String newUrl) async {
-    final urlUpdateService = UrlUpdateService();
-    return await urlUpdateService.updateServerUrl(newUrl);
+    return locator<UrlUpdateService>().updateServerUrl(newUrl);
   }
 
   /// Initiates the sign-up process.
@@ -324,5 +323,12 @@ class SignupDetailsViewModel extends BaseModel {
       // Handle secure storage write failure
       print("Failed to save credentials: $e");
     }
+  }
+
+  @override
+  void dispose() {
+    urlController.dispose();
+    urlFocus.dispose();
+    super.dispose();
   }
 }

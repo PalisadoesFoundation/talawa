@@ -283,5 +283,8 @@
   "Login directly with": "Connectez-vous directement avec",
   "Continue Without Organization": "Continuer sans organisation",
   "Server URL": "URL du serveur",
-  "Enter Server URL": "Entrez l'URL du serveur"
+  "Enter Server URL": "Entrez l'URL du serveur",
+  "URL updated successfully": "URL mise à jour avec succès",
+  "URL doesn't exist/no connection": "L'URL n'existe pas ou aucune connexion. Veuillez vérifier et réessayer.",
+  "Error updating URL": "Erreur lors de la mise à jour de l'URL. Veuillez réessayer."
 }

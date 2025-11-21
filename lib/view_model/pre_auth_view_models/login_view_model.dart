@@ -142,8 +142,7 @@ class LoginViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<bool>`: Returns true if URL is valid and saved successfully
   Future<bool> updateServerUrl(String newUrl) async {
-    final urlUpdateService = UrlUpdateService();
-    return await urlUpdateService.updateServerUrl(newUrl);
+    return locator<UrlUpdateService>().updateServerUrl(newUrl);
   }
 
   /// Performs the login operation.
@@ -283,5 +282,12 @@ class LoginViewModel extends BaseModel {
     } catch (e) {
       print("Error decrypting previous values $e");
     }
+  }
+
+  @override
+  void dispose() {
+    urlController.dispose();
+    urlFocus.dispose();
+    super.dispose();
   }
 }

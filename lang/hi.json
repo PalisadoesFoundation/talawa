@@ -283,5 +283,8 @@
   "Login directly with": "इसके साथ सीधे लॉगिन करें",
   "Continue Without Organization": "संगठन के बिना जारी रखें",
   "Server URL": "सर्वर URL",
-  "Enter Server URL": "सर्वर URL दर्ज करें"
+  "Enter Server URL": "सर्वर URL दर्ज करें",
+  "URL updated successfully": "URL सफलतापूर्वक अपडेट किया गया",
+  "URL doesn't exist/no connection": "URL मौजूद नहीं है या कोई कनेक्शन नहीं है। कृपया जांचें और पुनः प्रयास करें।",
+  "Error updating URL": "URL अपडेट करने में त्रुटि। कृपया पुनः प्रयास करें।"
 }

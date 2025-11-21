@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -73,18 +75,26 @@ class UrlUpdateService {
         graphqlConfig.getOrgUrl();
 
         // Show success message
-        navigationService.showTalawaErrorSnackBar(
-          'URL updated successfully',
-          MessageType.info,
-        );
+        final context = navigationService.navigatorKey.currentContext;
+        if (context != null) {
+          navigationService.showTalawaErrorSnackBar(
+            AppLocalizations.of(context)!
+                .strictTranslate('URL updated successfully'),
+            MessageType.info,
+          );
+        }
 
         return true;
       } else {
         // Show error message for invalid URL
-        navigationService.showTalawaErrorSnackBar(
-          "URL doesn't exist/no connection please check",
-          MessageType.error,
-        );
+        final context = navigationService.navigatorKey.currentContext;
+        if (context != null) {
+          navigationService.showTalawaErrorSnackBar(
+            AppLocalizations.of(context)!
+                .strictTranslate("URL doesn't exist/no connection"),
+            MessageType.error,
+          );
+        }
         return false;
       }
     } catch (e) {
@@ -92,10 +102,14 @@ class UrlUpdateService {
         navigationService.pop();
       }
 
-      navigationService.showTalawaErrorSnackBar(
-        'Error updating URL: ${e.toString()}',
-        MessageType.error,
-      );
+      final context = navigationService.navigatorKey.currentContext;
+      if (context != null) {
+        navigationService.showTalawaErrorSnackBar(
+          AppLocalizations.of(context)!
+              .strictTranslate('Error updating URL'),
+          MessageType.error,
+        );
+      }
       return false;
     }
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/localization/app_localization.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 /// A reusable widget for displaying and managing server URL configuration.
 ///
@@ -41,7 +41,7 @@ class ServerUrlSection extends StatelessWidget {
   final VoidCallback onToggle;
 
   /// Callback to validate and update the server URL.
-  final Future<void> Function(String) onUpdateUrl;
+  final Future<bool> Function(String) onUpdateUrl;
 
   @override
   Widget build(BuildContext context) {

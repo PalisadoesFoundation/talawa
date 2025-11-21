@@ -282,6 +282,9 @@
   "Remember me": "记住我",
   "Login directly with": "直接登录",
   "Continue Without Organization": "无需组织继续",
-  "Server URL": "服务器URL",
-  "Enter Server URL": "输入服务器URL"
+  "Server URL": "服务器 URL",
+  "Enter Server URL": "输入服务器 URL",
+  "URL updated successfully": "URL 更新成功",
+  "URL doesn't exist/no connection": "URL 不存在或没有连接。请检查并重试。",
+  "Error updating URL": "更新 URL 时出错。请重试。"
 }
