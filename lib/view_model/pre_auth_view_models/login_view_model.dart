@@ -64,7 +64,7 @@ class LoginViewModel extends BaseModel {
   /// Controls visibility of the server URL input field.
   bool showUrlField = false;
 
-  /// Initializes the greeting message.and loads the current server URL.
+  /// Initializes the greeting message and loads the current server URL.
   ///
   /// **params**:
   ///   None

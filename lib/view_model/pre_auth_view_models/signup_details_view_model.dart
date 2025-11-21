@@ -64,7 +64,7 @@ class SignupDetailsViewModel extends BaseModel {
   /// Controls visibility of the server URL input field.
   bool showUrlField = false;
 
-  /// Initializes the greeting message for a selected organization.and loads the current server URL.
+  /// Initializes the greeting message for a selected organization and loads the current server URL.
   ///
   /// **params**:
   /// * `org`: OrgInfo - the organization information to set as selected.
