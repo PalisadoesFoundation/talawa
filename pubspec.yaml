@@ -80,7 +80,7 @@ dependencies:
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:
-  build_runner: ^2.4.13
+  build_runner: ^2.4.13  # Pinned for compatibility with analyzer <7.0.0 (matches custom_lint constraint)
   # TODO: Re-enable once custom_lint supports Dart 3.10.0
   # custom_lint 0.7.0 requires _macros package from SDK which doesn't exist in Dart 3.10.0
   # This is a known incompatibility issue. See: https://github.com/invertase/dart_custom_lint/issues

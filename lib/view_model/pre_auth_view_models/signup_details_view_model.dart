@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -112,10 +111,8 @@ class SignupDetailsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void loadCurrentUrl() {
-    final box = Hive.box('url');
-    final String? currentUrl =
-        box.get(UrlUpdateService.urlKey) as String?;
-    if (currentUrl != null && currentUrl.trim().isNotEmpty) {
+    final currentUrl = locator<UrlUpdateService>().getCurrentUrl();
+    if (currentUrl.trim().isNotEmpty) {
       urlController.text = currentUrl;
     }
   }
