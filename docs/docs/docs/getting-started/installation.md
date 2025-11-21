@@ -70,16 +70,77 @@ You'll need to set up the IDE and mobile device emulator on your local system an
 
 We have tried to make the process simple. Here's what you need to do.
 
-1. Clone and change into the project.
-    ```sh
-    $ git clone https://github.com/PalisadoesFoundation/talawa.git
-    $ cd talawa
-    ```
-1. Install packages.
-   ```sh
-   $ cd talawa_lint
-   $ flutter pub get
-   $ cd ..
-   $ flutter pub get
-   ```
-1. Start developing!
+1. In Android Studio
+   1. Make sure you have installed the `Android SDK Command Line Tools"
+   2. Navigate to Project Structure
+      1. On Windows/Linux: Click File > Project Structure...
+      2. On macOS: Click Android Studio > Settings... (or Preferences...) > Project Structure
+   3. Select the SDK Location
+   4. Apply and save the settings
+2. From the CLI
+   1. Clone and change into the project.
+       ```bash
+       $ git clone https://github.com/PalisadoesFoundation/talawa.git
+       $ cd talawa
+       ```
+   1. The `.env` file contains the URL of the Talawa API instance that the app will use. There is a `.env.example` file that you can use as a starter. 
+      1. Copy `.env.example` to become `.env`
+            ```bash
+            $ cp .env.example .env
+            ```       
+      2. Edit the `.env` file and update the URL with that of the API. The default value will not work.
+         1. If you are running the Talawa mobile app in an emulator mode on your local system, then the IPv4 address to `127.0.0.1` will be the required value.
+            ```
+            `API_URL=http://<IPv4>:4000/graphql`
+            ```
+         2. If you are running the app on a tethered device on the same network as your development system running the API, then the IP address will need to be that of the network interface of your development system.
+   2. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
+      1. Install FVM using the instructions on the FVM website
+        - https://fvm.app
+      2. Ensure you are using Flutter version `3.32.8` 
+        - `fvm use 3.32.8`
+   3. Install packages.
+      ```bash
+      $ cd talawa_lint
+      $ fvm flutter pub get
+      $ cd ..
+      $ fvm flutter pub get
+      ```
+   4. Run the `flutter doctor` command to determine whether everything is OK. 
+      1. Here is the specific command.
+         ```bash
+         $ fvm flutter doctor
+         ```      
+      2. Fix any issues the command output suggests need rectification. 
+         1. **Note**: Though you may have setup an SDK in Android Studio, the configuration may have to be setup separately on the CLI.
+            1. Here is an example SDK error:
+               ```
+               [✗] Android toolchain - develop for Android devices
+                  ✗ Unable to locate Android SDK.
+                     Install Android Studio from: https://developer.android.com/studio/index.html
+                     On first launch it will assist you in installing the Android SDK components.
+                     (or visit https://flutter.dev/to/linux-android-setup for detailed instructions).
+                     If the Android SDK has been installed to a custom location, please use
+                     `flutter config --android-sdk` to update to that location.
+
+               ```
+            2. You will need to run the `flutter config --android-sdk` command to correct the CLI configuration. On a Linux based system this will typically be `~/Android/Sdk/`. Here is an example.
+               ```
+               $ fvm flutter config --android-sdk /PATH/TO/Android/Sdk/  
+               ```
+   5. For a first time installation, you will need to accept the Flutter licences agreements.
+      ```
+      $ fvm flutter doctor --android-licenses
+      ```
+   6. Run the application
+      1. Using a virtual device
+         1. Create and launch an Android Virtual Device
+         2. Run the application
+         3. **Note:** In some cases the run icon in your IDE may be disabled, and you'll need to use the CLI
+            ```
+            $ fvm flutter run
+            ```
+      2. Using your phone
+         1. Enable USB debugging
+         2. Connect your phone
+   7. Start developing!
