@@ -9,6 +9,7 @@ import 'package:talawa/locator.dart';
 
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/url_update_service.dart';
 import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -141,48 +142,8 @@ class LoginViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<bool>`: Returns true if URL is valid and saved successfully
   Future<bool> updateServerUrl(String newUrl) async {
-    final String trimmedUrl = newUrl.trim();
-    
-    // Validate URL format
-    final String? validationError = Validator.validateURL(trimmedUrl);
-    if (validationError != null) {
-      navigationService.showTalawaErrorSnackBar(
-        validationError,
-        MessageType.error,
-      );
-      return false;
-    }
-
-    // Check if URL exists
-    navigationService.pushDialog(
-      const CustomProgressDialog(
-        key: Key('UrlValidationProgress'),
-      ),
-    );
-
-    final bool? urlExists =
-        await locator<Validator>().validateUrlExistence(trimmedUrl);
-    
-    navigationService.pop();
-
-    if (urlExists == true) {
-      // Save URL to storage
-      final box = Hive.box('url');
-      box.put(urlKey, trimmedUrl);
-      box.put(imageUrlKey, "$trimmedUrl/talawa/");
-      
-      // Update GraphQL config
-      graphqlConfig.getOrgUrl();
-      
-      navigationService.showSnackBar("Server URL updated successfully");
-      return true;
-    } else {
-      navigationService.showTalawaErrorSnackBar(
-        "URL doesn't exist or no connection. Please check and try again.",
-        MessageType.error,
-      );
-      return false;
-    }
+    final urlUpdateService = UrlUpdateService();
+    return await urlUpdateService.updateServerUrl(newUrl);
   }
 
   /// Performs the login operation.

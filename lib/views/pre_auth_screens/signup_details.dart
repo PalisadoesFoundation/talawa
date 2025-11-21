@@ -8,6 +8,7 @@ import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
+import 'package:talawa/widgets/server_url_section.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This widget takes the user details for signup. The form includes first name, last name, email, password, and password confirmation inputs.
@@ -77,96 +78,14 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.05,
                               ),
-                              // Server URL section with toggle
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .strictTranslate('Server URL'),
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  Row(
-                                    children: [
-                                      if (model.urlController.text.isNotEmpty)
-                                        const Icon(
-                                          Icons.check_circle,
-                                          color: Colors.green,
-                                          size: 20,
-                                        ),
-                                      IconButton(
-                                        key: const Key('ToggleUrlButton'),
-                                        icon: Icon(
-                                          model.showUrlField
-                                              ? Icons.keyboard_arrow_up
-                                              : Icons.edit,
-                                          size: 20,
-                                        ),
-                                        onPressed: () {
-                                          model.toggleUrlField();
-                                        },
-                                        tooltip: model.showUrlField
-                                            ? 'Hide URL field'
-                                            : 'Edit server URL',
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              // Server URL section
+                              ServerUrlSection(
+                                urlController: model.urlController,
+                                showUrlField: model.showUrlField,
+                                urlFocus: model.urlFocus,
+                                onToggle: model.toggleUrlField,
+                                onUpdateUrl: model.updateServerUrl,
                               ),
-                              // Collapsible URL input field
-                              if (model.showUrlField) ...[
-                                TextFormField(
-                                  key: const Key('ServerUrlInputField'),
-                                  controller: model.urlController,
-                                  focusNode: model.urlFocus,
-                                  textInputAction: TextInputAction.done,
-                                  keyboardType: TextInputType.url,
-                                  enableSuggestions: true,
-                                  decoration: InputDecoration(
-                                    hintText: 'https://example.com/graphql',
-                                    labelText: AppLocalizations.of(context)!
-                                        .strictTranslate('Enter Server URL'),
-                                    labelStyle:
-                                        Theme.of(context).textTheme.titleMedium,
-                                    suffixIcon: IconButton(
-                                      key: const Key('SaveUrlButton'),
-                                      icon: const Icon(Icons.save),
-                                      onPressed: () async {
-                                        model.urlFocus.unfocus();
-                                        await model.updateServerUrl(
-                                          model.urlController.text,
-                                        );
-                                      },
-                                      tooltip: 'Save and validate URL',
-                                    ),
-                                  ),
-                                  onFieldSubmitted: (value) async {
-                                    await model.updateServerUrl(value);
-                                  },
-                                ),
-                                SizedBox(
-                                  height: SizeConfig.screenHeight! * 0.015,
-                                ),
-                              ] else ...[
-                                // Show current URL when collapsed
-                                if (model.urlController.text.isNotEmpty)
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Text(
-                                      model.urlController.text,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Colors.grey,
-                                          ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                              ],
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.025,
                               ), //Input field for the first name of the user.

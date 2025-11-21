@@ -18,6 +18,7 @@ import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/url_update_service.dart';
 import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/services/user_profile_service.dart';
@@ -132,6 +133,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => UrlUpdateService());
 
   //graphql
 
