@@ -46,7 +46,7 @@ void main() {
       return Post(
         id: id,
         caption: caption,
-        creator: User(id: 'user1', firstName: 'John', lastName: 'Doe'),
+        creator: User(id: 'user1', name: 'John Doe'),
         hasVoted: hasVoted,
         voteType: voteType,
         upvotesCount: upvotesCount,

@@ -8,8 +8,7 @@ void main() {
   final comment = Comment(
     creator: User(
       id: '123',
-      firstName: 'John',
-      lastName: 'Doe',
+      name: 'John Doe',
       email: 'test@test.com',
     ),
     createdAt: '123456',

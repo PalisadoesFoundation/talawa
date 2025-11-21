@@ -227,8 +227,7 @@ void main() {
       bool executed = false;
       _tileType = TileType.user;
       _userInfo = User(
-        firstName: 'Test firstname',
-        lastName: 'Test lastname',
+        name: 'Test-firstname Test-lastname',
       );
       _onTapUserInfo = () => {executed = true};
       await tester.pumpWidget(_createCustomListTile());
@@ -266,7 +265,7 @@ void main() {
 
       final userNameWidget = tester.firstWidget(userNameFinder) as Text;
 
-      expect(userNameWidget.data, 'Test firstname Test lastname');
+      expect(userNameWidget.data, 'Test-firstname Test-lastname');
       // expect(
       //   userNameWidget.style,
       //   Theme.of(navigationService.navigatorKey.currentContext!)

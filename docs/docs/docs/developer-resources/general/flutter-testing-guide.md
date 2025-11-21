@@ -1,10 +1,9 @@
 ---
 id: flutter-testing
 title: Flutter Testing Guide
+slug: /developer-resources/flutter-testing
+sidebar_position: 1
 ---
-
-
-## Introduction
 
 Tests are an essential part of software development. They help developers to verify the functionality of the code they write and ensure that it behaves as expected. Testing is a process of executing a program with the intent of finding errors. They help to catch bugs early in the development process, which saves time and effort in the long run. Writing tests also makes the code more reliable and maintainable. 
 
@@ -257,6 +256,60 @@ Here is a breakdown of what this test does
 
 Overall, this test verifies that the `sendMessageToDirectChat` method correctly triggers a GraphQL mutation and correctly handles the returned data by updating the `_chatMessageController` object with the expected `ChatMessage` object.
 
+## Integration Testing
+
+This project uses **Flutter Integration Testing** with the **Robot Pattern** to ensure UI flows and app behavior are working as expected.
+
+---
+
+### Directory Structure
+
+```
+integration_test/
+├── app_test.dart             # Main entry point for integration tests
+├── robots/
+│   └── login_form_robot.dart # Contains reusable robot class for login flow
+└── helper.dart               # Utility/helper functions used in tests
+```
+
+### Robot Pattern
+
+We follow the **Robot Pattern** to keep our test code clean, maintainable, and readable.
+Each robot encapsulates the logic for interacting with a specific screen or feature. For example:
+
+```dart
+final loginFormRobot = LoginFormRobot(tester);
+await loginFormRobot.loginAdmin();
+```
+All robot files are located in:
+
+```
+integration_test/robots/
+```
+
+### Setup Instructions
+
+1. Make sure you have the necessary dependencies installed:
+
+```bash
+flutter pub get
+```
+
+2. Ensure backend is running and accessible.
+3. Create a `.env` file in the root directory and add required variables:
+```env
+API_URL=http://<IPv4>:4000/graphql
+```
+
+### Running Integration Tests
+
+To run the integration test for `app_test.dart`, use the following command:
+```bash
+flutter test integration_test/app_test.dart
+```
+---
+
+Happy Testing!
 
 ## Troubleshooting
 

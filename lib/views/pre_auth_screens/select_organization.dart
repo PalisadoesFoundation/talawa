@@ -24,7 +24,6 @@ class _SelectOrganizationState extends State<SelectOrganization> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SelectOrganizationViewModel>(
-      onModelReady: (model) => model.initialise(widget.selectedOrgId),
       builder: (context, model, child) {
         return Scaffold(
           extendBodyBehindAppBar: false,

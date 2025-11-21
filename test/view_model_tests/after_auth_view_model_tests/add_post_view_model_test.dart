@@ -36,8 +36,7 @@ void main() {
     );
     final mockUser = User(
       id: 'user_123',
-      firstName: 'Test',
-      lastName: 'User',
+      name: 'Test User',
     );
 
     when(userConfig.currentOrg).thenReturn(mockOrg);

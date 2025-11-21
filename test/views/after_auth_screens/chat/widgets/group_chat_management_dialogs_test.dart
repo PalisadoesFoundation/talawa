@@ -57,8 +57,8 @@ void main() {
           (tester) async {
         const chatId = 'chat1';
         final availableMembers = [
-          User(id: 'user1', firstName: 'Alice', lastName: 'Smith'),
-          User(id: 'user2', firstName: 'Bob', lastName: 'Jones'),
+          User(id: 'user1', name: 'Alice Smith'),
+          User(id: 'user2', name: 'Bob Jones'),
         ];
 
         when(groupChatViewModel.getAvailableMembers(chatId))
@@ -93,8 +93,8 @@ void main() {
           (tester) async {
         const chatId = 'chat1';
         final availableMembers = [
-          User(id: 'user1', firstName: 'Alice', lastName: 'Smith'),
-          User(id: 'user2', firstName: 'Bob', lastName: 'Jones'),
+          User(id: 'user1', name: 'Alice Smith'),
+          User(id: 'user2', name: 'Bob Jones'),
         ];
 
         when(groupChatViewModel.getAvailableMembers(chatId))
@@ -735,8 +735,8 @@ void main() {
       testWidgets('Successfully adds all members', (tester) async {
         const chatId = 'chat1';
         final selectedMembers = [
-          User(id: 'user1', firstName: 'Alice'),
-          User(id: 'user2', firstName: 'Bob'),
+          User(id: 'user1', name: 'Alice'),
+          User(id: 'user2', name: 'Bob'),
         ];
 
         when(
@@ -792,9 +792,9 @@ void main() {
       testWidgets('Handles mixed success and failure results', (tester) async {
         const chatId = 'chat1';
         final selectedMembers = [
-          User(id: 'user1', firstName: 'Alice'),
-          User(id: 'user2', firstName: 'Bob'),
-          User(id: 'user3', firstName: 'Charlie'),
+          User(id: 'user1', name: 'Alice'),
+          User(id: 'user2', name: 'Bob'),
+          User(id: 'user3', name: 'Charlie'),
         ];
 
         final chat = Chat(
@@ -852,8 +852,8 @@ void main() {
       testWidgets('Handles all members already in group', (tester) async {
         const chatId = 'chat1';
         final selectedMembers = [
-          User(id: 'user1', firstName: 'Alice'),
-          User(id: 'user2', firstName: 'Bob'),
+          User(id: 'user1', name: 'Alice'),
+          User(id: 'user2', name: 'Bob'),
         ];
 
         final chat = Chat(
@@ -903,8 +903,8 @@ void main() {
       testWidgets('Handles all failures', (tester) async {
         const chatId = 'chat1';
         final selectedMembers = [
-          User(id: 'user1', firstName: 'Alice'),
-          User(id: 'user2', firstName: 'Bob'),
+          User(id: 'user1', name: 'Alice'),
+          User(id: 'user2', name: 'Bob'),
         ];
 
         when(

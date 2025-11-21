@@ -43,7 +43,7 @@ class CustomDrawer extends StatelessWidget {
                           isImageNull: model.selectedOrg?.image == null,
                           imageUrl: model.selectedOrg?.image,
                           firstAlphabet:
-                              model.selectedOrg?.name!.substring(0, 1),
+                              model.selectedOrg?.name?.substring(0, 1),
                         ),
                         accountName: Column(
                           key: homeModel.keyDrawerCurOrg,
@@ -51,7 +51,9 @@ class CustomDrawer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              model.selectedOrg?.name ?? "NULL",
+                              model.selectedOrg?.name ??
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Unnamed Organization"),
                             ),
                             Text(
                               AppLocalizations.of(context)!
@@ -86,7 +88,6 @@ class CustomDrawer extends StatelessWidget {
                                 controller: model.controller,
                                 padding: EdgeInsets.zero,
                                 itemCount: model.switchAbleOrg.length,
-                                // itemCount: 3,
                                 itemBuilder: (BuildContext context, int index) {
                                   return ListTile(
                                     key: const Key("Org"),
@@ -100,12 +101,12 @@ class CustomDrawer extends StatelessWidget {
                                       imageUrl:
                                           model.switchAbleOrg[index].image,
                                       firstAlphabet: model
-                                          .switchAbleOrg[index].name!
-                                          .substring(0, 1),
+                                          .switchAbleOrg[index].name
+                                          ?.substring(0, 1),
                                       fontSize: 18,
                                     ),
                                     title: Text(
-                                      model.switchAbleOrg[index].name!,
+                                      model.switchAbleOrg[index].name ?? "NULL",
                                     ),
                                   );
                                 },
@@ -152,8 +153,9 @@ class CustomDrawer extends StatelessWidget {
                           userConfig.loggedIn
                               ? ListTile(
                                   key: homeModel.keyDrawerLeaveCurrentOrg,
-                                  onTap: () => navigationService
-                                      .pushDialog(model.exitAlertDialog()),
+                                  onTap: () => navigationService.pushDialog(
+                                    model.exitAlertDialog(context),
+                                  ),
                                   leading: const Icon(Icons.logout, size: 30),
                                   title: Text(
                                     AppLocalizations.of(context)!

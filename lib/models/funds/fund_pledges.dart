@@ -45,7 +45,6 @@ class Pledge {
       creator: json['creator'] != null
           ? User.fromJson(
               json['creator'] as Map<String, dynamic>,
-              fromOrg: true,
             )
           : null,
       currency: campaign?.currency,

@@ -170,7 +170,7 @@ void main() {
       await tester.pump();
 
       bool refreshed = false;
-      when(mockViewModel.refreshPosts()).thenAnswer((_) async {
+      when(mockViewModel.refreshPosts()).thenAnswer((_) {
         refreshed = true;
         return Future.delayed(Duration.zero);
       });

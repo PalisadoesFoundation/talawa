@@ -148,8 +148,8 @@ void main() {
           (tester) async {
         const chatId = 'chat1';
         final availableMembers = [
-          User(id: 'user1', firstName: 'Alice'),
-          User(id: 'user2', firstName: 'Bob'),
+          User(id: 'user1', name: 'Alice'),
+          User(id: 'user2', name: 'Bob'),
         ];
 
         when(groupChatViewModel.getAvailableMembers(chatId))

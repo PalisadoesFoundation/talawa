@@ -125,7 +125,7 @@ void main() {
       await tempFile2.delete();
     });
 
-    test('calculateFileHash throws exception for non-existent file', () async {
+    test('calculateFileHash throws exception for non-existent file', () {
       final nonExistentFile = File('non_existent_file.txt');
 
       expect(
@@ -271,7 +271,7 @@ void main() {
       await testFile.delete();
     });
 
-    test('uploadFileToMinio handles file read error', () async {
+    test('uploadFileToMinio handles file read error', () {
       final nonExistentFile = File('non_existent_file.txt');
 
       expect(
@@ -285,7 +285,7 @@ void main() {
   });
 
   group('Tests for getFileFromMinio', () {
-    test('getFileFromMinio handles GraphQL exception', () async {
+    test('getFileFromMinio handles GraphQL exception', () {
       final mutation = AttachmentQueries().getFileUrlMutation();
       when(
         databaseFunctions.gqlAuthMutation(
@@ -310,7 +310,7 @@ void main() {
       );
     });
 
-    test('getFileFromMinio handles null data response', () async {
+    test('getFileFromMinio handles null data response', () {
       final mutation = AttachmentQueries().getFileUrlMutation();
       when(
         databaseFunctions.gqlAuthMutation(
@@ -334,7 +334,7 @@ void main() {
       );
     });
 
-    test('getFileFromMinio handles null presigned URL', () async {
+    test('getFileFromMinio handles null presigned URL', () {
       final mutation = AttachmentQueries().getFileUrlMutation();
       when(
         databaseFunctions.gqlAuthMutation(
@@ -362,7 +362,7 @@ void main() {
       );
     });
 
-    test('getFileFromMinio handles empty presigned URL', () async {
+    test('getFileFromMinio handles empty presigned URL', () {
       final mutation = AttachmentQueries().getFileUrlMutation();
       when(
         databaseFunctions.gqlAuthMutation(

@@ -7,7 +7,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -31,11 +30,8 @@ class SignupDetailsViewModel extends BaseModel {
   /// TextEditingController for handling confirmation password input field.
   TextEditingController confirmPassword = TextEditingController();
 
-  /// TextEditingController for handling first name input field.
-  TextEditingController firstName = TextEditingController();
-
-  /// TextEditingController for handling last name input field.
-  TextEditingController lastName = TextEditingController();
+  /// TextEditingController for handling name input field.
+  TextEditingController name = TextEditingController();
 
   /// TextEditingController for handling password input field.
   TextEditingController password = TextEditingController();
@@ -138,12 +134,9 @@ class SignupDetailsViewModel extends BaseModel {
           );
           databaseFunctions.init();
           final String query = queries.registerUser(
-            firstName.text,
-            lastName.text,
+            name.text,
             email.text,
-            Encryptor.encryptString(
-              password.text,
-            ),
+            password.text,
             selectedOrganization.id,
           );
           final result = await databaseFunctions.gqlNonAuthMutation(query);
@@ -156,10 +149,9 @@ class SignupDetailsViewModel extends BaseModel {
               result.data!['signUp'] as Map<String, dynamic>,
             );
             final bool userSaved = await userConfig.updateUser(signedInUser);
-            final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+            graphqlConfig.getToken();
             // if user successfully saved and access token is also generated.
             if (userSaved &&
-                tokenRefreshed &&
                 userConfig.currentUser.joinedOrganizations != null &&
                 userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
               userConfig.saveCurrentOrgInHive(
@@ -170,7 +162,13 @@ class SignupDetailsViewModel extends BaseModel {
                 Routes.splashScreen,
                 arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
               );
-              storingCredentialsInSecureStorage();
+            } else if (userConfig.currentUser.membershipRequests != null &&
+                userConfig.currentUser.membershipRequests!.isNotEmpty) {
+              navigationService.removeAllAndPush(
+                Routes.waitingScreen,
+                Routes.splashScreen,
+                arguments: '-1',
+              );
             } else {
               navigationService.showTalawaErrorSnackBar(
                 TalawaErrors.userNotFound,
@@ -178,6 +176,7 @@ class SignupDetailsViewModel extends BaseModel {
               );
             }
           }
+          storingCredentialsInSecureStorage();
         },
         onActionException: (e) async {
           navigationService.showTalawaErrorSnackBar(

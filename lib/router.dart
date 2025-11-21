@@ -6,6 +6,7 @@ import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/plugin/index.dart' as plugins;
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
@@ -29,6 +30,7 @@ import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
@@ -37,12 +39,12 @@ import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/views/main_screen.dart';
+import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
-import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
 
@@ -235,7 +237,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case Routes.requestAccess:
       final OrgInfo org = settings.arguments! as OrgInfo;
-      return CupertinoPageRoute(
+      return MaterialPageRoute(
         builder: (context) => SendAccessRequest(
           key: const Key('Signup'),
           org: org,
@@ -332,7 +334,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => ManageGroupScreen(group: group, event: event),
       );
 
+    case Routes.menuPage:
+      return MaterialPageRoute(
+        builder: (context) => const MenuPage(key: Key('MenuPage')),
+      );
+
     default:
+      // Try plugin provided routes first
+      final pluginRoutes = plugins.buildPluginRoutes();
+      final builder = pluginRoutes[settings.name];
+      if (builder != null) {
+        return MaterialPageRoute(builder: builder);
+      }
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
           key: Key("DemoPage"),

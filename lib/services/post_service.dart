@@ -124,7 +124,7 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   ///   None
   void setOrgStreamSubscription() {
-    _userConfig.currentOrgInfoStream.listen((updatedOrganization) async {
+    _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
       if (updatedOrganization != _currentOrg) {
         _currentOrg = updatedOrganization;
       }

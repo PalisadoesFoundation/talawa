@@ -51,8 +51,7 @@ Widget createCommentTemplateWidget({
             id: "Test id",
             creator: User(
               id: '123',
-              firstName: 'Ayush',
-              lastName: 'Chaudhary',
+              name: 'Ayush Chaudhary',
               email: 'test@test.com',
             ),
             createdAt: '123456',
