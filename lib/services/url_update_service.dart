@@ -76,7 +76,7 @@ class UrlUpdateService {
 
         // Show success message
         final context = navigationService.navigatorKey.currentContext;
-        if (context != null) {
+        if (context != null && context.mounted) {
           navigationService.showTalawaErrorSnackBar(
             AppLocalizations.of(context)!
                 .strictTranslate('URL updated successfully'),
@@ -88,7 +88,7 @@ class UrlUpdateService {
       } else {
         // Show error message for invalid URL
         final context = navigationService.navigatorKey.currentContext;
-        if (context != null) {
+        if (context != null && context.mounted) {
           navigationService.showTalawaErrorSnackBar(
             AppLocalizations.of(context)!
                 .strictTranslate("URL doesn't exist/no connection"),
@@ -103,7 +103,7 @@ class UrlUpdateService {
       }
 
       final context = navigationService.navigatorKey.currentContext;
-      if (context != null) {
+      if (context != null && context.mounted) {
         navigationService.showTalawaErrorSnackBar(
           AppLocalizations.of(context)!
               .strictTranslate('Error updating URL'),

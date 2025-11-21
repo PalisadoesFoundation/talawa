@@ -113,7 +113,8 @@ class SignupDetailsViewModel extends BaseModel {
   ///   None
   void loadCurrentUrl() {
     final box = Hive.box('url');
-    final String? currentUrl = box.get(urlKey) as String?;
+    final String? currentUrl =
+        box.get(UrlUpdateService.urlKey) as String?;
     if (currentUrl != null && currentUrl.trim().isNotEmpty) {
       urlController.text = currentUrl;
     }

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -21,15 +20,12 @@ class HiveManager {
   /// Initializes Hive with the specified directory.
   ///
   /// **params**:
-  /// * `dir`: A [Directory] object representing the directory where Hive will store its data files. Optional for web.
+  /// * `dir`: A [Directory] object representing the directory where Hive will store its data files.
   ///
   /// **returns**:
   ///   None
-  static Future<void> initializeHive({Directory? dir}) async {
-    if (!kIsWeb && dir != null) {
-      _initHive(dir);
-    }
-    // For web, Hive uses IndexedDB automatically without needing a path
+  static Future<void> initializeHive({required Directory dir}) async {
+    _initHive(dir);
     await registerAdapters();
     await _openBoxes();
   }
