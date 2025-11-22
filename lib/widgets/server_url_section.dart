@@ -99,12 +99,14 @@ class ServerUrlSection extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return null; // Allow empty for optional URL
+                    return null; // Allow empty - will use default server
                   }
                   return Validator.validateURL(value.trim());
                 },
                 decoration: InputDecoration(
                   hintText: 'Enter Server URL',
+                  helperText: 'Leave empty to use default server',
+                  helperMaxLines: 2,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

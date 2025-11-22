@@ -71,7 +71,9 @@ class LoginViewModel extends BaseModel {
   void loadCurrentUrl() {
     final String currentUrl =
         locator<UrlUpdateService>().getCurrentUrl();
-    urlController.text = currentUrl;
+    if (currentUrl.trim().isNotEmpty) {
+      urlController.text = currentUrl;
+    }
   }
 
   /// Toggles the visibility of the server URL input field.
