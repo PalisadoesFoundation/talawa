@@ -8,7 +8,6 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/url_update_service.dart';
-import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -62,12 +61,14 @@ class SignupDetailsViewModel extends BaseModel {
   /// Initializes the greeting message for a selected organization.
   ///
   /// **params**:
-  /// * `org`: OrgInfo - the organization information to set as selected.
+  /// * `org`: OrgInfo? - the organization information to set as selected.
   ///
   /// **returns**:
   ///   None
-  void initialise(OrgInfo org) {
-    selectedOrganization = org;
+  void initialise(OrgInfo? org) {
+    if (org != null) {
+      selectedOrganization = org;
+    }
     loadCurrentUrl();
     // greeting message
     greeting = [

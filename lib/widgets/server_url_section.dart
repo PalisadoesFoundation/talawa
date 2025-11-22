@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/validators.dart';
 
 /// A reusable widget for displaying and managing server URL configuration.
 ///
@@ -95,6 +96,13 @@ class ServerUrlSection extends StatelessWidget {
                 keyboardType: TextInputType.url,
                 autofillHints: const <String>[AutofillHints.url],
                 enableSuggestions: true,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return null; // Allow empty for optional URL
+                  }
+                  return Validator.validateURL(value.trim());
+                },
                 decoration: InputDecoration(
                   hintText: 'Enter Server URL',
                   border: OutlineInputBorder(

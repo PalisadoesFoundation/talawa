@@ -11,7 +11,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/hive_manager.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
