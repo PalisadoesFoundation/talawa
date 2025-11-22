@@ -8,15 +8,16 @@ import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
+import 'package:talawa/widgets/server_url_section.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This widget takes the user details for signup. The form includes first name, last name, email, password, and password confirmation inputs.
 class SignUpDetails extends StatefulWidget {
-  const SignUpDetails({required Key key, required this.selectedOrg})
+  const SignUpDetails({required Key key, this.selectedOrg})
       : super(key: key);
 
   /// Details of selected Organisation.
-  final OrgInfo selectedOrg;
+  final OrgInfo? selectedOrg;
   @override
   _SignUpDetailsState createState() => _SignUpDetailsState();
 }
@@ -77,6 +78,17 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               ),
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.05,
+                              ),
+                              // Server URL section
+                              ServerUrlSection(
+                                urlController: model.urlController,
+                                showUrlField: model.showUrlField,
+                                urlFocus: model.urlFocus,
+                                onToggle: model.toggleUrlField,
+                                onUpdateUrl: model.updateUrl,
+                              ),
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.025,
                               ), //Input field for the first name of the user.
                               TextFormField(
                                 key: const Key('NameInputField'),

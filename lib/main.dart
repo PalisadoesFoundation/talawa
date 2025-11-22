@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as fs;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
@@ -22,22 +21,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final Directory dir = await path.getApplicationDocumentsDirectory();
-
   await HiveManager.initializeHive(dir: dir);
 
-  // Load environment variables from .env file
-  await dotenv.load(fileName: ".env").then((value) {
-    debugPrint("Environment variables loaded");
-    debugPrint(dotenv.get('API_URL'));
-  }).catchError((error) {
-    debugPrint("Error loading environment variables: $error");
-    throw Exception("Failed to load environment variables: $error");
-  });
-
-  await setupLocator();
-
-  final appConnectivity = locator<AppConnectivity>();
-  await appConnectivity.initialise();
+  setupLocator();
 
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());

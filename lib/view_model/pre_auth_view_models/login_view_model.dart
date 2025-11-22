@@ -8,6 +8,7 @@ import 'package:talawa/locator.dart';
 
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/url_update_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -50,6 +51,53 @@ class LoginViewModel extends BaseModel {
 
   /// Toggles password visibility (true for hidden, false for visible).
   bool hidePassword = true;
+
+  /// TextEditingController for handling server URL input field.
+  TextEditingController urlController = TextEditingController();
+
+  /// FocusNode to manage focus for the URL input field.
+  FocusNode urlFocus = FocusNode();
+
+  /// Controls visibility of the server URL input field.
+  bool showUrlField = false;
+
+  /// Loads the current server URL from cache and updates the controller.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void loadCurrentUrl() {
+    final String currentUrl =
+        locator<UrlUpdateService>().getCurrentUrl();
+    if (currentUrl.trim().isNotEmpty) {
+      urlController.text = currentUrl;
+    }
+  }
+
+  /// Toggles the visibility of the server URL input field.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void toggleUrlField() {
+    showUrlField = !showUrlField;
+    notifyListeners();
+  }
+
+  /// Updates the server URL using the UrlUpdateService.
+  ///
+  /// **params**:
+  /// * `url`: The new server URL to be updated
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: Returns true if the URL was successfully updated, false otherwise
+  Future<bool> updateUrl(String url) async {
+    return await locator<UrlUpdateService>().updateServerUrl(url);
+  }
 
   /// Initializes the greeting message.
   ///
@@ -218,5 +266,16 @@ class LoginViewModel extends BaseModel {
     } catch (e) {
       print("Error decrypting previous values $e");
     }
+  }
+
+  @override
+  void dispose() {
+    urlController.dispose();
+    urlFocus.dispose();
+    email.dispose();
+    password.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
+    super.dispose();
   }
 }
