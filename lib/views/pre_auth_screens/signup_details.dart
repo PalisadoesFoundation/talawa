@@ -84,7 +84,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 showUrlField: model.showUrlField,
                                 urlFocus: model.urlFocus,
                                 onToggle: model.toggleUrlField,
-                                onUpdateUrl: model.updateServerUrl,
+                                onUpdateUrl: model.updateUrl,
                               ),
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.025,

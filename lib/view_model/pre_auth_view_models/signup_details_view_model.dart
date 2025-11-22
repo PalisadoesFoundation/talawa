@@ -106,9 +106,9 @@ class SignupDetailsViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> loadCurrentUrl() async {
+  void loadCurrentUrl() {
     final String currentUrl =
-        await locator<UrlUpdateService>().getCurrentUrl();
+        locator<UrlUpdateService>().getCurrentUrl();
     if (currentUrl.trim().isNotEmpty) {
       urlController.text = currentUrl;
     }
@@ -265,6 +265,7 @@ class SignupDetailsViewModel extends BaseModel {
   void dispose() {
     urlController.dispose();
     urlFocus.dispose();
+    confirmPassword.dispose();
     name.dispose();
     email.dispose();
     password.dispose();

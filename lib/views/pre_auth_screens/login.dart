@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
                       showUrlField: model.showUrlField,
                       urlFocus: model.urlFocus,
                       onToggle: model.toggleUrlField,
-                      onUpdateUrl: model.updateServerUrl,
+                      onUpdateUrl: model.updateUrl,
                     ),
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.025,

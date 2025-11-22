@@ -110,7 +110,14 @@ class ServerUrlSection extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => onUpdateUrl(urlController.text),
+                  onPressed: () async {
+                    try {
+                      await onUpdateUrl(urlController.text);
+                    } catch (e) {
+                      // Error is already handled by the service showing snackbar
+                      print('Error updating URL: $e');
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(

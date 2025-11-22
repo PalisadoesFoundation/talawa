@@ -69,9 +69,9 @@ class LoginViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> loadCurrentUrl() async {
+  void loadCurrentUrl() {
     final String currentUrl =
-        await locator<UrlUpdateService>().getCurrentUrl();
+        locator<UrlUpdateService>().getCurrentUrl();
     urlController.text = currentUrl;
   }
 
@@ -105,7 +105,7 @@ class LoginViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void initialise() {
+  void initialize() {
     greeting = [
       {
         'text': "We're ",
