@@ -125,7 +125,7 @@ class ServerUrlSection extends StatelessWidget {
                       await onUpdateUrl(urlController.text);
                     } catch (e) {
                       // Error is already handled by the service showing snackbar
-                      print('Error updating URL: $e');
+                      debugPrint('Error updating URL: $e');
                     }
                   },
                   style: ElevatedButton.styleFrom(
