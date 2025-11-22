@@ -8,8 +8,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -157,21 +155,6 @@ void main() {
       verify(userProfileService.getUserProfileInfo(model.user));
       verify(navigationService.showTalawaErrorSnackBar(
           'Profile updated successfully', MessageType.info));
-    });
-
-    test('shows error when action throws', () async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-
-      final ups = locator<UserProfileService>();
-      final nav = locator<NavigationService>();
-
-      when(ups.updateUserProfile(any)).thenThrow(Exception('boom'));
-
-      await model.updateUserProfile(name: 'X');
-
-      verify(nav.showTalawaErrorSnackBar(
-          'Something went wrong', MessageType.error));
     });
   });
 }

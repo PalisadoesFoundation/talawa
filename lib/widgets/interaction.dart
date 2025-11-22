@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -19,59 +20,95 @@ class Interactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate sizes based on screen width for responsive design
+    final double buttonHeight = (MediaQuery.sizeOf(context).width / 392) * 35;
+    final double buttonWidth = (MediaQuery.sizeOf(context).width / 392) * 35;
+    final double iconSize = (MediaQuery.sizeOf(context).width / 392) * 20;
+
     return BaseView<InteractionsViewModel>(
-      onModelReady: (model) {
-        model.initialize(post.id);
-      },
       builder: (context, model, child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8,
         children: [
-          Column(
-            children: [
-              SizedBox(
-                height: (MediaQuery.sizeOf(context).width / 392) * 35,
-                width: (MediaQuery.sizeOf(context).width / 392) * 35,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.thumb_up_outlined,
+          // Upvote button
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: buttonHeight,
+                  width: buttonWidth,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: post.hasVoted == true &&
+                            post.voteType == VoteType.upVote
+                        ? Icon(
+                            Icons.thumb_up,
+                            color: Colors.blue,
+                            size: iconSize,
+                          )
+                        : Icon(
+                            Icons.thumb_up_outlined,
+                            size: iconSize,
+                          ),
+                    onPressed: () => model.toggleUpVotePost(post),
                   ),
-                  onPressed: () {},
                 ),
-              ),
-              Text(
-                "${post.upvotesCount ?? 0}",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondary,
+                Text(
+                  "${post.upvotesCount ?? 0}",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+
+          // Downvote button
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: buttonHeight,
+                  width: buttonWidth,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: post.hasVoted == true &&
+                            post.voteType == VoteType.downVote
+                        ? Icon(
+                            Icons.thumb_down,
+                            color: Colors.red,
+                            size: iconSize,
+                          )
+                        : Icon(
+                            Icons.thumb_down_outlined,
+                            size: iconSize,
+                          ),
+                    onPressed: () => model.toggleDownVotePost(post),
+                  ),
+                ),
+                Text(
+                  "${post.downvotesCount ?? 0}",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Comments button
           Column(
             children: [
               SizedBox(
-                height: (MediaQuery.sizeOf(context).width / 392) * 35,
-                width: (MediaQuery.sizeOf(context).width / 392) * 35,
+                height: buttonHeight,
+                width: buttonWidth,
                 child: IconButton(
-                  icon: const Icon(Icons.thumb_down_outlined),
-                  onPressed: () {},
-                ),
-              ),
-              Text(
-                "${post.downvotesCount ?? 0}",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              SizedBox(
-                height: (MediaQuery.sizeOf(context).width / 392) * 35,
-                width: (MediaQuery.sizeOf(context).width / 392) * 35,
-                child: IconButton(
-                  icon: const Icon(Icons.comment_outlined),
+                  padding: EdgeInsets.zero,
+                  icon: Icon(
+                    Icons.comment_outlined,
+                    size: iconSize,
+                  ),
                   onPressed: () => redirectToIndividualPage?.call(post),
                 ),
               ),
@@ -83,7 +120,10 @@ class Interactions extends StatelessWidget {
               ),
             ],
           ),
+
           const Spacer(),
+
+          // Post created duration
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),

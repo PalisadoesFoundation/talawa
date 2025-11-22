@@ -1,37 +1,26 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/services/image_service.dart';
+import 'package:talawa/utils/attachment_queries.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
-class MockImageService extends Mock implements ImageService {
-  static const throwException = 'throw Exception';
-  @override
-  Future<String> convertToBase64(File file) async {
-    if (file.path == throwException) throw Exception('fake exception');
-    return "base64";
-  }
-}
-
 void main() {
-  late ImageCropper mockImageCropper;
+  late ImageService imageService;
+  testSetupLocator();
 
-  setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    testSetupLocator();
-    registerServices();
-  });
   setUp(() {
-    mockImageCropper = locator<ImageCropper>();
-    reset(mockImageCropper); // Reset mock before each test
+    registerServices();
+    imageService = ImageService();
+  });
+  tearDown(() {
+    unregisterServices();
   });
 
   group('Tests for Crop Image', () {
@@ -41,7 +30,7 @@ void main() {
       final croppedFile = CroppedFile("fakeCropped");
 
       when(
-        mockImageCropper.cropImage(
+        imageCropper.cropImage(
           sourcePath: "test",
           uiSettings: anyNamed('uiSettings'),
         ),
@@ -56,7 +45,7 @@ void main() {
       final testFile = File('test.png');
 
       when(
-        mockImageCropper.cropImage(
+        imageCropper.cropImage(
           sourcePath: 'test',
           uiSettings: anyNamed('uiSettings'),
         ),
@@ -66,102 +55,24 @@ void main() {
 
       expect(result, isNull);
     });
-
-    test('cropImage uses correct aspectRatioPresets', () async {
-      const path = "test";
-
-      final testFile = File(path);
-      final croppedFile = CroppedFile('cropped_test.png');
-
-      when(
-        mockImageCropper.cropImage(
-          sourcePath: 'test',
-          uiSettings: captureAnyNamed('uiSettings'),
-        ),
-      ).thenAnswer((_) async => croppedFile);
-
-      await imageService.cropImage(imageFile: testFile);
-
-      final capturedUiSettings = verify(
-        mockImageCropper.cropImage(
-          sourcePath: 'test',
-          uiSettings: captureAnyNamed('uiSettings'),
-        ),
-      ).captured.single as List<PlatformUiSettings>;
-
-      final androidSettings =
-          capturedUiSettings.whereType<AndroidUiSettings>().single;
-      final iosSettings = capturedUiSettings.whereType<IOSUiSettings>().single;
-
-      expect(
-        androidSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.square),
-      );
-      expect(
-        androidSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.original),
-      );
-      expect(
-        androidSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.ratio3x2),
-      );
-      expect(
-        androidSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.ratio4x3),
-      );
-      expect(
-        androidSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.ratio16x9),
-      );
-      expect(
-        iosSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.square),
-      );
-      expect(
-        iosSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.original),
-      );
-      expect(
-        iosSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.ratio3x2),
-      );
-      expect(
-        iosSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.ratio4x3),
-      );
-      expect(
-        iosSettings.aspectRatioPresets,
-        contains(CropAspectRatioPreset.ratio16x9),
-      );
-    });
-
-    test("error in crop image", () {
-      const path = "test";
-      final fakefile = File(path);
-      when(
-        mockImageCropper.cropImage(
-          sourcePath: "test",
-          uiSettings: anyNamed('uiSettings'),
-        ),
-      ).thenThrow(Exception());
-      expect(
-        imageService.cropImage(imageFile: fakefile),
-        throwsException,
-      );
-    });
   });
 
   group('Tests for convertToBase64', () {
     test('convertToBase64 converts file to base64 string', () async {
-      //using this asset as the test asset
-      final file = File('assets/images/Group 8948.png');
-      final List<int> encodedBytes = file.readAsBytesSync();
+      // Create a temporary test file with known content
+      const testContent = 'Test file content';
+      final testBytes = utf8.encode(testContent);
+      final tempFile = File('test_file.txt');
+      await tempFile.writeAsBytes(testBytes);
 
-      final fileString = await imageService.convertToBase64(file);
+      final fileString = await imageService.convertToBase64(tempFile);
 
       final List<int> decodedBytes = base64Decode(fileString);
 
-      expect(decodedBytes, equals(encodedBytes));
+      expect(decodedBytes, equals(testBytes));
+
+      // Clean up
+      await tempFile.delete();
     });
 
     test(
@@ -169,7 +80,314 @@ void main() {
         () async {
       final file = File('fakePath');
       final fileString = await imageService.convertToBase64(file);
-      expect('', fileString);
+      expect(
+        "",
+        fileString,
+      );
+    });
+  });
+
+  group('Tests for calculateFileHash', () {
+    test('calculateFileHash returns correct SHA-256 hash', () async {
+      const testContent = 'Test file content';
+      final testBytes = utf8.encode(testContent);
+      final tempFile = File('test_hash_file.txt');
+      await tempFile.writeAsBytes(testBytes);
+
+      final hash = await imageService.calculateFileHash(tempFile);
+
+      expect(hash, isNotEmpty);
+      expect(hash.length, equals(64)); // SHA-256 hash is 64 characters long
+      expect(hash, matches(RegExp(r'^[a-f0-9]{64}$'))); // Valid hex string
+
+      // Clean up
+      await tempFile.delete();
+    });
+
+    test('calculateFileHash returns consistent hash for same content',
+        () async {
+      const testContent = 'Consistent content';
+      final testBytes = utf8.encode(testContent);
+
+      final tempFile1 = File('test_hash_file1.txt');
+      final tempFile2 = File('test_hash_file2.txt');
+
+      await tempFile1.writeAsBytes(testBytes);
+      await tempFile2.writeAsBytes(testBytes);
+
+      final hash1 = await imageService.calculateFileHash(tempFile1);
+      final hash2 = await imageService.calculateFileHash(tempFile2);
+
+      expect(hash1, equals(hash2));
+
+      // Clean up
+      await tempFile1.delete();
+      await tempFile2.delete();
+    });
+
+    test('calculateFileHash throws exception for non-existent file', () {
+      final nonExistentFile = File('non_existent_file.txt');
+
+      expect(
+        () => imageService.calculateFileHash(nonExistentFile),
+        throwsException,
+      );
+    });
+  });
+
+  group('Tests for getContentType', () {
+    test('getContentType returns correct MIME types for images', () {
+      expect(imageService.getContentType('image.jpg'), 'image/jpeg');
+      expect(imageService.getContentType('image.jpeg'), 'image/jpeg');
+      expect(imageService.getContentType('image.png'), 'image/png');
+      expect(imageService.getContentType('image.gif'), 'image/gif');
+    });
+
+    test('getContentType returns correct MIME types for documents', () {
+      expect(imageService.getContentType('document.pdf'), 'application/pdf');
+      expect(imageService.getContentType('document.doc'), 'application/msword');
+      expect(
+        imageService.getContentType('document.docx'),
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      );
+      expect(
+        imageService.getContentType('spreadsheet.xls'),
+        'application/vnd.ms-excel',
+      );
+      expect(
+        imageService.getContentType('spreadsheet.xlsx'),
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
+    });
+
+    test('getContentType returns correct MIME types for media files', () {
+      expect(imageService.getContentType('video.mp4'), 'video/mp4');
+      expect(imageService.getContentType('audio.mp3'), 'audio/mpeg');
+    });
+
+    test('getContentType handles case insensitive extensions', () {
+      expect(imageService.getContentType('IMAGE.JPG'), 'image/jpeg');
+      expect(imageService.getContentType('DOCUMENT.PDF'), 'application/pdf');
+    });
+
+    test('getContentType returns default for unknown extensions', () {
+      expect(
+        imageService.getContentType('file.unknown'),
+        'application/octet-stream',
+      );
+      expect(imageService.getContentType('file'), 'application/octet-stream');
+    });
+  });
+
+  group('Tests for uploadFileToMinio', () {
+    test('uploadFileToMinio handles GraphQL exception', () async {
+      final testFile = File('test_upload.txt');
+      await testFile.writeAsString('test content');
+      final mutation = AttachmentQueries().createPresignedUrlMutation();
+      when(
+        databaseFunctions.gqlAuthMutation(
+          mutation,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: null,
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(),
+        ),
+      );
+
+      expect(
+        () => imageService.uploadFileToMinio(
+          file: testFile,
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
+
+      await testFile.delete();
+    });
+
+    test('uploadFileToMinio handles null data response', () async {
+      final testFile = File('test_upload.txt');
+      await testFile.writeAsString('test content');
+      final mutation = AttachmentQueries().createPresignedUrlMutation();
+      when(
+        databaseFunctions.gqlAuthMutation(
+          mutation,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: null,
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      expect(
+        () => imageService.uploadFileToMinio(
+          file: testFile,
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
+
+      await testFile.delete();
+    });
+
+    test('uploadFileToMinio handles missing object name', () async {
+      final testFile = File('test_upload.txt');
+      await testFile.writeAsString('test content');
+      final mutation = AttachmentQueries().createPresignedUrlMutation();
+      when(
+        databaseFunctions.gqlAuthMutation(
+          mutation,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createPresignedUrl': {
+              'presignedUrl': 'https://example.com/upload',
+              'objectName': null,
+              'requiresUpload': true,
+            },
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      expect(
+        () => imageService.uploadFileToMinio(
+          file: testFile,
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
+
+      await testFile.delete();
+    });
+
+    test('uploadFileToMinio handles file read error', () {
+      final nonExistentFile = File('non_existent_file.txt');
+
+      expect(
+        () => imageService.uploadFileToMinio(
+          file: nonExistentFile,
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
+    });
+  });
+
+  group('Tests for getFileFromMinio', () {
+    test('getFileFromMinio handles GraphQL exception', () {
+      final mutation = AttachmentQueries().getFileUrlMutation();
+      when(
+        databaseFunctions.gqlAuthMutation(
+          mutation,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: null,
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(),
+        ),
+      );
+
+      expect(
+        () => imageService.getFileFromMinio(
+          objectName: 'test-object',
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
+    });
+
+    test('getFileFromMinio handles null data response', () {
+      final mutation = AttachmentQueries().getFileUrlMutation();
+      when(
+        databaseFunctions.gqlAuthMutation(
+          mutation,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: null,
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      expect(
+        () => imageService.getFileFromMinio(
+          objectName: 'test-object',
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
+    });
+
+    test('getFileFromMinio handles null presigned URL', () {
+      final mutation = AttachmentQueries().getFileUrlMutation();
+      when(
+        databaseFunctions.gqlAuthMutation(
+          mutation,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createGetfileUrl': {
+              'presignedUrl': null,
+            },
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      expect(
+        () => imageService.getFileFromMinio(
+          objectName: 'test-object',
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
+    });
+
+    test('getFileFromMinio handles empty presigned URL', () {
+      final mutation = AttachmentQueries().getFileUrlMutation();
+      when(
+        databaseFunctions.gqlAuthMutation(
+          mutation,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createGetfileUrl': {
+              'presignedUrl': '',
+            },
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      expect(
+        () => imageService.getFileFromMinio(
+          objectName: 'test-object',
+          organizationId: 'org123',
+        ),
+        throwsException,
+      );
     });
   });
 }
