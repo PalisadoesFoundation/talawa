@@ -7,6 +7,8 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/url_update_service.dart';
+import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -48,6 +50,15 @@ class SignupDetailsViewModel extends BaseModel {
   /// Boolean to toggle password visibility (true for hidden, false for visible).
   bool hidePassword = true;
 
+  /// TextEditingController for handling server URL input field.
+  TextEditingController urlController = TextEditingController();
+
+  /// FocusNode to manage focus for the URL input field.
+  FocusNode urlFocus = FocusNode();
+
+  /// Controls visibility of the server URL input field.
+  bool showUrlField = false;
+
   /// Initializes the greeting message for a selected organization.
   ///
   /// **params**:
@@ -57,6 +68,7 @@ class SignupDetailsViewModel extends BaseModel {
   ///   None
   void initialise(OrgInfo org) {
     selectedOrganization = org;
+    loadCurrentUrl();
     // greeting message
     greeting = [
       {
@@ -85,6 +97,44 @@ class SignupDetailsViewModel extends BaseModel {
             .copyWith(fontSize: 24),
       },
     ];
+  }
+
+  /// Loads the current server URL from cache and updates the controller.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> loadCurrentUrl() async {
+    final String currentUrl =
+        await locator<UrlUpdateService>().getCurrentUrl();
+    if (currentUrl.trim().isNotEmpty) {
+      urlController.text = currentUrl;
+    }
+  }
+
+  /// Toggles the visibility of the server URL input field.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void toggleUrlField() {
+    showUrlField = !showUrlField;
+    notifyListeners();
+  }
+
+  /// Updates the server URL using the UrlUpdateService.
+  ///
+  /// **params**:
+  /// * `url`: The new server URL to be updated
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: Returns true if the URL was successfully updated, false otherwise
+  Future<bool> updateUrl(String url) async {
+    return await locator<UrlUpdateService>().updateServerUrl(url);
   }
 
   /// Initiates the sign-up process.
@@ -209,5 +259,16 @@ class SignupDetailsViewModel extends BaseModel {
       // Handle secure storage write failure
       print("Failed to save credentials: $e");
     }
+  }
+
+  @override
+  void dispose() {
+    urlController.dispose();
+    urlFocus.dispose();
+    name.dispose();
+    email.dispose();
+    password.dispose();
+    confirmFocus.dispose();
+    super.dispose();
   }
 }

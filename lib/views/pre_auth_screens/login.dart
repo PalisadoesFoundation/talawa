@@ -9,6 +9,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/directly_login.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
+import 'package:talawa/widgets/server_url_section.dart';
 
 /// This is the login widget.
 ///
@@ -71,6 +72,17 @@ class _LoginState extends State<Login> {
                     ),
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.05,
+                    ),
+                    // Server URL section
+                    ServerUrlSection(
+                      urlController: model.urlController,
+                      showUrlField: model.showUrlField,
+                      urlFocus: model.urlFocus,
+                      onToggle: model.toggleUrlField,
+                      onUpdateUrl: model.updateServerUrl,
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.025,
                     ),
                     //Input form for the email of the user.
                     TextFormField(

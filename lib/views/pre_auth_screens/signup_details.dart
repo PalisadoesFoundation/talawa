@@ -8,15 +8,15 @@ import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
+import 'package:talawa/widgets/server_url_section.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This widget takes the user details for signup. The form includes first name, last name, email, password, and password confirmation inputs.
 class SignUpDetails extends StatefulWidget {
-  const SignUpDetails({required Key key, required this.selectedOrg})
-      : super(key: key);
+  const SignUpDetails({required Key key, this.selectedOrg}) : super(key: key);
 
   /// Details of selected Organisation.
-  final OrgInfo selectedOrg;
+  final OrgInfo? selectedOrg;
   @override
   _SignUpDetailsState createState() => _SignUpDetailsState();
 }
@@ -77,18 +77,30 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               ),
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.05,
+                              ),
+                              // Server URL section
+                              ServerUrlSection(
+                                urlController: model.urlController,
+                                showUrlField: model.showUrlField,
+                                urlFocus: model.urlFocus,
+                                onToggle: model.toggleUrlField,
+                                onUpdateUrl: model.updateServerUrl,
+                              ),
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.025,
                               ), //Input field for the first name of the user.
                               TextFormField(
-                                key: const Key('NameInputField'),
-                                controller: model.name,
+                                key: const Key('FirstNameInputField'),
+                                controller: model.firstName,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 autofillHints: const <String>[
-                                  AutofillHints.name,
+                                  AutofillHints.givenName,
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
-                                  final String? msg = Validator.validateName(
+                                  final String? msg =
+                                      Validator.validateFirstName(
                                     value!,
                                   );
                                   if (msg == null) {
@@ -96,7 +108,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   }
                                   return AppLocalizations.of(context)!
                                       .translate(
-                                    Validator.validateName(
+                                    Validator.validateFirstName(
                                       value,
                                     ),
                                   );
@@ -105,9 +117,45 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   hintText: AppLocalizations.of(
                                     context,
                                   )!
-                                      .translate('Name Hint'),
+                                      .translate('First Name Hint'),
                                   labelText:
-                                      '${AppLocalizations.of(context)!.translate("Enter your name")}*',
+                                      '${AppLocalizations.of(context)!.translate("Enter your first name")}*',
+                                  labelStyle:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ),
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.015,
+                              ), //Input field for the last name of the user.
+                              TextFormField(
+                                key: const Key('LastNameInputField'),
+                                controller: model.lastName,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.text,
+                                autofillHints: const <String>[
+                                  AutofillHints.familyName,
+                                ],
+                                enableSuggestions: true,
+                                validator: (value) {
+                                  final String? msg =
+                                      Validator.validateLastName(
+                                    value!,
+                                  );
+                                  if (msg == null) {
+                                    return null;
+                                  }
+                                  return AppLocalizations.of(context)!
+                                      .translate(
+                                    Validator.validateLastName(value),
+                                  );
+                                },
+                                decoration: InputDecoration(
+                                  hintText: AppLocalizations.of(
+                                    context,
+                                  )!
+                                      .translate('Last Name Hint'),
+                                  labelText:
+                                      '${AppLocalizations.of(context)!.translate("Enter your last name")}*',
                                   labelStyle:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
