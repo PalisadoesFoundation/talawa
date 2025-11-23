@@ -119,6 +119,55 @@ jobs:
               return;
             }            
 
+            // Restrict /assign based on issue creator's permissions
+            // We don't want non repo members using the feature to 
+            // grab assignments from issues created by other non-members
+            if (isAssign) {
+              const issueCreator = issue.user.login;
+              
+              try {
+                // Get the issue creator's permission level in the repository
+                const { data: permissionData } = await github.rest.repos.getCollaboratorPermissionLevel({
+                  owner,
+                  repo,
+                  username: issueCreator,
+                });
+                
+                const permission = permissionData.permission;
+                console.log(`Issue creator ${issueCreator} has permission level: ${permission}`);
+                
+                // Map permission levels to associations:
+                // - admin = OWNER
+                // - maintain, write = COLLABORATOR/MEMBER
+                // - read, none = not allowed
+                const allowedPermissions = ['admin', 'maintain', 'write'];
+                
+                if (!allowedPermissions.includes(permission)) {
+                  await github.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number: issueNumber,
+                    body: `❌ @${user} The \`/assign\` feature is only available for issues created by repository collaborators, members, or owners. This issue was created by @${issueCreator} who does not have the required permissions.`,
+                  });
+                  console.log(`Denied /assign - Issue creator ${issueCreator} has insufficient permissions (${permission})`);
+                  return;
+                }
+                
+                console.log(`Issue created by ${issueCreator} who has sufficient repo permission (${permission}), to allowing the use of /assign for others.`);
+              } catch (error) {
+                console.error(`Error checking issue creator permissions for ${issueCreator}:`, error);
+                
+                // If we can't verify permissions, deny access for security
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `❌ @${user} Unable to verify issue creator permissions. The \`/assign\` feature requires the issue to be created by a repository collaborator, member, or owner.`,
+                });
+                return;
+              }
+            }            
+
             /**
             * NOTE
             *
