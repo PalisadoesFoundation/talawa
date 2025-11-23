@@ -119,55 +119,6 @@ jobs:
               return;
             }            
 
-            // Restrict /assign based on issue creator's permissions
-            // We don't want non repo members using the feature to 
-            // grab assignments from issues created by other non-members
-            if (isAssign) {
-              const issueCreator = issue.user.login;
-              
-              try {
-                // Get the issue creator's permission level in the repository
-                const { data: permissionData } = await github.rest.repos.getCollaboratorPermissionLevel({
-                  owner,
-                  repo,
-                  username: issueCreator,
-                });
-                
-                const permission = permissionData.permission;
-                console.log(`Issue creator ${issueCreator} has permission level: ${permission}`);
-                
-                // Map permission levels to associations:
-                // - admin = OWNER
-                // - maintain, write = COLLABORATOR/MEMBER
-                // - read, none = not allowed
-                const allowedPermissions = ['admin', 'maintain', 'write'];
-                
-                if (!allowedPermissions.includes(permission)) {
-                  await github.rest.issues.createComment({
-                    owner,
-                    repo,
-                    issue_number: issueNumber,
-                    body: `❌ @${user} The \`/assign\` feature is only available for issues created by repository collaborators, members, or owners. This issue was created by @${issueCreator} who does not have the required permissions.`,
-                  });
-                  console.log(`Denied /assign - Issue creator ${issueCreator} has insufficient permissions (${permission})`);
-                  return;
-                }
-                
-                console.log(`Issue created by ${issueCreator} who has sufficient repo permission (${permission}), to allowing the use of /assign for others.`);
-              } catch (error) {
-                console.error(`Error checking issue creator permissions for ${issueCreator}:`, error);
-                
-                // If we can't verify permissions, deny access for security
-                await github.rest.issues.createComment({
-                  owner,
-                  repo,
-                  issue_number: issueNumber,
-                  body: `❌ @${user} Unable to verify issue creator permissions. The \`/assign\` feature requires the issue to be created by a repository collaborator, member, or owner.`,
-                });
-                return;
-              }
-            }            
-
             /**
             * NOTE
             *
@@ -197,6 +148,32 @@ jobs:
             * OWNER
             * Author is the owner of the repository.
             */
+
+            // Restrict /assign based on issue creator's permissions
+            // We don't want non repo members using the feature to 
+            // grab assignments from issues created by other non-members
+            if (isAssign) {
+              const issueCreator = issue.user.login;
+              const issueCreatorAssociation = issue.author_association;
+              
+              console.log(`Issue #${issueNumber} creator ${issueCreator} has association: ${issueCreatorAssociation}`);
+              
+              // Only allow /assign on issues created by OWNER, MEMBER, COLLABORATOR or CONTRIBUTOR
+              const allowedAssociations = ['OWNER', 'MEMBER', 'COLLABORATOR', 'CONTRIBUTOR'];
+              
+              if (!allowedAssociations.includes(issueCreatorAssociation)) {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `❌ @${user} The \`/assign\` feature is only available for issues created by OWNER, MEMBER, COLLABORATOR or CONTRIBUTOR user associations. This issue was created by @${issueCreator} who has the association: ${issueCreatorAssociation}.`,
+                });
+                console.log(`Denied /assign for ${user} - Issue creator ${issueCreator} has insufficient association (${issueCreatorAssociation})`);
+                return;
+              }
+              
+              console.log(`Issue creator ${issueCreator} has sufficient association (${issueCreatorAssociation}), allowing /assign for ${user}`);
+            }
 
             // Log the type of user association
             console.log(`Commenting user ${user} is a ${association}`);
