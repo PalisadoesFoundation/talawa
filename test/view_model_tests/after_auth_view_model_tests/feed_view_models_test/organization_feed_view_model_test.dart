@@ -16,7 +16,6 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
@@ -39,11 +38,35 @@ void main() {
   tearDown(() {
     unregisterServices();
   });
+  test('setPosts sets posts, userPosts, and notifies listeners', () {
+    // Arrange
+
+    final viewModel = OrganizationFeedViewModel();
+    when(userConfig.currentUser).thenReturn(User(id: 'user1'));
+
+    final posts = [
+      Post(id: '1', caption: 'A', creator: User(id: 'user1')),
+      Post(id: '2', caption: 'B', creator: User(id: 'user2')),
+      Post(id: '3', caption: 'C', creator: User(id: 'user1')),
+      Post(id: '1', caption: 'A', creator: User(id: 'user1')), // duplicate
+    ];
+
+    // Act
+    viewModel.setPosts(posts);
+
+    // Assert
+    expect(viewModel.posts, posts);
+    // Only posts by user1, no duplicates
+    expect(viewModel.userPosts.length, 2);
+    expect(viewModel.userPosts[0].id, '3');
+    expect(viewModel.userPosts[1].id, '1');
+    expect(viewModel.isFetchingPosts, true);
+  });
 
   group('OrganizationFeedViewModel Tests:', () {
     test('Test initialise function', () {
       expect(model.currentOrgName, '');
-      model.initialise(isTest: true);
+      model.initialise();
       expect(model.currentOrgName, 'Organization Name');
 
       locator<UserConfig>()
@@ -53,22 +76,10 @@ void main() {
       expect(model.posts.length, 0);
     });
 
-    test('Test pinnedPosts getter when istest is true', () {
-      model.istest = true;
-
+    test('Test pinnedPosts getter when  is true', () {
       final pinnedPosts = model.pinnedPosts;
 
       expect(pinnedPosts, isEmpty);
-    });
-
-    test('Test pinnedPosts getter when istest is false', () {
-      model.istest = false;
-
-      final pinnedPosts = model.pinnedPosts;
-
-      expect(pinnedPosts.length, 4);
-
-      expect(pinnedPosts[0].sId, '1');
     });
 
     test('Test setCurrentOrganizationName function', () {
@@ -83,20 +94,8 @@ void main() {
       verify(locator<PostService>().refreshFeed());
     });
 
-    test('Test buildNewPosts function', () {
-      when(userConfig.currentUser).thenReturn(User(id: 'a'));
-      model.buildNewPosts([
-        Post(sId: '1', creator: User(id: 'a')),
-        Post(sId: '2', creator: User(id: 'a')),
-      ]);
-
-      expect(model.posts.length, 2);
-      expect(model.userPosts.length, 2);
-      verify(notifyListenerCallback());
-    });
-
     test('Test navigateToIndividualPage function', () {
-      final post = Post(sId: '1', creator: User());
+      final post = Post(id: '1', creator: User());
 
       model.navigateToIndividualPage(post);
 
@@ -108,21 +107,8 @@ void main() {
       );
     });
 
-    test('Test navigateToPinnedPostPage function', () {
-      model.navigateToPinnedPostPage();
-
-      final captured = verify(
-        (locator<NavigationService>() as MockNavigationService).pushScreen(
-          Routes.pinnedPostPage,
-          arguments: captureAnyNamed('arguments'),
-        ),
-      ).captured;
-
-      expect((captured[0] as List).length, 4);
-    });
-
     test('Test addNewPost function', () {
-      final post = Post(sId: '1', creator: User());
+      final post = Post(id: '1', creator: User());
 
       model.addNewPost(post);
 
@@ -131,12 +117,12 @@ void main() {
     });
 
     test('Test updatedPost function', () {
-      final post = Post(sId: '1', creator: User());
+      final post = Post(id: '1', creator: User());
       model.addNewPost(post);
 
       final updatedPost = Post(
-        sId: '1',
-        description: 'updated',
+        id: '1',
+        caption: 'updated',
         creator: User(),
       );
       model.updatedPost(updatedPost);
@@ -147,13 +133,13 @@ void main() {
   });
 
   test('Test removePost function', () async {
-    final post = Post(sId: '1', creator: User());
+    final post = Post(id: '1', creator: User());
     model.addNewPost(post);
     model.initialise();
 
     when(locator<PostService>().deletePost(post)).thenAnswer(
       (realInvocation) async => QueryResult(
-        options: QueryOptions(document: gql(PostQueries().removePost())),
+        options: QueryOptions(document: gql(PostQueries().deletePost())),
         data: {
           'test': 'data',
         },
@@ -161,7 +147,7 @@ void main() {
       ),
     );
 
-    await model.removePost(post);
+    await model.deletePost(post);
 
     expect(model.posts.isEmpty, true);
   });
@@ -172,5 +158,28 @@ void main() {
   test("test previousPage", () {
     model.previousPage();
     expect(model.posts.isEmpty, true);
+  });
+
+  test('navigateToPinnedPostPage calls pushScreen with pinned posts', () {
+    final navigationService = locator<NavigationService>();
+    final viewModel = OrganizationFeedViewModel();
+
+    // Set up pinned posts
+    final pinnedPosts = [
+      Post(id: '1', caption: 'Pinned 1'),
+      Post(id: '2', caption: 'Pinned 2'),
+    ];
+    viewModel.setPinnedPosts(pinnedPosts);
+
+    // Act
+    viewModel.navigateToPinnedPostPage();
+
+    // Assert
+    verify(
+      navigationService.pushScreen(
+        Routes.pinnedPostPage,
+        arguments: pinnedPosts,
+      ),
+    ).called(1);
   });
 }

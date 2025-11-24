@@ -30,7 +30,7 @@ class _EventInfoPageState extends State<EventInfoPage>
   void initState() {
     super.initState();
     // TabController length will depend on whether the user is the event creator
-    final bool isCreator = (widget.args["event"] as Event).creator!.id ==
+    final bool isCreator = (widget.args["event"] as Event).creator?.id ==
         userConfig.currentUser.id;
     final int tabCount = isCreator ? 3 : 2;
 
@@ -54,7 +54,7 @@ class _EventInfoPageState extends State<EventInfoPage>
       onModelReady: (model) => model.initialize(args: widget.args),
       builder: (context, model, child) {
         final bool isCreator = model.event.creator != null &&
-            model.event.creator!.id == userConfig.currentUser.id;
+            model.event.creator?.id == userConfig.currentUser.id;
 
         return Scaffold(
           appBar: AppBar(
@@ -103,9 +103,10 @@ class _EventInfoPageState extends State<EventInfoPage>
                 ),
                 floatingActionButton: _showFloatingActionButton
                     ? (model.event.creator != null &&
-                            model.event.creator!.id !=
+                            model.event.creator?.id !=
                                 userConfig.currentUser.id)
                         ? FloatingActionButton.extended(
+                            heroTag: "event_info_register_fab",
                             key: const Key("registerEventFloatingbtn"),
                             onPressed: () {
                               model.registerForEvent();
@@ -117,10 +118,11 @@ class _EventInfoPageState extends State<EventInfoPage>
                             ),
                           )
                         : FloatingActionButton(
+                            heroTag: "event_info_delete_fab",
                             onPressed: () {
                               (widget.args["exploreEventViewModel"]
                                       as ExploreEventsViewModel)
-                                  .deleteEvent(eventId: model.event.id!);
+                                  .deleteEvent(eventId: model.event.id ?? "");
                             },
                             foregroundColor:
                                 Theme.of(context).colorScheme.secondary,

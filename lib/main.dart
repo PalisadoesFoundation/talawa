@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as fs;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
@@ -11,7 +12,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/hive_manager.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
@@ -25,7 +25,19 @@ Future<void> main() async {
 
   await HiveManager.initializeHive(dir: dir);
 
-  setupLocator();
+  // Load environment variables from .env file
+  await dotenv.load(fileName: ".env").then((value) {
+    debugPrint("Environment variables loaded");
+    debugPrint(dotenv.get('API_URL'));
+  }).catchError((error) {
+    debugPrint("Error loading environment variables: $error");
+    throw Exception("Failed to load environment variables: $error");
+  });
+
+  await setupLocator();
+
+  final appConnectivity = locator<AppConnectivity>();
+  await appConnectivity.initialise();
 
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
@@ -72,9 +84,7 @@ class _MyAppState extends State<MyApp> {
   ///
   /// **returns**:
   ///   None
-
-// ignore: avoid_void_async
-  void initQuickActions() async {
+  Future<void> initQuickActions() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn &&
         userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
@@ -148,42 +158,4 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-}
-
-/// PageView is a scrollable list that works page by page.
-///
-/// DemoPageView is demo PageView of Talawa Mobile App.
-class DemoPageView extends StatelessWidget {
-  const DemoPageView({required Key key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return BaseView<DemoViewModel>(
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          title:
-              Text(AppLocalizations.of(context)!.strictTranslate('Demo Page')),
-        ),
-        body: Container(
-          child: Text(model.title),
-        ),
-      ),
-    );
-  }
-}
-
-/// ViewModel uses property-based data binding to establish a connection.
-///
-/// between the ViewModel and the View, and drives the View changes
-/// through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
-class DemoViewModel extends BaseModel {
-  /// Demo title to be used.
-  final String _title = "Title from the viewMode GSoC branch";
-
-  /// Getter function of the title.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `String`: title  of the model
-  String get title => _title;
 }

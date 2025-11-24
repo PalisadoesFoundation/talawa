@@ -100,6 +100,7 @@ lib/generated_plugin_registrant.dart
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/.cxx
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -267,3 +268,7 @@ node_modules/
 package-lock.json
 npm-debug.log
 yarn-error.log
+
+# Plugin related
+/lib/plugin/available/*
+!/lib/plugin/available/index.dart

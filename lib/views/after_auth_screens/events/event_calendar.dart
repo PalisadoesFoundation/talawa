@@ -42,22 +42,6 @@ class EventCalendar extends StatelessWidget {
           ),
           body: Column(
             children: [
-              // SizedBox(
-              //   height: 100,
-              //   // The SfDateRangePicker widget provides four different types of views to display.
-              //   //It can be assigned to the widget constructor by using the view property.
-              //   child: SfDateRangePicker(
-              //     view: DateRangePickerView.month,
-              //     controller: model.dateRangePickerController,
-              //     showNavigationArrow: true,
-              //     allowViewNavigation: false,
-              //     monthViewSettings: const DateRangePickerMonthViewSettings(
-              //       numberOfWeeksInView: 1,
-              //       dayFormat: 'EEE',
-              //     ),
-              //     onSelectionChanged: model.selectionChanged,
-              //   ),
-              // ),
               Expanded(
                 child: SfCalendar(
                   view: model.calendarView,
@@ -125,20 +109,18 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   eventsList.forEach((event) {
     DateTime startDate;
     DateTime endDate;
-    if (event.startDate!.contains('/')) {
-      startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
-    } else {
+    try {
       startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
+
+      endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
+    } catch (e) {
+      throw Exception(
+        'Invalid date format: ${event.startDate} or ${event.endDate}',
+      );
     }
 
-    if (event.endDate!.contains('/')) {
-      endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
-    } else {
-      endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
-    }
-    print("${event.startTime!}##############################");
-    final startTime = parseTime(event.startTime ?? '14:23:01');
-    final endTime = parseTime(event.endTime ?? '21:23:01');
+    final startTime = parseTime(event.startTime);
+    final endTime = parseTime(event.endTime);
 
     // adding appointments on the calender for event[index] date time.
     appointments.add(
@@ -147,7 +129,7 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
             .add(Duration(hours: startTime.hour, minutes: startTime.minute)),
         endTime:
             endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
-        subject: event.title!,
+        subject: event.name ?? 'No Name',
         color: colors[index % colors.length],
         location: event.location,
         id: event.id,
@@ -170,11 +152,9 @@ DateTime parseTime(String time) {
   try {
     return DateFormat('h:mm a', 'en_US').parse(time);
   } on FormatException {
-    print('Caught FormatException: $time');
     try {
       return DateFormat('Hms').parse(time);
     } catch (e) {
-      print('Caught error: $e');
       throw Exception('Invalid time format: $time');
     }
   }

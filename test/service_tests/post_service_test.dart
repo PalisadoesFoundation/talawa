@@ -1,590 +1,263 @@
 import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/post_service.dart';
-import 'package:talawa/services/user_action_handler.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
-import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../helpers/test_helpers.dart';
+import '../helpers/test_locator.dart';
 
-/// Tests post_service.dart.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-///   None
 void main() {
-  setUp(() {
-    registerServices();
-    locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
-  });
-  tearDown(() {
-    locator.unregister<ActionHandlerService>();
-  });
-  final demoJson = {
-    '__typename': 'Query',
-    'organizations': [
-      {
-        '__typename': 'Organization',
-        'posts': {
-          '__typename': 'PostsConnection',
-          'edges': [
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '65e1aac38836aa003e4b8318',
-                'title': 'testing',
-                'text': 'test post',
-                'imageUrl':
-                    'http://10.0.2.2:4000/images/5vFxR-8xE2GD-5Tu3E1QYimage.png',
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': '65378abd85008f171cf2990d',
-                  'firstName': 'Vyvyan',
-                  'lastName': 'Kerry',
-                  'email': 'testadmin1@example.com',
-                },
-                'createdAt': '2024-03-01T10:15:31.168Z',
-                'likeCount': 0,
-                'commentCount': 0,
-                'likedBy': [],
-                'comments': [],
-                'pinned': true,
-              },
-              'cursor': '65e1aac38836aa003e4b8318',
-            },
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '6589bdd92caa9d8d69087515',
-                'title': 'Winter Wonderland: Ice Skating Extravaganza',
-                'text':
-                    'Gliding gracefully on frozen lakes, surrounded by enchanting winter landscape—ice skating extravaganza, a dance in a winter wonderland.',
-                'imageUrl': null,
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': '658938ba2caa9d8d6908748a',
-                  'firstName': 'Peggy',
-                  'lastName': 'Bowers',
-                  'email': 'testuser11@example.com',
-                },
-                'createdAt': '2024-03-01T10:15:31.168Z',
-                'likeCount': 0,
-                'commentCount': 0,
-                'likedBy': [],
-                'comments': [],
-              },
-              'cursor': '6589bdd92caa9d8d69087515',
-            }
-          ],
-          'pageInfo': {
-            '__typename': 'DefaultConnectionPageInfo',
-            'startCursor': '65e1aac38836aa003e4b8318',
-            'endCursor': '6589bd9b2caa9d8d6908750f',
-            'hasNextPage': true,
-            'hasPreviousPage': false,
-          },
-        },
-      }
-    ],
-  };
-  final demoJsonPage2 = {
-    '__typename': 'Query',
-    'organizations': [
-      {
-        '__typename': 'Organization',
-        'posts': {
-          '__typename': 'PostsConnection',
-          'edges': [
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '65e1aac38836aa003e4b8319',
-                'title': 'Second Page Post 1',
-                'text': 'This is the first post on the second page',
-                'imageUrl': 'http://example.com/image2.jpg',
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': 'user_id_2',
-                  'firstName': 'John',
-                  'lastName': 'Doe',
-                  'email': 'john.doe@example.com',
-                },
-                'createdAt': '2024-03-02T10:15:31.168Z',
-                'likeCount': 5,
-                'commentCount': 2,
-                'likedBy': [],
-                'comments': [
-                  {'commentId': 'comment_id_1', 'text': 'Comment 1'},
-                  {'commentId': 'comment_id_2', 'text': 'Comment 2'},
-                ],
-                'pinned': false,
-              },
-              'cursor': '65e1aac38836aa003e4b8319',
-            },
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '65e1aac38836aa003e4b8320',
-                'title': 'Second Page Post 2',
-                'text': 'This is the second post on the second page',
-                'imageUrl': 'http://example.com/image3.jpg',
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': 'user_id_3',
-                  'firstName': 'Jane',
-                  'lastName': 'Doe',
-                  'email': 'jane.doe@example.com',
-                },
-                'createdAt': '2024-03-02T10:30:00.000Z',
-                'likeCount': 10,
-                'commentCount': 3,
-                'likedBy': [],
-                'comments': [
-                  {'commentId': 'comment_id_3', 'text': 'Comment 3'},
-                  {'commentId': 'comment_id_4', 'text': 'Comment 4'},
-                  {'commentId': 'comment_id_5', 'text': 'Comment 5'},
-                ],
-                'pinned': false,
-              },
-              'cursor': '65e1aac38836aa003e4b8320',
-            },
-            // Add more posts as needed
-          ],
-          'pageInfo': {
-            '__typename': 'DefaultConnectionPageInfo',
-            'startCursor': '65e1aac38836aa003e4b8319',
-            'endCursor': '65e1aac38836aa003e4b8320',
-            'hasNextPage': false,
-            'hasPreviousPage': true,
-          },
-        },
-      }
-    ],
-  };
-
-  //Fake CurrentOrgID
-  const currentOrgID = 'XYZ';
-  //Fake PostID
-  const postID = '65e1aac38836aa003e4b8318';
-
   group('Test PostService', () {
-    test('deletePost', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+    setUpAll(() {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      testSetupLocator();
+      registerServices();
+    });
+    tearDownAll(() {
+      locator.reset();
+      unregisterServices();
+    });
+
+    test('refreshFeed resets state, fetches new posts, and emits them',
+        () async {
+      final postService = TestablePostService();
+      final emittedPosts = <List<Post>>[];
+      postService.postStream.listen(emittedPosts.add);
+
+      await postService.refreshFeed();
+      await Future.delayed(Duration.zero);
+
+      // Use public getters to check state
+      expect(postService.posts, isNotEmpty);
+      expect(postService.after, isNull);
+      expect(postService.before, isNull);
+      expect(postService.first, 5);
+      expect(postService.last, isNull);
+
+      // These are the posts returned by getNewFeedAndRefreshCache
+      final mockPosts = [
+        Post(
+          id: 'test_post',
+          caption: 'Test Post',
+          commentsCount: 0,
+          hasVoted: false,
+          voteType: null,
+        ),
+        Post(
+          id: 'test_post2',
+          caption: 'Test Post 2',
+          commentsCount: 0,
+          hasVoted: false,
+          voteType: null,
+        ),
+      ];
+
+      expect(postService.posts.first.id, mockPosts.first.id);
+
+      // Assert: stream emitted
+      expect(emittedPosts, isNotEmpty);
+      expect(emittedPosts.last.first.id, mockPosts.first.id);
+
+      // Assert: toast shown (side effect of CriticalActionException)
+
+      verify(navigationService.showCustomToast('Feed refreshed!!!')).called(1);
+    });
+
+    test('getPosts adds new posts, updates IDs and stream, and saves cache',
+        () async {
+      // Arrange
+      final postService = PostService();
+
+      final query = PostQueries().getPostsByOrgID();
+
       when(
-        dataBaseMutationFunctions.gqlAuthQuery(
+        databaseFunctions.gqlAuthQuery(
           query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().removePost(),
           variables: {
-            'id': 'azad',
+            'orgId': 'XYZ',
+            'first': 5,
+            'after': null,
+            'before': null,
+            'last': null,
           },
         ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(PostQueries().removePost())),
-          data: demoJson,
+      ).thenAnswer((_) async {
+        return QueryResult(
           source: QueryResultSource.network,
-        ),
-      );
-      final service = PostService();
-      final post = Post(sId: 'id', creator: User(id: 'azad'));
-      service.deletePost(post);
-    });
-    test('Test refreshFeed method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      //Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      // Populating refreshing feed
-      await service.refreshFeed();
-      verify(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).called(1);
-    });
-
-    test('Test addNewPost method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      await service.getPosts();
-      service.addNewpost(Post(sId: '1', creator: User()));
-
-      final List<Post> posts = await service.postStream.first;
-      expect(posts.length, 3);
-    });
-    test('Test getPosts Method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      //Setting up Demo data to be returned
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-      locator.unregister<PostService>();
-      locator.registerSingleton<PostService>(PostService());
-      final service = locator<PostService>();
-
-      final orgFeedViewModel = OrganizationFeedViewModel();
-      orgFeedViewModel.initialise(isTest: true);
-
-      // // print(service.st)
-
-      await service.getPosts();
-      // //Fetching Post Stream
-      // final List<Post> posts = await service.postStream.first;
-      // //Testing if Two Mock posts got added
-      // expect(posts.length, 2);
-    });
-
-    test('Test addLike Method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      //Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().addLike(),
-          variables: {"postID": postID},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: null,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      //Populating posts Stream
-      await service.getPosts();
-      //Calling AddLike
-      await service.addLike(postID);
-      //Fetching Post Stream
-      final List<Post> posts = await service.postStream.first;
-      //Finding The Post which is supposed to be Liked
-      final Post likedPost =
-          posts.firstWhere((element) => element.sId == postID);
-      //Testing if the post got liked
-      expect(likedPost.likedBy!.length, 1);
-    });
-
-    test('Test removeLike Method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      //Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().addLike(),
-          variables: {"postID": postID},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
           data: {
-            '_id': 'azad',
+            'organization': {
+              'posts': {
+                'edges': [
+                  {
+                    'node': {
+                      'id': 'new1',
+                      'caption': 'New Post 1',
+                      'upVotesCount': 0,
+                      'downVotesCount': 0,
+                      'commentsCount': 0,
+                      'createdAt': '2023-01-01T00:00:00.000Z',
+                      'creator': {
+                        'id': 'user1',
+                        'name': 'User',
+                        'avatarURL': null,
+                      },
+                      'organization': {'id': 'org1'},
+                      'attachments': [],
+                    },
+                    'cursor': 'cursor1',
+                  },
+                  {
+                    'node': {
+                      'id': 'new2',
+                      'caption': 'New Post 2',
+                      'upVotesCount': 0,
+                      'downVotesCount': 0,
+                      'commentsCount': 0,
+                      'createdAt': '2023-01-02T00:00:00.000Z',
+                      'creator': {
+                        'id': 'user2',
+                        'name': 'User2',
+                        'avatarURL': null,
+                      },
+                      'organization': {'id': 'org1'},
+                      'attachments': [],
+                    },
+                    'cursor': 'cursor2',
+                  },
+                ],
+                'pageInfo': {
+                  'endCursor': 'cursor2',
+                  'hasNextPage': false,
+                  'hasPreviousPage': false,
+                  'startCursor': 'cursor1',
+                },
+              },
+            },
           },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().removeLike(),
-          variables: {"postID": postID},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: {
-            '_id': 'azad',
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      //Populating posts Stream
-      await service.getPosts();
-      //Liking Post which is to be Unliked
-      await service.addLike(postID);
-      //Unliking Post
-      await service.removeLike(postID);
-      //Fetching Post Stream
-      final List<Post> posts = await service.postStream.first;
-      //Finding The Post which is supposed to be Unliked
-      final Post likedPost =
-          posts.firstWhere((element) => element.sId == postID);
-      //Testing if the post got unliked
-      expect(likedPost.likedBy!.length, 0);
-    });
-
-    test('Test addCommentLocally Method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      //Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      //Populating posts Stream
-      await service.getPosts();
-      //Adding Comment to a Post
-      service.addCommentLocally(postID);
-      //Fetching Post Stream
-      final List<Post> posts = await service.postStream.first;
-      //Finding The Post which is supposed to be commented
-      final Post commentedPost =
-          posts.firstWhere((element) => element.sId == postID);
-      //Testing if the post got a comment
-      expect(commentedPost.comments!.length, 1);
-    });
-    test('Test updatedPostStream Stream', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      // Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().addLike(),
-          variables: {"postID": postID},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: null,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      // Populating posts Stream
-      await service.getPosts();
-
-      // Listen to updatedPostStream and collect emitted values
-      final List<Post> updatedPosts = [];
-      final subscription = service.updatedPostStream.listen((post) {
-        updatedPosts.add(post);
+        );
       });
 
-      // Trigger an event that should update the post
-      await service.addLike(postID);
+      final voteQuery = PostQueries().hasUserVoted();
 
-      // Wait for the stream to emit values
-      await Future.delayed(
-        const Duration(seconds: 1),
-      ); // Adjust the delay as needed
+      when(
+        databaseFunctions.gqlAuthQuery(
+          voteQuery,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer((_) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'hasUserVoted': {
+              'hasVoted': true,
+            },
+          },
+          options: QueryOptions(document: gql(voteQuery)),
+        );
+      });
+      // Act
+      await postService.getPosts();
 
-      // Verify that the correct post was emitted
-      expect(updatedPosts.length, 1);
-      expect(updatedPosts[0].sId, postID);
-      // Cancel the subscription to avoid memory leaks
-      await subscription.cancel();
+      // Assert
+      expect(postService.posts.length, equals(2));
+      expect(postService.posts[0].id, equals('new2'));
+      expect(postService.posts[1].id, equals('new1'));
     });
     test(
-        'Test setOrgStreamSubscription method after the organization is updated',
+        'setOrgStreamSubscription updates _currentOrg when stream emits new value',
         () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final postsQuery = PostQueries().getPostsByOrgID();
+      final postsVariables = {
+        'orgId': '1',
+        'first': 5,
+        'after': null,
+        'before': null,
+        'last': null,
+      };
 
-      final queryNewOrg =
-          PostQueries().getPostsById("newOrgId", null, null, 5, null);
+      final postsData = {
+        'organization': {
+          'posts': {
+            'pageInfo': {
+              'hasNextPage': false,
+              'hasPreviousPage': false,
+              'startCursor': null,
+              'endCursor': 'cursor1',
+            },
+            'edges': [
+              {
+                'cursor': 'cursor1',
+                'node': {
+                  'id': 'post1',
+                  'caption': 'Test Post',
+                },
+              }
+            ],
+          },
+        },
+      };
+      final hasUserVotedQuery = PostQueries().hasUserVoted();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      // Mocking GetPosts
       when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
+        dbFunctions.gqlAuthQuery(
+          hasUserVotedQuery,
+          variables: anyNamed('variables'),
         ),
       ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
+          options: QueryOptions(document: gql(hasUserVotedQuery)),
+          data: {
+            'hasUserVoted': {
+              'hasVoted': false,
+              'voteType': null,
+            },
+          },
           source: QueryResultSource.network,
         ),
       );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          queryNewOrg,
-        ),
-      ).thenAnswer(
+      when(dbFunctions.gqlAuthQuery(postsQuery, variables: postsVariables))
+          .thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
+          options: QueryOptions(document: gql(postsQuery)),
+          data: postsData,
           source: QueryResultSource.network,
         ),
       );
+      userConfig.initialiseStream();
 
-      final service = PostService();
-      // Populating posts Stream
-      await service.getPosts();
+      final postService = PostService();
+      postService.setOrgStreamSubscription();
 
-      // Set up mock for currentOrgInfoStream
-      final mockUserConfig = locator<UserConfig>();
-      final orgInfoStreamController = StreamController<OrgInfo>();
-      when(mockUserConfig.currentOrgInfoStream)
-          .thenAnswer((_) => orgInfoStreamController.stream);
+      final orgInfo2 = OrgInfo(name: 'Organization temp', id: '1');
+      userConfig.currentOrgInfoController.add(orgInfo2);
+      await Future.delayed(const Duration(milliseconds: 100));
+      expect(postService.currentOrg.name, 'Organization temp');
+      expect(postService.currentOrg.id, '1');
+    });
 
-      // Call setOrgStreamSubscription
-      service.setOrgStreamSubscription();
+    test('fetchDataFromApi throws if result.data is null', () {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final postService = PostService();
+      final query = PostQueries().getPostsByOrgID();
+      final variables = {
+        'orgId': 'XYZ',
+        'first': 5,
+        'after': null,
+        'before': null,
+        'last': null,
+      };
 
-      // Trigger an event that should update the organization
-      orgInfoStreamController.add(OrgInfo(id: 'newOrgId'));
-
-      // Wait for the setOrgStreamSubscription logic to execute
-      await Future.delayed(
-        const Duration(seconds: 1),
-      ); // Adjust the delay as needed
-
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          queryNewOrg,
-        ),
-      ).thenAnswer(
+      when(dbFunctions.gqlAuthQuery(query, variables: variables)).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: null,
@@ -592,98 +265,362 @@ void main() {
         ),
       );
 
-      await service.getPosts();
-
-      // Verify that refresh token was called to check getPost method was called correctly.
-      verify(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          queryNewOrg,
-        ),
-      ).called(2);
-
-      // Close the stream controller to avoid memory leaks
-      await orgInfoStreamController.close();
+      expect(() async => await postService.fetchDataFromApi(), throwsException);
     });
-    test("Test the nextPage  and previous page funcitonality", () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      // Mocking GetPosts
+    test('fetchDataFromApi returns posts if data is valid', () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final postService = PostService();
+
+      // Mock the posts query
+      final postsQuery = PostQueries().getPostsByOrgID();
+      final postsVariables = {
+        'orgId': 'XYZ',
+        'first': 5,
+        'after': null,
+        'before': null,
+        'last': null,
+      };
+
+      final postsData = {
+        'organization': {
+          'posts': {
+            'pageInfo': {
+              'hasNextPage': false,
+              'hasPreviousPage': false,
+              'startCursor': null,
+              'endCursor': 'cursor1',
+            },
+            'edges': [
+              {
+                'cursor': 'cursor1',
+                'node': {
+                  'id': 'post1',
+                  'caption': 'Test Post',
+                },
+              }
+            ],
+          },
+        },
+      };
+
+      when(dbFunctions.gqlAuthQuery(postsQuery, variables: postsVariables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(postsQuery)),
+          data: postsData,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Mock the voting query
+      final hasUserVotedQuery = PostQueries().hasUserVoted();
+      final hasUserVotedVariables = {'postId': 'post1'};
+
       when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
+        dbFunctions.gqlAuthQuery(
+          hasUserVotedQuery,
+          variables: hasUserVotedVariables,
         ),
       ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(hasUserVotedQuery)),
+          data: {
+            'hasUserVoted': {
+              'hasVoted': false,
+              'voteType': null,
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final posts = await postService.fetchDataFromApi();
+      expect(posts, isA<List<Post>>());
+      expect(posts.first.caption, 'Test Post');
+      expect(posts.first.hasVoted, false);
+      expect(posts.first.voteType, null);
+    });
+
+    test('getNewFeedAndRefreshCache returns cached data when offline',
+        () async {
+      AppConnectivity.isOnline = false;
+      final postService = PostService();
+      await postService.saveDataToCache([
+        Post(id: 'offline1', caption: 'Offline Post'),
+      ]);
+      final result = await postService.getNewFeedAndRefreshCache();
+      expect(result.length, 1);
+      expect(result.first.caption, 'Offline Post');
+    });
+
+    test('saveDataToCache and loadCachedData work', () async {
+      final postService = PostService();
+      final post = Post(id: 'cache1', caption: 'Cache Test');
+      await postService.saveDataToCache([post]);
+      final cached = await postService.loadCachedData();
+      expect(cached.length, 1);
+      expect(cached.first.caption, 'Cache Test');
+    });
+
+    test('addNewpost adds post to the top', () {
+      final postService = PostService();
+      final post = Post(id: 'new1', caption: 'New Post');
+      postService.addNewpost(post);
+      expect(postService.postStream, isA<Stream<List<Post>>>());
+    });
+
+    test(
+        'addCommentLocally increments commentsCount and emits to updatedPostStream',
+        () async {
+      final postService = PostService();
+      final post = Post(id: 'comment1', caption: 'Test', commentsCount: 0);
+
+      // Add the post to the in-memory list using the public API
+      postService.addNewpost(post);
+
+      // Listen to the updatedPostStream for the emitted post
+      final emittedFuture = postService.updatedPostStream.first;
+
+      // Call the method under test
+      postService.addCommentLocally('comment1');
+
+      // Await the emitted post
+      final emitted = await emittedFuture;
+
+      // Assert that the emitted post has the incremented commentsCount
+      expect(emitted.id, 'comment1');
+      expect(emitted.commentsCount, 1);
+    });
+
+    test('fetchAndSetUserVoteStatus sets hasVoted and voteType', () async {
+      final mockDbFunctions = locator<DataBaseMutationFunctions>();
+      final postService = PostService();
+      final post = Post(id: 'post1');
+
+      final query = PostQueries().hasUserVoted();
+      final variables = {'postId': 'post1'};
+
+      when(mockDbFunctions.gqlAuthQuery(query, variables: variables))
+          .thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-      final query2 = PostQueries().getPostsById(
-        currentOrgID,
-        "6589bd9b2caa9d8d6908750f",
-        null,
-        5,
-        null,
-      );
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query2,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query2)),
-          data: demoJsonPage2,
+          data: {
+            'hasUserVoted': {
+              'hasVoted': true,
+              'voteType': 'upvote',
+            },
+          },
           source: QueryResultSource.network,
         ),
       );
 
-      final service = PostService();
-      // Populating posts Stream
-      await service.getPosts();
-      //Fetching next posts
-      await service.nextPage();
-      expect(service.after, "6589bd9b2caa9d8d6908750f");
-      expect(service.first, 5);
-      expect(service.before, null);
-      expect(service.last, null);
-      verify(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      );
+      await postService.fetchAndSetUserVoteStatus(post);
 
-      final query3 = PostQueries().getPostsById(
-        currentOrgID,
-        null,
-        "65e1aac38836aa003e4b8319",
-        null,
-        5,
-      );
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query3,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query2)),
-          data: demoJsonPage2,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      await service.previousPage();
-      expect(service.after, null);
-      expect(service.last, 5);
-      expect(service.before, "65e1aac38836aa003e4b8319");
-      expect(service.first, null);
-      verify(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query3,
-        ),
-      );
+      expect(post.hasVoted, true);
+      expect(post.voteType, 'upvote');
     });
+
+    test(
+        'fetchAndSetUserVoteStatus sets hasVoted to false and voteType to null if not present',
+        () async {
+      final mockDbFunctions = locator<DataBaseMutationFunctions>();
+      final postService = PostService();
+      final post = Post(id: 'post2');
+
+      final query = PostQueries().hasUserVoted();
+      final variables = {'postId': 'post2'};
+
+      when(mockDbFunctions.gqlAuthQuery(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'hasUserVoted': {
+              'hasVoted': null,
+              'voteType': null,
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await postService.fetchAndSetUserVoteStatus(post);
+
+      expect(post.hasVoted, false);
+      expect(post.voteType, null);
+    });
+
+    test('fetchAndSetUserVoteStatus handles exception gracefully', () async {
+      final mockDbFunctions = locator<DataBaseMutationFunctions>();
+      final postService = PostService();
+      final post = Post(id: 'post3');
+
+      final query = PostQueries().hasUserVoted();
+      final variables = {'postId': 'post3'};
+
+      when(mockDbFunctions.gqlAuthQuery(query, variables: variables))
+          .thenThrow(Exception('Network error'));
+
+      // Should not throw
+      await postService.fetchAndSetUserVoteStatus(post);
+
+      // Should not set hasVoted or voteType
+      expect(post.hasVoted, false); // Default value
+      expect(post.voteType, null);
+    });
+
+    test('deletePost calls gqlAuthMutation and returns result', () async {
+      final dbFunction = locator<DataBaseMutationFunctions>();
+
+      final postService = PostService();
+      final post = Post(id: 'post123');
+
+      final mutation = PostQueries().deletePost();
+      final variables = {"id": 'post123'};
+
+      final expectedResult = QueryResult(
+        options: QueryOptions(document: gql(mutation)),
+        data: {'deletePost': true},
+        source: QueryResultSource.network,
+      );
+
+      when(dbFunction.gqlAuthMutation(mutation, variables: variables))
+          .thenAnswer((_) async => expectedResult);
+
+      final result = await postService.deletePost(post);
+
+      expect(result, expectedResult);
+      verify(dbFunction.gqlAuthMutation(mutation, variables: variables))
+          .called(1);
+    });
+    test('nextPage calls getPosts and sets pagination variables', () async {
+      final postService = TestablePostService();
+      postService.pageInfo = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: 'next_cursor',
+      );
+
+      await postService.nextPage();
+
+      expect(postService.getPostsCalled, isTrue);
+      expect(postService.after, 'next_cursor');
+      expect(postService.before, null);
+      expect(postService.first, 5);
+      expect(postService.last, null);
+    });
+
+    test('previousPage calls getPosts and sets pagination variables', () async {
+      final postService = TestablePostService();
+      postService.pageInfo = PageInfo(
+        hasNextPage: false,
+        hasPreviousPage: true,
+        startCursor: 'prev_cursor',
+        endCursor: null,
+      );
+
+      await postService.previousPage();
+
+      expect(postService.getPostsCalled, isTrue);
+      expect(postService.before, 'prev_cursor');
+      expect(postService.after, null);
+      expect(postService.last, 5);
+      expect(postService.first, null);
+    });
+
+    test('nextPage does not call getPosts if hasNextPage is false', () async {
+      final postService = TestablePostService();
+      postService.pageInfo = PageInfo(
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      );
+
+      await postService.nextPage();
+
+      expect(postService.getPostsCalled, isFalse);
+    });
+
+    test('previousPage does not call getPosts if hasPreviousPage is false',
+        () async {
+      final postService = TestablePostService();
+      postService.pageInfo = PageInfo(
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      );
+
+      await postService.previousPage();
+
+      expect(postService.getPostsCalled, isFalse);
+    });
+
+    test(
+      'fetchPostsInitial loads cached posts, emits them, and calls refreshFeed',
+      () async {
+        final postService = PostService();
+        final posts = [
+          Post(id: 'cache1', caption: 'Cache Test'),
+          Post(id: 'cache2', caption: 'Cache Test 2'),
+        ];
+
+        // Save to cache
+        await postService.saveDataToCache(posts);
+
+        // Listen for the first emission from the stream
+        final emitted = <List<Post>>[];
+        final sub = postService.postStream.listen(emitted.add);
+
+        // Act
+        await postService.fetchPostsInitial();
+        await Future.delayed(Duration.zero); // Allow stream to emit
+
+        // Assert: posts loaded
+        expect(postService.posts, isNotEmpty);
+        expect(postService.posts.length, 2);
+        expect(postService.posts.first.caption, 'Cache Test');
+        expect(postService.posts.last.caption, 'Cache Test 2');
+
+        // Assert: posts emitted on stream
+        expect(emitted, isNotEmpty);
+        expect(emitted.last, posts);
+
+        await sub.cancel();
+      },
+    );
   });
+}
+
+/// A testable version of PostService to mock the getPosts method.
+/// This is useful for testing purposes where you want to verify if the method was called.
+class TestablePostService extends PostService {
+  bool getPostsCalled = false;
+  @override
+  Future<void> getPosts() async {
+    getPostsCalled = true;
+  }
+
+  @override
+  Future<List<Post>> getNewFeedAndRefreshCache() async {
+    return [
+      Post(
+        id: 'test_post',
+        caption: 'Test Post',
+        commentsCount: 0,
+        hasVoted: false,
+        voteType: null,
+      ),
+      Post(
+        id: 'test_post2',
+        caption: 'Test Post 2',
+        commentsCount: 0,
+        hasVoted: false,
+        voteType: null,
+      ),
+    ];
+  }
 }

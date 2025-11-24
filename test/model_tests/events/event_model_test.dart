@@ -4,6 +4,8 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+import '../../helpers/test_json_utils.dart';
+
 final User user1 = User(id: "fakeUser1");
 final User user2 = User(id: "fakeUser2");
 final List<User> users = [user1, user2];
@@ -11,24 +13,19 @@ final List<User> users = [user1, user2];
 final event = Event(
   creator: User(
     id: '123',
-    firstName: 'Ayush',
-    lastName: 'Chaudhary',
+    name: 'Ayush Chaudhary',
     email: 'test@test.com',
   ),
   id: '12',
-  title: 'for test only',
+  name: 'for test only',
   description: 'for test only',
   location: 'for test only',
   recurring: false,
   allDay: false,
-  startDate: 'for test only',
-  endDate: 'for test only',
-  startTime: 'for test only',
-  endTime: 'for test only',
   isPublic: true,
   isRegistered: true,
   isRegisterable: true,
-  organization: OrgInfo(admins: users),
+  organization: OrgInfo(),
   admins: users,
   attendees: [
     Attendee(
@@ -96,13 +93,13 @@ final eventJson = {
 void main() {
   group('Test Event Model', () {
     test('Test Event ', () {
-      final eventFromJson = Event.fromJson(eventJson);
+      final eventFromJson = TestJsonUtils.createEventFromJson(eventJson);
 
       expect(event.creator?.id, eventFromJson.creator?.id);
       expect(event.creator?.firstName, eventFromJson.creator?.firstName);
       expect(event.creator?.lastName, eventFromJson.creator?.lastName);
       expect(event.creator?.email, eventFromJson.creator?.email);
-      expect(event.title, eventFromJson.title);
+      expect(event.name, eventFromJson.name);
       expect(event.id, eventFromJson.id);
       expect(event.description, eventFromJson.description);
       expect(event.attendees?[0].id, eventFromJson.attendees?[0].id);
@@ -146,7 +143,7 @@ void main() {
           isNotNull,
         ); // Check that the fetched event is not null
         expect(fetchedEvent.id, event.id);
-        expect(fetchedEvent.title, event.title);
+        expect(fetchedEvent.name, event.name);
         expect(fetchedEvent.description, event.description);
         expect(fetchedEvent.location, event.location);
         expect(fetchedEvent.recurring, event.recurring);

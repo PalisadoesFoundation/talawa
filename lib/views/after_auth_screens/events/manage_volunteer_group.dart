@@ -32,7 +32,7 @@ class ManageGroupScreen extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Theme.of(context).primaryColor,
             title: Text(
-              group.name!,
+              group.name ?? 'N/A',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -125,7 +125,7 @@ class ManageGroupScreen extends StatelessWidget {
                             return ListTile(
                               key: const Key("volunteers"),
                               title: Text(
-                                '${volunteer.user!.firstName} ${volunteer.user!.lastName}',
+                                '${volunteer.user?.firstName} ${volunteer.user?.lastName}',
                                 style: const TextStyle(
                                   color: Colors.blue,
                                   fontSize: 16,
@@ -152,7 +152,7 @@ class ManageGroupScreen extends StatelessWidget {
                                     ),
                                     onPressed: () {
                                       model.removeVolunteerFromGroup(
-                                        volunteer.id!,
+                                        volunteer.id ?? '',
                                       );
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -246,7 +246,7 @@ class ManageGroupScreen extends StatelessWidget {
                             },
                           );
                           if (confirm == true) {
-                            await model.deleteVolunteerGroup(group.id!);
+                            await model.deleteVolunteerGroup(group.id ?? '');
                             if (context.mounted) {
                               Navigator.pop(context, true);
                             }
@@ -289,7 +289,9 @@ class ManageGroupScreen extends StatelessWidget {
     final int pending = model.volunteers
         .where((volunteer) => volunteer.response == null)
         .length;
-    final int needed = group.volunteersRequired! - accepted;
+    final int needed = group.volunteersRequired != null
+        ? (group.volunteersRequired! - accepted)
+        : 0;
 
     return Container(
       padding: const EdgeInsets.all(12.0),
@@ -384,7 +386,7 @@ class ManageGroupScreen extends StatelessWidget {
                 if (newName.isNotEmpty && newVolunteersRequired > 0) {
                   await model.updateVolunteerGroup(
                     group,
-                    event.id!,
+                    event.id ?? '',
                     newName,
                     newVolunteersRequired,
                   );
@@ -454,8 +456,8 @@ class ManageGroupScreen extends StatelessWidget {
                                 if (member.value) {
                                   await model.addVolunteerToGroup(
                                     member.key,
-                                    event.id!,
-                                    group.id!,
+                                    event.id ?? '',
+                                    group.id ?? '',
                                   );
                                 }
                               }
@@ -488,14 +490,17 @@ class ManageGroupScreen extends StatelessWidget {
                                             .colorScheme
                                             .primary,
                                         title: Text(
-                                          "${members[index].firstName!} ${members[index].lastName!}",
+                                          "${members[index].firstName} ${members[index].lastName}",
                                         ),
                                         value: model.memberCheckedMap[
                                             members[index].id],
                                         onChanged: (val) {
                                           setState(() {
-                                            model.memberCheckedMap[
-                                                members[index].id!] = val!;
+                                            final memberId = members[index].id;
+                                            if (memberId != null) {
+                                              model.memberCheckedMap[memberId] =
+                                                  val ?? false;
+                                            }
                                           });
                                         },
                                       );

@@ -115,18 +115,19 @@ class ExploreEventsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> checkIfExistsAndAddNewEvents(List<Event> newEvents) async {
-    // Check if the event is unique and belongs to the current organization
-    newEvents.forEach((newEvent) {
+    for (final newEvent in newEvents) {
       if (!_uniqueEventIds.contains(newEvent.id) &&
-          newEvent.organization!.id == userConfig.currentOrg.id) {
-        _uniqueEventIds.add(newEvent.id!);
+          newEvent.organization?.id == userConfig.currentOrg.id) {
+        _uniqueEventIds.add(newEvent.id ?? '');
         _events.insert(0, newEvent);
       }
+      // Insert if creator is null or matches current user
       if (!_userEvents.any((event) => event.id == newEvent.id) &&
-          newEvent.creator!.id == userConfig.currentUser.id) {
+          (newEvent.creator == null ||
+              newEvent.creator?.id == userConfig.currentUser.id)) {
         _userEvents.insert(0, newEvent);
       }
-    });
+    }
     notifyListeners();
   }
 
@@ -151,7 +152,7 @@ class ExploreEventsViewModel extends BaseModel {
           await actionHandlerService.performAction(
             actionType: ActionType.critical,
             criticalActionFailureMessage: TalawaErrors.eventDeletionFailed,
-            action: () async {
+            action: () {
               Future<QueryResult<Object?>>? result;
               result = _eventService.deleteEvent(eventId);
               return result;
@@ -165,7 +166,7 @@ class ExploreEventsViewModel extends BaseModel {
               navigationService.pop(); // Dismiss progress dialog
               setState(ViewState.idle);
             },
-            updateUI: () async {
+            updateUI: () {
               navigationService
                   .pop(); // Ensure progress dialog is popped in case of error
             },
