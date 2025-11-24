@@ -154,8 +154,26 @@ jobs:
             // grab assignments from issues created by other non-members
             if (isAssign) {
               const issueCreator = issue.user.login;
-              const issueCreatorAssociation = issue.author_association;
-              
+              let issueCreatorAssociation;
+
+              // Fetch author_association via REST API since it's no longer in event payload
+              try {
+                const issueDetails = await github.rest.issues.get({
+                  owner,
+                  repo,
+                  issue_number: issueNumber
+                });                
+                issueCreatorAssociation = issueDetails.data.author_association; 
+              } catch (error) {
+                console.error(`Error fetching issue details for #${issueNumber}:`, error);
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `❌ Failed to verify issue permissions. Please contact a maintainer or try again later.`,
+                });
+                return;
+              }           
               console.log(`Issue #${issueNumber} creator ${issueCreator} has association: ${issueCreatorAssociation}`);
               
               // Only allow /assign on issues created by OWNER, MEMBER, COLLABORATOR or CONTRIBUTOR
