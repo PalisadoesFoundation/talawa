@@ -135,7 +135,7 @@ void main() {
       );
     });
 
-    test("error in crop image", () {
+    test("error in crop image", () async {
       const path = "test";
       final fakefile = File(path);
       when(

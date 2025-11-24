@@ -29,20 +29,27 @@ Event getTestEvent({
 }) {
   return Event(
     id: "1",
-    name: "test_event",
+    title: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      name: "ravidi shaikh",
+      firstName: "ravidi",
+      lastName: "shaikh",
     ),
     isPublic: isPublic,
+    startDate: "00/00/0000",
+    endDate: "12/12/9999",
+    startTime: "00:00",
+    endTime: "24:00",
     location: "iitbhu, varanasi",
     description: "test_event_description",
     admins: [
       User(
-        name: "ravidi_admin_one shaikh_admin_one",
+        firstName: "ravidi_admin_one",
+        lastName: "shaikh_admin_one",
       ),
       User(
-        name: "ravidi_admin_two shaikh_admin_two",
+        firstName: "ravidi_admin_two",
+        lastName: "shaikh_admin_two",
       ),
     ],
     attendees: [

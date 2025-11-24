@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -7,11 +10,8 @@ import 'package:talawa/widgets/event_card.dart';
 /// This class returns a list of the events which match the search query.
 class EventSearch extends SearchDelegate<Event> {
   EventSearch({required this.eventList, required this.exploreEventsViewModel});
-
-  /// The model that contains the logic for exploring events.
   ExploreEventsViewModel exploreEventsViewModel;
 
-  /// List of events.
   final List<Event> eventList;
 
   @override
@@ -53,20 +53,13 @@ class EventSearch extends SearchDelegate<Event> {
     /// toList( ) method is used to convert an Iterable to a List.
     /// toLowerCase() converts all characters in a string to lower case.
     final suggestions = eventList.where((event) {
-      final eventLowerCase = event.name!.toLowerCase();
+      final eventLowerCase = event.title!.toLowerCase();
       final queryLowerCase = query.toLowerCase();
       return eventLowerCase.startsWith(queryLowerCase);
     }).toList();
     return buildSuggestionsSucess(suggestions);
   }
 
-  /// Builds the suggestion success widget.
-  ///
-  /// **params**:
-  /// * `suggestions`: The list of event suggestions to display.
-  ///
-  /// **returns**:
-  /// * `Widget`: The widget displaying the suggestions.
   Widget buildSuggestionsSucess(List<Event> suggestions) {
     /// Takes a List of Events as parameter which is passed by the "buildSuggestions" function.
     /// Returns a SingleChildScrollView of the events from the list.
@@ -78,8 +71,8 @@ class EventSearch extends SearchDelegate<Event> {
         itemCount: suggestions.length,
         itemBuilder: (BuildContext context, int index) {
           final highlightedText =
-              suggestions[index].name!.substring(0, query.length);
-          final normalText = suggestions[index].name!.substring(query.length);
+              suggestions[index].title!.substring(0, query.length);
+          final normalText = suggestions[index].title!.substring(query.length);
 
           /// Returns a widget that detects gestures.
           /// Defers to its child for its sizing behavior.

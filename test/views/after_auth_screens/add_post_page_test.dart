@@ -61,27 +61,32 @@ Widget createAddPostScreen({
   String? dialogTitle,
   bool passSecondaryFunc = true,
 }) {
-  return const MaterialApp(
+  return MaterialApp(
     navigatorObservers: [],
-    locale: Locale('en'),
+    locale: const Locale('en'),
     supportedLocales: [
-      Locale('en', 'US'),
-      Locale('es', 'ES'),
-      Locale('fr', 'FR'),
-      Locale('hi', 'IN'),
-      Locale('zh', 'CN'),
-      Locale('de', 'DE'),
-      Locale('ja', 'JP'),
-      Locale('pt', 'PT'),
+      const Locale('en', 'US'),
+      const Locale('es', 'ES'),
+      const Locale('fr', 'FR'),
+      const Locale('hi', 'IN'),
+      const Locale('zh', 'CN'),
+      const Locale('de', 'DE'),
+      const Locale('ja', 'JP'),
+      const Locale('pt', 'PT'),
     ],
     localizationsDelegates: [
-      AppLocalizationsDelegate(isTest: true),
+      const AppLocalizationsDelegate(isTest: true),
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
     ],
     home: Scaffold(
-      body: AddPost(),
+      /// MainScreenViewModel.scaffoldKey.currentState will return null
+      /// until and unless their is another widget with the same global key
+      key: MainScreenViewModel.scaffoldKey,
+      body: AddPost(
+        drawerKey: MainScreenViewModel.scaffoldKey,
+      ),
     ),
   );
 }

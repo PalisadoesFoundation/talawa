@@ -38,7 +38,7 @@ Widget createHomeScreen({required bool demoMode}) {
   );
 }
 
-void main() {
+void main() async {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
@@ -53,7 +53,7 @@ void main() {
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      final menuButton = find.byIcon(Icons.menu).first;
+      final menuButton = find.byIcon(Icons.menu);
 
       await tester.tap(menuButton);
       await tester.pumpAndSettle();

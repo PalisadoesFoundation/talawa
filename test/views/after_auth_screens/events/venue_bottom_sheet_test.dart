@@ -155,31 +155,5 @@ void main() {
         expect(find.byType(VenueCard), findsNWidgets(venues.length));
       });
     });
-
-    testWidgets('GestureDetector unfocuses on tap', (tester) async {
-      await mockNetworkImagesFor(() async {
-        await tester.pumpWidget(createVenueBottomSheet(venues));
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.byIcon(Icons.search));
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.byType(TextField));
-        await tester.pumpAndSettle();
-
-        final textFieldElement = tester.element(find.byType(TextField));
-        expect(FocusScope.of(textFieldElement).hasFocus, isTrue);
-
-        final gestureDetector = tester.widget<GestureDetector>(
-          find.byKey(const Key('gestureDetector1')),
-        );
-        expect(gestureDetector.onTap, isNotNull);
-
-        gestureDetector.onTap!();
-        await tester.pumpAndSettle();
-
-        expect(FocusScope.of(textFieldElement).hasPrimaryFocus, isFalse);
-      });
-    });
   });
 }

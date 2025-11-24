@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
@@ -28,10 +29,11 @@ class ActionHandlerService {
   }) async {
     try {
       final result = await action();
+      print(result);
       if (result == null || result.data == null) return null;
 
       if (result.isConcrete && result.source != QueryResultSource.cache) {
-        await onValidResult?.call(result);
+        await onValidResult!(result);
       }
       return true;
     } catch (e) {
@@ -63,7 +65,7 @@ class ActionHandlerService {
     Future<void> Function(Exception e)? onActionException,
     void Function()? updateUI,
     void Function()? apiCallSuccessUpdateUI,
-    String criticalActionFailureMessage = TalawaErrors.userActionNotSaved,
+    String? criticalActionFailureMessage = TalawaErrors.userActionNotSaved,
     Future<void> Function()? onActionFinally,
   }) async {
     bool? success;
@@ -93,7 +95,7 @@ class ActionHandlerService {
       } else {
         updateUI?.call();
         GraphqlExceptionResolver.encounteredExceptionOrError(
-          CriticalActionException(criticalActionFailureMessage),
+          CriticalActionException(criticalActionFailureMessage!),
         );
       }
     }

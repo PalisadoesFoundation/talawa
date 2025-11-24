@@ -3,7 +3,7 @@ class EventQueries {
   /// Fetches events by organization ID.
   ///
   /// **params**:
-  ///   None
+  /// * `orgId`: The ID of the organization to fetch events for.
   ///
   /// **returns**:
   /// * `String`: Returns a GraphQL query string to fetch events associated with the specified organization ID.
@@ -11,41 +11,49 @@ class EventQueries {
   /// This function generates a GraphQL query string to retrieve events
   /// based on the provided organization ID.
 
-  String fetchOrgEvents() {
-    return '''
-      query GetEventsByOrgID(
-        \$orgId: String!,
-        \$first: Int,
-        \$after: String
-      ) {
-        organization(input: { id: \$orgId }) {
-          events(first: \$first, after: \$after) {
-            edges {
-              node {
-                id
-                name
-                description
-                startAt
-                endAt
-                allDay
-                location
-                isPublic
-                isRegisterable
-                organization{
-                  id
-                  name
-                }
-              }
-              cursor
-            }
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-          }
-        }
+  String fetchOrgEvents(String orgId) {
+    return """
+      query {
+        eventsByOrganizationConnection(
+      where: {
+        organization_id: "$orgId"
       }
-    ''';
+    ) {
+      _id
+      organization {
+        _id
+        image
+      }
+      title
+      description
+      isPublic
+      isRegisterable
+      recurring
+      startDate
+      endDate
+      allDay
+      startTime
+      endTime
+      location
+      creator {
+        _id
+        firstName
+        lastName
+      }
+      admins {
+        _id
+        firstName
+        lastName
+      } 
+      attendees {
+        _id
+        firstName
+        lastName
+        image
+      }
+    }
+      }
+    """;
   }
 
   /// Fetches attendees by event ID.
@@ -149,7 +157,7 @@ class EventQueries {
   /// The mutation updates the event details and returns the ID, title, and description
   /// of the updated event.
   String updateEvent({
-    String? eventId,
+    eventId,
   }) {
     return """mutation updateEvent( 
         \$title:String!,

@@ -120,12 +120,6 @@ def _check_for_ignore_directive(filePath):
     ):
         return False
 
-    # Allow talawa_good_doc_comments ignore in barrel files (index.dart)
-    # Barrel files should only contain exports and may need to suppress
-    # doc linting for organizational purposes
-    if filePath == "lib/plugin/index.dart":
-        return False
-
     with open(filePath, "r") as file:
         lines = file.readlines()
 

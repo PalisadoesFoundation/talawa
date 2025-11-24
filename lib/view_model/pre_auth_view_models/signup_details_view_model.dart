@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -7,6 +8,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -22,7 +24,7 @@ class SignupDetailsViewModel extends BaseModel {
   late List<Map<String, dynamic>> greeting;
 
   /// Represents information about the selected organization.
-  late OrgInfo selectedOrganization;
+  late OrgInfo? selectedOrganization;
 
   /// Secure local storage instance.
   FlutterSecureStorage secureStorage = const FlutterSecureStorage();
@@ -30,8 +32,11 @@ class SignupDetailsViewModel extends BaseModel {
   /// TextEditingController for handling confirmation password input field.
   TextEditingController confirmPassword = TextEditingController();
 
-  /// TextEditingController for handling name input field.
-  TextEditingController name = TextEditingController();
+  /// TextEditingController for handling first name input field.
+  TextEditingController firstName = TextEditingController();
+
+  /// TextEditingController for handling last name input field.
+  TextEditingController lastName = TextEditingController();
 
   /// TextEditingController for handling password input field.
   TextEditingController password = TextEditingController();
@@ -55,7 +60,7 @@ class SignupDetailsViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void initialise(OrgInfo org) {
+  void initialise(OrgInfo? org) {
     selectedOrganization = org;
     // greeting message
     greeting = [
@@ -133,12 +138,31 @@ class SignupDetailsViewModel extends BaseModel {
             ),
           );
           databaseFunctions.init();
-          final String query = queries.registerUser(
-            name.text,
-            email.text,
-            password.text,
-            selectedOrganization.id,
-          );
+          print("heelo");
+          print(selectedOrganization?.id);
+          final String query;
+          if (selectedOrganization != null) {
+            query = queries.registerUser(
+              firstName.text,
+              lastName.text,
+              email.text,
+              Encryptor.encryptString(
+                password.text,
+              ),
+              selectedOrganization?.id,
+            );
+          } else {
+            query = queries.registerUser(
+              firstName.text,
+              lastName.text,
+              email.text,
+              Encryptor.encryptString(
+                password.text,
+              ),
+              null,
+            );
+          }
+
           final result = await databaseFunctions.gqlNonAuthMutation(query);
           navigationService.pop();
           return result;
@@ -149,36 +173,71 @@ class SignupDetailsViewModel extends BaseModel {
               result.data!['signUp'] as Map<String, dynamic>,
             );
             final bool userSaved = await userConfig.updateUser(signedInUser);
-            graphqlConfig.getToken();
+            final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
             // if user successfully saved and access token is also generated.
-            if (userSaved &&
-                userConfig.currentUser.joinedOrganizations != null &&
-                userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
-              userConfig.saveCurrentOrgInHive(
-                userConfig.currentUser.joinedOrganizations![0],
-              );
-              navigationService.removeAllAndPush(
-                Routes.mainScreen,
-                Routes.splashScreen,
-                arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
-              );
-            } else if (userConfig.currentUser.membershipRequests != null &&
-                userConfig.currentUser.membershipRequests!.isNotEmpty) {
-              navigationService.removeAllAndPush(
-                Routes.waitingScreen,
-                Routes.splashScreen,
-                arguments: '-1',
-              );
-            } else {
-              navigationService.showTalawaErrorSnackBar(
-                TalawaErrors.userNotFound,
-                MessageType.error,
-              );
+            if (userSaved && tokenRefreshed) {
+              // if the selected organization userRegistration not required.
+              if (selectedOrganization?.id == '-1') {
+                navigationService.removeAllAndPush(
+                  Routes.mainScreen,
+                  Routes.splashScreen,
+                  arguments: MainScreenArgs(
+                    mainScreenIndex: 0,
+                    fromSignUp: false,
+                  ),
+                );
+                await storingCredentialsInSecureStorage();
+              } else {
+                // the query here will be changes according to if and else once memebership function available
+                final query = queries.joinOrgById(selectedOrganization!.id!);
+                print(query);
+                final QueryResult result =
+                    await databaseFunctions.gqlAuthMutation(
+                  query,
+                );
+                final joinPublicOrganization = result
+                    .data!['joinPublicOrganization'] as Map<String, dynamic>;
+                final List<OrgInfo>? joinedOrg = (joinPublicOrganization[
+                        'joinedOrganizations'] as List<dynamic>?)
+                    ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                    .toList();
+                await userConfig.updateUserJoinedOrg(joinedOrg!);
+                userConfig.saveCurrentOrgInHive(
+                  userConfig.currentUser.joinedOrganizations![0],
+                );
+                navigationService.removeAllAndPush(
+                  Routes.mainScreen,
+                  Routes.splashScreen,
+                  arguments:
+                      MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+                );
+                // if (selectedOrganization!.userRegistrationRequired!) {
+
+                // } else {
+                //   final QueryResult result =
+                //       await databaseFunctions.gqlAuthMutation(
+                //     queries.sendMembershipRequest(selectedOrganization!.id!),
+                //   );
+                //   final sendMembershipRequest = result
+                //       .data!['sendMembershipRequest'] as Map<String, dynamic>;
+                //   final OrgInfo membershipRequest = OrgInfo.fromJson(
+                //     sendMembershipRequest['organization']
+                //         as Map<String, dynamic>,
+                //   );
+                //   userConfig.updateUserMemberRequestOrg([membershipRequest]);
+                //   navigationService.pop();
+                //   navigationService.removeAllAndPush(
+                //     Routes.waitingScreen,
+                //     Routes.splashScreen,
+                //   );
+                // }
+                await storingCredentialsInSecureStorage();
+              }
             }
           }
-          storingCredentialsInSecureStorage();
         },
         onActionException: (e) async {
+          print(e);
           navigationService.showTalawaErrorSnackBar(
             'Something went wrong',
             MessageType.error,

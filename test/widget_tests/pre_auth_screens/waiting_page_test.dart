@@ -1,10 +1,17 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+// import 'dart:io';
+
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+// import 'package:hive/hive.dart';
+// import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/custom_theme.dart';
+// import 'package:talawa/models/organization/org_info.dart';
+// import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -50,6 +57,22 @@ Widget createWaitingScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
 
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
+  // const testMockStorage = './test/fixtures/core';
+  // const channel = MethodChannel(
+  //   'plugins.flutter.io/path_provider',
+  // );
+  // channel.setMockMethodCallHandler((MethodCall methodCall) async {
+  //   return testMockStorage;
+  // }); //initializing Hive
+  // final Directory dir = await path.getApplicationDocumentsDirectory();
+  // Hive
+  //   ..init(dir.path)
+  //   ..registerAdapter(UserAdapter())
+  //   ..registerAdapter(OrgInfoAdapter());
+  // // opening Hive Boxes
+  // await Hive.openBox<User>('currentUser');
+  // await Hive.openBox<OrgInfo>('currentOrg');
+  // await Hive.openBox('url');
   setUp(() {
     registerServices();
     registerViewModels();
@@ -143,10 +166,16 @@ Future<void> main() async {
       final pendingRequestList = find.byKey(
         const Key('PendingRequestList'),
       );
+      //initializing the custom rich text widget Finder
+      final pendingItem = find.byKey(
+        const Key('WaitingJoin'),
+      );
 
       //finding the custom rich text widget
       expect(pendingRequestList, findsOneWidget);
 
+      //testing greeting text
+      expect(pendingItem, findsNWidgets(2));
       await tester.tap(pendingRequestList);
       await tester.pumpAndSettle();
     });

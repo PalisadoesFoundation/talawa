@@ -25,6 +25,7 @@ class EventVolunteerGroup {
           ? null
           : User.fromJson(
               json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
             ),
       event: json['event'] == null
           ? null
@@ -33,6 +34,7 @@ class EventVolunteerGroup {
           ? null
           : User.fromJson(
               json['leader'] as Map<String, dynamic>,
+              fromOrg: true,
             ),
       name: json['name'] as String?,
       updatedAt: json['updatedAt'] as String?,

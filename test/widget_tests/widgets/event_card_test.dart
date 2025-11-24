@@ -13,13 +13,14 @@ import '../../helpers/test_locator.dart';
 
 Event getEvent({bool? isRegistered, bool isPublic = false}) {
   return Event(
-    name: "Testing",
+    title: "Testing",
     location: "PyasePyasePyasePyasePyasePyase",
     description: "Testing for the Event Card Widget",
+    startDate: "13 Dec",
+    endDate: "13 Dec",
+    startTime: "07:10PM",
+    endTime: "08:15PM",
     isPublic: isPublic,
-    startAt: DateTime.parse('2023-12-13T19:10:00.000Z'),
-    endAt: DateTime.parse('2023-12-13T20:15:00.000Z'),
-    id: "1",
     isRegistered: isRegistered,
     attendees: [Attendee(id: "attendee1")],
     creator: User(id: "ravidi"),
@@ -185,8 +186,8 @@ void main() {
         await tester.pumpWidget(createCustomEventCard(getEvent()));
         await tester.pump();
 
-        expect(find.text("2023-12-13 - 2023-12-13"), findsOneWidget);
-        expect(find.text("07:10 PM - 08:15 PM"), findsOneWidget);
+        expect(find.text("13 Dec - 13 Dec"), findsOneWidget); // duration date
+        expect(find.text("07:10PM - 08:15PM"), findsOneWidget); // duration time
         expect(
           find.text("PyasePyasePyasePyase"),
           findsOneWidget,

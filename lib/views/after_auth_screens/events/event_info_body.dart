@@ -36,7 +36,7 @@ class EventInfoBody extends StatelessWidget {
                       Flexible(
                         child: Text(
                           // event title
-                          event.name ?? "unknown name",
+                          event.title!,
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
@@ -51,9 +51,7 @@ class EventInfoBody extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      (model.event.creator != null &&
-                              model.event.creator!.id ==
-                                  userConfig.currentUser.id)
+                      (model.event.creator!.id == userConfig.currentUser.id)
                           ? IconButton(
                               onPressed: () => navigationService.pushScreen(
                                 "/editEventPage",
@@ -70,7 +68,7 @@ class EventInfoBody extends StatelessWidget {
             ),
             Text(
               // Display event creator full name.
-              "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator?.name ?? "unknown creator"}",
+              "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator!.firstName} ${event.creator!.lastName}",
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -96,7 +94,7 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 const Spacer(),
                 // If event type is public then renders lock_open icon else renders lock icon.
-                event.isPublic != null && event.isPublic!
+                event.isPublic!
                     ? Icon(
                         Icons.lock_open,
                         size: 13,
@@ -112,7 +110,7 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 // If event type is public then renders 'public'
                 // else renders 'private' text translated into the app language.
-                event.isPublic != null && event.isPublic!
+                event.isPublic!
                     ? Text(
                         AppLocalizations.of(context)!.strictTranslate('public'),
                         style: Theme.of(context).textTheme.bodySmall,
@@ -127,23 +125,24 @@ class EventInfoBody extends StatelessWidget {
             SizedBox(
               height: SizeConfig.screenHeight! * 0.011,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // display schedule icon with the start and end date of the time.
-                const Icon(
-                  Icons.schedule,
-                  size: 12,
-                ),
-                SizedBox(
-                  width: SizeConfig.screenWidth! * 0.025,
-                ),
-                Text(
-                  "${event.startTime} - ${event.endTime}",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
+            if (event.startTime != null && event.endTime != null)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // display schedule icon with the start and end date of the time.
+                  const Icon(
+                    Icons.schedule,
+                    size: 12,
+                  ),
+                  SizedBox(
+                    width: SizeConfig.screenWidth! * 0.025,
+                  ),
+                  Text(
+                    "${event.startTime} - ${event.endTime}",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.011,
             ),
@@ -158,7 +157,7 @@ class EventInfoBody extends StatelessWidget {
                   width: SizeConfig.screenWidth! * 0.027,
                 ),
                 Text(
-                  event.location ?? "unknown location",
+                  event.location!,
                   style: Theme.of(context).textTheme.bodySmall,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
@@ -181,7 +180,7 @@ class EventInfoBody extends StatelessWidget {
             SizedBox(width: SizeConfig.screenWidth! * 0.013),
             Text(
               // Display the Description of the event if not null.
-              event.description ?? "No description provided",
+              event.description!,
               style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(height: SizeConfig.screenHeight! * 0.013),
@@ -196,30 +195,23 @@ class EventInfoBody extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
               thickness: 2,
             ),
-            event.admins == null || event.admins!.isEmpty
-                ? Text(
-                    AppLocalizations.of(context)!
-                        .strictTranslate("No admins assigned"),
-                    style: Theme.of(context).textTheme.bodySmall,
-                  )
-                : ListView.builder(
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: event.admins!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CustomListTile(
-                        key: Key(
-                          '${AppLocalizations.of(context)!.strictTranslate("Admins")}$index',
-                        ),
-                        index: index,
-                        type: TileType.user,
-                        userInfo:
-                            event.admins != null ? event.admins![index] : null,
-                        onTapUserInfo: () {},
-                      );
-                    },
+            ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: event.admins!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CustomListTile(
+                  key: Key(
+                    '${AppLocalizations.of(context)!.strictTranslate("Admins")}$index',
                   ),
+                  index: index,
+                  type: TileType.user,
+                  userInfo: event.admins![index],
+                  onTapUserInfo: () {},
+                );
+              },
+            ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),

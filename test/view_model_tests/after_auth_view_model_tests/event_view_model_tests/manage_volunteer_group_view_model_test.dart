@@ -48,7 +48,7 @@ void main() {
     });
 
     // Testing isFetchingVolunteers getter returning False as it is a final value
-    test("Test isFetchingVolunteers getter", () {
+    test("Test isFetchingVolunteers getter", () async {
       expect(model.isFetchingVolunteers, isFalse);
     });
 

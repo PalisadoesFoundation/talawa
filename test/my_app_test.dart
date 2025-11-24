@@ -12,8 +12,8 @@ import 'package:talawa/views/base_view.dart';
 import 'helpers/test_helpers.dart';
 import 'helpers/test_locator.dart';
 
-void main() {
-  setUpAll(() {
+void main() async {
+  setUpAll(() async {
     testSetupLocator();
   });
   group('test my app', () {

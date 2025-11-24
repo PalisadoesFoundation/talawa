@@ -25,7 +25,7 @@ void main() {
     test('initialize refresh interval', () {
       userConfig.currentUser = User(
         id: "99",
-        name: 'Azad',
+        firstName: 'Azad',
         refreshToken: 'refreshToken',
       );
       fakeAsync((async) {

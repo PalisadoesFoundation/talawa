@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -11,7 +11,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
+import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
@@ -47,6 +47,7 @@ Widget createSetUrlScreen({
         darkTheme: TalawaTheme.darkTheme,
         home: const SetUrl(
           key: Key('SetUrl'),
+          uri: 'null',
         ),
         navigatorKey: navigationService.navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -66,9 +67,6 @@ Future<void> main() async {
     //initializing test functions
     locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
-  });
-  setUp(() {
-    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
   });
 
   //Testing in light mode/normal mode
@@ -98,6 +96,31 @@ Future<void> main() async {
       );
     });
 
+    testWidgets("Testing if icon button shows up", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the logo Finder
+      final iconButton = find.byIcon(Icons.qr_code_scanner);
+
+      //finding the logo
+      expect(iconButton, findsOneWidget);
+      //testing logo size
+      expect(
+        (tester.firstWidget(iconButton) as Icon).semanticLabel,
+        'Join Organisation with QR',
+      );
+
+      expect((tester.firstWidget(iconButton) as Icon).size, 30);
+      await tester.tap(iconButton);
+      await tester.pumpAndSettle();
+    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -180,6 +203,57 @@ Future<void> main() async {
         (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
         greeting,
       );
+    });
+    testWidgets("Testing the Url Input text form field", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the url input field widget Finder
+      final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
+      //initializing the text field suffix button widget Finder
+      final findVerifyButton = find.byKey(const Key('VerifyButton'));
+      //initializing the nullUrlSubmission widget Finder
+      final nullErrorUrlSubmission = find.text('Please verify URL first');
+      //initializing the invalidUrlSubmission widget Finder
+      final invalidUrlSubmission = find.text('Enter a valid URL');
+
+      //finding the url input text field
+      expect(urlInputFieldWidget, findsOneWidget);
+      //finding the verify suffix button in text form field
+      expect(findVerifyButton, findsOneWidget);
+
+      /*//submitting the field with null url
+      await tester.tap(findVerifyButton);
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      //testing the nullErrorUrlSubmission widget appears
+      expect(nullErrorUrlSubmission, findsOneWidget);*/
+
+      //inputting a non url text in the field
+      await tester.enterText(urlInputFieldWidget, 'non-url text');
+      //submitting the field with non url input
+      await tester.tap(findVerifyButton);
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      //testing the invalidUrlSubmission widget appears
+      expect(invalidUrlSubmission, findsOneWidget);
+
+      //inputting an existing url text in the field
+      await tester.enterText(
+        urlInputFieldWidget,
+        'https://<org_url_here>/graphql',
+      );
+      //submitting the field with a existing url
+      await tester.tap(findVerifyButton);
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      //testing nullErrorUrlSubmission is not found
+      expect(nullErrorUrlSubmission, findsNothing);
+      //testing invalidUrlSubmission is not found
+      expect(invalidUrlSubmission, findsNothing);
     });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
@@ -224,7 +298,18 @@ Future<void> main() async {
 
       //finding the login button
       expect(loginButtonWidget, findsOneWidget);
-
+      //testing the login button widget
+      expect(
+        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
+            .backgroundColor,
+        TalawaTheme.lightTheme.colorScheme.tertiary,
+      );
+      expect(
+        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
+            .textColor,
+        TalawaTheme
+            .lightTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
+      );
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
@@ -245,6 +330,11 @@ Future<void> main() async {
       );
       await tester.pump();
       expect(find.byKey(const Key('SetUrlScreenScaffold')), findsOneWidget);
+
+      await tester.enterText(
+        find.byKey(const Key('UrlInputField')),
+        'https://<org_url_here>/graphql',
+      );
 
       final finder = find.byKey(const Key('LoginButton'));
       await tester.ensureVisible(finder);
@@ -270,11 +360,47 @@ Future<void> main() async {
       //testing the signup button widget
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
+            .backgroundColor,
+        TalawaTheme
+            .lightTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
+      );
+      expect(
+        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
+            .textColor,
+        TalawaTheme.lightTheme.colorScheme.secondaryContainer,
+      );
+      expect(
+        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
         'Sign Up',
       );
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
+    });
+    testWidgets(
+        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
+        (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final formFinder = find.ancestor(
+        of: find.byKey(const Key('UrlInputField')),
+        matching: find.byType(Form),
+      );
+      final formWidget = tester.firstWidget(formFinder) as Form;
+      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
+
+      final textFinder = find.byKey(const Key('UrlInputField'));
+      await tester.tap(textFinder);
+      await tester.pump();
+      await tester.showKeyboard(textFinder);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen
@@ -318,7 +444,7 @@ Future<void> main() async {
       final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 
       when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) => 1);
+      when(navigationService.pop()).thenAnswer((_) async => 1);
 
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
@@ -354,6 +480,50 @@ Future<void> main() async {
       );
     });
 
+    testWidgets("Testing if icon button shows up", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the logo Finder
+      final iconButton = find.byIcon(Icons.qr_code_scanner);
+
+      //finding the logo
+      expect(iconButton, findsOneWidget);
+      //testing logo size
+      expect(
+        (tester.firstWidget(iconButton) as Icon).semanticLabel,
+        'Join Organisation with QR',
+      );
+
+      expect((tester.firstWidget(iconButton) as Icon).size, 30);
+      await tester.tap(iconButton);
+      await tester.pumpAndSettle();
+    });
+    testWidgets("Check if QR button works", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final iconButton = find.byIcon(Icons.qr_code_scanner);
+
+      // tapping the qr button
+      await tester.tap(iconButton);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ClipRRect), findsOneWidget);
+      expect(find.byType(QRView), findsOneWidget);
+    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -435,6 +605,57 @@ Future<void> main() async {
         (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
         greeting,
       );
+    });
+    testWidgets("Testing the Url Input text form field", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the url input field widget Finder
+      final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
+      //initializing the text field suffix button widget Finder
+      final findVerifyButton = find.byKey(const Key('VerifyButton'));
+      //initializing the nullUrlSubmission widget Finder
+      final nullErrorUrlSubmission = find.text('Please verify URL first');
+      //initializing the invalidUrlSubmission widget Finder
+      final invalidUrlSubmission = find.text('Enter a valid URL');
+
+      //finding the url input text field
+      expect(urlInputFieldWidget, findsOneWidget);
+      //finding the verify suffix button in text form field
+      expect(findVerifyButton, findsOneWidget);
+
+      /* //submitting the field with null url
+      await tester.tap(findVerifyButton);
+      await tester.pumpAndSettle();
+      //testing the nullErrorUrlSubmission widget appears
+      expect(nullErrorUrlSubmission, findsOneWidget);*/
+
+      //inputting a non url text in the field
+      await tester.enterText(urlInputFieldWidget, 'non-url text');
+      //submitting the field with non url input
+      await tester.tap(findVerifyButton);
+      await tester.pumpAndSettle();
+      //testing the invalidUrlSubmission widget appears
+      expect(invalidUrlSubmission, findsOneWidget);
+
+      //inputting an existing url text in the field
+      await tester.enterText(
+        urlInputFieldWidget,
+        'https://<org_url_here>/graphql',
+      );
+      //submitting the field with a existing url
+      await tester.tap(findVerifyButton);
+      await tester.pumpAndSettle();
+      //testing nullErrorUrlSubmission is not found
+      expect(nullErrorUrlSubmission, findsNothing);
+      //testing invalidUrlSubmission is not found
+      expect(invalidUrlSubmission, findsNothing);
     });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
@@ -482,6 +703,17 @@ Future<void> main() async {
       //testing the login button widget
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
+            .backgroundColor,
+        TalawaTheme.darkTheme.colorScheme.tertiary,
+      );
+      expect(
+        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
+            .textColor,
+        TalawaTheme
+            .darkTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
+      );
+      expect(
+        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
         'Login',
       );
@@ -505,7 +737,18 @@ Future<void> main() async {
 
       //finding the signup button
       expect(signupButtonWidget, findsOneWidget);
-
+      //testing the signup button widget
+      expect(
+        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
+            .backgroundColor,
+        TalawaTheme
+            .darkTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
+      );
+      expect(
+        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
+            .textColor,
+        TalawaTheme.darkTheme.colorScheme.secondaryContainer,
+      );
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
@@ -513,6 +756,31 @@ Future<void> main() async {
       );
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
+    });
+    testWidgets(
+        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
+        (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final formFinder = find.ancestor(
+        of: find.byKey(const Key('UrlInputField')),
+        matching: find.byType(Form),
+      );
+      final formWidget = tester.firstWidget(formFinder) as Form;
+      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
+
+      final textFinder = find.byKey(const Key('UrlInputField'));
+      await tester.tap(textFinder);
+      await tester.pump();
+      await tester.showKeyboard(textFinder);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen
@@ -556,7 +824,7 @@ Future<void> main() async {
       final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 
       when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) => 1);
+      when(navigationService.pop()).thenAnswer((_) async => 1);
 
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();

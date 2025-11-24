@@ -126,7 +126,7 @@ void main() {
   });
 
   group('connectivity', () {
-    test('connectionStream getter', () {
+    test('connectionStream getter', () async {
       expect(mockService, isA<ConnectivityService>());
       expect(
         mockService.connectionStream,
@@ -134,7 +134,7 @@ void main() {
       );
     });
 
-    test('listener', () {
+    test('listener', () async {
       final mockConnectivity = testgetit.connectivity as MockConnectivity;
       final List<ConnectivityResult> result = [
         ConnectivityResult.mobile,
@@ -145,7 +145,7 @@ void main() {
       mockConnectivity._controller.addError(Exception("Something went wrong!"));
     });
 
-    test('enableSubscription with actual service', () {
+    test('enableSubscription with actual service', () async {
       final testResults = [ConnectivityResult.wifi];
 
       // First verify the mock works

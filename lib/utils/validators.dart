@@ -25,22 +25,42 @@ class Validator {
     return null;
   }
 
-  /// Method to validate a user's name.
+  /// Method to validate a user's first name.
   ///
   /// **params**:
-  /// * `value`: the value of the  name
+  /// * `value`: the value of the first name
   ///
   /// **returns**:
-  /// * `String?`: error message if  name is invalid.
-  static String? validateName(String value) {
-    if (value.trim().isEmpty) {
-      return 'Name must not be left blank.';
+  /// * `String?`: error message if first name is invalid.
+  static String? validateFirstName(String value) {
+    if (value.isEmpty) {
+      return 'Firstname must not be left blank.';
     }
     // ignore: unnecessary_raw_strings
     const String pattern = r'(?=.*?[A-Za-z]).+';
     final RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
-      return "Invalid Name";
+      return "Invalid Firstname";
+    }
+    return null;
+  }
+
+  /// Method to validate a user's last name.
+  ///
+  /// **params**:
+  /// * `value`: the value of the last name
+  ///
+  /// **returns**:
+  /// * `String?`: error message if last name is invalid.
+  static String? validateLastName(String value) {
+    if (value.isEmpty) {
+      return 'Lastname must not be left blank.';
+    }
+    // ignore: unnecessary_raw_strings
+    const String pattern = r"(?=.*?[A-Za-z]).+";
+    final RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return "Invalid Lastname";
     }
     return null;
   }

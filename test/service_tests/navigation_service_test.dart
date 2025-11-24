@@ -301,7 +301,7 @@ void main() {
       await tester.pumpWidget(
         HomeApp(
           navigateorKey: mockKey,
-          onClick: () {
+          onClick: () async {
             navigationService.showCustomToast('/second-screen');
             navigationService.printNavigatorState();
           },

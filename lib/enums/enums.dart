@@ -120,24 +120,3 @@ enum ActionType {
   /// even if the result is not immediately confirmed.
   optimistic,
 }
-
-/// Represents the actions available in group chat popup menu.
-enum GroupChatAction {
-  /// Show group information.
-  info,
-
-  /// Edit group details (admin only).
-  edit,
-
-  /// Add new members to group (admin only).
-  addMembers,
-
-  /// Manage existing group members (admin only).
-  manageMembers,
-
-  /// Delete the group (admin only).
-  delete,
-
-  /// Leave the group (non-admin only).
-  leave,
-}

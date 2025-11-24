@@ -12,6 +12,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
@@ -46,6 +47,7 @@ Widget userFeedScreen({
       GlobalWidgetsLocalizations.delegate,
     ],
     home: Scaffold(
+      key: MainScreenViewModel.scaffoldKey,
       body: UserFeed(
         forTest: isTest,
         key: const Key('test_key'),
@@ -76,6 +78,7 @@ Widget userFeedScreen1({
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
+          key: MainScreenViewModel.scaffoldKey,
           body: UserFeed(
             forTest: isTest,
             key: const Key('test_key'),
@@ -89,6 +92,17 @@ Widget userFeedScreen1({
   //   },
   // );
 }
+
+final List<LikedBy> likedBy0 = [
+  LikedBy(sId: 'Test user 1'),
+  LikedBy(sId: 'Test user 2'),
+];
+
+final post = Post(
+  sId: "test_post_id",
+  creator: userConfig.currentUser,
+  likedBy: likedBy0,
+);
 
 void main() {
   late MockOrganizationFeedViewModel mockViewModel;
@@ -110,7 +124,7 @@ void main() {
   group('tests for User feed Screen', () {
     testWidgets('check if UserFeedScreen shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(true);
-      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
       await tester.pumpWidget(userFeedScreen(isTest: true));
       await tester.pump();
@@ -120,7 +134,7 @@ void main() {
 
     testWidgets('check if CircularIndicator Shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(true);
-      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: false));
@@ -130,7 +144,7 @@ void main() {
     });
     testWidgets('check if No posts text shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: true));
@@ -144,7 +158,7 @@ void main() {
     });
     testWidgets('check if text button shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: true));
@@ -162,14 +176,16 @@ void main() {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.userPosts).thenReturn([
         Post(
-          id: "test_post_id",
+          sId: "test_post_id",
           creator: userConfig.currentUser,
-          caption: 'Testing',
+          likedBy: likedBy0,
+          description: 'Testing',
+          comments: [Comments(sId: 'cmmnt1')],
           createdAt: DateTime.now(),
           organization: userConfig.currentOrg,
         ),
       ]);
-      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.initialise()).thenReturn(null);
 
       await tester.pumpWidget(userFeedScreen1(isTest: true));
       await tester.pumpAndSettle();
@@ -177,7 +193,7 @@ void main() {
       expect(finder, findsNothing);
       final finder1 = find.byType(PostListWidget);
       expect(finder1, findsOneWidget);
-      expect(find.byType(PostWidget), findsOneWidget);
+      expect(find.byType(NewsPost), findsOneWidget);
     });
   });
 }

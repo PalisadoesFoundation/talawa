@@ -13,10 +13,14 @@ class OrganizationFeed extends StatefulWidget {
   const OrganizationFeed({
     required Key key,
     this.homeModel,
+    this.forTest = false,
   }) : super(key: key);
 
   /// MainScreenViewModel.
   final MainScreenViewModel? homeModel;
+
+  /// To implement the test.
+  final bool forTest;
 
   @override
   State<OrganizationFeed> createState() => _OrganizationFeedState();
@@ -39,11 +43,10 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
   @override
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
-      onModelReady: (model) async => await model.initialise(),
+      onModelReady: (model) => model.initialise(isTest: widget.forTest),
       builder: (context, model, child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
-            heroTag: "org_feed_fab",
             shape: const CircleBorder(side: BorderSide.none),
             key: const Key('floating_action_btn'),
             backgroundColor: Colors.green,
@@ -76,8 +79,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                 color: Colors.white,
               ),
               onPressed: () {
-                // Open the drawer if it exists
-                Scaffold.maybeOf(context)?.openDrawer();
+                MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
               },
             ),
           ),
@@ -85,7 +87,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => await model.fetchNewPosts(),
+                  onRefresh: () async => model.fetchNewPosts(),
                   child: NotificationListener<ScrollNotification>(
                     onNotification: (notification) {
                       final currentScroll = _scrollController.position.pixels;
@@ -127,6 +129,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                           PinnedPost(
                             key: const Key('pinnedPosts'),
                             pinnedPost: model.pinnedPosts,
+                            model: widget.homeModel!,
                           ),
                         SizedBox(
                           height: SizeConfig.screenHeight! * 0.01,
@@ -135,9 +138,8 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                             ? PostListWidget(
                                 key: widget.homeModel?.keySHPost,
                                 posts: model.posts,
-                                redirectToIndividualPage:
-                                    model.navigateToIndividualPage,
-                                deletePost: model.deletePost,
+                                function: model.navigateToIndividualPage,
+                                deletePost: model.removePost,
                               )
                             : // if there is no post in an organisation then show text button to create a post.
                             Column(

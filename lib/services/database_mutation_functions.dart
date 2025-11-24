@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/utils/time_conversion.dart';
 
@@ -17,7 +18,6 @@ import 'package:talawa/utils/time_conversion.dart';
 /// * `gqlNonAuthQuery`
 /// * `refreshAccessToken`
 /// * `fetchOrgById`
-/// * `gqlAuthSubscription`
 class DataBaseMutationFunctions {
   /// Client Auth for handling non-authenticated request.
   late GraphQLClient clientNonAuth;
@@ -27,21 +27,6 @@ class DataBaseMutationFunctions {
 
   /// Query passed by fucntion calling this function.
   late Queries _query;
-
-  /// when result has no data and null.
-  QueryResult noData = QueryResult(
-    options: QueryOptions(
-      document: gql(
-        '''
-        query {
-          __typename
-        }
-        ''',
-      ),
-    ),
-    data: null,
-    source: QueryResultSource.network,
-  );
 
   /// Initialization function.
   ///
@@ -69,16 +54,16 @@ class DataBaseMutationFunctions {
     _query = Queries();
   }
 
-  /// This function clears the GraphQL cache to ensure fresh data fetch.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void clearGraphQLCache() {
-    clientAuth.cache.store.reset();
-  }
+  /// when result has no data and null.
+  QueryResult noData = QueryResult(
+    options: QueryOptions(
+      document: gql(
+        PostQueries().addLike(),
+      ),
+    ),
+    data: null,
+    source: QueryResultSource.network,
+  );
 
   /// This function is used to run the graph-ql query for authentication.
   ///
@@ -95,6 +80,7 @@ class DataBaseMutationFunctions {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: variables ?? <String, dynamic>{},
+      fetchPolicy: FetchPolicy.networkOnly,
     );
     final response = await cacheService.executeOrCacheOperation(
       operation: query,
@@ -154,6 +140,7 @@ class DataBaseMutationFunctions {
       operationType: CachedOperationType.gqlAuthMutation,
       whenOnline: () async {
         final QueryResult result = await clientAuth.mutate(options);
+        print(result);
         // If there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(
@@ -296,53 +283,33 @@ class DataBaseMutationFunctions {
     return false;
   }
 
-  /// This function is used to run the graph-ql subscription for authenticated user.
+  /// This function fetch the organization using the [id] passed.
   ///
   /// **params**:
-  /// * `subscription`: subscription query string for real-time data
-  /// * `variables`: variables to be passed with subscription
+  /// * `id`: id that identifies a particular org
   ///
   /// **returns**:
-  /// * `Stream<QueryResult<Object?>>`: Stream of subscription results
-  Stream<QueryResult<Object?>> gqlAuthSubscription(
-    String subscription, {
-    Map<String, dynamic>? variables,
-  }) async* {
-    final SubscriptionOptions options = SubscriptionOptions(
-      document: gql(subscription),
-      variables: variables ?? <String, dynamic>{},
-    );
-
-    try {
-      // Use the auth client with WebSocket support for subscriptions
-      final stream = clientAuth.subscribe(options);
-
-      await for (final result in stream) {
-        // Handle exceptions similar to other methods
-        if (result.hasException) {
-          final exception =
-              GraphqlExceptionResolver.encounteredExceptionOrError(
-            result.exception!,
-          );
-          if (exception != null && exception) {
-            // In case of token refresh, continue the stream
-            continue;
-          }
-        } else if (result.data != null && result.isConcrete) {
-          // Apply time conversion for subscription data
-          traverseAndConvertDates(
-            result.data ?? <String, dynamic>{},
-            convertUTCToLocal,
-            splitDateTimeLocal,
-          );
-          yield result;
-        }
+  /// * `Future<dynamic>`: it returns Future of dynamic
+  Future<dynamic> fetchOrgById(String id) async {
+    print(id);
+    print(id);
+    final QueryResult result = await clientNonAuth
+        .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
+    // if there is an error or exception in [result]
+    if (result.hasException) {
+      final exception = GraphqlExceptionResolver.encounteredExceptionOrError(
+        result.exception!,
+      );
+      if (exception!) {
+        fetchOrgById(id);
       }
-    } catch (e) {
-      // Log subscription errors but don't break the stream
-      // Note: Subscriptions are real-time streams, so we don't use caching here
-      // as caching doesn't make sense for live data
-      debugPrint('Subscription error: $e');
+    } else if (result.data != null && result.isConcrete) {
+      print(result.data!['organizations']);
+      return OrgInfo.fromJson(
+        // ignore: collection_methods_unrelated_type
+        (result.data!['organizations'] as List<Map<String, dynamic>>)[0],
+      );
     }
+    return false;
   }
 }

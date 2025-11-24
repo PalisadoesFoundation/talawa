@@ -95,7 +95,7 @@ abstract class BaseFeedManager<T> {
         return data;
       } catch (e) {
         debugPrint(e.toString());
-        return [];
+        return loadCachedData();
       }
     } else {
       return loadCachedData();

@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
 part 'comment_model.g.dart';
@@ -7,29 +6,27 @@ part 'comment_model.g.dart';
 ///This class returns a Comment instance.
 @HiveType(typeId: 12)
 class Comment {
-  Comment({this.body, this.createdAt, this.creator, this.post});
+  Comment({this.text, this.createdAt, this.creator, this.post, this.likeCount});
   //Creating a new Comment instance from a map structure.
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
-      body: json['body'] as String?,
+      text: json['text'] as String?,
       createdAt: json['createdAt'] as String?,
       creator: json['creator'] == null
           ? null
           //Creating a new User instance from a map structure.
           : User.fromJson(
               json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
             ),
-      post: json['post'] != null
-          ? Post.fromJson(
-              json['post'] as Map<String, dynamic>,
-            )
-          : null,
+      post: json['post'] as String?,
+      likeCount: json['likeCount'] as String?,
     );
   }
 
   /// The text of the comment.
   @HiveField(0)
-  String? body;
+  String? text;
 
   /// The creation date of the comment.
   @HiveField(1)
@@ -41,5 +38,9 @@ class Comment {
 
   /// The post associated with the comment.
   @HiveField(3)
-  Post? post;
+  String? post;
+
+  /// The like count of the comment.
+  @HiveField(4)
+  String? likeCount;
 }

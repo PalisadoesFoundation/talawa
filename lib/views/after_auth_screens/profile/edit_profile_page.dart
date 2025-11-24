@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
@@ -151,13 +150,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Flexible(
                             // Text field for first name with value text of user's first name.
                             child: TextFormField(
-                              key: const Key('NameTextField'),
-                              controller: model.nameTextController,
-                              focusNode: model.nameFocus,
+                              key: const Key('FirstNameTextField'),
+                              controller: model.firstNameTextController,
+                              focusNode: model.firstNameFocus,
                               keyboardType: TextInputType.name,
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
-                                    .strictTranslate('Name'),
+                                    .strictTranslate('First Name'),
                                 labelStyle:
                                     Theme.of(context).textTheme.titleMedium,
                                 focusedBorder: InputBorder.none,
@@ -166,7 +165,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     FocusScope.of(context).requestFocus(
-                                      model.nameFocus,
+                                      model.firstNameFocus,
                                     );
                                   },
                                   icon: const Icon(Icons.edit),
@@ -181,16 +180,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Flexible(
                             // Text field for first name with value text of user's last name.
                             child: TextFormField(
-                              key: const Key('emailTextField'),
-                              controller: model.emailTextController,
-                              focusNode: model.emailFocus,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) => Validator.validateEmail(
-                                value ?? '',
-                              ),
+                              key: const Key('LastNameTextField'),
+                              controller: model.lastNameTextController,
+                              focusNode: model.lastNameFocus,
+                              keyboardType: TextInputType.name,
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
-                                    .strictTranslate('Email'),
+                                    .strictTranslate('Last Name'),
                                 labelStyle:
                                     Theme.of(context).textTheme.titleMedium,
                                 focusedBorder: InputBorder.none,
@@ -199,7 +195,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     FocusScope.of(context).requestFocus(
-                                      model.emailFocus,
+                                      model.lastNameFocus,
                                     );
                                   },
                                   icon: const Icon(Icons.edit),
@@ -213,13 +209,53 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
                 const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.027,
+                        width: SizeConfig.screenWidth! * 0.055,
+                        child: const Icon(Icons.email),
+                      ),
+                      SizedBox(
+                        width: SizeConfig.screenWidth! * 0.045,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate('Email'),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                          ),
+                          // Text for first name with value text of user's first name.
+                          Text(
+                            model.user.email!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
                 TextButton(
                   key: const Key('updatebtn'),
                   onPressed: () {
                     model.updateUserProfile(
-                      name: model.nameTextController.text,
+                      firstName: model.firstNameTextController.text,
                       newImage: model.imageFile,
-                      email: model.emailTextController.text,
+                      lastName: model.lastNameTextController.text,
                     );
                     FocusScope.of(context).unfocus();
                   },

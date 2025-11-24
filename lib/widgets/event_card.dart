@@ -39,7 +39,7 @@ class EventCard extends StatelessWidget {
             surfaceTintColor: Theme.of(context).colorScheme.secondaryContainer,
             shape: RoundedRectangleBorder(
               side:
-                  isRegistered && userConfig.currentUser.id != event.creator?.id
+                  isRegistered && userConfig.currentUser.id != event.creator!.id
                       ? BorderSide(
                           color: Theme.of(context).colorScheme.secondary,
                           width: SizeConfig.screenWidth! * 0.008,
@@ -109,7 +109,7 @@ class EventCard extends StatelessWidget {
                                     textAlign: TextAlign.left,
                                   )
                                 : Text(
-                                    event.name ?? '',
+                                    event.title!,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall,
@@ -132,35 +132,36 @@ class EventCard extends StatelessWidget {
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.006,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.schedule,
-                            size: 12,
-                          ),
-                          SizedBox(
-                            width: SizeConfig.screenWidth! * 0.015,
-                          ),
-                          Text(
-                            "${event.startTime} - ${event.endTime}",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.place,
-                            size: 12,
-                          ),
-                          SizedBox(
-                            child: Text(
-                              (event.location ?? '').substring(
-                                0,
-                                min((event.location ?? '').length, 20),
-                              ),
+                      if (event.startTime != null && event.endTime != null)
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.schedule,
+                              size: 12,
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenWidth! * 0.015,
+                            ),
+                            Text(
+                              "${event.startTime} - ${event.endTime!}",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
-                          ),
-                        ],
-                      ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.place,
+                              size: 12,
+                            ),
+                            SizedBox(
+                              child: Text(
+                                event.location!.substring(
+                                  0,
+                                  min(event.location!.length, 20),
+                                ),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
+                          ],
+                        ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.013,
                       ),
@@ -171,7 +172,7 @@ class EventCard extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.55,
                             child: Text(
-                              event.description ?? 'no description',
+                              event.description!,
                               style: Theme.of(context).textTheme.bodySmall,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
@@ -189,7 +190,7 @@ class EventCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          userConfig.currentUser.id == event.creator?.id
+                          userConfig.currentUser.id == event.creator!.id
                               ? Row(
                                   children: [
                                     Icon(
@@ -212,7 +213,7 @@ class EventCard extends StatelessWidget {
                                 )
                               : const SizedBox(),
                           const Spacer(),
-                          event.isPublic != null && event.isPublic!
+                          event.isPublic!
                               ? Icon(
                                   Icons.lock_open,
                                   size: 13,
@@ -226,7 +227,7 @@ class EventCard extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
                           ),
-                          event.isPublic != null && event.isPublic!
+                          event.isPublic!
                               ? Text(
                                   AppLocalizations.of(context)!
                                       .strictTranslate('public'),
@@ -264,7 +265,7 @@ class EventCard extends StatelessWidget {
             top: SizeConfig.screenHeight! * 0.007,
             right: SizeConfig.screenWidth! * 0.013,
             child: isRegistered &&
-                    userConfig.currentUser.id != event.creator?.id
+                    userConfig.currentUser.id != event.creator!.id
                 ? DecoratedBox(
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,

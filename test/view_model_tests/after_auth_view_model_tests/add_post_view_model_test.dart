@@ -65,7 +65,7 @@ void main() {
       );
     });
 
-    test('Test for imageInBase64 getter', () {
+    test('Test for imageInBase64 getter', () async {
       final model = AddPostViewModel();
       model.initialise();
       expect(model.imageInBase64, null);
