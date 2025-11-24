@@ -150,8 +150,9 @@ jobs:
             */
 
             // Restrict /assign based on issue creator's permissions
-            // We don't want non repo members using the feature to 
-            // grab assignments from issues created by other non-members
+            // 1. We don't want non repo members using the feature to assign themselves issues created by other non-members. This could prevent the 
+            //    the issue creator from using the feature if they are slower than someone else monitoring the issue queue more diligently
+            // 2. This feature also forces the issues created by non-members from assigning themselves issues without manual intervention by members
             if (isAssign) {
               const issueCreator = issue.user.login;
               let issueCreatorAssociation;
