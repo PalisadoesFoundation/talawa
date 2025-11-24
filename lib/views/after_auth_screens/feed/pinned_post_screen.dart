@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:talawa/apptheme.dart';
-import 'package:talawa/models/post/post_model.dart';
 
 import 'package:talawa/services/size_config.dart';
 
@@ -13,7 +12,7 @@ class PinnedPostScreen extends StatefulWidget {
 
   /// Contains the data of the post.
   ///
-  final Post post;
+  final Map<String, String> post;
 
   /// Custom avatar data.
   final BaseCacheManager? cacheManager;
@@ -34,7 +33,7 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Text(
-                widget.post.caption ?? '',
+                widget.post['title']!,
                 maxLines: 2,
                 style: AppTheme.title.copyWith(
                   color: Colors.white,
@@ -48,7 +47,7 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    widget.post.getPostPinnedDuration(),
+                    '${widget.post['time']!}hr',
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w200,
@@ -61,12 +60,12 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
             ),
             CachedNetworkImage(
               cacheManager: widget.cacheManager,
-              imageUrl: widget.post.attachments?.isNotEmpty == true
-                  ? widget.post.attachments![0].url ?? ''
-                  : '',
+              imageUrl: widget.post['imageUrl']!,
               errorWidget: (context, url, error) {
-                return const Center(
-                  child: Icon(Icons.broken_image, size: 48, color: Colors.grey),
+                return const SizedBox(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               },
               height: SizeConfig.screenHeight! * .75,

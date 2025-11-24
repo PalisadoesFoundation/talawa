@@ -1,24 +1,23 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 // import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 
-import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
 Widget createSelectLanguageScreenLight({
@@ -162,14 +161,11 @@ Future<void> main() async {
         await tester.pumpAndSettle();
 
         final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
-        expect(findAppNameWidget, findsOneWidget);
 
-        // Test that the button exists and is a TextButton
-        final button = tester.widget<TextButton>(findAppNameWidget);
-        expect(button.onPressed, isNotNull);
+        await tester.tap(findAppNameWidget);
+        await tester.pumpAndSettle(const Duration(seconds: 3));
 
-        // Just verify button is found and is tappable
-        expect(findAppNameWidget, findsOneWidget);
+        expect(findAppNameWidget, findsNothing);
       });
       testWidgets("Testing to select and navigate button appears",
           (tester) async {
@@ -285,60 +281,10 @@ Future<void> main() async {
         await tester.pumpWidget(createSelectLanguageScreenDark());
         await tester.pumpAndSettle();
         final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
-        expect(findAppNameWidget, findsOneWidget);
-
-        // Test that the button exists and is a TextButton
-        final button = tester.widget<TextButton>(findAppNameWidget);
-        expect(button.onPressed, isNotNull);
-
-        // Just verify button is found and is tappable
-        expect(findAppNameWidget, findsOneWidget);
+        await tester.tap(findAppNameWidget);
+        await tester.pumpAndSettle(const Duration(seconds: 3));
+        expect(findAppNameWidget, findsNothing);
       });
-    });
-  });
-
-  group('selectLanguagePress() onPressed behavior tests', () {
-    late NavigationService mockNavigationService;
-    late UserConfig mockUserConfig;
-
-    setUp(() {
-      mockNavigationService = getAndRegisterNavigationService();
-      mockUserConfig = getAndRegisterUserConfig();
-    });
-
-    tearDown(() {
-      unregisterServices();
-    });
-
-    testWidgets(
-        "Testing Select button onPressed - authenticated user navigation",
-        (tester) async {
-      // Setup: Mock authenticated user (id != 'null')
-      when(mockUserConfig.currentUser).thenReturn(
-        User(
-          id: "authenticated_user_id",
-          name: "Test User",
-          email: "test@example.com",
-        ),
-      );
-
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-
-      final selectButton = find.byKey(const Key('NavigateToMainScreen'));
-      expect(selectButton, findsOneWidget);
-
-      // Tap the Select button
-      await tester.tap(selectButton);
-      await tester.pumpAndSettle();
-
-      // Verify navigation to app settings page
-      verify(
-        mockNavigationService.popAndPushScreen(
-          '/appSettingsPage',
-          arguments: '',
-        ),
-      ).called(1);
     });
   });
 }

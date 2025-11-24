@@ -7,18 +7,18 @@ class PostListWidget extends StatelessWidget {
   const PostListWidget({
     super.key,
     required this.posts,
-    this.redirectToIndividualPage,
+    this.function,
     this.deletePost,
   });
 
   /// list of all the post.
   final List<Post> posts;
 
+  /// This function is passed for the handling the action to be performed when the comment button is clicked.
+  final Function(Post)? function;
+
   /// Function the deleting the post.
   final Function(Post)? deletePost;
-
-  /// This function will be used to redirect to the Individual Post.
-  final Function(Post)? redirectToIndividualPage;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,10 @@ class PostListWidget extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Column(
           children: [
-            PostWidget(
-              key: ValueKey(posts[index].id),
+            NewsPost(
+              key: ValueKey(posts[index].sId),
               post: posts[index],
-              redirectToIndividualPage: redirectToIndividualPage,
+              function: function,
               deletePost: deletePost,
             ),
           ],

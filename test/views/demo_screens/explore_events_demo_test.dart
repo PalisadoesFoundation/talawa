@@ -32,6 +32,7 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       ],
       key: const Key('Root'),
       home: Scaffold(
+        key: MainScreenViewModel.scaffoldKey,
         drawer: CustomDrawer(
           homeModel: model,
         ),
@@ -43,7 +44,7 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       onGenerateRoute: router.generateRoute,
     );
 
-void main() {
+void main() async {
   SizeConfig().test();
 
   final mockEvents = <Event>[
@@ -51,7 +52,11 @@ void main() {
       id: 'event1',
       admins: [User(id: 'admin1')],
       creator: User(id: 'admin2'),
-      name: 'event title',
+      startTime: DateTime.now().day.toString(),
+      endTime: DateTime.now().day.toString(),
+      title: 'event title',
+      startDate: DateTime.now().day.toString(),
+      endDate: DateTime.now().day.toString(),
       location: 'location',
       description: 'description',
       isPublic: true,

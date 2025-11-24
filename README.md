@@ -31,7 +31,6 @@ Core features include:
 1. **talawa**: [A mobile application with social media features](https://github.com/PalisadoesFoundation/talawa)
 1. **talawa-api**: [An API providing access to user data and features](https://github.com/PalisadoesFoundation/talawa-api)
 1. **talawa-admin**: [A web based administrative portal](https://github.com/PalisadoesFoundation/talawa-admin)
-1. **talawa-plugin**: [Microkernel-based drop-in plugins for Talawa-Admin](https://github.com/PalisadoesFoundation/talawa-plugin)
 1. **talawa-docs**: [The online documentation website](https://github.com/PalisadoesFoundation/talawa-docs)
 
 # Documentation

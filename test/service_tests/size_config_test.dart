@@ -54,7 +54,7 @@ void main() {
         );
       });
 
-      test('Test test method', () {
+      test('Test test method', () async {
         final config = SizeConfig();
         config.test();
         safeAreaHorizontal =

@@ -121,28 +121,24 @@ class CustomDrawerViewModel extends BaseModel {
   /// returns an exit alert dialog.
   ///
   /// **params**:
-  /// * `context`: `BuildContext` instance of BuildContext.
+  ///   None
   ///
   /// **returns**:
   /// * `CustomAlertDialog`: returns customAlertDialogBox.
-  CustomAlertDialog exitAlertDialog(BuildContext context) {
+  CustomAlertDialog exitAlertDialog() {
     return CustomAlertDialog(
       key: const Key("Exit?"),
       reverse: true,
       dialogSubTitle: 'Are you sure you want to exit this organization?',
       successText: 'Exit',
-      success: () {
-        userConfig.exitCurrentOrg();
-        navigationService.pop();
-        Scaffold.of(context).closeDrawer();
-      },
+      success: () {},
     );
   }
 
   /// This function switches the current organization to new organization.
   ///
   /// **params**:
-  /// * `updatedOrganization`: The new organization to set as selected. (`OrgInfo` type)
+  /// * `updatedOrganization`: `OrgInfo` type, new organization.
   ///
   /// **returns**:
   ///   None
@@ -150,6 +146,7 @@ class CustomDrawerViewModel extends BaseModel {
     // if current and updated organization are not same.
     if (_selectedOrg != updatedOrganization) {
       _selectedOrg = updatedOrganization;
+      // update in `UserConfig` variable.
       userConfig.currentOrgInfoController.add(_selectedOrg!);
       notifyListeners();
     }

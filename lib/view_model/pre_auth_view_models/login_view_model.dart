@@ -8,6 +8,7 @@ import 'package:talawa/locator.dart';
 
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -101,6 +102,11 @@ class LoginViewModel extends BaseModel {
   /// 6. Initializing database functions.
   /// 7. Performing a GraphQL mutation to login the user by providing
   ///    the email and encrypted password.
+  /// 8. Handling the result of the login operation:
+  ///    - Updating the current user with the received data.
+  ///    - Redirecting the user based on their status in the application.
+  ///    - Handling Firebase options for Android and iOS if available.
+  ///    - Configuring Firebase and saving FCM token to the database.
   ///
   /// In case of any exceptions during the login process,
   /// this function catches and prints the error.
@@ -127,10 +133,14 @@ class LoginViewModel extends BaseModel {
             ),
           );
           databaseFunctions.init();
+          // run the graph QL query to login the user,
+          // passing `email` and `password`.
           final result = await databaseFunctions.gqlNonAuthMutation(
             queries.loginUser(
               email.text,
-              password.text,
+              Encryptor.encryptString(
+                password.text,
+              ),
             ),
           );
           navigationService.pop();
@@ -144,37 +154,36 @@ class LoginViewModel extends BaseModel {
               result.data!['signIn'] as Map<String, dynamic>,
             );
             userConfig.updateUser(loggedInUser);
-            graphqlConfig.getToken();
           }
         },
         apiCallSuccessUpdateUI: () async {
           // if user has not already joined any organization.
-          if (userConfig.currentUser.joinedOrganizations != null &&
-              userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
+          if (userConfig.currentUser.joinedOrganizations == null) {
+            navigationService.removeAllAndPush(
+              Routes.mainScreen,
+              Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+            );
+          } else if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+            navigationService.removeAllAndPush(
+              Routes.mainScreen,
+              Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+            );
+          } else {
             userConfig.saveCurrentOrgInHive(
               userConfig.currentUser.joinedOrganizations![0],
             );
             navigationService.removeAllAndPush(
               Routes.mainScreen,
               Routes.splashScreen,
-              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
-            );
-          } else if (userConfig.currentUser.membershipRequests != null &&
-              userConfig.currentUser.membershipRequests!.isNotEmpty) {
-            navigationService.removeAllAndPush(
-              Routes.waitingScreen,
-              Routes.splashScreen,
-              arguments: '-1',
-            );
-          } else {
-            navigationService.pushReplacementScreen(
-              Routes.joinOrg,
-              arguments: '-1',
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
           await storingCredentialsInSecureStorage();
         },
         onActionException: (e) async {
+          print('here');
           print(e);
         },
       );

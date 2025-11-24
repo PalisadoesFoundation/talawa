@@ -69,11 +69,10 @@ class ManageVolunteerGroupViewModel extends BaseModel {
           .getOrgMembersList(userConfig.currentOrg.id!);
     }
     final availableMembers = orgMembersList.where((member) {
-      return !volunteers.any((volunteer) => volunteer.user?.id == member.id);
+      return !volunteers.any((volunteer) => volunteer.user!.id == member.id);
     }).toList();
 
     for (final member in availableMembers) {
-      if (member.id == null) continue;
       _memberCheckedMap.putIfAbsent(member.id!, () => false);
     }
 
@@ -102,10 +101,7 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       };
       final result = await locator<EventService>()
           .addVolunteerToGroup(variables) as QueryResult;
-      final data = result.data;
-      if (data == null || data['createEventVolunteer'] == null) {
-        return;
-      }
+      final data = result.data!;
       final addedVolunteerData =
           data['createEventVolunteer'] as Map<String, dynamic>;
       final addedVolunteer = EventVolunteer.fromJson(addedVolunteerData);

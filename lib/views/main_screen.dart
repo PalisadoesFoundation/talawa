@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
         // Setup navigation items and pages for the bottom navigation bar
         model.setupNavigationItems(context);
         return Scaffold(
-          key: const Key('MainScaffold'),
+          key: MainScreenViewModel.scaffoldKey,
           drawer: CustomDrawer(
             homeModel: model,
             key: const Key("Custom Drawer"),

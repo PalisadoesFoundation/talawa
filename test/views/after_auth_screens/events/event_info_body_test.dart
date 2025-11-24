@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -25,22 +24,27 @@ Event getTestEvent({
 }) {
   return Event(
     id: "1",
-    name: "test_event",
+    title: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      name: "ravidi shaikh",
+      firstName: "ravidi",
+      lastName: "shaikh",
     ),
     isPublic: isPublic,
+    startDate: "00/00/0000",
+    endDate: "12/12/9999",
+    startTime: "00:00",
+    endTime: "24:00",
     location: "iitbhu, varanasi",
     description: "test_event_description",
-    startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
-    endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
     admins: [
       User(
-        name: "ravidi_admin_one shaikh_admin_one",
+        firstName: "ravidi_admin_one",
+        lastName: "shaikh_admin_one",
       ),
       User(
-        name: "ravidi_admin_two shaikh_admin_two",
+        firstName: "ravidi_admin_two",
+        lastName: "shaikh_admin_two",
       ),
     ],
     attendees: [
@@ -134,8 +138,8 @@ void main() {
 
       expect(find.text("test_event"), findsOneWidget);
       expect(find.text("Created by: ravidi shaikh"), findsOneWidget);
-      expect(find.text("2025-07-28 - 2025-07-30"), findsOneWidget);
-      expect(find.text("09:00 AM - 05:00 PM"), findsOneWidget);
+      expect(find.text("00/00/0000 - 12/12/9999"), findsOneWidget);
+      expect(find.text("00:00 - 24:00"), findsOneWidget);
       expect(find.text("iitbhu, varanasi"), findsOneWidget);
       expect(find.text("test_event_description"), findsOneWidget);
       expect(find.text("ravidi_admin_one shaikh_admin_one"), findsOneWidget);
@@ -149,68 +153,6 @@ void main() {
         await tester.pumpAndSettle();
       },
     );
-
-    testWidgets('Shows "No admins assigned" when event.admins is empty',
-        (tester) async {
-      // Create an event with empty admins list
-      final eventWithNoAdmins = Event(
-        id: "1",
-        name: "test_event",
-        creator: User(
-          id: "acb1",
-          name: "ravidi shaikh",
-        ),
-        isPublic: true,
-        location: "iitbhu, varanasi",
-        description: "test_event_description",
-        startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
-        endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
-        admins: null,
-        attendees: [
-          Attendee(
-            id: "1",
-            firstName: "Test",
-            lastName: "User",
-          ),
-        ],
-        isRegisterable: true,
-      );
-
-      // Provide a custom EventInfoViewModel that uses this event
-      final exploreEventsViewModel = ExploreEventsViewModel();
-      final eventInfoViewModel = EventInfoViewModel();
-      eventInfoViewModel.initialize(
-        args: {
-          "event": eventWithNoAdmins,
-          "exploreEventViewModel": exploreEventsViewModel,
-        },
-      );
-
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: ChangeNotifierProvider<EventInfoViewModel>.value(
-            value: eventInfoViewModel,
-            child: const Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  EventInfoBody(),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      expect(find.text("No admins assigned"), findsOneWidget);
-    });
 
     testWidgets("Check if all taps work", (tester) async {
       await tester.pumpWidget(createEventInfoBody());

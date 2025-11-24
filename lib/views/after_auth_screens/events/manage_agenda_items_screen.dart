@@ -59,7 +59,7 @@ class ManageAgendaScreen extends StatelessWidget {
                             }
                           },
                           onDelete: () async {
-                            await model.deleteAgendaItem(item.id ?? '');
+                            await model.deleteAgendaItem(item.id!);
                             if (context.mounted) {
                               DelightToastBar(
                                 autoDismiss: true,

@@ -24,6 +24,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
       ),
       content: SizedBox(
         height: SizeConfig.screenHeight! * 0.33,
+        // width: SizeConfig.screenWidth! * 0.3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

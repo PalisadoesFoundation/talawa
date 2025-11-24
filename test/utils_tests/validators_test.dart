@@ -29,21 +29,43 @@ void main() {
         });
       });
 
-      group('Test validateName', () {
-        test('Test validateName when value is empty', () {
-          final result = Validator.validateName('');
+      group('Test validateFirstName', () {
+        test('Test validateFirstName when value is empty', () {
+          final result = Validator.validateFirstName('');
 
-          expect(result, 'Name must not be left blank.');
+          expect(result, 'Firstname must not be left blank.');
         });
 
-        test('Test validateName when value does not match regex pattern', () {
-          final result = Validator.validateName('123');
+        test('Test validateFirstName when value does not match regex pattern',
+            () {
+          final result = Validator.validateFirstName('123');
 
-          expect(result, 'Invalid Name');
+          expect(result, 'Invalid Firstname');
         });
 
-        test('Test validateName when value match regex pattern', () {
-          final result = Validator.validateName('Name');
+        test('Test validateFirstName when value match regex pattern', () {
+          final result = Validator.validateFirstName('Name');
+
+          expect(result, null);
+        });
+      });
+
+      group('Test validateLastName', () {
+        test('Test validateLastName when value is empty', () {
+          final result = Validator.validateLastName('');
+
+          expect(result, 'Lastname must not be left blank.');
+        });
+
+        test('Test validateLastName when value does not match regex pattern',
+            () {
+          final result = Validator.validateLastName('123');
+
+          expect(result, 'Invalid Lastname');
+        });
+
+        test('Test validateLastName when value match regex pattern', () {
+          final result = Validator.validateLastName('Name');
 
           expect(result, null);
         });

@@ -360,6 +360,43 @@ void main() {
       expect(validDescription, null);
     });
 
+    test('Check addition of members', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+
+      final List<User> allMembers =
+          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
+      model.orgMembersList = allMembers;
+
+      // non admins (normal members)
+      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
+      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
+      model.buildUserList();
+      final bool isMemberFound =
+          model.selectedMembers.contains(usersInCurrentOrg.first);
+      expect(isMemberFound, true);
+    });
+
+    test('Removing of members from event', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+      final List<User> allMembers =
+          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
+      model.orgMembersList = allMembers;
+
+      // non admins (normal members)
+      // to remove, first we need to add a member
+      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
+      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
+      model.buildUserList();
+      model.removeUserFromList(
+        userId: usersInCurrentOrg.first.id!,
+      );
+      final bool isMemberFound =
+          model.selectedMembers.contains(usersInCurrentOrg.first);
+      expect(isMemberFound, false);
+    });
+
     test('setEventEndDate should set the event end date and notify listeners',
         () {
       final model = CreateEventViewModel();

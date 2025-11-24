@@ -30,80 +30,6 @@ void main() {
         expect(model.selectedOrganization.id, 'XYZ');
       });
 
-      test("Check if error is shown when no organization is selected",
-          () async {
-        final model = AccessScreenViewModel();
-        // selectedOrganization remains with default id '-1'
-
-        await model.sendMembershipRequest();
-
-        verify(
-          locator<NavigationService>().showTalawaErrorSnackBar(
-            'Please select an organization',
-            MessageType.error,
-          ),
-        );
-      });
-
-      test("Check if error is shown when organization id is null", () async {
-        final model = AccessScreenViewModel();
-        model.selectedOrganization = fakeOrgInfo;
-        model.selectedOrganization.id = null;
-
-        await model.sendMembershipRequest();
-
-        verify(
-          locator<NavigationService>().showTalawaErrorSnackBar(
-            'Please select an organization',
-            MessageType.error,
-          ),
-        );
-      });
-
-      test("Check membership request with organization ID mismatch", () async {
-        final org = userConfig.currentOrg;
-        final model = AccessScreenViewModel();
-        model.initialise(org);
-
-        when(
-          databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
-          ),
-        ).thenAnswer(
-          (_) async => QueryResult(
-            options: QueryOptions(
-              document: gql(queries.sendMembershipRequest()),
-            ),
-            data: {
-              'sendMembershipRequest': {
-                'userId': 'test-user-id',
-                'membershipRequestId': 'test-request-id',
-                'organizationId': 'DIFFERENT_ID', // Different from expected
-                'status': 'PENDING',
-              },
-            },
-            source: QueryResultSource.network,
-          ),
-        );
-
-        await model.sendMembershipRequest();
-
-        verify(
-          databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
-          ),
-        );
-
-        verify(
-          locator<NavigationService>().showTalawaErrorSnackBar(
-            'Some error occurred. Please try again later.',
-            MessageType.error,
-          ),
-        );
-      });
-
       test(
           "Check if snackbar is showing in case of not empty joined organization",
           () async {
@@ -113,20 +39,27 @@ void main() {
 
         when(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
+            queries.sendMembershipRequest(org.id!),
           ),
         ).thenAnswer(
           (_) async => QueryResult(
             options: QueryOptions(
-              document: gql(queries.sendMembershipRequest()),
+              document: gql(queries.sendMembershipRequest(org.id!)),
             ),
             data: {
               'sendMembershipRequest': {
-                'userId': 'test-user-id',
-                'membershipRequestId': 'test-request-id',
-                'organizationId': 'XYZ', // Matches expected
-                'status': 'PENDING',
+                'organization': {
+                  '_id': 'XYZ',
+                  'name': 'Organization Name',
+                  'image': null,
+                  'description': null,
+                  'userRegistrationRequired': true,
+                  'creator': {
+                    'firstName': 'ravidi',
+                    'lastName': 'shaikh',
+                    'image': null,
+                  },
+                },
               },
             },
             source: QueryResultSource.network,
@@ -137,8 +70,7 @@ void main() {
 
         verify(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
+            queries.sendMembershipRequest(org.id!),
           ),
         );
 
@@ -160,20 +92,27 @@ void main() {
 
         when(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
+            queries.sendMembershipRequest(org.id!),
           ),
         ).thenAnswer(
           (_) async => QueryResult(
             options: QueryOptions(
-              document: gql(queries.sendMembershipRequest()),
+              document: gql(queries.sendMembershipRequest(org.id!)),
             ),
             data: {
               'sendMembershipRequest': {
-                'userId': 'test-user-id',
-                'membershipRequestId': 'test-request-id',
-                'organizationId': 'XYZ', // Matches expected
-                'status': 'PENDING',
+                'organization': {
+                  '_id': 'XYZ',
+                  'name': 'Organization Name',
+                  'image': null,
+                  'description': null,
+                  'userRegistrationRequired': true,
+                  'creator': {
+                    'firstName': 'ravidi',
+                    'lastName': 'shaikh',
+                    'image': null,
+                  },
+                },
               },
             },
             source: QueryResultSource.network,
@@ -184,8 +123,7 @@ void main() {
 
         verify(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
+            queries.sendMembershipRequest(org.id!),
           ),
         );
 
@@ -195,45 +133,6 @@ void main() {
             Routes.splashScreen,
           ),
         );
-      });
-
-      test("Check if null data is handled properly", () async {
-        final org = userConfig.currentOrg;
-        final model = AccessScreenViewModel();
-        model.initialise(org);
-
-        when(
-          databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
-          ),
-        ).thenAnswer(
-          (_) async => QueryResult(
-            options: QueryOptions(
-              document: gql(queries.sendMembershipRequest()),
-            ),
-            data: null, // Null data
-            source: QueryResultSource.network,
-          ),
-        );
-
-        await model.sendMembershipRequest();
-
-        verify(
-          databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(),
-            variables: anyNamed('variables'),
-          ),
-        );
-
-        // Should not call any navigation or snackbar methods when data is null
-        verifyNever(locator<NavigationService>().pop());
-      });
-
-      test("Check optionalMessageController initialization", () {
-        final model = AccessScreenViewModel();
-        expect(model.optionalMessageController, isNotNull);
-        expect(model.optionalMessageController.text, isEmpty);
       });
     },
   );

@@ -34,12 +34,19 @@ void main() {
   group('SignUp Tests', () {
     // final model = MockSignupDetailsViewModel();
 
-    test('Test validation for name', () {
-      final String? blankName = Validator.validateName("");
-      expect(blankName, "Name must not be left blank.");
+    test('Test validation for first and last name', () {
+      final String? blankFirstName = Validator.validateFirstName("");
+      expect(blankFirstName, "Firstname must not be left blank.");
 
-      final String? validName = Validator.validateName("testName");
-      expect(validName, null);
+      final String? blankLastName = Validator.validateLastName("");
+      expect(blankLastName, "Lastname must not be left blank.");
+
+      final String? validFirstName =
+          Validator.validateFirstName("testFirstName");
+      expect(validFirstName, null);
+
+      final String? validLastName = Validator.validateLastName("testLastName");
+      expect(validLastName, null);
     });
 
     test('Test validation for Email', () {
@@ -107,7 +114,7 @@ void main() {
       expect(matchingPassword, null);
     });
 
-    test('Test sign up function', () {
+    test('Test sign up function', () async {
       // final User newUser = User();
 
       // NOTE: This test is entirely WRONG.

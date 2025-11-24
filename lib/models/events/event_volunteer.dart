@@ -22,6 +22,7 @@ class EventVolunteer {
       creator: json['creator'] != null
           ? User.fromJson(
               json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
             )
           : null,
       event: json['event'] != null
@@ -34,7 +35,7 @@ class EventVolunteer {
       isInvited: json['isInvited'] as bool?,
       response: json['response'] as String?,
       user: json['user'] != null
-          ? User.fromJson(json['user'] as Map<String, dynamic>)
+          ? User.fromJson(json['user'] as Map<String, dynamic>, fromOrg: true)
           : null,
     );
   }

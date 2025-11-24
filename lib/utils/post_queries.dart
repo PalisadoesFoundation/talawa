@@ -3,96 +3,112 @@ class PostQueries {
   /// Getting Posts by Id.
   ///
   /// **params**:
-  ///   None
+  /// * `orgId`: The organisation id
+  /// * `after`: The cursor after which the posts are to be fetched
+  /// * `before`: The cursor before which the posts are to be fetched
+  /// * `first`: The number of posts to be fetched from the start
+  /// * `last`: The number of posts to be fetched from the end
   ///
   /// **returns**:
-  /// * `String`: The query related to gettingPostsbyOrgID
-  String getPostsByOrgID() {
-    return '''
-    query GetPostsByOrgID(
-      \$orgId: String!,
-      \$after: String,
-      \$before: String,
-      \$first: Int,
-      \$last: Int
-    ) {
-      organization(input: { id: \$orgId }) {
-        posts(
-          first: \$first,
-          last: \$last,
-          after: \$after,
-          before: \$before
-        ) {
+  /// * `String`: The query related to gettingPostsbyId
+  String getPostsById(
+    String orgId,
+    String? after,
+    String? before,
+    int? first,
+    int? last,
+  ) {
+    print(after);
+    final String? afterValue = after != null ? '"$after"' : null;
+    final String? beforeValue = before != null ? '"$before"' : null;
+
+    return """
+      query {
+        organizations(id: "$orgId") {
+          posts(first: $first, last:$last,after:  $afterValue, before: $beforeValue) { 
           edges {
-            node {
-              id
-              caption
-              upVotesCount
-              downVotesCount
-              commentsCount
-              createdAt
-              creator {
-                id
-                name
-                avatarURL
-              }
-              organization {
-                id
-              }
-              attachments {
-                id
-                fileHash
-                mimeType
-                name
-                objectName
-              }
+          node {
+            _id
+            title
+            text
+            imageUrl
+            videoUrl
+            creator {
+              _id
+              firstName
+              lastName
+              email
             }
-            cursor
+            createdAt
+            likeCount
+            commentCount
+              likedBy{
+            _id
           }
-          pageInfo {
-            endCursor
-            hasNextPage
-            hasPreviousPage
-            startCursor
+          comments{
+            _id
+          }
+            pinned
+          }
+          cursor
+        }
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
+        }
+        totalCount
           }
         }
       }
-    }
-  ''';
+""";
   }
 
-  /// Query to fetch vote details of a post.
+  /// Getting Post by Post Id.
   ///
   /// **params**:
-  ///   None
+  /// * `postId`: The post id
   ///
   /// **returns**:
-  /// * `String`: The query related to fetchingVoteDetails
-  String hasUserVoted() {
-    return '''
-    query HasUserVoted(\$postId: String!) {
-      hasUserVoted(input: { postId: \$postId }) {
-        hasVoted
-      }
-    }
-  ''';
-  }
-
-  /// Getting Presigned URL for uploading a file.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `String`: The query related to gettingPresignedUrl
-  String getPresignedUrl() {
+  /// * `String`: The query related to gettingPostsbyId
+  String getPostById(String postId) {
     return """
-    mutation GetFileUrl(\$objectName: String!, \$organizationId: ID!) {
-      createGetfileUrl(input: { objectName: \$objectName, organizationId: \$organizationId }) {
-        presignedUrl
+      query {
+        post(id: "$postId")
+        { 
+          _id
+          text
+          createdAt
+          imageUrl
+          videoUrl
+          title
+          commentCount
+          likeCount
+          creator{
+            _id
+            firstName
+            lastName
+            image
+          }
+          organization{
+            _id
+          }
+          likedBy{
+            _id
+          }
+          comments{
+           _id,
+            text,
+             createdAt
+        creator{
+          firstName
+          lastName
+        }
+          }
+        }
       }
-    }
-  """;
+""";
   }
 
   /// Add Like to a post.
@@ -108,6 +124,27 @@ class PostQueries {
       likePost( id: \$postID,)
       {
         _id
+      }
+    }
+  """;
+  }
+
+  /// Remove Like from a post.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The query related to removingLike
+  String removeLike() {
+    return """
+     mutation unlikePost(\$postID: ID!) { 
+      unlikePost( id: \$postID,)
+      {
+        _id
+        likedBy{
+        _id
+        }
       }
     }
   """;
@@ -168,7 +205,7 @@ class PostQueries {
     ''';
   }
 
-  /// Mutation to delete the post.
+  /// Mutation to remove the post.
   ///
   ///
   /// **params**:
@@ -176,11 +213,11 @@ class PostQueries {
   ///
   /// **returns**:
   /// * `String`: query is returned
-  String deletePost() {
+  String removePost() {
     return '''
-    mutation DeletePost(\$id: ID!) {
-      deletePost(input: {id: \$id}) {
-        id
+    mutation RemovePost(\$id: ID!) {
+      removePost(id: \$id) {
+        _id
       }
     }
     ''';

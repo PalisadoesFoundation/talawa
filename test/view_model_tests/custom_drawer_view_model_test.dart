@@ -178,7 +178,7 @@ void main() {
       expect(model.selectedOrg, isNot(fakeOrg));
     });
 
-    test('check if switchOrg is working with mock joined orgs', () {
+    test('check if switchOrg is working with mock joined orgs', () async {
       final model = CustomDrawerViewModel();
       final homeModel = MainScreenViewModel();
       final MockBuildContext mockContext = MockBuildContext();

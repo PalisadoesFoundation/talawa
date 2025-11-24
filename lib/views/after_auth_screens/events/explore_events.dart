@@ -50,7 +50,8 @@ class ExploreEvents extends StatelessWidget {
               icon: const Icon(
                 Icons.menu,
               ),
-              onPressed: () => Scaffold.maybeOf(context)?.openDrawer(),
+              onPressed: () =>
+                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
             actions: [
               Padding(
@@ -82,7 +83,7 @@ class ExploreEvents extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 )
               : RefreshIndicator(
-                  onRefresh: () => model.refreshEvents(),
+                  onRefresh: () async => model.refreshEvents(),
                   child: Stack(
                     children: [
                       SingleChildScrollView(

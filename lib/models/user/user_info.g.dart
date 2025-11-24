@@ -17,21 +17,24 @@ class UserAdapter extends TypeAdapter<User> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
-      email: fields[4] as String?,
-      name: fields[3] as String?,
+      adminFor: (fields[9] as List?)?.cast<OrgInfo>(),
+      createdOrganizations: (fields[8] as List?)?.cast<OrgInfo>(),
+      email: fields[5] as String?,
+      firstName: fields[3] as String?,
       id: fields[2] as String?,
-      image: fields[5] as String?,
-      joinedOrganizations: (fields[6] as List?)?.cast<OrgInfo>(),
+      image: fields[6] as String?,
+      joinedOrganizations: (fields[7] as List?)?.cast<OrgInfo>(),
+      lastName: fields[4] as String?,
       authToken: fields[0] as String?,
       refreshToken: fields[1] as String?,
-      membershipRequests: (fields[10] as List?)?.cast<String>(),
+      membershipRequests: (fields[10] as List?)?.cast<OrgInfo>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.authToken)
       ..writeByte(1)
@@ -39,13 +42,19 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(2)
       ..write(obj.id)
       ..writeByte(3)
-      ..write(obj.name)
+      ..write(obj.firstName)
       ..writeByte(4)
-      ..write(obj.email)
+      ..write(obj.lastName)
       ..writeByte(5)
-      ..write(obj.image)
+      ..write(obj.email)
       ..writeByte(6)
+      ..write(obj.image)
+      ..writeByte(7)
       ..write(obj.joinedOrganizations)
+      ..writeByte(8)
+      ..write(obj.createdOrganizations)
+      ..writeByte(9)
+      ..write(obj.adminFor)
       ..writeByte(10)
       ..write(obj.membershipRequests);
   }

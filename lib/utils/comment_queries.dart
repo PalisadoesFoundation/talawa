@@ -8,51 +8,42 @@ class CommentQueries {
   /// **returns**:
   /// * `String`: The query for creating a comment
   String createComment() {
-    return '''
-      mutation CreateComment(\$postId: ID!, \$body: String!) {
-        createComment(input: { postId: \$postId, body: \$body }) {
-          body
-          id
+    return """
+     mutation createComment(\$postId: ID!, \$text: String!) { 
+      createComment(postId: \$postId, 
+        data:{
+          text: \$text,
         }
+      ){
+        _id
       }
-    ''';
+    }
+  """;
   }
 
   /// Get all comments for a post.
   ///
   /// **params**:
-  ///   None
+  /// * `postId`: The id of the post to get comments for.
   ///
   /// **returns**:
   /// * `String`: The query for getting all comments for a post.
-  String getPostsComments() {
-    return '''
-    query GetPostComments(\$postId: String!, \$first: Int, \$after: String, \$before: String, \$last: Int) {
-      post(input: { id: \$postId }) {
-        comments(first: \$first, after: \$after, before: \$before, last: \$last) {
-          edges {
-            node {
-              body
-              id
-              post {
-                id
-              }
-              createdAt
-              creator {
-                name
-                avatarURL
-              }
-            }
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
-            hasPreviousPage
-            startCursor
+  String getPostsComments(String postId) {
+    return """
+     query {
+        post(id: "$postId")
+        {  _id,
+          comments{
+             _id,
+            text,
+             createdAt
+        creator{
+          firstName
+          lastName
+        }
           }
         }
       }
-    }
-  ''';
+""";
   }
 }
