@@ -50,18 +50,12 @@ Widget editEventScreen({
             event: Event(
               id: '1',
               admins: [],
-              startDate: DateFormat('yMd').format(
-                DateTime(2021, 1, 1),
-              ),
-              endDate: DateFormat('yMd').format(
-                DateTime(2022, 1, 1),
-              ),
-              startTime: DateFormat('h:mm a').format(DateTime(2021, 1, 1)),
-              endTime: DateFormat('h:mm a').format(DateTime(2022, 1, 1)),
               isRegisterable: true,
               isPublic: true,
               isRegistered: true,
-              title: "Test Title",
+              name: "Test Title",
+              startAt: DateTime.parse('2021-01-01T01:00:00.000Z'),
+              endAt: DateTime.parse('2022-01-01T01:00:00.000Z'),
               description: "Description Title",
               location: "Buea",
             ),
@@ -72,8 +66,8 @@ Widget editEventScreen({
       },
     );
 
-void main() async {
-  setUpAll(() async {
+void main() {
+  setUpAll(() {
     SizeConfig().test();
     setupLocator();
     graphqlConfig.test();
@@ -180,7 +174,7 @@ void main() async {
       await tester.tap(find.text('OK'));
       await tester.pump();
 
-      expect(find.text('12:00 PM'), findsOneWidget);
+      expect(find.text('1:00 PM'), findsOneWidget);
     });
   });
 
@@ -392,11 +386,11 @@ void main() async {
         expect(dateTimeTiles, findsNWidgets(2));
         expect(
           (tester.firstWidget(dateTimeTiles) as DateTimeTile).date,
-          DateTime(2021, 1, 1).toString().split(' ')[0],
+          DateTime(2021, 1, 1, 1).toString().split(' ')[0],
         );
         expect(
           (tester.firstWidget(dateTimeTiles) as DateTimeTile).time,
-          TimeOfDay.fromDateTime(DateTime(2021, 1, 1)).format(
+          TimeOfDay.fromDateTime(DateTime(2021, 1, 1, 1)).format(
             navigationService.navigatorKey.currentContext!,
           ),
         );
@@ -427,13 +421,13 @@ void main() async {
         );
         expect(
           (tester.widgetList(dateTimeTiles).toList()[1] as DateTimeTile).time,
-          TimeOfDay.fromDateTime(DateTime(2022, 1, 1)).format(
+          TimeOfDay.fromDateTime(DateTime(2022, 1, 1, 1)).format(
             navigationService.navigatorKey.currentContext!,
           ),
         );
         expect(
           (tester.widgetList(dateTimeTiles).toList()[1] as DateTimeTile).time,
-          TimeOfDay.fromDateTime(DateTime(2022, 1, 1)).format(
+          TimeOfDay.fromDateTime(DateTime(2022, 1, 1, 1)).format(
             navigationService.navigatorKey.currentContext!,
           ),
         );

@@ -69,15 +69,11 @@ void main() {
     locator<SizeConfig>().test();
     newEvent = Event(
       id: "1",
-      title: "fake_event_title",
+      name: "fake_event_title",
       description: "fake_event_desc",
       attendees: [Attendee(id: 'Test Id')],
       location: "fake_event_loc",
       recurring: false,
-      startDate: '2024-01-14',
-      endDate: '2024-01-14',
-      startTime: '08:01:00.000Z',
-      endTime: '08:50:00.000Z',
       creator: User(id: 'xzy1'),
       isPublic: true,
       isRegistered: true,
@@ -114,7 +110,7 @@ void main() {
         "Test checkIfExistsAndAddNewEvent function when start time is not parsable",
         () async {
       final model = ExploreEventsViewModel();
-      newEvent.startTime = "09:00:00";
+
       newEvent.organization!.id = 'Test Id 1';
       await model.checkIfExistsAndAddNewEvents([newEvent]);
       expect(model.events, isEmpty);
@@ -179,7 +175,7 @@ void main() {
       //run default block
       await model.choseValueFromDropdown("Events");
     });
-    test("Test get event service", () async {
+    test("Test get event service", () {
       final model = ExploreEventsViewModel();
       expect(model.eventService, isA<EventService>());
     });
@@ -201,7 +197,7 @@ void main() {
     });
     test(
         "Test chooseValueFromDropdown when value is Registered Events and _bufferEvents is not empty",
-        () async {
+        () {
       final model = ExploreEventsViewModel();
       final List<Event> userEvents = model.userEvents;
       expect(userEvents, []);
@@ -213,7 +209,7 @@ void main() {
       when(model.eventService.deleteEvent(newEvent.id!)).thenAnswer(
         (realInvocation) async => QueryResult(
           options: QueryOptions(
-            document: gql(CommentQueries().getPostsComments('postId')),
+            document: gql(CommentQueries().getPostsComments()),
           ),
           data: {
             'post': {'comments': []},

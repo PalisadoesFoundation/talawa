@@ -8,7 +8,7 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -38,12 +38,12 @@ void main() {
   group("Post List Widget Test-", () {
     setUp(() {
       registerServices();
-      locator.registerFactory(() => LikeButtonViewModel());
+      locator.registerFactory(() => InteractionsViewModel());
     });
 
     tearDown(() {
       unregisterServices();
-      locator.unregister<LikeButtonViewModel>();
+      locator.unregister<InteractionsViewModel>();
     });
 
     testWidgets("Test if PostList Widget is displayed ",
@@ -74,7 +74,7 @@ void main() {
         // await tester.drag(find.byType(ListView), const Offset(0, -800));
         // await tester.pump();
         // First post in list should still be visible as scrolling is disabled
-        expect(find.text(mockPost1.description!), findsOneWidget);
+        expect(find.text(mockPost1.caption!), findsOneWidget);
       });
     });
   });

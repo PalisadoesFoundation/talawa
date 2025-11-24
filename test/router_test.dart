@@ -6,21 +6,24 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/main.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/plugin/manager.dart';
+import 'package:talawa/plugin/types.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/group_chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
@@ -31,30 +34,58 @@ import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group.da
 import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
-import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
+import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/demo_page_view.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/views/main_screen.dart';
+import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
-import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
 
 import 'helpers/test_helpers.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
+// Mock plugin for testing
+class TestPlugin implements TalawaMobilePlugin {
+  @override
+  PluginManifest get manifest => const PluginManifest(
+        id: 'test_plugin',
+        name: 'Test Plugin',
+      );
+
+  @override
+  List<PluginRoute> getRoutes() => [
+        PluginRoute(
+          routeName: '/test_plugin_route',
+          builder: (context) => const Placeholder(key: Key('TestPluginPage')),
+        ),
+      ];
+
+  @override
+  List<PluginMenuItem> getMenuItems(BuildContext context) => [];
+
+  @override
+  PluginExtensions getExtensions() => const PluginExtensions();
+}
+
 void main() {
   setUpAll(() {
     setupLocator();
     getAndRegisterConnectivity();
+  });
+
+  tearDown(() {
+    PluginManager.instance.reset();
   });
 
   group('Tests for router', () {
@@ -148,7 +179,7 @@ void main() {
     });
 
     testWidgets('Test IndividualPostView route', (WidgetTester tester) async {
-      final post = Post(sId: "testId", creator: User());
+      final post = Post(id: "testId", creator: User());
 
       final route = generateRoute(
         RouteSettings(name: Routes.individualPost, arguments: post),
@@ -158,20 +189,6 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<IndividualPostView>());
-      }
-    });
-
-    testWidgets('Test PinnedPostPage route', (WidgetTester tester) async {
-      final List<Post> pinnedPosts = [Post(sId: "testId", creator: User())];
-
-      final route = generateRoute(
-        RouteSettings(name: Routes.pinnedPostPage, arguments: pinnedPosts),
-      );
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<PinnedPostPage>());
       }
     });
 
@@ -216,6 +233,21 @@ void main() {
       }
     });
 
+    testWidgets('Test for pinnedPost route', (WidgetTester tester) async {
+      final route = generateRoute(
+        RouteSettings(
+          name: Routes.pinnedPostScreen,
+          arguments: Post(id: "testId"),
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<PinnedPostScreen>());
+      }
+    });
+
     testWidgets('Test ProfilePage route', (WidgetTester tester) async {
       final route =
           generateRoute(const RouteSettings(name: Routes.profilePage));
@@ -257,8 +289,8 @@ void main() {
       final route = generateRoute(
         RouteSettings(name: Routes.requestAccess, arguments: orgInfo),
       );
-      expect(route, isA<CupertinoPageRoute>());
-      if (route is CupertinoPageRoute) {
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<SendAccessRequest>());
@@ -290,7 +322,7 @@ void main() {
       }
     });
 
-    testWidgets('Test for chatMessageScreen route',
+    testWidgets('Test for ChatMessageScreen route',
         (WidgetTester tester) async {
       final List<dynamic> arguments = [
         'ChatId',
@@ -304,6 +336,26 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<ChatMessageScreen>());
+      }
+    });
+
+    testWidgets('Test for GroupChatMessageScreen route',
+        (WidgetTester tester) async {
+      final List<dynamic> arguments = [
+        'ChatId',
+        GroupChatViewModel(),
+      ];
+      final route = generateRoute(
+        RouteSettings(
+          name: Routes.groupChatMessageScreen,
+          arguments: arguments,
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<GroupChatMessageScreen>());
       }
     });
 
@@ -442,6 +494,62 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<ManageGroupScreen>());
+      }
+    });
+
+    testWidgets('Test for menuPage route', (WidgetTester tester) async {
+      final route = generateRoute(
+        const RouteSettings(
+          name: Routes.menuPage,
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<Widget>());
+      }
+    });
+
+    testWidgets('Test for plugin route fallback', (WidgetTester tester) async {
+      final route = generateRoute(
+        const RouteSettings(
+          name: '/unknown_route',
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        // Should return DemoPageView for unknown routes
+        expect(widget, isA<DemoPageView>());
+      }
+    });
+
+    testWidgets('Test for plugin provided route', (WidgetTester tester) async {
+      // Initialize plugin manager with a test plugin
+      PluginManager.instance.initialize(
+        [TestPlugin()],
+        active: ['test_plugin'],
+      );
+
+      // Test that plugin route is handled
+      final route = generateRoute(
+        const RouteSettings(
+          name: '/test_plugin_route',
+        ),
+      );
+
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        // Should return the plugin's widget
+        expect(widget, isA<Placeholder>());
+        expect(
+          (widget as Placeholder).key,
+          equals(const Key('TestPluginPage')),
+        );
       }
     });
   });

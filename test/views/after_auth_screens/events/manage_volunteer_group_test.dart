@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -28,27 +27,20 @@ Event getTestEvent({
 }) {
   return Event(
     id: "1",
-    title: "test_event",
+    name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      firstName: "ravidi",
-      lastName: "shaikh",
+      name: "ravidi shaikh",
     ),
     isPublic: isPublic,
-    startDate: "00/00/0000",
-    endDate: "12/12/9999",
-    startTime: "00:00",
-    endTime: "24:00",
     location: "iitbhu, varanasi",
     description: "test_event_description",
     admins: [
       User(
-        firstName: "ravidi_admin_one",
-        lastName: "shaikh_admin_one",
+        name: "ravidi_admin_one shaikh_admin_one",
       ),
       User(
-        firstName: "ravidi_admin_two",
-        lastName: "shaikh_admin_two",
+        name: "ravidi_admin_two shaikh_admin_two",
       ),
     ],
     attendees: [
@@ -70,16 +62,16 @@ EventVolunteerGroup group1 = EventVolunteerGroup(
     EventVolunteer(
       id: "volunteer_id_1",
       user: User(
-        firstName: "first1",
-        lastName: "last1",
+        id: "existing_user_1", // Add ID to avoid null comparison
+        name: "first1 last1",
       ),
       response: null,
     ),
     EventVolunteer(
       id: "volunteer_id_2",
       user: User(
-        firstName: "first2",
-        lastName: "last2",
+        id: "existing_user_2", // Add ID to avoid null comparison
+        name: "first2 last2",
       ),
       response: null,
     ),
@@ -238,12 +230,11 @@ void main() {
 
       final mockResult1 = {
         'createEventVolunteer': {
-          '_id': "fakeUser1",
+          '_id': "volunteer_fakeUser1", // Unique volunteer record ID
           'user': {
-            'user': {
-              'id': "fakeUser1",
-              'name': 'Parag xoxo',
-            },
+            'id': "fakeUser1", // Use 'id' not '_id' for fromOrg: true
+            'name': 'Parag xoxo', // Use full name for fromOrg: true
+            'avatarURL': null,
           },
           'response': null,
         },
@@ -251,12 +242,11 @@ void main() {
 
       final mockResult2 = {
         'createEventVolunteer': {
-          '_id': "fakeUser2",
+          '_id': "volunteer_fakeUser2", // Unique volunteer record ID
           'user': {
-            'user': {
-              'id': "fakeUser2",
-              'name': 'Parag1 xoxo',
-            },
+            'id': "fakeUser2", // Use 'id' not '_id' for fromOrg: true
+            'name': 'Parag1 xoxo', // Use full name for fromOrg: true
+            'avatarURL': null,
           },
           'response': null,
         },
@@ -291,6 +281,7 @@ void main() {
               QueryOptions(document: gql(EventQueries().addVolunteerToGroup())),
         ),
       );
+
       await tester.pumpWidget(createManageGroupScreen1(group1));
       await tester.pumpAndSettle();
 
@@ -300,6 +291,7 @@ void main() {
       expect(find.text('Add Volunteers'), findsOneWidget);
       expect(find.text("Edit Group"), findsOneWidget);
 
+      // First time opening the add volunteers bottom sheet
       await tester.tap(find.text("Add Volunteers"));
       await tester.pumpAndSettle();
 
@@ -323,6 +315,7 @@ void main() {
         findsOneWidget,
       );
 
+      // Select both available members
       await tester.tap(
         find.byKey(
           const Key("checkBox0"),
@@ -335,17 +328,27 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      // Add the selected volunteers
       await tester.tap(find.text("Done"));
       await tester.pumpAndSettle();
 
+      // Second time opening the add volunteers bottom sheet
+      // Now there should be no available members since we added them all
       await tester.tap(find.text("Add Volunteers"));
       await tester.pumpAndSettle();
 
+      // The members list should not be present because there are no available members
       expect(
         find.byKey(
           const Key("members_list_key"),
         ),
         findsNothing,
+      );
+
+      // Should show the "no members" message instead
+      expect(
+        find.text("There aren't any members in this organization."),
+        findsOneWidget,
       );
     });
 

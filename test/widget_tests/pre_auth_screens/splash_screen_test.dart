@@ -1,18 +1,10 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-// ignore_for_file: unused_import
-
 import 'package:app_links/app_links.dart';
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stack_trace/stack_trace.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -22,9 +14,9 @@ import 'package:talawa/splash_screen.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'splash_screen_test.mocks.dart';
+import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<AppLinks>(), MockSpec<UserConfig>()])
 Widget _createSplashScreen({
   required ThemeMode themeMode,
   ThemeData? theme,
@@ -65,18 +57,19 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
       darkTheme: TalawaTheme.darkTheme,
     );
 
-Future<void> main() async {
-  // Disable stack trace demangling for non-standard environments (e.g., CI)
-  // This ensures consistent stack traces across different environments and
-  // makes test failures more debuggable in CI pipelines
-  FlutterError.demangleStackTrace = (StackTrace stack) {
-    if (stack is Trace) return stack.vmTrace;
-    if (stack is Chain) return stack.toTrace().vmTrace;
-    return stack;
-  };
-
+void main() {
   late MockAppLinks mockAppLinks;
   late MockUserConfig mockUserConfig;
+  setUpAll(() {
+    // Set up shared preferences
+    SharedPreferences.setMockInitialValues({});
+    // Set up any other test configurations
+    TestWidgetsFlutterBinding.ensureInitialized();
+    setupLocator();
+    registerServices();
+
+    graphqlConfig.test();
+  });
 
   setUp(() {
     mockAppLinks = MockAppLinks();
@@ -106,15 +99,6 @@ Future<void> main() async {
     if (locator.isRegistered<UserConfig>()) {
       locator.unregister<UserConfig>();
     }
-  });
-
-  setUpAll(() {
-    // Set up shared preferences
-    SharedPreferences.setMockInitialValues({});
-    // Set up any other test configurations
-    TestWidgetsFlutterBinding.ensureInitialized();
-    setupLocator();
-    graphqlConfig.test();
   });
 
   group('Splash Screen Widget Test in light mode', () {
@@ -393,7 +377,8 @@ Future<void> main() async {
 
         // Act
         await tester.pumpWidget(createSplashScreenLight());
-        await tester.pumpWidget(Container()); // Force dispose
+
+        await tester.pump();
 
         // No explicit assert needed - test will fail if subscription isn't properly canceled
       });

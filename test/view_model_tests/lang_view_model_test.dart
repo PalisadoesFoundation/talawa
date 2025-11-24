@@ -3,14 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
 import '../helpers/test_helpers.dart';
@@ -34,7 +29,7 @@ void main() {
   });
 
   group('Language View Model Tests', () {
-    test("test change language", () async {
+    test("test change language", () {
       final model = AppLanguage(isTest: true);
       model.initialize();
 
@@ -96,117 +91,6 @@ void main() {
       await model.changeLanguage(const Locale('en'));
       changedLocale = model.appLocal;
       expect(changedLocale, const Locale('en'));
-    });
-
-    test("test functions", () async {
-      final model = AppLanguage(isTest: true);
-      await model.initialize();
-
-      // consider if user is not logged in.
-      when(userConfig.currentUser).thenReturn(User(id: 'null'));
-
-      when(
-        navigationService.pushScreen(
-          Routes.mainScreen,
-          arguments: MainScreenArgs(
-            mainScreenIndex: 0,
-            fromSignUp: false,
-            toggleDemoMode: true,
-          ),
-        ),
-      ).thenAnswer((_) async {});
-
-      await model.selectLanguagePress();
-      verify(
-        navigationService.pushScreen(
-          Routes.mainScreen,
-          arguments: MainScreenArgs(
-            mainScreenIndex: 0,
-            fromSignUp: false,
-            toggleDemoMode: true,
-          ),
-        ),
-      );
-      // consider if user is logged in.
-      when(userConfig.currentUser).thenReturn(User(id: 'xyz1'));
-
-      when(
-        navigationService.popAndPushScreen(
-          '/appSettingsPage',
-          arguments: '',
-        ),
-      ).thenAnswer((_) async {});
-
-      databaseFunctions.init();
-
-      when(
-        databaseFunctions.gqlAuthMutation(
-          queries.updateLanguage(model.appLocal.languageCode),
-        ),
-      ).thenAnswer((_) async {
-        return QueryResult(
-          options: QueryOptions(document: gql(PostQueries().addLike())),
-          exception: OperationException(graphqlErrors: []),
-          source: QueryResultSource.network,
-        );
-      });
-
-      await model.selectLanguagePress();
-
-      verify(
-        databaseFunctions.gqlAuthMutation(
-          queries.updateLanguage(model.appLocal.languageCode),
-        ),
-      );
-      verify(
-        navigationService.popAndPushScreen(
-          '/appSettingsPage',
-          arguments: '',
-        ),
-      );
-
-      // testing userLanguageQuery function
-      const userId = "xyz1";
-      when(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)))
-          .thenAnswer((_) async {
-        return QueryResult(
-          options: QueryOptions(document: gql(PostQueries().addLike())),
-          exception: OperationException(graphqlErrors: []),
-          source: QueryResultSource.network,
-        );
-      });
-      await model.userLanguageQuery(userId);
-      verify(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)));
-
-      //testing appLanguageQueryFunction
-      when(databaseFunctions.gqlAuthQuery(queries.userLanguage()))
-          .thenAnswer((_) async {
-        return QueryResult(
-          options: QueryOptions(document: gql(PostQueries().addLike())),
-          exception: OperationException(graphqlErrors: []),
-          source: QueryResultSource.network,
-        );
-      });
-      await model.appLanguageQuery();
-      verify(databaseFunctions.gqlAuthQuery(queries.userLanguage()));
-
-      //testing catch block in userLanguageQuery
-      when(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)))
-          .thenThrow(Error());
-      await model.userLanguageQuery(userId);
-
-      //testing catch block in appLanguageQuery
-      when(databaseFunctions.gqlAuthQuery(queries.userLanguage()))
-          .thenThrow(Error());
-      await model.appLanguageQuery();
-
-      //testing catch block in dbLanguageUpdate
-      when(
-        databaseFunctions.gqlAuthMutation(
-          queries.updateLanguage(model.appLocal.languageCode),
-        ),
-      ).thenThrow(Error());
-      await model.dbLanguageUpdate();
     });
   });
 

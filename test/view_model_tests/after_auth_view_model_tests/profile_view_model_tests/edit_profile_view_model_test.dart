@@ -1,363 +1,177 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:io';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
-import 'package:talawa/utils/post_queries.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
-import '../../../service_tests/image_service_test.dart';
-import '../../../widget_tests/widgets/post_modal_test.dart';
-
-/// MockCallbackFunction class is used to mock callback function.
-class MockCallbackFunction extends Mock {
-  /// `call` function is a placeholder function.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void call();
-}
 
 void main() {
   setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
-    SizeConfig().test();
     registerServices();
-    graphqlConfig.test();
-    sizeConfig.test();
-    getAndRegisterImageService();
-    getAndRegisterNavigationService();
   });
 
   tearDownAll(() {
     unregisterServices();
   });
 
-  group('EditProfilePageViewModel Test -', () {
-    test("Check if it's initialized correctly", () {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      expect(model.imageFile, null);
-    });
-    test('Profile shoud be edited if new values are given', () async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      final Map<String, dynamic> mockData = {
-        'updateUserProfile': {
-          '_id': '64378abd85008f171cf2990d',
-        },
-      };
+  group('EditProfilePageViewModel - updateUserProfile', () {
+    setUp(() {
+      // Ensure currentUser is stubbed for view model usage
 
-      final File file = File('path/to/newImage.png');
-      final String a = await model.convertToBase64(file);
-      final Map<String, dynamic> data = {
-        'users': [
-          {
-            '__typename': 'UserData',
-            'appUserProfile': {
-              '__typename': 'AppUserProfile',
-              'adminFor': [],
-              'createdOrganizations': [],
-            },
-            'user': {
-              '__typename': 'User',
-              '_id': '1234567890',
-              'firstName': 'John',
-              'lastName': 'Doe',
-              'email': 'johndoe@example.com',
-              'image': 'https://example.com/profile.jpg',
-              'joinedOrganizations': [
-                {
-                  '__typename': 'Organization',
-                  '_id': '6537904485008f171cf29924',
-                  'name': 'Unity Foundation',
-                  'image': null,
-                  'description':
-                      'We are aimed at improving the education spaces for the under privileged girl child.',
-                  'userRegistrationRequired': false,
-                  'creator': {
-                    '__typename': 'User',
-                    '_id': '64378abd85008f171cf2990d',
-                    'firstName': 'Wilt',
-                    'lastName': 'Shepherd',
-                    'image': null,
-                  },
-                }
-              ],
-              'membershipRequests': [],
-            },
-          }
-        ],
-      };
-      final vars = {
-        'firstName': 'NewFirstName',
-        'lastName': 'NewLastName',
-        'file': 'data:image/png;base64,$a',
-      };
-      when(
-        databaseFunctions.gqlAuthMutation(
-          queries.updateUserProfile(),
-          variables: vars,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          data: mockData,
-          source: QueryResultSource.network,
-          options: QueryOptions(document: gql(queries.updateUserProfile())),
-        ),
-      );
-      when(
-        databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
-          variables: {'id': model.user.id},
-        ),
-      ).thenAnswer((_) async {
-        return QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(document: gql(queries.fetchUserInfo)),
-        );
-      });
-      await model.updateUserProfile(
-        firstName: 'NewFirstName',
-        lastName: 'NewLastName',
-        newImage: File('path/to/newImage.png'),
-      );
-
-      verify(
-        databaseFunctions.gqlAuthMutation(
-          queries.updateUserProfile(),
-          variables: vars,
-        ),
-      ).called(1);
-      print(navigationService is MockNavigationService);
-      // verify(
-      //   navigationService.showTalawaErrorSnackBar(
-      //     "Profile updated successfully",
-      //     MessageType.info,
-      //   ),
-      // );
+      when(userConfig.currentUser)
+          .thenReturn(User(id: 'u1', name: 'John', email: 'john@example.com'));
     });
-
-    test('Test UpdateUserProfile when throwing exception', () async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      final mockedFile = File('path/to/newImage.png');
-      final String b = await model.convertToBase64(mockedFile);
-      when(
-        databaseFunctions.gqlAuthMutation(
-          queries.updateUserProfile(),
-          variables: {
-            'firstName': 'NewFirstName',
-            'lastName': 'NewLastName',
-            'newImage': 'data:image/png;base64,$b',
-          },
-        ),
-      ).thenThrow(Exception());
-      when(
-        databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
-          variables: {'id': model.user.id},
-        ),
-      ).thenThrow(Exception());
-      await model.updateUserProfile(
-        firstName: 'NewFirstNa',
-        lastName: 'NewLastNa',
-        newImage: File('path/to/newImage.png'),
-      );
-    });
-    testWidgets('Test if SelectImage from camera method works',
-        (WidgetTester tester) async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (BuildContext context) {
-                return ElevatedButton(
-                  key: const Key('btn1'),
-                  onPressed: () => model.selectImage(camera: true),
-                  child: const Text('listner'),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      final file = File('fakePath');
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
-          .thenAnswer((realInvocation) async {
-        return file;
-      });
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-      verify(multimediaPickerService.getPhotoFromGallery(camera: true))
-          .called(1);
-      expect(model.imageFile, file);
-    });
-
-    testWidgets('Test if selectImage from gallery method works',
-        (WidgetTester tester) async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (BuildContext context) {
-                return ElevatedButton(
-                  key: const Key('btn1'),
-                  onPressed: () => model.selectImage(),
-                  child: const Text('listner'),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      final file = File('fakePath');
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery())
-          .thenAnswer((realInvocation) async {
-        return file;
-      });
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-
-      expect(model.imageFile, file);
-    });
-    testWidgets(
-        'Test if SelectImage from camera method works if null is returned',
-        (WidgetTester tester) async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (BuildContext context) {
-                return ElevatedButton(
-                  key: const Key('btn1'),
-                  onPressed: () => model.selectImage(camera: true),
-                  child: const Text('listner'),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
-          .thenAnswer((realInvocation) async {
-        return null;
-      });
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-      verify(multimediaPickerService.getPhotoFromGallery(camera: true))
-          .called(1);
-      expect(model.imageFile, null);
-    });
-    testWidgets(
-        'Test if selectImage from gallery method works when null is returned',
-        (WidgetTester tester) async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (BuildContext context) {
-                return ElevatedButton(
-                  key: const Key('btn1'),
-                  onPressed: () => model.selectImage(),
-                  child: const Text('listner'),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery())
-          .thenAnswer((realInvocation) async {
-        return null;
-      });
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-      expect(model.imageFile, null);
-    });
-
-    test('No update performed if inputs are the same as existing data',
+    test('returns early when no changes (name/email same and no image)',
         () async {
       final model = EditProfilePageViewModel();
       model.initialize();
+
+      // Ensure no snackbar called
       await model.updateUserProfile(
-        firstName: model.user.firstName,
-        lastName: model.user.lastName,
+          name: model.user.name, email: model.user.email, newImage: null);
+      verifyNever(navigationService.showTalawaErrorSnackBar(
+          'Profile updated successfully', MessageType.info));
+    });
+
+    test('returns early when no changes are made - noData scenario', () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+
+      // Call with unchanged values - should return early without calling services
+      await model.updateUserProfile(
+        name: model.user.name,
+        email: model.user.email,
         newImage: null,
       );
-      verifyNever(
-        databaseFunctions.gqlAuthMutation(
-          queries.updateUserProfile(),
-          variables: {'id': 'xzy1'},
-        ),
-      );
+
+      // Since no changes were made, no database calls should be made
+      verifyNever(userProfileService.updateUserProfile(any));
     });
 
-    test('No update performed if all three inputs are null', () async {
+    test('updates only name and persists new user', () async {
       final model = EditProfilePageViewModel();
       model.initialize();
-      when(databaseFunctions.noData).thenReturn(
-        QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: null,
-          source: QueryResultSource.network,
-        ),
-      );
-      await model.updateUserProfile(
-        firstName: null,
-        lastName: null,
-        newImage: null,
-      );
+
+      // Stub mutation success
+      when(userProfileService.updateUserProfile(any))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {'ok': true},
+                options: QueryOptions(document: gql('{ __typename }')),
+              ));
+      // Stub user info fetch result
+      when(userProfileService.getUserProfileInfo(model.user))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'user': {
+                    'id': model.user.id,
+                    'name': 'New Name',
+                    'email': model.user.email,
+                  }
+                },
+                options: QueryOptions(document: gql('{ __typename }')),
+              ));
+
+      await model.updateUserProfile(name: 'New Name');
+
+      // Verify mutation and fetch called
+      verify(userProfileService
+          .updateUserProfile(argThat(containsPair('name', 'New Name'))));
+      verify(userProfileService.getUserProfileInfo(model.user));
+      // Success snackbar
+      verify(navigationService.showTalawaErrorSnackBar(
+          'Profile updated successfully', MessageType.info));
     });
 
-    test('convertToBase64 converts file to base64 string', () async {
+    test('updates only email and persists new user', () async {
       final model = EditProfilePageViewModel();
       model.initialize();
-      //using this asset as the test asset
-      final file = File('assets/images/Group 8948.png');
-      final fileString = await model.convertToBase64(file);
-      expect(model.base64Image, fileString);
+
+      when(userProfileService.updateUserProfile(any))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {'ok': true},
+                options: QueryOptions(document: gql('{ __typename }')),
+              ));
+      when(userProfileService.getUserProfileInfo(model.user))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'user': {
+                    'id': model.user.id,
+                    'name': model.user.name,
+                    'email': 'new@example.com',
+                  }
+                },
+                options: QueryOptions(document: gql('{ __typename }')),
+              ));
+
+      await model.updateUserProfile(email: 'new@example.com');
+
+      verify(userProfileService.updateUserProfile(
+          argThat(containsPair('emailAddress', 'new@example.com'))));
+      verify(userProfileService.getUserProfileInfo(model.user));
+      verify(navigationService.showTalawaErrorSnackBar(
+          'Profile updated successfully', MessageType.info));
     });
 
-    test('convertToBase64 converts file to base64 string throws exception',
-        () async {
+    test('updates avatar when newImage provided', () async {
       final model = EditProfilePageViewModel();
       model.initialize();
-      //using this asset as the test asset
-      final file = File(MockImageService.throwException);
-      await model.convertToBase64(file);
-      expect(model.base64Image, null);
+
+      when(userProfileService.updateUserProfile(any))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {'ok': true},
+                options: QueryOptions(document: gql('{ __typename }')),
+              ));
+      when(userProfileService.getUserProfileInfo(model.user))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'user': {
+                    'id': model.user.id,
+                    'name': model.user.name,
+                    'email': model.user.email,
+                  }
+                },
+                options: QueryOptions(document: gql('{ __typename }')),
+              ));
+
+      await model.updateUserProfile(newImage: File('dummy'));
+
+      verify(userProfileService.updateUserProfile(argThat(contains('avatar'))));
+      verify(userProfileService.getUserProfileInfo(model.user));
+      verify(navigationService.showTalawaErrorSnackBar(
+          'Profile updated successfully', MessageType.info));
     });
 
-    test('Check if removeImage() is working fine', () async {
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = EditProfilePageViewModel()
-        ..addListener(notifyListenerCallback);
+    test('shows error when action throws', () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
 
-      model.removeImage();
+      final ups = locator<UserProfileService>();
+      final nav = locator<NavigationService>();
 
-      expect(model.imageFile, null);
-      verify(notifyListenerCallback()).called(1);
+      when(ups.updateUserProfile(any)).thenThrow(Exception('boom'));
+
+      await model.updateUserProfile(name: 'X');
+
+      verify(nav.showTalawaErrorSnackBar(
+          'Something went wrong', MessageType.error));
     });
   });
 }

@@ -6,7 +6,7 @@ import 'package:talawa/services/caching/offline_action_queue.dart';
 
 import '../../helpers/test_helpers.dart';
 
-void main() async {
+void main() {
   late OfflineActionQueue queue;
 
   getAndRegisterDatabaseMutationFunctions();

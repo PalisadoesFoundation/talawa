@@ -83,7 +83,7 @@ class EventInfoViewModel extends BaseModel {
 
       // use `registerForAnEvent` function provided by `EventService` service.
       final registerResult =
-          await locator<EventService>().registerForAnEvent(event.id!);
+          await locator<EventService>().registerForAnEvent(event.id ?? '');
       if (registerResult != null) {
         event.isRegistered = true;
         final userConfig = locator<UserConfig>();
@@ -231,8 +231,8 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchAgendaItems() async {
     try {
-      final result = await locator<EventService>().fetchAgendaItems(event.id!)
-          as QueryResult;
+      final result = await locator<EventService>()
+          .fetchAgendaItems(event.id ?? '') as QueryResult;
 
       if (result.data == null) return;
       final List agendaJson = result.data!['agendaItemByEvent'] as List;

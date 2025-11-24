@@ -3,16 +3,17 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:talawa/main.dart';
 import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/fund_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
+import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
@@ -26,6 +27,8 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
@@ -34,22 +37,24 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/auth_landing_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
-import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
-import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
+import 'package:talawa/view_model/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
-import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
+import 'package:talawa/views/demo_page_view.dart';
 
 // Instance of GetIt and storing it in a global variable
 /// Intializaing the locator.
@@ -132,6 +137,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => PinnedPostService());
 
   //graphql
 
@@ -148,9 +154,8 @@ Future<void> setupLocator() async {
 
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());
-  // locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => SetUrlViewModel());
+  locator.registerFactory(() => AuthLandingViewModel());
   locator.registerFactory(() => LoginViewModel());
   locator.registerFactory(() => ManageVolunteerGroupViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
@@ -167,17 +172,21 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => AppSettingViewModel());
+  locator.registerFactory(() => SelectContactViewModel());
+  locator.registerFactory(() => FundViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
-  locator.registerFactory(() => LikeButtonViewModel());
+  locator.registerFactory(() => InteractionsViewModel());
   locator.registerFactory(() => AppLanguage());
   locator.registerFactory(() => CommentsViewModel());
   locator.registerFactory(() => AppTheme());
   locator.registerFactory(() => DirectChatViewModel());
+  locator.registerFactory(() => GroupChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => UserProfileService());
+  locator.registerFactory(() => FundService());
 
   //AppLinks
   locator.registerSingleton(AppLinks());

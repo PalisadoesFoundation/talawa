@@ -40,8 +40,7 @@ class DemoExploreEvents extends StatelessWidget {
           // returns a button of menu icon to redirect to home.
           color: Theme.of(context).iconTheme.color,
           icon: const Icon(Icons.menu),
-          onPressed: () =>
-              MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+          onPressed: () => Scaffold.maybeOf(context)?.openDrawer(),
         ),
         actions: [
           Padding(
@@ -205,7 +204,7 @@ class DemoExploreEvents extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton.extended(
         key: homeModel?.keySEAdd,
-        heroTag: "AddEventFab",
+        heroTag: "AddEventFabDemo",
         backgroundColor: Theme.of(context).colorScheme.surface,
         onPressed: () {
           navigationService.pushScreen(
