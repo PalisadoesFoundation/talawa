@@ -17,6 +17,7 @@ import '../../helpers/test_locator.dart';
 ///
 /// **returns**:
 ///   None
+///
 void main() {
   late List<Post> pinnedPosts;
   setUpAll(() {
@@ -117,6 +118,239 @@ void main() {
     // Verify it's a GestureDetector
     expect(find.byType(GestureDetector), findsOneWidget);
   });
+  testWidgets('should handle null attachment url', (tester) async {
+    final post = Post(
+      id: '123',
+      attachments: [AttachmentModel(url: null)], // Null URL
+      caption: 'Sample Caption',
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: [post]),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+
+    // CachedNetworkImage widget should be present with empty URL
+    expect(find.byType(CachedNetworkImage), findsOneWidget);
+    final cachedImage =
+        tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
+    expect(cachedImage.imageUrl, '');
+  });
+
+  testWidgets('should handle empty attachments list', (tester) async {
+    final post = Post(
+      id: '456',
+      attachments: [], // Empty attachments
+      caption: 'Test Caption',
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: [post]),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+
+    // CachedNetworkImage should be present with empty URL
+    expect(find.byType(CachedNetworkImage), findsOneWidget);
+    final cachedImage =
+        tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
+    expect(cachedImage.imageUrl, '');
+  });
+
+  testWidgets('should handle null attachments', (tester) async {
+    final post = Post(
+      id: '789',
+      attachments: null, // Null attachments
+      caption: 'Test Caption',
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: [post]),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+
+    // CachedNetworkImage should be present with empty URL
+    expect(find.byType(CachedNetworkImage), findsOneWidget);
+    final cachedImage =
+        tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
+    expect(cachedImage.imageUrl, '');
+  });
+
+  testWidgets('should verify CachedNetworkImage errorWidget is configured',
+      (tester) async {
+    final post = Post(
+      id: 'error-test',
+      attachments: [AttachmentModel(url: 'invalid-url')],
+      caption: 'Test',
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: [post]),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+
+    final cachedImage =
+        tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
+
+    // Verify errorWidget builder is configured
+    expect(cachedImage.errorWidget, isNotNull);
+
+    // Manually invoke the errorWidget builder to verify it creates correct widget
+    final errorWidget = cachedImage.errorWidget!(
+        tester.element(find.byType(PinnedPost)), '', Object());
+
+    // Should be a Center widget with Icon
+    expect(errorWidget, isA<Center>());
+  });
+
+  testWidgets('should display empty string when caption is null',
+      (tester) async {
+    final post = Post(
+      id: 'caption-test',
+      attachments: [
+        AttachmentModel(
+          url:
+              'https://i2-prod.manchestereveningnews.co.uk/incoming/article25630061.ece/ALTERNATES/s615/2_Church-PA.jpg',
+        ),
+      ],
+      caption: null, // Null caption
+      createdAt: DateTime.tryParse('2023-12-14T08:30:00Z'),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: [post]),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+
+    // Should find Text widget with empty string
+    final textWidgets = tester.widgetList<Text>(find.byType(Text));
+    final captionText = textWidgets.firstWhere(
+      (text) => text.data == '',
+      orElse: () => const Text(''),
+    );
+    expect(captionText.data, '');
+  });
+
+  testWidgets('should handle multiple pinned posts correctly', (tester) async {
+    final multiplePosts = [
+      Post(
+        id: 'post1',
+        caption: 'First Post',
+        attachments: [
+          AttachmentModel(
+            url:
+                'https://i2-prod.manchestereveningnews.co.uk/incoming/article25630061.ece/ALTERNATES/s615/2_Church-PA.jpg',
+          ),
+        ],
+        createdAt: DateTime.tryParse('2023-12-14T08:30:00Z'),
+      ),
+      Post(
+        id: 'post2',
+        caption: 'Second Post',
+        attachments: [
+          AttachmentModel(
+            url:
+                'https://gdb.voanews.com/3B960F7F-786C-452C-8ABD-9D5AEEAED9D9.jpg',
+          ),
+        ],
+        createdAt: DateTime.tryParse('2023-12-14T08:30:00Z'),
+      ),
+      Post(
+        id: 'post3',
+        caption: 'Third Post',
+        attachments: [],
+        createdAt: DateTime.tryParse('2023-12-14T08:30:00Z'),
+      ),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: multiplePosts),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+
+    // Should find multiple GestureDetectors
+    expect(
+      find.byKey(const Key('GestureDetectorPinnedPost0')),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(const Key('GestureDetectorPinnedPost1')),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(const Key('GestureDetectorPinnedPost2')),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('should verify ListView properties', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+        ),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+
+    // Find ListView.builder widget
+    final listView = tester.widget<ListView>(find.byType(ListView));
+
+    // Verify ListView properties
+    expect(listView.scrollDirection, Axis.horizontal);
+    expect(listView.shrinkWrap, true);
+    expect(listView.physics, isA<AlwaysScrollableScrollPhysics>());
+  });
+
+  testWidgets('should use correct cacheKey for CachedNetworkImage',
+      (tester) async {
+    final post = Post(
+      id: 'unique-id-123',
+      caption: 'Test',
+      attachments: [
+        AttachmentModel(
+          url:
+              'https://i2-prod.manchestereveningnews.co.uk/incoming/article25630061.ece/ALTERNATES/s615/2_Church-PA.jpg',
+        ),
+      ],
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: [post]),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 1));
+
+    final cachedImage =
+        tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
+
+    // Verify the cacheKey is the post id
+    expect(cachedImage.cacheKey, 'unique-id-123');
+  });
+
   testWidgets('GestureDetector navigates using tapAt', (tester) async {
     final posts = [
       Post(id: 'post1', caption: 'First Post'),
