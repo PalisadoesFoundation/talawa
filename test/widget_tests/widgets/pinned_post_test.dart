@@ -209,12 +209,16 @@ void main() {
     // Verify errorWidget builder is configured
     expect(cachedImage.errorWidget, isNotNull);
 
-    // Manually invoke the errorWidget builder to verify it creates correct widget
+    // Manually invoke the errorWidget builder
     final errorWidget = cachedImage.errorWidget!(
         tester.element(find.byType(PinnedPost)), '', Object());
 
-    // Should be a Center widget with Icon
+    // Should be a Center widget
     expect(errorWidget, isA<Center>());
+
+    // Cast to Center and verify its child is an Icon
+    final centerWidget = errorWidget as Center;
+    expect(centerWidget.child, isA<Icon>());
   });
 
   testWidgets('should display empty string when caption is null',
@@ -239,13 +243,15 @@ void main() {
 
     await tester.pump(const Duration(seconds: 1));
 
-    // Should find Text widget with empty string
+    // Should directly verify at least one Text widget has empty string
     final textWidgets = tester.widgetList<Text>(find.byType(Text));
-    final captionText = textWidgets.firstWhere(
-      (text) => text.data == '',
-      orElse: () => const Text(''),
-    );
-    expect(captionText.data, '');
+
+    final hasEmptyCaption =
+        textWidgets.any((text) => text.data == '' || text.data == null);
+
+    expect(hasEmptyCaption, isTrue,
+        reason:
+            'Expected at least one Text widget with empty data when caption is null.');
   });
 
   testWidgets('should handle multiple pinned posts correctly', (tester) async {
