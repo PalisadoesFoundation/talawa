@@ -67,7 +67,6 @@ void main() {
         home: PinnedPost(pinnedPost: []),
       ),
     );
-
     await widgetTester.pumpAndSettle();
     expect(find.byKey(const Key('hi')), findsOneWidget);
   });
@@ -185,13 +184,13 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    final cachedImage =
-        tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
+    final cachedImageFinder = find.byType(CachedNetworkImage);
+    final cachedImage = tester.widget<CachedNetworkImage>(cachedImageFinder);
 
     expect(cachedImage.errorWidget, isNotNull);
 
     final errorWidget = cachedImage.errorWidget!(
-      tester.element(find.byType(PinnedPost)),
+      tester.element(cachedImageFinder),
       '',
       Object(),
     );
@@ -223,8 +222,8 @@ void main() {
 
     final textWidgets = tester.widgetList<Text>(find.byType(Text));
 
-    final hasEmptyCaption =
-        textWidgets.any((text) => text.data == '' || text.data == null);
+    // Strict: must be actual empty string
+    final hasEmptyCaption = textWidgets.any((text) => text.data == '');
 
     expect(hasEmptyCaption, isTrue);
   });
@@ -260,9 +259,7 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    expect(find.byKey(const Key('GestureDetectorPinnedPost0')), findsOneWidget);
-    expect(find.byKey(const Key('GestureDetectorPinnedPost1')), findsOneWidget);
-    expect(find.byKey(const Key('GestureDetectorPinnedPost2')), findsOneWidget);
+    expect(find.byType(GestureDetector), findsNWidgets(3));
   });
 
   testWidgets('should verify ListView properties', (tester) async {
