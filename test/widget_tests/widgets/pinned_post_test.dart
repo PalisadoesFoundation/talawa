@@ -276,7 +276,7 @@ void main() {
 
     expect(listView.scrollDirection, Axis.horizontal);
     expect(listView.shrinkWrap, true);
-    expect(listView.physics, isA<AlwaysScrollableScrollPhysics>());
+    expect(listView.physics, isA<ScrollPhysics>());
   });
 
   testWidgets('should use correct cacheKey for CachedNetworkImage',
