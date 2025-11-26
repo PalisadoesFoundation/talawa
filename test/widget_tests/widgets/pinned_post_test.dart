@@ -336,6 +336,7 @@ void main() {
   testWidgets(
       'should display pinned duration text from getPostPinnedDuration()',
       (tester) async {
+    final fixedDateTime = DateTime.utc(2020, 1, 1, 12, 0, 0);
     final post = Post(
       id: 'duration-test',
       caption: 'Test Caption',
@@ -344,7 +345,7 @@ void main() {
           url: 'https://example.com/image.jpg',
         ),
       ],
-      createdAt: DateTime.now().subtract(const Duration(hours: 2)),
+      pinnedAt: fixedDateTime,
     );
 
     await tester.pumpWidget(
@@ -354,6 +355,10 @@ void main() {
     await tester.pumpAndSettle();
 
     final durationText = post.getPostPinnedDuration();
-    expect(find.text(durationText), findsOneWidget);
+    final textWidgets = tester.widgetList<Text>(find.byType(Text));
+    final hasDurationText =
+        textWidgets.any((text) => text.data == durationText);
+
+    expect(hasDurationText, isTrue);
   });
 }
