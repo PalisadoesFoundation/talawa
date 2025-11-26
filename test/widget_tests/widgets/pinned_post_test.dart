@@ -273,7 +273,7 @@ void main() {
 
     expect(listView.scrollDirection, Axis.horizontal);
     expect(listView.shrinkWrap, true);
-    expect(listView.physics, isA<ScrollPhysics>());
+    expect(listView.physics, isA<AlwaysScrollableScrollPhysics>());
   });
 
   testWidgets('should use correct cacheKey for CachedNetworkImage',
@@ -302,7 +302,17 @@ void main() {
   });
 
   testWidgets('GestureDetector navigates using tapAt', (tester) async {
-    final posts = [Post(id: 'post1', caption: 'First Post')];
+    final posts = [
+      Post(
+        id: 'post1',
+        caption: 'First Post',
+        attachments: [
+          AttachmentModel(
+            url: 'https://example.com/image.jpg',
+          ),
+        ],
+      ),
+    ];
 
     await tester.pumpWidget(
       MaterialApp(
@@ -310,11 +320,9 @@ void main() {
       ),
     );
 
-    final gestureDetector = tester.widget<GestureDetector>(
-      find.byKey(const Key('GestureDetectorPinnedPost0')),
-    );
+    await tester.pumpAndSettle();
 
-    gestureDetector.onTap!();
+    await tester.tap(find.text('First Post'));
     await tester.pumpAndSettle();
 
     verify(
@@ -323,5 +331,29 @@ void main() {
         arguments: anyNamed('arguments'),
       ),
     ).called(1);
+  });
+
+  testWidgets(
+      'should display pinned duration text from getPostPinnedDuration()',
+      (tester) async {
+    final post = Post(
+      id: 'duration-test',
+      caption: 'Test Caption',
+      attachments: [
+        AttachmentModel(
+          url: 'https://example.com/image.jpg',
+        ),
+      ],
+      createdAt: DateTime.now().subtract(const Duration(hours: 2)),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(home: PinnedPost(pinnedPost: [post])),
+    );
+
+    await tester.pumpAndSettle();
+
+    final durationText = post.getPostPinnedDuration();
+    expect(find.text(durationText), findsOneWidget);
   });
 }
