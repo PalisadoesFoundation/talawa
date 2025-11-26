@@ -2,7 +2,7 @@
 version: 2
 updates:
   # Define the target package ecosystem
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pub"
     # Specify the root directory
     directory: "/"
     # Schedule automated updates to run weekly
