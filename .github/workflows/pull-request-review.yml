@@ -24,8 +24,11 @@ jobs:
             });
 
             // Filter reviews that have a user login containing "coderabbit" (case-insensitive)
+            // and exclude COMMENTED states.
             const codeRabbitReviews = reviews.filter(review => 
-              review.user.login.toLowerCase().includes('coderabbit') || review.user.login.toLowerCase().includes('coderabbitai')
+              (review.user.login.toLowerCase().includes('coderabbit') || 
+              review.user.login.toLowerCase().includes('coderabbitai')) &&
+              review.state !== 'COMMENTED'
             );
 
             // Fail if no CodeRabbit reviews are found
