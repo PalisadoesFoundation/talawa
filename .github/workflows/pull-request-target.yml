@@ -39,19 +39,20 @@ jobs:
         uses: actions/first-interaction@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          pr-message: 'Congratulations on making your first PR!'
+          pr_message: 'Congratulations on making your first PR!'
 
-  Check-PR-Issue:
-    runs-on: ubuntu-latest
-    needs: [PR-Greeting]
-    steps:
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
-      - name: Check PR linked issue and assignee
-        uses: arkid15r/check-pr-issue-action@f2c2ac3b8c73b5da96294af9ac3ec174098cf513
-        with:
-          close_pr_on_failure: 'true'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          no_assignee_message: 'The linked issue must be assigned to the PR author.'
-          no_issue_message: 'The PR must be linked to an issue assigned to the PR author.'
-          require_assignee: 'true'
-          skip_users_file_path: '.github/workflows/config/check-pr-issue-skip-usernames.txt'
+  # Check-PR-Issue:
+  #   name: Check PR Issue Assignment
+  #   runs-on: ubuntu-latest
+  #   needs: [PR-Greeting]
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Check PR linked issue and assignee
+  #       uses: arkid15r/check-pr-issue-action@f2c2ac3b8c73b5da96294af9ac3ec174098cf513
+  #       with:
+  #         close_pr_on_failure: 'true'
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         no_assignee_message: 'The linked issue must be assigned to the PR author.'
+  #         no_issue_message: 'The PR must be linked to an issue assigned to the PR author.'
+  #         require_assignee: 'true'
+  #         skip_users_file_path: '.github/workflows/config/check-pr-issue-skip-usernames.txt'
