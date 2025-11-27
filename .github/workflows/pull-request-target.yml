@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   PR-Greeting:
-    name: Pull Request Target
+    name: Pull Request Greeting
     runs-on: ubuntu-latest
     steps:
       - name: Add the PR Review Policy
@@ -35,23 +35,19 @@ jobs:
 
             Thanks for contributing!
 
-      - name: Greeting Message to User
-        uses: actions/first-interaction@v3
+  Check-PR-Issue:
+    name: Check Correct PR Issue Assignment
+    runs-on: ubuntu-latest
+    needs: [PR-Greeting]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check PR linked issue and assignee
+        uses: arkid15r/check-pr-issue-action@f2c2ac3b8c73b5da96294af9ac3ec174098cf513
         with:
-          pr_message: 'Congratulations on making your first PR!'
-
-  # Check-PR-Issue:
-  #   name: Check PR Issue Assignment
-  #   runs-on: ubuntu-latest
-  #   needs: [PR-Greeting]
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Check PR linked issue and assignee
-  #       uses: arkid15r/check-pr-issue-action@f2c2ac3b8c73b5da96294af9ac3ec174098cf513
-  #       with:
-  #         close_pr_on_failure: 'true'
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #         no_assignee_message: 'The linked issue must be assigned to the PR author.'
-  #         no_issue_message: 'The PR must be linked to an issue assigned to the PR author.'
-  #         require_assignee: 'true'
-  #         skip_users_file_path: '.github/workflows/config/check-pr-issue-skip-usernames.txt'
+          close_pr_on_failure: 'true'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          no_assignee_message: 'The linked issue must be assigned to the PR author.'
+          no_issue_message: 'The PR must be linked to an issue assigned to the PR author.'
+          require_assignee: 'true'
+          # List of usernames who can create PRs without having an assigned issue
+          skip_users_file_path: '.github/workflows/config/check-pr-issue-skip-usernames.txt'
