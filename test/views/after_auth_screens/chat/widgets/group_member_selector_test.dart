@@ -647,7 +647,22 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.byType(CircleAvatar), findsAtLeastNWidgets(2));
+      // Find the checkbox for the member without a name
+      final namelessMemberCheckbox = find.ancestor(
+        of: find.text('noname@example.com'),
+        matching: find.byType(CheckboxListTile),
+      );
+
+      expect(namelessMemberCheckbox, findsOneWidget);
+
+      // Verify the avatar displays a question mark for the member without a first name
+      final checkboxWidget =
+          tester.widget<CheckboxListTile>(namelessMemberCheckbox);
+      final avatar = checkboxWidget.secondary as CircleAvatar;
+      expect(avatar.child, isNotNull);
+
+      final avatarText = avatar.child as Text;
+      expect(avatarText.data, equals('?'));
     });
 
     testWidgets('should handle members with images',
