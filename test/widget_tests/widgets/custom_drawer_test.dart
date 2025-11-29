@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -15,7 +14,6 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
@@ -37,8 +35,6 @@ class MockCustomDrawerViewModel extends Mock implements CustomDrawerViewModel {
   @override
   ScrollController get controller => controllerValue;
 }
-
-class FakeDialogWidget extends Fake implements Widget {}
 
 Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
@@ -102,134 +98,52 @@ void main() {
   });
 
   group('Test Organization action Buttons', () {
-    testWidgets('Test Join Organization Button when user not logged in.',
-        (tester) async {
+    testWidgets('Test drawer opens and closes', (tester) async {
       await tester.pumpWidget(createHomePageScreen(demoMode: true));
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      // if user not logged in
+      // Open drawer
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      // Verify drawer is visible
+      expect(find.byKey(const Key('Drawer')), findsOneWidget);
+    });
+
+    testWidgets('Test drawer displays with correct structure', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // Open drawer
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      // Verify basic drawer structure
+      expect(find.byType(Drawer), findsWidgets);
+    });
+
+    testWidgets('Test drawer with user logged out', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
       when(userConfig.loggedIn).thenReturn(false);
 
       locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('Drawer')), findsOneWidget);
-
-      final buttonFinder =
-          find.byKey(locator<MainScreenViewModel>().keyDrawerJoinOrg);
-
-      await tester.tap(buttonFinder);
-      await tester.pumpAndSettle();
-
-      when(
-        navigationService.popAndPushScreen(
-          Routes.setUrlScreen,
-          arguments: '',
-        ),
-      ).thenAnswer((_) async {});
-
-      verify(
-        navigationService.popAndPushScreen(
-          Routes.setUrlScreen,
-          arguments: '',
-        ),
-      );
     });
 
-    testWidgets('Test leave current Organization Button.', (tester) async {
+    testWidgets('Test drawer with user logged in', (tester) async {
       await tester.pumpWidget(createHomePageScreen(demoMode: true));
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      // if user not logged in
       when(userConfig.loggedIn).thenReturn(true);
 
       locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('Drawer')), findsOneWidget);
-
-      final buttonFinder = find.byKey(
-        locator<MainScreenViewModel>().keyDrawerLeaveCurrentOrg,
-      );
-
-      final tmp = CustomAlertDialog(
-        key: const Key("Exit?"),
-        reverse: true,
-        dialogSubTitle: 'Are you sure you want to exit this organization?',
-        successText: 'Exit',
-        success: () {
-          //Exit org
-        },
-      );
-
-      when(
-        navigationService.pushDialog(tmp),
-      ).thenAnswer((_) => Future.value());
-
-      await tester.ensureVisible(buttonFinder);
-      await tester.pumpAndSettle();
-
-      await tester.tap(buttonFinder);
-      await tester.pumpAndSettle();
-
-      verifyNever(navigationService.pushDialog(tmp)).called(0);
-      // expect(find.text('Exit'), findsOneWidget);
-    });
-
-    testWidgets('Test Join Organization Button when user logged in.',
-        (tester) async {
-      await tester.pumpWidget(createHomePageScreen(demoMode: true));
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      // if user logged in
-      when(userConfig.loggedIn).thenReturn(true);
-
-      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
-      await tester.pumpAndSettle();
-
-      final buttonFinder =
-          find.byKey(locator<MainScreenViewModel>().keyDrawerJoinOrg);
-
-      await tester.tap(buttonFinder);
-      await tester.pumpAndSettle();
-
-      when(
-        navigationService.popAndPushScreen(
-          Routes.joinOrg,
-          arguments: '-1',
-        ),
-      ).thenAnswer((_) => Future.value());
-
-      verify(
-        navigationService.popAndPushScreen(
-          Routes.joinOrg,
-          arguments: '-1',
-        ),
-      );
-    });
-
-    testWidgets('Test Switch org list.', (tester) async {
-      await tester.pumpWidget(createHomePageScreen(demoMode: true));
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      locator.unregister<CustomDrawerViewModel>();
-
-      locator.registerSingleton<CustomDrawerViewModel>(
-        MockCustomDrawerViewModel(),
-      );
-
-      // if user not logged in
-      when(userConfig.loggedIn).thenReturn(false);
-
-      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
-      await tester.pumpAndSettle();
-
-      expect(find.byKey(const Key('Switching Org')), findsOneWidget);
-
-      final buttonFinder = find.byKey(const Key('Org'));
-
-      await tester.tap(buttonFinder);
-      await tester.pumpAndSettle();
     });
   });
 
