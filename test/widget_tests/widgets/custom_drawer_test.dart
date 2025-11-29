@@ -102,8 +102,7 @@ void main() {
         ],
         themeMode: ThemeMode.light,
         theme: TalawaTheme.lightTheme,
-        home:
-            customDrawerViewModel.exitAlertDialog(context: MockBuildContext()),
+        home: customDrawerViewModel.exitAlertDialog(MockBuildContext()),
       );
 
       await tester.pumpWidget(buildAlertDialog);
@@ -179,7 +178,7 @@ void main() {
 
       when(
         navigationService.pushDialog(tmp),
-      ).thenAnswer((_) async => null);
+      ).thenAnswer((_) => Future.value());
 
       await tester.ensureVisible(buttonFinder);
       await tester.pumpAndSettle();
@@ -213,7 +212,7 @@ void main() {
           Routes.joinOrg,
           arguments: '-1',
         ),
-      ).thenAnswer((_) async => null);
+      ).thenAnswer((_) => Future.value());
 
       verify(
         navigationService.popAndPushScreen(
