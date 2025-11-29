@@ -102,7 +102,8 @@ void main() async {
         ],
         themeMode: ThemeMode.light,
         theme: TalawaTheme.lightTheme,
-        home: customDrawerViewModel.exitAlertDialog(),
+        home:
+            customDrawerViewModel.exitAlertDialog(context: MockBuildContext()),
       );
 
       await tester.pumpWidget(buildAlertDialog);
@@ -124,12 +125,13 @@ void main() async {
       // if user not logged in
       when(userConfig.loggedIn).thenReturn(false);
 
-      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('Drawer')), findsOneWidget);
 
-      final buttonFinder = find.byKey(MainScreenViewModel.keyDrawerJoinOrg);
+      final buttonFinder =
+          find.byKey(locator<MainScreenViewModel>().keyDrawerJoinOrg);
 
       await tester.tap(buttonFinder);
       await tester.pumpAndSettle();
@@ -156,13 +158,13 @@ void main() async {
       // if user not logged in
       when(userConfig.loggedIn).thenReturn(true);
 
-      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('Drawer')), findsOneWidget);
 
       final buttonFinder = find.byKey(
-        MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+        locator<MainScreenViewModel>().keyDrawerLeaveCurrentOrg,
       );
 
       final tmp = CustomAlertDialog(
@@ -177,7 +179,7 @@ void main() async {
 
       when(
         navigationService.pushDialog(tmp),
-      ).thenAnswer((realInvocation) async {});
+      ).thenAnswer((_) async {});
 
       await tester.ensureVisible(buttonFinder);
       await tester.pumpAndSettle();
@@ -197,10 +199,11 @@ void main() async {
       // if user not logged in
       when(userConfig.loggedIn).thenReturn(true);
 
-      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
-      final buttonFinder = find.byKey(MainScreenViewModel.keyDrawerJoinOrg);
+      final buttonFinder =
+          find.byKey(locator<MainScreenViewModel>().keyDrawerJoinOrg);
 
       await tester.tap(buttonFinder);
       await tester.pumpAndSettle();
@@ -233,7 +236,7 @@ void main() async {
       // if user not logged in
       when(userConfig.loggedIn).thenReturn(false);
 
-      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('Switching Org')), findsOneWidget);
