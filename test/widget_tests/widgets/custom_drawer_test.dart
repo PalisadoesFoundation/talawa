@@ -70,10 +70,10 @@ Widget createHomePageScreen({required bool demoMode}) {
         toggleDemoMode: demoMode,
       ),
     ),
-  );
+  });
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
@@ -179,7 +179,7 @@ void main() async {
 
       when(
         navigationService.pushDialog(tmp),
-      ).thenAnswer((_) async {});
+      ).thenAnswer((_) async => null);
 
       await tester.ensureVisible(buttonFinder);
       await tester.pumpAndSettle();
@@ -213,7 +213,7 @@ void main() async {
           Routes.joinOrg,
           arguments: '-1',
         ),
-      ).thenAnswer((_) async {});
+      ).thenAnswer((_) async => null);
 
       verify(
         navigationService.popAndPushScreen(
