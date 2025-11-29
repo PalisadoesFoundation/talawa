@@ -403,34 +403,31 @@ void main() {
         ),
       );
 
-      // Scroll to find an unselected member (User 98 or User 99)
+      // Scroll to find the unselected member (User 99)
       await tester.drag(find.byType(ListView), const Offset(0, -1000));
       await tester.pumpAndSettle();
 
-      // Try to find and tap an unselected member
-      final user98Checkbox = find.ancestor(
-        of: find.text('User 98'),
+      // Find the unselected member (User 99)
+      final user99Checkbox = find.ancestor(
+        of: find.text('User 99'),
         matching: find.byType(CheckboxListTile),
       );
 
-      if (user98Checkbox.evaluate().isNotEmpty) {
-        // Verify checkbox exists and is enabled (can be selected)
-        expect(user98Checkbox, findsOneWidget);
+      // Explicitly verify the checkbox exists
+      expect(user99Checkbox, findsOneWidget);
 
-        final checkboxWidget =
-            tester.widget<CheckboxListTile>(user98Checkbox);
-        expect(checkboxWidget.onChanged, isNotNull);
+      final checkboxWidget =
+          tester.widget<CheckboxListTile>(user99Checkbox);
 
-        // Attempt to tap the checkbox to select the 100th member
-        await tester.tap(user98Checkbox);
-        await tester.pump();
+      // Checkbox should be disabled when at limit
+      expect(
+        checkboxWidget.onChanged,
+        isNull,
+        reason: 'Checkbox should be disabled when at 99-member limit',
+      );
 
-        // Verify the error was shown (navigationService.showTalawaErrorSnackBar was called)
-        // Note: In widget tests, we verify behavior rather than mock verification
-        // The error display is handled by the widget's _showError method
-        // Verify that the member count did not increase beyond 99
-        expect(updatedMembers.length, equals(99));
-      }
+      // Verify member count remains at limit
+      expect(updatedMembers.length, equals(99));
     });
 
     testWidgets('should handle null organization ID',
