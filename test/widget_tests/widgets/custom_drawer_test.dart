@@ -49,8 +49,8 @@ void main() {
     unregisterServices();
   });
 
-  group('Test Organization action Buttons', () {
-    testWidgets("Tapping Tests for Exit", (tester) async {
+  group('Exit dialog', () {
+    testWidgets('exit dialog renders correctly', (tester) async {
       // Test that the exit alert dialog widget renders
       final customDrawerViewModel = CustomDrawerViewModel();
 
@@ -98,6 +98,10 @@ void main() {
 
       // Verify main screen rendered in demo mode
       expect(find.byType(MainScreen), findsOneWidget);
+      final mainScreen = tester.widget<MainScreen>(
+        find.byType(MainScreen),
+      );
+      expect(mainScreen.mainScreenArgs.toggleDemoMode, isTrue);
     });
 
     testWidgets('Test main screen initializes scaffold', (tester) async {
@@ -109,12 +113,16 @@ void main() {
       expect(find.byKey(const Key('MainScaffold')), findsOneWidget);
     });
 
-    testWidgets('Test main screen with custom arguments', (tester) async {
+    testWidgets('Test main screen receives expected arguments', (tester) async {
       await tester.pumpWidget(createHomePageScreen(demoMode: true));
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      // Verify MaterialApp renders
-      expect(find.byType(MaterialApp), findsOneWidget);
+      final mainScreen = tester.widget<MainScreen>(
+        find.byKey(const Key('MainScreen')),
+      );
+      expect(mainScreen.mainScreenArgs.mainScreenIndex, 0);
+      expect(mainScreen.mainScreenArgs.fromSignUp, isFalse);
+      expect(mainScreen.mainScreenArgs.toggleDemoMode, isTrue);
     });
   });
 
