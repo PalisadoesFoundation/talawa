@@ -50,31 +50,15 @@ void main() {
 
       final currentUser = User(
         id: 'current-user',
-        firstName: 'Current',
-        lastName: 'User',
+        name: 'Current User',
         email: 'current@example.com',
       );
 
       mockOrgMembers = [
         currentUser,
-        User(
-          id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john@example.com',
-        ),
-        User(
-          id: 'user2',
-          firstName: 'Jane',
-          lastName: 'Smith',
-          email: 'jane@example.com',
-        ),
-        User(
-          id: 'user3',
-          firstName: 'Bob',
-          lastName: 'Wilson',
-          email: 'bob@example.com',
-        ),
+        User(id: 'user1', name: 'John Doe', email: 'john@example.com'),
+        User(id: 'user2', name: 'Jane Smith', email: 'jane@example.com'),
+        User(id: 'user3', name: 'Bob Wilson', email: 'bob@example.com'),
       ];
 
       when(mockUserConfig.currentUser).thenReturn(currentUser);
@@ -318,17 +302,12 @@ void main() {
         100,
         (index) => User(
           id: 'user$index',
-          firstName: 'User',
-          lastName: '$index',
+          name: 'User $index',
           email: 'user$index@example.com',
         ),
       );
 
-      final currentUser = User(
-        id: 'current-user',
-        firstName: 'Current',
-        lastName: 'User',
-      );
+      final currentUser = User(id: 'current-user', name: 'Current User');
 
       when(mockUserConfig.currentUser).thenReturn(currentUser);
       when(
@@ -375,17 +354,12 @@ void main() {
         100,
         (index) => User(
           id: 'user$index',
-          firstName: 'User',
-          lastName: '$index',
+          name: 'User $index',
           email: 'user$index@example.com',
         ),
       );
 
-      final currentUser = User(
-        id: 'current-user',
-        firstName: 'Current',
-        lastName: 'User',
-      );
+      final currentUser = User(id: 'current-user', name: 'Current User');
 
       when(mockUserConfig.currentUser).thenReturn(currentUser);
       when(
@@ -613,19 +587,9 @@ void main() {
       WidgetTester tester,
     ) async {
       final membersWithNullNames = [
-        User(id: 'current-user', firstName: 'Current', lastName: 'User'),
-        User(
-          id: 'user1',
-          firstName: null,
-          lastName: null,
-          email: 'noname@example.com',
-        ),
-        User(
-          id: 'user2',
-          firstName: '',
-          lastName: '',
-          email: 'emptyname@example.com',
-        ),
+        User(id: 'current-user', name: 'Current User'),
+        User(id: 'user1', name: null, email: 'noname@example.com'),
+        User(id: 'user2', name: '', email: 'emptyname@example.com'),
       ];
 
       when(
@@ -650,8 +614,8 @@ void main() {
       WidgetTester tester,
     ) async {
       final membersWithoutNames = [
-        User(id: 'current-user', firstName: 'Current', lastName: 'User'),
-        User(id: 'user1', firstName: null, email: 'noname@example.com'),
+        User(id: 'current-user', name: 'Current User'),
+        User(id: 'user1', name: null, email: 'noname@example.com'),
       ];
 
       when(
@@ -692,11 +656,10 @@ void main() {
       WidgetTester tester,
     ) async {
       final membersWithImages = [
-        User(id: 'current-user', firstName: 'Current', lastName: 'User'),
+        User(id: 'current-user', name: 'Current User'),
         User(
           id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
+          name: 'John Doe',
           email: 'john@example.com',
           image: 'https://example.com/avatar.jpg',
         ),
