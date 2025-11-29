@@ -17,7 +17,19 @@ import 'package:talawa/views/main_screen.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-class MockBuildContext extends Mock implements BuildContext {}
+class MockBuildContext extends Mock implements BuildContext {
+  @override
+  DiagnosticsNode describeElement(String name,
+      {DiagnosticsTreeStyle style = DiagnosticsTreeStyle.errorProperty}) {
+    return DiagnosticsNode.message('');
+  }
+
+  @override
+  Widget get widget => const SizedBox();
+
+  @override
+  BuildContext? get debugDoingBuild => null;
+}
 
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {}
 
@@ -120,7 +132,8 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       // Verify scaffold exists for drawer functionality
-      expect(find.byType(Scaffold), findsOneWidget);
+      // MainScreen contains a Scaffold with key 'MainScaffold'
+      expect(find.byKey(const Key('MainScaffold')), findsOneWidget);
     });
 
     testWidgets('Test main screen with custom arguments', (tester) async {
