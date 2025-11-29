@@ -70,7 +70,7 @@ Widget createHomePageScreen({required bool demoMode}) {
         toggleDemoMode: demoMode,
       ),
     ),
-  });
+  );
 }
 
 void main() {
