@@ -355,13 +355,18 @@ void main() {
         matching: find.byType(CheckboxListTile),
       );
 
-      if (lastUserCheckbox.evaluate().isNotEmpty) {
-        await tester.tap(lastUserCheckbox);
-        await tester.pump();
-      }
+      expect(lastUserCheckbox, findsOneWidget);
+
+      final checkboxWidget =
+          tester.widget<CheckboxListTile>(lastUserCheckbox);
+      expect(
+        checkboxWidget.onChanged,
+        isNull,
+        reason: 'Checkbox should be disabled when limit is reached',
+      );
     });
 
-    testWidgets('should show error when exceeding maximum limit',
+    testWidgets('should prevent selection exceeding maximum limit of 99',
         (WidgetTester tester) async {
       final manyMembers = List.generate(
         100,
