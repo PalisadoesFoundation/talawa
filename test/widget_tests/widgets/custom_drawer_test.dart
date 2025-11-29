@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,8 +20,10 @@ import '../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {
   @override
-  DiagnosticsNode describeElement(String name,
-      {DiagnosticsTreeStyle style = DiagnosticsTreeStyle.errorProperty}) {
+  DiagnosticsNode describeElement(
+    String name, {
+    DiagnosticsTreeStyle style = DiagnosticsTreeStyle.errorProperty,
+  }) {
     return DiagnosticsNode.message('');
   }
 
@@ -28,7 +31,7 @@ class MockBuildContext extends Mock implements BuildContext {
   Widget get widget => const SizedBox();
 
   @override
-  BuildContext? get debugDoingBuild => null;
+  bool get debugDoingBuild => false;
 }
 
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {}
