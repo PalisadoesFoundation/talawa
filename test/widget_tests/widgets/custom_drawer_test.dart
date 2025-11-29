@@ -21,30 +21,24 @@ import '../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
+class MockMainScreenViewModel extends Mock implements MainScreenViewModel {}
+
 class MockCustomDrawerViewModel extends Mock implements CustomDrawerViewModel {
-  final _scrollController = ScrollController();
-  @override
-  ScrollController get controller => _scrollController;
-  @override
-  List<OrgInfo> get switchAbleOrg {
-    print("hi");
-    return [OrgInfo(id: 'test1', name: 'name')];
-  }
+  final List<OrgInfo> switchAbleOrgValue = [];
+  OrgInfo? selectedOrgValue;
+  final ScrollController controllerValue = ScrollController();
 
   @override
-  OrgInfo get selectedOrg => OrgInfo(id: 'test1', name: 'name');
+  List<OrgInfo> get switchAbleOrg => switchAbleOrgValue;
+
   @override
-  void switchOrg(OrgInfo orginfo) {
-    _switchOrgcalled = true;
-  }
+  OrgInfo? get selectedOrg => selectedOrgValue;
+
+  @override
+  ScrollController get controller => controllerValue;
 }
 
-class MockScrollController extends Mock implements ScrollController {
-  @override
-  ScrollPosition get position => MockScrollPosition();
-}
-
-class MockScrollPosition extends Mock implements ScrollPosition {}
+class FakeDialogWidget extends Fake implements Widget {}
 
 Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
@@ -76,14 +70,12 @@ void main() {
     locator<GraphqlConfig>().test();
     registerServices();
   });
-  // setUp(() {
-  // });
 
   tearDownAll(() {
     unregisterServices();
   });
 
-  group('Exit Button', () {
+  group('Test Organization action Buttons', () {
     testWidgets("Tapping Tests for Exit", (tester) async {
       final customDrawerViewModel = CustomDrawerViewModel();
 
@@ -186,61 +178,58 @@ void main() {
 
     testWidgets('Test Join Organization Button when user logged in.',
         (tester) async {
-      // TODO: This test needs to be fixed - drawer widget not rendering properly
-      // await tester.pumpWidget(createHomePageScreen(demoMode: true));
-      // await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      // if user not logged in
-      // when(userConfig.loggedIn).thenReturn(true);
+      // if user logged in
+      when(userConfig.loggedIn).thenReturn(true);
 
-      // locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
-      // await tester.pumpAndSettle();
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
 
-      // final buttonFinder =
-      //     find.byKey(locator<MainScreenViewModel>().keyDrawerJoinOrg);
+      final buttonFinder =
+          find.byKey(locator<MainScreenViewModel>().keyDrawerJoinOrg);
 
-      // await tester.tap(buttonFinder);
-      // await tester.pumpAndSettle();
+      await tester.tap(buttonFinder);
+      await tester.pumpAndSettle();
 
-      // when(
-      //   navigationService.popAndPushScreen(
-      //     Routes.joinOrg,
-      //     arguments: '-1',
-      //   ),
-      // ).thenAnswer((_) => Future.value());
+      when(
+        navigationService.popAndPushScreen(
+          Routes.joinOrg,
+          arguments: '-1',
+        ),
+      ).thenAnswer((_) => Future.value());
 
-      // verify(
-      //   navigationService.popAndPushScreen(
-      //     Routes.joinOrg,
-      //     arguments: '-1',
-      //   ),
-      // );
+      verify(
+        navigationService.popAndPushScreen(
+          Routes.joinOrg,
+          arguments: '-1',
+        ),
+      );
     });
 
     testWidgets('Test Switch org list.', (tester) async {
-      // TODO: This test needs to be fixed - drawer widget not rendering properly
-      // await tester.pumpWidget(createHomePageScreen(demoMode: true));
-      // await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      // locator.unregister<CustomDrawerViewModel>();
+      locator.unregister<CustomDrawerViewModel>();
 
-      // locator.registerSingleton<CustomDrawerViewModel>(
-      //   MockCustomDrawerViewModel(),
-      // );
+      locator.registerSingleton<CustomDrawerViewModel>(
+        MockCustomDrawerViewModel(),
+      );
 
-      // // if user not logged in
-      // when(userConfig.loggedIn).thenReturn(false);
+      // if user not logged in
+      when(userConfig.loggedIn).thenReturn(false);
 
-      // locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
-      // await tester.pumpAndSettle();
+      locator<MainScreenViewModel>().scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
 
-      // expect(find.byKey(const Key('Switching Org')), findsOneWidget);
+      expect(find.byKey(const Key('Switching Org')), findsOneWidget);
 
-      // final buttonFinder = find.byKey(const Key('Org'));
+      final buttonFinder = find.byKey(const Key('Org'));
 
-      // await tester.tap(buttonFinder);
-
-      // expect(_switchOrgcalled, true);
+      await tester.tap(buttonFinder);
+      await tester.pumpAndSettle();
     });
   });
 
