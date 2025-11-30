@@ -9,8 +9,7 @@ import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_manageme
 /// This class serves as a facade that delegates to specialized dialog classes:
 /// - GroupChatInfoDialogs: For information and basic editing
 /// - GroupChatManagementDialogs: For complex management operations
-class GroupChatDialogs {
-  const GroupChatDialogs._();
+abstract class GroupChatDialogs {
 
   /// Shows group information dialog.
   ///
