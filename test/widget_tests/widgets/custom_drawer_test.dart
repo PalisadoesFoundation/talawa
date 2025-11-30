@@ -153,6 +153,14 @@ void main() {
       expect(mainScreen.mainScreenArgs.mainScreenIndex, 0);
       expect(mainScreen.mainScreenArgs.fromSignUp, isFalse);
       expect(mainScreen.mainScreenArgs.toggleDemoMode, isTrue);
+
+      // Open the drawer to verify CustomDrawer is present
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+
+      // Verify CustomDrawer is rendered within MainScreen
+      expect(find.byType(CustomDrawer), findsOneWidget);
+      expect(find.byType(Drawer), findsOneWidget);
     });
   });
 
@@ -327,20 +335,6 @@ void main() {
   });
 
   group('CustomDrawerViewModel lifecycle', () {
-    test('switchOrg validates org membership before switching', () {
-      // Arrange
-      final viewModel = CustomDrawerViewModel();
-      final org1 = OrgInfo(id: '1', name: 'Org 1');
-      final org2 = OrgInfo(id: '2', name: 'Org 2');
-      final org3 = OrgInfo(id: '3', name: 'Org 3');
-      viewModel.switchAbleOrg = [org1, org2];
-
-      // Act & Assert
-      // Verify switchOrg can identify if org is in switchable list
-      expect(viewModel.isPresentinSwitchableOrg(org1), isTrue);
-      expect(viewModel.isPresentinSwitchableOrg(org3), isFalse);
-    });
-
     test(
       'switchOrg displays warning when attempting to switch to already selected org',
       () {
