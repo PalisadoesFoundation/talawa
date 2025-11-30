@@ -180,8 +180,15 @@ void main() {
     });
 
     test('notifyListeners works when not disposed', () {
-      // Act & Assert - notifyListeners should work normally before dispose
-      expect(() => viewModel.notifyListeners(), isNot(throwsException));
+      // Arrange
+      var listenerCalled = false;
+      viewModel.addListener(() => listenerCalled = true);
+
+      // Act
+      viewModel.notifyListeners();
+
+      // Assert
+      expect(listenerCalled, isTrue);
     });
   });
 
