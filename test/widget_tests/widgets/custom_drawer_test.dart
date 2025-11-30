@@ -188,67 +188,32 @@ void main() {
   });
 
   group('Custom Drawer Widget Integration', () {
-    late MainScreenViewModel mainScreenViewModel;
-
-    setUp(() {
-      mainScreenViewModel = locator<MainScreenViewModel>();
-    });
-
     testWidgets(
-      'CustomDrawer renders with correct structure',
+      'CustomDrawer is present in MainScreen',
       (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            themeMode: ThemeMode.light,
-            theme: TalawaTheme.lightTheme,
-            home: Scaffold(
-              drawer: CustomDrawer(
-                key: const Key('CustomDrawerWidget'),
-                homeModel: mainScreenViewModel,
-              ),
-            ),
-          ),
-        );
-
-        // Pump and settle to allow animations to complete
+        await tester.pumpWidget(createHomePageScreen(demoMode: true));
         await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        // Verify the drawer is present with correct key
-        expect(find.byKey(const Key('CustomDrawerWidget')), findsOneWidget);
+        // Verify the drawer exists in the main screen
         expect(find.byKey(const Key('Drawer')), findsOneWidget);
       },
     );
 
-    testWidgets('CustomDrawer contains drawer header', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-          home: Scaffold(
-            drawer: CustomDrawer(
-              key: const Key('CustomDrawerWidget'),
-              homeModel: mainScreenViewModel,
-            ),
-          ),
-        ),
-      );
-
+    testWidgets('CustomDrawer contains UserAccountsDrawerHeader',
+        (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      // Verify UserAccountsDrawerHeader is present
+      // Verify UserAccountsDrawerHeader is present in drawer
       expect(find.byType(UserAccountsDrawerHeader), findsOneWidget);
+    });
+
+    testWidgets('CustomDrawer has scroll functionality', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // Verify scrollable ListView exists for switching organizations
+      expect(find.byKey(const Key('Switching Org')), findsOneWidget);
     });
   });
 }
