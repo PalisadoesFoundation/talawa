@@ -167,10 +167,12 @@ void main() {
           viewModel.selectedOrg, isNull); // Initially null after construction
     });
 
-    test('controller is initialized', () {
+    test('controller is initialized with correct defaults', () {
       // Act & Assert
       expect(viewModel.controller, isNotNull);
       expect(viewModel.controller, isA<ScrollController>());
+      expect(viewModel.controller.hasClients, isFalse);
+      expect(viewModel.controller.initialScrollOffset, 0.0);
     });
 
     test('targets list is initialized', () {
