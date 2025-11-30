@@ -409,9 +409,7 @@ void main() {
     testWidgets('should handle null organization ID', (
       WidgetTester tester,
     ) async {
-      when(
-        mockUserConfig.currentOrg,
-      ).thenReturn(OrgInfo(id: null, name: 'Test Org'));
+      when(mockUserConfig.currentOrg).thenReturn(OrgInfo(name: 'Test Org'));
 
       await tester.pumpWidget(
         createTestMaterialApp(
@@ -556,8 +554,9 @@ void main() {
       final checkboxWidget = tester.widget<CheckboxListTile>(
         currentUserCheckbox,
       );
-      final avatar = checkboxWidget.secondary as CircleAvatar;
-      expect(avatar.backgroundColor, isNotNull);
+      final avatar = checkboxWidget.secondary;
+      expect(avatar, isA<CircleAvatar>());
+      expect((avatar as CircleAvatar).backgroundColor, isNotNull);
     });
 
     testWidgets('should filter out current user from main list', (
@@ -645,11 +644,14 @@ void main() {
       final checkboxWidget = tester.widget<CheckboxListTile>(
         namelessMemberCheckbox,
       );
-      final avatar = checkboxWidget.secondary as CircleAvatar;
-      expect(avatar.child, isNotNull);
+      final avatar = checkboxWidget.secondary;
+      expect(avatar, isA<CircleAvatar>());
+      final circleAvatar = avatar as CircleAvatar;
+      expect(circleAvatar.child, isNotNull);
 
-      final avatarText = avatar.child as Text;
-      expect(avatarText.data, equals('?'));
+      final avatarText = circleAvatar.child;
+      expect(avatarText, isA<Text>());
+      expect((avatarText as Text).data, equals('?'));
     });
 
     testWidgets('should handle members with images', (
