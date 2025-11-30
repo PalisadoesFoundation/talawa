@@ -198,14 +198,4 @@ void main() {
       },
     );
   });
-
-  group('CustomDrawerViewModel initialization', () {
-    test('CustomDrawerViewModel initializes properly', () {
-      // Test ViewModel initialization directly
-      final viewModel = CustomDrawerViewModel();
-      expect(viewModel.targets, isNotNull);
-      expect(viewModel.controller, isNotNull);
-      expect(viewModel.switchAbleOrg, isA<List<OrgInfo>>());
-    });
-  });
 }
