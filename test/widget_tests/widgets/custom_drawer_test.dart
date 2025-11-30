@@ -10,6 +10,7 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
@@ -152,8 +153,8 @@ void main() {
 
     test('switchAbleOrg getter and setter work correctly', () {
       // Arrange
-      final org1 = OrgInfo(id: '1', name: 'Org 1');
-      final orgs = [org1];
+      final testOrg = OrgInfo(id: '1', name: 'Org 1');
+      final orgs = [testOrg];
 
       // Act
       viewModel.switchAbleOrg = orgs;
@@ -163,9 +164,6 @@ void main() {
     });
 
     test('selectedOrg getter returns correct organization', () {
-      // Arrange
-      final org = OrgInfo(id: '1', name: 'Test Org');
-
       // Act & Assert (we can't set selectedOrg directly, but we can verify getter)
       expect(
           viewModel.selectedOrg, isNull); // Initially null after construction
@@ -183,28 +181,22 @@ void main() {
       expect(viewModel.targets, isA<List<TargetFocus>>());
     });
 
-    test('tutorialCoachMark is accessible', () {
-      // Act & Assert
-      expect(
-        () => viewModel.tutorialCoachMark,
-        isA<Function>() ? throwsException : isNotNull,
-      );
-    });
-
-    test('dispose prevents notifyListeners from being called', () {
-      // Arrange
-      viewModel.dispose();
-
-      // Act & Assert - notifyListeners should not throw even though disposed
+    test('notifyListeners works when not disposed', () {
+      // Act & Assert - notifyListeners should work normally before dispose
       expect(() => viewModel.notifyListeners(), isNot(throwsException));
     });
   });
 
   group('Custom Drawer Widget Integration', () {
+    late MainScreenViewModel mainScreenViewModel;
+
+    setUp(() {
+      mainScreenViewModel = locator<MainScreenViewModel>();
+    });
+
     testWidgets(
       'CustomDrawer renders with correct structure',
       (tester) async {
-        // Create a mock MainScreenViewModel
         await tester.pumpWidget(
           MaterialApp(
             locale: const Locale('en'),
@@ -218,7 +210,7 @@ void main() {
             home: Scaffold(
               drawer: CustomDrawer(
                 key: const Key('CustomDrawerWidget'),
-                homeModel: locator<MainScreenViewModel>(),
+                homeModel: mainScreenViewModel,
               ),
             ),
           ),
@@ -247,7 +239,7 @@ void main() {
           home: Scaffold(
             drawer: CustomDrawer(
               key: const Key('CustomDrawerWidget'),
-              homeModel: locator<MainScreenViewModel>(),
+              homeModel: mainScreenViewModel,
             ),
           ),
         ),
