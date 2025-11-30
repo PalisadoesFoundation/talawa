@@ -192,6 +192,65 @@ void main() {
       expect(viewModel.controller, isNotNull);
     });
 
+    test('switchOrg validates org membership before switching', () {
+      // Arrange
+      final viewModel = CustomDrawerViewModel();
+      final org1 = OrgInfo(id: '1', name: 'Org 1');
+      final org2 = OrgInfo(id: '2', name: 'Org 2');
+      final org3 = OrgInfo(id: '3', name: 'Org 3');
+      viewModel.switchAbleOrg = [org1, org2];
+
+      // Act & Assert
+      // Verify switchOrg can identify if org is in switchable list
+      expect(viewModel.isPresentinSwitchableOrg(org1), isTrue);
+      expect(viewModel.isPresentinSwitchableOrg(org3), isFalse);
+    });
+
+    test('switchOrg displays warning when org is already selected', () {
+      // Arrange
+      final viewModel = CustomDrawerViewModel();
+      final org1 = OrgInfo(id: '1', name: 'Org 1');
+      viewModel.switchAbleOrg = [org1];
+      viewModel.setSelectedOrganizationName(org1);
+
+      // Act
+      viewModel.switchOrg(org1);
+
+      // Assert - verify navigationService.pop was called
+      verify(navigationService.pop()).called(1);
+      // Verify that the snackbar warning was shown for already selected org
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          '${org1.name} already selected',
+          MessageType.warning,
+        ),
+      ).called(1);
+    });
+
+    test('switchOrg successfully switches to a different organization', () {
+      // Arrange
+      final viewModel = CustomDrawerViewModel();
+      final org1 = OrgInfo(id: '1', name: 'Org 1');
+      final org2 = OrgInfo(id: '2', name: 'Org 2');
+      viewModel.switchAbleOrg = [org1, org2];
+      viewModel.setSelectedOrganizationName(org1);
+
+      // Act
+      viewModel.switchOrg(org2);
+
+      // Assert - verify userConfig.saveCurrentOrgInHive was called with org2
+      verify(userConfig.saveCurrentOrgInHive(org2)).called(1);
+      // Verify that the success snackbar was shown
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Switched to ${org2.name}',
+          MessageType.info,
+        ),
+      ).called(1);
+      // Verify navigationService.pop was called
+      verify(navigationService.pop()).called(1);
+    });
+
     test('dispose prevents future notifications', () {
       // Arrange
       var listenerCalled = false;
