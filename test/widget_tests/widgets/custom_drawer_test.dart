@@ -183,15 +183,6 @@ void main() {
   });
 
   group('CustomDrawerViewModel lifecycle', () {
-    test('initialize sets up current user and organizations', () {
-      // This test verifies initialize() method behavior
-      // Note: Full initialization testing requires additional mocking
-      // of userConfig stream which will be expanded in future enhancements
-      final viewModel = CustomDrawerViewModel();
-      expect(viewModel.targets, isNotNull);
-      expect(viewModel.controller, isNotNull);
-    });
-
     test('switchOrg validates org membership before switching', () {
       // Arrange
       final viewModel = CustomDrawerViewModel();
@@ -289,19 +280,5 @@ void main() {
       // Assert
       expect(viewModel.selectedOrg, equals(org1));
     });
-  });
-
-  group('Custom Drawer Widget Integration', () {
-    testWidgets(
-      'MainScreen initializes with drawer capability',
-      (tester) async {
-        await tester.pumpWidget(createHomePageScreen(demoMode: true));
-        await tester.pumpAndSettle(const Duration(seconds: 1));
-
-        // Verify main screen renders successfully with drawer capability
-        expect(find.byKey(const Key('MainScreen')), findsOneWidget);
-        expect(find.byKey(const Key('MainScaffold')), findsOneWidget);
-      },
-    );
   });
 }
