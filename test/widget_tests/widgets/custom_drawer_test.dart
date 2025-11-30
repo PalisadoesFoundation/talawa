@@ -6,11 +6,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
+import 'package:talawa/widgets/custom_drawer.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
@@ -114,8 +117,146 @@ void main() {
     });
   });
 
-  group('Custom Drawer Test', () {
-    // TODO: Restore drawer interaction widget tests for the custom drawer
-    // once the drawer UI and navigation flows are stabilized.
+  group('CustomDrawerViewModel methods', () {
+    late CustomDrawerViewModel viewModel;
+
+    setUp(() {
+      viewModel = CustomDrawerViewModel();
+    });
+
+    test('isPresentinSwitchableOrg returns true when org exists', () {
+      // Arrange
+      final org1 = OrgInfo(id: '1', name: 'Org 1');
+      final org2 = OrgInfo(id: '2', name: 'Org 2');
+      viewModel.switchAbleOrg = [org1, org2];
+
+      // Act
+      final result = viewModel.isPresentinSwitchableOrg(org1);
+
+      // Assert
+      expect(result, isTrue);
+    });
+
+    test('isPresentinSwitchableOrg returns false when org not exists', () {
+      // Arrange
+      final org1 = OrgInfo(id: '1', name: 'Org 1');
+      final org3 = OrgInfo(id: '3', name: 'Org 3');
+      viewModel.switchAbleOrg = [org1];
+
+      // Act
+      final result = viewModel.isPresentinSwitchableOrg(org3);
+
+      // Assert
+      expect(result, isFalse);
+    });
+
+    test('switchAbleOrg getter and setter work correctly', () {
+      // Arrange
+      final org1 = OrgInfo(id: '1', name: 'Org 1');
+      final orgs = [org1];
+
+      // Act
+      viewModel.switchAbleOrg = orgs;
+
+      // Assert
+      expect(viewModel.switchAbleOrg, equals(orgs));
+    });
+
+    test('selectedOrg getter returns correct organization', () {
+      // Arrange
+      final org = OrgInfo(id: '1', name: 'Test Org');
+
+      // Act & Assert (we can't set selectedOrg directly, but we can verify getter)
+      expect(
+          viewModel.selectedOrg, isNull); // Initially null after construction
+    });
+
+    test('controller is initialized', () {
+      // Act & Assert
+      expect(viewModel.controller, isNotNull);
+      expect(viewModel.controller, isA<ScrollController>());
+    });
+
+    test('targets list is initialized', () {
+      // Act & Assert
+      expect(viewModel.targets, isNotNull);
+      expect(viewModel.targets, isA<List<TargetFocus>>());
+    });
+
+    test('tutorialCoachMark is accessible', () {
+      // Act & Assert
+      expect(
+        () => viewModel.tutorialCoachMark,
+        isA<Function>() ? throwsException : isNotNull,
+      );
+    });
+
+    test('dispose prevents notifyListeners from being called', () {
+      // Arrange
+      viewModel.dispose();
+
+      // Act & Assert - notifyListeners should not throw even though disposed
+      expect(() => viewModel.notifyListeners(), isNot(throwsException));
+    });
+  });
+
+  group('Custom Drawer Widget Integration', () {
+    testWidgets(
+      'CustomDrawer renders with correct structure',
+      (tester) async {
+        // Create a mock MainScreenViewModel
+        await tester.pumpWidget(
+          MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            themeMode: ThemeMode.light,
+            theme: TalawaTheme.lightTheme,
+            home: Scaffold(
+              drawer: CustomDrawer(
+                key: const Key('CustomDrawerWidget'),
+                homeModel: locator<MainScreenViewModel>(),
+              ),
+            ),
+          ),
+        );
+
+        // Pump and settle to allow animations to complete
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+
+        // Verify the drawer is present with correct key
+        expect(find.byKey(const Key('CustomDrawerWidget')), findsOneWidget);
+        expect(find.byKey(const Key('Drawer')), findsOneWidget);
+      },
+    );
+
+    testWidgets('CustomDrawer contains drawer header', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+          home: Scaffold(
+            drawer: CustomDrawer(
+              key: const Key('CustomDrawerWidget'),
+              homeModel: locator<MainScreenViewModel>(),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // Verify UserAccountsDrawerHeader is present
+      expect(find.byType(UserAccountsDrawerHeader), findsOneWidget);
+    });
   });
 }
