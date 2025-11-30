@@ -259,18 +259,22 @@ void main() {
       final viewModel = CustomDrawerViewModel();
       viewModel.addListener(() => listenerCalled = true);
 
-      // Act - dispose the viewModel
-      viewModel.dispose();
-
-      // The disposed flag should be set, preventing notifyListeners
-      // from calling super.notifyListeners()
+      // Act - notify before dispose should trigger listener
       viewModel.notifyListeners();
 
-      // Assert - listener should not be called due to disposed check
-      // (though in this simplified test it still runs super, this verifies
-      // the dispose flag is being tracked)
-      expect(listenerCalled,
-          isTrue); // Super is still called, but _disposed is true
+      // Assert - listener should be called before dispose
+      expect(listenerCalled, isTrue);
+
+      // Reset flag and dispose the viewModel
+      listenerCalled = false;
+      viewModel.dispose();
+
+      // After dispose, the view model should not notify listeners
+      // The disposed flag prevents super.notifyListeners() from being called
+      viewModel.notifyListeners();
+
+      // Assert - listener should not be called after dispose
+      expect(listenerCalled, isFalse);
     });
 
     test('setSelectedOrganizationName updates selected org', () {
