@@ -197,9 +197,11 @@ void main() {
         expect(find.byKey(const Key('MainScaffold')), findsOneWidget);
       },
     );
+  });
 
-    testWidgets('CustomDrawerViewModel initializes properly', (tester) async {
-      // Test ViewModel initialization directly without widget rendering
+  group('CustomDrawerViewModel initialization', () {
+    test('CustomDrawerViewModel initializes properly', () {
+      // Test ViewModel initialization directly
       final viewModel = CustomDrawerViewModel();
       expect(viewModel.targets, isNotNull);
       expect(viewModel.controller, isNotNull);
