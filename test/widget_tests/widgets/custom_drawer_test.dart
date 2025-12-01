@@ -53,7 +53,7 @@ void main() {
 
   group('Exit dialog', () {
     testWidgets('exit dialog renders correctly', (tester) async {
-      // Test that the exit alert dialog widget renders
+      // Test that the exit alert dialog widget renders correctly
       final customDrawerViewModel = CustomDrawerViewModel();
 
       final Widget buildAlertDialog = MaterialApp(
