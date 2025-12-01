@@ -5,9 +5,10 @@ updates:
   - package-ecosystem: "pub"
     # Specify the root directory
     directory: "/"
-    # Schedule automated updates to run weekly
+    # Schedule automated updates
     schedule:
-      interval: "monthly"
+      interval: "cron"
+      cronjob: "0 0 1 * *"
     # Labels to apply to Dependabot PRs
     labels:
       - "dependencies"
