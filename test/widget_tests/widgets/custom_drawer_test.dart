@@ -109,18 +109,17 @@ void main() {
       await tester.pumpWidget(buildAlertDialog);
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      // Verify the Exit button is present and tappable
-      final exitButton = find.byType(TextButton).first;
+      // Find the specific Exit button by text
+      final exitButton = find.widgetWithText(TextButton, 'Exit');
       expect(exitButton, findsOneWidget);
 
-      // Tap the Exit button - this triggers the exit functionality
-      // The button tap calls navigationService.pop() and Scaffold.closeDrawer()
-      // which are mocked by the test locator
+      // Tap the Exit button
       await tester.tap(exitButton);
       await tester.pumpAndSettle();
 
-      // Verify the test completed successfully without errors
-      // The navigation calls are handled by test mocks
+      // Verify the dialog is dismissed by checking key no longer exists
+      // The Exit button tap triggers navigationService.pop() which should close the dialog
+      expect(find.byKey(const Key("Exit?")), findsNothing);
     });
   });
 
@@ -192,7 +191,7 @@ void main() {
     });
 
     testWidgets('CustomDrawer can be opened and closed', (tester) async {
-      // Test CustomDrawer widget is properly configured for drawer usage
+      // Test drawer open/close functionality
       await tester.pumpWidget(
         MaterialApp(
           locale: const Locale('en'),
@@ -216,12 +215,24 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Verify CustomDrawer widget is attached to Scaffold as a drawer
+      // Verify CustomDrawer is present before opening
       expect(find.byType(CustomDrawer), findsOneWidget);
       expect(find.byKey(const Key('CustomDrawer')), findsOneWidget);
 
-      // Verify Scaffold is present (which contains the drawer)
-      expect(find.byType(Scaffold), findsOneWidget);
+      // Open the drawer by tapping menu icon
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+
+      // Verify drawer is open - Drawer widget should be visible
+      expect(find.byType(Drawer), findsOneWidget);
+
+      // Close drawer by tapping on the scrim (outside the drawer)
+      // Tap in the center of the main content area to close
+      await tester.tap(find.widgetWithText(Center, 'Main Content'));
+      await tester.pumpAndSettle();
+
+      // After close, CustomDrawer should still exist but drawer animation closes
+      expect(find.byType(CustomDrawer), findsOneWidget);
     });
   });
 
@@ -323,7 +334,7 @@ void main() {
 
   group('CustomDrawerViewModel lifecycle', () {
     test(
-      'switchOrg displays warning when attempting to switch to already selected org',
+      'switchOrg keeps same org when attempting to switch to already selected org',
       () {
         // Arrange
         final viewModel = CustomDrawerViewModel();
@@ -333,14 +344,14 @@ void main() {
 
         // Act & Assert
         // When switchOrg is called with the already selected org,
-        // it should call navigationService to show a warning snackbar.
-        // This validates the branch that handles already-selected orgs.
+        // it should keep the same org and call navigationService to show a warning.
+        // This test verifies the state management behavior.
         expect(viewModel.selectedOrg, equals(org1));
 
-        // Call switchOrg and verify the logic by examining the view model state
+        // Call switchOrg with the already selected org
         viewModel.switchOrg(org1);
 
-        // The selected org should remain the same
+        // Assert - The selected org should remain the same after calling switchOrg
         expect(viewModel.selectedOrg, equals(org1));
       },
     );
