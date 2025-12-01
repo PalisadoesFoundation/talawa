@@ -7,7 +7,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -298,37 +297,11 @@ void main() {
       expect(viewModel.targets, isNotNull);
       expect(viewModel.targets, isA<List<TargetFocus>>());
     });
-
-    test('initialize sets up current user and organization data', () {
-      // Arrange
-      final testViewModel = CustomDrawerViewModel();
-      final testUser = User(
-        id: 'user1',
-        email: 'test@example.com',
-        joinedOrganizations: [
-          OrgInfo(id: 'org1', name: 'Test Org 1'),
-          OrgInfo(id: 'org2', name: 'Test Org 2'),
-        ],
-      );
-
-      // Act - initialize the view model by setting switchable organizations
-      // The initialize method sets _switchAbleOrg from currentUser.joinedOrganizations
-      testViewModel.switchAbleOrg = testUser.joinedOrganizations ?? [];
-
-      // Assert - verify initialization sets up switchable organizations
-      expect(testViewModel.switchAbleOrg, isNotEmpty);
-      expect(testViewModel.switchAbleOrg.length, equals(2));
-      expect(testViewModel.switchAbleOrg[0].id, equals('org1'));
-      expect(testViewModel.switchAbleOrg[1].id, equals('org2'));
-
-      // Cleanup
-      testViewModel.dispose();
-    });
   });
 
   group('CustomDrawerViewModel lifecycle', () {
     test(
-      'switchOrg keeps same org when attempting to switch to already selected org',
+      'switchOrg maintains state when attempting to switch to already selected org',
       () {
         // Arrange
         final viewModel = CustomDrawerViewModel();
@@ -338,8 +311,9 @@ void main() {
 
         // Act & Assert
         // When switchOrg is called with the already selected org,
-        // it should keep the same org and call navigationService to show a warning.
-        // This test verifies the state management behavior.
+        // verify that the state remains unchanged (selectedOrg stays the same).
+        // Note: This test verifies state management behavior only.
+        // The actual warning/snackbar is handled by navigationService which is mocked.
         expect(viewModel.selectedOrg, equals(org1));
 
         // Call switchOrg with the already selected org
