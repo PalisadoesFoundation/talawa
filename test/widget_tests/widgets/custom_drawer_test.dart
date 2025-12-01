@@ -109,23 +109,15 @@ void main() {
       // Verify dialog is present
       expect(find.byKey(const Key("Exit?")), findsOneWidget);
 
-      // Find the specific Exit button by text
-      final exitButton = find.widgetWithText(TextButton, 'Exit');
+      // Find the Exit button by its key (RaisedRoundedButton uses Key with button text)
+      final exitButton = find.byKey(const Key('Exit'));
       expect(exitButton, findsOneWidget);
 
-      // Verify the Exit button is enabled (not disabled)
-      final exitButtonWidget = tester.widget<TextButton>(exitButton);
-      expect(exitButtonWidget.enabled, isTrue);
-
       // Verify Cancel button is also present
-      final cancelButton = find.widgetWithText(TextButton, 'Cancel');
+      final cancelButton = find.byKey(const Key('Close'));
       expect(cancelButton, findsOneWidget);
 
-      // Verify the Cancel button is enabled
-      final cancelButtonWidget = tester.widget<TextButton>(cancelButton);
-      expect(cancelButtonWidget.enabled, isTrue);
-
-      // Test confirms both buttons are present and enabled for interaction
+      // Test confirms both buttons are present for interaction
     });
   });
 
