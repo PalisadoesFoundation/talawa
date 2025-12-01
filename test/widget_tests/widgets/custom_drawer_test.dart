@@ -158,8 +158,6 @@ void main() {
     });
   });
 
-
-
   group('CustomDrawerViewModel methods', () {
     late CustomDrawerViewModel viewModel;
 
