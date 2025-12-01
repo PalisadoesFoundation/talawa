@@ -32,9 +32,9 @@ jobs:
             ## Our Pull Request Approval Process
 
             This PR will be reviewed according to our:
-            
+
             1. [Palisadoes Contributing Guidelines](https://developer.palisadoes.org/docs/contributor-guide/contributing) 
-            
+
             2. [AI Usage Policy](https://developer.palisadoes.org/docs/contributor-guide/ai) 
 
             Your PR may be automatically closed if:
