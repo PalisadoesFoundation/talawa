@@ -590,7 +590,8 @@ void main() {
       );
       final avatar = checkboxWidget.secondary;
       expect(avatar, isA<CircleAvatar>());
-      expect((avatar as CircleAvatar).backgroundColor, isNotNull);
+      final circleAvatar = avatar! as CircleAvatar;
+      expect(circleAvatar.backgroundColor, isNotNull);
     });
 
     testWidgets('should filter out current user from main list', (
@@ -655,9 +656,10 @@ void main() {
 
       final noNameCheckboxWidget =
           tester.widget<CheckboxListTile>(noNameCheckbox);
-      final noNameAvatar = noNameCheckboxWidget.secondary as CircleAvatar;
+      final noNameAvatar = noNameCheckboxWidget.secondary! as CircleAvatar;
       expect(noNameAvatar.child, isA<Text>());
-      expect((noNameAvatar.child as Text).data, equals('?'));
+      final noNameAvatarText = noNameAvatar.child! as Text;
+      expect(noNameAvatarText.data, equals('?'));
 
       // Verify empty name also shows question mark
       final emptyNameCheckbox = find.ancestor(
@@ -668,9 +670,11 @@ void main() {
 
       final emptyNameCheckboxWidget =
           tester.widget<CheckboxListTile>(emptyNameCheckbox);
-      final emptyNameAvatar = emptyNameCheckboxWidget.secondary as CircleAvatar;
+      final emptyNameAvatar =
+          emptyNameCheckboxWidget.secondary! as CircleAvatar;
       expect(emptyNameAvatar.child, isA<Text>());
-      expect((emptyNameAvatar.child as Text).data, equals('?'));
+      final emptyNameAvatarText = emptyNameAvatar.child! as Text;
+      expect(emptyNameAvatarText.data, equals('?'));
     });
 
     testWidgets('should display question mark for members without first name', (
@@ -710,12 +714,11 @@ void main() {
       );
       final avatar = checkboxWidget.secondary;
       expect(avatar, isA<CircleAvatar>());
-      final circleAvatar = avatar as CircleAvatar;
+      final circleAvatar = avatar! as CircleAvatar;
       expect(circleAvatar.child, isNotNull);
 
-      final avatarText = circleAvatar.child;
-      expect(avatarText, isA<Text>());
-      expect((avatarText as Text).data, equals('?'));
+      final avatarText = circleAvatar.child! as Text;
+      expect(avatarText.data, equals('?'));
     });
 
     testWidgets('should handle members with images', (
