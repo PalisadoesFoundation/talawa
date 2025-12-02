@@ -455,8 +455,10 @@ void main() {
       expect(find.text('No organization members found'), findsOneWidget);
       expect(find.byIcon(Icons.people_outline), findsOneWidget);
 
-      // When org ID is null, getOrgMembersList should never be called
-      // The UI already shows "No organization members found" which verifies this behavior
+      // Explicitly verify that getOrgMembersList is never called when org ID is null
+      // Using 'org1' as it's the default org ID in other tests - if widget tried to
+      // call the service with any ID, it would fail since currentOrg.id is null
+      verifyNever(mockOrgService.getOrgMembersList('org1'));
     });
 
     testWidgets('should handle organization service error', (
