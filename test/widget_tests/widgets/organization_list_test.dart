@@ -10,9 +10,11 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/organization_list.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
@@ -263,9 +265,6 @@ void main() {
 
     testWidgets('OrganizationList has fetchMoreHelper for pagination',
         (tester) async {
-      // Arrange
-      when(mockViewModel.fetchMoreHelper(any, any)).thenReturn(null);
-
       // Act
       await tester.pumpWidget(
         createOrganizationListWidget(model: mockViewModel),
