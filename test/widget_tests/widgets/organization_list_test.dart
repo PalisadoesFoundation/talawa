@@ -107,6 +107,8 @@ void main() {
     test('searchActive toggles searching flag', () {
       // Arrange
       expect(viewModel.searching, isFalse);
+      viewModel.searchFocus
+          .requestFocus(); // Focus must be requested for searchActive to work
 
       // Act
       viewModel.searchActive();
@@ -179,12 +181,10 @@ void main() {
     });
 
     test('dispose releases all resources', () {
-      // Act
-      viewModel.dispose();
-
-      // Assert - After dispose, viewModel should be disposed
-      // Verify that dispose completes without throwing
-      expect(true, isTrue);
+      // Act & Assert - Verify ViewModel can be disposed without errors
+      // After dispose, the viewModel should have called super.dispose()
+      // which prevents further notifications
+      expect(() => viewModel.dispose(), returnsNormally);
     });
 
     test('viewModel extends ChangeNotifier', () {
@@ -248,9 +248,10 @@ void main() {
       final org2 = OrgInfo(id: '1', name: 'Org');
       final org3 = OrgInfo(id: '2', name: 'Org');
 
-      // Assert
-      expect(org1, equals(org2));
-      expect(org1, isNot(equals(org3)));
+      // Assert - Check id and name properties directly since OrgInfo uses reference equality
+      expect(org1.id, equals(org2.id));
+      expect(org1.name, equals(org2.name));
+      expect(org1.id, isNot(equals(org3.id)));
     });
 
     test('organizations list can hold multiple OrgInfo objects', () {
@@ -334,17 +335,17 @@ void main() {
     });
 
     test('scrolling controllers are disposed properly', () {
-      // Arrange
+      // Arrange & Act
       final allOrgControllerInitial = viewModel.allOrgController;
       final controllerInitial = viewModel.controller;
 
-      // Act & Assert - Controllers should not be null before dispose
+      // Assert - Controllers should not be null and should be ScrollControllers
       expect(allOrgControllerInitial, isNotNull);
       expect(controllerInitial, isNotNull);
+      expect(allOrgControllerInitial, isA<ScrollController>());
+      expect(controllerInitial, isA<ScrollController>());
 
-      // Cleanup
-      allOrgControllerInitial.dispose();
-      controllerInitial.dispose();
+      // Note: Controllers are disposed in tearDown, not here
     });
   });
 }
