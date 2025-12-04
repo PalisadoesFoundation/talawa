@@ -207,7 +207,7 @@ void main() {
     });
   });
 
-  group('OrgInfo Model Integration', () {
+  group('Organizations List Management', () {
     late SelectOrganizationViewModel viewModel;
 
     setUp(() {
@@ -232,18 +232,6 @@ void main() {
       // Assert
       expect(viewModel.organizations.length, equals(3));
       expect(viewModel.organizations.isNotEmpty, isTrue);
-    });
-  });
-
-  group('Organizations List Management', () {
-    late SelectOrganizationViewModel viewModel;
-
-    setUp(() {
-      viewModel = SelectOrganizationViewModel();
-    });
-
-    tearDown(() {
-      viewModel.dispose();
     });
 
     test('can add organizations to empty list', () {
@@ -292,6 +280,26 @@ void main() {
       // Assert
       expect(found.id, equals('2'));
       expect(found.name, equals('Org 2'));
+    });
+
+    test('returns fallback when organization not found by id', () {
+      // Arrange
+      final orgs = [
+        OrgInfo(id: '1', name: 'Org 1'),
+        OrgInfo(id: '2', name: 'Org 2'),
+        OrgInfo(id: '3', name: 'Org 3'),
+      ];
+      viewModel.organizations = orgs;
+
+      // Act - Search for non-existent organization
+      final notFound = viewModel.organizations.firstWhere(
+        (org) => org.id == '999',
+        orElse: () => OrgInfo(id: '-1', name: 'Not found'),
+      );
+
+      // Assert - Should return fallback organization
+      expect(notFound.id, equals('-1'));
+      expect(notFound.name, equals('Not found'));
     });
 
     test('scroll controllers are properly initialized', () {
