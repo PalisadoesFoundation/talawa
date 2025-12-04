@@ -756,6 +756,76 @@ void main() {
           equals(const Size.fromHeight(kToolbarHeight)),
         );
       });
+
+      testWidgets('Admin menu includes PopupMenuDivider', (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          members: [],
+        );
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 3,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        // Find and tap the more menu button
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+
+        // Verify PopupMenuDivider exists in admin menu (separates delete action)
+        expect(find.byType(PopupMenuDivider), findsOneWidget);
+      });
+
+      testWidgets('Non-admin menu does not include PopupMenuDivider',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          members: [
+            ChatUser(id: 'user1', firstName: 'Alice'),
+            ChatUser(id: 'user2', firstName: 'Bob'),
+          ],
+        );
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 2,
+            isCurrentUserAdmin: false,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        // Find and tap the more menu button
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+
+        // Verify no PopupMenuDivider in non-admin menu
+        expect(find.byType(PopupMenuDivider), findsNothing);
+      });
     });
   });
 }
