@@ -17,9 +17,6 @@ import 'package:talawa/widgets/organization_list.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-/// Mock classes.
-class MockBuildContext extends Mock implements BuildContext {}
-
 /// Main test suite for OrganizationList widget.
 void main() {
   late SelectOrganizationViewModel mockViewModel;
@@ -167,19 +164,18 @@ void main() {
       );
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
-      // Find and tap the first organization tile if it exists
+      // Find and tap the first organization tile
       final tileFinder = find.byType(CustomListTile);
-      if (tileFinder.evaluate().isNotEmpty) {
-        await tester.tap(tileFinder.first);
-        await tester.pumpAndSettle();
+      expect(tileFinder, findsOneWidget);
 
-        // Verify navigation occurred
-        expect(find.text('Organization Info Screen'), findsOneWidget);
-      }
+      await tester.tap(tileFinder.first);
+      await tester.pumpAndSettle();
+
+      // Verify navigation occurred
+      expect(find.text('Organization Info Screen'), findsOneWidget);
     });
 
-    testWidgets('Organization navigation passes correct arguments',
-        (tester) async {
+    testWidgets('CustomListTile is wired with correct OrgInfo', (tester) async {
       final mockOrgs = [
         OrgInfo(
           id: 'org1',
@@ -199,16 +195,15 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
       final tileFinder = find.byType(CustomListTile);
-      if (tileFinder.evaluate().isNotEmpty) {
-        final tile = tester.widget<CustomListTile>(tileFinder.first);
-        expect(tile.orgInfo, equals(mockOrgs[0]));
-      }
+      expect(tileFinder, findsOneWidget);
+
+      final tile = tester.widget<CustomListTile>(tileFinder.first);
+      expect(tile.orgInfo, equals(mockOrgs[0]));
     });
   });
 
   group('OrganizationList Widget Tests - Pagination', () {
-    testWidgets('Shows loading indicator at end when fetching more',
-        (tester) async {
+    testWidgets('Shows loading indicator when data is loading', (tester) async {
       // Create enough orgs to trigger pagination
       final mockOrgs = List.generate(
         20,
@@ -233,7 +228,8 @@ void main() {
       expect(find.byType(CupertinoActivityIndicator), findsWidgets);
     });
 
-    testWidgets('VisibilityDetector triggers at 3rd last item', (tester) async {
+    testWidgets('VisibilityDetector widget exists for pagination',
+        (tester) async {
       final mockOrgs = List.generate(
         20,
         (i) => OrgInfo(
@@ -287,8 +283,9 @@ void main() {
       );
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
-      // Should not crash with empty list
+      // Should not crash and render no organization tiles
       expect(find.byType(OrganizationList), findsOneWidget);
+      expect(find.byType(CustomListTile), findsNothing);
     });
 
     testWidgets('Widget rebuilds when organizations change', (tester) async {
@@ -311,10 +308,9 @@ void main() {
         ),
       ];
 
-      // Trigger rebuild
+      // Trigger rebuild and verify UI reflects the new data
       await tester.pumpAndSettle();
-
-      expect(find.byType(OrganizationList), findsOneWidget);
+      expect(find.byType(CustomListTile), findsOneWidget);
     });
   });
 
@@ -341,7 +337,7 @@ void main() {
 
       // Verify unique keys exist
       for (int i = 0; i < 5; i++) {
-        expect(find.byKey(Key('OrgSelItem$i')), findsWidgets);
+        expect(find.byKey(Key('OrgSelItem$i')), findsOneWidget);
       }
     });
 
@@ -366,7 +362,7 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
       // Verify VisibilityDetector key
-      expect(find.byKey(const Key('OrgSelItem')), findsWidgets);
+      expect(find.byKey(const Key('OrgSelItem')), findsOneWidget);
     });
   });
 
