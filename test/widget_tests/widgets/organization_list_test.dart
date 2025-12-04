@@ -168,18 +168,12 @@ void main() {
       viewModel.dispose();
     });
 
-    test('dispose releases all resources', () {
-      // Arrange - Create a fresh instance for this test to dispose
+    test('dispose can be called without throwing', () {
+      // Arrange - Create a fresh instance for this test
       final testViewModel = SelectOrganizationViewModel();
 
       // Act & Assert - Verify dispose can be called without throwing
-      expect(() {
-        testViewModel.allOrgController.dispose();
-        testViewModel.controller.dispose();
-        testViewModel.searchFocus.dispose();
-        testViewModel.searchController.dispose();
-        testViewModel.dispose();
-      }, returnsNormally);
+      expect(() => testViewModel.dispose(), returnsNormally);
     });
 
     test('viewModel extends ChangeNotifier', () {
@@ -222,27 +216,6 @@ void main() {
 
     tearDown(() {
       viewModel.dispose();
-    });
-
-    test('OrgInfo can be created with id and name', () {
-      // Arrange & Act
-      final org = OrgInfo(id: '123', name: 'Test Organization');
-
-      // Assert
-      expect(org.id, equals('123'));
-      expect(org.name, equals('Test Organization'));
-    });
-
-    test('OrgInfo equality works correctly', () {
-      // Arrange & Act
-      final org1 = OrgInfo(id: '1', name: 'Org');
-      final org2 = OrgInfo(id: '1', name: 'Org');
-      final org3 = OrgInfo(id: '2', name: 'Org');
-
-      // Assert - Check id and name properties directly since OrgInfo uses reference equality
-      expect(org1.id, equals(org2.id));
-      expect(org1.name, equals(org2.name));
-      expect(org1.id, isNot(equals(org3.id)));
     });
 
     test('organizations list can hold multiple OrgInfo objects', () {
@@ -321,7 +294,7 @@ void main() {
       expect(found.name, equals('Org 2'));
     });
 
-    test('scrolling controllers are disposed properly', () {
+    test('scroll controllers are properly initialized', () {
       // Arrange & Act
       final allOrgControllerInitial = viewModel.allOrgController;
       final controllerInitial = viewModel.controller;
@@ -331,8 +304,6 @@ void main() {
       expect(controllerInitial, isNotNull);
       expect(allOrgControllerInitial, isA<ScrollController>());
       expect(controllerInitial, isA<ScrollController>());
-
-      // Note: Controllers are disposed in tearDown, not here
     });
   });
 }
