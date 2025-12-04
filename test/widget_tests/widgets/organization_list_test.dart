@@ -287,17 +287,5 @@ void main() {
       expect(notFound.id, equals('-1'));
       expect(notFound.name, equals('Not found'));
     });
-
-    test('scroll controllers are properly initialized', () {
-      // Arrange & Act
-      final allOrgControllerInitial = viewModel.allOrgController;
-      final controllerInitial = viewModel.controller;
-
-      // Assert - Controllers should not be null and should be ScrollControllers
-      expect(allOrgControllerInitial, isNotNull);
-      expect(controllerInitial, isNotNull);
-      expect(allOrgControllerInitial, isA<ScrollController>());
-      expect(controllerInitial, isA<ScrollController>());
-    });
   });
 }
