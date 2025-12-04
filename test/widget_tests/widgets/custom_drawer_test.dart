@@ -202,10 +202,9 @@ void main() {
       expect(viewModel.switchAbleOrg, equals(orgs));
     });
 
-    test('selectedOrg getter returns correct organization', () {
-      // Act & Assert (we can't set selectedOrg directly, but we can verify getter)
-      expect(
-          viewModel.selectedOrg, isNull); // Initially null after construction
+    test('selectedOrg is null by default', () {
+      // Act & Assert - Verify initial state after construction
+      expect(viewModel.selectedOrg, isNull);
     });
 
     test('controller is initialized with correct defaults', () {

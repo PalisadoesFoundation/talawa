@@ -33,10 +33,6 @@ void main() {
     });
 
     tearDown(() {
-      viewModel.allOrgController.dispose();
-      viewModel.controller.dispose();
-      viewModel.searchFocus.dispose();
-      viewModel.searchController.dispose();
       viewModel.dispose();
     });
 
@@ -97,10 +93,6 @@ void main() {
     });
 
     tearDown(() {
-      viewModel.allOrgController.dispose();
-      viewModel.controller.dispose();
-      viewModel.searchFocus.dispose();
-      viewModel.searchController.dispose();
       viewModel.dispose();
     });
 
@@ -173,10 +165,6 @@ void main() {
     });
 
     tearDown(() {
-      viewModel.allOrgController.dispose();
-      viewModel.controller.dispose();
-      viewModel.searchFocus.dispose();
-      viewModel.searchController.dispose();
       viewModel.dispose();
     });
 
@@ -233,10 +221,6 @@ void main() {
     });
 
     tearDown(() {
-      viewModel.allOrgController.dispose();
-      viewModel.controller.dispose();
-      viewModel.searchFocus.dispose();
-      viewModel.searchController.dispose();
       viewModel.dispose();
     });
 
@@ -286,10 +270,6 @@ void main() {
     });
 
     tearDown(() {
-      viewModel.allOrgController.dispose();
-      viewModel.controller.dispose();
-      viewModel.searchFocus.dispose();
-      viewModel.searchController.dispose();
       viewModel.dispose();
     });
 
@@ -331,14 +311,14 @@ void main() {
       viewModel.organizations = orgs;
 
       // Act
-      final found = viewModel.organizations
-          .where((org) => org.id == '2')
-          .cast<OrgInfo>()
-          .fold<OrgInfo?>(null, (_, current) => current);
+      final found = viewModel.organizations.firstWhere(
+        (org) => org.id == '2',
+        orElse: () => OrgInfo(id: '-1', name: 'Not found'),
+      );
 
       // Assert
-      expect(found, isNotNull);
-      expect(found?.name, equals('Org 2'));
+      expect(found.id, equals('2'));
+      expect(found.name, equals('Org 2'));
     });
 
     test('scrolling controllers are disposed properly', () {
