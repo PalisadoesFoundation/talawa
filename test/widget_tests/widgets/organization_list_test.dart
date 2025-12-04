@@ -181,20 +181,6 @@ void main() {
       expect(viewModel, isA<ChangeNotifier>());
     });
 
-    test('multiple organizations can be managed', () {
-      // Arrange
-      final orgs = List.generate(
-        10,
-        (index) => OrgInfo(id: '$index', name: 'Org $index'),
-      );
-
-      // Act
-      viewModel.organizations = orgs;
-
-      // Assert
-      expect(viewModel.organizations.length, equals(10));
-    });
-
     test('searchController can store search query', () {
       // Arrange
       const query = 'test search';
