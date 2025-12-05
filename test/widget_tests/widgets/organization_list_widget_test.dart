@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -20,8 +17,6 @@ import '../../helpers/test_locator.dart';
 /// Main test suite for OrganizationList widget.
 void main() {
   late SelectOrganizationViewModel mockViewModel;
-  late GraphQLClient mockClient;
-
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
@@ -30,7 +25,6 @@ void main() {
 
   setUp(() {
     mockViewModel = SelectOrganizationViewModel();
-    mockClient = getNewTestGraphQlClient();
   });
 
   tearDown(() {
@@ -50,7 +44,7 @@ void main() {
       ],
       home: Scaffold(
         body: GraphQLProvider(
-          client: ValueNotifier<GraphQLClient>(mockClient),
+          client: ValueNotifier<GraphQLClient>(graphqlConfig.clientToQuery()),
           child: OrganizationList(model: model),
         ),
       ),
@@ -151,7 +145,6 @@ void main() {
           id: 'org1',
           name: 'Test Organization 1',
           image: null,
-          creatorInfo: null,
           userRegistrationRequired: false,
           admins: [],
         ),
@@ -181,7 +174,6 @@ void main() {
           id: 'org1',
           name: 'Test Organization 1',
           image: null,
-          creatorInfo: null,
           userRegistrationRequired: false,
           admins: [],
         ),
@@ -211,7 +203,6 @@ void main() {
           id: 'org$i',
           name: 'Test Organization $i',
           image: null,
-          creatorInfo: null,
           userRegistrationRequired: false,
           admins: [],
         ),
@@ -236,7 +227,6 @@ void main() {
           id: 'org$i',
           name: 'Test Organization $i',
           image: null,
-          creatorInfo: null,
           userRegistrationRequired: false,
           admins: [],
         ),
@@ -302,7 +292,6 @@ void main() {
           id: 'org1',
           name: 'New Org',
           image: null,
-          creatorInfo: null,
           userRegistrationRequired: false,
           admins: [],
         ),
@@ -322,7 +311,6 @@ void main() {
           id: 'org$i',
           name: 'Test Organization $i',
           image: null,
-          creatorInfo: null,
           userRegistrationRequired: false,
           admins: [],
         ),
@@ -348,7 +336,6 @@ void main() {
           id: 'org$i',
           name: 'Test Organization $i',
           image: null,
-          creatorInfo: null,
           userRegistrationRequired: false,
           admins: [],
         ),
