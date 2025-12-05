@@ -52,6 +52,15 @@ void main() {
   });
 
   group('GroupChatDialogs Facade Tests', () {
+    test('Private constructor coverage', () {
+      // This test ensures the private constructor line is actually executed
+      // We use the @visibleForTesting factory method to access it
+      final instance = GroupChatDialogs.testInstance();
+      // Verify the instance is created
+      expect(instance, isNotNull);
+      expect(instance, isA<GroupChatDialogs>());
+    });
+
     group('showGroupInfo Tests', () {
       testWidgets('Delegates to GroupChatInfoDialogs.showGroupInfo',
           (tester) async {

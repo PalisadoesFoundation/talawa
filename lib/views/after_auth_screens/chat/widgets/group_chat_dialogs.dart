@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_info_dialogs.dart';
@@ -11,6 +12,10 @@ import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_manageme
 /// - GroupChatManagementDialogs: For complex management operations
 class GroupChatDialogs {
   const GroupChatDialogs._();
+
+  /// Factory method for testing purposes only.
+  @visibleForTesting
+  factory GroupChatDialogs.testInstance() => const GroupChatDialogs._();
 
   /// Shows group information dialog.
   ///
