@@ -12,6 +12,10 @@ import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_manageme
 class GroupChatDialogs {
   const GroupChatDialogs._();
 
+  /// Factory method for testing purposes only.
+  @visibleForTesting
+  factory GroupChatDialogs.testInstance() => const GroupChatDialogs._();
+
   /// Shows group information dialog.
   ///
   /// **params**:
