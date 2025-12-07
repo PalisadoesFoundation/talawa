@@ -98,8 +98,6 @@ void main() {
     testSetupLocator();
     locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
-    locator<SizeConfig>().test();
-    getAndRegisterDatabaseMutationFunctions();
   });
 
   group('Create Event Tests', () {

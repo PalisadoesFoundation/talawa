@@ -19,17 +19,17 @@ class PostAdapter extends TypeAdapter<Post> {
     return Post(
       id: fields[0] as String?,
       caption: fields[1] as String?,
-      createdAt: fields[6] as DateTime?,
-      attachments: (fields[5] as List?)?.cast<AttachmentModel>(),
-      creator: fields[7] as User?,
-      organization: fields[10] as OrgInfo?,
+      createdAt: fields[5] as DateTime?,
+      attachments: (fields[4] as List?)?.cast<AttachmentModel>(),
+      creator: fields[6] as User?,
+      organization: fields[9] as OrgInfo?,
       commentsCount: fields[2] as int?,
       upvotesCount: fields[3] as int?,
-      downvotesCount: fields[4] as int?,
-      voteType: fields[9] as String?,
-      isPinned: fields[11] as bool?,
-      pinnedAt: fields[12] as DateTime?,
-      hasVoted: fields[8] as bool,
+      downvotesCount: fields[12] as int?,
+      voteType: fields[8] as VoteType?,
+      isPinned: fields[10] as bool?,
+      pinnedAt: fields[11] as DateTime?,
+      hasVoted: fields[7] as bool?,
     );
   }
 
@@ -46,23 +46,23 @@ class PostAdapter extends TypeAdapter<Post> {
       ..writeByte(3)
       ..write(obj.upvotesCount)
       ..writeByte(4)
-      ..write(obj.downvotesCount)
-      ..writeByte(5)
       ..write(obj.attachments)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.createdAt)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.creator)
-      ..writeByte(8)
+      ..writeByte(7)
       ..write(obj.hasVoted)
-      ..writeByte(9)
+      ..writeByte(8)
       ..write(obj.voteType)
-      ..writeByte(10)
+      ..writeByte(9)
       ..write(obj.organization)
-      ..writeByte(11)
+      ..writeByte(10)
       ..write(obj.isPinned)
+      ..writeByte(11)
+      ..write(obj.pinnedAt)
       ..writeByte(12)
-      ..write(obj.pinnedAt);
+      ..write(obj.downvotesCount);
   }
 
   @override

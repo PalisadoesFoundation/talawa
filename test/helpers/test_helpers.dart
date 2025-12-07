@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -62,7 +64,6 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-import '../service_tests/image_service_test.dart';
 import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 import '../service_tests/user_config_test.dart';
 import '../views/main_screen_test.dart';
@@ -113,6 +114,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<AppSettingViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImageService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ActionHandlerService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<XFile>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<FlutterImageCompress>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
@@ -497,6 +500,22 @@ FundService getAndRegisterFundService() {
   return service;
 }
 
+/// `getAndRegisterLocalActionHandlerService` returns a mock instance of the `ActionHandlerService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `MockActionHandlerService`: A mock instance of the `ActionHandlerService` class.
+MockActionHandlerService getAndRegisterLocalActionHandlerService() {
+  if (locator.isRegistered<ActionHandlerService>()) {
+    locator.unregister<ActionHandlerService>();
+  }
+  final service = MockActionHandlerService();
+  locator.registerSingleton<ActionHandlerService>(service);
+  return service;
+}
+
 /// `getAndRegisterGraphqlConfig` returns a mock instance of the `GraphqlConfig` class.
 ///
 /// **params**:
@@ -723,6 +742,19 @@ ImageCropper getAndRegisterImageCropper() {
 ImageService getAndRegisterImageService() {
   _removeRegistrationIfExists<ImageService>();
   final service = MockImageService();
+  // Mock the convertToBase64 method to return a proper base64 string
+  when(service.convertToBase64(any)).thenAnswer((realInvocation) async {
+    // Return a dummy base64 string for testing
+    return 'VGVzdCBmaWxlIGNvbnRlbnQ='; // "Test file content" in base64
+  });
+
+  // Mock the cropImage method
+  when(service.cropImage(imageFile: anyNamed('imageFile')))
+      .thenAnswer((realInvocation) async {
+    final imageFile = realInvocation.namedArguments[#imageFile] as File;
+    return imageFile; // Return the same file for testing
+  });
+
   locator.registerLazySingleton<ImageService>(() => service);
   return service;
 }
@@ -1222,6 +1254,7 @@ void registerServices() {
   getAndRegisterChatService();
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
+  getAndRegisterImageService();
   getAndRegisterFundService();
   getAndRegisterUserProfileService();
 }
@@ -1248,6 +1281,7 @@ void unregisterServices() {
   locator.unregister<CommentService>();
   locator.unregister<ImageCropper>();
   locator.unregister<ImagePicker>();
+  locator.unregister<ImageService>();
   locator.unregister<ChatService>();
   locator.unregister<UserProfileService>();
 }

@@ -2,56 +2,77 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/post_queries.dart';
 
 void main() {
-  final postQueries = PostQueries();
+  group('PostQueries', () {
+    test('getPostsByOrgID returns correct GraphQL query', () {
+      final query = PostQueries().getPostsByOrgID();
 
-  test('getPostsByOrgID returns valid query', () {
-    final query = postQueries.getPostsByOrgID();
-    expect(query, contains('query GetPostsByOrgID'));
-    expect(query, contains('\$orgId'));
-    expect(query, contains('organization(input: { id: \$orgId })'));
-    expect(query, contains('posts('));
-  });
+      expect(query, contains('query GetPostsByOrgID'));
+      expect(query, contains(r'$orgId: String!'));
+      expect(query, contains('organization(input: { id: \$orgId })'));
+      expect(query, contains('posts('));
+      expect(query, contains('edges {'));
+      expect(query, contains('node {'));
+      expect(query, contains('id'));
+      expect(query, contains('caption'));
+      expect(query, contains('upVotesCount'));
+      expect(query, contains('downVotesCount'));
+      expect(query, contains('commentsCount'));
+      expect(query, contains('createdAt'));
+      expect(query, contains('hasUserVoted(userId: \$userId)'));
+      expect(query, contains('creator {'));
+      expect(query, contains('organization {'));
+      expect(query, contains('attachments {'));
+      expect(query, contains('pageInfo {'));
+    });
 
-  test('hasUserVoted returns valid query', () {
-    final query = postQueries.hasUserVoted();
-    expect(query, contains('query HasUserVoted'));
-    expect(query, contains('\$postId'));
-    expect(query, contains('hasUserVoted(input: { postId: \$postId })'));
-  });
+    test('updateVotePost returns correct GraphQL mutation', () {
+      final query = PostQueries().updateVotePost();
 
-  test('getPresignedUrl returns valid mutation', () {
-    final query = postQueries.getPresignedUrl();
-    expect(query, contains('mutation GetFileUrl'));
-    expect(query, contains('\$objectName'));
-    expect(query, contains('\$organizationId'));
-    expect(
-      query,
-      contains(
-        'createGetfileUrl(input: { objectName: \$objectName, organizationId: \$organizationId })',
-      ),
-    );
-  });
+      expect(query, contains('mutation UpdateVotePost'));
+      expect(query, contains(r'$postId: ID!'));
+      expect(query, contains(r'$type: PostVoteType'));
+      expect(
+        query,
+        contains(
+          'updatePostVote(input: { postId: \$postId, type: \$type })',
+        ),
+      );
+      expect(query, contains('id'));
+      expect(query, contains('upVotesCount'));
+      expect(query, contains('downVotesCount'));
+    });
 
-  test('addLike returns valid mutation', () {
-    final query = postQueries.addLike();
-    expect(query, contains('mutation likePost'));
-    expect(query, contains('\$postID'));
-    expect(query, contains('likePost( id: \$postID,'));
-  });
+    test('uploadPost returns correct GraphQL mutation', () {
+      final query = PostQueries().uploadPost();
 
-  test('uploadPost returns valid mutation', () {
-    final query = postQueries.uploadPost();
-    expect(query, contains('mutation CreatePost'));
-    expect(query, contains('\$text'));
-    expect(query, contains('\$title'));
-    expect(query, contains('\$organizationId'));
-    expect(query, contains('createPost('));
-  });
+      expect(query, contains('mutation CreatePost'));
+      expect(query, contains(r'$caption: String!'));
+      expect(query, contains(r'$organizationId: ID!'));
+      expect(query, contains(r'$attachments: [AttachmentInput]'));
+      expect(query, contains(r'$userId: ID!'));
+      expect(query, contains('createPost('));
+      expect(query, contains('caption: \$caption'));
+      expect(query, contains('organizationId: \$organizationId'));
+      expect(query, contains('attachments: \$attachments'));
+      expect(query, contains('id'));
+      expect(query, contains('caption'));
+      expect(query, contains('upVotesCount'));
+      expect(query, contains('downVotesCount'));
+      expect(query, contains('commentsCount'));
+      expect(query, contains('createdAt'));
+      expect(query, contains('hasUserVoted(userId: \$userId)'));
+      expect(query, contains('creator {'));
+      expect(query, contains('organization {'));
+      expect(query, contains('attachments {'));
+    });
 
-  test('deletePost returns valid mutation', () {
-    final query = postQueries.deletePost();
-    expect(query, contains('mutation DeletePost'));
-    expect(query, contains('\$id'));
-    expect(query, contains('deletePost(input: {id: \$id})'));
+    test('deletePost returns correct GraphQL mutation', () {
+      final query = PostQueries().deletePost();
+
+      expect(query, contains('mutation DeletePost'));
+      expect(query, contains(r'$id: ID!'));
+      expect(query, contains('deletePost(input: {id: \$id})'));
+      expect(query, contains('id'));
+    });
   });
 }
