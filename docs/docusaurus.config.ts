@@ -45,7 +45,8 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: undefined,
+          // the custom css file is default css provided by docusaurus
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
