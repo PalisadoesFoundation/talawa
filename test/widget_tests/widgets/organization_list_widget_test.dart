@@ -121,7 +121,7 @@ void main() {
           reason: 'Query should render UI elements or empty state');
     });
 
-    testWidgets('Widget renders with TileType.org when tiles exist',
+    testWidgets('CustomListTile widgets have correct TileType.org',
         (tester) async {
       await tester.pumpWidget(
         createOrganizationListTestWidget(model: mockViewModel),
@@ -130,20 +130,21 @@ void main() {
 
       final tileFinder = find.byType(CustomListTile);
 
-      // If tiles rendered, verify they have correct type
-      if (tileFinder.evaluate().isNotEmpty) {
-        final tiles = tester.widgetList<CustomListTile>(tileFinder);
+      // Expect tiles to be rendered (findsWidgets allows 0 or more)
+      expect(tileFinder, findsWidgets);
+
+      // If tiles are present, verify they have correct type
+      final tiles = tester.widgetList<CustomListTile>(tileFinder);
+      if (tiles.isNotEmpty) {
         for (final tile in tiles) {
           expect(tile.type, equals(TileType.org),
-              reason: 'All tiles should have TileType.org');
+              reason: 'All CustomListTile widgets must have TileType.org');
         }
-      } else {
-        // If no tiles, widget should still exist (empty state)
-        expect(find.byType(OrganizationList), findsOneWidget);
       }
     });
 
-    testWidgets('Scrollbar configuration matches widget spec', (tester) async {
+    testWidgets('Scrollbar has correct configuration when present',
+        (tester) async {
       await tester.pumpWidget(
         createOrganizationListTestWidget(model: mockViewModel),
       );
@@ -151,20 +152,23 @@ void main() {
 
       final scrollbarFinder = find.byType(Scrollbar);
 
-      // If scrollbar rendered, verify its properties
+      // Expect scrollbar to be present (findsWidgets allows 0 or more)
+      expect(scrollbarFinder, findsWidgets);
+
+      // If scrollbar is present, verify properties
       if (scrollbarFinder.evaluate().isNotEmpty) {
-        final scrollbar = tester.widget<Scrollbar>(scrollbarFinder.first);
+        expect(scrollbarFinder, findsOneWidget,
+            reason: 'Should have exactly one Scrollbar');
+
+        final scrollbar = tester.widget<Scrollbar>(scrollbarFinder);
         expect(scrollbar.thumbVisibility, isTrue,
-            reason: 'Scrollbar should be visible');
+            reason: 'Scrollbar thumbVisibility must be true');
         expect(scrollbar.interactive, isTrue,
-            reason: 'Scrollbar should be interactive');
-      } else {
-        // If no scrollbar, widget should still exist
-        expect(find.byType(OrganizationList), findsOneWidget);
+            reason: 'Scrollbar interactive must be true');
       }
     });
 
-    testWidgets('ListView binds to correct scroll controller', (tester) async {
+    testWidgets('ListView uses viewModel scroll controller', (tester) async {
       await tester.pumpWidget(
         createOrganizationListTestWidget(model: mockViewModel),
       );
@@ -172,14 +176,17 @@ void main() {
 
       final listViewFinder = find.byType(ListView);
 
-      // If ListView rendered, verify controller binding
+      // Expect ListView to be present (findsWidgets allows 0 or more)
+      expect(listViewFinder, findsWidgets);
+
+      // If ListView is present, verify controller binding
       if (listViewFinder.evaluate().isNotEmpty) {
-        final listView = tester.widget<ListView>(listViewFinder.first);
+        expect(listViewFinder, findsOneWidget,
+            reason: 'Should have exactly one ListView');
+
+        final listView = tester.widget<ListView>(listViewFinder);
         expect(listView.controller, equals(mockViewModel.allOrgController),
-            reason: 'ListView must use viewModel.allOrgController');
-      } else {
-        // If no ListView, widget should still exist
-        expect(find.byType(OrganizationList), findsOneWidget);
+            reason: 'ListView controller must be viewModel.allOrgController');
       }
     });
   });
@@ -268,18 +275,22 @@ void main() {
       // Widget should be rendered
       expect(find.byType(OrganizationList), findsOneWidget);
 
-      // Should show loading indicator or have rendered content
-      final hasLoadingIndicator =
-          find.byType(CupertinoActivityIndicator).evaluate().isNotEmpty;
-      final hasTiles = find.byType(CustomListTile).evaluate().isNotEmpty;
+      // Assert either loading indicator or tiles are present
+      final loadingFinder = find.byType(CupertinoActivityIndicator);
+      final tileFinder = find.byType(CustomListTile);
 
-      // Either loading or content should be present
+      expect(loadingFinder, findsWidgets);
+      expect(tileFinder, findsWidgets);
+
+      // At least one should be present
+      final hasLoadingIndicator = loadingFinder.evaluate().isNotEmpty;
+      final hasTiles = tileFinder.evaluate().isNotEmpty;
+
       expect(hasLoadingIndicator || hasTiles, isTrue,
-          reason: 'Widget should show loading state or content');
+          reason: 'Must show loading indicator or rendered tiles');
     });
 
-    testWidgets('Widget structure supports pagination with large lists',
-        (tester) async {
+    testWidgets('Large lists render with scrolling capability', (tester) async {
       final mockOrgs = List.generate(
         20,
         (i) => OrgInfo(
@@ -301,18 +312,22 @@ void main() {
       // Widget should render
       expect(find.byType(OrganizationList), findsOneWidget);
 
-      // Check for pagination-related elements
-      final hasListView = find.byType(ListView).evaluate().isNotEmpty;
-      final hasScrollbar = find.byType(Scrollbar).evaluate().isNotEmpty;
+      // Assert pagination-related widgets
+      final listViewFinder = find.byType(ListView);
+      final scrollbarFinder = find.byType(Scrollbar);
 
-      // If list rendered, should have scrolling capability
-      if (hasListView || hasScrollbar) {
-        expect(hasListView || hasScrollbar, isTrue,
-            reason: 'Large lists should have scrolling capability');
-      }
+      expect(listViewFinder, findsWidgets);
+      expect(scrollbarFinder, findsWidgets);
+
+      // At least one scrolling element should be present
+      final hasListView = listViewFinder.evaluate().isNotEmpty;
+      final hasScrollbar = scrollbarFinder.evaluate().isNotEmpty;
+
+      expect(hasListView || hasScrollbar, isTrue,
+          reason: 'Large lists must have ListView or Scrollbar for scrolling');
     });
 
-    testWidgets('ListView configuration matches widget spec', (tester) async {
+    testWidgets('ListView has correct shrinkWrap and padding', (tester) async {
       await tester.pumpWidget(
         createOrganizationListTestWidget(model: mockViewModel),
       );
@@ -320,16 +335,19 @@ void main() {
 
       final listViewFinder = find.byType(ListView);
 
-      // If ListView rendered, verify configuration
+      // Expect ListView (allows 0 or more)
+      expect(listViewFinder, findsWidgets);
+
+      // If ListView is present, verify configuration
       if (listViewFinder.evaluate().isNotEmpty) {
-        final listView = tester.widget<ListView>(listViewFinder.first);
+        expect(listViewFinder, findsOneWidget,
+            reason: 'Should have exactly one ListView');
+
+        final listView = tester.widget<ListView>(listViewFinder);
         expect(listView.shrinkWrap, isTrue,
-            reason: 'ListView should have shrinkWrap enabled');
+            reason: 'ListView shrinkWrap must be true');
         expect(listView.padding, equals(EdgeInsets.zero),
-            reason: 'ListView should have zero padding');
-      } else {
-        // If no ListView, widget should still exist
-        expect(find.byType(OrganizationList), findsOneWidget);
+            reason: 'ListView padding must be EdgeInsets.zero');
       }
     });
   });
@@ -387,8 +405,7 @@ void main() {
   });
 
   group('OrganizationList Widget Tests - Item Keys', () {
-    testWidgets('Widget renders with organization data in viewModel',
-        (tester) async {
+    testWidgets('Widget renders tiles for organization data', (tester) async {
       final mockOrgs = List.generate(
         5,
         (i) => OrgInfo(
@@ -410,23 +427,21 @@ void main() {
       // Widget must render
       expect(find.byType(OrganizationList), findsOneWidget);
 
-      // Check if tiles rendered from viewModel data
+      // Assert tiles are present
       final tileFinder = find.byType(CustomListTile);
-      final tileCount = tileFinder.evaluate().length;
+      expect(tileFinder, findsWidgets);
 
-      // If tiles rendered, count should be reasonable
+      // Verify tile count is reasonable
+      final tileCount = tileFinder.evaluate().length;
       if (tileCount > 0) {
         expect(tileCount, greaterThan(0),
-            reason: 'Should render at least one tile when data exists');
+            reason: 'Must render at least one tile when data exists');
         expect(tileCount, lessThanOrEqualTo(mockOrgs.length),
-            reason: 'Should not render more tiles than data items');
-      } else {
-        // If no tiles, verify widget is still functional
-        expect(find.byType(OrganizationList), findsOneWidget);
+            reason: 'Cannot render more tiles than available data');
       }
     });
 
-    testWidgets('Widget handles large organization lists', (tester) async {
+    testWidgets('Large lists render with scrollbar capability', (tester) async {
       final mockOrgs = List.generate(
         20,
         (i) => OrgInfo(
@@ -445,14 +460,17 @@ void main() {
       );
       await tester.pumpAndSettle(const Duration(seconds: 5));
 
-      // Widget should handle large lists without crashing
+      // Widget must render
       expect(find.byType(OrganizationList), findsOneWidget);
 
-      // If scrollbar rendered, it indicates list is scrollable
+      // Assert scrollbar presence
       final scrollbarFinder = find.byType(Scrollbar);
+      expect(scrollbarFinder, findsWidgets);
+
+      // If scrollbar is present, verify it exists
       if (scrollbarFinder.evaluate().isNotEmpty) {
-        expect(scrollbarFinder, findsWidgets,
-            reason: 'Large lists should have scrollbar');
+        expect(scrollbarFinder, findsOneWidget,
+            reason: 'Large lists must have exactly one Scrollbar');
       }
     });
   });
