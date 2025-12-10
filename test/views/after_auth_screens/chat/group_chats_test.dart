@@ -223,7 +223,7 @@ void main() {
       // Verify UI reflects refreshed state
       expect(find.byType(GroupChatTile), findsOneWidget);
     });
-    
+
     testWidgets('onRefresh method functionality test', (tester) async {
       // Test that we can create the widget and verify the onRefresh callback exists
       when(groupChatViewModel.groupChats).thenReturn([]);
