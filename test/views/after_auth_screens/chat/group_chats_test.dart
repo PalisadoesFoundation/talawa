@@ -152,7 +152,8 @@ void main() {
       expect(find.text('No group chats yet'), findsNothing);
     });
 
-    testWidgets('Pull to refresh works correctly', (tester) async {
+    testWidgets('Pull to refresh works correctly with empty chats',
+        (tester) async {
       when(groupChatViewModel.groupChats).thenReturn([]);
       when(groupChatViewModel.initialise()).thenAnswer((_) async {});
 
@@ -163,6 +164,49 @@ void main() {
       await tester.pumpAndSettle();
 
       // Find the RefreshIndicator
+      final refreshIndicator = find.byType(RefreshIndicator);
+      expect(refreshIndicator, findsOneWidget);
+
+      // Simulate pull to refresh by dragging the ListView down
+      await tester.drag(find.byType(ListView), const Offset(0, 300));
+      await tester.pump();
+
+      // Wait for the Future.delayed in onRefresh to complete
+      await tester.pump(const Duration(milliseconds: 600));
+      await tester.pumpAndSettle();
+
+      // Verify that refreshChats was called
+      verify(groupChatViewModel.refreshChats()).called(1);
+    });
+
+    testWidgets('Pull to refresh works correctly with existing chats',
+        (tester) async {
+      // Create dummy group chats to test refresh with non-empty list
+      final groupChats = [
+        ChatListTileDataModel.fromChat(
+          Chat(
+            id: 'group1',
+            name: 'Test Group 1',
+            description: 'First test group',
+            createdAt: DateTime.now().toIso8601String(),
+            members: [
+              ChatUser(id: 'user1', firstName: 'Alice'),
+              ChatUser(id: 'user2', firstName: 'Bob'),
+              ChatUser(id: 'user3', firstName: 'Charlie'),
+            ],
+          ),
+        ),
+      ];
+
+      when(groupChatViewModel.groupChats).thenReturn(groupChats);
+      when(groupChatViewModel.initialise()).thenAnswer((_) async {});
+      when(groupChatViewModel.chatState).thenReturn(ChatState.initial);
+
+      await tester.pumpWidget(createGroupChatsWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.byType(GroupChatTile), findsOneWidget);
+
       final refreshIndicator = find.byType(RefreshIndicator);
       expect(refreshIndicator, findsOneWidget);
 
