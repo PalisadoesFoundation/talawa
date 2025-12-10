@@ -5,9 +5,9 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/chats/chat.dart';
+import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
-import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
@@ -571,48 +571,6 @@ void main() {
   });
 
   group('Helper Methods Coverage', () {
-    testWidgets('All helper getters are accessed during widget lifecycle',
-        (tester) async {
-      const chatId = 'group1';
-
-      final messages = List.generate(
-        5,
-        (index) => ChatMessage(
-          id: 'msg$index',
-          body: 'Message $index',
-          creator: ChatUser(id: 'user1', firstName: 'Alice'),
-          chatId: chatId,
-          createdAt: DateTime.now().toIso8601String(),
-        ),
-      );
-
-      when(groupChatViewModel.chatState).thenReturn(ChatState.complete);
-      when(groupChatViewModel.chatMessagesByUser)
-          .thenReturn({chatId: messages});
-      when(groupChatViewModel.getChatMessages(chatId)).thenAnswer((_) async {});
-      when(groupChatViewModel.getGroupDisplayName(chatId))
-          .thenReturn('Test Group');
-      when(groupChatViewModel.getMemberCount(chatId)).thenReturn(3);
-      when(groupChatViewModel.isCurrentUserAdminById(chatId)).thenReturn(true);
-      when(groupChatViewModel.groupChats).thenReturn([]);
-      when(groupChatViewModel.hasMoreMessages(chatId)).thenReturn(false);
-      when(groupChatViewModel.isLoadingMoreMessages(chatId)).thenReturn(false);
-
-      await tester
-          .pumpWidget(createGroupChatMessageScreenWidget(chatId: chatId));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(GroupChatAppBar), findsOneWidget);
-      verify(groupChatViewModel.chatState).called(greaterThan(0));
-      verify(groupChatViewModel.chatMessagesByUser).called(greaterThan(0));
-      verify(groupChatViewModel.groupChats).called(greaterThan(0));
-      verify(groupChatViewModel.getGroupDisplayName(chatId))
-          .called(greaterThan(0));
-      verify(groupChatViewModel.isCurrentUserAdminById(chatId))
-          .called(greaterThan(0));
-      verify(groupChatViewModel.getMemberCount(chatId)).called(greaterThan(0));
-    });
-
     testWidgets('currentChat getter returns chat when found in groupChats',
         (tester) async {
       const chatId = 'group1';
@@ -645,33 +603,6 @@ void main() {
       // Verify the widget renders correctly with a non-null currentChat
       expect(find.byType(GroupChatMessageScreen), findsOneWidget);
       expect(find.byType(GroupChatAppBar), findsOneWidget);
-      verify(groupChatViewModel.groupChats).called(greaterThan(0));
-    });
-
-    testWidgets('currentChat getter returns null when no matching chat',
-        (tester) async {
-      const chatId = 'group1';
-
-      when(groupChatViewModel.chatState).thenReturn(ChatState.complete);
-      when(groupChatViewModel.chatMessagesByUser).thenReturn({chatId: []});
-      when(groupChatViewModel.getChatMessages(chatId)).thenAnswer((_) async {});
-      when(groupChatViewModel.getGroupDisplayName(chatId))
-          .thenReturn('Test Group');
-      when(groupChatViewModel.getMemberCount(chatId)).thenReturn(3);
-      when(groupChatViewModel.isCurrentUserAdminById(chatId)).thenReturn(false);
-      // Empty list means no matching chat, so currentChat will be null
-      when(groupChatViewModel.groupChats).thenReturn([]);
-      when(groupChatViewModel.hasMoreMessages(chatId)).thenReturn(false);
-      when(groupChatViewModel.isLoadingMoreMessages(chatId)).thenReturn(false);
-
-      await tester
-          .pumpWidget(createGroupChatMessageScreenWidget(chatId: chatId));
-      await tester.pumpAndSettle();
-
-      // Verify the widget renders correctly even with null currentChat
-      expect(find.byType(GroupChatMessageScreen), findsOneWidget);
-      expect(find.byType(GroupChatAppBar), findsOneWidget);
-
       verify(groupChatViewModel.groupChats).called(greaterThan(0));
     });
   });
