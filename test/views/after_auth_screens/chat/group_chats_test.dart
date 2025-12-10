@@ -220,6 +220,10 @@ void main() {
 
       // Verify that refreshChats was called
       verify(groupChatViewModel.refreshChats()).called(1);
+
+      // Verify UI reflects refreshed state
+      await tester.pumpAndSettle();
+      expect(find.byType(GroupChatTile), findsOneWidget);
     });
 
     testWidgets('onRefresh method functionality test', (tester) async {
