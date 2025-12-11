@@ -10,6 +10,7 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:talawa/constants/quick_actions.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/hive_manager.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
@@ -38,6 +39,7 @@ Future<void> main() async {
 
   final appConnectivity = locator<AppConnectivity>();
   await appConnectivity.initialise();
+  locator<GraphqlConfig>().getOrgUrl();
 
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
