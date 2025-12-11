@@ -26,6 +26,18 @@ class _MockInvalidEvent extends Event {
   String get endTime => '11:00 AM';
 }
 
+class MockEventCalendarViewModel extends EventCalendarViewModel {
+  int viewChangedCallCount = 0;
+  List<DateTime>? capturedVisibleDates;
+
+  @override
+  void viewChanged(ViewChangedDetails details) {
+    viewChangedCallCount++;
+    capturedVisibleDates = details.visibleDates;
+    super.viewChanged(details);
+  }
+}
+
 Widget createEventCalendar() {
   return MaterialApp(
     navigatorKey: navigationService.navigatorKey,
@@ -119,16 +131,36 @@ void main() {
         );
       });
 
-      testWidgets('Testing EventCalendar with null event name', (tester) async {
-        await tester.pumpWidget(createEventCalendarWithNullName());
-        await tester.pump();
+      testWidgets('EventCalendar handles an empty event list gracefully',
+          (tester) async {
+        await tester.pumpWidget(createEmptyEventCalendar());
+        await tester.pumpAndSettle();
 
         expect(find.byType(EventCalendar), findsOneWidget);
+      });
 
+      testWidgets('Testing EventCalendar with null event name', (tester) async {
+        await tester.pumpWidget(createEventCalendarWithNullName());
+        await tester.pumpAndSettle();
+
+        expect(find.byType(EventCalendar), findsOneWidget);
         final eventCalendar =
             tester.widget<EventCalendar>(find.byType(EventCalendar));
         final event = eventCalendar.eventList[0];
+
+        // Verify the event name is null
         expect(event.name, isNull);
+        final calendarFinder = find.byType(SfCalendar);
+        final SfCalendar calendar = tester.widget(calendarFinder);
+        final CalendarDataSource dataSource = calendar.dataSource!;
+        final appointments = dataSource.getVisibleAppointments(
+          DateTime(2025, 7, 13),
+          '',
+        );
+
+        // Verify the appointment subject uses the 'No Name' fallback
+        expect(appointments.isNotEmpty, true);
+        expect(appointments.first.subject, 'No Name');
       });
 
       testWidgets(
@@ -141,31 +173,70 @@ void main() {
 
         final eventCalendar =
             tester.widget<EventCalendar>(find.byType(EventCalendar));
-
         expect(eventCalendar.eventList.length, 8);
+
+        final calendarFinder = find.byType(SfCalendar);
+        final SfCalendar calendar = tester.widget(calendarFinder);
+        final CalendarDataSource dataSource = calendar.dataSource!;
+        final colors = [
+          Colors.green,
+          Colors.blue,
+          Colors.red,
+          Colors.orange,
+          Colors.purple,
+          Colors.pink,
+        ];
+        // Both should have the same color (index 0 % 6 == 0, index 6 % 6 == 0)
+        final appointment0 = dataSource
+            .getVisibleAppointments(DateTime(2025, 7, 13), '')
+            .firstWhere((apt) => apt.subject == 'Event 0');
+        final appointment6 = dataSource
+            .getVisibleAppointments(DateTime(2025, 7, 19), '')
+            .firstWhere((apt) => apt.subject == 'Event 6');
+        expect(appointment0.color, colors[0]);
+        expect(appointment6.color, colors[0]);
+
+        final appointment1 = dataSource
+            .getVisibleAppointments(DateTime(2025, 7, 14), '')
+            .firstWhere((apt) => apt.subject == 'Event 1');
+
+        expect(appointment1.color, colors[1]);
+        expect(appointment1.color, isNot(appointment0.color));
       });
 
-      testWidgets('Testing onViewChanged callback is triggered',
+      testWidgets('Testing onViewChanged callback executes viewModel logic',
           (tester) async {
-        await tester.pumpWidget(createEventCalendar());
-        await tester.pump();
+        final mockModel = MockEventCalendarViewModel();
+        locator.unregister<EventCalendarViewModel>();
+        locator.registerSingleton<EventCalendarViewModel>(mockModel);
 
+        await tester.pumpWidget(createEventCalendar());
+        await tester.pumpAndSettle();
+
+        final initialCallCount = mockModel.viewChangedCallCount;
         final calendarFinder = find.byType(SfCalendar);
         expect(calendarFinder, findsOneWidget);
 
         final SfCalendar calendar = tester.widget(calendarFinder);
+
+        // Verify onViewChanged callback exists
         expect(calendar.onViewChanged, isNotNull);
 
-        final testArgs = ViewChangedDetails(
-          [
-            DateTime(2025, 7, 1),
-            DateTime(2025, 7, 2),
-            DateTime(2025, 7, 3),
-          ],
-        );
+        final newVisibleDates = [
+          DateTime(2025, 8, 1),
+          DateTime(2025, 8, 2),
+          DateTime(2025, 8, 3),
+        ];
 
+        final testArgs = ViewChangedDetails(newVisibleDates);
         calendar.onViewChanged!(testArgs);
         await tester.pumpAndSettle();
+
+        expect(mockModel.viewChangedCallCount, greaterThan(initialCallCount));
+        expect(mockModel.capturedVisibleDates, isNotNull);
+        expect(mockModel.capturedVisibleDates, newVisibleDates);
+
+        // Verify no exceptions were thrown
         expect(tester.takeException(), isNull);
       });
 
