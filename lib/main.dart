@@ -31,7 +31,7 @@ Future<void> main() async {
     debugPrint(dotenv.get('API_URL'));
   }).catchError((error) {
     debugPrint("Error loading environment variables: $error");
-    throw Exception("Failed to load environment variables: $error");
+    debugPrint(".env file not found - URL can be set via SetUrl screen");
   });
 
   await setupLocator();

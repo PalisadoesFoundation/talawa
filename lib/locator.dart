@@ -47,6 +47,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/auth_landing_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/waiting_view_model.dart';
@@ -157,6 +158,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => DemoViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => AuthLandingViewModel());
+  locator.registerFactory(() => SetUrlViewModel());
   locator.registerFactory(() => LoginViewModel());
   locator.registerFactory(() => ManageVolunteerGroupViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
