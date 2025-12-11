@@ -79,7 +79,13 @@ void main() {
         await tester.pumpWidget(widget);
 
         // The exception is thrown during build, so we catch it here
-        expect(tester.takeException(), isA<Exception>());
+        final exception = tester.takeException();
+        expect(exception, isNotNull);
+        expect(exception, isA<Exception>());
+        expect(
+          exception.toString(),
+          contains('Invalid date format'),
+        );
       });
 
       testWidgets('Testing if tapping on date_range shows datePicker',
