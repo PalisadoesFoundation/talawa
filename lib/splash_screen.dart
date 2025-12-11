@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
@@ -207,6 +208,15 @@ class _SplashScreenState extends State<SplashScreen> {
   ///   None
   Future<void> _handleUserLogIn(bool userLoggedIn) async {
     final pushReplacementScreen = navigationService.pushReplacementScreen;
+    
+    // Check if URL is cached in Hive
+    final box = Hive.box('url');
+    final cachedUrl = box.get('url');
+    if (cachedUrl == null || cachedUrl.toString().isEmpty) {
+      pushReplacementScreen(Routes.setUrlScreen, arguments: '');
+      return;
+    }
+    
     if (!userLoggedIn) {
       pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
       return;
