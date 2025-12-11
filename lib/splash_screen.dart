@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
   /// **returns**:
   ///   None
   Future<void> _handleInitialUri() async {
+    debugPrint("SplashScreen: _handleInitialUri called");
     final appLinks = locator<AppLinks>();
 
     _sub = appLinks.uriLinkStream.listen(
@@ -205,21 +206,35 @@ class _SplashScreenState extends State<SplashScreen> {
   ///
   /// **returns**:
   ///   None
-  Future<void> _handleUserLogIn(bool userLoggedIn) async {
+    Future<void> _handleUserLogIn(bool userLoggedIn) async {
+    debugPrint("SplashScreen: _handleUserLogIn called with userLoggedIn=$userLoggedIn");
     final pushReplacementScreen = navigationService.pushReplacementScreen;
     if (!userLoggedIn) {
       pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
       return;
     }
+    bool updateSuccess = false;
     try {
-      await userConfig.userLoggedIn();
+      updateSuccess = await userConfig.userLoggedIn();
     } catch (e) {
       debugPrint("Unable to update user $e");
     }
+    
+    // If update failed (e.g. unauthenticated), force login
+    if (!updateSuccess) {
+       debugPrint("SplashScreen: User update failed, redirecting to language selection");
+       pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
+       return;
+    }
+
     final currentUser = userConfig.currentUser;
     final hasJoinedOrgs = currentUser.joinedOrganizations?.isNotEmpty ?? false;
+    
+    // Check if current org is valid
+    final currentOrgId = userConfig.currentOrg.id;
+    final isOrgValid = currentOrgId != null && currentOrgId != 'null';
 
-    if (hasJoinedOrgs) {
+    if (hasJoinedOrgs && isOrgValid) {
       final mainScreenArgs = MainScreenArgs(
         mainScreenIndex: widget.mainScreenIndex,
         fromSignUp: false,
@@ -248,8 +263,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     sizeConfig.init(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    debugPrint("SplashScreen: build called");
     return Scaffold(
       key: const Key('SplashScreenScaffold'),
       body: Stack(

@@ -40,7 +40,7 @@ class GraphqlConfig {
     final box = Hive.box('url');
     final String? url = box.get(urlKey) as String?;
     final String? imgUrl = box.get(imageUrlKey) as String?;
-    orgURI = url ?? ' ';
+    orgURI = url ?? dotenv.env['API_URL'] ?? ' ';
     displayImgRoute = imgUrl ?? ' ';
     httpLink = HttpLink(orgURI!);
     _initializeWebSocketLink();
