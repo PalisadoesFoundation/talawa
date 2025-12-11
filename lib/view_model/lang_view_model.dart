@@ -164,12 +164,8 @@ class AppLanguage extends BaseModel {
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
       navigationService.pushScreen(
-        Routes.mainScreen,
-        arguments: MainScreenArgs(
-          mainScreenIndex: 0,
-          fromSignUp: false,
-          toggleDemoMode: true,
-        ),
+        Routes.setUrlScreen,
+        arguments: '',
       );
     }
   }

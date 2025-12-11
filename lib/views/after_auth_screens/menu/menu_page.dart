@@ -7,6 +7,7 @@ import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/plugin/plugin_injector.dart';
 import 'package:talawa/plugin/types.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/services/user_config.dart';
 
 /// MenuPage returns a widget that renders a menu page with vertical stack of links.
 class MenuPage extends StatelessWidget {
@@ -80,6 +81,15 @@ class MenuPage extends StatelessWidget {
   Widget _buildPluginSection(BuildContext context) {
     // If already initialized, just show the injector
     if (PluginManager.instance.isInitialized) {
+      return const PluginInjector(
+        injectorType: InjectorType.g1,
+      );
+    }
+
+    // If not logged in (e.g. Demo Mode), skip API call and use bundled plugins
+    // This prevents "Unauthenticated" errors
+    if (!userConfig.loggedIn) {
+      PluginManager.instance.initialize(getBundledPlugins());
       return const PluginInjector(
         injectorType: InjectorType.g1,
       );
