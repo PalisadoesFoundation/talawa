@@ -4,7 +4,7 @@ import 'package:talawa/models/events/event_agenda_category.dart';
 part 'event_agenda_item.g.dart';
 
 /// Model for Event Agenda Item.
-@HiveType(typeId: 13)
+@HiveType(typeId: 14)
 class EventAgendaItem {
   EventAgendaItem({
     this.id,

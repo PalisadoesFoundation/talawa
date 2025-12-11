@@ -8,7 +8,7 @@ part of 'event_agenda_item.dart';
 
 class EventAgendaItemAdapter extends TypeAdapter<EventAgendaItem> {
   @override
-  final int typeId = 13;
+  final int typeId = 14;
 
   @override
   EventAgendaItem read(BinaryReader reader) {

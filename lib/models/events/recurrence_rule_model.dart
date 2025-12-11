@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'recurrence_rule_model.g.dart';
 
 /// Recurrence rule model for events.
-@HiveType(typeId: 32)
+@HiveType(typeId: 15)
 class RecurrenceRule {
   RecurrenceRule({
     required this.frequency,
