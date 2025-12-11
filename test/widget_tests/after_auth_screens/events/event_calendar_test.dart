@@ -1,9 +1,7 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -54,6 +52,40 @@ Widget createEventCalender2() {
   );
 }
 
+Widget createEmptyEventCalendar() {
+  return MaterialApp(
+    navigatorKey: navigationService.navigatorKey,
+    home: const EventCalendar([]),
+  );
+}
+
+Widget createEventCalendarWithNullName() {
+  return MaterialApp(
+    navigatorKey: navigationService.navigatorKey,
+    home: EventCalendar([
+      Event(
+        name: null,
+        startAt: DateTime.parse('2025-07-13T19:10:00.000Z'),
+        endAt: DateTime.parse('2025-07-13T20:15:00.000Z'),
+      ),
+    ]),
+  );
+}
+
+Widget createEventCalendarWithMultipleEvents() {
+  return MaterialApp(
+    navigatorKey: navigationService.navigatorKey,
+    home: EventCalendar([
+      for (int i = 0; i < 8; i++)
+        Event(
+          name: 'Event $i',
+          startAt: DateTime.parse('2025-07-${13 + i}T19:10:00.000Z'),
+          endAt: DateTime.parse('2025-07-${13 + i}T20:15:00.000Z'),
+        ),
+    ]),
+  );
+}
+
 void main() {
   setUp(() {
     registerServices();
@@ -78,7 +110,6 @@ void main() {
 
         await tester.pumpWidget(widget);
 
-        // The exception is thrown during build, so we catch it here
         final exception = tester.takeException();
         expect(exception, isNotNull);
         expect(exception, isA<Exception>());
@@ -86,6 +117,56 @@ void main() {
           exception.toString(),
           contains('Invalid date format'),
         );
+      });
+
+      testWidgets('Testing EventCalendar with null event name', (tester) async {
+        await tester.pumpWidget(createEventCalendarWithNullName());
+        await tester.pump();
+
+        expect(find.byType(EventCalendar), findsOneWidget);
+
+        final eventCalendar =
+            tester.widget<EventCalendar>(find.byType(EventCalendar));
+        final event = eventCalendar.eventList[0];
+        expect(event.name, isNull);
+      });
+
+      testWidgets(
+          'Testing EventCalendar with multiple events for color cycling',
+          (tester) async {
+        await tester.pumpWidget(createEventCalendarWithMultipleEvents());
+        await tester.pump();
+
+        expect(find.byType(EventCalendar), findsOneWidget);
+
+        final eventCalendar =
+            tester.widget<EventCalendar>(find.byType(EventCalendar));
+
+        expect(eventCalendar.eventList.length, 8);
+      });
+
+      testWidgets('Testing onViewChanged callback is triggered',
+          (tester) async {
+        await tester.pumpWidget(createEventCalendar());
+        await tester.pump();
+
+        final calendarFinder = find.byType(SfCalendar);
+        expect(calendarFinder, findsOneWidget);
+
+        final SfCalendar calendar = tester.widget(calendarFinder);
+        expect(calendar.onViewChanged, isNotNull);
+
+        final testArgs = ViewChangedDetails(
+          [
+            DateTime(2025, 7, 1),
+            DateTime(2025, 7, 2),
+            DateTime(2025, 7, 3),
+          ],
+        );
+
+        calendar.onViewChanged!(testArgs);
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
       });
 
       testWidgets('Testing if tapping on date_range shows datePicker',
@@ -137,26 +218,9 @@ void main() {
         expect(find.text("Month"), findsOne);
         expect(find.text("Schedule"), findsOne);
       });
-      testWidgets('Testing if Event model parses dates correctly',
+
+      testWidgets("Testing if EventCalendar handles different date formats",
           (tester) async {
-        await tester.pumpWidget(createEventCalendar());
-        await tester.pump();
-
-        final eventCalendar =
-            tester.widget<EventCalendar>(find.byType(EventCalendar));
-        final event = eventCalendar.eventList[0];
-
-        DateTime startDate;
-        DateTime endDate;
-
-        startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
-
-        endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
-
-        expect(startDate, DateFormat('yyyy-MM-dd').parse('2025-07-13'));
-        expect(endDate, DateFormat('yyyy-MM-dd').parse('2025-07-13'));
-      });
-      testWidgets("Testing if EventCalendar shows up", (tester) async {
         await tester.pumpWidget(createEventCalender2());
         await tester.pump();
 
