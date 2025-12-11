@@ -265,7 +265,6 @@ class MainScreenViewModel extends BaseModel {
         ),
         ProfilePage(
           key: keySPEditProfile,
-          homeModel: this,
         ),
         const MenuPage(
           key: Key('Menu'),

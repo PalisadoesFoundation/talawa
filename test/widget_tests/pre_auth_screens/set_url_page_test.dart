@@ -4,7 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -12,7 +11,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/pre_auth_screens/set_url.dart';
+import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
@@ -99,31 +98,6 @@ Future<void> main() async {
       );
     });
 
-    testWidgets("Testing if icon button shows up", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the logo Finder
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      //finding the logo
-      expect(iconButton, findsOneWidget);
-      //testing logo size
-      expect(
-        (tester.firstWidget(iconButton) as Icon).semanticLabel,
-        'Join Organisation with QR',
-      );
-
-      expect((tester.firstWidget(iconButton) as Icon).size, 30);
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -250,18 +224,7 @@ Future<void> main() async {
 
       //finding the login button
       expect(loginButtonWidget, findsOneWidget);
-      //testing the login button widget
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme.lightTheme.colorScheme.tertiary,
-      );
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme
-            .lightTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
+
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
@@ -305,17 +268,6 @@ Future<void> main() async {
       //finding the signup button
       expect(signupButtonWidget, findsOneWidget);
       //testing the signup button widget
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme
-            .lightTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme.lightTheme.colorScheme.secondaryContainer,
-      );
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
@@ -402,50 +354,6 @@ Future<void> main() async {
       );
     });
 
-    testWidgets("Testing if icon button shows up", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the logo Finder
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      //finding the logo
-      expect(iconButton, findsOneWidget);
-      //testing logo size
-      expect(
-        (tester.firstWidget(iconButton) as Icon).semanticLabel,
-        'Join Organisation with QR',
-      );
-
-      expect((tester.firstWidget(iconButton) as Icon).size, 30);
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-    });
-    testWidgets("Check if QR button works", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      // tapping the qr button
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-
-      expect(find.byType(ClipRRect), findsOneWidget);
-      expect(find.byType(QRView), findsOneWidget);
-    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -574,17 +482,6 @@ Future<void> main() async {
       //testing the login button widget
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme.darkTheme.colorScheme.tertiary,
-      );
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme
-            .darkTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
         'Login',
       );
@@ -608,18 +505,7 @@ Future<void> main() async {
 
       //finding the signup button
       expect(signupButtonWidget, findsOneWidget);
-      //testing the signup button widget
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme
-            .darkTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme.darkTheme.colorScheme.secondaryContainer,
-      );
+
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .buttonLabel,

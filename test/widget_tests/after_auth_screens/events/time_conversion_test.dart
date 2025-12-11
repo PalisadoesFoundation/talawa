@@ -202,8 +202,6 @@ void main() {
           'recurrenceEndDate': '2023-05-05T18:30:00.000Z',
           'dueDate': '2023-05-06T19:30:00.000Z',
           'completionDate': '2023-05-07T20:30:00.000Z',
-          'startCursor': '2023-05-08T21:30:00.000Z',
-          'endCursor': '2023-05-09T22:30:00.000Z',
           'normalField': 'should not change',
         };
 
@@ -226,11 +224,6 @@ void main() {
           testObj['completionDate'],
           isNot(equals('2023-05-07T20:30:00.000Z')),
         );
-        expect(
-          testObj['startCursor'],
-          isNot(equals('2023-05-08T21:30:00.000Z')),
-        );
-        expect(testObj['endCursor'], isNot(equals('2023-05-09T22:30:00.000Z')));
 
         // Normal field should remain unchanged
         expect(testObj['normalField'], 'should not change');

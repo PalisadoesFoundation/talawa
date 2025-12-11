@@ -26,8 +26,8 @@
   "Verify": "सत्यापित करें",
   "Sign Up": "साइन अप करें",
   "Change language": "भाषा बदलें",
-  "First Name Hint": "राहुल",
-  "Enter your first name": "अपना पहला नाम दर्ज करें",
+  "Name Hint": "राहुल",
+  "Enter your name": "अपना नाम दर्ज करें",
   "Last Name Hint": "कुमार",
   "Enter your last name": "अपना अंतिम नाम दर्ज करें",
   "Confirm your password": "अपने पासवर्ड की पुष्टि करें",
@@ -328,5 +328,6 @@
   "Unknown": "अज्ञात",
   "Upcoming": "आगामी",
   "Ended": "समाप्त",
-  "Active": "सक्रिय"
+  "Active": "सक्रिय",
+  "Unnamed Organization": "बिना नाम का संगठन"
 }

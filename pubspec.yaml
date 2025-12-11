@@ -41,15 +41,16 @@ dependencies:
     sdk: flutter
   flutter_cache_manager: ^3.4.1
   flutter_dotenv: ^6.0.0
+  flutter_image_compress: ^2.4.0
   flutter_local_notifications: ^18.0.1
   flutter_localizations:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
   flutter_secure_storage: ^9.2.4
   flutter_speed_dial: ^7.0.0
-  flutter_svg: ^2.1.0
+  flutter_svg: ^2.2.3
   font_awesome_flutter: ^10.9.1
-  get_it: ^8.2.0
+  get_it: ^9.1.1
   graphql_flutter: ^5.2.1
   hive: ^2.2.3
   http: ^1.5.0
@@ -64,8 +65,6 @@ dependencies:
   plugin_platform_interface: ^2.1.7
   pointycastle: ^4.0.0
   provider: ^6.1.5
-  qr_code_scanner_plus: ^2.0.14
-  qr_flutter: 4.1.0
   quick_actions: ^1.1.0
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
@@ -76,6 +75,7 @@ dependencies:
   timezone: ^0.10.0
   tutorial_coach_mark: ^1.3.1
   url_launcher: ^6.3.2
+  uuid: ^4.5.1
   vibration: ^3.1.4
   video_player: ^2.10.0
   visibility_detector: ^0.4.0+2

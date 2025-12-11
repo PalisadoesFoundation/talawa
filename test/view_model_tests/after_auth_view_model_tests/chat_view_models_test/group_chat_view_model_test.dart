@@ -474,7 +474,7 @@ void main() {
         const currentUserId = 'user1';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+            .thenReturn(User(id: currentUserId, name: 'User1'));
 
         final createdChat = Chat(
           id: 'group1',
@@ -600,7 +600,7 @@ void main() {
         ).thenAnswer((_) async => false); // Creator addition fails
 
         when(mockUserConfig.currentUser).thenReturn(
-          User(id: 'current_user_id', firstName: 'Current'),
+          User(id: 'current_user_id', name: 'Current'),
         );
 
         final result = await model.createGroupChat(
@@ -636,7 +636,7 @@ void main() {
             .thenAnswer((_) async => mockChat);
 
         when(mockUserConfig.currentUser).thenReturn(
-          User(id: 'current_user_id', firstName: 'Current'),
+          User(id: 'current_user_id', name: 'Current'),
         );
 
         // Mock successful creator addition but failed member addition
@@ -868,7 +868,7 @@ void main() {
         const currentUserId = 'user1';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+            .thenReturn(User(id: currentUserId, name: 'User1'));
 
         final originalChat = Chat(
           id: chatId,
@@ -923,7 +923,7 @@ void main() {
         const currentUserId = 'user1';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+            .thenReturn(User(id: currentUserId, name: 'User1'));
 
         final chat = Chat(
           id: chatId,
@@ -958,7 +958,7 @@ void main() {
         const currentUserId = 'user2';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User2'));
+            .thenReturn(User(id: currentUserId, name: 'User2'));
 
         final chat = Chat(
           id: chatId,
@@ -1033,7 +1033,7 @@ void main() {
         const currentUserId = 'user1';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+            .thenReturn(User(id: currentUserId, name: 'User1'));
 
         final chat = Chat(
           id: chatId,
@@ -1075,7 +1075,7 @@ void main() {
         const currentUserId = 'user2';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User2'));
+            .thenReturn(User(id: currentUserId, name: 'User2'));
 
         final chat = Chat(
           id: chatId,
@@ -1171,7 +1171,7 @@ void main() {
       test('should check if current user is admin', () {
         const currentUserId = 'user1';
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+            .thenReturn(User(id: currentUserId, name: 'User1'));
 
         final chat = Chat(
           id: 'group1',
@@ -1194,7 +1194,7 @@ void main() {
         const currentUserId = 'user1';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+            .thenReturn(User(id: currentUserId, name: 'User1'));
 
         final chat = Chat(
           id: chatId,
@@ -1305,10 +1305,10 @@ void main() {
         const chatId = 'group1';
 
         final orgMembers = [
-          User(id: 'user1', firstName: 'User1'),
-          User(id: 'user2', firstName: 'User2'),
-          User(id: 'user3', firstName: 'User3'),
-          User(id: 'user4', firstName: 'User4'),
+          User(id: 'user1', name: 'User1'),
+          User(id: 'user2', name: 'User2'),
+          User(id: 'user3', name: 'User3'),
+          User(id: 'user4', name: 'User4'),
         ];
 
         final chatMembers = [
@@ -1350,7 +1350,7 @@ void main() {
         const currentUserId = 'user1';
 
         when(mockUserConfig.currentUser)
-            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+            .thenReturn(User(id: currentUserId, name: 'User1'));
 
         final chat = Chat(
           id: chatId,

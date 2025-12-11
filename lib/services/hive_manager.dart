@@ -104,6 +104,7 @@ class HiveManager {
     registerAdapter<CachedUserAction>(CachedUserActionAdapter());
     registerAdapter<CachedOperationType>(CachedOperationTypeAdapter());
     registerAdapter<CachedUserActionStatus>(CachedUserActionStatusAdapter());
+    registerAdapter<VoteType>(VoteTypeAdapter());
     registerAdapter<Post>(PostAdapter());
     registerAdapter<Event>(EventAdapter());
     registerAdapter<Attendee>(AttendeeAdapter());

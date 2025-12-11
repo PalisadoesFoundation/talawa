@@ -1,15 +1,19 @@
+# Configuration for automated dependency updates using Dependabot
 version: 2
 updates:
-  # Enable version updates for flutter's pub package manager
+  # Define the target package ecosystem
   - package-ecosystem: "pub"
-    # Look for `pubspec.yaml` and `pubspec.lock` files in the `root` directory
+    # Specify the root directory
     directory: "/"
-    # Check the pub.dev registry for updates every day (weekdays)
+    # Schedule automated updates
     schedule:
-      interval: "monthly"
+      interval: "cron"
+      cronjob: "0 0 1 * *"
+    # Labels to apply to Dependabot PRs
+    labels:
+      - "dependencies"
+    # Specify the target branch for PRs
     target-branch: "develop"
-    # # Add default reviewers
-    # reviewers:
-    #   - "palisadoes"
-    #   - "randomUserName"
-    
+    # Customize commit message prefix
+    commit-message:
+      prefix: "chore(deps):"

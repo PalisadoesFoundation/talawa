@@ -43,12 +43,12 @@ class TestJsonUtils {
       if (userData == null) return null;
       if (userData is Map<String, dynamic>) {
         // For nested structures, always use fromOrg: true since we extract direct user data
-        return User.fromJson(userData, fromOrg: true);
+        return User.fromJson(userData);
       }
     }
 
     // Handle direct user structure - respect the provided fromOrg parameter
-    return User.fromJson(json, fromOrg: fromOrg);
+    return User.fromJson(json);
   }
 
   /// Creates a list of Users from test JSON array.

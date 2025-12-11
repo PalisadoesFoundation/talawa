@@ -40,8 +40,7 @@ Event getTestEvent({
     name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      firstName: "ravidi",
-      lastName: "shaikh",
+      name: "ravidi shaikh",
     ),
     isPublic: isPublic,
     allDay: isAllDay,
@@ -49,25 +48,21 @@ Event getTestEvent({
     description: "test_event_description",
     startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
     endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
-    progressLabel: progressLabel,
-    sequenceNumber: sequenceNumber,
-    totalCount: totalCount,
-    baseEvent: baseEvent,
-    admins: admins ??
-        [
-          User(
-            firstName: "ravidi_admin_one",
-            lastName: "shaikh_admin_one",
-          ),
-        ],
-    attendees: attendees ??
-        [
-          Attendee(
-            id: "1",
-            firstName: "Test",
-            lastName: "User",
-          ),
-        ],
+    admins: [
+      User(
+        name: "ravidi_admin_one shaikh_admin_one",
+      ),
+      User(
+        name: "ravidi_admin_two shaikh_admin_two",
+      ),
+    ],
+    attendees: [
+      Attendee(
+        id: "1",
+        firstName: "Test",
+        lastName: "User",
+      ),
+    ],
     isRegisterable: true,
     recurrenceRule: customRecurrenceRule ??
         (hasRecurrence

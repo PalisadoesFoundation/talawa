@@ -1,7 +1,5 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_braintree/flutter_braintree.dart';
-// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -16,12 +14,8 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 /// ProfilePage returns a widget that renders a page of user's profile.
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
-    required Key key,
-    this.homeModel,
-  }) : super(key: key);
-
-  /// represents MainScreenViewModel.
-  final MainScreenViewModel? homeModel;
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -108,18 +102,6 @@ class ProfilePage extends StatelessWidget {
                                     fontSize: SizeConfig.screenHeight! * 0.025,
                                   ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                key: const Key('inviteicon'),
-                                icon: Icon(
-                                  Icons.share,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                                onPressed: () => model.invite(context),
                               ),
                             ),
                           ],

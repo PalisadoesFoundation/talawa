@@ -26,8 +26,8 @@
   "Verify": "验证一下",
   "Sign Up": "报名",
   "Change language": "改变语言",
-  "First Name Hint": "杰基",
-  "Enter your first name": "输入您的名字",
+  "Name Hint": "杰基",
+  "Enter your name": "输入您的名字",
   "Last Name Hint": "陈",
   "Enter your last name": "输入您的姓氏",
   "Confirm your password": "确认你的密码",
@@ -328,5 +328,6 @@
   "Unknown": "未知",
   "Upcoming": "即将到来",
   "Ended": "已结束",
-  "Active": "活跃"
+  "Active": "活跃",
+  "Unnamed Organization": "未命名组织"
 }

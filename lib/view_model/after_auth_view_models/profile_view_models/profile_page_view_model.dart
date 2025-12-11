@@ -1,20 +1,15 @@
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/constants.dart';
-import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
 
 /// ProfilePageViewModel class helps to interact with model to serve data and react to user's input in Profile Page view.
 ///
@@ -24,7 +19,6 @@ class ProfilePageViewModel extends BaseModel {
   // Services
   final _userConfig = locator<UserConfig>();
   final _navigationService = locator<NavigationService>();
-  final _appLanguageService = locator<AppLanguage>();
 
   /// GlobalKey for scaffoldKey.
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -96,77 +90,6 @@ class ProfilePageViewModel extends BaseModel {
           donationCurrency = currency.code;
           donationCurrencySymbol = currency.symbol;
         });
-      },
-    );
-  }
-
-  /// This Function creates a QR Code for latest release .
-  ///
-  /// **params**:
-  /// * `context`: Build Context
-  ///
-  /// **returns**:
-  ///   None
-  void invite(BuildContext context) {
-    _appLanguageService.initialize();
-    final String qrData =
-        '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.80,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                iconButton(
-                  CustomPaint(
-                    size: const Size(48, 48 * 1),
-                    painter: AppLogo(),
-                  ),
-                  () {},
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  '${userConfig.currentOrg.name}',
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                QrImageView(
-                  data: qrData,
-                  version: QrVersions.auto,
-                  size: 200.0,
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  AppLocalizations.of(context)!.strictTranslate('JOIN'),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 30),
-              ],
-            ),
-          ),
-        );
       },
     );
   }

@@ -1,13 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat.dart';
@@ -18,6 +19,9 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/chat_core_service.dart';
+import 'package:talawa/services/chat_membership_service.dart';
+import 'package:talawa/services/chat_message_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -32,7 +36,9 @@ import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
@@ -52,13 +58,12 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
-import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
+import 'package:talawa/view_model/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-import '../service_tests/image_service_test.dart';
 import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 import '../service_tests/user_config_test.dart';
 import '../views/main_screen_test.dart';
@@ -95,7 +100,6 @@ import 'test_helpers.mocks.dart';
     ),
     MockSpec<FundViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
@@ -107,12 +111,18 @@ import 'test_helpers.mocks.dart';
     MockSpec<AppSettingViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImageService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ActionHandlerService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<XFile>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<FlutterImageCompress>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<ScrollController>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<ScrollPosition>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppLinks>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ChatCoreService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ChatMembershipService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ChatMessageService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<UserProfileService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<EventCalendarViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
@@ -143,8 +153,6 @@ final List<User> admins = [admin1, admin2];
 final fakeOrgInfo = OrgInfo(
   id: "XYZ",
   name: "Organization Name",
-  members: members,
-  admins: admins,
   userRegistrationRequired: true,
 );
 
@@ -198,14 +206,12 @@ OrganizationService getAndRegisterOrganizationService() {
 
   final User user1 = User(
     id: "fakeUser1",
-    firstName: 'ayush',
-    lastName: 'chaudhary',
+    name: 'ayush chaudhary',
     image: 'www.image.com',
   );
   final User user2 = User(
     id: "fakeUser2",
-    firstName: 'ayush',
-    lastName: 'chaudhary',
+    name: 'ayush chaudhary',
     image: 'www.image.com',
   );
   final List<User> users = [user1, user2];
@@ -496,6 +502,22 @@ FundService getAndRegisterFundService() {
   return service;
 }
 
+/// `getAndRegisterLocalActionHandlerService` returns a mock instance of the `ActionHandlerService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `MockActionHandlerService`: A mock instance of the `ActionHandlerService` class.
+MockActionHandlerService getAndRegisterLocalActionHandlerService() {
+  if (locator.isRegistered<ActionHandlerService>()) {
+    locator.unregister<ActionHandlerService>();
+  }
+  final service = MockActionHandlerService();
+  locator.registerSingleton<ActionHandlerService>(service);
+  return service;
+}
+
 /// `getAndRegisterGraphqlConfig` returns a mock instance of the `GraphqlConfig` class.
 ///
 /// **params**:
@@ -535,7 +557,7 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
     return locator<GraphQLClient>();
   });
 
-  when(service.getToken()).thenAnswer((_) async => "sample_token");
+  when(service.getToken()).thenAnswer((_) => "sample_token");
 
   locator.registerSingleton<GraphqlConfig>(service);
   return service;
@@ -584,9 +606,6 @@ DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   when(service.refreshAccessToken('testtoken')).thenAnswer((_) async {
     return true;
   });
-  when(service.fetchOrgById('fake_id')).thenAnswer((_) async {
-    return fakeOrgInfo;
-  });
   locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
 }
@@ -609,8 +628,7 @@ UserConfig getAndRegisterUserConfig() {
   when(service.currentUser).thenReturn(
     User(
       id: 'id',
-      firstName: 'john',
-      lastName: 'snow',
+      name: 'john snow',
     ),
   );
 
@@ -619,8 +637,6 @@ UserConfig getAndRegisterUserConfig() {
     OrgInfo(
       id: "XYZ",
       name: "Organization Name",
-      members: members,
-      admins: admins,
     ),
   );
 
@@ -635,12 +651,10 @@ UserConfig getAndRegisterUserConfig() {
   when(service.currentUser).thenReturn(
     User(
       id: "xzy1",
-      firstName: "Test",
-      lastName: "User",
+      name: "Test User",
       email: "testuser@gmail.com",
       refreshToken: "testtoken",
       authToken: 'testtoken',
-      adminFor: [],
       joinedOrganizations: [
         OrgInfo(
           id: '3',
@@ -657,18 +671,7 @@ UserConfig getAndRegisterUserConfig() {
           name: "Organization Name",
         ),
       ],
-      membershipRequests: [
-        OrgInfo(
-          id: '1',
-          name: 'test org',
-          userRegistrationRequired: true,
-        ),
-        OrgInfo(
-          id: '2',
-          name: 'test org',
-          userRegistrationRequired: true,
-        ),
-      ],
+      membershipRequests: ["1", "2"],
     ),
   );
 
@@ -741,6 +744,19 @@ ImageCropper getAndRegisterImageCropper() {
 ImageService getAndRegisterImageService() {
   _removeRegistrationIfExists<ImageService>();
   final service = MockImageService();
+  // Mock the convertToBase64 method to return a proper base64 string
+  when(service.convertToBase64(any)).thenAnswer((realInvocation) async {
+    // Return a dummy base64 string for testing
+    return 'VGVzdCBmaWxlIGNvbnRlbnQ='; // "Test file content" in base64
+  });
+
+  // Mock the cropImage method
+  when(service.cropImage(imageFile: anyNamed('imageFile')))
+      .thenAnswer((realInvocation) async {
+    final imageFile = realInvocation.namedArguments[#imageFile] as File;
+    return imageFile; // Return the same file for testing
+  });
+
   locator.registerLazySingleton<ImageService>(() => service);
   return service;
 }
@@ -821,7 +837,7 @@ Post getPostMockModel({
   when(postMock.id).thenReturn(sId);
   when(postMock.creator).thenReturn(
     User(
-      firstName: "TestName",
+      name: "TestName",
     ),
   );
   when(postMock.caption).thenReturn(description);
@@ -857,8 +873,7 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
 
   final User user1 = User(
     id: "fakeUser1",
-    firstName: 'r',
-    lastName: 'p',
+    name: 'r p',
   );
 
   final mapType = {user1.id!: true};
@@ -975,9 +990,8 @@ SelectContactViewModel getAndRegisterSelectContactViewModel() {
   final cachedViewModel = MockSelectContactViewModel();
 
   // Mock data for testing
-  final User testUser1 = User(id: "user1", firstName: "John", lastName: "Doe");
-  final User testUser2 =
-      User(id: "user2", firstName: "Jane", lastName: "Smith");
+  final User testUser1 = User(id: "user1", name: "John Doe");
+  final User testUser2 = User(id: "user2", name: "Jane Smith");
   final List<User> orgMembersList = [testUser1, testUser2];
 
   when(cachedViewModel.orgMembersList).thenReturn(orgMembersList);
@@ -1123,6 +1137,20 @@ PageInfo getPageInfoMock() {
   );
 }
 
+/// `getAndRegisterUserProfileService` returns a mock instance of the `UserProfileService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `UserProfileService`: A mock instance of the `UserProfileService` class.
+UserProfileService getAndRegisterUserProfileService() {
+  _removeRegistrationIfExists<UserProfileService>();
+  final service = MockUserProfileService();
+  locator.registerSingleton<UserProfileService>(service);
+  return service;
+}
+
 /// `registerServices` registers all the services required for the test.
 ///
 /// **params**:
@@ -1147,7 +1175,9 @@ void registerServices() {
   getAndRegisterChatService();
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
+  getAndRegisterImageService();
   getAndRegisterFundService();
+  getAndRegisterUserProfileService();
 }
 
 /// `unregisterServices` unregisters all the services required for the test.
@@ -1172,7 +1202,9 @@ void unregisterServices() {
   locator.unregister<CommentService>();
   locator.unregister<ImageCropper>();
   locator.unregister<ImagePicker>();
+  locator.unregister<ImageService>();
   locator.unregister<ChatService>();
+  locator.unregister<UserProfileService>();
 }
 
 /// registerViewModels registers all the view models required for the test.

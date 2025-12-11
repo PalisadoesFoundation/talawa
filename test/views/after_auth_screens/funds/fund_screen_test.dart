@@ -59,12 +59,12 @@ void main() {
         Fund(
           id: '1',
           name: 'Test Fund',
-          creator: User(firstName: 'John', lastName: 'Doe'),
+          creator: User(name: 'John Doe'),
         ),
         Fund(
           id: '2',
           name: 'Fund 2',
-          creator: User(firstName: 'John1', lastName: 'Doe2'),
+          creator: User(name: 'John1 Doe2'),
         ),
       ];
       when(mockFundService.getFunds()).thenAnswer(
@@ -120,7 +120,7 @@ void main() {
       final mockFund = Fund(
         id: '1',
         name: 'Test Fund',
-        creator: User(firstName: 'John', lastName: 'Doe'),
+        creator: User(name: 'John Doe'),
         createdAt: DateTime.now(),
       );
 

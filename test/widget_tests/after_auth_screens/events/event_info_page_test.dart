@@ -32,8 +32,7 @@ Event getEvent(bool isPublic, bool isCreator) {
     description: 'test',
     creator: User(
       id: isCreator ? "xzy1" : "abc1",
-      firstName: "Test",
-      lastName: "User",
+      name: "Test User",
       email: "testuser@gmail.com",
       refreshToken: "testtoken",
       authToken: 'testtoken',
@@ -41,8 +40,7 @@ Event getEvent(bool isPublic, bool isCreator) {
     admins: [
       User(
         id: isCreator ? "xzy1" : "abc1",
-        firstName: "Test",
-        lastName: "User",
+        name: "Test User",
       ),
     ],
     isPublic: isPublic,

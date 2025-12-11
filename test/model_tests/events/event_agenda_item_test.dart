@@ -180,6 +180,8 @@ void main() {
     });
 
     test('Test EventAgendaItem constructor with all parameters', () {
+      final creator = User(id: 'creatorId', name: 'Creator');
+      final event = Event(id: 'eventId', name: 'Test Event');
       final category1 = AgendaCategory(id: 'cat1', name: 'Category 1');
       final category2 = AgendaCategory(id: 'cat2', name: 'Category 2');
       final now = DateTime.now();
