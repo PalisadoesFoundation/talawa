@@ -12,15 +12,14 @@ void main() {
         final endDate = DateTime(2025, 8, 15, 17, 0);
         final creator = User(
           id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
+          name: 'John Doe',
         );
         final organization = OrgInfo(
           id: 'org1',
           name: 'Test Organization',
         );
         final admins = [
-          User(id: 'admin1', firstName: 'Admin', lastName: 'User'),
+          User(id: 'admin1', name: 'Admin User'),
         ];
         final attendees = [
           Attendee(id: 'attendee1', firstName: 'Jane', lastName: 'Smith'),
@@ -34,117 +33,331 @@ void main() {
           ),
         ];
 
-final event = Event(
-  creator: User(
-    id: '123',
-    name: 'Ayush Chaudhary',
-    email: 'test@test.com',
-  ),
-  id: '12',
-  name: 'for test only',
-  description: 'for test only',
-  location: 'for test only',
-  recurring: false,
-  allDay: false,
-  isPublic: true,
-  isRegistered: true,
-  isRegisterable: true,
-  organization: OrgInfo(),
-  admins: users,
-  attendees: [
-    Attendee(
-      id: "attendee1",
-      firstName: "firstName1",
-      lastName: "lastName1",
-      image: null,
-    ),
-  ],
-);
+        final event = Event(
+          id: 'event1',
+          name: 'Test Event',
+          description: 'A test event',
+          location: 'Test Location',
+          recurring: true,
+          allDay: false,
+          startAt: startDate,
+          endAt: endDate,
+          isPublic: true,
+          isRegistered: true,
+          isRegisterable: true,
+          creator: creator,
+          organization: organization,
+          admins: admins,
+          attendees: attendees,
+          agendaItems: agendaItems,
+        );
 
-final eventJson = {
-  'creator': {
-    'user': {
-      'id': '123',
-      'name': 'Ayush Chaudhary',
-      'emailAddress': 'test@test.com',
-    },
-  },
-  '_id': '12',
-  'title': 'for test only',
-  'description': 'for test only',
-  'location': 'for test only',
-  'recurring': false,
-  'allDay': false,
-  'startDate': 'for test only',
-  'endDate': 'for test only',
-  'startTime': 'for test only',
-  'endTime': 'for test only',
-  'isPublic': true,
-  'isRegistered': true,
-  'isRegisterable': true,
-  'organization': {
-    'admin': {
-      'id': '123',
-      'firstName': 'Ayush',
-      'lastName': 'Chaudhary',
-      'email': 'test@test.com',
-    },
-  },
-  'admins': [
-    <String, dynamic>{
-      'id': '123',
-      'firstName': 'Ayush',
-      'lastName': 'Chaudhary',
-      'email': 'test@test.com',
-    },
-    <String, dynamic>{
-      'id': '123',
-      'firstName': 'Aykkush',
-      'lastName': 'Chaudhary',
-      'email': 'test@test.com',
-    },
-  ],
-  'attendees': [
-    Attendee(
-      id: "attendee1",
-      firstName: "firstName1",
-      lastName: "lastName1",
-      image: null,
-    ).toJson(),
-  ],
-};
+        expect(event.id, equals('event1'));
+        expect(event.name, equals('Test Event'));
+        expect(event.description, equals('A test event'));
+        expect(event.location, equals('Test Location'));
+        expect(event.recurring, isTrue);
+        expect(event.allDay, isFalse);
+        expect(event.startAt, equals(startDate));
+        expect(event.endAt, equals(endDate));
+        expect(event.isPublic, isTrue);
+        expect(event.isRegistered, isTrue);
+        expect(event.isRegisterable, isTrue);
+        expect(event.creator, equals(creator));
+        expect(event.organization, equals(organization));
+        expect(event.admins, equals(admins));
+        expect(event.attendees, equals(attendees));
+        expect(event.agendaItems, equals(agendaItems));
+      });
 
-void main() {
-  group('Test Event Model', () {
-    test('Test Event ', () {
-      final eventFromJson = TestJsonUtils.createEventFromJson(eventJson);
+      test('should create Event with null properties', () {
+        final event = Event();
 
-      expect(event.creator?.id, eventFromJson.creator?.id);
-      expect(event.creator?.firstName, eventFromJson.creator?.firstName);
-      expect(event.creator?.lastName, eventFromJson.creator?.lastName);
-      expect(event.creator?.email, eventFromJson.creator?.email);
-      expect(event.name, eventFromJson.name);
-      expect(event.id, eventFromJson.id);
-      expect(event.description, eventFromJson.description);
-      expect(event.attendees?[0].id, eventFromJson.attendees?[0].id);
-      expect(
-        event.attendees?[0].firstName,
-        eventFromJson.attendees?[0].firstName,
-      );
-      expect(
-        event.attendees?[0].lastName,
-        eventFromJson.attendees?[0].lastName,
-      );
-      expect(event.attendees?[0].image, eventFromJson.attendees?[0].image);
-      expect(event.location, eventFromJson.location);
-      expect(event.recurring, eventFromJson.recurring);
-      expect(event.allDay, eventFromJson.allDay);
-      expect(event.startDate, eventFromJson.startDate);
-      expect(event.startTime, eventFromJson.startTime);
-      expect(event.endTime, eventFromJson.endTime);
-      expect(event.isPublic, eventFromJson.isPublic);
-      expect(event.isRegistered, eventFromJson.isRegistered);
-      expect(event.isRegisterable, eventFromJson.isRegisterable);
+        expect(event.id, isNull);
+        expect(event.name, isNull);
+        expect(event.description, isNull);
+        expect(event.location, isNull);
+        expect(event.recurring, isNull);
+        expect(event.allDay, isNull);
+        expect(event.startAt, isNull);
+        expect(event.endAt, isNull);
+        expect(event.isPublic, isNull);
+        expect(event.isRegistered, isNull);
+        expect(event.isRegisterable, isNull);
+        expect(event.creator, isNull);
+        expect(event.organization, isNull);
+        expect(event.admins, isNull);
+        expect(event.attendees, isNull);
+        expect(event.agendaItems, isNull);
+      });
+    });
+
+    group('Event.fromJson', () {
+      test('should create Event from complete JSON', () {
+        final json = {
+          'id': 'event1',
+          'name': 'Test Event',
+          'description': 'A test event',
+          'location': 'Test Location',
+          'recurring': true,
+          'allDay': false,
+          'startAt': '2025-08-15T09:00:00.000Z',
+          'endAt': '2025-08-15T17:00:00.000Z',
+          'isPublic': true,
+          'isRegistered': true,
+          'isRegisterable': true,
+          'creator': {
+            'id': 'user1',
+            'name': 'John Doe',
+          },
+          'organization': {
+            'id': 'org1',
+            'name': 'Test Organization',
+          },
+          'attendees': [
+            {
+              '_id': 'attendee1',
+              'firstName': 'Jane',
+              'lastName': 'Smith',
+              'image': 'profile.jpg',
+            },
+          ],
+          'agendaItems': [
+            {
+              'id': 'agenda1',
+              'name': 'Opening Ceremony',
+              'duration': '1h',
+              'sequence': 1,
+            },
+          ],
+        };
+
+        final event = Event.fromJson(json);
+
+        expect(event.id, equals('event1'));
+        expect(event.name, equals('Test Event'));
+        expect(event.description, equals('A test event'));
+        expect(event.location, equals('Test Location'));
+        expect(event.recurring, isTrue);
+        expect(event.allDay, isFalse);
+        expect(
+          event.startAt,
+          equals(DateTime.parse('2025-08-15T09:00:00.000Z').toLocal()),
+        );
+        expect(
+          event.endAt,
+          equals(DateTime.parse('2025-08-15T17:00:00.000Z').toLocal()),
+        );
+        expect(event.isPublic, isTrue);
+        expect(event.isRegistered, isTrue);
+        expect(event.isRegisterable, isTrue);
+        expect(event.creator?.id, equals('user1'));
+        expect(event.creator?.firstName, equals('John'));
+        expect(event.organization?.id, equals('org1'));
+        expect(event.attendees?.length, equals(1));
+        expect(event.attendees?.first.id, equals('attendee1'));
+        expect(event.agendaItems?.length, equals(1));
+        expect(event.agendaItems?.first.id, equals('agenda1'));
+      });
+
+      test('should create Event from minimal JSON', () {
+        final json = <String, dynamic>{
+          'id': 'event1',
+          'name': 'Minimal Event',
+        };
+
+        final event = Event.fromJson(json);
+
+        expect(event.id, equals('event1'));
+        expect(event.name, equals('Minimal Event'));
+        expect(event.description, isNull);
+        expect(event.location, isNull);
+        expect(event.recurring, isNull);
+        expect(event.allDay, isNull);
+        expect(event.startAt, isNull);
+        expect(event.endAt, isNull);
+        expect(event.isPublic, isNull);
+        expect(event.isRegistered, isNull);
+        expect(event.isRegisterable, isNull);
+        expect(event.creator, isNull);
+        expect(event.organization, isNull);
+        expect(event.attendees, isNull);
+        expect(event.agendaItems, isNull);
+      });
+
+      test('should handle invalid date strings in JSON', () {
+        final json = {
+          'id': 'event1',
+          'name': 'Test Event',
+          'startAt': 'invalid-date',
+          'endAt': 'another-invalid-date',
+        };
+
+        final event = Event.fromJson(json);
+
+        expect(event.id, equals('event1'));
+        expect(event.name, equals('Test Event'));
+        expect(event.startAt, isNull);
+        expect(event.endAt, isNull);
+      });
+
+      test('should handle empty attendees list', () {
+        final json = {
+          'id': 'event1',
+          'name': 'Test Event',
+          'attendees': <dynamic>[],
+        };
+
+        final event = Event.fromJson(json);
+
+        expect(event.id, equals('event1'));
+        expect(event.attendees, isNull);
+      });
+
+      test('should handle null agendaItems', () {
+        final json = {
+          'id': 'event1',
+          'name': 'Test Event',
+          'agendaItems': null,
+        };
+
+        final event = Event.fromJson(json);
+
+        expect(event.id, equals('event1'));
+        expect(event.agendaItems, isNull);
+      });
+    });
+
+    group('Event Computed Properties', () {
+      test('should format start date correctly', () {
+        final event = Event(
+          startAt: DateTime(2025, 8, 15, 9, 30),
+        );
+
+        expect(event.startDate, equals('2025-08-15'));
+      });
+
+      test('should format end date correctly', () {
+        final event = Event(
+          endAt: DateTime(2025, 8, 16, 17, 45),
+        );
+
+        expect(event.endDate, equals('2025-08-16'));
+      });
+
+      test('should format start time correctly', () {
+        final event = Event(
+          startAt: DateTime(2025, 8, 15, 9, 30),
+        );
+
+        expect(event.startTime, equals('09:30 AM'));
+      });
+
+      test('should format end time correctly', () {
+        final event = Event(
+          endAt: DateTime(2025, 8, 15, 17, 45),
+        );
+
+        expect(event.endTime, equals('05:45 PM'));
+      });
+
+      test('should return null for start date when startAt is null', () {
+        final event = Event();
+
+        expect(event.startDate, isNull);
+      });
+
+      test('should return null for end date when endAt is null', () {
+        final event = Event();
+
+        expect(event.endDate, isNull);
+      });
+
+      test('should return empty string for start time when startAt is null',
+          () {
+        final event = Event();
+
+        expect(event.startTime, equals(''));
+      });
+
+      test('should return empty string for end time when endAt is null', () {
+        final event = Event();
+
+        expect(event.endTime, equals(''));
+      });
+
+      test('should parse recurrenceRule from JSON', () {
+        final json = {
+          'recurrenceRule': {
+            'frequency': 'weekly',
+            'interval': 2,
+            'count': 5,
+            'never': false,
+            'byDay': ['MO', 'WE'],
+            'byMonth': [1, 2],
+            'byMonthDay': [10, 20],
+          },
+        };
+        final event = Event.fromJson(json);
+        expect(event.recurrenceRule, isNotNull);
+        expect(event.recurrenceRule?.frequency, equals('weekly'));
+        expect(event.recurrenceRule?.interval, equals(2));
+        expect(event.recurrenceRule?.count, equals(5));
+        expect(event.recurrenceRule?.never, isFalse);
+        expect(event.recurrenceRule?.byDay, equals(['MO', 'WE']));
+        expect(event.recurrenceRule?.byMonth, equals([1, 2]));
+        expect(event.recurrenceRule?.byMonthDay, equals([10, 20]));
+      });
+      test('should parse venues from JSON', () {
+        final json = {
+          'venues': [
+            {
+              '_id': 'venue1',
+              'capacity': 100,
+              'description': 'Main Hall',
+              'imageUrl': 'image.jpg',
+              'name': 'Hall A',
+              'organization': {'_id': 'org1'},
+            },
+          ],
+        };
+        final event = Event.fromJson(json);
+        expect(event.venues, isNotNull);
+        expect(event.venues?.length, equals(1));
+        expect(event.venues?.first.id, equals('venue1'));
+        expect(event.venues?.first.name, equals('Hall A'));
+        expect(event.venues?.first.organizationId, equals('org1'));
+      });
+
+      test('should parse baseEvent from JSON', () {
+        final json = {
+          'baseEvent': {
+            'id': 'base1',
+            'name': 'Base Event',
+          },
+        };
+        final event = Event.fromJson(json);
+        expect(event.baseEvent, isNotNull);
+        expect(event.baseEvent?.id, equals('base1'));
+        expect(event.baseEvent?.name, equals('Base Event'));
+      });
+      test('should handle midnight times correctly', () {
+        final event = Event(
+          startAt: DateTime(2025, 8, 15, 0, 0),
+          endAt: DateTime(2025, 8, 15, 23, 59),
+        );
+
+        expect(event.startTime, equals('12:00 AM'));
+        expect(event.endTime, equals('11:59 PM'));
+      });
+
+      test('should handle noon time correctly', () {
+        final event = Event(
+          startAt: DateTime(2025, 8, 15, 12, 0),
+        );
+
+        expect(event.startTime, equals('12:00 PM'));
+      });
     });
   });
 

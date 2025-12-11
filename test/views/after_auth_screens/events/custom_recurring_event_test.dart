@@ -831,12 +831,12 @@ void main() {
       final dateContainer = find.byType(InkWell);
       expect(dateContainer, findsAtLeast(1));
 
-      // Verify that the container shows a date or "Select Date"
-      final hasDateText =
-          find.textContaining('Select Date').evaluate().isNotEmpty ||
-              find.textContaining('2024').evaluate().isNotEmpty ||
-              find.textContaining('2025').evaluate().isNotEmpty;
-      expect(hasDateText, true);
+      // Verify that the container shows a formatted date (YYYY-MM-DD format)
+      // The date should be auto-set to 30 days from now
+      final expectedDate = model.recurrenceEndDate!;
+      final formattedDate =
+          '${expectedDate.year}-${expectedDate.month.toString().padLeft(2, '0')}-${expectedDate.day.toString().padLeft(2, '0')}';
+      expect(find.text(formattedDate), findsOne);
     });
 
     testWidgets('Complex recurrence configuration with all options',
@@ -1015,49 +1015,3 @@ void main() {
     });
   });
 }
-
-/* 
-COMPREHENSIVE TEST COVERAGE SUMMARY:
-
-The tests above cover all the previously untested functionality from custom_recurring_event.dart:
-
-1. **_saveAndClose() method validation**:
-   - Tests interval parsing and validation (invalid numbers, negative, zero, non-numeric)
-   - Tests EventEndTypes.never configuration (clears date and count)
-   - Tests EventEndTypes.on configuration (clears count, preserves date)
-   - Tests EventEndTypes.after configuration (preserves count)
-   - Tests isRecurring flag setting
-   - Tests navigation back behavior
-
-2. **Date picker functionality in "On" option**:
-   - Tests automatic date setting (30 days from now)
-   - Tests date picker container presence and interaction capability
-   - Tests date selection UI components
-
-3. **Occurrence count input validation in "After" option**:
-   - Tests numeric input validation
-   - Tests input field properties (keyboardType)
-   - Tests valid count updates
-   - Tests UI behavior with various inputs
-
-4. **FilterChip weekday selection behavior**:
-   - Tests presence of weekday selector in weekly mode
-   - Tests FilterChip widgets availability (7 chips for days of week)
-   - Tests chip selection/deselection mechanism
-   - Tests onSelected callback functionality
-
-5. **Ordinal function testing**:
-   - Tests ordinal display in monthly/yearly options
-   - Tests various ordinal cases (1st, 2nd, 3rd, 4th)
-   - Tests ordinal integration in UI text
-
-6. **Complex edge cases**:
-   - Tests combinations of different settings
-   - Tests UI scrolling for long forms
-   - Tests validation across different frequency types
-   - Tests model state consistency
-
-These tests ensure that all the critical user interactions and validation logic
-in the custom recurring event screen work correctly, providing confidence in
-the recurrence configuration functionality.
-*/

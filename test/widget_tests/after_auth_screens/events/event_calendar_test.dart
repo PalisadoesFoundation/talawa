@@ -51,8 +51,7 @@ Event createTestEvent({
     isRegistered: false,
     creator: User(
       id: "user1",
-      firstName: "Test",
-      lastName: "User",
+      name: "Test User",
       email: "test@example.com",
       refreshToken: "testtoken",
       authToken: 'testtoken',

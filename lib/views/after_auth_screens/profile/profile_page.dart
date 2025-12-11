@@ -5,7 +5,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';

@@ -538,6 +538,6 @@ void main() {
         // Should return DemoPageView for unknown routes
         expect(widget, isA<DemoPageView>());
       }
-    });   
+    });
   });
 }

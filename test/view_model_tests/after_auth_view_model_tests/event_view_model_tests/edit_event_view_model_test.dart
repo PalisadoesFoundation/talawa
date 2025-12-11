@@ -36,8 +36,7 @@ void main() {
         description: 'Test Description',
         creator: User(
           id: 'user1',
-          firstName: 'Test',
-          lastName: 'User',
+          name: 'Test User',
           email: 'test@example.com',
         ),
         startAt: DateTime(2025, 7, 28, 9, 0),

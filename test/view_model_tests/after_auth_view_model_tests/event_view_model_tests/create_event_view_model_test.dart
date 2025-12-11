@@ -544,8 +544,8 @@ void main() {
     test('getCurrentOrgUsersList populates members list', () async {
       final model = CreateEventViewModel();
 
-      final user1 = User(id: "user1", firstName: "Test1");
-      final user2 = User(id: "user2", firstName: "Test2");
+      final user1 = User(id: "user1", name: "Test1");
+      final user2 = User(id: "user2", name: "Test2");
       final users = [user1, user2];
 
       when(organizationService.getOrgMembersList("XYZ"))
@@ -564,8 +564,8 @@ void main() {
     test('buildUserList adds selected members correctly', () {
       final model = CreateEventViewModel();
 
-      final user1 = User(id: "user1", firstName: "Test1");
-      final user2 = User(id: "user2", firstName: "Test2");
+      final user1 = User(id: "user1", name: "Test1");
+      final user2 = User(id: "user2", name: "Test2");
       model.orgMembersList = [user1, user2];
       model.memberCheckedMap["user1"] = true;
       model.memberCheckedMap["user2"] = false;
@@ -579,8 +579,8 @@ void main() {
     test('buildUserList clears and rebuilds selected members', () {
       final model = CreateEventViewModel();
 
-      final user1 = User(id: "user1", firstName: "Test1");
-      final user2 = User(id: "user2", firstName: "Test2");
+      final user1 = User(id: "user1", name: "Test1");
+      final user2 = User(id: "user2", name: "Test2");
       model.orgMembersList = [user1, user2];
 
       // First selection
@@ -600,7 +600,7 @@ void main() {
     test('removeUserFromList removes user and updates state', () {
       final model = CreateEventViewModel();
 
-      final user1 = User(id: "user1", firstName: "Test1");
+      final user1 = User(id: "user1", name: "Test1");
       model.orgMembersList = [user1];
       model.memberCheckedMap["user1"] = true;
       model.buildUserList();

@@ -30,8 +30,7 @@ Event createTestEvent() {
     isRegisterable: true,
     creator: User(
       id: "creator_id",
-      firstName: "Creator",
-      lastName: "User",
+      name: "Creator User",
     ),
     organization: OrgInfo(
       id: "org_id",
@@ -68,8 +67,7 @@ void main() {
     when(userConfig.currentUser).thenReturn(
       User(
         id: "user_id",
-        firstName: "Test",
-        lastName: "User",
+        name: "Test User",
       ),
     );
     when(userConfig.currentOrg).thenReturn(
