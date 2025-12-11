@@ -12,6 +12,22 @@ import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 
 import '../../../helpers/test_helpers.dart';
 
+class _MockInvalidEvent extends Event {
+  _MockInvalidEvent() : super(name: 'Invalid');
+
+  @override
+  String? get startDate => 'invalid-date';
+
+  @override
+  String? get endDate => 'invalid-date';
+
+  @override
+  String get startTime => '10:00 AM';
+
+  @override
+  String get endTime => '11:00 AM';
+}
+
 Widget createEventCalendar() {
   return MaterialApp(
     navigatorKey: navigationService.navigatorKey,
@@ -52,6 +68,20 @@ void main() {
 
         expect(find.byType(EventCalendar), findsOneWidget);
       });
+
+      testWidgets('Testing if invalid date format throws exception',
+          (tester) async {
+        final widget = MaterialApp(
+          navigatorKey: navigationService.navigatorKey,
+          home: EventCalendar([_MockInvalidEvent()]),
+        );
+
+        await tester.pumpWidget(widget);
+
+        // The exception is thrown during build, so we catch it here
+        expect(tester.takeException(), isA<Exception>());
+      });
+
       testWidgets('Testing if tapping on date_range shows datePicker',
           (tester) async {
         await tester.pumpWidget(createEventCalendar());
