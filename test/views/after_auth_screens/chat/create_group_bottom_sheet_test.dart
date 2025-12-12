@@ -92,20 +92,7 @@ void main() {
       when(mockOrgService.getOrgMembersList('org1'))
           .thenAnswer((_) async => mockOrgMembers);
 
-      // Default stubs to prevent null errors in tests that don't explicitly set them
-      when(
-        mockGroupChatViewModel.createGroupChat(
-          groupName: anyNamed('groupName') ?? '',
-          description: anyNamed('description') ?? '',
-          memberIds: anyNamed('memberIds') ?? [],
-        ),
-      ).thenAnswer(
-        (_) async => Chat(
-          id: 'default-chat-id',
-          name: 'Default Chat',
-          description: 'Default Description',
-        ),
-      );
+
 
       when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
     });
