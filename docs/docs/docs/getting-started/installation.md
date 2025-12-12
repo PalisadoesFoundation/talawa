@@ -83,17 +83,31 @@ We have tried to make the process simple. Here's what you need to do.
        $ git clone https://github.com/PalisadoesFoundation/talawa.git
        $ cd talawa
        ```
-   1. The `.env` file contains the URL of the Talawa API instance that the app will use. There is a `.env.example` file that you can use as a starter. 
-      1. Copy `.env.example` to become `.env`
+   1. **API URL Configuration**: You have two options for configuring the Talawa API server URL:
+      
+      **Option 1: Configure URL in the app (Recommended for most users)**
+      1. Skip the `.env` file setup
+      2. When you first launch the app, you will see a **"Set URL"** screen
+      3. Enter your API URL (e.g., `http://127.0.0.1:4000/graphql`) or scan a QR code
+      4. The URL will be saved and you won't need to reconfigure it unless you want to change servers
+      5. **Benefits**: 
+         - No need to rebuild the app to change servers
+         - Easy switching between different API instances
+         - Works great for testing against multiple environments
+      
+      **Option 2: Pre-configure URL via .env file (Optional)**
+      1. This is useful if you want to pre-configure the URL before building the app
+      2. Copy `.env.example` to become `.env`
             ```bash
             $ cp .env.example .env
             ```       
-      2. Edit the `.env` file and update the URL with that of the API. The default value will not work.
+      3. Edit the `.env` file and update the URL with that of the API:
          1. If you are running the Talawa mobile app in an emulator mode on your local system, then the IPv4 address to `127.0.0.1` will be the required value.
             ```
-            `API_URL=http://<IPv4>:4000/graphql`
+            API_URL=http://<IPv4>:4000/graphql
             ```
          2. If you are running the app on a tethered device on the same network as your development system running the API, then the IP address will need to be that of the network interface of your development system.
+      4. **Note**: If you skip this step or the `.env` file is not found, the app will show the "Set URL" screen on first launch where you can configure it.
    2. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
       1. Install FVM using the instructions on the FVM website
         - https://fvm.app
