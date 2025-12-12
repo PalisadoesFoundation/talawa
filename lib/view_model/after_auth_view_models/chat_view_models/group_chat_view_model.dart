@@ -120,6 +120,7 @@ class GroupChatViewModel extends BaseModel {
     });
 
     await _chatService.getChatsByUser();
+
     chatState = ChatState.complete;
     setState(ViewState.idle);
   }
@@ -269,68 +270,76 @@ class GroupChatViewModel extends BaseModel {
     String? description,
     required List<String> memberIds,
   }) async {
-    chatState = ChatState.loading;
-    notifyListeners();
+    try {
+      chatState = ChatState.loading;
+      notifyListeners();
 
-    // Create the chat first
-    final chat = await _chatService.createChat(
-      name: groupName,
-      description: description,
-    );
+      // Create the chat first
+      final chat = await _chatService.createChat(
+        name: groupName,
+        description: description,
+      );
 
-    if (chat == null) {
-      debugPrint('Failed to create group chat');
+      if (chat == null) {
+        debugPrint('Failed to create group chat');
+        navigationService.showTalawaErrorSnackBar(
+          'Failed to create group chat',
+          MessageType.error,
+        );
+        return null;
+      }
+
+      debugPrint('Group chat created successfully: ${chat.id}');
+
+      // Add the creator (current user) to the chat first
+      final currentUserId = userConfig.currentUser.id!;
+      debugPrint('Adding creator to chat: $currentUserId');
+
+      final creatorMembershipCreated = await _chatService.createChatMembership(
+        chatId: chat.id!,
+        userId: currentUserId,
+      );
+
+      if (!creatorMembershipCreated) {
+        debugPrint(
+          'Failed to add creator $currentUserId to group chat ${chat.id}',
+        );
+      }
+
+      // Add other members to the chat
+      for (final memberId in memberIds) {
+        debugPrint('Adding member to chat: $memberId');
+        final membershipCreated = await _chatService.createChatMembership(
+          chatId: chat.id!,
+          userId: memberId,
+        );
+
+        if (!membershipCreated) {
+          debugPrint('Failed to add member $memberId to group chat ${chat.id}');
+        }
+      }
+
       navigationService.showTalawaErrorSnackBar(
-        'Failed to create group chat',
+        'Group "$groupName" created successfully!',
+        MessageType.info,
+      );
+
+      // Refresh the group chats list to show the new group
+      debugPrint('Refreshing group chats list...');
+      await _chatService.getChatsByUser();
+
+      return chat;
+    } catch (e) {
+      debugPrint('Error creating group chat: $e');
+      navigationService.showTalawaErrorSnackBar(
+        'Error creating group: Please try again.',
         MessageType.error,
       );
+      return null;
+    } finally {
       chatState = ChatState.complete;
       notifyListeners();
-      return null;
     }
-
-    debugPrint('Group chat created successfully: ${chat.id}');
-
-    // Add the creator (current user) to the chat first
-    final currentUserId = userConfig.currentUser.id!;
-    debugPrint('Adding creator to chat: $currentUserId');
-
-    final creatorMembershipCreated = await _chatService.createChatMembership(
-      chatId: chat.id!,
-      userId: currentUserId,
-    );
-
-    if (!creatorMembershipCreated) {
-      debugPrint(
-        'Failed to add creator $currentUserId to group chat ${chat.id}',
-      );
-    }
-
-    // Add other members to the chat
-    for (final memberId in memberIds) {
-      debugPrint('Adding member to chat: $memberId');
-      final membershipCreated = await _chatService.createChatMembership(
-        chatId: chat.id!,
-        userId: memberId,
-      );
-
-      if (!membershipCreated) {
-        debugPrint('Failed to add member $memberId to group chat ${chat.id}');
-      }
-    }
-
-    navigationService.showTalawaErrorSnackBar(
-      'Group "$groupName" created successfully!',
-      MessageType.info,
-    );
-
-    // Refresh the group chats list to show the new group
-    debugPrint('Refreshing group chats list...');
-    await _chatService.getChatsByUser();
-
-    chatState = ChatState.complete;
-    notifyListeners();
-    return chat;
   }
 
   /// Checks if the current user is an admin of the given group chat.

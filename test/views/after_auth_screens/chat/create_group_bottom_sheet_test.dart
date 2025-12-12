@@ -91,8 +91,6 @@ void main() {
 
       when(mockOrgService.getOrgMembersList('org1'))
           .thenAnswer((_) async => mockOrgMembers);
-
-      when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
     });
 
     testWidgets('should display initial UI correctly',
@@ -282,6 +280,8 @@ void main() {
           memberIds: ['user1', 'user2'],
         ),
       ).thenAnswer((_) async => createdChat);
+
+      when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
 
       await tester.pumpWidget(
         createTestMaterialApp(
@@ -502,6 +502,8 @@ void main() {
         await Future.delayed(const Duration(milliseconds: 200));
         return Chat(id: 'new-group', name: 'Test Group');
       });
+
+      when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
 
       await tester.pumpWidget(
         createTestMaterialApp(
