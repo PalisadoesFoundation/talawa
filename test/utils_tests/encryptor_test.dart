@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pointycastle/api.dart' as pointy;
 import 'package:pointycastle/asymmetric/oaep.dart';
@@ -70,10 +71,11 @@ void main() {
         mockHiveInterface,
         secureStorage: fakeSecureStorage,
       );
-      verify(mockHiveInterface.openBox(
+      final uniqueCaptures = verify(mockHiveInterface.openBox(
         HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      ));
+        encryptionCipher: captureAnyNamed('encryptionCipher'),
+      )).captured;
+      expect(uniqueCaptures.last, isA<HiveAesCipher>());
       verify(mockHiveBox.put('key_pair', any));
     });
     test('For loadPairKey()', () async {
@@ -89,6 +91,11 @@ void main() {
         mockHiveInterface,
         secureStorage: fakeSecureStorage,
       );
+      final uniqueCaptures = verify(mockHiveInterface.openBox(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: captureAnyNamed('encryptionCipher'),
+      )).captured;
+      expect(uniqueCaptures.last, isA<HiveAesCipher>());
       verify(mockHiveBox.get('key_pair'));
     });
     test(
@@ -143,7 +150,7 @@ void main() {
         throwsException,
       );
     });
-    test('Encrypted Message sent to receiveMessage()', () {
+    test('Encrypted Message sent to receiveMessage()', () async {
       const String data = 'Hello Talawa';
       final cipher = OAEPEncoding(RSAEngine())
         ..init(true, PublicKeyParameter<RSAPublicKey>(keyPair.publicKey));
@@ -160,13 +167,16 @@ void main() {
       });
       when(mockHiveBox.get('key_pair'))
           .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
-      expect(
-          encryptor.receiveMessage(
-            message,
-            mockHiveInterface,
-            secureStorage: fakeSecureStorage,
-          ),
-          completes);
+      await encryptor.receiveMessage(
+        message,
+        mockHiveInterface,
+        secureStorage: fakeSecureStorage,
+      );
+      final uniqueCaptures = verify(mockHiveInterface.openBox(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: captureAnyNamed('encryptionCipher'),
+      )).captured;
+      expect(uniqueCaptures.last, isA<HiveAesCipher>());
     });
   });
 }

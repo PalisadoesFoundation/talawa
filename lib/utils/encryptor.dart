@@ -14,6 +14,7 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 
 /// Handles all of the encryption tasks in the codebase.
+/// Handles all of the encryption tasks in the codebase.
 class Encryptor {
   /// A global switch to flag the encryption.
   ///
@@ -62,23 +63,89 @@ class Encryptor {
     return keyGenerator.generateKeyPair();
   }
 
+  /// Returns a configured instance of [FlutterSecureStorage] with strict security options.
+  FlutterSecureStorage _getConfiguredStorage() {
+    return const FlutterSecureStorage(
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+      iOptions: IOSOptions(
+        accessibility: KeychainAccessibility.first_unlock,
+      ),
+    );
+  }
+
   /// Retrieves or generates a secure encryption key for Hive boxes.
   ///
   /// **params**:
-  /// * `secureStorage`: [FlutterSecureStorage] used to store the encryption key.
+  /// * `secureStorage`: Optional [FlutterSecureStorage] to override default.
   ///
   /// **returns**:
   /// * `Future<List<int>>`: A 256-bit encryption key.
-  Future<List<int>> _getHiveEncryptionKey(
-      FlutterSecureStorage secureStorage) async {
-    const keyName = 'hive_encryption_key';
-    final String? keyString = await secureStorage.read(key: keyName);
-    if (keyString == null) {
-      final key = Hive.generateSecureKey();
-      await secureStorage.write(key: keyName, value: base64UrlEncode(key));
-      return key;
+  Future<List<int>> _getHiveEncryptionKey({
+    FlutterSecureStorage? secureStorage,
+  }) async {
+    final storage = secureStorage ?? _getConfiguredStorage();
+    final keyString = await storage.read(key: HiveKeys.encryptionKey);
+
+    if (keyString != null) {
+      try {
+        final key = base64Url.decode(keyString);
+        if (key.length == 32) {
+          return key;
+        }
+      } catch (_) {
+        // Fall through to generate a new key if decoding fails
+      }
     }
-    return base64Url.decode(keyString);
+
+    final key = Hive.generateSecureKey();
+    await storage.write(
+      key: HiveKeys.encryptionKey,
+      value: base64UrlEncode(key),
+    );
+    return key;
+  }
+
+  /// Opens the Hive box with encryption.
+  ///
+  /// If the box exists but is unencrypted (legacy), it migrates the data
+  /// to a new encrypted box transparently.
+  Future<Box<AsymetricKeys>> _openOrMigrateBox(
+    HiveInterface hive,
+    List<int> encryptionKey,
+  ) async {
+    try {
+      // Try to open encrypted
+      return await hive.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: HiveAesCipher(encryptionKey),
+      );
+    } catch (_) {
+      // Fallback: Migration
+      // 1. Open unencrypted legacy box
+      final oldBox =
+          await hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+
+      // 2. Cache data
+      final data = Map<dynamic, AsymetricKeys>.from(oldBox.toMap());
+
+      // 3. Close and delete legacy box
+      await oldBox.close();
+      await hive.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey);
+
+      // 4. Create new encrypted box
+      final newBox = await hive.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: HiveAesCipher(encryptionKey),
+      );
+
+      // 5. Restore data
+      if (data.isNotEmpty) {
+        await newBox.putAll(data);
+      }
+      return newBox;
+    }
   }
 
   /// Saves the generated key pair to local storage.
@@ -95,14 +162,12 @@ class Encryptor {
   Future<void> saveKeyPair(
     AsymmetricKeyPair<PublicKey, PrivateKey> keyPair,
     HiveInterface hive, {
-    FlutterSecureStorage secureStorage = const FlutterSecureStorage(),
+    FlutterSecureStorage? secureStorage,
   }) async {
-    final encryptionKey = await _getHiveEncryptionKey(secureStorage);
-    final Box<AsymetricKeys> keysBox = await hive.openBox<AsymetricKeys>(
-      HiveKeys.asymetricKeyBoxKey,
-      encryptionCipher: HiveAesCipher(encryptionKey),
-    );
-    keysBox.put('key_pair', AsymetricKeys(keyPair: keyPair));
+    final encryptionKey =
+        await _getHiveEncryptionKey(secureStorage: secureStorage);
+    final keysBox = await _openOrMigrateBox(hive, encryptionKey);
+    await keysBox.put('key_pair', AsymetricKeys(keyPair: keyPair));
   }
 
   /// Loads secret keys from the Hive db.
@@ -116,14 +181,34 @@ class Encryptor {
   /// private key pair
   Future<AsymmetricKeyPair<PublicKey, PrivateKey>> loadKeyPair(
     HiveInterface hive, {
-    FlutterSecureStorage secureStorage = const FlutterSecureStorage(),
+    FlutterSecureStorage? secureStorage,
   }) async {
-    final encryptionKey = await _getHiveEncryptionKey(secureStorage);
-    final keysBox = await hive.openBox<AsymetricKeys>(
-      HiveKeys.asymetricKeyBoxKey,
-      encryptionCipher: HiveAesCipher(encryptionKey),
-    );
+    final encryptionKey =
+        await _getHiveEncryptionKey(secureStorage: secureStorage);
+    final keysBox = await _openOrMigrateBox(hive, encryptionKey);
     return keysBox.get('key_pair')!.keyPair;
+  }
+
+  /// Deletes the key pair and the encryption key from storage.
+  ///
+  /// Should be called on logout to ensure clean state.
+  ///
+  /// **params**:
+  /// * `secureStorage`: Optional [FlutterSecureStorage] to override default.
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> deleteKeyPair({
+    FlutterSecureStorage? secureStorage,
+  }) async {
+    final storage = secureStorage ?? _getConfiguredStorage();
+
+    if (Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey)) {
+      await Hive.box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey).close();
+    }
+    await Hive.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey);
+
+    await storage.delete(key: HiveKeys.encryptionKey);
   }
 
   /// Encrypts the given string data with Recipient's Public Key.
@@ -177,7 +262,7 @@ class Encryptor {
   Future<void> receiveMessage(
     Map<String, dynamic> message,
     HiveInterface hive, {
-    FlutterSecureStorage secureStorage = const FlutterSecureStorage(),
+    FlutterSecureStorage? secureStorage,
   }) async {
     try {
       final encryptedMessage = message['encryptedMessage'] as String;
