@@ -27,7 +27,6 @@ class AuthLandingViewModel extends BaseModel {
   /// urlKey.
   static const urlKey = "url";
 
-  /// url.
   // Removed auto-loading from .env - URL should be set via SetUrl screen
   // final url = dotenv.get("API_URL");
 
@@ -53,7 +52,7 @@ class AuthLandingViewModel extends BaseModel {
   /// This function check the URL and navigate to the respective URL.
   ///
   /// **params**:
-  /// * `navigateTo`: url
+  /// * `navigateTo`: navigation route
   /// * `argument`: message
   ///
   /// **returns**:
@@ -77,11 +76,25 @@ class AuthLandingViewModel extends BaseModel {
         final box = Hive.box('url');
         final String? uri = box.get(urlKey) as String?;
 
+        // Get context and localized strings before async operations
+        final context = navigationService.navigatorKey.currentContext;
+        final noUrlMessage = context != null
+            ? AppLocalizations.of(context)!
+                .strictTranslate('No URL configured. Please set URL first.')
+            : 'No URL configured. Please set URL first.';
+        final urlNotExistMessage = context != null
+            ? AppLocalizations.of(context)!
+                .strictTranslate("URL doesn't exist/no connection please check")
+            : "URL doesn't exist/no connection please check";
+        final unableToValidateMessage = context != null
+            ? AppLocalizations.of(context)!
+                .strictTranslate("Unable to validate URL")
+            : "Unable to validate URL";
+
         if (uri == null || uri.isEmpty) {
           navigationService.pop();
           navigationService.showTalawaErrorSnackBar(
-            AppLocalizations.of(navigationService.navigatorKey.currentContext!)!
-                .strictTranslate('No URL configured. Please set URL first.'),
+            noUrlMessage,
             MessageType.error,
           );
           return null;
@@ -89,14 +102,17 @@ class AuthLandingViewModel extends BaseModel {
 
         final bool? urlPresent =
             await locator<Validator>().validateUrlExistence(uri);
-        if (urlPresent! == true) {
+        if (urlPresent == true) {
           navigationService.pop();
           graphqlConfig.getOrgUrl();
           navigationService.pushScreen(navigateTo, arguments: argument);
         } else {
           navigationService.pop();
+          final errorMessage = urlPresent == false
+              ? urlNotExistMessage
+              : unableToValidateMessage;
           navigationService.showTalawaErrorSnackBar(
-            "URL doesn't exist/no connection please check",
+            errorMessage,
             MessageType.error,
           );
         }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
@@ -115,7 +116,7 @@ class SetUrlViewModel extends BaseModel {
   /// This function check the URL and navigate to the respective URL.
   ///
   /// **params**:
-  /// * `navigateTo`: url
+  /// * `navigateTo`: navigation route
   /// * `argument`: message
   ///
   /// **returns**:
@@ -183,8 +184,8 @@ class SetUrlViewModel extends BaseModel {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
 
-    // if the url is valid.
-    if (formKey.currentState!.validate()) {
+    final isValid = formKey.currentState?.validate() ?? false;
+    if (isValid) {
       await actionHandlerService.performAction(
         actionType: ActionType.critical,
         criticalActionFailureMessage: TalawaErrors.userActionNotSaved,
@@ -286,7 +287,11 @@ class SetUrlViewModel extends BaseModel {
       await _qrSubscription?.cancel();
       _qrSubscription = null;
       if (_qrController != null) {
-        await _qrController!.stopCamera();
+        if (defaultTargetPlatform == TargetPlatform.iOS) {
+          await _qrController!.pauseCamera();
+        } else {
+          await _qrController!.stopCamera();
+        }
         _qrController = null;
       }
     });
@@ -302,31 +307,30 @@ class SetUrlViewModel extends BaseModel {
 
   void _onQRViewCreated(QRViewController controller) {
     _qrController = controller;
-    _qrSubscription = controller.scannedDataStream.listen((scanData) {
+    _qrSubscription = controller.scannedDataStream.listen((scanData) async {
       /// if the scanData is not empty.
       final code = scanData.code;
       if (code != null && code.isNotEmpty) {
         try {
-          final List<String> data = scanData.code!.split('?');
-          if (data.length < 2) {
-            throw const FormatException(
-                'Invalid QR format: missing query string');
+          final parsed = Uri.tryParse(code);
+          if (parsed == null || parsed.scheme.isEmpty || parsed.host.isEmpty) {
+            throw const FormatException('Invalid QR format: invalid URL');
           }
-          url.text = data[0];
-          final List<String> queries = data[1].split('&');
-          if (queries.isEmpty || !queries[0].contains('=')) {
+          final parsedOrgId = parsed.queryParameters['orgId'];
+          if (parsedOrgId == null || parsedOrgId.isEmpty) {
             throw const FormatException('Invalid QR format: missing orgId');
           }
-          orgId = queries[0].split('=')[1];
+          url.text = parsed.origin;
+          orgId = parsedOrgId;
           Vibration.vibrate(duration: 100);
-          controller.stopCamera();
+          await controller.stopCamera();
           _qrSubscription?.cancel();
           _qrSubscription = null;
           final box = Hive.box('url');
           box.put(urlKey, url.text);
           box.put(imageUrlKey, "${url.text}/talawa/");
           graphqlConfig.getOrgUrl();
-          Navigator.pop(navigationService.navigatorKey.currentContext!);
+          navigationService.pop();
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
