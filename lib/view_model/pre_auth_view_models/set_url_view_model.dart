@@ -72,12 +72,9 @@ class SetUrlViewModel extends BaseModel {
   void initialise(BuildContext context, {String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
-      /// assigning the invite server url to the url text controller.
+      // Assign to the field, but avoid persisting until validated/confirmed.
+      // (Optionally: run Validator/Uri.tryParse checks before persisting.)
       url.text = uri;
-      final box = Hive.box('url');
-      box.put(urlKey, uri);
-      box.put(imageUrlKey, "$uri/talawa/");
-      graphqlConfig.getOrgUrl();
     }
 
     /// greeting message.
@@ -129,7 +126,8 @@ class SetUrlViewModel extends BaseModel {
     validate = AutovalidateMode.always;
 
     /// if the url is valid.
-    if (formKey.currentState!.validate()) {
+    final formState = formKey.currentState;
+    if (formState != null && formState.validate()) {
       await actionHandlerService.performAction(
         actionType: ActionType.critical,
         criticalActionFailureMessage: navigateTo == '/login'
@@ -187,34 +185,41 @@ class SetUrlViewModel extends BaseModel {
 
     // if the url is valid.
     if (formKey.currentState!.validate()) {
-      navigationService.pushDialog(
-        const CustomProgressDialog(
-          key: Key('UrlCheckProgress'),
-        ),
-      );
-
-      try {
-        validate = AutovalidateMode.disabled;
-        final String uri = url.text.trim();
-        final bool? urlPresent =
-            await locator<Validator>().validateUrlExistence(uri);
-        if (urlPresent == true) {
-          final box = Hive.box('url');
-          box.put(urlKey, uri);
-          box.put(imageUrlKey, "$uri/talawa/");
-          graphqlConfig.getOrgUrl();
-          navigationService.showSnackBar("Url is valid");
-        } else {
-          navigationService.showTalawaErrorDialog(
-            urlPresent == false
-                ? "URL doesn't exist/no connection please check"
-                : "Unable to validate URL",
-            MessageType.info,
+      await actionHandlerService.performAction(
+        actionType: ActionType.critical,
+        criticalActionFailureMessage: TalawaErrors.userActionNotSaved,
+        action: () async {
+          navigationService.pushDialog(
+            const CustomProgressDialog(
+              key: Key('UrlCheckProgress'),
+            ),
           );
-        }
-      } finally {
-        navigationService.pop();
-      }
+
+          try {
+            validate = AutovalidateMode.disabled;
+            final String uri = url.text.trim();
+            final bool? urlPresent =
+                await locator<Validator>().validateUrlExistence(uri);
+            if (urlPresent == true) {
+              final box = Hive.box('url');
+              box.put(urlKey, uri);
+              box.put(imageUrlKey, "$uri/talawa/");
+              graphqlConfig.getOrgUrl();
+              navigationService.showSnackBar("Url is valid");
+            } else {
+              navigationService.showTalawaErrorDialog(
+                urlPresent == false
+                    ? "URL doesn't exist/no connection please check"
+                    : "Unable to validate URL",
+                MessageType.info,
+              );
+            }
+          } finally {
+            navigationService.pop();
+          }
+          return null;
+        },
+      );
     }
   }
 
@@ -278,6 +283,8 @@ class SetUrlViewModel extends BaseModel {
         );
       },
     ).whenComplete(() async {
+      await _qrSubscription?.cancel();
+      _qrSubscription = null;
       if (_qrController != null) {
         await _qrController!.stopCamera();
         _qrController = null;
@@ -365,9 +372,6 @@ class SetUrlViewModel extends BaseModel {
   @override
   void dispose() {
     _qrSubscription?.cancel();
-    if (_qrController != null) {
-      _qrController!.stopCamera();
-    }
     url.dispose();
     urlFocus.dispose();
     super.dispose();

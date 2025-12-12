@@ -38,7 +38,6 @@ class AuthLandingViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-
   void initialise() {
     // URL should already be set via SetUrl screen
     // No longer auto-loading from .env file
