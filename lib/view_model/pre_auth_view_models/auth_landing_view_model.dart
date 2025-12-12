@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
@@ -80,7 +81,8 @@ class AuthLandingViewModel extends BaseModel {
         if (uri == null || uri.isEmpty) {
           navigationService.pop();
           navigationService.showTalawaErrorSnackBar(
-            TalawaErrors.noUrlConfigured,
+            AppLocalizations.of(navigationService.navigatorKey.currentContext!)!
+                .strictTranslate('No URL configured. Please set URL first.'),
             MessageType.error,
           );
           return null;

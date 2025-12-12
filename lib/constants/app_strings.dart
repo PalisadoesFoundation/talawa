@@ -81,8 +81,4 @@ class TalawaErrors {
   /// Error for signup attempt when offline.
   static const String youAreOfflineUnableToSignUp =
       'You are offline, unable to sign up, please try again later.';
-
-  /// Error for missing URL configuration.
-  static const String noUrlConfigured =
-      'No URL configured. Please set URL first.';
 }

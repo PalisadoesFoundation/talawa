@@ -37,198 +37,213 @@ class _SetUrlState extends State<SetUrl> {
         return Scaffold(
           key: const Key('SetUrlScreenScaffold'),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(
-                SizeConfig.screenWidth! * 0.06,
-                SizeConfig.safeBlockVertical! * 4,
-                SizeConfig.screenWidth! * 0.06,
-                0.0,
-              ),
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight,
-              alignment: Alignment.center,
-              child: SingleChildScrollView(
-                child: Form(
-                  key: model.formKey,
-                  autovalidateMode: model.validate,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.centerRight,
-                        margin: EdgeInsets.only(
-                          top: SizeConfig.safeBlockVertical! * 2,
-                        ),
-                        // QR code scanner for joining the organization.
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.qr_code_scanner,
-                            size: 30,
-                            semanticLabel: 'Join Organisation with QR',
-                          ),
-                          onPressed: () => model.scanQR(context),
-                          // model.scanQR(context),
-                        ),
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: IntrinsicHeight(
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                        SizeConfig.screenWidth! * 0.06,
+                        SizeConfig.safeBlockVertical! * 4,
+                        SizeConfig.screenWidth! * 0.06,
+                        0.0,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: SizeConfig.screenHeight! * 0.08,
-                        ),
-                        child: CustomPaint(
-                          key: const Key('LogoPainter'),
-                          size: Size(
-                            SizeConfig.screenWidth! * 0.6,
-                            SizeConfig.screenWidth! * 0.6,
-                          ),
-                          painter: AppLogo(),
-                        ),
-                      ),
-                      CustomRichText(
-                        key: const Key('UrlPageText'),
-                        words: model.greeting,
-                      ),
-                      //Form input for entering the organization URL
-                      TextFormField(
-                        key: const Key('UrlInputField'),
-                        controller: model.url,
-                        focusNode: model.urlFocus,
-                        textInputAction: TextInputAction.done,
-                        keyboardType: TextInputType.text,
-                        enableSuggestions: true,
-                        validator: (value) {
-                          final String? msg = Validator.validateURL(value!);
-                          if (msg == null) {
-                            return null;
-                          }
-
-                          return AppLocalizations.of(context)!.translate(msg);
-                        },
-                        onFieldSubmitted: (value) {
-                          model.urlFocus.unfocus();
-                          model.validate = AutovalidateMode.always;
-                          model.formKey.currentState!.validate();
-                        },
-                        decoration: InputDecoration(
-                          labelText:
-                              '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
-                          labelStyle: Theme.of(context).textTheme.titleMedium,
-                          suffixIcon: InkWell(
-                            key: const Key('VerifyButton'),
-                            onTap: () async {
-                              model.urlFocus.unfocus();
-                              model.validate = AutovalidateMode.always;
-                              model.formKey.currentState!.validate();
-
-                              /// Checking url. If valid, than show the pop-up
-                              await model.checkURLandShowPopUp('');
-                            },
-                            child: Container(
-                              height: 48,
-                              width: 48,
-                              alignment: Alignment.center,
-                              child: Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate("Verify"),
-                                style: Theme.of(context).textTheme.bodyLarge,
-                                textAlign: TextAlign.center,
+                      width: SizeConfig.screenWidth,
+                      alignment: Alignment.center,
+                      child: Form(
+                        key: model.formKey,
+                        autovalidateMode: model.validate,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              margin: EdgeInsets.only(
+                                top: SizeConfig.safeBlockVertical! * 2,
+                              ),
+                              // QR code scanner for joining the organization.
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.qr_code_scanner,
+                                  size: 30,
+                                  semanticLabel: AppLocalizations.of(context)!
+                                      .strictTranslate(
+                                          'Join Organisation with QR'),
+                                ),
+                                onPressed: () => model.scanQR(context),
+                                // model.scanQR(context),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.086,
-                      ),
-                      //Login button.
-                      RaisedRoundedButton(
-                        key: const Key('LoginButton'),
-                        buttonLabel: AppLocalizations.of(context)!
-                            .strictTranslate('Login'),
-                        onTap: () async {
-                          /// Checking url. If valid, than navigating to login route
-                          await model.checkURLandNavigate('/login', '');
-                        },
-                        showArrow: true,
-                        textColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
-                        backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.0215,
-                      ),
-                      //Sign up button.
-                      RaisedRoundedButton(
-                        key: const Key('SignUpButton'),
-                        buttonLabel: AppLocalizations.of(context)!
-                            .strictTranslate('Sign Up'),
-                        onTap: () => model.checkURLandNavigate(
-                          '/selectOrg',
-                          model.orgId,
-                        ),
-                        showArrow: true,
-                        textColor:
-                            Theme.of(context).colorScheme.secondaryContainer,
-                        backgroundColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.06,
-                      ),
-                      //Gesture Detector which navigates to a different screen for changing the language.
-                      GestureDetector(
-                        key: const Key('ChangeLanguage'),
-                        onTap: () {
-                          navigationService
-                              .pushScreen(Routes.languageSelectionRoute);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom: SizeConfig.safeBlockVertical! * 2,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomPaint(
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: SizeConfig.screenHeight! * 0.08,
+                              ),
+                              child: CustomPaint(
+                                key: const Key('LogoPainter'),
                                 size: Size(
-                                  SizeConfig.screenWidth! * 0.125,
-                                  SizeConfig.screenWidth! * 0.125 * 0.5,
+                                  SizeConfig.screenWidth! * 0.6,
+                                  SizeConfig.screenWidth! * 0.6,
                                 ),
-                                painter: LanguageIcon(),
+                                painter: AppLogo(),
                               ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate('Change language'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surface
-                                          .withAlpha((0.8 * 255).toInt()),
+                            ),
+                            CustomRichText(
+                              key: const Key('UrlPageText'),
+                              words: model.greeting,
+                            ),
+                            //Form input for entering the organization URL
+                            TextFormField(
+                              key: const Key('UrlInputField'),
+                              controller: model.url,
+                              focusNode: model.urlFocus,
+                              textInputAction: TextInputAction.done,
+                              keyboardType: TextInputType.text,
+                              enableSuggestions: true,
+                              validator: (value) {
+                                final String? msg =
+                                    Validator.validateURL((value ?? '').trim());
+                                if (msg == null) {
+                                  return null;
+                                }
+
+                                return AppLocalizations.of(context)!
+                                    .translate(msg);
+                              },
+                              onFieldSubmitted: (value) {
+                                model.urlFocus.unfocus();
+                                model.validate = AutovalidateMode.always;
+                                model.formKey.currentState!.validate();
+                              },
+                              decoration: InputDecoration(
+                                labelText:
+                                    '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
+                                labelStyle:
+                                    Theme.of(context).textTheme.titleMedium,
+                                suffixIcon: InkWell(
+                                  key: const Key('VerifyButton'),
+                                  onTap: () async {
+                                    model.urlFocus.unfocus();
+                                    model.validate = AutovalidateMode.always;
+                                    model.formKey.currentState!.validate();
+
+                                    /// Checking url. If valid, than show the pop-up
+                                    await model.checkURLandShowPopUp('');
+                                  },
+                                  child: Container(
+                                    height: 48,
+                                    width: 48,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .strictTranslate("Verify"),
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
                                     ),
+                                  ),
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.086,
+                            ),
+                            //Login button.
+                            RaisedRoundedButton(
+                              key: const Key('LoginButton'),
+                              buttonLabel: AppLocalizations.of(context)!
+                                  .strictTranslate('Login'),
+                              onTap: () async {
+                                /// Checking url. If valid, than navigating to login route
+                                await model.checkURLandNavigate('/login', '');
+                              },
+                              showArrow: true,
+                              textColor: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .focusedBorder!
+                                  .borderSide
+                                  .color,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.tertiary,
+                            ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.0215,
+                            ),
+                            //Sign up button.
+                            RaisedRoundedButton(
+                              key: const Key('SignUpButton'),
+                              buttonLabel: AppLocalizations.of(context)!
+                                  .strictTranslate('Sign Up'),
+                              onTap: () => model.checkURLandNavigate(
+                                '/selectOrg',
+                                model.orgId,
+                              ),
+                              showArrow: true,
+                              textColor: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
+                              backgroundColor: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .focusedBorder!
+                                  .borderSide
+                                  .color,
+                            ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.06,
+                            ),
+                            //Gesture Detector which navigates to a different screen for changing the language.
+                            GestureDetector(
+                              key: const Key('ChangeLanguage'),
+                              onTap: () {
+                                navigationService
+                                    .pushScreen(Routes.languageSelectionRoute);
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: SizeConfig.safeBlockVertical! * 2,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CustomPaint(
+                                      size: Size(
+                                        SizeConfig.screenWidth! * 0.125,
+                                        SizeConfig.screenWidth! * 0.125 * 0.5,
+                                      ),
+                                      painter: LanguageIcon(),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .strictTranslate('Change language'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                                .withAlpha((0.8 * 255).toInt()),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         );
       },

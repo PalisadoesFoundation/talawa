@@ -8,6 +8,7 @@ import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
@@ -55,6 +56,9 @@ class SetUrlViewModel extends BaseModel {
 
   /// QR stream subscription.
   StreamSubscription<Barcode>? _qrSubscription;
+
+  /// QR controller.
+  QRViewController? _qrController;
 
   /// This function initialises the variables.
   ///
@@ -137,25 +141,29 @@ class SetUrlViewModel extends BaseModel {
               key: Key('UrlCheckProgress'),
             ),
           );
-          validate = AutovalidateMode.disabled;
-          final String uri = url.text.trim();
-          final bool? urlPresent =
-              await locator<Validator>().validateUrlExistence(uri);
-          if (urlPresent == true) {
-            final box = Hive.box('url');
-            box.put(urlKey, uri);
-            box.put(imageUrlKey, "$uri/talawa/");
+          try {
+            validate = AutovalidateMode.disabled;
+            final String uri = url.text.trim();
+            final bool? urlPresent =
+                await locator<Validator>().validateUrlExistence(uri);
+            if (urlPresent == true) {
+              final box = Hive.box('url');
+              box.put(urlKey, uri);
+              box.put(imageUrlKey, "$uri/talawa/");
+              navigationService.pop();
+              graphqlConfig.getOrgUrl();
+              navigationService.pushScreen(navigateTo, arguments: argument);
+            } else {
+              navigationService.pop();
+              navigationService.showTalawaErrorSnackBar(
+                urlPresent == false
+                    ? "URL doesn't exist/no connection please check"
+                    : "Unable to validate URL",
+                MessageType.error,
+              );
+            }
+          } finally {
             navigationService.pop();
-            graphqlConfig.getOrgUrl();
-            navigationService.pushScreen(navigateTo, arguments: argument);
-          } else {
-            navigationService.pop();
-            navigationService.showTalawaErrorSnackBar(
-              urlPresent == false
-                  ? "URL doesn't exist/no connection please check"
-                  : "Unable to validate URL",
-              MessageType.error,
-            );
           }
           return null;
         },
@@ -182,25 +190,28 @@ class SetUrlViewModel extends BaseModel {
           key: Key('UrlCheckProgress'),
         ),
       );
-      validate = AutovalidateMode.disabled;
-      final String uri = url.text.trim();
-      final bool? urlPresent =
-          await locator<Validator>().validateUrlExistence(uri);
-      if (urlPresent == true) {
-        final box = Hive.box('url');
-        box.put(urlKey, uri);
-        box.put(imageUrlKey, "$uri/talawa/");
+
+      try {
+        validate = AutovalidateMode.disabled;
+        final String uri = url.text.trim();
+        final bool? urlPresent =
+            await locator<Validator>().validateUrlExistence(uri);
+        if (urlPresent == true) {
+          final box = Hive.box('url');
+          box.put(urlKey, uri);
+          box.put(imageUrlKey, "$uri/talawa/");
+          graphqlConfig.getOrgUrl();
+          navigationService.showSnackBar("Url is valid");
+        } else {
+          navigationService.showTalawaErrorDialog(
+            urlPresent == false
+                ? "URL doesn't exist/no connection please check"
+                : "Unable to validate URL",
+            MessageType.info,
+          );
+        }
+      } finally {
         navigationService.pop();
-        graphqlConfig.getOrgUrl();
-        navigationService.showSnackBar("Url is valid");
-      } else {
-        navigationService.pop();
-        navigationService.showTalawaErrorDialog(
-          urlPresent == false
-              ? "URL doesn't exist/no connection please check"
-              : "Unable to validate URL",
-          MessageType.info,
-        );
       }
     }
   }
@@ -255,7 +266,7 @@ class SetUrlViewModel extends BaseModel {
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
                 ),
-                const Text('Scan QR'),
+                Text(AppLocalizations.of(context)!.strictTranslate('Scan QR')),
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
                 ),
@@ -264,7 +275,13 @@ class SetUrlViewModel extends BaseModel {
           ),
         );
       },
-    );
+    ).whenComplete(() async {
+      if (_qrController != null) {
+        await _qrController!.stopCamera();
+        _qrController!.dispose();
+        _qrController = null;
+      }
+    });
   }
 
   /// This is the helper function which execute when the on QR view created.
@@ -276,9 +293,11 @@ class SetUrlViewModel extends BaseModel {
   ///   None
 
   void _onQRViewCreated(QRViewController controller) {
+    _qrController = controller;
     _qrSubscription = controller.scannedDataStream.listen((scanData) {
       /// if the scanData is not empty.
-      if (scanData.code!.isNotEmpty) {
+      final code = scanData.code;
+      if (code != null && code.isNotEmpty) {
         try {
           final List<String> data = scanData.code!.split('?');
           if (data.length < 2) {
@@ -345,6 +364,10 @@ class SetUrlViewModel extends BaseModel {
   @override
   void dispose() {
     _qrSubscription?.cancel();
+    if (_qrController != null) {
+      _qrController!.stopCamera();
+      _qrController!.dispose();
+    }
     url.dispose();
     urlFocus.dispose();
     super.dispose();
