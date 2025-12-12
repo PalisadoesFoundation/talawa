@@ -44,7 +44,6 @@
   "Enter a valid URL": "输入有效的网址",
   "No URL configured. Please set URL first.": "未配置URL。请先设置URL。",
   "Join Organisation with QR": "使用二维码加入组织",
-  "Scan QR": "扫描二维码",
   "Firstname must not be left blank.": "名字不能留空。",
   "Invalid Firstname": "名字无效",
   "Lastname must not be left blank.": "姓氏不能留空。",

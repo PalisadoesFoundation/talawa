@@ -44,7 +44,6 @@
   "Enter a valid URL": "Ingrese una URL válida",
   "No URL configured. Please set URL first.": "No hay URL configurada. Por favor configure la URL primero.",
   "Join Organisation with QR": "Unirse a la organización con QR",
-  "Scan QR": "Escanear QR",
   "Firstname must not be left blank.": "El nombre no debe dejarse en blanco.",
   "Invalid Firstname": "Nombre inválido",
   "Lastname must not be left blank.": "El apellido no debe dejarse en blanco.",

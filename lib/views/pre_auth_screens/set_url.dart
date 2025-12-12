@@ -102,8 +102,9 @@ class _SetUrlState extends State<SetUrl> {
                               controller: model.url,
                               focusNode: model.urlFocus,
                               textInputAction: TextInputAction.done,
-                              keyboardType: TextInputType.text,
-                              enableSuggestions: true,
+                              keyboardType: TextInputType.url,
+                              enableSuggestions: false,
+                              autocorrect: false,
                               validator: (value) {
                                 final String? msg =
                                     Validator.validateURL((value ?? '').trim());

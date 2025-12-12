@@ -41,7 +41,7 @@
   "Organizations": "組織",
   "Title from the viewMode GSoC branch": "ビューモードGSoCブランチからのタイトル",
   "Please verify URL first": "最初にURLを確認してください",
-  "Enter a valid URL": "有効なURLを入力してください",  "No URL configured. Please set URL first.": "URLが設定されていません。まずURLを設定してください。",  "Join Organisation with QR": "QRで組織に参加",  "Scan QR": "QRをスキャン",  "Firstname must not be left blank.": "名を空白のままにしないでください。",
+  "Enter a valid URL": "有効なURLを入力してください",  "No URL configured. Please set URL first.": "URLが設定されていません。まずURLを設定してください。",  "Join Organisation with QR": "QRで組織に参加",  "Firstname must not be left blank.": "名を空白のままにしないでください。",
   "Invalid Firstname": "無効な名",
   "Lastname must not be left blank.": "姓を空白のままにしないでください。",
   "Invalid Lastname": "無効な姓",

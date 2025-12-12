@@ -141,6 +141,7 @@ class SetUrlViewModel extends BaseModel {
               key: Key('UrlCheckProgress'),
             ),
           );
+          bool shouldNavigate = false;
           try {
             validate = AutovalidateMode.disabled;
             final String uri = url.text.trim();
@@ -150,11 +151,9 @@ class SetUrlViewModel extends BaseModel {
               final box = Hive.box('url');
               box.put(urlKey, uri);
               box.put(imageUrlKey, "$uri/talawa/");
-              navigationService.pop();
               graphqlConfig.getOrgUrl();
-              navigationService.pushScreen(navigateTo, arguments: argument);
+              shouldNavigate = true;
             } else {
-              navigationService.pop();
               navigationService.showTalawaErrorSnackBar(
                 urlPresent == false
                     ? "URL doesn't exist/no connection please check"
@@ -164,6 +163,9 @@ class SetUrlViewModel extends BaseModel {
             }
           } finally {
             navigationService.pop();
+          }
+          if (shouldNavigate) {
+            navigationService.pushScreen(navigateTo, arguments: argument);
           }
           return null;
         },
@@ -278,7 +280,6 @@ class SetUrlViewModel extends BaseModel {
     ).whenComplete(() async {
       if (_qrController != null) {
         await _qrController!.stopCamera();
-        _qrController!.dispose();
         _qrController = null;
       }
     });
@@ -366,7 +367,6 @@ class SetUrlViewModel extends BaseModel {
     _qrSubscription?.cancel();
     if (_qrController != null) {
       _qrController!.stopCamera();
-      _qrController!.dispose();
     }
     url.dispose();
     urlFocus.dispose();
