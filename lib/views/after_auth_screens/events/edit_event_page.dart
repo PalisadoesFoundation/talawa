@@ -189,8 +189,11 @@ class _EditEventPageState extends State<EditEventPage> {
                                   model.isPublicSwitch = value;
                                 });
                               },
-                              activeThumbColor:
-                                  Theme.of(context).colorScheme.primary,
+                              thumbColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                (states) =>
+                                    Theme.of(context).colorScheme.primary,
+                              ),
                             ),
                           ],
                         ),
@@ -211,8 +214,11 @@ class _EditEventPageState extends State<EditEventPage> {
                                   model.isRegisterableSwitch = value;
                                 });
                               },
-                              activeThumbColor:
-                                  Theme.of(context).colorScheme.primary,
+                              thumbColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                (states) =>
+                                    Theme.of(context).colorScheme.primary,
+                              ),
                             ),
                           ],
                         ),
