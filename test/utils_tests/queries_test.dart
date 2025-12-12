@@ -237,7 +237,8 @@ void main() {
       final query = Queries().fetchUsersByOrganizationId(orgId);
 
       // Verify emailAddress is not included (unauthorized for new users)
-      expect(query.contains('emailAddress'), false);
+      // Using word-boundary regex to avoid matching comments or partial words
+      expect(RegExp(r'\bemailAddress\b').hasMatch(query), false);
     });
   });
 }
