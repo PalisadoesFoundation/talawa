@@ -63,6 +63,12 @@ class Encryptor {
   }
 
   /// Retrieves or generates a secure encryption key for Hive boxes.
+  ///
+  /// **params**:
+  /// * `secureStorage`: [FlutterSecureStorage] used to store the encryption key.
+  ///
+  /// **returns**:
+  /// * `Future<List<int>>`: A 256-bit encryption key.
   Future<List<int>> _getHiveEncryptionKey(
       FlutterSecureStorage secureStorage) async {
     const keyName = 'hive_encryption_key';
