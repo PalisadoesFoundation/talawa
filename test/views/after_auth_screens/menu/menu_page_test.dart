@@ -510,7 +510,7 @@ void main() {
       // Verify: GraphQL query was NOT called
       verifyNever(
         databaseFunctions.gqlAuthQuery(
-          any,
+          queryString,
           variables: anyNamed('variables'),
         ),
       );
@@ -547,7 +547,7 @@ void main() {
         ),
       );
 
-      when(databaseFunctions.gqlAuthQuery(any, variables: {}))
+      when(databaseFunctions.gqlAuthQuery(queryString, variables: {}))
           .thenAnswer((_) async => mockQueryResult);
 
       await tester.pumpWidget(createMenuPage());
@@ -556,7 +556,7 @@ void main() {
       // Verify: GraphQL query WAS called for authenticated users
       verify(
         databaseFunctions.gqlAuthQuery(
-          any,
+          queryString,
           variables: {},
         ),
       ).called(1);
