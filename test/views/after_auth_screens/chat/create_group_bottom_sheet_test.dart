@@ -92,8 +92,6 @@ void main() {
       when(mockOrgService.getOrgMembersList('org1'))
           .thenAnswer((_) async => mockOrgMembers);
 
-
-
       when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
     });
 
