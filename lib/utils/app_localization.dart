@@ -18,7 +18,7 @@ class AppLocalizations {
     this.isTest = false,
   });
 
-  late Map<String, String> _localizedStrings;
+  Map<String, String> _localizedStrings = {};
 
   /// The locale for localization.
   final Locale locale;
@@ -48,8 +48,8 @@ class AppLocalizations {
   ///
   /// **returns**:
   /// * `Future<AppLocalizations>`: The AppLocalizations instance
-  Future<AppLocalizations> loadTest(Locale locale) async {
-    return AppLocalizations(locale);
+  Future<void> loadTest(Locale locale) async {
+    isTest = true;
   }
 
   /// Loads the language JSON file from the "lang" folder.
@@ -84,11 +84,11 @@ class AppLocalizations {
   /// **returns**:
   /// * `String?`: The translated string or null
   String? translate(String? key) {
-    if (isTest) return key;
-
     if (key == null) {
       return '...';
     }
+    if (isTest) return key;
+
     return _localizedStrings[key];
   }
 
