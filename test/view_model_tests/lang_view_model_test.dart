@@ -105,7 +105,8 @@ void main() {
       await model.selectLanguagePress();
 
       // Verify navigation to app settings
-      verify(navigationService.popAndPushScreen('/appSettingsPage', arguments: ''))
+      verify(navigationService.popAndPushScreen('/appSettingsPage',
+              arguments: ''))
           .called(1);
     });
 
