@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
@@ -163,14 +164,21 @@ class AppLanguage extends BaseModel {
     if (userConfig.currentUser.id != 'null') {
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
-      navigationService.pushScreen(
-        Routes.mainScreen,
-        arguments: MainScreenArgs(
-          mainScreenIndex: 0,
-          fromSignUp: false,
-          toggleDemoMode: true,
-        ),
-      );
+      // Check if URL is cached, if not go to SetUrl screen first
+      final box = Hive.box('url');
+      final cachedUrl = box.get('url');
+      if (cachedUrl == null || cachedUrl.toString().isEmpty) {
+        navigationService.pushScreen(Routes.setUrlScreen, arguments: '');
+      } else {
+        navigationService.pushScreen(
+          Routes.mainScreen,
+          arguments: MainScreenArgs(
+            mainScreenIndex: 0,
+            fromSignUp: false,
+            toggleDemoMode: true,
+          ),
+        );
+      }
     }
   }
 }

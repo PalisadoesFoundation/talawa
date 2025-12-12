@@ -212,6 +212,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Check if URL is cached in Hive
     final box = Hive.box('url');
     final cachedUrl = box.get('url');
+    
     if (cachedUrl == null || cachedUrl.toString().isEmpty) {
       pushReplacementScreen(Routes.setUrlScreen, arguments: '');
       return;
