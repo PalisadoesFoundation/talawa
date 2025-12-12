@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/constants/routing_constants.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';

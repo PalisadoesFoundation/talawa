@@ -7,7 +7,6 @@ import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/plugin/plugin_injector.dart';
 import 'package:talawa/plugin/types.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/services/user_config.dart';
 
 /// MenuPage returns a widget that renders a menu page with vertical stack of links.
 class MenuPage extends StatelessWidget {

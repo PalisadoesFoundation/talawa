@@ -369,7 +369,7 @@ class CreateEventPageState extends State<CreateEventPage> {
                                     model.isRegisterableSwitch = value;
                                   });
                                 },
-                                activeColor:
+                                activeThumbColor:
                                     Theme.of(context).colorScheme.primary,
                               ),
                             ],
@@ -393,7 +393,7 @@ class CreateEventPageState extends State<CreateEventPage> {
                                     model.isAllDay = value;
                                   });
                                 },
-                                activeColor:
+                                activeThumbColor:
                                     Theme.of(context).colorScheme.primary,
                               ),
                             ],
@@ -416,7 +416,7 @@ class CreateEventPageState extends State<CreateEventPage> {
                                     model.isPublicSwitch = value;
                                   });
                                 },
-                                activeColor:
+                                activeThumbColor:
                                     Theme.of(context).colorScheme.primary,
                               ),
                             ],
