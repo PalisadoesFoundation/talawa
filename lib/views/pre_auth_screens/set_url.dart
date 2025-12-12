@@ -31,9 +31,8 @@ class SetUrl extends StatefulWidget {
 class _SetUrlState extends State<SetUrl> {
   @override
   Widget build(BuildContext context) {
-    print("built");
     return BaseView<SetUrlViewModel>(
-      onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
+      onModelReady: (model) => model.initialise(context, inviteUrl: widget.uri),
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('SetUrlScreenScaffold'),
@@ -107,9 +106,11 @@ class _SetUrlState extends State<SetUrl> {
 
                           return AppLocalizations.of(context)!.translate(msg);
                         },
-                        onFieldSubmitted: (value) =>
-                            AppLocalizations.of(context)!
-                                .translate(Validator.validateURL(value)),
+                        onFieldSubmitted: (value) {
+                          model.urlFocus.unfocus();
+                          model.validate = AutovalidateMode.always;
+                          model.formKey.currentState!.validate();
+                        },
                         decoration: InputDecoration(
                           labelText:
                               '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
@@ -156,8 +157,7 @@ class _SetUrlState extends State<SetUrl> {
                             .focusedBorder!
                             .borderSide
                             .color,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.tertiary,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.0215,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
@@ -18,9 +20,7 @@ import 'package:vibration/vibration.dart';
 /// * `checkURLandNavigate`
 /// * `scanQR`
 /// * `initialise`
-/// * `checkURLandNavigate`
 /// * `checkURLandShowPopUp`
-/// * `scanQR`
 /// * `_onQRViewCreated`
 
 class SetUrlViewModel extends BaseModel {
@@ -31,9 +31,6 @@ class SetUrlViewModel extends BaseModel {
 
   /// qrKey.
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  /// qrText.
-  late Barcode result;
 
   /// organizationID.
   String orgId = '-1';
@@ -56,15 +53,19 @@ class SetUrlViewModel extends BaseModel {
   /// qrValidator.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
+  /// QR stream subscription.
+  StreamSubscription<Barcode>? _qrSubscription;
+
   /// This function initialises the variables.
   ///
   /// **params**:
+  /// * `context`: BuildContext for theme access
   /// * `inviteUrl`: url
   ///
   /// **returns**:
   ///   None
 
-  void initialise({String inviteUrl = ''}) {
+  void initialise(BuildContext context, {String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
       /// assigning the invite server url to the url text controller.
@@ -79,33 +80,29 @@ class SetUrlViewModel extends BaseModel {
     greeting = [
       {
         'text': 'Join ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(context)
             .textTheme
             .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
         'text': 'and ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headlineSmall,
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
         'text': 'Collaborate ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(context)
             .textTheme
             .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
         'text': 'with your ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headlineSmall,
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
         'text': 'Organizations',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(context)
             .textTheme
             .headlineSmall!
             .copyWith(fontSize: 24, color: const Color(0xFF4285F4)),
@@ -144,7 +141,7 @@ class SetUrlViewModel extends BaseModel {
           final String uri = url.text.trim();
           final bool? urlPresent =
               await locator<Validator>().validateUrlExistence(uri);
-          if (urlPresent! == true) {
+          if (urlPresent == true) {
             final box = Hive.box('url');
             box.put(urlKey, uri);
             box.put(imageUrlKey, "$uri/talawa/");
@@ -154,7 +151,9 @@ class SetUrlViewModel extends BaseModel {
           } else {
             navigationService.pop();
             navigationService.showTalawaErrorSnackBar(
-              "URL doesn't exist/no connection please check",
+              urlPresent == false
+                  ? "URL doesn't exist/no connection please check"
+                  : "Unable to validate URL",
               MessageType.error,
             );
           }
@@ -187,7 +186,7 @@ class SetUrlViewModel extends BaseModel {
       final String uri = url.text.trim();
       final bool? urlPresent =
           await locator<Validator>().validateUrlExistence(uri);
-      if (urlPresent! == true) {
+      if (urlPresent == true) {
         final box = Hive.box('url');
         box.put(urlKey, uri);
         box.put(imageUrlKey, "$uri/talawa/");
@@ -197,7 +196,9 @@ class SetUrlViewModel extends BaseModel {
       } else {
         navigationService.pop();
         navigationService.showTalawaErrorDialog(
-          "URL doesn't exist/no connection please check",
+          urlPresent == false
+              ? "URL doesn't exist/no connection please check"
+              : "Unable to validate URL",
           MessageType.info,
         );
       }
@@ -275,17 +276,25 @@ class SetUrlViewModel extends BaseModel {
   ///   None
 
   void _onQRViewCreated(QRViewController controller) {
-    controller.scannedDataStream.listen((scanData) {
+    _qrSubscription = controller.scannedDataStream.listen((scanData) {
       /// if the scanData is not empty.
       if (scanData.code!.isNotEmpty) {
-        print(scanData.code);
         try {
           final List<String> data = scanData.code!.split('?');
+          if (data.length < 2) {
+            throw const FormatException(
+                'Invalid QR format: missing query string');
+          }
           url.text = data[0];
           final List<String> queries = data[1].split('&');
+          if (queries.isEmpty || !queries[0].contains('=')) {
+            throw const FormatException('Invalid QR format: missing orgId');
+          }
           orgId = queries[0].split('=')[1];
           Vibration.vibrate(duration: 100);
           controller.stopCamera();
+          _qrSubscription?.cancel();
+          _qrSubscription = null;
           final box = Hive.box('url');
           box.put(urlKey, url.text);
           box.put(imageUrlKey, "${url.text}/talawa/");
@@ -294,24 +303,36 @@ class SetUrlViewModel extends BaseModel {
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
+          controller.stopCamera();
+          _qrSubscription?.cancel();
+          _qrSubscription = null;
           navigationService.showTalawaErrorSnackBar(
             "The Camera is not working",
             MessageType.error,
           );
         } on QrEmbeddedImageException catch (e) {
           debugPrint(e.toString());
+          controller.stopCamera();
+          _qrSubscription?.cancel();
+          _qrSubscription = null;
           navigationService.showTalawaErrorDialog(
             "The QR is not Working",
             MessageType.error,
           );
         } on QrUnsupportedVersionException catch (e) {
           debugPrint(e.toString());
+          controller.stopCamera();
+          _qrSubscription?.cancel();
+          _qrSubscription = null;
           navigationService.showTalawaErrorDialog(
             "This QR version is not Supported.",
             MessageType.error,
           );
         } on Exception catch (e) {
           debugPrint(e.toString());
+          controller.stopCamera();
+          _qrSubscription?.cancel();
+          _qrSubscription = null;
           navigationService.showTalawaErrorSnackBar(
             "This QR is not for the App",
             MessageType.error,
@@ -319,5 +340,13 @@ class SetUrlViewModel extends BaseModel {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _qrSubscription?.cancel();
+    url.dispose();
+    urlFocus.dispose();
+    super.dispose();
   }
 }

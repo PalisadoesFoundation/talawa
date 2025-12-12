@@ -76,16 +76,16 @@ class AuthLandingViewModel extends BaseModel {
         // Get URL from Hive cache (set via SetUrl screen)
         final box = Hive.box('url');
         final String? uri = box.get(urlKey) as String?;
-        
+
         if (uri == null || uri.isEmpty) {
           navigationService.pop();
           navigationService.showTalawaErrorSnackBar(
-            "No URL configured. Please set URL first.",
+            TalawaErrors.noUrlConfigured,
             MessageType.error,
           );
           return null;
         }
-        
+
         final bool? urlPresent =
             await locator<Validator>().validateUrlExistence(uri);
         if (urlPresent! == true) {

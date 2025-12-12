@@ -165,9 +165,9 @@ class AppLanguage extends BaseModel {
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
       // Check if URL is cached, if not go to SetUrl screen first
-      final box = Hive.box('url');
-      final cachedUrl = box.get('url');
-      if (cachedUrl == null || cachedUrl.toString().isEmpty) {
+      final isBoxOpen = Hive.isBoxOpen('url');
+      final cachedUrl = isBoxOpen ? Hive.box('url').get('url') : null;
+      if (!isBoxOpen || cachedUrl == null || cachedUrl.toString().isEmpty) {
         navigationService.pushScreen(Routes.setUrlScreen, arguments: '');
       } else {
         navigationService.pushScreen(

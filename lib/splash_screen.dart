@@ -79,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _initialUri = null;
     _latestUri = null;
     if (_latestUri == null && _initialUri == null) {
-      _handleUserLogIn(userLoggedIn);
+      await _handleUserLogIn(userLoggedIn);
       return;
     }
 
@@ -208,16 +208,16 @@ class _SplashScreenState extends State<SplashScreen> {
   ///   None
   Future<void> _handleUserLogIn(bool userLoggedIn) async {
     final pushReplacementScreen = navigationService.pushReplacementScreen;
-    
+
     // Check if URL is cached in Hive
     final box = Hive.box('url');
     final cachedUrl = box.get('url');
-    
+
     if (cachedUrl == null || cachedUrl.toString().isEmpty) {
       pushReplacementScreen(Routes.setUrlScreen, arguments: '');
       return;
     }
-    
+
     if (!userLoggedIn) {
       pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
       return;

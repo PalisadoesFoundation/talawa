@@ -10,9 +10,9 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
-/// This widget lets a user sign in/up with the organization url.
+/// This widget serves as the authentication landing page.
 ///
-/// enter the organization URL and then login.
+/// It provides options for users to login or signup.
 /// There is also a signup option which navigates to a screen for the user
 /// to select an organization.
 /// At the bottom, there is also a gesture detector for changing the language.
@@ -30,7 +30,7 @@ class _AuthLandingState extends State<AuthLanding> {
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
-          key: const Key('SetUrlScreenScaffold'),
+          key: const Key('AuthLandingScreenScaffold'),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: LayoutBuilder(builder: (context, constraints) {
             return SingleChildScrollView(
@@ -63,7 +63,7 @@ class _AuthLandingState extends State<AuthLanding> {
                         ),
                       ),
                       CustomRichText(
-                        key: const Key('UrlPageText'),
+                        key: const Key('AuthLandingPageText'),
                         words:
 
                             /// greeting message.

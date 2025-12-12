@@ -26,13 +26,13 @@ Future<void> main() async {
   await HiveManager.initializeHive(dir: dir);
 
   // Load environment variables from .env file
-  await dotenv.load(fileName: ".env").then((value) {
-    debugPrint("Environment variables loaded");
-    debugPrint(dotenv.get('API_URL'));
-  }).catchError((error) {
-    debugPrint("Error loading environment variables: $error");
-    debugPrint(".env file not found - URL can be set via SetUrl screen");
-  });
+  try {
+    await dotenv.load(fileName: '.env');
+    debugPrint('Environment variables loaded');
+  } catch (error) {
+    debugPrint('Error loading environment variables: $error');
+    debugPrint('.env file not found - URL can be set via SetUrl screen');
+  }
 
   await setupLocator();
 
