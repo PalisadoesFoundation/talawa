@@ -149,10 +149,10 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
-  /// Navigates the user after choosing lthe anguage.
+  /// Navigates the user after choosing the language.
   ///
-  /// This function navigate user to `/appSettingsPage` route if the user
-  /// is authenticated else navigate to `demoMode - /MainScreenPage` route.
+  /// This function navigates the user to `/appSettingsPage` when authenticated,
+  /// otherwise to `Routes.setUrlScreen` (Join and Collaborate / login-signup screen).
   ///
   /// **params**:
   ///   None

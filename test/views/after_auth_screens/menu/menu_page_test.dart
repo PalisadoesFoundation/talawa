@@ -13,6 +13,9 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/plugin/manager.dart';
+import 'package:talawa/plugin/plugin_injector.dart';
+import 'package:talawa/plugin/types.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -480,6 +483,83 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('MenuPage')), findsOneWidget);
+    });
+  });
+
+  group('MenuPage Authentication Logic Tests', () {
+    const String queryString = '''
+            query GetAllPlugins {
+              getPlugins(input: {}) {
+                id
+                pluginId
+                isActivated
+                isInstalled
+              }
+            }
+          ''';
+
+    testWidgets(
+        'MenuPage skips GraphQL call when user not logged in (lines 89-95)',
+        (tester) async {
+      // Setup: user not logged in
+      when(userConfig.loggedIn).thenReturn(false);
+
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      // Verify: GraphQL query was NOT called
+      verifyNever(
+        databaseFunctions.gqlAuthQuery(
+          any,
+          variables: anyNamed('variables'),
+        ),
+      );
+
+      // Verify: MenuPage still renders with bundled plugins
+      expect(find.byKey(const Key('MenuPage')), findsOneWidget);
+    });
+
+    testWidgets('MenuPage initializes bundled plugins when not logged in',
+        (tester) async {
+      // Setup: user not logged in
+      when(userConfig.loggedIn).thenReturn(false);
+
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      // Verify: PluginManager initialized with bundled plugins (no API call)
+      expect(PluginManager.instance.isInitialized, true);
+      expect(find.byType(PluginInjector), findsOneWidget);
+    });
+
+    testWidgets('MenuPage calls GraphQL API when user is logged in',
+        (tester) async {
+      // Setup: user IS logged in
+      when(userConfig.loggedIn).thenReturn(true);
+
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getPlugins': [],
+        },
+        options: QueryOptions(
+          document: gql(queryString),
+        ),
+      );
+
+      when(databaseFunctions.gqlAuthQuery(any, variables: {}))
+          .thenAnswer((_) async => mockQueryResult);
+
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      // Verify: GraphQL query WAS called for authenticated users
+      verify(
+        databaseFunctions.gqlAuthQuery(
+          any,
+          variables: {},
+        ),
+      ).called(1);
     });
   });
 }
