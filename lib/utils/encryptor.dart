@@ -3,12 +3,14 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:pointycastle/asymmetric/oaep.dart';
 import 'package:pointycastle/asymmetric/rsa.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 
 /// Handles all of the encryption tasks in the codebase.
@@ -60,6 +62,19 @@ class Encryptor {
     return keyGenerator.generateKeyPair();
   }
 
+  /// Retrieves or generates a secure encryption key for Hive boxes.
+  Future<List<int>> _getHiveEncryptionKey(
+      FlutterSecureStorage secureStorage) async {
+    const keyName = 'hive_encryption_key';
+    final String? keyString = await secureStorage.read(key: keyName);
+    if (keyString == null) {
+      final key = Hive.generateSecureKey();
+      await secureStorage.write(key: keyName, value: base64UrlEncode(key));
+      return key;
+    }
+    return base64Url.decode(keyString);
+  }
+
   /// Saves the generated key pair to local storage.
   ///
   /// Any future usage of the keys must be initiated from here.
@@ -67,16 +82,20 @@ class Encryptor {
   /// **params**:
   /// * `keyPair`: [AsymmetricKeyPair] to save.
   /// * `hive`: The [HiveInterface] to store keys in.
+  /// * `secureStorage`: Optional [FlutterSecureStorage] for storing the encryption key.
   ///
   /// **returns**:
   ///   None
   Future<void> saveKeyPair(
     AsymmetricKeyPair<PublicKey, PrivateKey> keyPair,
-    HiveInterface hive,
-  ) async {
-    // TODO: Implement secure storage here
-    final Box<AsymetricKeys> keysBox =
-        await hive.openBox<AsymetricKeys>('user_keys');
+    HiveInterface hive, {
+    FlutterSecureStorage secureStorage = const FlutterSecureStorage(),
+  }) async {
+    final encryptionKey = await _getHiveEncryptionKey(secureStorage);
+    final Box<AsymetricKeys> keysBox = await hive.openBox<AsymetricKeys>(
+      HiveKeys.asymetricKeyBoxKey,
+      encryptionCipher: HiveAesCipher(encryptionKey),
+    );
     keysBox.put('key_pair', AsymetricKeys(keyPair: keyPair));
   }
 
@@ -84,14 +103,20 @@ class Encryptor {
   ///
   /// **params**:
   /// * `hive`: The [HiveInterface] to load keys from.
+  /// * `secureStorage`: Optional [FlutterSecureStorage] for storing the encryption key.
   ///
   /// **returns**:
   /// * `Future<AsymmetricKeyPair<PublicKey, PrivateKey>>`: The public and
   /// private key pair
   Future<AsymmetricKeyPair<PublicKey, PrivateKey>> loadKeyPair(
-    HiveInterface hive,
-  ) async {
-    final keysBox = await hive.openBox<AsymetricKeys>('user_keys');
+    HiveInterface hive, {
+    FlutterSecureStorage secureStorage = const FlutterSecureStorage(),
+  }) async {
+    final encryptionKey = await _getHiveEncryptionKey(secureStorage);
+    final keysBox = await hive.openBox<AsymetricKeys>(
+      HiveKeys.asymetricKeyBoxKey,
+      encryptionCipher: HiveAesCipher(encryptionKey),
+    );
     return keysBox.get('key_pair')!.keyPair;
   }
 
@@ -139,16 +164,19 @@ class Encryptor {
   /// * `message`: Message object containing a field named [encryptedMessage]
   /// which is supposed to contained user's message in encrypted format.
   /// * `hive`: The [HiveInterface] to store things in.
+  /// * `secureStorage`: Optional [FlutterSecureStorage] for storing the encryption key.
   ///
   /// **returns**:
   ///   None
   Future<void> receiveMessage(
     Map<String, dynamic> message,
-    HiveInterface hive,
-  ) async {
+    HiveInterface hive, {
+    FlutterSecureStorage secureStorage = const FlutterSecureStorage(),
+  }) async {
     try {
       final encryptedMessage = message['encryptedMessage'] as String;
-      final privateKey = (await loadKeyPair(hive)).privateKey;
+      final privateKey =
+          (await loadKeyPair(hive, secureStorage: secureStorage)).privateKey;
       final decryptedMessage = assymetricDecryptString(
         encryptedMessage,
         privateKey as RSAPrivateKey,

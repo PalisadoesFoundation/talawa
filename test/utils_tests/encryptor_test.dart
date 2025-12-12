@@ -2,14 +2,17 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pointycastle/api.dart' as pointy;
 import 'package:pointycastle/asymmetric/oaep.dart';
 import 'package:pointycastle/asymmetric/rsa.dart';
 import 'package:pointycastle/pointycastle.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 import 'package:talawa/utils/encryptor.dart';
+
 import '../helpers/setup_hive.mocks.dart';
 
 // This test is being written believing that in future when Encryptor class will get rid of shouldEncrypt variable then all the tests using that variable can be removed
@@ -31,6 +34,7 @@ void main() {
     late pointy.PublicKey publicKey;
     late MockHiveInterface mockHiveInterface;
     late MockBox<AsymetricKeys> mockHiveBox;
+    late FakeFlutterSecureStorage fakeSecureStorage;
     setUpAll(() {
       encryptor = Encryptor();
       Encryptor.shouldEncrypt = false;
@@ -38,6 +42,7 @@ void main() {
       publicKey = keyPair.publicKey;
       mockHiveInterface = MockHiveInterface();
       mockHiveBox = MockBox();
+      fakeSecureStorage = FakeFlutterSecureStorage();
     });
     test('encryptString method should return the same string', () {
       const String inputString = 'password123';
@@ -54,22 +59,36 @@ void main() {
     test(
         'Checking whether Box Names and Key Names are appropriate for Hive or not',
         () async {
-      when(mockHiveInterface.openBox<AsymetricKeys>('user_keys'))
-          .thenAnswer((realInvocation) async {
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((realInvocation) async {
         return mockHiveBox;
       });
-      await encryptor.saveKeyPair(keyPair, mockHiveInterface);
-      verify(mockHiveInterface.openBox('user_keys'));
+      await encryptor.saveKeyPair(
+        keyPair,
+        mockHiveInterface,
+        secureStorage: fakeSecureStorage,
+      );
+      verify(mockHiveInterface.openBox(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      ));
       verify(mockHiveBox.put('key_pair', any));
     });
     test('For loadPairKey()', () async {
-      when(mockHiveInterface.openBox<AsymetricKeys>('user_keys'))
-          .thenAnswer((realInvocation) async {
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((realInvocation) async {
         return mockHiveBox;
       });
       when(mockHiveBox.get('key_pair'))
           .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
-      await encryptor.loadKeyPair(mockHiveInterface);
+      await encryptor.loadKeyPair(
+        mockHiveInterface,
+        secureStorage: fakeSecureStorage,
+      );
       verify(mockHiveBox.get('key_pair'));
     });
     test(
@@ -107,14 +126,20 @@ void main() {
     });
     test('Unencrypted message sent to receiveMessage()', () {
       const Map<String, dynamic> message = {"encryptedMessage": "Hello Talawa"};
-      when(mockHiveInterface.openBox<AsymetricKeys>('user_keys'))
-          .thenAnswer((realInvocation) async {
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((realInvocation) async {
         return mockHiveBox;
       });
       when(mockHiveBox.get('key_pair'))
           .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
       expect(
-        encryptor.receiveMessage(message, mockHiveInterface),
+        encryptor.receiveMessage(
+          message,
+          mockHiveInterface,
+          secureStorage: fakeSecureStorage,
+        ),
         throwsException,
       );
     });
@@ -127,13 +152,52 @@ void main() {
       final Map<String, dynamic> message = {
         "encryptedMessage": encryptedMessge,
       };
-      when(mockHiveInterface.openBox<AsymetricKeys>('user_keys'))
-          .thenAnswer((realInvocation) async {
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((realInvocation) async {
         return mockHiveBox;
       });
       when(mockHiveBox.get('key_pair'))
           .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
-      expect(encryptor.receiveMessage(message, mockHiveInterface), completes);
+      expect(
+          encryptor.receiveMessage(
+            message,
+            mockHiveInterface,
+            secureStorage: fakeSecureStorage,
+          ),
+          completes);
     });
   });
+}
+
+class FakeFlutterSecureStorage extends Fake implements FlutterSecureStorage {
+  final Map<String, String> _storage = {};
+
+  @override
+  Future<String?> read({
+    String? key,
+    IOSOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    MacOsOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async {
+    return _storage[key];
+  }
+
+  @override
+  Future<void> write({
+    required String key,
+    required String? value,
+    IOSOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    MacOsOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async {
+    _storage[key] = value!;
+  }
 }
