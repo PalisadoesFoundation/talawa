@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -49,7 +48,7 @@ class SetUrlViewModel extends BaseModel {
   /// urlFocus.
   FocusNode urlFocus = FocusNode();
 
-  /// qrController.
+  /// greeting message styling configuration.
   late List<Map<String, dynamic>> greeting;
 
   /// qrValidator.
@@ -81,29 +80,29 @@ class SetUrlViewModel extends BaseModel {
     /// greeting message.
     greeting = [
       {
-        'text': 'Join ',
+        'text': AppLocalizations.of(context)!.strictTranslate('Join '),
         'textStyle': Theme.of(context)
             .textTheme
             .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
-        'text': 'and ',
+        'text': AppLocalizations.of(context)!.strictTranslate('and '),
         'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
-        'text': 'Collaborate ',
+        'text': AppLocalizations.of(context)!.strictTranslate('Collaborate '),
         'textStyle': Theme.of(context)
             .textTheme
             .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
-        'text': 'with your ',
+        'text': AppLocalizations.of(context)!.strictTranslate('with your  '),
         'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
-        'text': 'Organizations',
+        'text': AppLocalizations.of(context)!.strictTranslate('Organizations'),
         'textStyle': Theme.of(context)
             .textTheme
             .headlineSmall!
@@ -199,6 +198,18 @@ class SetUrlViewModel extends BaseModel {
           try {
             validate = AutovalidateMode.disabled;
             final String uri = url.text.trim();
+
+            // Get context and localized strings before async operations
+            final context = navigationService.navigatorKey.currentContext;
+            final urlNotExistMessage = context != null
+                ? AppLocalizations.of(context)!.strictTranslate(
+                    "URL doesn't exist/no connection please check")
+                : "URL doesn't exist/no connection please check";
+            final unableToValidateMessage = context != null
+                ? AppLocalizations.of(context)!
+                    .strictTranslate("Unable to validate URL")
+                : "Unable to validate URL";
+
             final bool? urlPresent =
                 await locator<Validator>().validateUrlExistence(uri);
             if (urlPresent == true) {
@@ -210,8 +221,8 @@ class SetUrlViewModel extends BaseModel {
             } else {
               navigationService.showTalawaErrorDialog(
                 urlPresent == false
-                    ? "URL doesn't exist/no connection please check"
-                    : "Unable to validate URL",
+                    ? urlNotExistMessage
+                    : unableToValidateMessage,
                 MessageType.info,
               );
             }
@@ -268,7 +279,6 @@ class SetUrlViewModel extends BaseModel {
                       borderWidth: 10,
                       cutOutSize: 250,
                     ),
-                    /*overlayMargin: EdgeInsets.all(50)*/
                   ),
                 ),
                 SizedBox(
@@ -307,6 +317,18 @@ class SetUrlViewModel extends BaseModel {
 
   void _onQRViewCreated(QRViewController controller) {
     _qrController = controller;
+
+    // Get context and localized strings before async operations
+    final context = navigationService.navigatorKey.currentContext;
+    final cameraNotWorkingMessage = context != null
+        ? AppLocalizations.of(context)!
+            .strictTranslate("The Camera is not working")
+        : "The Camera is not working";
+    final qrNotForAppMessage = context != null
+        ? AppLocalizations.of(context)!
+            .strictTranslate("This QR is not for the App")
+        : "This QR is not for the App";
+
     _qrSubscription = controller.scannedDataStream.listen((scanData) async {
       /// if the scanData is not empty.
       final code = scanData.code;
@@ -323,7 +345,11 @@ class SetUrlViewModel extends BaseModel {
           url.text = parsed.origin;
           orgId = parsedOrgId;
           Vibration.vibrate(duration: 100);
-          await controller.stopCamera();
+          if (defaultTargetPlatform == TargetPlatform.iOS) {
+            await controller.pauseCamera();
+          } else {
+            await controller.stopCamera();
+          }
           _qrSubscription?.cancel();
           _qrSubscription = null;
           final box = Hive.box('url');
@@ -334,38 +360,28 @@ class SetUrlViewModel extends BaseModel {
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
-          controller.stopCamera();
+          if (defaultTargetPlatform == TargetPlatform.iOS) {
+            controller.pauseCamera();
+          } else {
+            controller.stopCamera();
+          }
           _qrSubscription?.cancel();
           _qrSubscription = null;
           navigationService.showTalawaErrorSnackBar(
-            "The Camera is not working",
-            MessageType.error,
-          );
-        } on QrEmbeddedImageException catch (e) {
-          debugPrint(e.toString());
-          controller.stopCamera();
-          _qrSubscription?.cancel();
-          _qrSubscription = null;
-          navigationService.showTalawaErrorDialog(
-            "The QR is not Working",
-            MessageType.error,
-          );
-        } on QrUnsupportedVersionException catch (e) {
-          debugPrint(e.toString());
-          controller.stopCamera();
-          _qrSubscription?.cancel();
-          _qrSubscription = null;
-          navigationService.showTalawaErrorDialog(
-            "This QR version is not Supported.",
+            cameraNotWorkingMessage,
             MessageType.error,
           );
         } on Exception catch (e) {
           debugPrint(e.toString());
-          controller.stopCamera();
+          if (defaultTargetPlatform == TargetPlatform.iOS) {
+            controller.pauseCamera();
+          } else {
+            controller.stopCamera();
+          }
           _qrSubscription?.cancel();
           _qrSubscription = null;
           navigationService.showTalawaErrorSnackBar(
-            "This QR is not for the App",
+            qrNotForAppMessage,
             MessageType.error,
           );
         }

@@ -78,7 +78,6 @@ class _SetUrlState extends State<SetUrl> {
                                             'Join Organisation with QR'),
                                   ),
                                   onPressed: () => model.scanQR(context),
-                                  // model.scanQR(context),
                                 ),
                               ),
                               Padding(

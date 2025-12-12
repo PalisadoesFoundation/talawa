@@ -92,6 +92,12 @@ Future<void> main() async {
         (tester) async {
       locator.registerSingleton(Validator());
 
+      // Set URL and imageUrl in Hive box before testing - AuthLandingViewModel expects these to already be set
+      final box = Hive.box('url');
+      box.put(AuthLandingViewModel.urlKey, 'http://<IPv4>:4000/graphql');
+      box.put(AuthLandingViewModel.imageUrlKey,
+          'http://<IPv4>:4000/graphql/talawa/');
+
       await tester.pumpWidget(Form(child: Container()));
 
       await model.checkURLandNavigate('/', 'arguments');
@@ -110,8 +116,6 @@ Future<void> main() async {
       verify(navigationService.pop());
       verify(navigationService.pushScreen('/', arguments: 'arguments'));
       verify(graphqlConfig.getOrgUrl());
-
-      final box = Hive.box('url');
       expect(
           box.get(AuthLandingViewModel.urlKey), 'http://<IPv4>:4000/graphql');
       expect(
@@ -138,10 +142,16 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandNavigate() is working fine when urlPresent is false',
         (tester) async {
-      await locator.unregister<Validator>();
+      if (locator.isRegistered<Validator>()) {
+        await locator.unregister<Validator>();
+      }
       final service = MockValidator();
 
       locator.registerSingleton<Validator>(service);
+
+      // Set URL in Hive box before testing
+      final box = Hive.box('url');
+      box.put(AuthLandingViewModel.urlKey, 'http://<IPv4>:4000/graphql');
 
       await tester.pumpWidget(Form(child: Container()));
 
@@ -157,7 +167,9 @@ Future<void> main() async {
         ),
       );
 
-      locator.unregister<Validator>();
+      if (locator.isRegistered<Validator>()) {
+        await locator.unregister<Validator>();
+      }
     });
   });
 }

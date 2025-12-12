@@ -14,7 +14,6 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 /// Methods include:
 /// * `checkURLandNavigate`
 /// * `initialise`
-/// * `checkURLandNavigate`
 /// * `checkURLandShowPopUp`
 
 class AuthLandingViewModel extends BaseModel {
@@ -78,18 +77,17 @@ class AuthLandingViewModel extends BaseModel {
 
         // Get context and localized strings before async operations
         final context = navigationService.navigatorKey.currentContext;
-        final noUrlMessage = context != null
-            ? AppLocalizations.of(context)!
-                .strictTranslate('No URL configured. Please set URL first.')
-            : 'No URL configured. Please set URL first.';
-        final urlNotExistMessage = context != null
-            ? AppLocalizations.of(context)!
-                .strictTranslate("URL doesn't exist/no connection please check")
-            : "URL doesn't exist/no connection please check";
-        final unableToValidateMessage = context != null
-            ? AppLocalizations.of(context)!
-                .strictTranslate("Unable to validate URL")
-            : "Unable to validate URL";
+        final localizations =
+            context != null ? AppLocalizations.of(context) : null;
+        final noUrlMessage = localizations
+                ?.strictTranslate('No URL configured. Please set URL first.') ??
+            'No URL configured. Please set URL first.';
+        final urlNotExistMessage = localizations?.strictTranslate(
+                "URL doesn't exist/no connection please check") ??
+            "URL doesn't exist/no connection please check";
+        final unableToValidateMessage =
+            localizations?.strictTranslate("Unable to validate URL") ??
+                "Unable to validate URL";
 
         if (uri == null || uri.isEmpty) {
           navigationService.pop();
@@ -99,22 +97,23 @@ class AuthLandingViewModel extends BaseModel {
           );
           return null;
         }
-
-        final bool? urlPresent =
-            await locator<Validator>().validateUrlExistence(uri);
-        if (urlPresent == true) {
+        try {
+          final bool? urlPresent =
+              await locator<Validator>().validateUrlExistence(uri);
+          if (urlPresent == true) {
+            graphqlConfig.getOrgUrl();
+            navigationService.pushScreen(navigateTo, arguments: argument);
+          } else {
+            final errorMessage = urlPresent == false
+                ? urlNotExistMessage
+                : unableToValidateMessage;
+            navigationService.showTalawaErrorSnackBar(
+              errorMessage,
+              MessageType.error,
+            );
+          }
+        } finally {
           navigationService.pop();
-          graphqlConfig.getOrgUrl();
-          navigationService.pushScreen(navigateTo, arguments: argument);
-        } else {
-          navigationService.pop();
-          final errorMessage = urlPresent == false
-              ? urlNotExistMessage
-              : unableToValidateMessage;
-          navigationService.showTalawaErrorSnackBar(
-            errorMessage,
-            MessageType.error,
-          );
         }
         return null;
       },

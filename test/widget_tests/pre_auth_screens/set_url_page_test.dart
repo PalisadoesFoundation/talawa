@@ -158,7 +158,7 @@ Future<void> main() async {
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
         },
         {
-          'text': 'with your ',
+          'text': 'with your  ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .headlineSmall,
@@ -315,15 +315,10 @@ Future<void> main() async {
         const Offset(100, 0),
       );
 
-      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
-
-      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) => 1);
-
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pop());
+      verify(navigationService.pushScreen('/selectLang', arguments: null));
     });
   });
 
@@ -413,7 +408,7 @@ Future<void> main() async {
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
         },
         {
-          'text': 'with your ',
+          'text': 'with your  ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .headlineSmall,
@@ -553,15 +548,10 @@ Future<void> main() async {
         const Offset(100, 0),
       );
 
-      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
-
-      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) => 1);
-
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pop());
+      verify(navigationService.pushScreen('/selectLang', arguments: null));
     });
   });
 }
