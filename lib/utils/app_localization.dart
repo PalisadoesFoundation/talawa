@@ -43,11 +43,12 @@ class AppLocalizations {
 
   /// Loads localization for testing purposes.
   ///
-  /// **params**:
-  /// * `locale`: The locale to load
+  /// Returns a [Future] that completes when loading is done.
+  ///
+  /// [locale] specifies the locale to load for testing.
   ///
   /// **returns**:
-  /// * `Future<AppLocalizations>`: The AppLocalizations instance
+  /// * `Future<void>`: A future that completes when loading is done
   Future<void> loadTest(Locale locale) async {
     isTest = true;
   }

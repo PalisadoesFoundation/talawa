@@ -369,11 +369,8 @@ class CreateEventPageState extends State<CreateEventPage> {
                                     model.isRegisterableSwitch = value;
                                   });
                                 },
-                                thumbColor:
-                                    WidgetStateProperty.resolveWith<Color>(
-                                  (states) =>
-                                      Theme.of(context).colorScheme.primary,
-                                ),
+                                activeThumbColor:
+                                    Theme.of(context).colorScheme.primary,
                               ),
                             ],
                           ),
@@ -396,11 +393,8 @@ class CreateEventPageState extends State<CreateEventPage> {
                                     model.isAllDay = value;
                                   });
                                 },
-                                thumbColor:
-                                    WidgetStateProperty.resolveWith<Color>(
-                                  (states) =>
-                                      Theme.of(context).colorScheme.primary,
-                                ),
+                                activeThumbColor:
+                                    Theme.of(context).colorScheme.primary,
                               ),
                             ],
                           ),
@@ -422,11 +416,8 @@ class CreateEventPageState extends State<CreateEventPage> {
                                     model.isPublicSwitch = value;
                                   });
                                 },
-                                thumbColor:
-                                    WidgetStateProperty.resolveWith<Color>(
-                                  (states) =>
-                                      Theme.of(context).colorScheme.primary,
-                                ),
+                                activeThumbColor:
+                                    Theme.of(context).colorScheme.primary,
                               ),
                             ],
                           ),

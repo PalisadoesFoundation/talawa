@@ -283,8 +283,6 @@ void main() {
         ),
       ).thenAnswer((_) async => createdChat);
 
-      when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
-
       await tester.pumpWidget(
         createTestMaterialApp(
           child: const CreateGroupBottomSheet(),
@@ -504,8 +502,6 @@ void main() {
         await Future.delayed(const Duration(milliseconds: 200));
         return Chat(id: 'new-group', name: 'Test Group');
       });
-
-      when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
 
       await tester.pumpWidget(
         createTestMaterialApp(

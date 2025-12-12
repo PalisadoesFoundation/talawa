@@ -119,18 +119,9 @@ class GroupChatViewModel extends BaseModel {
       }
     });
 
-    try {
-      await _chatService.getChatsByUser();
-    } catch (e) {
-      debugPrint('Error initializing group chats: $e');
-      navigationService.showTalawaErrorSnackBar(
-        'Failed to load chats. Please check your connection.',
-        MessageType.error,
-      );
-    } finally {
-      chatState = ChatState.complete;
-      setState(ViewState.idle);
-    }
+    await _chatService.getChatsByUser();
+    chatState = ChatState.complete;
+    setState(ViewState.idle);
   }
 
   /// This function get all messages for a group chat.
@@ -145,39 +136,29 @@ class GroupChatViewModel extends BaseModel {
     _isLoadingMoreMessages[chatId] = false; // Initialize loading state
     chatState = ChatState.loading;
 
-    try {
-      // Step 1: Load initial messages from getChatDetails (won't add to stream)
-      final chat =
-          await _chatService.getChatDetails(chatId, isInitialLoad: true);
-      if (chat != null && chat.messages != null) {
-        _chatMessagesByUser[chatId] =
-            List.from(chat.messages!); // Create a copy
-      }
-
-      // Step 2: Subscribe to real-time messages for this specific group chat
-      // This will only receive NEW messages from subscriptions
-      _chatMessageSubscription =
-          _chatService.subscribeToChatMessages(chatId).listen((newMessage) {
-        if (_chatMessagesByUser[chatId] != null) {
-          // Check if message already exists to prevent duplicates
-          final existingMessage = _chatMessagesByUser[chatId]!
-              .any((msg) => msg.id == newMessage.id);
-          if (!existingMessage) {
-            _chatMessagesByUser[chatId]!.add(newMessage);
-            notifyListeners();
-          }
-        }
-      });
-    } catch (e) {
-      debugPrint('Error getting chat messages: $e');
-      navigationService.showTalawaErrorSnackBar(
-        'Failed to load messages.',
-        MessageType.error,
-      );
-    } finally {
-      chatState = ChatState.complete;
-      notifyListeners();
+    // Step 1: Load initial messages from getChatDetails (won't add to stream)
+    final chat = await _chatService.getChatDetails(chatId, isInitialLoad: true);
+    if (chat != null && chat.messages != null) {
+      _chatMessagesByUser[chatId] = List.from(chat.messages!); // Create a copy
     }
+
+    // Step 2: Subscribe to real-time messages for this specific group chat
+    // This will only receive NEW messages from subscriptions
+    _chatMessageSubscription =
+        _chatService.subscribeToChatMessages(chatId).listen((newMessage) {
+      if (_chatMessagesByUser[chatId] != null) {
+        // Check if message already exists to prevent duplicates
+        final existingMessage =
+            _chatMessagesByUser[chatId]!.any((msg) => msg.id == newMessage.id);
+        if (!existingMessage) {
+          _chatMessagesByUser[chatId]!.add(newMessage);
+          notifyListeners();
+        }
+      }
+    });
+
+    chatState = ChatState.complete;
+    notifyListeners();
   }
 
   /// Loads more messages (older messages) for a specific group chat.
@@ -288,95 +269,68 @@ class GroupChatViewModel extends BaseModel {
     String? description,
     required List<String> memberIds,
   }) async {
-    try {
-      chatState = ChatState.loading;
-      notifyListeners();
+    chatState = ChatState.loading;
+    notifyListeners();
 
-      // Validate user and organization
-      if (userConfig.currentUser.id == null) {
-        debugPrint('Error: Current user ID is null');
-        navigationService.showTalawaErrorSnackBar(
-          'User session invalid. Please login again.',
-          MessageType.error,
-        );
-        return null;
-      }
+    // Create the chat first
+    final chat = await _chatService.createChat(
+      name: groupName,
+      description: description,
+    );
 
-      if (userConfig.currentOrg.id == null) {
-        debugPrint('Error: Organization ID is null');
-        navigationService.showTalawaErrorSnackBar(
-          'Organization context missing.',
-          MessageType.error,
-        );
-        return null;
-      }
-
-      // Create the chat first
-      final chat = await _chatService.createChat(
-        name: groupName,
-        description: description,
-      );
-
-      if (chat == null) {
-        debugPrint('Failed to create group chat');
-        navigationService.showTalawaErrorSnackBar(
-          'Failed to create group chat',
-          MessageType.error,
-        );
-        return null;
-      }
-
-      debugPrint('Group chat created successfully: ${chat.id}');
-
-      // Add the creator (current user) to the chat first
-      final currentUserId = userConfig.currentUser.id!;
-      debugPrint('Adding creator to chat: $currentUserId');
-
-      final creatorMembershipCreated = await _chatService.createChatMembership(
-        chatId: chat.id!,
-        userId: currentUserId,
-      );
-
-      if (!creatorMembershipCreated) {
-        debugPrint(
-          'Failed to add creator $currentUserId to group chat ${chat.id}',
-        );
-      }
-
-      // Add other members to the chat
-      for (final memberId in memberIds) {
-        debugPrint('Adding member to chat: $memberId');
-        final membershipCreated = await _chatService.createChatMembership(
-          chatId: chat.id!,
-          userId: memberId,
-        );
-
-        if (!membershipCreated) {
-          debugPrint('Failed to add member $memberId to group chat ${chat.id}');
-        }
-      }
-
+    if (chat == null) {
+      debugPrint('Failed to create group chat');
       navigationService.showTalawaErrorSnackBar(
-        'Group "$groupName" created successfully!',
-        MessageType.info,
-      );
-
-      // Refresh the group chats list to show the new group
-      debugPrint('Refreshing group chats list...');
-      await _chatService.getChatsByUser();
-
-      return chat;
-    } catch (e) {
-      debugPrint('Error creating group chat: $e');
-      navigationService.showTalawaErrorSnackBar(
-        'Error creating group: Please try again.',
+        'Failed to create group chat',
         MessageType.error,
       );
-      return null;
-    } finally {
       chatState = ChatState.complete;
       notifyListeners();
+      return null;
     }
+
+    debugPrint('Group chat created successfully: ${chat.id}');
+
+    // Add the creator (current user) to the chat first
+    final currentUserId = userConfig.currentUser.id!;
+    debugPrint('Adding creator to chat: $currentUserId');
+
+    final creatorMembershipCreated = await _chatService.createChatMembership(
+      chatId: chat.id!,
+      userId: currentUserId,
+    );
+
+    if (!creatorMembershipCreated) {
+      debugPrint(
+        'Failed to add creator $currentUserId to group chat ${chat.id}',
+      );
+    }
+
+    // Add other members to the chat
+    for (final memberId in memberIds) {
+      debugPrint('Adding member to chat: $memberId');
+      final membershipCreated = await _chatService.createChatMembership(
+        chatId: chat.id!,
+        userId: memberId,
+      );
+
+      if (!membershipCreated) {
+        debugPrint('Failed to add member $memberId to group chat ${chat.id}');
+      }
+    }
+
+    navigationService.showTalawaErrorSnackBar(
+      'Group "$groupName" created successfully!',
+      MessageType.info,
+    );
+
+    // Refresh the group chats list to show the new group
+    debugPrint('Refreshing group chats list...');
+    await _chatService.getChatsByUser();
+
+    chatState = ChatState.complete;
+    notifyListeners();
+    return chat;
   }
 
   /// Checks if the current user is an admin of the given group chat.
