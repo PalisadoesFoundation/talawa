@@ -28,7 +28,8 @@ class AuthLandingViewModel extends BaseModel {
   static const urlKey = "url";
 
   /// url.
-  final url = dotenv.get("API_URL");
+  // Removed auto-loading from .env - URL should be set via SetUrl screen
+  // final url = dotenv.get("API_URL");
 
   /// This function initialises the variables.
   ///
@@ -39,10 +40,13 @@ class AuthLandingViewModel extends BaseModel {
   ///   None
 
   void initialise() {
+    // URL should already be set via SetUrl screen
+    // No longer auto-loading from .env file
     final box = Hive.box('url');
-    box.put(urlKey, url);
-    box.put(imageUrlKey, "$url/talawa/");
-    graphqlConfig.getOrgUrl();
+    final cachedUrl = box.get(urlKey);
+    if (cachedUrl != null && cachedUrl.toString().isNotEmpty) {
+      graphqlConfig.getOrgUrl();
+    }
 
     notifyListeners();
   }
@@ -70,13 +74,22 @@ class AuthLandingViewModel extends BaseModel {
             key: Key('UrlCheckProgress'),
           ),
         );
-        final String uri = url;
+        // Get URL from Hive cache (set via SetUrl screen)
+        final box = Hive.box('url');
+        final String? uri = box.get(urlKey) as String?;
+        
+        if (uri == null || uri.isEmpty) {
+          navigationService.pop();
+          navigationService.showTalawaErrorSnackBar(
+            "No URL configured. Please set URL first.",
+            MessageType.error,
+          );
+          return null;
+        }
+        
         final bool? urlPresent =
             await locator<Validator>().validateUrlExistence(uri);
         if (urlPresent! == true) {
-          final box = Hive.box('url');
-          box.put(urlKey, uri);
-          box.put(imageUrlKey, "$uri/talawa/");
           navigationService.pop();
           graphqlConfig.getOrgUrl();
           navigationService.pushScreen(navigateTo, arguments: argument);

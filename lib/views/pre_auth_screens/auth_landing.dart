@@ -16,14 +16,14 @@ import 'package:talawa/widgets/rich_text.dart';
 /// There is also a signup option which navigates to a screen for the user
 /// to select an organization.
 /// At the bottom, there is also a gesture detector for changing the language.
-class SetUrl extends StatefulWidget {
-  const SetUrl({super.key});
+class AuthLanding extends StatefulWidget {
+  const AuthLanding({super.key});
 
   @override
-  _SetUrlState createState() => _SetUrlState();
+  _AuthLandingState createState() => _AuthLandingState();
 }
 
-class _SetUrlState extends State<SetUrl> {
+class _AuthLandingState extends State<AuthLanding> {
   @override
   Widget build(BuildContext context) {
     return BaseView<AuthLandingViewModel>(
