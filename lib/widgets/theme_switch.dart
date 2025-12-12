@@ -20,7 +20,7 @@ class ChangeThemeTile extends StatelessWidget {
       trailing: Switch(
         key: const Key('ToggleTheme'),
         autofocus: true,
-        thumbColor: MaterialStateProperty.resolveWith<Color>(
+        thumbColor: WidgetStateProperty.resolveWith<Color>(
           (states) => Theme.of(context).colorScheme.primary,
         ),
         value: themeProvider.isdarkTheme,
