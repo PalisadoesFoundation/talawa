@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// This class provides methods to localize the application so that it can be available
-/// to users with different languages. 
+/// to users with different languages.
 class AppLocalizations {
   /// Creates an [AppLocalizations] instance with the given [locale].
   ///
@@ -20,16 +20,16 @@ class AppLocalizations {
   });
 
   late Map<String, String> _localizedStrings;
-  
-  /// The locale for localization. 
+
+  /// The locale for localization.
   final Locale locale;
-  
+
   /// Whether this is being used in a test environment.
   bool isTest;
 
-  /// Helper method to keep the code in the widgets concise. 
+  /// Helper method to keep the code in the widgets concise.
   ///
-  /// **params**: 
+  /// **params**:
   /// * `context`: The build context
   ///
   /// **returns**:
@@ -44,7 +44,7 @@ class AppLocalizations {
 
   /// Loads localization for testing purposes.
   ///
-  /// **params**: 
+  /// **params**:
   /// * `locale`: The locale to load
   ///
   /// **returns**:
@@ -79,7 +79,7 @@ class AppLocalizations {
 
   /// Translates the given key to a localized string.
   ///
-  /// **params**: 
+  /// **params**:
   /// * `key`: The translation key
   ///
   /// **returns**:
@@ -120,7 +120,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate({
     this.isTest = false,
   });
-  
+
   /// Whether this is being used in a test environment.
   final bool isTest;
 
