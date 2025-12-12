@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';

@@ -11,7 +11,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
+import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 

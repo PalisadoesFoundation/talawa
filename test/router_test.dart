@@ -404,7 +404,7 @@ void main() {
       if (route is MaterialPageRoute) {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
-        expect(widget, isA<SetUrl>());
+        expect(widget, isA<AuthLanding>());
       }
     });
 
