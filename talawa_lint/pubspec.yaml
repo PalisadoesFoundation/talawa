@@ -15,5 +15,5 @@ dependencies:
   
   # custom_lint_builder will give us tools for writing lints
   custom_lint: ^0.7.0
-  custom_lint_builder: 0.7.0
+  custom_lint_builder: ^0.7.0
   # watcher: ^1.1.0
