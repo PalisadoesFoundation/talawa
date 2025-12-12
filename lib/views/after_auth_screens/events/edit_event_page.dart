@@ -190,7 +190,7 @@ class _EditEventPageState extends State<EditEventPage> {
                                 });
                               },
                               thumbColor:
-                                  MaterialStateProperty.resolveWith<Color>(
+                                  WidgetStateProperty.resolveWith<Color>(
                                 (states) =>
                                     Theme.of(context).colorScheme.primary,
                               ),
@@ -215,7 +215,7 @@ class _EditEventPageState extends State<EditEventPage> {
                                 });
                               },
                               thumbColor:
-                                  MaterialStateProperty.resolveWith<Color>(
+                                  WidgetStateProperty.resolveWith<Color>(
                                 (states) =>
                                     Theme.of(context).colorScheme.primary,
                               ),

@@ -370,7 +370,7 @@ class CreateEventPageState extends State<CreateEventPage> {
                                   });
                                 },
                                 thumbColor:
-                                    MaterialStateProperty.resolveWith<Color>(
+                                    WidgetStateProperty.resolveWith<Color>(
                                   (states) =>
                                       Theme.of(context).colorScheme.primary,
                                 ),
@@ -397,7 +397,7 @@ class CreateEventPageState extends State<CreateEventPage> {
                                   });
                                 },
                                 thumbColor:
-                                    MaterialStateProperty.resolveWith<Color>(
+                                    WidgetStateProperty.resolveWith<Color>(
                                   (states) =>
                                       Theme.of(context).colorScheme.primary,
                                 ),
@@ -423,7 +423,7 @@ class CreateEventPageState extends State<CreateEventPage> {
                                   });
                                 },
                                 thumbColor:
-                                    MaterialStateProperty.resolveWith<Color>(
+                                    WidgetStateProperty.resolveWith<Color>(
                                   (states) =>
                                       Theme.of(context).colorScheme.primary,
                                 ),
