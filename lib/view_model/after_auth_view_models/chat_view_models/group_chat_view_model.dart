@@ -119,10 +119,18 @@ class GroupChatViewModel extends BaseModel {
       }
     });
 
-    await _chatService.getChatsByUser();
-
-    chatState = ChatState.complete;
-    setState(ViewState.idle);
+    try {
+      await _chatService.getChatsByUser();
+    } catch (e) {
+      debugPrint('Error initializing group chats: $e');
+      navigationService.showTalawaErrorSnackBar(
+        'Failed to load chats. Please check your connection.',
+        MessageType.error,
+      );
+    } finally {
+      chatState = ChatState.complete;
+      setState(ViewState.idle);
+    }
   }
 
   /// This function get all messages for a group chat.
@@ -137,29 +145,39 @@ class GroupChatViewModel extends BaseModel {
     _isLoadingMoreMessages[chatId] = false; // Initialize loading state
     chatState = ChatState.loading;
 
-    // Step 1: Load initial messages from getChatDetails (won't add to stream)
-    final chat = await _chatService.getChatDetails(chatId, isInitialLoad: true);
-    if (chat != null && chat.messages != null) {
-      _chatMessagesByUser[chatId] = List.from(chat.messages!); // Create a copy
-    }
-
-    // Step 2: Subscribe to real-time messages for this specific group chat
-    // This will only receive NEW messages from subscriptions
-    _chatMessageSubscription =
-        _chatService.subscribeToChatMessages(chatId).listen((newMessage) {
-      if (_chatMessagesByUser[chatId] != null) {
-        // Check if message already exists to prevent duplicates
-        final existingMessage =
-            _chatMessagesByUser[chatId]!.any((msg) => msg.id == newMessage.id);
-        if (!existingMessage) {
-          _chatMessagesByUser[chatId]!.add(newMessage);
-          notifyListeners();
-        }
+    try {
+      // Step 1: Load initial messages from getChatDetails (won't add to stream)
+      final chat =
+          await _chatService.getChatDetails(chatId, isInitialLoad: true);
+      if (chat != null && chat.messages != null) {
+        _chatMessagesByUser[chatId] =
+            List.from(chat.messages!); // Create a copy
       }
-    });
 
-    chatState = ChatState.complete;
-    notifyListeners();
+      // Step 2: Subscribe to real-time messages for this specific group chat
+      // This will only receive NEW messages from subscriptions
+      _chatMessageSubscription =
+          _chatService.subscribeToChatMessages(chatId).listen((newMessage) {
+        if (_chatMessagesByUser[chatId] != null) {
+          // Check if message already exists to prevent duplicates
+          final existingMessage = _chatMessagesByUser[chatId]!
+              .any((msg) => msg.id == newMessage.id);
+          if (!existingMessage) {
+            _chatMessagesByUser[chatId]!.add(newMessage);
+            notifyListeners();
+          }
+        }
+      });
+    } catch (e) {
+      debugPrint('Error getting chat messages: $e');
+      navigationService.showTalawaErrorSnackBar(
+        'Failed to load messages.',
+        MessageType.error,
+      );
+    } finally {
+      chatState = ChatState.complete;
+      notifyListeners();
+    }
   }
 
   /// Loads more messages (older messages) for a specific group chat.
@@ -273,6 +291,25 @@ class GroupChatViewModel extends BaseModel {
     try {
       chatState = ChatState.loading;
       notifyListeners();
+
+      // Validate user and organization
+      if (userConfig.currentUser.id == null) {
+        debugPrint('Error: Current user ID is null');
+        navigationService.showTalawaErrorSnackBar(
+          'User session invalid. Please login again.',
+          MessageType.error,
+        );
+        return null;
+      }
+
+      if (userConfig.currentOrg.id == null) {
+        debugPrint('Error: Organization ID is null');
+        navigationService.showTalawaErrorSnackBar(
+          'Organization context missing.',
+          MessageType.error,
+        );
+        return null;
+      }
 
       // Create the chat first
       final chat = await _chatService.createChat(

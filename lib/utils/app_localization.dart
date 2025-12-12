@@ -35,6 +35,10 @@ class AppLocalizations {
     // Load the language JSON file from the "lang" folder
     final String jsonString =
         await rootBundle.loadString('lang/${locale.languageCode}.json');
+    if (jsonString.isEmpty) {
+      _localizedStrings = {};
+      return true;
+    }
     final Map<String, dynamic> jsonMap =
         json.decode(jsonString) as Map<String, dynamic>;
 
