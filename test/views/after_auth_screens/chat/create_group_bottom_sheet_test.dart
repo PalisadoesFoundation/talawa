@@ -95,9 +95,9 @@ void main() {
       // Default stubs to prevent null errors in tests that don't explicitly set them
       when(
         mockGroupChatViewModel.createGroupChat(
-          groupName: anyNamed('groupName'),
-          description: anyNamed('description'),
-          memberIds: anyNamed('memberIds'),
+          groupName: anyNamed('groupName') ?? '',
+          description: anyNamed('description') ?? '',
+          memberIds: anyNamed('memberIds') ?? [],
         ),
       ).thenAnswer(
         (_) async => Chat(
