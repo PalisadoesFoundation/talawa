@@ -195,12 +195,12 @@ void main() {
         final oldBox = MockHiveBox<AsymetricKeys>();
         when(oldBox.toMap())
             .thenReturn({'key_pair': AsymetricKeys(keyPair: keyPair)});
-        when(oldBox.close()).thenAnswer((_) async {});
+        when(oldBox.close()).thenAnswer((_) => Future.value());
 
         when(mockHiveInterface.openBox<AsymetricKeys>(
           HiveKeys.asymetricKeyBoxKey,
           encryptionCipher: null,
-        )).thenAnswer((_) async => oldBox);
+        )).thenAnswer((_) => Future.value(oldBox));
 
         await encryptor.saveKeyPair(
           keyPair,
@@ -219,7 +219,7 @@ void main() {
 
       test(
           'Migration Failure: Should rethrow exception if legacy open also fails',
-          () async {
+          () {
         when(mockHiveInterface.openBox<AsymetricKeys>(
           HiveKeys.asymetricKeyBoxKey,
           encryptionCipher: argThat(isNotNull, named: 'encryptionCipher'),
@@ -242,11 +242,11 @@ void main() {
       });
 
       test('loadKeyPair: Should throw specific exception if key_pair is null',
-          () async {
+          () {
         when(mockHiveInterface.openBox<AsymetricKeys>(
           HiveKeys.asymetricKeyBoxKey,
           encryptionCipher: anyNamed('encryptionCipher'),
-        )).thenAnswer((_) async => mockHiveBox);
+        )).thenAnswer((_) => Future.value(mockHiveBox));
 
         when(mockHiveBox.get('key_pair')).thenReturn(null);
 
