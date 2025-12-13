@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:pointycastle/asymmetric/oaep.dart';
@@ -230,11 +230,22 @@ class Encryptor {
     final hiveInstance = hive ?? Hive;
 
     if (hiveInstance.isBoxOpen(HiveKeys.asymetricKeyBoxKey)) {
-      await hiveInstance
-          .box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey)
-          .close();
+      try {
+        await hiveInstance
+            .box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey)
+            .close();
+      } catch (e, st) {
+        // Ignore close errors but log them
+        debugPrint('Failed to close asymmetric key box: $e\nStack trace: $st');
+      }
     }
-    await hiveInstance.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey);
+    try {
+      await hiveInstance.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey);
+    } catch (e, stackTrace) {
+      // Ignore delete from disk errors but log them
+      debugPrint(
+          'Failed to delete asymmetric key box from disk: $e\nStack trace: $stackTrace');
+    }
 
     await storage.delete(key: HiveKeys.encryptionKey);
   }
