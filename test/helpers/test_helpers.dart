@@ -1157,6 +1157,15 @@ GroupChatViewModel getAndRegisterGroupChatViewModel() {
   when(cachedViewModel.deleteGroupChat(any)).thenAnswer((_) async => true);
   when(cachedViewModel.leaveGroupChat(any, any)).thenAnswer((_) async => true);
 
+  // Add default stub for createGroupChat to prevent ResponseFormatException
+  when(
+    cachedViewModel.createGroupChat(
+      groupName: anyNamed('groupName'),
+      description: anyNamed('description'),
+      memberIds: anyNamed('memberIds'),
+    ),
+  ).thenAnswer((_) async => null);
+
   locator.registerSingleton<GroupChatViewModel>(cachedViewModel);
   return cachedViewModel;
 }

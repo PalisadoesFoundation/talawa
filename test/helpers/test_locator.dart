@@ -60,9 +60,10 @@ import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model
 import 'package:talawa/views/demo_page_view.dart';
 
 GetIt locator = GetIt.instance;
-final userConfig = locator<UserConfig>();
-final navigationService = locator<NavigationService>();
-final databaseFunctions = locator<DataBaseMutationFunctions>();
+UserConfig get userConfig => locator<UserConfig>();
+NavigationService get navigationService => locator<NavigationService>();
+DataBaseMutationFunctions get databaseFunctions =>
+    locator<DataBaseMutationFunctions>();
 final graphqlConfig = locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();

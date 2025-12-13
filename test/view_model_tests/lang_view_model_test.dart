@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -116,7 +117,8 @@ void main() {
       await model.initialize();
 
       // Setup unauthenticated user
-      userConfig.currentUser.id = 'null';
+      reset(userConfig);
+      when(userConfig.currentUser).thenReturn(User(id: 'null'));
 
       await model.selectLanguagePress();
 

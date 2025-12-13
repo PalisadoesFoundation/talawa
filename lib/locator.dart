@@ -62,16 +62,17 @@ import 'package:talawa/views/demo_page_view.dart';
 GetIt locator = GetIt.instance;
 
 ///GetIt for UserConfig.
-final userConfig = locator<UserConfig>();
+UserConfig get userConfig => locator<UserConfig>();
 
 ///GetIt for NavigationService.
-final navigationService = locator<NavigationService>();
+NavigationService get navigationService => locator<NavigationService>();
 
 ///GetIt for DataBaseMutationFunctions.
-final databaseFunctions = locator<DataBaseMutationFunctions>();
+DataBaseMutationFunctions get databaseFunctions =>
+    locator<DataBaseMutationFunctions>();
 
 ///GetIt for GraphqlConfig.
-final graphqlConfig = locator<GraphqlConfig>();
+GraphqlConfig get graphqlConfig => locator<GraphqlConfig>();
 
 ///GetIt for SizeConfig.
 final sizeConfig = locator<SizeConfig>();

@@ -14,7 +14,13 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:mockito/mockito.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/services/graphql_config.dart';
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
 
 void main() {
   const Key selectOrgKey = Key("selectOrgKey");
@@ -57,6 +63,33 @@ void main() {
 
     testWidgets("Test if SelectOrganization Page is displayed",
         (WidgetTester tester) async {
+      // Mock GraphQL response
+      final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
+      final mockHttpClient = MockHttpClient();
+
+      when(mockHttpClient.send(any)).thenAnswer((_) async {
+        return http.StreamedResponse(
+          Stream.fromIterable([
+            utf8.encode(jsonEncode({
+              "data": {"organizations": []}
+            }))
+          ]),
+          200,
+        );
+      });
+
+      final link = HttpLink(
+        'https://talawa-graphql-api.herokuapp.com/graphql',
+        httpClient: mockHttpClient,
+      );
+
+      when(mockGraphqlConfig.clientToQuery()).thenReturn(
+        GraphQLClient(
+          link: link,
+          cache: GraphQLCache(),
+        ),
+      );
+
       await tester.runAsync(() async {
         await tester.pumpWidget(createSelectOrgPage());
         await tester.pumpAndSettle(const Duration(milliseconds: 500));
@@ -68,6 +101,48 @@ void main() {
     testWidgets('Test organization search list with valid data',
         (tester) async {
       // Populate mock data for organizations
+      final orgs = List.generate(
+        5,
+        (i) => {
+          "id": "$i",
+          "name": "Organization $i",
+          "description": "Organization $i description",
+          "addressLine1": "Address 1",
+          "addressLine2": "Address 2",
+          "avatarURL": null,
+          "countryCode": "US",
+          "state": "State",
+          "isUserRegistrationRequired": true,
+        },
+      );
+
+      // Mock GraphQL response with data
+      final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
+      final mockHttpClient = MockHttpClient();
+
+      when(mockHttpClient.send(any)).thenAnswer((_) async {
+        return http.StreamedResponse(
+          Stream.fromIterable([
+            utf8.encode(jsonEncode({
+              "data": {"organizations": orgs}
+            }))
+          ]),
+          200,
+        );
+      });
+
+      final link = HttpLink(
+        'https://talawa-graphql-api.herokuapp.com/graphql',
+        httpClient: mockHttpClient,
+      );
+
+      when(mockGraphqlConfig.clientToQuery()).thenReturn(
+        GraphQLClient(
+          link: link,
+          cache: GraphQLCache(),
+        ),
+      );
+
       orgViewModel.organizations = List.generate(
         5,
         (i) => OrgInfo(
@@ -95,6 +170,33 @@ void main() {
     });
 
     testWidgets("Test if back-arrow is present", (WidgetTester tester) async {
+      // Mock GraphQL response
+      final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
+      final mockHttpClient = MockHttpClient();
+
+      when(mockHttpClient.send(any)).thenAnswer((_) async {
+        return http.StreamedResponse(
+          Stream.fromIterable([
+            utf8.encode(jsonEncode({
+              "data": {"organizations": []}
+            }))
+          ]),
+          200,
+        );
+      });
+
+      final link = HttpLink(
+        'https://talawa-graphql-api.herokuapp.com/graphql',
+        httpClient: mockHttpClient,
+      );
+
+      when(mockGraphqlConfig.clientToQuery()).thenReturn(
+        GraphQLClient(
+          link: link,
+          cache: GraphQLCache(),
+        ),
+      );
+
       await tester.runAsync(() async {
         await tester.pumpWidget(createSelectOrgPage());
         await tester.pumpAndSettle(const Duration(milliseconds: 500));
