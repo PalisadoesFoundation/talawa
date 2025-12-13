@@ -81,38 +81,51 @@ class SetUrlViewModel extends BaseModel {
 
   /// Build greeting message with localized text.
   ///
-  /// **params**: `context` - BuildContext for theme and localization
+  /// **params**:
+  /// * `context`: BuildContext for theme and localization
   ///
-  /// **returns**: List of greeting text segments with styles
+  /// **returns**:
+  /// * `List<Map<String, dynamic>>`: List of greeting text segments with styles
   List<Map<String, dynamic>> _buildGreeting(BuildContext context) {
     final loc = AppLocalizations.of(context);
-    final titleStyle = Theme.of(context).textTheme.titleLarge!
+    final titleStyle = Theme.of(context)
+        .textTheme
+        .titleLarge!
         .copyWith(fontSize: 24, fontWeight: FontWeight.w700);
     final normalStyle = Theme.of(context).textTheme.headlineSmall;
-    final orgStyle = normalStyle!.copyWith(
-      fontSize: 24, color: const Color(0xFF4285F4));
+    final orgStyle =
+        normalStyle!.copyWith(fontSize: 24, color: const Color(0xFF4285F4));
     return [
       {'text': loc?.strictTranslate('Join') ?? 'Join', 'textStyle': titleStyle},
       {'text': ' ', 'textStyle': normalStyle},
       {'text': loc?.strictTranslate('and') ?? 'and', 'textStyle': normalStyle},
       {'text': ' ', 'textStyle': normalStyle},
-      {'text': loc?.strictTranslate('Collaborate') ?? 'Collaborate', 'textStyle': titleStyle},
+      {
+        'text': loc?.strictTranslate('Collaborate') ?? 'Collaborate',
+        'textStyle': titleStyle
+      },
       {'text': ' ', 'textStyle': normalStyle},
-      {'text': loc?.strictTranslate('with your') ?? 'with your', 'textStyle': normalStyle},
+      {
+        'text': loc?.strictTranslate('with your') ?? 'with your',
+        'textStyle': normalStyle
+      },
       {'text': ' ', 'textStyle': normalStyle},
-      {'text': loc?.strictTranslate('Organizations') ?? 'Organizations', 'textStyle': orgStyle},
+      {
+        'text': loc?.strictTranslate('Organizations') ?? 'Organizations',
+        'textStyle': orgStyle
+      },
     ];
   }
 
   /// Get localized error messages.
   ///
-  /// **params**: None
+  /// **params**:
+  /// * `context`: BuildContext for localization
   ///
-  /// **returns**: Map of error message keys to localized strings
-  Map<String, String> _getLocalizedMessages() {
-    final loc = navigationService.navigatorKey.currentContext != null
-        ? AppLocalizations.of(navigationService.navigatorKey.currentContext!)
-        : null;
+  /// **returns**:
+  /// * `Map<String, String>`: Map of error message keys to localized strings
+  Map<String, String> _getLocalizedMessages(BuildContext? context) {
+    final loc = context != null ? AppLocalizations.of(context) : null;
     return {
       'urlNotExist': loc?.strictTranslate(
               "URL doesn't exist/no connection please check") ??
@@ -125,9 +138,11 @@ class SetUrlViewModel extends BaseModel {
 
   /// Validate and save URL to Hive.
   ///
-  /// **params**: `uri` - URL string to validate
+  /// **params**:
+  /// * `uri`: URL string to validate and save
   ///
-  /// **returns**: True if URL is valid and saved
+  /// **returns**:
+  /// * `Future<bool>`: True if URL is valid and saved, false otherwise
   Future<bool> _validateAndSaveUrl(String uri) async {
     final urlPresent = await locator<Validator>().validateUrlExistence(uri);
     if (urlPresent == true) {
@@ -142,9 +157,12 @@ class SetUrlViewModel extends BaseModel {
 
   /// Validate URL and navigate to specified route.
   ///
-  /// **params**: `navigateTo` - Route, `argument` - Optional argument
+  /// **params**:
+  /// * `navigateTo`: Route to navigate to after validation
+  /// * `argument`: Optional argument to pass to the route
   ///
-  /// **returns**: None
+  /// **returns**:
+  ///   None
   Future<void> checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
@@ -157,21 +175,22 @@ class SetUrlViewModel extends BaseModel {
             : TalawaErrors.youAreOfflineUnableToSignUp,
         action: () async {
           navigationService.pushDialog(
-            const CustomProgressDialog(key: Key('UrlCheckProgress')));
+              const CustomProgressDialog(key: Key('UrlCheckProgress')));
           bool shouldNavigate = false;
+          final context = navigationService.navigatorKey.currentContext;
+          final messages = _getLocalizedMessages(context);
           try {
             validate = AutovalidateMode.disabled;
             final uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
-            final messages = _getLocalizedMessages();
             if (await _validateAndSaveUrl(uri)) {
               shouldNavigate = true;
             } else {
               navigationService.showTalawaErrorSnackBar(
-                messages['urlNotExist']!, MessageType.error);
+                  messages['urlNotExist']!, MessageType.error);
             }
           } catch (_) {
             navigationService.showTalawaErrorSnackBar(
-              _getLocalizedMessages()['somethingWrong']!, MessageType.error);
+                messages['somethingWrong']!, MessageType.error);
           } finally {
             navigationService.pop();
           }
@@ -202,20 +221,21 @@ class SetUrlViewModel extends BaseModel {
         criticalActionFailureMessage: TalawaErrors.userActionNotSaved,
         action: () async {
           navigationService.pushDialog(
-            const CustomProgressDialog(key: Key('UrlCheckProgress')));
+              const CustomProgressDialog(key: Key('UrlCheckProgress')));
+          final context = navigationService.navigatorKey.currentContext;
+          final messages = _getLocalizedMessages(context);
           try {
             validate = AutovalidateMode.disabled;
             final uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
-            final messages = _getLocalizedMessages();
             if (await _validateAndSaveUrl(uri)) {
               navigationService.showSnackBar(messages['urlValid']!);
             } else {
               navigationService.showTalawaErrorDialog(
-                messages['urlNotExist']!, MessageType.info);
+                  messages['urlNotExist']!, MessageType.info);
             }
           } catch (_) {
             navigationService.showTalawaErrorDialog(
-              _getLocalizedMessages()['somethingWrong']!, MessageType.info);
+                messages['somethingWrong']!, MessageType.info);
           } finally {
             navigationService.pop();
           }
@@ -242,7 +262,8 @@ class SetUrlViewModel extends BaseModel {
         borderRadius: BorderRadius.only(topLeft: radius, topRight: radius),
       ),
       builder: (context) => ClipRRect(
-        borderRadius: const BorderRadius.only(topLeft: radius, topRight: radius),
+        borderRadius:
+            const BorderRadius.only(topLeft: radius, topRight: radius),
         child: Container(
           height: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
@@ -287,16 +308,15 @@ class SetUrlViewModel extends BaseModel {
     });
   }
 
-  /// This is the helper function which execute when the on QR view created.
+  /// Helper to stop camera and cancel QR subscription.
   ///
   /// **params**:
-  /// * `controller`: QRViewController
+  /// * `controller`: QRViewController instance
   ///
   /// **returns**:
   ///   None
-
-  /// Helper to stop camera and cancel QR subscription.
-  Future<void> _stopCameraAndCancelSubscription(QRViewController controller) async {
+  Future<void> _stopCameraAndCancelSubscription(
+      QRViewController controller) async {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       await controller.pauseCamera();
     } else {
@@ -308,9 +328,11 @@ class SetUrlViewModel extends BaseModel {
 
   /// Handle QR code scanning.
   ///
-  /// **params**: `controller` - QRViewController instance
+  /// **params**:
+  /// * `controller`: QRViewController instance
   ///
-  /// **returns**: None
+  /// **returns**:
+  ///   None
   void _onQRViewCreated(QRViewController controller) {
     _qrController = controller;
 
