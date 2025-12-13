@@ -10,7 +10,7 @@ dev_dependencies:
 dependencies:
   # we will use analyzer for inspecting Dart files
   analyzer: ">=5.12.0 <=7.3.0"
-  analyzer_plugin: ^0.13.0
+  analyzer_plugin: ^0.11.0
   
   # custom_lint_builder will give us tools for writing lints
   custom_lint: ^0.6.0
