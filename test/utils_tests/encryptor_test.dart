@@ -94,7 +94,7 @@ void main() {
 
       when(mockHiveInterface.openBox<AsymetricKeys>(
         HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: captureAnyNamed('encryptionCipher'),
+        encryptionCipher: anyNamed('encryptionCipher'),
       )).thenAnswer((_) async => mockHiveBox);
 
       // Act
@@ -121,7 +121,7 @@ void main() {
 
       when(mockHiveInterface.openBox<AsymetricKeys>(
         HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: captureAnyNamed('encryptionCipher'),
+        encryptionCipher: anyNamed('encryptionCipher'),
       )).thenAnswer((_) async => mockHiveBox);
 
       // Act
