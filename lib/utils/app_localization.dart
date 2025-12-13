@@ -47,7 +47,7 @@ class AppLocalizations {
   /// * `locale`: The locale to load for testing
   ///
   /// **returns**:
-  /// * `Future<void>`: A future that completes when loading is done
+  ///   None
   Future<void> loadTest(Locale locale) async {
     isTest = true;
   }
