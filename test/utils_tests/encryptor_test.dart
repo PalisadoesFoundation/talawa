@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -488,8 +487,7 @@ void main() {
       });
     });
 
-    test(
-        'saveKeyPair should work correctly with injected secureStorage',
+    test('saveKeyPair should work correctly with injected secureStorage',
         () async {
       // Reset mocks to clear previous interactions
       reset(mockHiveInterface);
