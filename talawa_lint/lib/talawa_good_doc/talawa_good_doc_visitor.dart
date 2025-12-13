@@ -2,8 +2,8 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-// TODO: Upgrade to atNode/atToken API when hive_generator supports analyzer 7.x
-// Currently using reportErrorForNode/reportErrorForToken for compatibility with analyzer_plugin 0.11.0
+// Intentionally using reportErrorForNode/reportErrorForToken for compatibility
+// with analyzer_plugin ^0.11.0.
 
 import 'package:_fe_analyzer_shared/src/scanner/token.dart';
 import 'package:analyzer/dart/ast/ast.dart';
