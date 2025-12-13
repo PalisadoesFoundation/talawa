@@ -230,7 +230,9 @@ class Encryptor {
     final hiveInstance = hive ?? Hive;
 
     if (hiveInstance.isBoxOpen(HiveKeys.asymetricKeyBoxKey)) {
-      await hiveInstance.box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey).close();
+      await hiveInstance
+          .box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey)
+          .close();
     }
     await hiveInstance.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey);
 
