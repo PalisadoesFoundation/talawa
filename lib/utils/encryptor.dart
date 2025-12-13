@@ -64,6 +64,9 @@ class Encryptor {
 
   /// Returns a configured instance of [FlutterSecureStorage] with strict security options.
   ///
+  /// **params**:
+  ///   None
+  ///
   /// **returns**:
   /// * `FlutterSecureStorage`: Configured storage instance.
   FlutterSecureStorage _getConfiguredStorage() {
@@ -130,11 +133,16 @@ class Encryptor {
         HiveKeys.asymetricKeyBoxKey,
         encryptionCipher: HiveAesCipher(encryptionKey),
       );
-    } catch (_) {
+    } catch (e) {
       // Fallback: Migration
-      // 1. Open unencrypted legacy box
-      final oldBox =
-          await hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+      late final Box<AsymetricKeys> oldBox;
+      try {
+        // 1. Open unencrypted legacy box
+        oldBox = await hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+      } catch (_) {
+        // Not a legacy-unencrypted box; propagate the original failure.
+        rethrow;
+      }
 
       // 2. Cache data
       final data = Map<dynamic, AsymetricKeys>.from(oldBox.toMap());
@@ -195,7 +203,13 @@ class Encryptor {
     final encryptionKey =
         await _getHiveEncryptionKey(secureStorage: secureStorage);
     final keysBox = await _openOrMigrateBox(hive, encryptionKey);
-    return keysBox.get('key_pair')!.keyPair;
+    final keyPairWrapper = keysBox.get('key_pair');
+
+    if (keyPairWrapper == null) {
+      throw Exception('No key pair found in secure store — generate new keys');
+    }
+
+    return keyPairWrapper.keyPair;
   }
 
   /// Deletes the key pair and the encryption key from storage.
@@ -203,19 +217,22 @@ class Encryptor {
   /// Should be called on logout to ensure clean state.
   ///
   /// **params**:
+  /// * `hive`: Optional [HiveInterface] to override default global Hive.
   /// * `secureStorage`: Optional [FlutterSecureStorage] to override default.
   ///
   /// **returns**:
   ///   None
   Future<void> deleteKeyPair({
+    HiveInterface? hive,
     FlutterSecureStorage? secureStorage,
   }) async {
     final storage = secureStorage ?? _getConfiguredStorage();
+    final hiveInstance = hive ?? Hive;
 
-    if (Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey)) {
-      await Hive.box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey).close();
+    if (hiveInstance.isBoxOpen(HiveKeys.asymetricKeyBoxKey)) {
+      await hiveInstance.box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey).close();
     }
-    await Hive.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey);
+    await hiveInstance.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey);
 
     await storage.delete(key: HiveKeys.encryptionKey);
   }

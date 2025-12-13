@@ -189,6 +189,6 @@ class HiveKeys {
   /// The key used to identify the Hive box that stores pinned posts.
   static const pinnedPostKey = 'pinned_posts_key';
 
-  /// The key used to identify the encryption key in Secure Storage.
+  /// The key used to store/retrieve the Hive encryption key in Secure Storage.
   static const encryptionKey = 'hive_encryption_key';
 }
