@@ -77,6 +77,12 @@ void main() {
       )).captured;
       expect(uniqueCaptures.last, isA<HiveAesCipher>());
       verify(mockHiveBox.put('key_pair', any));
+
+      // Verify encryption key is stored and correct length
+      final storedKey = await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
+      expect(storedKey, isNotNull);
+      final keyBytes = base64Decode(storedKey!);
+      expect(keyBytes.length, 32); // AES-256 requires 32 bytes
     });
     test('For loadPairKey()', () async {
       when(mockHiveInterface.openBox<AsymetricKeys>(
@@ -97,6 +103,12 @@ void main() {
       )).captured;
       expect(uniqueCaptures.last, isA<HiveAesCipher>());
       verify(mockHiveBox.get('key_pair'));
+      
+      // Verify encryption key is checked in storage
+      final storedKey = await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
+      expect(storedKey, isNotNull);
+      final keyBytes = base64Decode(storedKey!);
+      expect(keyBytes.length, 32);
     });
     test(
         'For checking whether the data is properly encrypted through RSA by assymetricEncryptString()',
