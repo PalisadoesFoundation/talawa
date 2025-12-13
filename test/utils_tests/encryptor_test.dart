@@ -80,8 +80,37 @@ void main() {
       final storedKey =
           await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
       expect(storedKey, isNotNull);
-      final keyBytes = base64Decode(storedKey!);
+      final keyBytes = base64Url.decode(storedKey!);
       expect(keyBytes.length, 32); // AES-256 requires 32 bytes
+    });
+
+    test('Should regenerate encryption key if stored key is corrupted',
+        () async {
+      // Setup: Corrupted key in storage (invalid base64)
+      await fakeSecureStorage.write(
+          key: HiveKeys.encryptionKey, value: 'invalid_base_64_value@@@');
+
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((_) async => mockHiveBox);
+
+      // Act: Trigger key loading/generation
+      await encryptor.saveKeyPair(
+        keyPair,
+        mockHiveInterface,
+        secureStorage: fakeSecureStorage,
+      );
+
+      // Assert: New valid key should be generated and stored
+      final storedKey =
+          await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
+      expect(storedKey, isNotNull);
+      expect(storedKey, isNot('invalid_base_64_value@@@'));
+
+      // Verify new key validity
+      final keyBytes = base64Url.decode(storedKey!);
+      expect(keyBytes.length, 32);
     });
     test('For loadPairKey()', () async {
       when(mockHiveInterface.openBox<AsymetricKeys>(
