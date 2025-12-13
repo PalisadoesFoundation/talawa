@@ -488,22 +488,70 @@ void main() {
       });
     });
 
-    test('Should cover default parameter fallbacks (hive/storage)', () {
-      // This test checks that the default values for hive and secureStorage are assigned.
-      // We can't easily mock the global Hive or FlutterSecureStorage instance here without
-      // more invasive refactoring, but we can verify the lines are hit by calling with nulls.
-      // The calls might throw due to unconfigured environment, but the lines will be executed.
-      runZonedGuarded(() async {
-        try {
-          // Lines 72, 93
-          await encryptor.saveKeyPair(keyPair, mockHiveInterface,
-              secureStorage: null);
-        } catch (_) {}
-        try {
-          // Lines 229, 230
-          await encryptor.deleteKeyPair(hive: null, secureStorage: null);
-        } catch (_) {}
-      }, (error, stack) {});
+    test(
+        'saveKeyPair should work correctly with injected secureStorage',
+        () async {
+      // Reset mocks to clear previous interactions
+      reset(mockHiveInterface);
+      reset(mockHiveBox);
+
+      // Verify that saveKeyPair works when secureStorage is explicitly provided
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((_) async => mockHiveBox);
+
+      // Use the fake storage instead of null
+      await encryptor.saveKeyPair(
+        keyPair,
+        mockHiveInterface,
+        secureStorage: fakeSecureStorage,
+      );
+
+      // Verify the box was opened (which means encryption key was obtained)
+      verify(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).called(1);
+      verify(mockHiveBox.put('key_pair', any)).called(1);
+
+      // Verify encryption key was stored
+      final storedKey =
+          await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
+      expect(storedKey, isNotNull);
+    });
+
+    test('deleteKeyPair should work with explicit parameters', () async {
+      // Reset mocks to clear previous interactions
+      reset(mockHiveInterface);
+      reset(mockHiveBox);
+
+      // Setup: Mock the Hive behavior
+      when(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
+          .thenReturn(false);
+      when(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
+          .thenAnswer((_) => Future.value());
+
+      // Pre-fill fake storage
+      await fakeSecureStorage.write(
+          key: HiveKeys.encryptionKey, value: 'test_key');
+
+      // Act: Verify the method works with explicit parameters
+      await encryptor.deleteKeyPair(
+        hive: mockHiveInterface,
+        secureStorage: fakeSecureStorage,
+      );
+
+      // Assert: Verify interactions occurred
+      verify(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
+          .called(1);
+      verify(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
+          .called(1);
+
+      // Verify key was deleted from storage
+      final storedKey =
+          await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
+      expect(storedKey, isNull);
     });
   });
 }
