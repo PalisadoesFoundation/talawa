@@ -75,73 +75,79 @@ class SetUrlViewModel extends BaseModel {
       // (Optionally: run Validator/Uri.tryParse checks before persisting.)
       url.text = uri;
     }
-
-    /// greeting message.
-    final loc = AppLocalizations.of(context);
-    greeting = [
-      {
-        'text': loc?.strictTranslate('Join') ?? 'Join',
-        'textStyle': Theme.of(context)
-            .textTheme
-            .titleLarge!
-            .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
-      },
-      {
-        'text': ' ',
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-      {
-        'text': loc?.strictTranslate('and') ?? 'and',
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-      {
-        'text': ' ',
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-      {
-        'text': loc?.strictTranslate('Collaborate') ?? 'Collaborate',
-        'textStyle': Theme.of(context)
-            .textTheme
-            .titleLarge!
-            .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
-      },
-      {
-        'text': ' ',
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-      {
-        'text': loc?.strictTranslate('with your') ?? 'with your',
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-      {
-        'text': ' ',
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-      {
-        'text': loc?.strictTranslate('Organizations') ?? 'Organizations',
-        'textStyle': Theme.of(context)
-            .textTheme
-            .headlineSmall!
-            .copyWith(fontSize: 24, color: const Color(0xFF4285F4)),
-      },
-    ];
+    greeting = _buildGreeting(context);
     notifyListeners();
   }
 
-  /// This function check the URL and navigate to the respective URL.
+  /// Build greeting message with localized text.
   ///
-  /// **params**:
-  /// * `navigateTo`: navigation route
-  /// * `argument`: message
+  /// **params**: `context` - BuildContext for theme and localization
   ///
-  /// **returns**:
-  ///   None
+  /// **returns**: List of greeting text segments with styles
+  List<Map<String, dynamic>> _buildGreeting(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    final titleStyle = Theme.of(context).textTheme.titleLarge!
+        .copyWith(fontSize: 24, fontWeight: FontWeight.w700);
+    final normalStyle = Theme.of(context).textTheme.headlineSmall;
+    final orgStyle = normalStyle!.copyWith(
+      fontSize: 24, color: const Color(0xFF4285F4));
+    return [
+      {'text': loc?.strictTranslate('Join') ?? 'Join', 'textStyle': titleStyle},
+      {'text': ' ', 'textStyle': normalStyle},
+      {'text': loc?.strictTranslate('and') ?? 'and', 'textStyle': normalStyle},
+      {'text': ' ', 'textStyle': normalStyle},
+      {'text': loc?.strictTranslate('Collaborate') ?? 'Collaborate', 'textStyle': titleStyle},
+      {'text': ' ', 'textStyle': normalStyle},
+      {'text': loc?.strictTranslate('with your') ?? 'with your', 'textStyle': normalStyle},
+      {'text': ' ', 'textStyle': normalStyle},
+      {'text': loc?.strictTranslate('Organizations') ?? 'Organizations', 'textStyle': orgStyle},
+    ];
+  }
 
+  /// Get localized error messages.
+  ///
+  /// **params**: None
+  ///
+  /// **returns**: Map of error message keys to localized strings
+  Map<String, String> _getLocalizedMessages() {
+    final loc = navigationService.navigatorKey.currentContext != null
+        ? AppLocalizations.of(navigationService.navigatorKey.currentContext!)
+        : null;
+    return {
+      'urlNotExist': loc?.strictTranslate(
+              "URL doesn't exist/no connection please check") ??
+          "URL doesn't exist/no connection please check",
+      'somethingWrong': loc?.strictTranslate("Something went wrong!") ??
+          "Something went wrong!",
+      'urlValid': loc?.strictTranslate("URL is valid") ?? "URL is valid",
+    };
+  }
+
+  /// Validate and save URL to Hive.
+  ///
+  /// **params**: `uri` - URL string to validate
+  ///
+  /// **returns**: True if URL is valid and saved
+  Future<bool> _validateAndSaveUrl(String uri) async {
+    final urlPresent = await locator<Validator>().validateUrlExistence(uri);
+    if (urlPresent == true) {
+      final box = Hive.box('url');
+      box.put(urlKey, uri);
+      box.put(imageUrlKey, "$uri/talawa/");
+      graphqlConfig.getOrgUrl();
+      return true;
+    }
+    return false;
+  }
+
+  /// Validate URL and navigate to specified route.
+  ///
+  /// **params**: `navigateTo` - Route, `argument` - Optional argument
+  ///
+  /// **returns**: None
   Future<void> checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
-
-    /// if the url is valid.
     final formState = formKey.currentState;
     if (formState != null && formState.validate()) {
       await actionHandlerService.performAction(
@@ -151,42 +157,21 @@ class SetUrlViewModel extends BaseModel {
             : TalawaErrors.youAreOfflineUnableToSignUp,
         action: () async {
           navigationService.pushDialog(
-            const CustomProgressDialog(
-              key: Key('UrlCheckProgress'),
-            ),
-          );
+            const CustomProgressDialog(key: Key('UrlCheckProgress')));
           bool shouldNavigate = false;
           try {
             validate = AutovalidateMode.disabled;
-            final String uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
-
-            // Get context and localized strings before async operations
-            final context = navigationService.navigatorKey.currentContext;
-            final localizations =
-                context != null ? AppLocalizations.of(context) : null;
-            final urlNotExistMessage = localizations?.strictTranslate(
-                    "URL doesn't exist/no connection please check") ??
-                "URL doesn't exist/no connection please check";
-            final unableToValidateMessage =
-                localizations?.strictTranslate("Something went wrong!") ??
-                    "Something went wrong!";
-
-            final bool? urlPresent =
-                await locator<Validator>().validateUrlExistence(uri);
-            if (urlPresent == true) {
-              final box = Hive.box('url');
-              box.put(urlKey, uri);
-              box.put(imageUrlKey, "$uri/talawa/");
-              graphqlConfig.getOrgUrl();
+            final uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
+            final messages = _getLocalizedMessages();
+            if (await _validateAndSaveUrl(uri)) {
               shouldNavigate = true;
             } else {
               navigationService.showTalawaErrorSnackBar(
-                urlPresent == false
-                    ? urlNotExistMessage
-                    : unableToValidateMessage,
-                MessageType.error,
-              );
+                messages['urlNotExist']!, MessageType.error);
             }
+          } catch (_) {
+            navigationService.showTalawaErrorSnackBar(
+              _getLocalizedMessages()['somethingWrong']!, MessageType.error);
           } finally {
             navigationService.pop();
           }
@@ -210,7 +195,6 @@ class SetUrlViewModel extends BaseModel {
   Future<void> checkURLandShowPopUp(String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
-
     final isValid = formKey.currentState?.validate() ?? false;
     if (isValid) {
       await actionHandlerService.performAction(
@@ -218,45 +202,20 @@ class SetUrlViewModel extends BaseModel {
         criticalActionFailureMessage: TalawaErrors.userActionNotSaved,
         action: () async {
           navigationService.pushDialog(
-            const CustomProgressDialog(
-              key: Key('UrlCheckProgress'),
-            ),
-          );
-
+            const CustomProgressDialog(key: Key('UrlCheckProgress')));
           try {
             validate = AutovalidateMode.disabled;
-            final String uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
-
-            // Get context and localized strings before async operations
-            final context = navigationService.navigatorKey.currentContext;
-            final localizations =
-                context != null ? AppLocalizations.of(context) : null;
-            final urlNotExistMessage = localizations?.strictTranslate(
-                    "URL doesn't exist/no connection please check") ??
-                "URL doesn't exist/no connection please check";
-            final unableToValidateMessage =
-                localizations?.strictTranslate("Something went wrong!") ??
-                    "Something went wrong!";
-            final urlValidMessage =
-                localizations?.strictTranslate("URL is valid") ??
-                    "URL is valid";
-
-            final bool? urlPresent =
-                await locator<Validator>().validateUrlExistence(uri);
-            if (urlPresent == true) {
-              final box = Hive.box('url');
-              box.put(urlKey, uri);
-              box.put(imageUrlKey, "$uri/talawa/");
-              graphqlConfig.getOrgUrl();
-              navigationService.showSnackBar(urlValidMessage);
+            final uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
+            final messages = _getLocalizedMessages();
+            if (await _validateAndSaveUrl(uri)) {
+              navigationService.showSnackBar(messages['urlValid']!);
             } else {
               navigationService.showTalawaErrorDialog(
-                urlPresent == false
-                    ? urlNotExistMessage
-                    : unableToValidateMessage,
-                MessageType.info,
-              );
+                messages['urlNotExist']!, MessageType.info);
             }
+          } catch (_) {
+            navigationService.showTalawaErrorDialog(
+              _getLocalizedMessages()['somethingWrong']!, MessageType.info);
           } finally {
             navigationService.pop();
           }
@@ -275,56 +234,45 @@ class SetUrlViewModel extends BaseModel {
   ///   None
 
   void scanQR(BuildContext context) {
+    const radius = Radius.circular(30);
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
+        borderRadius: BorderRadius.only(topLeft: radius, topRight: radius),
       ),
-      builder: (BuildContext context) {
-        return ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+      builder: (context) => ClipRRect(
+        borderRadius: const BorderRadius.only(topLeft: radius, topRight: radius),
+        child: Container(
+          height: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary,
           ),
-          child: Container(
-            height: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 250,
-                  width: 250,
-                  child: QRView(
-                    key: qrKey,
-                    onQRViewCreated: _onQRViewCreated,
-                    overlay: QrScannerOverlayShape(
-                      borderRadius: 10,
-                      borderLength: 20,
-                      borderWidth: 10,
-                      cutOutSize: 250,
-                    ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 250,
+                width: 250,
+                child: QRView(
+                  key: qrKey,
+                  onQRViewCreated: _onQRViewCreated,
+                  overlay: QrScannerOverlayShape(
+                    borderRadius: 10,
+                    borderLength: 20,
+                    borderWidth: 10,
+                    cutOutSize: 250,
                   ),
                 ),
-                SizedBox(
-                  height: SizeConfig.safeBlockVertical! * 4,
-                ),
-                Text(AppLocalizations.of(context)?.strictTranslate('Scan QR') ??
-                    'Scan QR'),
-                SizedBox(
-                  height: SizeConfig.safeBlockVertical! * 4,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: SizeConfig.safeBlockVertical! * 4),
+              Text(AppLocalizations.of(context)?.strictTranslate('Scan QR') ??
+                  'Scan QR'),
+              SizedBox(height: SizeConfig.safeBlockVertical! * 4),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     ).whenComplete(() async {
       await _qrSubscription?.cancel();
       _qrSubscription = null;
@@ -347,10 +295,25 @@ class SetUrlViewModel extends BaseModel {
   /// **returns**:
   ///   None
 
+  /// Helper to stop camera and cancel QR subscription.
+  Future<void> _stopCameraAndCancelSubscription(QRViewController controller) async {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      await controller.pauseCamera();
+    } else {
+      await controller.stopCamera();
+    }
+    await _qrSubscription?.cancel();
+    _qrSubscription = null;
+  }
+
+  /// Handle QR code scanning.
+  ///
+  /// **params**: `controller` - QRViewController instance
+  ///
+  /// **returns**: None
   void _onQRViewCreated(QRViewController controller) {
     _qrController = controller;
 
-    // Get context and localized strings before async operations
     final context = navigationService.navigatorKey.currentContext;
     final localizations = context != null ? AppLocalizations.of(context) : null;
     final cameraNotWorkingMessage =
@@ -361,7 +324,6 @@ class SetUrlViewModel extends BaseModel {
             "This QR is not for the App";
 
     _qrSubscription = controller.scannedDataStream.listen((scanData) async {
-      /// if the scanData is not empty.
       final code = scanData.code;
       if (code != null && code.isNotEmpty) {
         try {
@@ -376,13 +338,7 @@ class SetUrlViewModel extends BaseModel {
           url.text = parsed.origin;
           orgId = parsedOrgId;
           Vibration.vibrate(duration: 100);
-          if (defaultTargetPlatform == TargetPlatform.iOS) {
-            await controller.pauseCamera();
-          } else {
-            await controller.stopCamera();
-          }
-          await _qrSubscription?.cancel();
-          _qrSubscription = null;
+          await _stopCameraAndCancelSubscription(controller);
           final box = Hive.box('url');
           box.put(urlKey, url.text);
           box.put(imageUrlKey, "${url.text}/talawa/");
@@ -391,26 +347,14 @@ class SetUrlViewModel extends BaseModel {
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
-          if (defaultTargetPlatform == TargetPlatform.iOS) {
-            await controller.pauseCamera();
-          } else {
-            await controller.stopCamera();
-          }
-          await _qrSubscription?.cancel();
-          _qrSubscription = null;
+          await _stopCameraAndCancelSubscription(controller);
           navigationService.showTalawaErrorSnackBar(
             cameraNotWorkingMessage,
             MessageType.error,
           );
         } on Exception catch (e) {
           debugPrint(e.toString());
-          if (defaultTargetPlatform == TargetPlatform.iOS) {
-            await controller.pauseCamera();
-          } else {
-            await controller.stopCamera();
-          }
-          await _qrSubscription?.cancel();
-          _qrSubscription = null;
+          await _stopCameraAndCancelSubscription(controller);
           navigationService.showTalawaErrorSnackBar(
             qrNotForAppMessage,
             MessageType.error,
@@ -422,8 +366,6 @@ class SetUrlViewModel extends BaseModel {
 
   @override
   void dispose() {
-    // Cancel subscription without await in dispose since dispose is sync
-    // The subscription will be cleaned up by whenComplete in scanQR
     _qrSubscription?.cancel();
     url.dispose();
     urlFocus.dispose();
