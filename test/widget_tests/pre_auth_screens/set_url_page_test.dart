@@ -138,27 +138,51 @@ Future<void> main() async {
       //initializing the greeting text
       final greeting = [
         {
-          'text': 'Join ',
+          'text': 'Join',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
         },
         {
-          'text': 'and ',
+          'text': ' ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .headlineSmall,
         },
         {
-          'text': 'Collaborate ',
+          'text': 'and',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': ' ',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': 'Collaborate',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
         },
         {
-          'text': 'with your  ',
+          'text': ' ',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': 'with your',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': ' ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .headlineSmall,
@@ -388,27 +412,51 @@ Future<void> main() async {
       //initializing the greeting text
       final greeting = [
         {
-          'text': 'Join ',
+          'text': 'Join',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
         },
         {
-          'text': 'and ',
+          'text': ' ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .headlineSmall,
         },
         {
-          'text': 'Collaborate ',
+          'text': 'and',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': ' ',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': 'Collaborate',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
         },
         {
-          'text': 'with your  ',
+          'text': ' ',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': 'with your',
+          'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+              .textTheme
+              .headlineSmall,
+        },
+        {
+          'text': ' ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .headlineSmall,

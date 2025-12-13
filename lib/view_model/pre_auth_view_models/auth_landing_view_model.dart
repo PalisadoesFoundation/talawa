@@ -86,8 +86,8 @@ class AuthLandingViewModel extends BaseModel {
                 "URL doesn't exist/no connection please check") ??
             "URL doesn't exist/no connection please check";
         final unableToValidateMessage =
-            localizations?.strictTranslate("Unable to validate URL") ??
-                "Unable to validate URL";
+            localizations?.strictTranslate("Something went wrong!") ??
+                "Something went wrong!";
 
         if (uri == null || uri.isEmpty) {
           navigationService.pop();
@@ -112,6 +112,11 @@ class AuthLandingViewModel extends BaseModel {
               MessageType.error,
             );
           }
+        } catch (_) {
+          navigationService.showTalawaErrorSnackBar(
+            unableToValidateMessage,
+            MessageType.error,
+          );
         } finally {
           navigationService.pop();
         }

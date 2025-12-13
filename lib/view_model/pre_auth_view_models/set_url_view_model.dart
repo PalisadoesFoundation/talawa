@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -78,31 +77,48 @@ class SetUrlViewModel extends BaseModel {
     }
 
     /// greeting message.
+    final loc = AppLocalizations.of(context);
     greeting = [
       {
-        'text': AppLocalizations.of(context)!.strictTranslate('Join '),
+        'text': loc?.strictTranslate('Join') ?? 'Join',
         'textStyle': Theme.of(context)
             .textTheme
             .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
-        'text': AppLocalizations.of(context)!.strictTranslate('and '),
+        'text': ' ',
         'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
-        'text': AppLocalizations.of(context)!.strictTranslate('Collaborate '),
+        'text': loc?.strictTranslate('and') ?? 'and',
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
+      },
+      {
+        'text': ' ',
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
+      },
+      {
+        'text': loc?.strictTranslate('Collaborate') ?? 'Collaborate',
         'textStyle': Theme.of(context)
             .textTheme
             .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
-        'text': AppLocalizations.of(context)!.strictTranslate('with your  '),
+        'text': ' ',
         'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
-        'text': AppLocalizations.of(context)!.strictTranslate('Organizations'),
+        'text': loc?.strictTranslate('with your') ?? 'with your',
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
+      },
+      {
+        'text': ' ',
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
+      },
+      {
+        'text': loc?.strictTranslate('Organizations') ?? 'Organizations',
         'textStyle': Theme.of(context)
             .textTheme
             .headlineSmall!
@@ -142,7 +158,19 @@ class SetUrlViewModel extends BaseModel {
           bool shouldNavigate = false;
           try {
             validate = AutovalidateMode.disabled;
-            final String uri = url.text.trim();
+            final String uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
+
+            // Get context and localized strings before async operations
+            final context = navigationService.navigatorKey.currentContext;
+            final localizations =
+                context != null ? AppLocalizations.of(context) : null;
+            final urlNotExistMessage = localizations?.strictTranslate(
+                    "URL doesn't exist/no connection please check") ??
+                "URL doesn't exist/no connection please check";
+            final unableToValidateMessage =
+                localizations?.strictTranslate("Something went wrong!") ??
+                    "Something went wrong!";
+
             final bool? urlPresent =
                 await locator<Validator>().validateUrlExistence(uri);
             if (urlPresent == true) {
@@ -154,8 +182,8 @@ class SetUrlViewModel extends BaseModel {
             } else {
               navigationService.showTalawaErrorSnackBar(
                 urlPresent == false
-                    ? "URL doesn't exist/no connection please check"
-                    : "Unable to validate URL",
+                    ? urlNotExistMessage
+                    : unableToValidateMessage,
                 MessageType.error,
               );
             }
@@ -197,18 +225,21 @@ class SetUrlViewModel extends BaseModel {
 
           try {
             validate = AutovalidateMode.disabled;
-            final String uri = url.text.trim();
+            final String uri = url.text.trim().replaceFirst(RegExp(r'/*$'), '');
 
             // Get context and localized strings before async operations
             final context = navigationService.navigatorKey.currentContext;
-            final urlNotExistMessage = context != null
-                ? AppLocalizations.of(context)!.strictTranslate(
-                    "URL doesn't exist/no connection please check")
-                : "URL doesn't exist/no connection please check";
-            final unableToValidateMessage = context != null
-                ? AppLocalizations.of(context)!
-                    .strictTranslate("Unable to validate URL")
-                : "Unable to validate URL";
+            final localizations =
+                context != null ? AppLocalizations.of(context) : null;
+            final urlNotExistMessage = localizations?.strictTranslate(
+                    "URL doesn't exist/no connection please check") ??
+                "URL doesn't exist/no connection please check";
+            final unableToValidateMessage =
+                localizations?.strictTranslate("Something went wrong!") ??
+                    "Something went wrong!";
+            final urlValidMessage =
+                localizations?.strictTranslate("URL is valid") ??
+                    "URL is valid";
 
             final bool? urlPresent =
                 await locator<Validator>().validateUrlExistence(uri);
@@ -217,7 +248,7 @@ class SetUrlViewModel extends BaseModel {
               box.put(urlKey, uri);
               box.put(imageUrlKey, "$uri/talawa/");
               graphqlConfig.getOrgUrl();
-              navigationService.showSnackBar("Url is valid");
+              navigationService.showSnackBar(urlValidMessage);
             } else {
               navigationService.showTalawaErrorDialog(
                 urlPresent == false
@@ -284,7 +315,8 @@ class SetUrlViewModel extends BaseModel {
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
                 ),
-                Text(AppLocalizations.of(context)!.strictTranslate('Scan QR')),
+                Text(AppLocalizations.of(context)?.strictTranslate('Scan QR') ??
+                    'Scan QR'),
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
                 ),
@@ -320,14 +352,13 @@ class SetUrlViewModel extends BaseModel {
 
     // Get context and localized strings before async operations
     final context = navigationService.navigatorKey.currentContext;
-    final cameraNotWorkingMessage = context != null
-        ? AppLocalizations.of(context)!
-            .strictTranslate("The Camera is not working")
-        : "The Camera is not working";
-    final qrNotForAppMessage = context != null
-        ? AppLocalizations.of(context)!
-            .strictTranslate("This QR is not for the App")
-        : "This QR is not for the App";
+    final localizations = context != null ? AppLocalizations.of(context) : null;
+    final cameraNotWorkingMessage =
+        localizations?.strictTranslate("The Camera is not working") ??
+            "The Camera is not working";
+    final qrNotForAppMessage =
+        localizations?.strictTranslate("This QR is not for the App") ??
+            "This QR is not for the App";
 
     _qrSubscription = controller.scannedDataStream.listen((scanData) async {
       /// if the scanData is not empty.
@@ -350,7 +381,7 @@ class SetUrlViewModel extends BaseModel {
           } else {
             await controller.stopCamera();
           }
-          _qrSubscription?.cancel();
+          await _qrSubscription?.cancel();
           _qrSubscription = null;
           final box = Hive.box('url');
           box.put(urlKey, url.text);
@@ -361,11 +392,11 @@ class SetUrlViewModel extends BaseModel {
         } on CameraException catch (e) {
           debugPrint(e.toString());
           if (defaultTargetPlatform == TargetPlatform.iOS) {
-            controller.pauseCamera();
+            await controller.pauseCamera();
           } else {
-            controller.stopCamera();
+            await controller.stopCamera();
           }
-          _qrSubscription?.cancel();
+          await _qrSubscription?.cancel();
           _qrSubscription = null;
           navigationService.showTalawaErrorSnackBar(
             cameraNotWorkingMessage,
@@ -374,11 +405,11 @@ class SetUrlViewModel extends BaseModel {
         } on Exception catch (e) {
           debugPrint(e.toString());
           if (defaultTargetPlatform == TargetPlatform.iOS) {
-            controller.pauseCamera();
+            await controller.pauseCamera();
           } else {
-            controller.stopCamera();
+            await controller.stopCamera();
           }
-          _qrSubscription?.cancel();
+          await _qrSubscription?.cancel();
           _qrSubscription = null;
           navigationService.showTalawaErrorSnackBar(
             qrNotForAppMessage,
@@ -391,6 +422,8 @@ class SetUrlViewModel extends BaseModel {
 
   @override
   void dispose() {
+    // Cancel subscription without await in dispose since dispose is sync
+    // The subscription will be cleaned up by whenComplete in scanQR
     _qrSubscription?.cancel();
     url.dispose();
     urlFocus.dispose();

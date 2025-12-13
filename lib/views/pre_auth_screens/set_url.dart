@@ -73,9 +73,10 @@ class _SetUrlState extends State<SetUrl> {
                                   icon: Icon(
                                     Icons.qr_code_scanner,
                                     size: 30,
-                                    semanticLabel: AppLocalizations.of(context)!
-                                        .strictTranslate(
-                                            'Join Organisation with QR'),
+                                    semanticLabel: AppLocalizations.of(context)
+                                            ?.strictTranslate(
+                                                'Join Organisation with QR') ??
+                                        'Join Organisation with QR',
                                   ),
                                   onPressed: () => model.scanQR(context),
                                 ),
@@ -98,62 +99,69 @@ class _SetUrlState extends State<SetUrl> {
                                 words: model.greeting,
                               ),
                               //Form input for entering the organization URL
-                              TextFormField(
-                                key: const Key('UrlInputField'),
-                                controller: model.url,
-                                focusNode: model.urlFocus,
-                                textInputAction: TextInputAction.done,
-                                keyboardType: TextInputType.url,
-                                enableSuggestions: false,
-                                autocorrect: false,
-                                validator: (value) {
-                                  final String? msg = Validator.validateURL(
-                                      (value ?? '').trim());
-                                  if (msg == null) {
-                                    return null;
-                                  }
+                              Builder(
+                                builder: (context) {
+                                  final loc = AppLocalizations.of(context);
+                                  return TextFormField(
+                                    key: const Key('UrlInputField'),
+                                    controller: model.url,
+                                    focusNode: model.urlFocus,
+                                    textInputAction: TextInputAction.done,
+                                    keyboardType: TextInputType.url,
+                                    enableSuggestions: false,
+                                    autocorrect: false,
+                                    validator: (value) {
+                                      final String? msg = Validator.validateURL(
+                                          (value ?? '').trim());
+                                      if (msg == null) {
+                                        return null;
+                                      }
 
-                                  return AppLocalizations.of(context)!
-                                      .translate(msg);
-                                },
-                                onFieldSubmitted: (value) {
-                                  model.urlFocus.unfocus();
-                                  model.validate = AutovalidateMode.always;
-                                  model.formKey.currentState?.validate();
-                                },
-                                decoration: InputDecoration(
-                                  labelText:
-                                      '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
-                                  labelStyle:
-                                      Theme.of(context).textTheme.titleMedium,
-                                  suffixIcon: InkWell(
-                                    key: const Key('VerifyButton'),
-                                    onTap: () async {
+                                      return loc?.translate(msg) ?? msg;
+                                    },
+                                    onFieldSubmitted: (value) {
                                       model.urlFocus.unfocus();
                                       model.validate = AutovalidateMode.always;
-                                      final isValid = model.formKey.currentState
-                                              ?.validate() ??
-                                          false;
-                                      if (!isValid) return;
-
-                                      /// Checking url. If valid, than show the pop-up
-                                      await model.checkURLandShowPopUp('');
+                                      model.formKey.currentState?.validate();
                                     },
-                                    child: Container(
-                                      height: 48,
-                                      width: 48,
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .strictTranslate("Verify"),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                        textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      labelText:
+                                          '${loc?.translate("Enter Community URL") ?? "Enter Community URL"} *',
+                                      labelStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                      suffixIcon: InkWell(
+                                        key: const Key('VerifyButton'),
+                                        onTap: () async {
+                                          model.urlFocus.unfocus();
+                                          model.validate =
+                                              AutovalidateMode.always;
+                                          final isValid = model
+                                                  .formKey.currentState
+                                                  ?.validate() ??
+                                              false;
+                                          if (!isValid) return;
+
+                                          /// Checking url. If valid, than show the pop-up
+                                          await model.checkURLandShowPopUp('');
+                                        },
+                                        child: Container(
+                                          height: 48,
+                                          width: 48,
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            loc?.strictTranslate("Verify") ??
+                                                "Verify",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.086,
@@ -161,8 +169,9 @@ class _SetUrlState extends State<SetUrl> {
                               //Login button.
                               RaisedRoundedButton(
                                 key: const Key('LoginButton'),
-                                buttonLabel: AppLocalizations.of(context)!
-                                    .strictTranslate('Login'),
+                                buttonLabel: AppLocalizations.of(context)
+                                        ?.strictTranslate('Login') ??
+                                    'Login',
                                 onTap: () async {
                                   /// Checking url. If valid, than navigating to login route
                                   await model.checkURLandNavigate('/login', '');
@@ -182,8 +191,9 @@ class _SetUrlState extends State<SetUrl> {
                               //Sign up button.
                               RaisedRoundedButton(
                                 key: const Key('SignUpButton'),
-                                buttonLabel: AppLocalizations.of(context)!
-                                    .strictTranslate('Sign Up'),
+                                buttonLabel: AppLocalizations.of(context)
+                                        ?.strictTranslate('Sign Up') ??
+                                    'Sign Up',
                                 onTap: () async {
                                   await model.checkURLandNavigate(
                                     '/selectOrg',
@@ -228,8 +238,10 @@ class _SetUrlState extends State<SetUrl> {
                                         width: 10,
                                       ),
                                       Text(
-                                        AppLocalizations.of(context)!
-                                            .strictTranslate('Change language'),
+                                        AppLocalizations.of(context)
+                                                ?.strictTranslate(
+                                                    'Change language') ??
+                                            'Change language',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge!
