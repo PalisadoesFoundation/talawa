@@ -4,8 +4,8 @@ environment:
   sdk: ">=2.19.0 <4.0.0"
 
 dev_dependencies:
-  lint: ^2.3.0
   args: ^2.4.2
+  lint: ^2.3.0
 
 dependencies:
   # we will use analyzer for inspecting Dart files
