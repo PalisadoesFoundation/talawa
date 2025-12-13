@@ -14,7 +14,6 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 
 /// Handles all of the encryption tasks in the codebase.
-/// Handles all of the encryption tasks in the codebase.
 class Encryptor {
   /// A global switch to flag the encryption.
   ///
@@ -64,6 +63,9 @@ class Encryptor {
   }
 
   /// Returns a configured instance of [FlutterSecureStorage] with strict security options.
+  ///
+  /// **returns**:
+  /// * `FlutterSecureStorage`: Configured storage instance.
   FlutterSecureStorage _getConfiguredStorage() {
     return const FlutterSecureStorage(
       aOptions: AndroidOptions(
@@ -111,6 +113,13 @@ class Encryptor {
   ///
   /// If the box exists but is unencrypted (legacy), it migrates the data
   /// to a new encrypted box transparently.
+  ///
+  /// **params**:
+  /// * `hive`: The [HiveInterface] instance.
+  /// * `encryptionKey`: The 256-bit AES encryption key.
+  ///
+  /// **returns**:
+  /// * `Future<Box<AsymetricKeys>>`: Opened and encrypted Hive box.
   Future<Box<AsymetricKeys>> _openOrMigrateBox(
     HiveInterface hive,
     List<int> encryptionKey,
