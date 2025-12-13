@@ -16,6 +16,7 @@ import 'package:talawa/utils/encryptor.dart';
 
 import '../helpers/setup_hive.mocks.dart';
 
+// This test is being written believing that in future when Encryptor class will get rid of shouldEncrypt variable then all the tests using that variable can be removed
 void main() {
   group('When shouldEncrypt is true', () {
     test('encryptString method should return the encrypted string', () {
@@ -26,7 +27,8 @@ void main() {
       expect(Encryptor.encryptString(inputString), outputString);
     });
   });
-
+// As the bool variable is not used anywhere except in this method so moving ahead with making this variable as false
+// On getting rid of this variable the above test can be removed
   group('When shouldEncrypt is false', () {
     late Encryptor encryptor;
     late AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
