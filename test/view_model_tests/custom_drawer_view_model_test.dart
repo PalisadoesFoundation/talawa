@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -9,6 +10,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../helpers/test_helpers.dart';
@@ -278,6 +280,142 @@ void main() {
     test('selectedOrg should be initially null', () {
       final model = CustomDrawerViewModel();
       expect(model.selectedOrg, isNull);
+    });
+
+    test('exitAlertDialog should return CustomAlertDialog', () {
+      final model = CustomDrawerViewModel();
+      final MockBuildContext mockContext = MockBuildContext();
+      final dialog = model.exitAlertDialog(mockContext);
+      expect(dialog, isA<CustomAlertDialog>());
+    });
+
+    test('initialize should update selectedOrg when stream emits new value',
+        () async {
+      final homeModel = MainScreenViewModel();
+      final MockBuildContext mockContext = MockBuildContext();
+      final model = CustomDrawerViewModel();
+      final user = User(joinedOrganizations: [OrgInfo(id: '1', name: 'Org 1')]);
+      final initialOrg = OrgInfo(id: '1', name: 'Org 1');
+      final updatedOrg = OrgInfo(id: '2', name: 'Org 2');
+
+      // Create a broadcast stream controller to simulate stream events
+      final streamController = StreamController<OrgInfo>.broadcast();
+
+      when(userConfig.currentOrgInfoStream)
+          .thenAnswer((_) => streamController.stream);
+      when(userConfig.currentUser).thenReturn(user);
+      when(userConfig.currentOrg).thenReturn(initialOrg);
+      when(userConfig.currentOrgInfoController)
+          .thenReturn(StreamController<OrgInfo>());
+
+      model.initialize(homeModel, mockContext);
+
+      // Verify initial state
+      expect(model.selectedOrg, equals(initialOrg));
+
+      // Emit new value
+      streamController.add(updatedOrg);
+
+      // Wait for stream listener to process
+      await Future.delayed(Duration.zero);
+
+      expect(model.selectedOrg, equals(updatedOrg));
+      await streamController.close();
+    });
+
+    test('dispose should prevent notifyListeners from being called', () {
+      final model = CustomDrawerViewModel();
+      final orgInfo = OrgInfo(name: 'Test Org');
+      bool listenerCalled = false;
+
+      when(userConfig.currentOrgInfoController)
+          .thenReturn(StreamController<OrgInfo>());
+
+      model.addListener(() {
+        listenerCalled = true;
+      });
+
+      // Verify initial state
+      expect(model.selectedOrg, isNull);
+
+      model.dispose();
+
+      try {
+        model.setSelectedOrganizationName(orgInfo);
+        expect(listenerCalled, isFalse,
+            reason: 'Listener should not be called after dispose');
+        expect(model.selectedOrg, isNull,
+            reason: 'State should not change after dispose');
+      } catch (e) {
+        fail('Should not throw exception after dispose: $e');
+      }
+    });
+
+    test(
+        'setSelectedOrganizationName should NOT notify listeners if org is same',
+        () {
+      final model = CustomDrawerViewModel();
+      final orgInfo = OrgInfo(id: '1', name: 'Test Org');
+
+      // Manually set internal state since we can't fully initialize without dependencies easily
+      // But we can use the method itself to set it first
+      when(userConfig.currentOrgInfoController)
+          .thenReturn(StreamController<OrgInfo>());
+
+      model.setSelectedOrganizationName(orgInfo);
+
+      bool listenerCalled = false;
+      model.addListener(() {
+        listenerCalled = true;
+      });
+
+      // Set same org again
+      model.setSelectedOrganizationName(orgInfo);
+
+      expect(listenerCalled, isFalse);
+    });
+
+    testWidgets(
+        'exitAlertDialog success callback should exit org and close drawer',
+        (WidgetTester tester) async {
+      final model = CustomDrawerViewModel();
+
+      // Reset mocks to ensure call counts are zero before this test
+      reset(navigationService);
+      reset(userConfig);
+
+      // Mocks
+      when(userConfig.exitCurrentOrg()).thenAnswer((_) async {});
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            drawer: const Drawer(child: Text('Drawer')),
+            body: Builder(
+              builder: (context) {
+                return TextButton(
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+
+                    // Call the method to get the widget
+                    final dialog = model.exitAlertDialog(context);
+                    // Manually trigger the success callback
+                    dialog.success();
+                  },
+                  child: const Text('Show Dialog'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Tap to open drawer and run callback
+      await tester.tap(find.text('Show Dialog'));
+      await tester.pumpAndSettle();
+
+      verify(userConfig.exitCurrentOrg()).called(1);
+      verify(navigationService.pop()).called(1);
     });
   });
 }

@@ -147,6 +147,7 @@ class CustomDrawerViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void setSelectedOrganizationName(OrgInfo updatedOrganization) {
+    if (_disposed) return;
     // if current and updated organization are not same.
     if (_selectedOrg != updatedOrganization) {
       _selectedOrg = updatedOrganization;
