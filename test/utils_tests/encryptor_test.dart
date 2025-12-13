@@ -178,6 +178,88 @@ void main() {
       )).captured;
       expect(uniqueCaptures.last, isA<HiveAesCipher>());
     });
+    group('Refined Encryptor Logic Coverage', () {
+      test(
+          'Migration: Should delete legacy box and reopen encrypted if legacy open succeeds',
+          () async {
+        var openBoxCallCount = 0;
+        when(mockHiveInterface.openBox<AsymetricKeys>(
+          HiveKeys.asymetricKeyBoxKey,
+          encryptionCipher: argThat(isNotNull, named: 'encryptionCipher'),
+        )).thenAnswer((_) async {
+          openBoxCallCount++;
+          if (openBoxCallCount == 1) throw HiveError('Encrypted open failed');
+          return mockHiveBox;
+        });
+
+        final oldBox = MockHiveBox<AsymetricKeys>();
+        when(oldBox.toMap())
+            .thenReturn({'key_pair': AsymetricKeys(keyPair: keyPair)});
+        when(oldBox.close()).thenAnswer((_) async {});
+
+        when(mockHiveInterface.openBox<AsymetricKeys>(
+          HiveKeys.asymetricKeyBoxKey,
+          encryptionCipher: null,
+        )).thenAnswer((_) async => oldBox);
+
+        await encryptor.saveKeyPair(
+          keyPair,
+          mockHiveInterface,
+          secureStorage: fakeSecureStorage,
+        );
+
+        verify(mockHiveInterface.openBox<AsymetricKeys>(
+                HiveKeys.asymetricKeyBoxKey,
+                encryptionCipher: null))
+            .called(1);
+        verify(oldBox.close()).called(1);
+        verify(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
+            .called(1);
+      });
+
+      test(
+          'Migration Failure: Should rethrow exception if legacy open also fails',
+          () async {
+        when(mockHiveInterface.openBox<AsymetricKeys>(
+          HiveKeys.asymetricKeyBoxKey,
+          encryptionCipher: argThat(isNotNull, named: 'encryptionCipher'),
+        )).thenThrow(HiveError('Original Encrypted Error'));
+
+        when(mockHiveInterface.openBox<AsymetricKeys>(
+          HiveKeys.asymetricKeyBoxKey,
+          encryptionCipher: null,
+        )).thenThrow(HiveError('Legacy Open Error'));
+
+        expect(
+          () async => await encryptor.saveKeyPair(
+            keyPair,
+            mockHiveInterface,
+            secureStorage: fakeSecureStorage,
+          ),
+          throwsA(predicate(
+              (e) => e is HiveError && e.message == 'Legacy Open Error')),
+        );
+      });
+
+      test('loadKeyPair: Should throw specific exception if key_pair is null',
+          () async {
+        when(mockHiveInterface.openBox<AsymetricKeys>(
+          HiveKeys.asymetricKeyBoxKey,
+          encryptionCipher: anyNamed('encryptionCipher'),
+        )).thenAnswer((_) async => mockHiveBox);
+
+        when(mockHiveBox.get('key_pair')).thenReturn(null);
+
+        expect(
+          () async => await encryptor.loadKeyPair(
+            mockHiveInterface,
+            secureStorage: fakeSecureStorage,
+          ),
+          throwsA(predicate((e) =>
+              e.toString().contains('No key pair found in secure store'))),
+        );
+      });
+    });
   });
 }
 
