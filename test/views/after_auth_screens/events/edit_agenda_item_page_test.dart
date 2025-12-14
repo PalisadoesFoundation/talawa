@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -54,7 +52,9 @@ EventAgendaItem testAgendaItem = EventAgendaItem(
   description: 'Test Description',
   duration: '00:30',
   categories: [],
-  attachments: [],
+  attachments: [
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+  ],
   urls: [],
 );
 
@@ -132,6 +132,30 @@ void main() {
       expect(find.byKey(const Key('https://example.com')), findsOneWidget);
     });
 
+    testWidgets('Remove URL chip works correctly', (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byKey(const Key('urlTextField')),
+        'https://example.com',
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Add'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('https://example.com')), findsOneWidget);
+
+      final deleteButtonFinder = find.descendant(
+        of: find.byKey(const Key('https://example.com')),
+        matching: find.byIcon(Icons.cancel),
+      );
+
+      await tester.tap(deleteButtonFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('https://example.com')), findsNothing);
+    });
+
     testWidgets('Add Attachments button works correctly',
         (WidgetTester tester) async {
       await tester.pumpWidget(createEditAgendaItemScreen());
@@ -139,6 +163,28 @@ void main() {
 
       await tester.tap(find.text('Add Attachments'));
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('Remove attachment using delete button',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      expect(find.byType(GridView), findsOneWidget);
+
+      expect(find.byType(Image), findsAtLeastNWidgets(1));
+
+      final deleteButton = find.descendant(
+        of: find.byType(Stack),
+        matching: find.byIcon(Icons.close),
+      );
+
+      expect(deleteButton, findsOneWidget);
+
+      await tester.tap(deleteButton);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Image), findsNothing);
     });
 
     testWidgets('Remove a selected category', (WidgetTester tester) async {
@@ -312,5 +358,19 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Invalid Description'), findsNothing);
     });
+  });
+
+  testWidgets('Close button navigates back', (WidgetTester tester) async {
+    await tester.pumpWidget(createEditAgendaItemScreen());
+    await tester.pumpAndSettle();
+
+    final closeIcon = find.descendant(
+      of: find.byType(AppBar),
+      matching: find.byIcon(Icons.close),
+    );
+    expect(closeIcon, findsOneWidget);
+
+    await tester.tap(closeIcon);
+    await tester.pumpAndSettle();
   });
 }
