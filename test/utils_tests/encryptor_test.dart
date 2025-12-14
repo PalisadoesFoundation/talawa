@@ -139,7 +139,8 @@ void main() {
       expect(keyBytes.length, 32);
     });
 
-    test('Should regenerate key if stored key throws FormatException', () async {
+    test('Should regenerate key if stored key throws FormatException',
+        () async {
       // Setup: Invalid characters that definitely throw FormatException for base64Url
       await fakeSecureStorage.write(
           key: HiveKeys.encryptionKey, value: '%%%%%');
@@ -598,7 +599,7 @@ class ThrowingFlutterSecureStorage extends FakeFlutterSecureStorage {
     WebOptions? webOptions,
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
-  }) async {
-    throw Exception('Simulated delete failure');
+  }) {
+    return Future.error(Exception('Simulated delete failure'));
   }
 }
