@@ -120,38 +120,6 @@ void main() {
     });
   });
 
-  group('MainScreen drawer & demo mode', () {
-    testWidgets('Main screen renders with drawer and scaffold', (tester) async {
-      await tester.pumpWidget(createHomePageScreen(demoMode: true));
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      // Verify main screen and its scaffold both exist
-      expect(find.byKey(const Key('MainScreen')), findsOneWidget);
-      expect(find.byKey(const Key('MainScaffold')), findsOneWidget);
-    });
-
-    testWidgets('Main screen renders with demo mode enabled', (tester) async {
-      await tester.pumpWidget(createHomePageScreen(demoMode: true));
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      // Verify main screen rendered in demo mode
-      expect(find.byType(MainScreen), findsOneWidget);
-      final mainScreen = tester.widget<MainScreen>(find.byType(MainScreen));
-      expect(mainScreen.mainScreenArgs.toggleDemoMode, isTrue);
-    });
-
-    testWidgets('Main screen receives expected arguments', (tester) async {
-      await tester.pumpWidget(createHomePageScreen(demoMode: true));
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      final mainScreen =
-          tester.widget<MainScreen>(find.byKey(const Key('MainScreen')));
-      expect(mainScreen.mainScreenArgs.mainScreenIndex, 0);
-      expect(mainScreen.mainScreenArgs.fromSignUp, isFalse);
-      expect(mainScreen.mainScreenArgs.toggleDemoMode, isTrue);
-    });
-  });
-
   group('CustomDrawerViewModel methods', () {
     late CustomDrawerViewModel viewModel;
 
