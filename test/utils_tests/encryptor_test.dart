@@ -77,7 +77,7 @@ void main() {
         mockHiveInterface,
         secureStorage: fakeSecureStorage,
       );
-      final uniqueCaptures = verify(mockHiveInterface.openBox(
+      final uniqueCaptures = verify(mockHiveInterface.openBox<AsymetricKeys>(
         HiveKeys.asymetricKeyBoxKey,
         encryptionCipher: captureAnyNamed('encryptionCipher'),
       )).captured;
