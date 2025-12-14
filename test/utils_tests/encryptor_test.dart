@@ -458,8 +458,6 @@ void main() {
       }
     });
 
-
-
     test('deleteKeyPair should use default Hive when receiving null', () async {
       // Open the box first to ensure there's something to close/delete
       // Note: encryptor uses the global 'Hive' instance which we initialized
