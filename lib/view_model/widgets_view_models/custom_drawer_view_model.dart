@@ -37,7 +37,8 @@ class CustomDrawerViewModel extends BaseModel {
   /// Initializes the view model.
   ///
   /// **params**:
-  ///   None
+  /// * `homeModel`: Instance of MainScreenViewModel
+  /// * `context`: BuildContext for the current widget
   ///
   /// **returns**:
   ///   None
@@ -57,7 +58,7 @@ class CustomDrawerViewModel extends BaseModel {
   /// Switches the organization to the specified `switchToOrg`.
   ///
   /// **params**:
-  ///   None
+  /// * `switchToOrg`: The organization to switch to
   ///
   /// **returns**:
   ///   None
@@ -81,10 +82,10 @@ class CustomDrawerViewModel extends BaseModel {
   /// Checks whether `switchToOrg` is present in the switchable organization list.
   ///
   /// **params**:
-  ///   None
+  /// * `switchToOrg`: The organization to check for presence
   ///
   /// **returns**:
-  ///   None
+  /// * `bool`: true if organization is present, false otherwise
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
     return _switchAbleOrg.any((org) => org.id == switchToOrg.id);
   }
@@ -99,10 +100,10 @@ class CustomDrawerViewModel extends BaseModel {
   /// Returns an exit alert dialog.
   ///
   /// **params**:
-  ///   None
+  /// * `context`: BuildContext for creating the dialog
   ///
   /// **returns**:
-  ///   None
+  /// * `CustomAlertDialog`: The configured exit alert dialog
   CustomAlertDialog exitAlertDialog(BuildContext context) {
     return CustomAlertDialog(
       key: const Key("Exit?"),
@@ -120,7 +121,7 @@ class CustomDrawerViewModel extends BaseModel {
   /// Updates the selected organization.
   ///
   /// **params**:
-  ///   None
+  /// * `updatedOrganization`: The new organization to set as selected
   ///
   /// **returns**:
   ///   None
