@@ -7,50 +7,35 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-/// CustomDrawerViewModel class helps to serve the data and to react to user's input for Custom Dialog Widget.
+/// CustomDrawerViewModel class helps to serve the data and to react to user's input
+/// for Custom Dialog Widget.
 ///
 /// Functions include:
 /// * `switchOrg`
 /// * `isPresentinSwitchableOrg`
 /// * `setSelectedOrganizationName`
 class CustomDrawerViewModel extends BaseModel {
-  // getters
-
   /// Scroll controller for managing scrolling behavior.
   final ScrollController controller = ScrollController();
 
-  /// List of TargetFocus objects used for tutorial coaching.
-  final List<TargetFocus> targets = [];
-
-  /// Instance of TutorialCoachMark responsible for providing tutorial guidance.
-  late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
-  late List<OrgInfo> _switchAbleOrg;
+  
+  /// List of switchable organizations for the user.
+  late List<OrgInfo> switchAbleOrg;
+  
   bool _disposed = false;
   OrgInfo? _selectedOrg;
-  StreamSubscription? _currentOrganizationStreamSubscription;
+  StreamSubscription<OrgInfo>? _currentOrganizationStreamSubscription;
 
-  //// Getter method to retrieve the selected organization.
+  /// Getter method to retrieve the selected organization.
   OrgInfo? get selectedOrg => _selectedOrg;
 
-  /// Getter method to retrieve the switchAble organization.
-  // ignore: unnecessary_getters_setters
-  List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
-
-  /// Setter method for switchAble organization.
-  set switchAbleOrg(List<OrgInfo> switchableOrg) =>
-      _switchAbleOrg = switchableOrg;
-
-  /// initializer.
+  /// Initializes the view model.
   ///
   /// **params**:
   /// * `homeModel`: instance of MainScreenViewModel.
   /// * `context`: instance of BuildContext.
-  ///
-  /// **returns**:
-  ///   None
   void initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription =
         userConfig.currentOrgInfoStream.listen(
@@ -58,27 +43,15 @@ class CustomDrawerViewModel extends BaseModel {
         setSelectedOrganizationName(updatedOrganization);
       },
     );
+
     _currentUser = userConfig.currentUser;
     _selectedOrg = userConfig.currentOrg;
-    _switchAbleOrg = _currentUser.joinedOrganizations ?? [];
+    switchAbleOrg = _currentUser.joinedOrganizations ?? [];
   }
 
-  /// This function switches the organization to the specified `switchToOrg`.
-  ///
-  /// If `selectedOrg` is equal to `switchToOrg` and `switchToOrg` is present, a warning message is displayed using a custom Snackbar.
-  /// Otherwise, it saves the `switchToOrg` as the current organization, updates the selected organization name,
-  /// and displays an informational message using a custom Snackbar.
-  ///
-  /// **params**:
-  /// * `switchToOrg`: The organization to switch to.
-  ///
-  /// **returns**:
-  ///   None
+  /// Switches the organization to the specified `switchToOrg`.
   void switchOrg(OrgInfo switchToOrg) {
-    // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
-    if ((selectedOrg == switchToOrg) &&
-        (isPresentinSwitchableOrg(switchToOrg))) {
-      // _navigationService.pop();
+    if ((selectedOrg == switchToOrg) && isPresentinSwitchableOrg(switchToOrg)) {
       navigationService.showTalawaErrorSnackBar(
         '${switchToOrg.name} already selected',
         MessageType.warning,
@@ -94,21 +67,14 @@ class CustomDrawerViewModel extends BaseModel {
     navigationService.pop();
   }
 
-  /// This function checks `switchOrg` is present in the `switchAbleOrg`.
-  ///
-  /// **params**:
-  /// * `switchToOrg`: `OrgInfo` type of organization want to switch into.
-  ///
-  /// **returns**:
-  /// * `bool`: returns true if switchToOrg is in switchAbleOrg list.
+  /// Checks whether `switchToOrg` is present in the switchable organization list.
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
-    var isPresent = false;
-    for (final OrgInfo orgs in switchAbleOrg) {
-      if (orgs.id == switchToOrg.id) {
-        isPresent = true;
+    for (final OrgInfo org in switchAbleOrg) {
+      if (org.id == switchToOrg.id) {
+        return true;
       }
     }
-    return isPresent;
+    return false;
   }
 
   @override
@@ -118,13 +84,7 @@ class CustomDrawerViewModel extends BaseModel {
     }
   }
 
-  /// returns an exit alert dialog.
-  ///
-  /// **params**:
-  /// * `context`: `BuildContext` instance of BuildContext.
-  ///
-  /// **returns**:
-  /// * `CustomAlertDialog`: returns customAlertDialogBox.
+  /// Returns an exit alert dialog.
   CustomAlertDialog exitAlertDialog(BuildContext context) {
     return CustomAlertDialog(
       key: const Key("Exit?"),
@@ -139,16 +99,10 @@ class CustomDrawerViewModel extends BaseModel {
     );
   }
 
-  /// This function switches the current organization to new organization.
-  ///
-  /// **params**:
-  /// * `updatedOrganization`: The new organization to set as selected. (`OrgInfo` type)
-  ///
-  /// **returns**:
-  ///   None
+  /// Updates the selected organization.
   void setSelectedOrganizationName(OrgInfo updatedOrganization) {
     if (_disposed) return;
-    // if current and updated organization are not same.
+
     if (_selectedOrg != updatedOrganization) {
       _selectedOrg = updatedOrganization;
       userConfig.currentOrgInfoController.add(_selectedOrg!);
