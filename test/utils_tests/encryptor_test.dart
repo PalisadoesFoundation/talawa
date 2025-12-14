@@ -138,6 +138,28 @@ void main() {
       final keyBytes = base64Url.decode(storedKey!);
       expect(keyBytes.length, 32);
     });
+
+    test('Should regenerate key if stored key throws FormatException', () async {
+      // Setup: Invalid characters that definitely throw FormatException for base64Url
+      await fakeSecureStorage.write(
+          key: HiveKeys.encryptionKey, value: '%%%%%');
+      setupMockOpenBox();
+
+      // Act
+      await encryptor.saveKeyPair(
+        keyPair,
+        mockHiveInterface,
+        secureStorage: fakeSecureStorage,
+      );
+
+      // Assert
+      final storedKey =
+          await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
+      expect(storedKey, isNotNull);
+      expect(storedKey, isNot('%%%%%'));
+      final keyBytes = base64Url.decode(storedKey!);
+      expect(keyBytes.length, 32);
+    });
     test('For loadPairKey()', () async {
       setupMockOpenBox();
       when(mockHiveBox.get('key_pair'))
@@ -434,6 +456,27 @@ void main() {
             await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
         expect(storedKey, isNull);
       });
+
+      test('Should suppress exception if storage key deletion fails', () async {
+        // Setup mocks
+        when(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
+            .thenReturn(false);
+        when(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
+            .thenAnswer((_) => Future.value());
+
+        // Setup storage delete to throw
+        final throwingStorage = ThrowingFlutterSecureStorage();
+
+        // Act - Should not throw
+        await encryptor.deleteKeyPair(
+          hive: mockHiveInterface,
+          secureStorage: throwingStorage,
+        );
+
+        // Verify other steps still happened
+        verify(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
+            .called(1);
+      });
     });
   });
 
@@ -542,5 +585,20 @@ class FakeFlutterSecureStorage extends Fake implements FlutterSecureStorage {
     WindowsOptions? wOptions,
   }) async {
     _storage.clear();
+  }
+}
+
+class ThrowingFlutterSecureStorage extends FakeFlutterSecureStorage {
+  @override
+  Future<void> delete({
+    required String key,
+    IOSOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    MacOsOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async {
+    throw Exception('Simulated delete failure');
   }
 }
