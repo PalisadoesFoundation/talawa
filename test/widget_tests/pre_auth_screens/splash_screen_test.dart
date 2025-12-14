@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/custom_theme.dart';
@@ -381,6 +382,48 @@ void main() {
         await tester.pump();
 
         // No explicit assert needed - test will fail if subscription isn't properly canceled
+      });
+    });
+
+    testWidgets('should redirect to SetUrl screen when cached URL is null',
+        (tester) async {
+      await tester.runAsync(() async {
+        // Arrange - ensure Hive box is open and URL is null
+        if (!Hive.isBoxOpen('url')) {
+          await Hive.openBox('url');
+        }
+        final box = Hive.box('url');
+        await box.delete('url');
+
+        when(mockUserConfig.loggedIn).thenReturn(false);
+
+        // Act
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpAndSettle();
+
+        // Assert - should navigate to SetUrl screen (line 216-218)
+        verify(navigationService.pushReplacementScreen('/setUrl', arguments: ''));
+      });
+    });
+
+    testWidgets('should redirect to SetUrl screen when cached URL is empty',
+        (tester) async {
+      await tester.runAsync(() async {
+        // Arrange - ensure Hive box is open and URL is empty string
+        if (!Hive.isBoxOpen('url')) {
+          await Hive.openBox('url');
+        }
+        final box = Hive.box('url');
+        await box.put('url', '');
+
+        when(mockUserConfig.loggedIn).thenReturn(false);
+
+        // Act
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpAndSettle();
+
+        // Assert - should navigate to SetUrl screen (line 216-218)
+        verify(navigationService.pushReplacementScreen('/setUrl', arguments: ''));
       });
     });
   });

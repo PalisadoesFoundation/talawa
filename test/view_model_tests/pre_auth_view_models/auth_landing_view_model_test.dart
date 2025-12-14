@@ -172,8 +172,7 @@ Future<void> main() async {
       }
     });
 
-    testWidgets(
-        'Check if checkURLandNavigate() shows error when URL is null',
+    testWidgets('Check if checkURLandNavigate() shows error when URL is null',
         (tester) async {
       if (locator.isRegistered<Validator>()) {
         await locator.unregister<Validator>();
@@ -205,8 +204,7 @@ Future<void> main() async {
       );
     });
 
-    testWidgets(
-        'Check if checkURLandNavigate() shows error when URL is empty',
+    testWidgets('Check if checkURLandNavigate() shows error when URL is empty',
         (tester) async {
       if (locator.isRegistered<Validator>()) {
         await locator.unregister<Validator>();
@@ -232,8 +230,7 @@ Future<void> main() async {
       );
     });
 
-    testWidgets(
-        'Check if checkURLandNavigate() handles validation exception',
+    testWidgets('Check if checkURLandNavigate() handles validation exception',
         (tester) async {
       if (locator.isRegistered<Validator>()) {
         await locator.unregister<Validator>();
@@ -274,8 +271,7 @@ Future<void> main() async {
       }
     });
 
-    testWidgets(
-        'Check if checkURLandNavigate() handles null validation result',
+    testWidgets('Check if checkURLandNavigate() handles null validation result',
         (tester) async {
       if (locator.isRegistered<Validator>()) {
         await locator.unregister<Validator>();

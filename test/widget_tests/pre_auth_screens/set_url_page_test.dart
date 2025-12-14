@@ -623,8 +623,7 @@ Future<void> main() async {
       await tester.pumpAndSettle();
     });
 
-    testWidgets("Testing onFieldSubmitted in URL input field",
-        (tester) async {
+    testWidgets("Testing onFieldSubmitted in URL input field", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
         createSetUrlScreen(
