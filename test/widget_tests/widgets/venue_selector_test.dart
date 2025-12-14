@@ -166,6 +166,69 @@ void main() {
         expect(find.text('Outdoor Pavilion'), findsOneWidget);
       });
     });
+
+    testWidgets(
+        'should display selected venue details when a venue is selected',
+        (tester) async {
+      final venues = getMockVenues();
+
+      mockNetworkImages(() async {
+        await tester.pumpWidget(createVenueSelectionWidget(mockVenues: venues));
+        await tester.pumpAndSettle();
+
+        // Tap to open bottom sheet
+        await tester.tap(find.byKey(const Key('venue_selector_gesture')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+
+        // Select a venue
+        await tester.tap(find.text('Main Hall'));
+        await tester.pumpAndSettle();
+
+        // Verify selected venue container is shown
+        expect(
+            find.byKey(const Key('selected_venue_container')), findsOneWidget);
+        expect(find.byKey(const Key('add_venue_container')), findsNothing);
+
+        // Verify venue details
+        expect(find.text('Main Hall'), findsOneWidget);
+        expect(find.text('Capacity: 100'), findsOneWidget);
+
+        // Verify buttons exist
+        expect(find.byKey(const Key('edit_venue_button')), findsOneWidget);
+        expect(find.byKey(const Key('clear_venue_button')), findsOneWidget);
+      });
+    });
+
+    testWidgets('should clear selected venue when clear button is pressed',
+        (tester) async {
+      final venues = getMockVenues();
+
+      mockNetworkImages(() async {
+        await tester.pumpWidget(createVenueSelectionWidget(mockVenues: venues));
+        await tester.pumpAndSettle();
+
+        // Select a venue first
+        await tester.tap(find.byKey(const Key('venue_selector_gesture')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        await tester.tap(find.text('Main Hall'));
+        await tester.pumpAndSettle();
+
+        // Verify we represent selected state
+        expect(
+            find.byKey(const Key('selected_venue_container')), findsOneWidget);
+
+        // Tap clear button
+        await tester.tap(find.byKey(const Key('clear_venue_button')));
+        await tester.pumpAndSettle();
+
+        // Verify we are back to initial state
+        expect(find.byKey(const Key('selected_venue_container')), findsNothing);
+        expect(find.byKey(const Key('add_venue_container')), findsOneWidget);
+        expect(find.text('Add Venue'), findsOneWidget);
+      });
+    });
   });
 
   group('VenueBottomSheet Tests', () {
