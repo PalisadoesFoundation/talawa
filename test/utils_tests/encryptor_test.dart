@@ -47,7 +47,7 @@ void main() {
       )).thenAnswer((_) async => mockHiveBox);
     }
 
-    setUpAll(() {
+    setUp(() {
       encryptor = Encryptor();
       Encryptor.shouldEncrypt = false;
       keyPair = encryptor.generateRSAKeyPair();
@@ -82,7 +82,7 @@ void main() {
         encryptionCipher: captureAnyNamed('encryptionCipher'),
       )).captured;
       expect(uniqueCaptures.last, isA<HiveAesCipher>());
-      verify(mockHiveBox.put('key_pair', any));
+      verify(mockHiveBox.put('key_pair', any)).called(1);
 
       // Verify encryption key is stored and correct length
       final storedKey =
@@ -151,7 +151,7 @@ void main() {
         encryptionCipher: captureAnyNamed('encryptionCipher'),
       )).captured;
       expect(uniqueCaptures.last, isA<HiveAesCipher>());
-      verify(mockHiveBox.get('key_pair'));
+      verify(mockHiveBox.get('key_pair')).called(1);
 
       // Verify encryption key is checked in storage
       final storedKey =
@@ -229,7 +229,7 @@ void main() {
         encryptionCipher: captureAnyNamed('encryptionCipher'),
       )).captured;
       expect(uniqueCaptures.last, isA<HiveAesCipher>());
-      verify(mockHiveBox.get('key_pair'));
+      verify(mockHiveBox.get('key_pair')).called(1);
     });
 
     test(
