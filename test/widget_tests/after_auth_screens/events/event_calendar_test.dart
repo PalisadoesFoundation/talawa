@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -74,40 +77,6 @@ Widget createEventCalendarWidget() {
     navigatorKey: navigationService.navigatorKey,
     onGenerateRoute: router.generateRoute,
     home: const EventCalendar(),
-  );
-}
-
-Widget createEmptyEventCalendar() {
-  return MaterialApp(
-    navigatorKey: navigationService.navigatorKey,
-    home: const EventCalendar([]),
-  );
-}
-
-Widget createEventCalendarWithNullName() {
-  return MaterialApp(
-    navigatorKey: navigationService.navigatorKey,
-    home: EventCalendar([
-      Event(
-        name: null,
-        startAt: DateTime.parse('2025-07-13T19:10:00.000Z'),
-        endAt: DateTime.parse('2025-07-13T20:15:00.000Z'),
-      ),
-    ]),
-  );
-}
-
-Widget createEventCalendarWithMultipleEvents() {
-  return MaterialApp(
-    navigatorKey: navigationService.navigatorKey,
-    home: EventCalendar([
-      for (int i = 0; i < 8; i++)
-        Event(
-          name: 'Event $i',
-          startAt: DateTime.parse('2025-07-${13 + i}T19:10:00.000Z'),
-          endAt: DateTime.parse('2025-07-${13 + i}T20:15:00.000Z'),
-        ),
-    ]),
   );
 }
 
