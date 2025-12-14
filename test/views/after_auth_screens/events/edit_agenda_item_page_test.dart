@@ -358,19 +358,23 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Invalid Description'), findsNothing);
     });
-  });
+    testWidgets('Close button navigates back', (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
 
-  testWidgets('Close button navigates back', (WidgetTester tester) async {
-    await tester.pumpWidget(createEditAgendaItemScreen());
-    await tester.pumpAndSettle();
+      final closeIcon = find.descendant(
+        of: find.byType(AppBar),
+        matching: find.byIcon(Icons.close),
+      );
+      expect(closeIcon, findsOneWidget);
 
-    final closeIcon = find.descendant(
-      of: find.byType(AppBar),
-      matching: find.byIcon(Icons.close),
-    );
-    expect(closeIcon, findsOneWidget);
+      await tester.tap(closeIcon);
+      await tester.pump();
+      await tester.pumpAndSettle();
 
-    await tester.tap(closeIcon);
-    await tester.pumpAndSettle();
+      // Verify navigation occurred by checking if we can navigate back
+      // (if pop was called, we should be able to verify through the navigator)
+      expect(navigationService.navigatorKey.currentState?.canPop(), isFalse);
+    });
   });
 }
