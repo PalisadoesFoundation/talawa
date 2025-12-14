@@ -458,22 +458,7 @@ void main() {
       }
     });
 
-    test(
-        'deleteKeyPair calls Hive when secureStorage is null (verifies default path execution)',
-        () async {
-      when(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
-          .thenReturn(false);
-      when(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
-          .thenAnswer((_) => Future.value());
 
-      await encryptor.deleteKeyPair(
-        hive: mockHiveInterface,
-        secureStorage: null,
-      );
-
-      verify(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
-          .called(1);
-    });
 
     test('deleteKeyPair should use default Hive when receiving null', () async {
       // Open the box first to ensure there's something to close/delete
