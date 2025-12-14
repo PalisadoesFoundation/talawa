@@ -601,5 +601,106 @@ Future<void> main() async {
 
       verify(navigationService.pushScreen('/selectLang', arguments: null));
     });
+
+    testWidgets("Testing QR scanner button tap", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the QR button Finder
+      final qrButtonWidget = find.byKey(const Key('QrButton'));
+
+      //finding the QR button
+      expect(qrButtonWidget, findsOneWidget);
+
+      //tapping the QR button
+      await tester.tap(qrButtonWidget);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Testing onFieldSubmitted in URL input field",
+        (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the URL input field Finder
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+
+      //finding the URL input field
+      expect(urlInputField, findsOneWidget);
+
+      //entering invalid URL
+      await tester.enterText(urlInputField, 'invalid-url');
+      await tester.pumpAndSettle();
+
+      //submitting the field
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Testing VerifyButton tap with invalid URL", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the URL input field and verify button Finder
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+
+      //finding the widgets
+      expect(urlInputField, findsOneWidget);
+      expect(verifyButton, findsOneWidget);
+
+      //entering invalid URL
+      await tester.enterText(urlInputField, 'invalid-url');
+      await tester.pumpAndSettle();
+
+      //tapping the verify button
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Testing VerifyButton tap with valid URL", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the URL input field and verify button Finder
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+
+      //finding the widgets
+      expect(urlInputField, findsOneWidget);
+      expect(verifyButton, findsOneWidget);
+
+      //entering valid URL
+      await tester.enterText(urlInputField, 'https://example.com');
+      await tester.pumpAndSettle();
+
+      //tapping the verify button
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+    });
   });
 }
