@@ -8,8 +8,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 
-/// CustomDrawerViewModel class helps to serve the data and to react to user's input
-/// for Custom Dialog Widget.
+/// CustomDrawerViewModel class helps to serve the data and to react to user's input for Custom Dialog Widget.
 ///
 /// Functions include:
 /// * `switchOrg`
@@ -38,8 +37,10 @@ class CustomDrawerViewModel extends BaseModel {
   /// Initializes the view model.
   ///
   /// **params**:
-  /// * `homeModel`: instance of MainScreenViewModel.
-  /// * `context`: instance of BuildContext.
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription =
         userConfig.currentOrgInfoStream.listen(
@@ -54,6 +55,12 @@ class CustomDrawerViewModel extends BaseModel {
   }
 
   /// Switches the organization to the specified `switchToOrg`.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void switchOrg(OrgInfo switchToOrg) {
     if ((selectedOrg == switchToOrg) && isPresentinSwitchableOrg(switchToOrg)) {
       navigationService.showTalawaErrorSnackBar(
@@ -72,6 +79,12 @@ class CustomDrawerViewModel extends BaseModel {
   }
 
   /// Checks whether `switchToOrg` is present in the switchable organization list.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
     return _switchAbleOrg.any((org) => org.id == switchToOrg.id);
   }
@@ -84,6 +97,12 @@ class CustomDrawerViewModel extends BaseModel {
   }
 
   /// Returns an exit alert dialog.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   CustomAlertDialog exitAlertDialog(BuildContext context) {
     return CustomAlertDialog(
       key: const Key("Exit?"),
@@ -99,6 +118,12 @@ class CustomDrawerViewModel extends BaseModel {
   }
 
   /// Updates the selected organization.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void setSelectedOrganizationName(OrgInfo updatedOrganization) {
     if (_disposed) return;
 
