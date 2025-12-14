@@ -172,7 +172,7 @@ void main() {
 
       expect(find.byType(GridView), findsOneWidget);
 
-      expect(find.byType(Image), findsAtLeastNWidgets(1));
+      expect(find.byType(Image), findsOneWidget);
 
       final deleteButton = find.descendant(
         of: find.byType(Stack),
