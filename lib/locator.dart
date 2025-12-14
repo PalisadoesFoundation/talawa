@@ -61,17 +61,41 @@ import 'package:talawa/views/demo_page_view.dart';
 /// Intializaing the locator.
 GetIt locator = GetIt.instance;
 
-///GetIt for UserConfig.
+/// GetIt for UserConfig.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `UserConfig`: The UserConfig service instance.
 UserConfig get userConfig => locator<UserConfig>();
 
-///GetIt for NavigationService.
+/// GetIt for NavigationService.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `NavigationService`: The NavigationService instance.
 NavigationService get navigationService => locator<NavigationService>();
 
-///GetIt for DataBaseMutationFunctions.
+/// GetIt for DataBaseMutationFunctions.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `DataBaseMutationFunctions`: The DataBaseMutationFunctions instance.
 DataBaseMutationFunctions get databaseFunctions =>
     locator<DataBaseMutationFunctions>();
 
-///GetIt for GraphqlConfig.
+/// GetIt for GraphqlConfig.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `GraphqlConfig`: The GraphqlConfig instance.
 GraphqlConfig get graphqlConfig => locator<GraphqlConfig>();
 
 ///GetIt for SizeConfig.

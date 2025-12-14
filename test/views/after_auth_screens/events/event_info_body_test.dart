@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -112,6 +115,26 @@ void main() {
 
     testSetupLocator();
     registerServices();
+
+    final eventService = locator<EventService>();
+    when(eventService.fetchAgendaCategories("XYZ"))
+        .thenAnswer((_) async => QueryResult(
+              options: QueryOptions(document: gql('')),
+              source: QueryResultSource.network,
+              data: {
+                'agendaItemCategoriesByOrganization': [],
+              },
+            ));
+
+    when(eventService.fetchAgendaItems("1"))
+        .thenAnswer((_) async => QueryResult(
+              options: QueryOptions(document: gql('')),
+              source: QueryResultSource.network,
+              data: {
+                'agendaItemByEvent': [],
+              },
+            ));
+
     locator<SizeConfig>().test();
   });
 

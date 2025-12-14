@@ -14,6 +14,7 @@ import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   late AddPostViewModel viewModel;
   late MockActionHandlerService mockActionHandlerService;
 

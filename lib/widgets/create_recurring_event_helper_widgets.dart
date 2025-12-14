@@ -300,8 +300,11 @@ class _EventEndOptionsState extends State<EventEndOptions> {
       data: Theme.of(context).copyWith(focusColor: Colors.transparent),
       child: RadioListTile<String>(
         title: child,
+        // ignore: deprecated_member_use
         value: eventEndTypes[index],
+        // ignore: deprecated_member_use
         groupValue: widget.model.eventEndType,
+        // ignore: deprecated_member_use
         onChanged: (value) {
           setState(() {
             widget.model.eventEndType = value!;

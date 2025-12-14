@@ -64,7 +64,7 @@ UserConfig get userConfig => locator<UserConfig>();
 NavigationService get navigationService => locator<NavigationService>();
 DataBaseMutationFunctions get databaseFunctions =>
     locator<DataBaseMutationFunctions>();
-final graphqlConfig = locator<GraphqlConfig>();
+GraphqlConfig get graphqlConfig => locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
 final appLanguageService = locator<AppLanguage>();

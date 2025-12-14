@@ -1,10 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+
 import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
@@ -20,6 +25,7 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/services/chat_core_service.dart';
 import 'package:talawa/services/chat_membership_service.dart';
 import 'package:talawa/services/chat_message_service.dart';
@@ -32,6 +38,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
+import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
@@ -64,7 +71,6 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 import '../service_tests/user_config_test.dart';
 import '../views/main_screen_test.dart';
 import 'test_helpers.mocks.dart';
@@ -117,6 +123,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<ImageService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ActionHandlerService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<XFile>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ConnectivityService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<Connectivity>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<FlutterImageCompress>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
@@ -126,6 +134,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<ChatMembershipService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ChatMessageService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<UserProfileService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<PinnedPostService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<User>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 
@@ -704,6 +714,26 @@ PostService getAndRegisterPostService() {
   return service;
 }
 
+/// `getAndRegisterPinnedPostService` returns a mock instance of the `PinnedPostService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `PinnedPostService`: A mock instance of the `PinnedPostService` class.
+PinnedPostService getAndRegisterPinnedPostService() {
+  _removeRegistrationIfExists<PinnedPostService>();
+  final service = MockPinnedPostService();
+
+  final StreamController<List<Post>> streamController = StreamController();
+  final Stream<List<Post>> stream = streamController.stream.asBroadcastStream();
+  when(service.pinnedPostStream).thenAnswer((_) => stream);
+  when(service.refreshPinnedPosts()).thenAnswer((_) async {});
+
+  locator.registerSingleton<PinnedPostService>(service);
+  return service;
+}
+
 /// `getAndRegisterMultiMediaPickerService` returns a mock instance of the `MultiMediaPickerService` class.
 ///
 /// **params**:
@@ -863,8 +893,16 @@ Connectivity getAndRegisterConnectivity() {
 ConnectivityService getAndRegisterConnectivityService() {
   _removeRegistrationIfExists<ConnectivityService>();
   final service = MockConnectivityService();
+
+  when(service.connectionStream).thenAnswer((_) =>
+      Stream<List<ConnectivityResult>>.value([ConnectivityResult.wifi])
+          .asBroadcastStream());
+  when(service.connectionStatusController)
+      .thenReturn(StreamController<List<ConnectivityResult>>());
+  when(service.getConnectionType())
+      .thenAnswer((_) async => [ConnectivityResult.wifi]);
+
   locator.registerSingleton<ConnectivityService>(service);
-  // when(service.)
   return service;
 }
 
@@ -1253,6 +1291,7 @@ void registerServices() {
   getAndRegisterGraphqlConfig();
   getAndRegisterUserConfig();
   getAndRegisterPostService();
+  getAndRegisterPinnedPostService();
   getAndRegisterEventService();
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivity();
@@ -1266,6 +1305,7 @@ void registerServices() {
   getAndRegisterImageService();
   getAndRegisterFundService();
   getAndRegisterUserProfileService();
+  mockFlutterSecureStorage();
 }
 
 /// `unregisterServices` unregisters all the services required for the test.
@@ -1276,23 +1316,43 @@ void registerServices() {
 /// **returns**:
 ///   None
 void unregisterServices() {
-  locator.unregister<NavigationService>();
-  locator.unregister<GraphqlConfig>();
-  locator.unregister<UserConfig>();
-  locator.unregister<PostService>();
-  locator.unregister<EventService>();
-  locator.unregister<FundService>();
-  locator.unregister<MultiMediaPickerService>();
-  locator.unregister<Connectivity>();
-  locator.unregister<ConnectivityService>();
-  locator.unregister<DataBaseMutationFunctions>();
-  locator.unregister<OrganizationService>();
-  locator.unregister<CommentService>();
-  locator.unregister<ImageCropper>();
-  locator.unregister<ImagePicker>();
-  locator.unregister<ImageService>();
-  locator.unregister<ChatService>();
-  locator.unregister<UserProfileService>();
+  _removeRegistrationIfExists<NavigationService>();
+  _removeRegistrationIfExists<GraphqlConfig>();
+  _removeRegistrationIfExists<UserConfig>();
+  _removeRegistrationIfExists<PostService>();
+  _removeRegistrationIfExists<PinnedPostService>();
+  _removeRegistrationIfExists<EventService>();
+  _removeRegistrationIfExists<FundService>();
+  _removeRegistrationIfExists<MultiMediaPickerService>();
+  _removeRegistrationIfExists<Connectivity>();
+  _removeRegistrationIfExists<ConnectivityService>();
+  _removeRegistrationIfExists<DataBaseMutationFunctions>();
+  _removeRegistrationIfExists<OrganizationService>();
+  _removeRegistrationIfExists<CommentService>();
+  _removeRegistrationIfExists<ImageCropper>();
+  _removeRegistrationIfExists<ImagePicker>();
+  _removeRegistrationIfExists<ImageService>();
+  _removeRegistrationIfExists<ChatService>();
+  _removeRegistrationIfExists<UserProfileService>();
+  PluginManager.instance.reset();
+}
+
+/// Mock FlutterSecureStorage channel.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
+void mockFlutterSecureStorage() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const MethodChannel channel =
+      MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
+
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+    return null;
+  });
 }
 
 /// registerViewModels registers all the view models required for the test.
@@ -1346,4 +1406,38 @@ void unregisterViewModels() {
   locator.unregister<SelectOrganizationViewModel>();
   locator.unregister<CustomDrawerViewModel>();
   locator.unregister<SelectContactViewModel>();
+}
+
+/// Helper to setup mock GraphQL client with custom response.
+///
+/// **params**:
+/// * `data`: A map containing the mock data to return.
+///
+/// **returns**:
+///   None
+void setupMockGraphQLClient(Map<String, dynamic> data) {
+  final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
+  final mockHttpClient = MockHttpClient();
+
+  when(mockHttpClient.send(any)).thenAnswer((_) async {
+    return http.StreamedResponse(
+      Stream.fromIterable([
+        utf8.encode(jsonEncode({"data": data}))
+      ]),
+      200,
+    );
+  });
+
+  final link = HttpLink(
+    'https://talawa-graphql-api.herokuapp.com/graphql',
+    httpClient: mockHttpClient,
+  );
+
+  final client = GraphQLClient(
+    link: link,
+    cache: GraphQLCache(),
+  );
+
+  when(mockGraphqlConfig.clientToQuery()).thenReturn(client);
+  when(mockGraphqlConfig.authClient()).thenReturn(client);
 }

@@ -21,7 +21,7 @@ void main() {
   });
 
   // Helper for creating QueryResult
-  QueryResult _membersResult(List<Map<String, dynamic>> users) =>
+  QueryResult membersResult(List<Map<String, dynamic>> users) =>
       QueryResult.internal(
         source: QueryResultSource.network,
         data: {
@@ -52,7 +52,7 @@ void main() {
       when(mockDbFunctions.gqlAuthQuery(
         argThat(contains('usersByOrganizationId')),
         variables: anyNamed('variables'),
-      )).thenAnswer((_) async => _membersResult(userJsonList));
+      )).thenAnswer((_) async => membersResult(userJsonList));
 
       final OrganizationService organizationService = OrganizationService();
       final result = await organizationService.getOrgMembersList(orgId);
@@ -143,7 +143,7 @@ void main() {
       when(mockDbFunctions.gqlAuthQuery(
         argThat(contains('usersByOrganizationId')),
         variables: anyNamed('variables'),
-      )).thenAnswer((_) async => _membersResult(mixedUserJsonList));
+      )).thenAnswer((_) async => membersResult(mixedUserJsonList));
 
       final OrganizationService organizationService = OrganizationService();
       final result = await organizationService.getOrgMembersList(orgId);

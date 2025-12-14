@@ -39,6 +39,25 @@ void main() {
           Event(id: "1", isRegisterable: true, isRegistered: false);
       final ExploreEventsViewModel exploreEventsViewModel =
           ExploreEventsViewModel();
+      final eventService = getAndRegisterEventService();
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaItems("1"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemByEvent': [],
+                },
+              ));
+
       model.initialize(
         args: {
           "event": event,

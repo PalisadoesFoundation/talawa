@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/router.dart' as router;
@@ -15,6 +17,7 @@ import 'package:talawa/views/after_auth_screens/events/edit_agenda_item_page.dar
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createEditAgendaItemScreen() {
@@ -111,6 +114,15 @@ void main() {
 
       await tester.tap(find.text('Category 1').last);
       await tester.pumpAndSettle();
+
+      when((eventService as MockEventService).updateAgendaItem(any, any))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'updateAgendaItem': {'_id': '1'}
+                },
+              ));
 
       await tester.tap(find.text('Update'));
       await tester.pumpAndSettle();

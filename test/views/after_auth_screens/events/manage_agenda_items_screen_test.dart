@@ -22,6 +22,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/agenda_item_tile.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Event getTestEvent({
@@ -112,6 +113,24 @@ void main() {
   group('ManageAgendaScreen Widget Tests', () {
     testWidgets('Shows empty state when no agenda items',
         (WidgetTester tester) async {
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaItems('1'))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemByEvent': [],
+                },
+              ));
+
       await tester.pumpWidget(createManageAgendaScreen('1'));
       await tester.pumpAndSettle();
 
@@ -143,6 +162,42 @@ void main() {
           document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
         ),
       );
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
 
       when(eventService.fetchAgendaItems('1'))
           .thenAnswer((_) async => mockResult);
@@ -179,8 +234,54 @@ void main() {
         ),
       );
 
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
       when(eventService.fetchAgendaItems('1'))
           .thenAnswer((_) async => mockResult);
+
+      when((eventService as MockEventService).updateAgendaItem(any, any))
+          .thenAnswer((invocation) async {
+        final id = invocation.positionalArguments[0] as String;
+        final variables =
+            invocation.positionalArguments[1] as Map<String, dynamic>;
+        return QueryResult(
+          options: QueryOptions(document: gql('')),
+          source: QueryResultSource.network,
+          data: {
+            'updateAgendaItem': {
+              '_id': id,
+              'title': 'Agenda $id',
+              'duration': '1h',
+              'sequence': variables['sequence'],
+            }
+          },
+        );
+      });
 
       await tester.pumpWidget(createManageAgendaScreen('1'));
       await tester.pumpAndSettle();
@@ -223,6 +324,15 @@ void main() {
         ),
       );
 
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
       when(eventService.fetchAgendaItems('2'))
           .thenAnswer((_) async => mockResult);
 
@@ -264,6 +374,33 @@ void main() {
           document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
         ),
       );
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
 
       when(eventService.fetchAgendaItems('1'))
           .thenAnswer((_) async => mockResult);
@@ -327,6 +464,33 @@ void main() {
           document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
         ),
       );
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(document: gql('')),
+                source: QueryResultSource.network,
+                data: {
+                  'agendaItemCategoriesByOrganization': [],
+                },
+              ));
 
       when(eventService.fetchAgendaItems('1'))
           .thenAnswer((_) async => mockResult);

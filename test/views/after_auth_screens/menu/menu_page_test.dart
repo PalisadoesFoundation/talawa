@@ -16,11 +16,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
 import 'package:talawa/views/base_view.dart';
 
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:talawa/services/graphql_config.dart';
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createMenuPage() {
@@ -254,18 +250,18 @@ void main() {
             }
           ''';
 
+    final mockQueryResult = QueryResult(
+      source: QueryResultSource.network,
+      data: {
+        'getPlugins': [],
+      },
+      options: QueryOptions(
+        document: gql(queryString),
+      ),
+    );
+
     testWidgets('MenuPage renders and constructor executes (line 15)',
         (tester) async {
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'getPlugins': [],
-        },
-        options: QueryOptions(
-          document: gql(queryString),
-        ),
-      );
-
       when(
         databaseFunctions.gqlAuthQuery(
           queryString,
@@ -282,16 +278,6 @@ void main() {
     });
 
     testWidgets('Menu button triggers drawer open (line 27)', (tester) async {
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'getPlugins': [],
-        },
-        options: QueryOptions(
-          document: gql(queryString),
-        ),
-      );
-
       when(
         databaseFunctions.gqlAuthQuery(
           queryString,
@@ -312,16 +298,6 @@ void main() {
 
     testWidgets('Settings button navigates to app settings (line 42)',
         (tester) async {
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'getPlugins': [],
-        },
-        options: QueryOptions(
-          document: gql(queryString),
-        ),
-      );
-
       when(
         databaseFunctions.gqlAuthQuery(
           queryString,
@@ -540,43 +516,8 @@ void main() {
       // Setup: user IS logged in
       when(userConfig.loggedIn).thenReturn(true);
 
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'getPlugins': [],
-        },
-        options: QueryOptions(
-          document: gql(queryString),
-        ),
-      );
-
       // Configure MockHttpClient to return valid JSON
-      final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
-      final mockHttpClient = MockHttpClient();
-
-      when(mockHttpClient.send(any)).thenAnswer((_) async {
-        return http.StreamedResponse(
-          Stream.fromIterable([
-            utf8.encode(jsonEncode({
-              "data": {"getPlugins": []}
-            }))
-          ]),
-          200,
-        );
-      });
-
-      final link = HttpLink(
-        'https://talawa-graphql-api.herokuapp.com/graphql',
-        httpClient: mockHttpClient,
-      );
-
-      // Ensure authClient returns a client using our mock link
-      when(mockGraphqlConfig.authClient()).thenReturn(
-        GraphQLClient(
-          link: link,
-          cache: GraphQLCache(),
-        ),
-      );
+      setupMockGraphQLClient({'getPlugins': []});
 
       // We don't need to verify databaseFunctions because MenuPage uses GraphQLProvider directly
       // But we can verify the client call if we want, or just ensure no crash.
