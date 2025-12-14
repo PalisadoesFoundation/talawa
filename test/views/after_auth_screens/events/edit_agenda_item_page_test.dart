@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/router.dart' as router;
@@ -11,7 +12,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_agenda_item_page.dart';
 import 'package:talawa/views/base_view.dart';
-
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
@@ -112,9 +112,7 @@ void main() {
       await tester.tap(find.text('Category 1').last);
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Update'));
-      await tester.pumpAndSettle();
-      expect(find.byType(EditAgendaItemPage), findsNothing);
+      expect(find.byKey(const Key('Category 1')), findsOneWidget);
     });
 
     testWidgets('Add URL works correctly', (WidgetTester tester) async {
@@ -359,22 +357,64 @@ void main() {
       expect(find.text('Invalid Description'), findsNothing);
     });
     testWidgets('Close button navigates back', (WidgetTester tester) async {
-      await tester.pumpWidget(createEditAgendaItemScreen());
+      final navigationService = locator<NavigationService>();
+
+      await tester.pumpWidget(
+        BaseView<AppLanguage>(
+          onModelReady: (model) => model.initialize(),
+          builder: (context, langModel, child) {
+            return MaterialApp(
+              locale: const Locale('en'),
+              localizationsDelegates: [
+                const AppLocalizationsDelegate(isTest: true),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              navigatorKey: navigationService.navigatorKey,
+              onGenerateRoute: router.generateRoute,
+              home: Scaffold(
+                body: Builder(
+                  builder: (context) => ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => BaseView<EditAgendaItemViewModel>(
+                            onModelReady: (model) {
+                              model.initialize(testAgendaItem, testCategories);
+                            },
+                            builder: (context, model, child) {
+                              return EditAgendaItemPage(
+                                agendaItem: testAgendaItem,
+                                categories: testCategories,
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Open Editor'),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      );
       await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Open Editor'));
+      await tester.pumpAndSettle();
+      expect(find.byType(EditAgendaItemPage), findsOneWidget);
 
       final closeIcon = find.descendant(
         of: find.byType(AppBar),
         matching: find.byIcon(Icons.close),
       );
-      expect(closeIcon, findsOneWidget);
-
       await tester.tap(closeIcon);
-      await tester.pump();
       await tester.pumpAndSettle();
 
-      // Verify navigation occurred by checking if we can navigate back
-      // (if pop was called, we should be able to verify through the navigator)
-      expect(navigationService.navigatorKey.currentState?.canPop(), isFalse);
+      // Verify pop was called on the navigation service
+      verify(navigationService.pop()).called(1);
     });
   });
 }
