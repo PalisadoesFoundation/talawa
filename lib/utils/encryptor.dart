@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as dev;
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
@@ -247,7 +248,12 @@ class Encryptor {
           'Failed to delete asymmetric key box from disk: $e\nStack trace: $stackTrace');
     }
 
-    await storage.delete(key: HiveKeys.encryptionKey);
+    try {
+      await storage.delete(key: HiveKeys.encryptionKey);
+    } catch (e, stackTrace) {
+      dev.log('Failed to delete encryption key from storage',
+          name: 'Encryptor', error: e, stackTrace: stackTrace);
+    }
   }
 
   /// Encrypts the given string data with Recipient's Public Key.

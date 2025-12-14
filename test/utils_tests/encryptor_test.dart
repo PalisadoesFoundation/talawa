@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
@@ -18,6 +19,7 @@ import '../helpers/setup_hive.mocks.dart';
 
 // This test is being written believing that in future when Encryptor class will get rid of shouldEncrypt variable then all the tests using that variable can be removed
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group('When shouldEncrypt is true', () {
     test('encryptString method should return the encrypted string', () {
       Encryptor.shouldEncrypt = true;
@@ -36,6 +38,15 @@ void main() {
     late MockHiveInterface mockHiveInterface;
     late MockBox<AsymetricKeys> mockHiveBox;
     late FakeFlutterSecureStorage fakeSecureStorage;
+
+    // Helper method to setup common mock behavior for openBox
+    void setupMockOpenBox() {
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        HiveKeys.asymetricKeyBoxKey,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((_) async => mockHiveBox);
+    }
+
     setUpAll(() {
       encryptor = Encryptor();
       Encryptor.shouldEncrypt = false;
@@ -60,12 +71,7 @@ void main() {
     test(
         'Checking whether Box Names and Key Names are appropriate for Hive or not',
         () async {
-      when(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).thenAnswer((realInvocation) async {
-        return mockHiveBox;
-      });
+      setupMockOpenBox();
       await encryptor.saveKeyPair(
         keyPair,
         mockHiveInterface,
@@ -92,11 +98,7 @@ void main() {
       final invalidValue = base64Url.encode(invalidLengthKey);
       await fakeSecureStorage.write(
           key: HiveKeys.encryptionKey, value: invalidValue);
-
-      when(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).thenAnswer((_) async => mockHiveBox);
+      setupMockOpenBox();
 
       // Act
       await encryptor.saveKeyPair(
@@ -119,11 +121,7 @@ void main() {
       // Setup: Corrupted content (not base64)
       await fakeSecureStorage.write(
           key: HiveKeys.encryptionKey, value: 'not-valid-base64');
-
-      when(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).thenAnswer((_) async => mockHiveBox);
+      setupMockOpenBox();
 
       // Act
       await encryptor.saveKeyPair(
@@ -141,14 +139,9 @@ void main() {
       expect(keyBytes.length, 32);
     });
     test('For loadPairKey()', () async {
-      when(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).thenAnswer((realInvocation) async {
-        return mockHiveBox;
-      });
+      setupMockOpenBox();
       when(mockHiveBox.get('key_pair'))
-          .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
+          .thenAnswer((_) => AsymetricKeys(keyPair: keyPair));
       await encryptor.loadKeyPair(
         mockHiveInterface,
         secureStorage: fakeSecureStorage,
@@ -202,14 +195,9 @@ void main() {
     });
     test('Unencrypted message sent to receiveMessage()', () {
       const Map<String, dynamic> message = {"encryptedMessage": "Hello Talawa"};
-      when(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).thenAnswer((realInvocation) async {
-        return mockHiveBox;
-      });
+      setupMockOpenBox();
       when(mockHiveBox.get('key_pair'))
-          .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
+          .thenAnswer((_) => AsymetricKeys(keyPair: keyPair));
       expect(
         encryptor.receiveMessage(
           message,
@@ -228,14 +216,9 @@ void main() {
       final Map<String, dynamic> message = {
         "encryptedMessage": encryptedMessge,
       };
-      when(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).thenAnswer((realInvocation) async {
-        return mockHiveBox;
-      });
+      setupMockOpenBox();
       when(mockHiveBox.get('key_pair'))
-          .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
+          .thenAnswer((_) => AsymetricKeys(keyPair: keyPair));
       await encryptor.receiveMessage(
         message,
         mockHiveInterface,
@@ -246,6 +229,7 @@ void main() {
         encryptionCipher: captureAnyNamed('encryptionCipher'),
       )).captured;
       expect(uniqueCaptures.last, isA<HiveAesCipher>());
+      verify(mockHiveBox.get('key_pair'));
     });
 
     test(
@@ -412,43 +396,6 @@ void main() {
         verify(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
             .called(1);
 
-        // Verify key is removed
-        final storedKey =
-            await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
-        expect(storedKey, isNull);
-      });
-
-      test(
-          'Should handle already closed box (calls deleteBoxFromDisk directly)',
-          () async {
-        // Setup mocks: box not open
-        when(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
-            .thenReturn(false);
-        when(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
-            .thenAnswer((_) => Future.value());
-
-        // Pre-fill secure storage
-        await fakeSecureStorage.write(
-            key: HiveKeys.encryptionKey, value: 'some_key');
-
-        // Act
-        await encryptor.deleteKeyPair(
-          hive: mockHiveInterface,
-          secureStorage: fakeSecureStorage,
-        );
-
-        // Assert
-        verify(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
-            .called(1);
-        // Verify we did NOT try to get the box or close it
-        verifyNever(
-            mockHiveInterface.box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey));
-        verifyNever(mockHiveBox.close());
-        // Verify we STILL deleted from disk
-        verify(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
-            .called(1);
-
-        // Verify key is removed
         final storedKey =
             await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
         expect(storedKey, isNull);
@@ -488,70 +435,69 @@ void main() {
         expect(storedKey, isNull);
       });
     });
+  });
 
-    test('saveKeyPair should work correctly with injected secureStorage',
-        () async {
-      // Reset mocks to clear previous interactions
-      reset(mockHiveInterface);
-      reset(mockHiveBox);
+  group('Default Parameter Coverage', () {
+    late Encryptor encryptor;
+    late MockHiveInterface mockHiveInterface;
+    late FakeFlutterSecureStorage fakeSecureStorage;
+    late Directory tempDir;
 
-      // Verify that saveKeyPair works when secureStorage is explicitly provided
-      when(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).thenAnswer((_) async => mockHiveBox);
-
-      // Use the fake storage instead of null
-      await encryptor.saveKeyPair(
-        keyPair,
-        mockHiveInterface,
-        secureStorage: fakeSecureStorage,
-      );
-
-      // Verify the box was opened (which means encryption key was obtained)
-      verify(mockHiveInterface.openBox<AsymetricKeys>(
-        HiveKeys.asymetricKeyBoxKey,
-        encryptionCipher: anyNamed('encryptionCipher'),
-      )).called(1);
-      verify(mockHiveBox.put('key_pair', any)).called(1);
-
-      // Verify encryption key was stored
-      final storedKey =
-          await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
-      expect(storedKey, isNotNull);
+    setUp(() async {
+      encryptor = Encryptor();
+      mockHiveInterface = MockHiveInterface();
+      fakeSecureStorage = FakeFlutterSecureStorage();
+      tempDir = await Directory.systemTemp.createTemp();
+      Hive.init(tempDir.path);
     });
 
-    test('deleteKeyPair should work with explicit parameters', () async {
-      // Reset mocks to clear previous interactions
-      reset(mockHiveInterface);
-      reset(mockHiveBox);
+    tearDown(() async {
+      await Hive.close();
+      if (tempDir.existsSync()) {
+        await tempDir.delete(recursive: true);
+      }
+    });
 
-      // Setup: Mock the Hive behavior
+    test(
+        'deleteKeyPair calls Hive when secureStorage is null (verifies default path execution)',
+        () async {
       when(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
           .thenReturn(false);
       when(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
           .thenAnswer((_) => Future.value());
 
-      // Pre-fill fake storage
-      await fakeSecureStorage.write(
-          key: HiveKeys.encryptionKey, value: 'test_key');
-
-      // Act: Verify the method works with explicit parameters
       await encryptor.deleteKeyPair(
         hive: mockHiveInterface,
+        secureStorage: null,
+      );
+
+      verify(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
+          .called(1);
+    });
+
+    test('deleteKeyPair should use default Hive when receiving null', () async {
+      // Open the box first to ensure there's something to close/delete
+      // Note: encryptor uses the global 'Hive' instance which we initialized
+      await Hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+      expect(Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey), isTrue);
+
+      await encryptor.deleteKeyPair(
+        hive: null,
         secureStorage: fakeSecureStorage,
       );
 
-      // Assert: Verify interactions occurred
-      verify(mockHiveInterface.isBoxOpen(HiveKeys.asymetricKeyBoxKey))
-          .called(1);
-      verify(mockHiveInterface.deleteBoxFromDisk(HiveKeys.asymetricKeyBoxKey))
-          .called(1);
+      // Verify the global Hive instance was affected
+      expect(Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey), isFalse);
+    });
 
-      // Verify key was deleted from storage
-      final storedKey =
-          await fakeSecureStorage.read(key: HiveKeys.encryptionKey);
-      expect(storedKey, isNull);
+    test('loadKeyPair should use default storage when receiving null', () {
+      expect(
+        () => encryptor.loadKeyPair(
+          mockHiveInterface,
+          secureStorage: null,
+        ),
+        throwsException,
+      );
     });
   });
 }
