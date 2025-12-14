@@ -3,8 +3,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
@@ -135,6 +138,44 @@ void main() {
       const locale = Locale('en', 'US');
       final result = model.localeResoultion(locale, supportedLocales);
       expect(result, locale);
+    });
+  });
+
+  group('selectLanguagePress Tests', () {
+    setUp(() async {
+      userConfig.currentUser.id = 'null';
+      reset(navigationService);
+
+      // Defensive Reset: If box is somehow open from a previous crash/test, close it.
+      if (Hive.isBoxOpen('url')) {
+        await Hive.box('url').close();
+      }
+
+      // Open the box fresh for the new test
+      await Hive.openBox('url');
+      // Clear it to ensure no data persists
+      await Hive.box('url').clear();
+    });
+
+    tearDown(() async {
+      // Always close the box after a test finishes to prevent state leakage
+      if (Hive.isBoxOpen('url')) {
+        await Hive.box('url').close();
+      }
+    });
+
+    test('Navigates to SetUrl screen when cached URL is null', () async {
+      final model = AppLanguage(isTest: true);
+      model.initialize();
+
+      await model.selectLanguagePress();
+
+      verify(
+        navigationService.pushScreen(
+          Routes.setUrlScreen,
+          arguments: anyNamed('arguments'),
+        ),
+      ).called(1);
     });
   });
 }

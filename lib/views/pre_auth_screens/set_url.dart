@@ -69,7 +69,9 @@ class _SetUrlState extends State<SetUrl> {
                                   top: SizeConfig.safeBlockVertical! * 2,
                                 ),
                                 // QR code scanner for joining the organization.
-                                child: IconButton(                                key: const Key('QrButton'),                                  icon: Icon(
+                                child: IconButton(
+                                  key: const Key('QrButton'),
+                                  icon: Icon(
                                     Icons.qr_code_scanner,
                                     size: 30,
                                     semanticLabel: AppLocalizations.of(context)

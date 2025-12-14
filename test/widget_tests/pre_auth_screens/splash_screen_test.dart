@@ -402,7 +402,8 @@ void main() {
         await tester.pumpAndSettle();
 
         // Assert - should navigate to SetUrl screen (line 216-218)
-        verify(navigationService.pushReplacementScreen('/setUrl', arguments: ''));
+        verify(
+            navigationService.pushReplacementScreen('/setUrl', arguments: ''));
       });
     });
 
@@ -423,7 +424,8 @@ void main() {
         await tester.pumpAndSettle();
 
         // Assert - should navigate to SetUrl screen (line 216-218)
-        verify(navigationService.pushReplacementScreen('/setUrl', arguments: ''));
+        verify(
+            navigationService.pushReplacementScreen('/setUrl', arguments: ''));
       });
     });
   });
