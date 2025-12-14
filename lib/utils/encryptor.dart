@@ -100,8 +100,17 @@ class Encryptor {
         if (key.length == 32) {
           return key;
         }
-      } catch (_) {
-        // Fall through to generate a new key if decoding fails
+        dev.log(
+          'Invalid Hive encryption key length (${key.length}); rotating key',
+          name: 'Encryptor',
+        );
+      } on FormatException catch (e, st) {
+        dev.log(
+          'Failed to decode Hive encryption key; rotating key',
+          name: 'Encryptor',
+          error: e,
+          stackTrace: st,
+        );
       }
     }
 
