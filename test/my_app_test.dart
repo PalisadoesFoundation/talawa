@@ -19,26 +19,29 @@ void main() {
   });
 
   group('test main function', () {
-    test('main() loads environment variables successfully', () async {
-      // This test covers lines 30-31 when .env file exists
+    test('main() dotenv.load() handles success case', () async {
       try {
         await dotenv.load(fileName: '.env');
         expect(dotenv.isInitialized, true);
       } catch (error) {
-        // .env file might not exist in test environment, which is expected
         expect(error, isNotNull);
       }
+
+      expect(dotenv.isInitialized, true);
     });
 
-    test('main() handles missing .env file gracefully', () async {
-      // This test covers lines 33-34 when .env file doesn't exist
+    test('main() handles .env loading failure gracefully', () async {
+      var exceptionCaught = false;
+      var executionContinues = false;
       try {
         await dotenv.load(fileName: 'nonexistent_file_that_does_not_exist.env');
-        // If it doesn't throw, that's also acceptable (already initialized)
       } catch (error) {
-        // Expected to catch error - covers the catch block (lines 33-34)
+        exceptionCaught = true;
         expect(error, isNotNull);
+        executionContinues = true;
       }
+      expect(exceptionCaught, true);
+      expect(executionContinues, true);
     });
   });
 

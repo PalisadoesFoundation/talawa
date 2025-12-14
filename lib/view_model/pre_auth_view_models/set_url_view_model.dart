@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/app_strings.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -159,11 +160,14 @@ class SetUrlViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `navigateTo`: Route to navigate to after validation
-  /// * `argument`: Optional argument to pass to the route
+  /// * `argument`: Optional argument to pass to the route (null if no argument needed)
   ///
   /// **returns**:
   ///   None
-  Future<void> checkURLandNavigate(String navigateTo, String argument) async {
+  Future<void> checkURLandNavigate(
+    String navigateTo, {
+    String? argument,
+  }) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
     final formState = formKey.currentState;
@@ -195,7 +199,10 @@ class SetUrlViewModel extends BaseModel {
             navigationService.pop();
           }
           if (shouldNavigate) {
-            navigationService.pushScreen(navigateTo, arguments: argument);
+            navigationService.pushScreen(
+              navigateTo,
+              arguments: argument,
+            );
           }
           return null;
         },
@@ -203,15 +210,15 @@ class SetUrlViewModel extends BaseModel {
     }
   }
 
-  /// This function check the URL and navigate to the respective URL.
+  /// This function check the URL and show a popup with validation result.
   ///
   /// **params**:
-  /// * `argument`: message
+  ///   None
   ///
   /// **returns**:
   ///   None
 
-  Future<void> checkURLandShowPopUp(String argument) async {
+  Future<void> checkURLandShowPopUp() async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
     final isValid = formKey.currentState?.validate() ?? false;
@@ -384,6 +391,17 @@ class SetUrlViewModel extends BaseModel {
         }
       }
     });
+  }
+
+  /// Navigate to language selection screen.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateToLanguageSelection() {
+    navigationService.pushScreen(Routes.languageSelectionRoute);
   }
 
   @override

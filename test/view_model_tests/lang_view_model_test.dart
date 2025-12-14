@@ -7,7 +7,6 @@ import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 

@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -621,6 +622,13 @@ Future<void> main() async {
       //tapping the QR button
       await tester.tap(qrButtonWidget);
       await tester.pumpAndSettle();
+
+      // Verify that the QR scanner modal/bottom sheet is shown
+      // The modal contains a QRView widget for scanning
+      expect(find.byType(QRView), findsOneWidget);
+
+      // Verify the "Scan QR" text is displayed in the modal
+      expect(find.text('Scan QR'), findsOneWidget);
     });
 
     testWidgets("Testing onFieldSubmitted in URL input field", (tester) async {

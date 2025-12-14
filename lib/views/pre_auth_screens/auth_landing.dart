@@ -119,7 +119,7 @@ class _AuthLandingState extends State<AuthLanding> {
                             .strictTranslate('Login'),
                         onTap: () async {
                           /// Checking url. If valid, than navigating to login route
-                          await model.checkURLandNavigate('/login', '');
+                          await model.checkURLandNavigate('/login');
                         },
                         showArrow: true,
                         textColor: Theme.of(context).primaryColor,
@@ -135,7 +135,7 @@ class _AuthLandingState extends State<AuthLanding> {
                             .strictTranslate('Sign Up'),
                         onTap: () => model.checkURLandNavigate(
                           '/selectOrg',
-                          model.orgId,
+                          argument: model.orgId,
                         ),
                         showArrow: true,
                         textColor:

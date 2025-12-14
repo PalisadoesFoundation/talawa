@@ -52,12 +52,15 @@ class AuthLandingViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `navigateTo`: navigation route
-  /// * `argument`: message
+  /// * `argument`: Optional argument to pass to the route (null if no argument needed)
   ///
   /// **returns**:
   ///   None
 
-  Future<void> checkURLandNavigate(String navigateTo, String argument) async {
+  Future<void> checkURLandNavigate(
+    String navigateTo, {
+    String? argument,
+  }) async {
     /// if the url is valid.
 
     await actionHandlerService.performAction(

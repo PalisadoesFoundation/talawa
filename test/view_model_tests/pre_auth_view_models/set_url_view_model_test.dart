@@ -39,7 +39,14 @@ void main() {
 
       expect(model.url.text, 'https://test.com');
       expect(model.greeting, isNotEmpty);
-      expect(model.greeting.length, 9);
+      expect(model.greeting.length, greaterThan(0));
+
+      // Verify greeting contains expected text segments
+      final greetingText =
+          model.greeting.map((segment) => segment['text'] as String).join('');
+      expect(greetingText, contains('Join'));
+      expect(greetingText, contains('Collaborate'));
+      expect(greetingText, contains('Organizations'));
     });
 
     testWidgets('checkURLandNavigate shows error for invalid URL',
@@ -71,7 +78,7 @@ void main() {
       when(validator.validateUrlExistence('https://invalid.com'))
           .thenAnswer((_) async => false);
 
-      await model.checkURLandNavigate('/login', 'arg');
+      await model.checkURLandNavigate('/login', argument: 'arg');
       await tester.pumpAndSettle();
 
       verify(navigationService.showTalawaErrorSnackBar(
@@ -110,7 +117,7 @@ void main() {
 
       when(validator.validateUrlExistence(any)).thenThrow(Exception('Error'));
 
-      await model.checkURLandNavigate('/login', 'arg');
+      await model.checkURLandNavigate('/login', argument: 'arg');
       await tester.pumpAndSettle();
 
       verify(navigationService.showTalawaErrorSnackBar(
@@ -151,7 +158,7 @@ void main() {
       when(validator.validateUrlExistence('https://invalid.com'))
           .thenAnswer((_) async => false);
 
-      await model.checkURLandShowPopUp('arg');
+      await model.checkURLandShowPopUp();
       await tester.pumpAndSettle();
 
       verify(navigationService.showTalawaErrorDialog(
@@ -206,7 +213,7 @@ void main() {
       when(validator.validateUrlExistence('https://test.com'))
           .thenAnswer((_) async => false);
 
-      await model.checkURLandNavigate('/login', 'arg');
+      await model.checkURLandNavigate('/login', argument: 'arg');
       await tester.pumpAndSettle();
 
       verify(validator.validateUrlExistence('https://test.com'));
@@ -242,7 +249,7 @@ void main() {
 
       when(validator.validateUrlExistence(any)).thenThrow(Exception('Error'));
 
-      await model.checkURLandShowPopUp('arg');
+      await model.checkURLandShowPopUp();
       await tester.pumpAndSettle();
 
       verify(navigationService.showTalawaErrorDialog(
@@ -273,7 +280,7 @@ void main() {
         ),
       );
 
-      await model.checkURLandNavigate('/login', 'arg');
+      await model.checkURLandNavigate('/login', argument: 'arg');
       await tester.pumpAndSettle();
 
       expect(model.validate, AutovalidateMode.always);

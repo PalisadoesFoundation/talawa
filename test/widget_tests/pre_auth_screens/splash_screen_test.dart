@@ -92,13 +92,20 @@ void main() {
     when(mockAppLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
   });
 
-  tearDown(() {
+  tearDown(() async {
     // Clean up after each test
     if (locator.isRegistered<AppLinks>()) {
       locator.unregister<AppLinks>();
     }
     if (locator.isRegistered<UserConfig>()) {
       locator.unregister<UserConfig>();
+    }
+
+    // Clean up Hive box to prevent test pollution
+    if (Hive.isBoxOpen('url')) {
+      final box = Hive.box('url');
+      await box.clear();
+      await box.close();
     }
   });
 

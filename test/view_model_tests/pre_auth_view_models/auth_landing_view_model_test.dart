@@ -100,7 +100,7 @@ Future<void> main() async {
 
       await tester.pumpWidget(Form(child: Container()));
 
-      await model.checkURLandNavigate('/', 'arguments');
+      await model.checkURLandNavigate('/', argument: 'arguments');
 
       final captured = verify(
         (navigationService as MockNavigationService).pushDialog(captureAny),
@@ -158,7 +158,7 @@ Future<void> main() async {
       when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
           .thenAnswer((_) async => false);
 
-      await model.checkURLandNavigate('/', 'arguments');
+      await model.checkURLandNavigate('/', argument: 'arguments');
 
       verify(
         navigationService.showTalawaErrorSnackBar(
@@ -192,7 +192,7 @@ Future<void> main() async {
       );
       await tester.pumpAndSettle();
 
-      await model.checkURLandNavigate('/login', 'arguments');
+      await model.checkURLandNavigate('/login', argument: 'arguments');
       await tester.pumpAndSettle();
 
       verify(navigationService.pop());
@@ -218,7 +218,7 @@ Future<void> main() async {
       await tester.pumpWidget(forTest());
       await tester.pumpAndSettle();
 
-      await model.checkURLandNavigate('/signup', 'arguments');
+      await model.checkURLandNavigate('/signup', argument: 'arguments');
       await tester.pumpAndSettle();
 
       verify(navigationService.pop());
@@ -255,7 +255,7 @@ Future<void> main() async {
       when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
           .thenThrow(Exception('Network error'));
 
-      await model.checkURLandNavigate('/login', 'arguments');
+      await model.checkURLandNavigate('/login', argument: 'arguments');
       await tester.pumpAndSettle();
 
       verify(navigationService.pop());
@@ -296,7 +296,7 @@ Future<void> main() async {
       when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
           .thenAnswer((_) async => null);
 
-      await model.checkURLandNavigate('/login', 'arguments');
+      await model.checkURLandNavigate('/login', argument: 'arguments');
       await tester.pumpAndSettle();
 
       verify(navigationService.pop());
@@ -331,7 +331,7 @@ Future<void> main() async {
       when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
           .thenAnswer((_) async => false);
 
-      await model.checkURLandNavigate('/login', 'arguments');
+      await model.checkURLandNavigate('/login', argument: 'arguments');
 
       verify(navigationService.pop());
       verify(
@@ -372,7 +372,7 @@ Future<void> main() async {
       when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
           .thenAnswer((_) async => false);
 
-      await model.checkURLandNavigate('/login', 'arguments');
+      await model.checkURLandNavigate('/login', argument: 'arguments');
       await tester.pumpAndSettle();
 
       verify(navigationService.pop());

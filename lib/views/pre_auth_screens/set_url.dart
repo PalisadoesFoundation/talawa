@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
@@ -144,7 +143,7 @@ class _SetUrlState extends State<SetUrl> {
                                           if (!isValid) return;
 
                                           /// Checking url. If valid, than show the pop-up
-                                          await model.checkURLandShowPopUp('');
+                                          await model.checkURLandShowPopUp();
                                         },
                                         child: Container(
                                           height: 48,
@@ -175,14 +174,17 @@ class _SetUrlState extends State<SetUrl> {
                                     'Login',
                                 onTap: () async {
                                   /// Checking url. If valid, than navigating to login route
-                                  await model.checkURLandNavigate('/login', '');
+                                  await model.checkURLandNavigate(
+                                    Routes.loginScreen,
+                                  );
                                 },
                                 showArrow: true,
                                 textColor: Theme.of(context)
-                                    .inputDecorationTheme
-                                    .focusedBorder!
-                                    .borderSide
-                                    .color,
+                                        .inputDecorationTheme
+                                        .focusedBorder
+                                        ?.borderSide
+                                        .color ??
+                                    Theme.of(context).colorScheme.primary,
                                 backgroundColor:
                                     Theme.of(context).colorScheme.tertiary,
                               ),
@@ -197,8 +199,8 @@ class _SetUrlState extends State<SetUrl> {
                                     'Sign Up',
                                 onTap: () async {
                                   await model.checkURLandNavigate(
-                                    '/selectOrg',
-                                    model.orgId,
+                                    Routes.selectOrgScreen,
+                                    argument: model.orgId,
                                   );
                                 },
                                 showArrow: true,
@@ -206,10 +208,11 @@ class _SetUrlState extends State<SetUrl> {
                                     .colorScheme
                                     .secondaryContainer,
                                 backgroundColor: Theme.of(context)
-                                    .inputDecorationTheme
-                                    .focusedBorder!
-                                    .borderSide
-                                    .color,
+                                        .inputDecorationTheme
+                                        .focusedBorder
+                                        ?.borderSide
+                                        .color ??
+                                    Theme.of(context).colorScheme.primary,
                               ),
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.06,
@@ -218,8 +221,7 @@ class _SetUrlState extends State<SetUrl> {
                               GestureDetector(
                                 key: const Key('ChangeLanguage'),
                                 onTap: () {
-                                  navigationService.pushScreen(
-                                      Routes.languageSelectionRoute);
+                                  model.navigateToLanguageSelection();
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(
@@ -243,16 +245,19 @@ class _SetUrlState extends State<SetUrl> {
                                                 ?.strictTranslate(
                                                     'Change language') ??
                                             'Change language',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge!
+                                        style: (Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge ??
+                                                const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w600,
+                                                ))
                                             .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withAlpha(
-                                                      (0.8 * 255).toInt()),
-                                            ),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface
+                                              .withAlpha((0.8 * 255).toInt()),
+                                        ),
                                       ),
                                     ],
                                   ),
