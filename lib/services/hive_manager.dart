@@ -124,7 +124,6 @@ class HiveManager {
   static Future<void> _openBoxes() async {
     await openBox<User>(HiveKeys.userBoxKey);
     await openBox<OrgInfo>(HiveKeys.orgBoxKey);
-    await openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
     await openBox(HiveKeys.urlBoxKey);
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
@@ -157,7 +156,6 @@ class HiveManager {
   static Future<void> _closeBoxes() async {
     await closeBox<User>(HiveKeys.userBoxKey);
     await closeBox<OrgInfo>(HiveKeys.orgBoxKey);
-    await closeBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
     await closeBox(HiveKeys.urlBoxKey);
     await closeBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await closeBox<Post>(HiveKeys.postFeedKey);
