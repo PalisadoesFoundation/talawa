@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/app_strings.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
@@ -89,6 +91,23 @@ class AuthLandingViewModel extends BaseModel {
         }
         return null;
       },
+    );
+  }
+
+  /// This function navigates to the Demo Mode.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateToDemo() {
+    navigationService.pushScreen(
+      Routes.mainScreen,
+      arguments: MainScreenArgs(
+        mainScreenIndex: 0,
+        toggleDemoMode: true,
+      ),
     );
   }
 }

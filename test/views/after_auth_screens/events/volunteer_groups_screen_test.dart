@@ -167,24 +167,6 @@ void main() {
       when(mockEventService.fetchVolunteerGroupsByEvent("1"))
           .thenAnswer((_) async => mockGroups);
 
-      when(mockEventService.fetchAgendaCategories(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(mockEventService.fetchAgendaItems(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemByEvent': [],
-                },
-              ));
-
       when(
         mockEventService.createVolunteerGroup({
           'eventId': "1",
@@ -249,24 +231,6 @@ void main() {
       when(mockEventService.fetchVolunteerGroupsByEvent("1"))
           .thenAnswer((_) async => mockGroups);
 
-      when(mockEventService.fetchAgendaCategories(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(mockEventService.fetchAgendaItems(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemByEvent': [],
-                },
-              ));
-
       await tester.pumpWidget(volunteerGroupsScreen());
       await tester.pumpAndSettle();
 
@@ -285,24 +249,6 @@ void main() {
       when(mockEventService.fetchVolunteerGroupsByEvent("1"))
           .thenAnswer((_) async => []);
 
-      when(mockEventService.fetchAgendaCategories(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(mockEventService.fetchAgendaItems(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemByEvent': [],
-                },
-              ));
-
       await tester.pumpWidget(volunteerGroupsScreen());
       await tester.pumpAndSettle();
 
@@ -319,24 +265,6 @@ void main() {
 
       when(mockEventService.fetchVolunteerGroupsByEvent("1"))
           .thenAnswer((_) async => mockGroups);
-
-      when(mockEventService.fetchAgendaCategories(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(mockEventService.fetchAgendaItems(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemByEvent': [],
-                },
-              ));
 
       when(
         mockEventService.createVolunteerGroup({
@@ -394,24 +322,6 @@ void main() {
 
       when(mockEventService.fetchVolunteerGroupsByEvent("1"))
           .thenAnswer((_) async => mockGroups);
-
-      when(mockEventService.fetchAgendaCategories(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(mockEventService.fetchAgendaItems(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemByEvent': [],
-                },
-              ));
 
       when(
         mockEventService.createVolunteerGroup({

@@ -14,6 +14,7 @@ import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
@@ -39,22 +40,28 @@ void main() {
           Event(id: "1", isRegisterable: true, isRegistered: false);
       final ExploreEventsViewModel exploreEventsViewModel =
           ExploreEventsViewModel();
-      final eventService = getAndRegisterEventService();
-      when(eventService.fetchAgendaCategories("XYZ"))
+      final eventService = getAndRegisterEventService() as MockEventService;
+      when(eventService.fetchAgendaCategories(any))
           .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
+                options:
+                    QueryOptions(document: gql('query Dummy { __typename }')),
                 source: QueryResultSource.network,
                 data: {
-                  'agendaItemCategoriesByOrganization': [],
+                  'agendaCategories': [
+                    {'id': '1', 'name': 'Category 1'}
+                  ]
                 },
               ));
 
-      when(eventService.fetchAgendaItems("1"))
+      when(eventService.fetchAgendaItems(any))
           .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
+                options:
+                    QueryOptions(document: gql('query Dummy { __typename }')),
                 source: QueryResultSource.network,
                 data: {
-                  'agendaItemByEvent': [],
+                  'agendaItems': [
+                    {'id': '1', 'title': 'Item 1'}
+                  ]
                 },
               ));
 

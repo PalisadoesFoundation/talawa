@@ -165,34 +165,8 @@ void main() {
 
       when(eventService.fetchAgendaCategories("XYZ"))
           .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
+                options:
+                    QueryOptions(document: gql('query Dummy { __typename }')),
                 source: QueryResultSource.network,
                 data: {
                   'agendaItemCategoriesByOrganization': [],
@@ -236,25 +210,8 @@ void main() {
 
       when(eventService.fetchAgendaCategories("XYZ"))
           .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
+                options:
+                    QueryOptions(document: gql('query Dummy { __typename }')),
                 source: QueryResultSource.network,
                 data: {
                   'agendaItemCategoriesByOrganization': [],
@@ -377,25 +334,8 @@ void main() {
 
       when(eventService.fetchAgendaCategories("XYZ"))
           .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
+                options:
+                    QueryOptions(document: gql('query Dummy { __typename }')),
                 source: QueryResultSource.network,
                 data: {
                   'agendaItemCategoriesByOrganization': [],
@@ -467,25 +407,8 @@ void main() {
 
       when(eventService.fetchAgendaCategories("XYZ"))
           .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(eventService.fetchAgendaCategories("XYZ"))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
+                options:
+                    QueryOptions(document: gql('query Dummy { __typename }')),
                 source: QueryResultSource.network,
                 data: {
                   'agendaItemCategoriesByOrganization': [],

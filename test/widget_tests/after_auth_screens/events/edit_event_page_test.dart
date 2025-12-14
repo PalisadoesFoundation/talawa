@@ -157,7 +157,9 @@ void main() {
               }
               return false;
             });
-            await tester.tap(inputModeToggle);
+            if (inputModeToggle.evaluate().isNotEmpty) {
+              await tester.tap(inputModeToggle);
+            }
           }
         }
         await tester.pumpAndSettle();

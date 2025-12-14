@@ -19,6 +19,7 @@ import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Event getTestEvent({
@@ -116,22 +117,27 @@ void main() {
     testSetupLocator();
     registerServices();
 
-    final eventService = locator<EventService>();
-    when(eventService.fetchAgendaCategories("XYZ"))
+    final mockEventService = locator<EventService>() as MockEventService;
+    when(mockEventService.fetchAgendaCategories(any))
         .thenAnswer((_) async => QueryResult(
-              options: QueryOptions(document: gql('')),
+              options:
+                  QueryOptions(document: gql('query Dummy { __typename }')),
               source: QueryResultSource.network,
               data: {
-                'agendaItemCategoriesByOrganization': [],
+                'agendaCategories': [
+                  {'id': '1', 'name': 'Category 1'}
+                ]
               },
             ));
-
-    when(eventService.fetchAgendaItems("1"))
+    when(mockEventService.fetchAgendaItems(any))
         .thenAnswer((_) async => QueryResult(
-              options: QueryOptions(document: gql('')),
+              options:
+                  QueryOptions(document: gql('query Dummy { __typename }')),
               source: QueryResultSource.network,
               data: {
-                'agendaItemByEvent': [],
+                'agendaItems': [
+                  {'id': '1', 'title': 'Item 1'}
+                ]
               },
             ));
 

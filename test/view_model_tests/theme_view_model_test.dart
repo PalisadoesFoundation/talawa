@@ -13,7 +13,6 @@ class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.setMockInitialValues({});
   testSetupLocator();
 

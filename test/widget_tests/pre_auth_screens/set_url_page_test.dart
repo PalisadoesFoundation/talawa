@@ -5,7 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -324,6 +326,40 @@ Future<void> main() async {
       await tester.pump();
 
       verify(navigationService.pop());
+    });
+
+    testWidgets("Testing if Try Demo button works", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the try demo button Finder
+      final tryDemoButtonWidget = find.byKey(const Key('TryDemoButton'));
+
+      //finding the try demo button
+      expect(tryDemoButtonWidget, findsOneWidget);
+
+      expect(
+        (tester.firstWidget(tryDemoButtonWidget) as RaisedRoundedButton)
+            .buttonLabel,
+        'Try Demo',
+      );
+      await tester.ensureVisible(tryDemoButtonWidget);
+      await tester.tap(tryDemoButtonWidget);
+      await tester.pumpAndSettle();
+
+      verify(navigationService.pushScreen(
+        Routes.mainScreen,
+        arguments: MainScreenArgs(
+          mainScreenIndex: 0,
+          toggleDemoMode: true,
+        ),
+      )).called(1);
     });
   });
 

@@ -42,7 +42,7 @@ class _SetUrlState extends State<SetUrl> {
               ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight: constraints.maxHeight,
+                  minHeight: constraints.maxHeight,
                 ),
                 child: IntrinsicHeight(
                   child: Column(
@@ -141,6 +141,18 @@ class _SetUrlState extends State<SetUrl> {
                         textColor:
                             Theme.of(context).colorScheme.secondaryContainer,
                         backgroundColor: Theme.of(context).primaryColor,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.0215,
+                      ),
+                      //Try Demo button.
+                      RaisedRoundedButton(
+                        key: const Key('TryDemoButton'),
+                        buttonLabel: 'Try Demo',
+                        onTap: () => model.navigateToDemo(),
+                        showArrow: true,
+                        textColor: Theme.of(context).primaryColor,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.06,
