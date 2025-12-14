@@ -20,16 +20,20 @@ class CustomDrawerViewModel extends BaseModel {
   final ScrollController controller = ScrollController();
 
   late User _currentUser;
-
-  /// List of switchable organizations for the user.
-  late List<OrgInfo> switchAbleOrg;
-
+  late List<OrgInfo> _switchAbleOrg;
   bool _disposed = false;
   OrgInfo? _selectedOrg;
   StreamSubscription<OrgInfo>? _currentOrganizationStreamSubscription;
 
   /// Getter method to retrieve the selected organization.
   OrgInfo? get selectedOrg => _selectedOrg;
+
+  /// Getter method to retrieve the switchable organizations.
+  // ignore: unnecessary_getters_setters
+  List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
+
+  /// Setter method for switchable organizations.
+  set switchAbleOrg(List<OrgInfo> value) => _switchAbleOrg = value;
 
   /// Initializes the view model.
   ///
@@ -46,7 +50,7 @@ class CustomDrawerViewModel extends BaseModel {
 
     _currentUser = userConfig.currentUser;
     _selectedOrg = userConfig.currentOrg;
-    switchAbleOrg = _currentUser.joinedOrganizations ?? [];
+    _switchAbleOrg = _currentUser.joinedOrganizations ?? [];
   }
 
   /// Switches the organization to the specified `switchToOrg`.
@@ -69,12 +73,7 @@ class CustomDrawerViewModel extends BaseModel {
 
   /// Checks whether `switchToOrg` is present in the switchable organization list.
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
-    for (final OrgInfo org in switchAbleOrg) {
-      if (org.id == switchToOrg.id) {
-        return true;
-      }
-    }
-    return false;
+    return _switchAbleOrg.any((org) => org.id == switchToOrg.id);
   }
 
   @override
