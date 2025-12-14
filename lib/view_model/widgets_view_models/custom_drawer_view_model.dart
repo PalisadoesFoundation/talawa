@@ -20,10 +20,10 @@ class CustomDrawerViewModel extends BaseModel {
   final ScrollController controller = ScrollController();
 
   late User _currentUser;
-  
+
   /// List of switchable organizations for the user.
   late List<OrgInfo> switchAbleOrg;
-  
+
   bool _disposed = false;
   OrgInfo? _selectedOrg;
   StreamSubscription<OrgInfo>? _currentOrganizationStreamSubscription;
