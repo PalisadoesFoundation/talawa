@@ -12,7 +12,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
@@ -214,15 +213,6 @@ void main() {
       expect(viewModel.controller, isA<ScrollController>());
       expect(viewModel.controller.hasClients, isFalse);
       expect(viewModel.controller.initialScrollOffset, 0.0);
-    });
-
-    test('targets list is initialized', () {
-      // Act & Assert
-      // Verify targets list is properly initialized as an empty list
-      expect(viewModel.targets, isNotNull);
-      expect(viewModel.targets, isA<List<TargetFocus>>());
-      // Targets should be initialized as empty list before initialize() is called
-      expect(viewModel.targets, isEmpty);
     });
   });
 
