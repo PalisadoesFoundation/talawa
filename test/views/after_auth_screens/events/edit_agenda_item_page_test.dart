@@ -121,28 +121,61 @@ void main() {
 
     testWidgets('Update button navigates back after successful update',
         (WidgetTester tester) async {
-      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpWidget(
+        createTestApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => BaseView<EditAgendaItemViewModel>(
+                        onModelReady: (model) {
+                          model.initialize(testAgendaItem, testCategories);
+                        },
+                        builder: (context, model, child) {
+                          return EditAgendaItemPage(
+                            agendaItem: testAgendaItem,
+                            categories: testCategories,
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Open Editor'),
+              ),
+            ),
+          ),
+        ),
+      );
       await tester.pumpAndSettle();
 
+      // Navigate to the page
+      await tester.tap(find.text('Open Editor'));
+      await tester.pumpAndSettle();
+      expect(find.byType(EditAgendaItemPage), findsOneWidget);
+
+      // Test no changes path
       await tester.tap(find.text('Update'));
       await tester.pumpAndSettle();
-
       expect(find.text("No changes made"), findsOneWidget);
+      expect(find.byType(EditAgendaItemPage), findsOneWidget); // Still visible
 
-      // Make a change to trigger checkForChanges() to return true
+      // Make a change
       await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Category 1').last);
       await tester.pumpAndSettle();
 
-      // Tap update button
+      // Tap update and verify navigation
       await tester.tap(find.text('Update'));
       await tester.pumpAndSettle();
 
-      // Verify navigation occurred
+      // Verify page was popped (back to button screen)
       expect(find.byType(EditAgendaItemPage), findsNothing);
+      expect(find.text('Open Editor'), findsOneWidget);
     });
-
     testWidgets('Add URL works correctly', (WidgetTester tester) async {
       await tester.pumpWidget(createEditAgendaItemScreen());
       await tester.pumpAndSettle();
