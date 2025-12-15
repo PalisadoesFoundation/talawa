@@ -443,6 +443,8 @@ void main() {
       verify(navigationService.pop()).called(1);
     });
 
+    // NOTE: Invalid duration formats (e.g., "abc") are currently accepted.
+    // Only empty input is validated. This test documents existing behavior.
     testWidgets('Duration field does not reject invalid non-empty format',
         (WidgetTester tester) async {
       await tester.pumpWidget(createEditAgendaItemScreen());
