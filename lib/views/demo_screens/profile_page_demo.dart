@@ -108,17 +108,24 @@ class DemoProfilePage extends StatelessWidget {
                   ),
                 ),
               ),
-              // Expanded(
-              //   flex: 1,
-              //   child: IconButton(
-              //     icon: Icon(
-              //       Icons.share,
-              //       color:
-              //           Theme.of(context).colorScheme.secondary,
-              //     ),
-              //     onPressed: () => model.invite(context),
-              //   ),
-              // ),
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  key: const Key('ExitDemoButton'),
+                  icon: Icon(
+                    Icons.logout,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onPressed: () {
+                    MainScreenViewModel.demoMode = false;
+                    navigationService.removeAllAndPush(
+                      Routes.setUrlScreen,
+                      Routes.splashScreen,
+                      arguments: '',
+                    );
+                  },
+                ),
+              ),
             ],
           ),
           const SizedBox(
@@ -178,70 +185,68 @@ class DemoProfilePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: SizeConfig.screenHeight! * 0.67,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.01,
-                ),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.05,
-                ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.01,
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.05,
+              ),
 
-                //TODO: custom tile for Invitation.
-                // CustomListTile(
-                //   key: homeModel!.keySPInvite,
-                //   index: 3,
-                //   type: TileType.option,
-                //   option: Options(
-                //     icon: Icon(
-                //       Icons.share,
-                //       color:
-                //           Theme.of(context).colorScheme.secondary,
-                //       size: 30,
-                //     ),
-                //     // title
-                //     title: AppLocalizations.of(context)!
-                //         .strictTranslate('Invite'),
-                //     // subtitle
-                //     subtitle: AppLocalizations.of(context)!
-                //         .strictTranslate('Invite to org'),
-                //   ),
-                //   // on tap call the invite function
-                //   onTapOption: () => model.invite(context),
-                // ),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.05,
-                ),
-                // Custom tile for Logout option.
-                //TODO: logout
-                // CustomListTile(
-                //   key: homeModel!.keySPLogout,
-                //   index: 3,
-                //   type: TileType.option,
-                //   option: Options(
-                //     icon: Icon(
-                //       Icons.logout,
-                //       color:
-                //           Theme.of(context).colorScheme.secondary,
-                //       size: 30,
-                //     ),
-                //     title: AppLocalizations.of(context)!
-                //         .strictTranslate('Log out'),
-                //     subtitle: AppLocalizations.of(context)!
-                //         .strictTranslate('Log out from Talawa'),
-                //   ),
-                //   // on tap calls the logout function
-                //   onTapOption: () => model.logout(context),
-                // ),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.05,
-                ),
-                FromPalisadoes(key: homeModel!.keySPPalisadoes),
-              ],
-            ),
+              //TODO: custom tile for Invitation.
+              // CustomListTile(
+              //   key: homeModel!.keySPInvite,
+              //   index: 3,
+              //   type: TileType.option,
+              //   option: Options(
+              //     icon: Icon(
+              //       Icons.share,
+              //       color:
+              //           Theme.of(context).colorScheme.secondary,
+              //       size: 30,
+              //     ),
+              //     // title
+              //     title: AppLocalizations.of(context)!
+              //         .strictTranslate('Invite'),
+              //     // subtitle
+              //     subtitle: AppLocalizations.of(context)!
+              //         .strictTranslate('Invite to org'),
+              //   ),
+              //   // on tap call the invite function
+              //   onTapOption: () => model.invite(context),
+              // ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.05,
+              ),
+              // Custom tile for Logout option.
+              //TODO: logout
+              // CustomListTile(
+              //   key: homeModel!.keySPLogout,
+              //   index: 3,
+              //   type: TileType.option,
+              //   option: Options(
+              //     icon: Icon(
+              //       Icons.logout,
+              //       color:
+              //           Theme.of(context).colorScheme.secondary,
+              //       size: 30,
+              //     ),
+              //     title: AppLocalizations.of(context)!
+              //         .strictTranslate('Log out'),
+              //     subtitle: AppLocalizations.of(context)!
+              //         .strictTranslate('Log out from Talawa'),
+              //   ),
+              //   // on tap calls the logout function
+              //   onTapOption: () => model.logout(context),
+              // ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.05,
+              ),
+
+              FromPalisadoes(key: homeModel!.keySPPalisadoes),
+            ],
           ),
         ],
       ),

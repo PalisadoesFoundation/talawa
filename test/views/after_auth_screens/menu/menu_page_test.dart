@@ -58,7 +58,7 @@ void main() {
   group('MenuPage Plugin GraphQL Parsing Tests', () {
     test('should parse successful GraphQL plugin response', () {
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {
           'getPlugins': [
             {'pluginId': 'plugin1', 'isActivated': true},
@@ -92,7 +92,7 @@ void main() {
 
     test('should handle GraphQL response parsing error', () {
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {
           'getPlugins': 'invalid_data', // Should be a list
         },
@@ -123,7 +123,7 @@ void main() {
 
     test('should handle empty plugin list', () {
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {
           'getPlugins': [],
         },
@@ -150,7 +150,7 @@ void main() {
 
     test('should handle null getPlugins data', () {
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {
           'getPlugins': null,
         },
@@ -177,7 +177,7 @@ void main() {
 
     test('should pass null to initialize when active list is empty', () {
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {
           'getPlugins': [],
         },
@@ -206,7 +206,7 @@ void main() {
 
     test('should handle plugins with missing isActivated field', () {
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {
           'getPlugins': [
             {'pluginId': 'plugin1', 'isActivated': true},

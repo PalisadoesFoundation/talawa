@@ -45,7 +45,7 @@ class AppTour {
       onFinish: onFinish,
       onClickTarget: onClickTarget,
       onSkip: () {
-        if (model.scaffoldKey.currentState!.isDrawerOpen) {
+        if (model.scaffoldKey.currentState?.isDrawerOpen ?? false) {
           navigationService.pop();
         }
         model.tourSkipped = true;
@@ -123,25 +123,48 @@ class FocusTarget {
             bottom: SizeConfig.screenHeight! * 0.025,
           ),
           builder: (context, controller) {
-            return GestureDetector(
-              onTap: () {
-                next?.call();
-                appTour.tutorialCoachMark.next();
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: nextCrossAlign,
-                children: <Widget>[
-                  Text(
-                    AppLocalizations.of(context)!
-                        .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20,
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    appTour.tutorialCoachMark.skip();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      AppLocalizations.of(context)!.strictTranslate('SKIP'),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 20),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    next?.call();
+                    appTour.tutorialCoachMark.next();
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: nextCrossAlign,
+                    children: <Widget>[
+                      Text(
+                        AppLocalizations.of(context)!
+                            .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             );
           },
         ),

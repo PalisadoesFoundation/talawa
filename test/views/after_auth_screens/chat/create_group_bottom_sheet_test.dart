@@ -905,6 +905,15 @@ void main() {
         'Test Group',
       );
 
+      // Mock successful creation
+      when(
+        mockGroupChatViewModel.createGroupChat(
+          groupName: 'Test Group',
+          description: anyNamed('description'),
+          memberIds: ['user1', 'user2'],
+        ),
+      ).thenAnswer((_) async => Chat(id: 'new-group', name: 'Test Group'));
+
       // We need to simulate the scenario where exactly 100 members are selected
       // The GroupMemberSelector widget enforces a UI limit, but the _createGroup method
       // has additional validation for if (_selectedMembers.length > 99)

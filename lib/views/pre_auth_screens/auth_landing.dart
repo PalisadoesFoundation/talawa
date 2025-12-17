@@ -40,167 +40,160 @@ class _SetUrlState extends State<SetUrl> {
                 SizeConfig.screenWidth! * 0.06,
                 0.0,
               ),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
-                child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: SizeConfig.screenHeight! * 0.08,
-                        ),
-                        child: CustomPaint(
-                          key: const Key('LogoPainter'),
-                          size: Size(
-                            SizeConfig.screenWidth! * 0.6,
-                            SizeConfig.screenWidth! * 0.6,
-                          ),
-                          painter: AppLogo(),
-                        ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: SizeConfig.screenHeight! * 0.08,
+                    ),
+                    child: CustomPaint(
+                      key: const Key('LogoPainter'),
+                      size: Size(
+                        SizeConfig.screenWidth! * 0.6,
+                        SizeConfig.screenWidth! * 0.6,
                       ),
-                      CustomRichText(
-                        key: const Key('UrlPageText'),
-                        words:
+                      painter: AppLogo(),
+                    ),
+                  ),
+                  CustomRichText(
+                    key: const Key('UrlPageText'),
+                    words:
 
-                            /// greeting message.
-                            [
-                          {
-                            'text': 'Join ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.titleLarge!.copyWith(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          },
-                          {
-                            'text': 'and ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.headlineSmall,
-                          },
-                          {
-                            'text': 'Collaborate ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.titleLarge!.copyWith(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          },
-                          {
-                            'text': 'with your ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.headlineSmall,
-                          },
-                          {
-                            'text': 'Organizations',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.headlineSmall!.copyWith(
-                                  fontSize: 24,
-                                  color: const Color(0xFF4285F4),
-                                ),
-                          },
-                        ],
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.086,
-                      ),
-                      //Login button.
-                      RaisedRoundedButton(
-                        key: const Key('LoginButton'),
-                        buttonLabel: AppLocalizations.of(context)!
-                            .strictTranslate('Login'),
-                        onTap: () async {
-                          /// Checking url. If valid, than navigating to login route
-                          await model.checkURLandNavigate('/login', '');
-                        },
-                        showArrow: true,
-                        textColor: Theme.of(context).primaryColor,
-                        backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.0215,
-                      ),
-                      //Sign up button.
-                      RaisedRoundedButton(
-                        key: const Key('SignUpButton'),
-                        buttonLabel: AppLocalizations.of(context)!
-                            .strictTranslate('Sign Up'),
-                        onTap: () => model.checkURLandNavigate(
-                          '/selectOrg',
-                          model.orgId,
-                        ),
-                        showArrow: true,
-                        textColor:
-                            Theme.of(context).colorScheme.secondaryContainer,
-                        backgroundColor: Theme.of(context).primaryColor,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.0215,
-                      ),
-                      //Try Demo button.
-                      RaisedRoundedButton(
-                        key: const Key('TryDemoButton'),
-                        buttonLabel: 'Try Demo',
-                        onTap: () => model.navigateToDemo(),
-                        showArrow: true,
-                        textColor: Theme.of(context).primaryColor,
-                        backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.06,
-                      ),
-                      //Gesture Detector which navigates to a different screen for changing the language.
-                      GestureDetector(
-                        key: const Key('ChangeLanguage'),
-                        onTap: () {
-                          navigationService
-                              .pushScreen(Routes.languageSelectionRoute);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom: SizeConfig.safeBlockVertical! * 2,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomPaint(
-                                size: Size(
-                                  SizeConfig.screenWidth! * 0.125,
-                                  SizeConfig.screenWidth! * 0.125 * 0.5,
-                                ),
-                                painter: LanguageIcon(),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate('Change language'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surface
-                                          .withAlpha((0.8 * 255).toInt()),
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                        /// greeting message.
+                        [
+                      {
+                        'text': 'Join ',
+                        'textStyle': Theme.of(
+                          navigationService.navigatorKey.currentContext!,
+                        ).textTheme.titleLarge!.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                      },
+                      {
+                        'text': 'and ',
+                        'textStyle': Theme.of(
+                          navigationService.navigatorKey.currentContext!,
+                        ).textTheme.headlineSmall,
+                      },
+                      {
+                        'text': 'Collaborate ',
+                        'textStyle': Theme.of(
+                          navigationService.navigatorKey.currentContext!,
+                        ).textTheme.titleLarge!.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                      },
+                      {
+                        'text': 'with your ',
+                        'textStyle': Theme.of(
+                          navigationService.navigatorKey.currentContext!,
+                        ).textTheme.headlineSmall,
+                      },
+                      {
+                        'text': 'Organizations',
+                        'textStyle': Theme.of(
+                          navigationService.navigatorKey.currentContext!,
+                        ).textTheme.headlineSmall!.copyWith(
+                              fontSize: 24,
+                              color: const Color(0xFF4285F4),
+                            ),
+                      },
                     ],
                   ),
-                ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.086,
+                  ),
+                  //Login button.
+                  RaisedRoundedButton(
+                    key: const Key('LoginButton'),
+                    buttonLabel:
+                        AppLocalizations.of(context)!.strictTranslate('Login'),
+                    onTap: () async {
+                      /// Checking url. If valid, than navigating to login route
+                      await model.checkURLandNavigate('/login', '');
+                    },
+                    showArrow: true,
+                    textColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.0215,
+                  ),
+                  //Sign up button.
+                  RaisedRoundedButton(
+                    key: const Key('SignUpButton'),
+                    buttonLabel: AppLocalizations.of(context)!
+                        .strictTranslate('Sign Up'),
+                    onTap: () => model.checkURLandNavigate(
+                      '/selectOrg',
+                      model.orgId,
+                    ),
+                    showArrow: true,
+                    textColor: Theme.of(context).colorScheme.secondaryContainer,
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.0215,
+                  ),
+                  //Try Demo button.
+                  RaisedRoundedButton(
+                    key: const Key('TryDemoButton'),
+                    buttonLabel: AppLocalizations.of(context)!
+                        .strictTranslate('Try Demo'),
+                    onTap: () => model.navigateToDemo(),
+                    showArrow: true,
+                    textColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.06,
+                  ),
+                  //Gesture Detector which navigates to a different screen for changing the language.
+                  GestureDetector(
+                    key: const Key('ChangeLanguage'),
+                    onTap: () {
+                      navigationService
+                          .pushScreen(Routes.languageSelectionRoute);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: SizeConfig.safeBlockVertical! * 2,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomPaint(
+                            size: Size(
+                              SizeConfig.screenWidth! * 0.125,
+                              SizeConfig.screenWidth! * 0.125 * 0.5,
+                            ),
+                            painter: LanguageIcon(),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate('Change language'),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surface
+                                      .withAlpha((0.8 * 255).toInt()),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             );
           }),

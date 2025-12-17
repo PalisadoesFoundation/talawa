@@ -193,7 +193,7 @@ void main() {
         (_) async => QueryResult(
           data: null,
           source: QueryResultSource.network,
-          options: QueryOptions(document: gql('')),
+          options: QueryOptions(document: gql('query { __typename }')),
           exception: OperationException(),
         ),
       );
@@ -222,7 +222,7 @@ void main() {
         (_) async => QueryResult(
           data: null,
           source: QueryResultSource.network,
-          options: QueryOptions(document: gql('')),
+          options: QueryOptions(document: gql('query { __typename }')),
         ),
       );
 
@@ -256,7 +256,7 @@ void main() {
             },
           },
           source: QueryResultSource.network,
-          options: QueryOptions(document: gql('')),
+          options: QueryOptions(document: gql('query { __typename }')),
         ),
       );
 
@@ -296,7 +296,7 @@ void main() {
         (_) async => QueryResult(
           data: null,
           source: QueryResultSource.network,
-          options: QueryOptions(document: gql('')),
+          options: QueryOptions(document: gql('query { __typename }')),
           exception: OperationException(),
         ),
       );
@@ -321,7 +321,7 @@ void main() {
         (_) async => QueryResult(
           data: null,
           source: QueryResultSource.network,
-          options: QueryOptions(document: gql('')),
+          options: QueryOptions(document: gql('query { __typename }')),
         ),
       );
 
@@ -349,7 +349,7 @@ void main() {
             },
           },
           source: QueryResultSource.network,
-          options: QueryOptions(document: gql('')),
+          options: QueryOptions(document: gql('query { __typename }')),
         ),
       );
 
@@ -377,7 +377,7 @@ void main() {
             },
           },
           source: QueryResultSource.network,
-          options: QueryOptions(document: gql('')),
+          options: QueryOptions(document: gql('query { __typename }')),
         ),
       );
 

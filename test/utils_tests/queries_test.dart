@@ -225,20 +225,19 @@ void main() {
       expect(query.contains('name'), true);
       expect(query.contains('avatarURL'), true);
       expect(query.contains('description'), true);
-      // expect(query.contains('emailAddress'), true); // Removed as unauthorized
+      expect(query.contains('emailAddress'), true);
 
       // Verify proper GraphQL structure
       expect(query.contains('organizationId:'), true);
       expect(query.contains('{') && query.contains('}'), true);
     });
 
-    test("Check if fetchUsersByOrganizationId excludes emailAddress field", () {
+    test("Check if fetchUsersByOrganizationId includes emailAddress field", () {
       const orgId = 'testOrgId123';
       final query = Queries().fetchUsersByOrganizationId(orgId);
 
-      // Verify emailAddress is not included (unauthorized for new users)
-      // Using word-boundary regex to avoid matching comments or partial words
-      expect(RegExp(r'\bemailAddress\b').hasMatch(query), false);
+      // Verify emailAddress is included
+      expect(RegExp(r'\bemailAddress\b').hasMatch(query), true);
     });
   });
 }
