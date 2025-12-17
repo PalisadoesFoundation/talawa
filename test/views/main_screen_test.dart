@@ -83,11 +83,13 @@ void main() {
   });
 
   group("Test for main_screen.dart", () {
-    testWidgets('Test MainScreen renders DemoHomeView in demo mode', (tester) async {
+    testWidgets('Test MainScreen renders DemoHomeView in demo mode',
+        (tester) async {
       appConfig.isDemoMode = true;
 
       // Stubbing
-      when(mockViewModel.pages).thenReturn([Container(key: const Key('DemoHomeView'))]);
+      when(mockViewModel.pages)
+          .thenReturn([Container(key: const Key('DemoHomeView'))]);
       when(mockViewModel.navBarItems).thenReturn([
         const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label1'),
         const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label2'),
@@ -108,9 +110,10 @@ void main() {
     testWidgets('Testing Main Screen for normal mode',
         (WidgetTester tester) async {
       appConfig.isDemoMode = false;
-      
+
       // Stubbing for normal mode
-      when(mockViewModel.pages).thenReturn([Container(key: const Key('HomeView'))]);
+      when(mockViewModel.pages)
+          .thenReturn([Container(key: const Key('HomeView'))]);
       when(mockViewModel.navBarItems).thenReturn([
         const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label1'),
         const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label2'),
