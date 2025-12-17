@@ -117,6 +117,13 @@ void main() {
     unregisterServices();
   });
 
+  setUp(() {
+    reset(locator<EventService>());
+    reset(locator<NavigationService>());
+    when(locator<NavigationService>().navigatorKey)
+        .thenReturn(GlobalKey<NavigatorState>());
+  });
+
   group("Widget Tests for VolunteerGroupscreen", () {
     testWidgets("Check if VolunteerGroupscreen shows up", (tester) async {
       await tester.pumpWidget(volunteerGroupsScreen());
@@ -345,6 +352,204 @@ void main() {
         find.text('Please enter valid data'),
         findsOneWidget,
       );
+    });
+    testWidgets("Check if invalid date is handled correctly", (tester) async {
+      final mockEventService = locator<EventService>();
+      final mockGroups = [
+        EventVolunteerGroup(
+          name: "Srikar's Team",
+          createdAt: "invalid-date-string",
+          volunteersRequired: 5,
+        ),
+      ];
+
+      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
+          .thenAnswer((_) async => mockGroups);
+
+      await tester.pumpWidget(volunteerGroupsScreen());
+      await tester.pumpAndSettle();
+
+      expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
+      expect(find.text("Invalid date"), findsOneWidget);
+    });
+
+    testWidgets("Check if pull to refresh calls fetchVolunteerGroups",
+        (tester) async {
+      final mockEventService = locator<EventService>();
+      final mockGroups = [
+        EventVolunteerGroup(
+          name: "Srikar's Team",
+          createdAt: "2027-09-08",
+          volunteersRequired: 5,
+        ),
+      ];
+
+      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
+          .thenAnswer((_) async => mockGroups);
+
+      await tester.pumpWidget(volunteerGroupsScreen());
+      await tester.pumpAndSettle();
+
+      verify(mockEventService.fetchVolunteerGroupsByEvent("1")).called(1);
+
+      await tester.drag(find.byType(RefreshIndicator), const Offset(0, 300));
+      await tester.pumpAndSettle();
+
+      verify(mockEventService.fetchVolunteerGroupsByEvent("1")).called(1);
+    });
+
+    testWidgets("Check if edit group navigation works with correct arguments",
+        (tester) async {
+      final mockEventService = locator<EventService>();
+      final mockNavigationService = locator<NavigationService>();
+      final mockGroups = [
+        EventVolunteerGroup(
+          name: "Srikar's Team",
+          createdAt: "2027-09-08",
+          volunteersRequired: 5,
+        ),
+      ];
+
+      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
+          .thenAnswer((_) async => mockGroups);
+
+      await tester.pumpWidget(volunteerGroupsScreen());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.edit).first);
+      await tester.pumpAndSettle();
+
+      verify(
+        mockNavigationService.pushScreen(
+          "/manageVolunteerScreen",
+          arguments: argThat(
+            isA<List>().having((list) => list.length, 'length', 2),
+            named: 'arguments',
+          ),
+        ),
+      ).called(1);
+    });
+
+    testWidgets("Check if successful group creation navigates to manage screen",
+        (tester) async {
+      final mockEventService = locator<EventService>();
+      final mockNavigationService = locator<NavigationService>();
+      final mockGroups = [
+        EventVolunteerGroup(name: "Srikar's Team", createdAt: "2027-09-08"),
+      ];
+      final newGroupMap = {
+        '_id': "fakeUser2",
+        'name': "Srikar's Team",
+        'volunteersRequired': 5,
+        'volunteers': [],
+      };
+
+      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
+          .thenAnswer((_) async => mockGroups);
+
+      when(
+        mockEventService.createVolunteerGroup({
+          'eventId': "1",
+          'name': "Srikar's Team",
+          'volunteersRequired': 5,
+        }),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          data: {'createEventVolunteerGroup': newGroupMap},
+          source: QueryResultSource.network,
+          options: QueryOptions(
+            document: gql(EventQueries().createVolunteerGroup()),
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(volunteerGroupsScreen());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key("add_group_btn")));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byKey(const Key("group_name_field")),
+        "Srikar's Team",
+      );
+      await tester.enterText(
+        find.byKey(const Key("volunteers_required_field")),
+        "5",
+      );
+
+      await tester.tap(find.text('Create Group'));
+      await tester.pumpAndSettle();
+
+      verify(
+        mockNavigationService.pushScreen(
+          "/manageVolunteerScreen",
+          arguments: argThat(
+            isA<List>().having((list) => list.length, 'length', 2),
+            named: 'arguments',
+          ),
+        ),
+      ).called(1);
+    });
+
+    testWidgets("Check if null date is handled correctly", (tester) async {
+      final mockEventService = locator<EventService>();
+      final mockGroups = [
+        EventVolunteerGroup(
+          name: "Srikar's Team",
+          createdAt: null,
+          volunteersRequired: 5,
+        ),
+      ];
+
+      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
+          .thenAnswer((_) async => mockGroups);
+
+      await tester.pumpWidget(volunteerGroupsScreen());
+      await tester.pumpAndSettle();
+
+      expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
+      expect(find.text("N/A"), findsOneWidget);
+    });
+
+    testWidgets(
+        "Check if createVolunteerGroup returning null shows failure message",
+        (tester) async {
+      final mockEventService = locator<EventService>();
+      final mockGroups = [
+        EventVolunteerGroup(name: "Srikar's Team", createdAt: "2027-09-08"),
+      ];
+
+      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
+          .thenAnswer((_) async => mockGroups);
+
+      when(
+        mockEventService.createVolunteerGroup({
+          'eventId': "1",
+          'name': "Srikar's Team",
+          'volunteersRequired': 5,
+        }),
+      ).thenAnswer((_) async => null);
+
+      await tester.pumpWidget(volunteerGroupsScreen());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key("add_group_btn")));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byKey(const Key("group_name_field")),
+        "Srikar's Team",
+      );
+      await tester.enterText(
+        find.byKey(const Key("volunteers_required_field")),
+        "5",
+      );
+
+      await tester.tap(find.text('Create Group'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Failed to create group'), findsOneWidget);
     });
   });
 }
