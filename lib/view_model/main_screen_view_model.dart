@@ -148,8 +148,6 @@ class MainScreenViewModel extends BaseModel {
   /// array of target.
   final List<FocusTarget> targets = [];
 
-
-
   /// Initializing function.
   ///
   /// This function initializes the view model.
