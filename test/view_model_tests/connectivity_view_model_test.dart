@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
@@ -72,13 +73,14 @@ void main() {
     model.initialise();
   });
   group('test connectivity view model', () {
-    test('handleConnection when demoMode', () {
-      MainScreenViewModel.demoMode = true;
-      model.handleConnection([ConnectivityResult.mobile]);
+    test('Testing when demoMode is true', () {
+      appConfig.isDemoMode = true;
+      connectivityViewModel.checkConnection();
+      verifyNever(mockConnectivity.checkConnectivity());
     });
 
-    test('handleConnection when offline', () {
-      internetAccessible = false;
+    test('Testing when demoMode is false', () async {
+      appConfig.isDemoMode = false;
       model.handleConnection([ConnectivityResult.none]);
     });
     test('handleConnection when online', () async {

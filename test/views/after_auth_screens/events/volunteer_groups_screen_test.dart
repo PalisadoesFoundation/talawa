@@ -20,7 +20,6 @@ import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.d
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Event getTestEvent({
@@ -112,27 +111,6 @@ void main() {
   });
 
   group("Widget Tests for VolunteerGroupscreen", () {
-    setUp(() {
-      final mockEventService = locator<EventService>() as MockEventService;
-      when(mockEventService.fetchAgendaCategories(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemCategoriesByOrganization': [],
-                },
-              ));
-
-      when(mockEventService.fetchAgendaItems(any))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql('')),
-                source: QueryResultSource.network,
-                data: {
-                  'agendaItemByEvent': [],
-                },
-              ));
-    });
-
     testWidgets("Check if VolunteerGroupscreen shows up", (tester) async {
       await tester.pumpWidget(volunteerGroupsScreen());
       await tester.pumpAndSettle();
@@ -150,7 +128,7 @@ void main() {
       expect(find.text("There aren't any volunteer groups"), findsOneWidget);
     });
     testWidgets("Check if groups show up", (tester) async {
-      final mockEventService = locator<EventService>() as MockEventService;
+      final mockEventService = locator<EventService>();
       final mockGroups = [
         EventVolunteerGroup(name: "Group 1", createdAt: "2027-09-08"),
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),
@@ -214,7 +192,7 @@ void main() {
       );
     });
     testWidgets("Check if edit group icon show up", (tester) async {
-      final mockEventService = locator<EventService>() as MockEventService;
+      final mockEventService = locator<EventService>();
       final mockGroups = [
         EventVolunteerGroup(
           name: "Group 1",
@@ -244,7 +222,7 @@ void main() {
       await tester.pumpAndSettle();
     });
     testWidgets("Check if no groups show up", (tester) async {
-      final mockEventService = locator<EventService>() as MockEventService;
+      final mockEventService = locator<EventService>();
 
       when(mockEventService.fetchVolunteerGroupsByEvent("1"))
           .thenAnswer((_) async => []);
@@ -257,7 +235,7 @@ void main() {
     });
     testWidgets("Check if add group method throw error show up",
         (tester) async {
-      final mockEventService = locator<EventService>() as MockEventService;
+      final mockEventService = locator<EventService>();
       final mockGroups = [
         EventVolunteerGroup(name: "Group 1", createdAt: "2027-09-08"),
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),
@@ -314,7 +292,7 @@ void main() {
     });
     testWidgets("Check if add group method throw entre data show up",
         (tester) async {
-      final mockEventService = locator<EventService>() as MockEventService;
+      final mockEventService = locator<EventService>();
       final mockGroups = [
         EventVolunteerGroup(name: "Group 1", createdAt: "2027-09-08"),
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),

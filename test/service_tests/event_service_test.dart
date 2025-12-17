@@ -531,7 +531,7 @@ void main() {
     test('createAgendaItem sends correct mutation and variables', () async {
       final variables = {'title': 'New Agenda', 'description': 'Description'};
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('query { __typename }')),
+        options: QueryOptions(document: gql('')),
         data: {
           'createAgendaItem': {'_id': 'agenda1'},
         },
@@ -561,7 +561,7 @@ void main() {
     test('deleteAgendaItem sends correct mutation and variables', () async {
       final variables = {'agendaItemId': 'agenda1'};
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('query { __typename }')),
+        options: QueryOptions(document: gql('')),
         data: {
           'deleteAgendaItem': {'_id': 'agenda1'},
         },
@@ -590,7 +590,7 @@ void main() {
       const itemId = 'agenda1';
       final variables = {'title': 'Updated Agenda'};
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('query { __typename }')),
+        options: QueryOptions(document: gql('')),
         data: {
           'updateAgendaItem': {'_id': 'agenda1', 'title': 'Updated Agenda'},
         },
@@ -624,7 +624,7 @@ void main() {
     test('fetchAgendaItems returns correct data', () async {
       const eventId = 'event123';
       final mockResult = QueryResult(
-        options: QueryOptions(document: gql('query { __typename }')),
+        options: QueryOptions(document: gql('')),
         data: {
           'fetchAgendaItems': [
             {'_id': 'agenda1', 'title': 'Agenda Item 1'},

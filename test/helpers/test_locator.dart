@@ -2,6 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:app_links/app_links.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -87,6 +88,7 @@ final pinnedPostService = locator<PinnedPostService>();
 final fundService = locator<FundService>();
 final fundViewModel = locator<FundViewModel>();
 final userProfileService = locator<UserProfileService>();
+AppConfigService get appConfig => locator<AppConfigService>();
 
 void testSetupLocator() {
   locator.registerSingleton(CacheService());

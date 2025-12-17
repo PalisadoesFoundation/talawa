@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
-import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -19,7 +16,6 @@ import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Event getTestEvent({
@@ -116,31 +112,6 @@ void main() {
 
     testSetupLocator();
     registerServices();
-
-    final mockEventService = locator<EventService>() as MockEventService;
-    when(mockEventService.fetchAgendaCategories(any))
-        .thenAnswer((_) async => QueryResult(
-              options:
-                  QueryOptions(document: gql('query Dummy { __typename }')),
-              source: QueryResultSource.network,
-              data: {
-                'agendaCategories': [
-                  {'id': '1', 'name': 'Category 1'}
-                ]
-              },
-            ));
-    when(mockEventService.fetchAgendaItems(any))
-        .thenAnswer((_) async => QueryResult(
-              options:
-                  QueryOptions(document: gql('query Dummy { __typename }')),
-              source: QueryResultSource.network,
-              data: {
-                'agendaItems': [
-                  {'id': '1', 'title': 'Item 1'}
-                ]
-              },
-            ));
-
     locator<SizeConfig>().test();
   });
 

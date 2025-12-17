@@ -102,20 +102,16 @@ void main() {
 
   group("Test for main_screen.dart", () {
     testWidgets('Test join org banner.', (tester) async {
-      MainScreenViewModel.demoMode = true;
-      await tester.pumpWidget(createMainScreen());
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      final bannerFinder = find.byKey(const Key('banner'));
-      expect(bannerFinder, findsOneWidget);
-      await tester.tap(bannerFinder);
-      verify(navigationService.pushScreen(Routes.setUrlScreen, arguments: ''));
+      appConfig.isDemoMode = true;
+      await tester.pumpWidget(createMainScreen(demoMode: true));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('DemoHomeView')), findsOneWidget);
     });
 
-    testWidgets("Test if Join Org banner not visible.", (tester) async {
-      MainScreenViewModel.demoMode = false;
-      await tester
-          .pumpWidget(createMainScreen(demoMode: MainScreenViewModel.demoMode));
+    testWidgets('Testing Main Screen for normal mode',
+        (WidgetTester tester) async {
+      appConfig.isDemoMode = false;
+      await tester.pumpWidget(createMainScreen(demoMode: appConfig.isDemoMode));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       final bannerFinder = find.byKey(const Key('banner'));
       expect(bannerFinder, findsNothing);

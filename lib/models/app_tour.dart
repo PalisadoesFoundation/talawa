@@ -149,19 +149,22 @@ class FocusTarget {
                     next?.call();
                     appTour.tutorialCoachMark.next();
                   },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: nextCrossAlign,
-                    children: <Widget>[
-                      Text(
-                        AppLocalizations.of(context)!
-                            .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 20,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: nextCrossAlign,
+                      children: <Widget>[
+                        Text(
+                          AppLocalizations.of(context)!
+                              .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontSize: 20,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

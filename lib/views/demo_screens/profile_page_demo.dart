@@ -117,12 +117,7 @@ class DemoProfilePage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   onPressed: () {
-                    MainScreenViewModel.demoMode = false;
-                    navigationService.removeAllAndPush(
-                      Routes.setUrlScreen,
-                      Routes.splashScreen,
-                      arguments: '',
-                    );
+                    homeModel!.exitDemoMode();
                   },
                 ),
               ),
@@ -195,52 +190,13 @@ class DemoProfilePage extends StatelessWidget {
                 height: SizeConfig.screenHeight! * 0.05,
               ),
 
-              //TODO: custom tile for Invitation.
-              // CustomListTile(
-              //   key: homeModel!.keySPInvite,
-              //   index: 3,
-              //   type: TileType.option,
-              //   option: Options(
-              //     icon: Icon(
-              //       Icons.share,
-              //       color:
-              //           Theme.of(context).colorScheme.secondary,
-              //       size: 30,
-              //     ),
-              //     // title
-              //     title: AppLocalizations.of(context)!
-              //         .strictTranslate('Invite'),
-              //     // subtitle
-              //     subtitle: AppLocalizations.of(context)!
-              //         .strictTranslate('Invite to org'),
-              //   ),
-              //   // on tap call the invite function
-              //   onTapOption: () => model.invite(context),
-              // ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.05,
               ),
-              // Custom tile for Logout option.
-              //TODO: logout
-              // CustomListTile(
-              //   key: homeModel!.keySPLogout,
-              //   index: 3,
-              //   type: TileType.option,
-              //   option: Options(
-              //     icon: Icon(
-              //       Icons.logout,
-              //       color:
-              //           Theme.of(context).colorScheme.secondary,
-              //       size: 30,
-              //     ),
-              //     title: AppLocalizations.of(context)!
-              //         .strictTranslate('Log out'),
-              //     subtitle: AppLocalizations.of(context)!
-              //         .strictTranslate('Log out from Talawa'),
-              //   ),
-              //   // on tap calls the logout function
-              //   onTapOption: () => model.logout(context),
-              // ),
+              // TODO: Add Invitation and Logout tiles when functionality is available
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.05,
+              ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.05,
               ),

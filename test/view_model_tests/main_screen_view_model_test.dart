@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+
+import '../helpers/test_helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +15,7 @@ void main() {
   late MainScreenViewModel viewModel;
 
   setUp(() {
+    getAndRegisterNavigationService();
     viewModel = MainScreenViewModel();
   });
 
@@ -57,7 +62,7 @@ void main() {
     testWidgets(
         'setupNavigationItems sets navBarItems and pages for normal mode',
         (tester) async {
-      MainScreenViewModel.demoMode = false;
+      appConfig.isDemoMode = false;
       await tester.pumpWidget(
         MaterialApp(
           localizationsDelegates: const [
@@ -72,8 +77,8 @@ void main() {
           home: Builder(
             builder: (ctx) {
               viewModel.setupNavigationItems(ctx);
-              expect(viewModel.navBarItems.length, 4);
-              expect(viewModel.pages.length, 4);
+              expect(viewModel.navBarItems.length, 6);
+              expect(viewModel.pages.length, 6);
               return Container();
             },
           ),
@@ -83,7 +88,7 @@ void main() {
 
     testWidgets('setupNavigationItems sets navBarItems and pages for demo mode',
         (tester) async {
-      MainScreenViewModel.demoMode = true;
+      appConfig.isDemoMode = true;
       await tester.pumpWidget(
         MaterialApp(
           localizationsDelegates: const [
@@ -98,13 +103,24 @@ void main() {
           home: Builder(
             builder: (ctx) {
               viewModel.setupNavigationItems(ctx);
-              expect(viewModel.navBarItems.length, 4);
-              expect(viewModel.pages.length, 4);
+              expect(viewModel.navBarItems.length, 6);
+              expect(viewModel.pages.length, 6);
               return Container();
             },
           ),
         ),
       );
+    });
+
+    test('exitDemoMode sets isDemoMode to false and navigates', () {
+      appConfig.isDemoMode = true;
+      viewModel.exitDemoMode();
+      expect(appConfig.isDemoMode, false);
+      verify(locator<NavigationService>().removeAllAndPush(
+        Routes.setUrlScreen,
+        Routes.splashScreen,
+        arguments: '',
+      ));
     });
 
     testWidgets('appTourDialog returns CustomAlertDialog', (tester) async {

@@ -1,4 +1,5 @@
 import 'package:app_links/app_links.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -125,6 +126,9 @@ final sessionManager = locator<SessionManager>();
 ///GetIt for ActonHandlerService.
 final actionHandlerService = locator<ActionHandlerService>();
 
+///GetIt for AppConfigService.
+final appConfig = locator<AppConfigService>();
+
 /// This function registers the widgets/objects in "GetIt".
 ///
 /// **params**:
@@ -217,4 +221,7 @@ Future<void> setupLocator() async {
 
   //AppLinks
   locator.registerSingleton(AppLinks());
+
+  //AppConfigService
+  locator.registerSingleton(AppConfigService());
 }

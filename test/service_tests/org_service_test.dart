@@ -5,6 +5,7 @@ import 'package:talawa/services/org_service.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_helpers.mocks.dart';
+import '../helpers/test_locator.dart';
 
 /// Tests org_service.dart.
 void main() {
@@ -156,6 +157,14 @@ void main() {
       expect(result[1].id, 'user_id_3');
       expect(result[1].firstName, 'Another');
       expect(result[1].lastName, 'Valid User');
+    });
+
+    test('Test getOrgMembersList in demo mode', () async {
+      appConfig.isDemoMode = true;
+      final OrganizationService organizationService = OrganizationService();
+      final result = await organizationService.getOrgMembersList('123');
+      expect(result, isEmpty);
+      appConfig.isDemoMode = false; // Reset
     });
   });
 }

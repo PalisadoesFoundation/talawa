@@ -224,7 +224,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
               children: [
                 DropdownButtonFormField<AgendaCategory>(
                   key: const Key('create_agenda_item_category_dropdown'),
-                  initialValue: selectedCategories.isNotEmpty
+                  value: selectedCategories.isNotEmpty
                       ? selectedCategories.first
                       : null,
                   onChanged: (AgendaCategory? category) {

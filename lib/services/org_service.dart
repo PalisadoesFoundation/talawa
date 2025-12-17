@@ -3,7 +3,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/queries.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
 
 /// Provides the Services in the context of organizations.
 ///
@@ -26,7 +25,7 @@ class OrganizationService {
   /// with the list of organization members.
   Future<List<User>> getOrgMembersList(String orgId) async {
     try {
-      if (MainScreenViewModel.demoMode) return [];
+      if (appConfig.isDemoMode) return [];
 
       final String query = Queries().fetchUsersByOrganizationId(orgId);
       // fetching from database using graphQL query.

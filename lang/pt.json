@@ -279,7 +279,7 @@
   "Organisation on different server, logout and scan qr again": "Organização em servidor diferente, faça logout e escaneie o QR novamente",
   "Post was deleted if you had the rights!": "A postagem foi excluída se você tiver os direitos!",
   "Members": "Membros",
-  "Remember me": "Lembre-se de mim", 
+  "Remember me": "Lembre-se de mim",
   "Login directly with": "Entrar diretamente com",
   "Continue Without Organization": "Continuar sem organização",
   "No admins assigned": "Nenhum administrador atribuído",
@@ -328,5 +328,6 @@
   "Upcoming": "Próxima",
   "Ended": "Encerrada",
   "Active": "Ativa",
-  "Unnamed Organization": "Organização Sem Nome"
+  "Unnamed Organization": "Organização Sem Nome",
+  "Try Demo": "Experimentar Demo"
 }
