@@ -1,7 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/services/app_config_service.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/org_service.dart';
+import 'package:talawa/services/user_config.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_helpers.mocks.dart';
@@ -10,9 +14,15 @@ import '../helpers/test_locator.dart';
 /// Tests org_service.dart.
 void main() {
   late MockDataBaseMutationFunctions mockDbFunctions;
+  late MockGraphqlConfig mockGraphqlConfig;
 
   setUp(() {
+    testSetupLocator();
+    if (!locator.isRegistered<AppConfigService>()) {
+      locator.registerSingleton(AppConfigService());
+    }
     registerServices();
+    mockGraphqlConfig = getAndRegisterGraphqlConfig() as MockGraphqlConfig;
     mockDbFunctions = getAndRegisterDatabaseMutationFunctions()
         as MockDataBaseMutationFunctions;
   });
@@ -160,11 +170,15 @@ void main() {
     });
 
     test('Test getOrgMembersList in demo mode', () async {
-      appConfig.isDemoMode = true;
-      final OrganizationService organizationService = OrganizationService();
-      final result = await organizationService.getOrgMembersList('123');
-      expect(result, isEmpty);
-      appConfig.isDemoMode = false; // Reset
+      try {
+        appConfig.isDemoMode = true;
+        final OrganizationService organizationService = OrganizationService();
+        final result = await organizationService.getOrgMembersList('123');
+        expect(result, isEmpty);
+        verifyNever(locator<GraphqlConfig>().clientToQuery());
+      } finally {
+        appConfig.isDemoMode = false; // Reset
+      }
     });
   });
 }

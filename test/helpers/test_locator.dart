@@ -91,6 +91,7 @@ final userProfileService = locator<UserProfileService>();
 AppConfigService get appConfig => locator<AppConfigService>();
 
 void testSetupLocator() {
+  locator.allowReassignment = true;
   locator.registerSingleton(CacheService());
 
   locator.registerSingleton(DataBaseMutationFunctions());
@@ -120,7 +121,7 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
-  locator.registerSingleton(() => OrganizationService());
+
   locator.registerSingleton(Validator());
   locator.registerLazySingleton(() => PinnedPostService());
   locator.registerLazySingleton(() => FundService());

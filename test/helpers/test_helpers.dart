@@ -28,6 +28,7 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/services/app_config_service.dart';
+import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_core_service.dart';
 import 'package:talawa/services/chat_membership_service.dart';
 import 'package:talawa/services/chat_message_service.dart';
@@ -49,6 +50,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/services/user_profile_service.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
@@ -1338,6 +1340,10 @@ void unregisterServices() {
   _removeRegistrationIfExists<ChatService>();
   _removeRegistrationIfExists<UserProfileService>();
   _removeRegistrationIfExists<AppConfigService>();
+  _removeRegistrationIfExists<CacheService>();
+  _removeRegistrationIfExists<SizeConfig>();
+  _removeRegistrationIfExists<SessionManager>();
+  _removeRegistrationIfExists<Validator>();
   PluginManager.instance.reset();
 }
 
@@ -1444,4 +1450,30 @@ void setupMockGraphQLClient(Map<String, dynamic> data) {
 
   when(mockGraphqlConfig.clientToQuery()).thenReturn(client);
   when(mockGraphqlConfig.authClient()).thenReturn(client);
+}
+class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
+  @override
+  List<Widget> get pages => super.noSuchMethod(
+        Invocation.getter(#pages),
+        returnValue: <Widget>[],
+        returnValueForMissingStub: <Widget>[],
+      );
+  @override
+  List<BottomNavigationBarItem> get navBarItems => super.noSuchMethod(
+        Invocation.getter(#navBarItems),
+        returnValue: <BottomNavigationBarItem>[],
+        returnValueForMissingStub: <BottomNavigationBarItem>[],
+      );
+  @override
+  int get currentPageIndex => super.noSuchMethod(
+        Invocation.getter(#currentPageIndex),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      );
+  @override
+  GlobalKey<ScaffoldState> get scaffoldKey => super.noSuchMethod(
+        Invocation.getter(#scaffoldKey),
+        returnValue: GlobalKey<ScaffoldState>(),
+        returnValueForMissingStub: GlobalKey<ScaffoldState>(),
+      );
 }

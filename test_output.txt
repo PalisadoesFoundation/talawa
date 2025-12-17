@@ -1,0 +1,99 @@
+00:00 +0: loading /home/anurag/OneDriveCollege/talawa/talawa/test/views/main_screen_test.dart                                                                                                          00:01 +0: loading /home/anurag/OneDriveCollege/talawa/talawa/test/views/main_screen_test.dart                                                                                                          00:02 +0: loading /home/anurag/OneDriveCollege/talawa/talawa/test/views/main_screen_test.dart                                                                                                          00:02 +0: (setUpAll)                                                                                                                                                                                   00:02 +0: Test for main_screen.dart Test MainScreen renders DemoHomeView in demo mode                                                                                                                  00:02 +0: Test for main_screen.dart Test MainScreen renders DemoHomeView in demo mode                                                                                                                  
+Is AppConfigService registered? true
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building Consumer<MainScreenViewModel>(dirty, dependencies:
+[InheritedCupertinoTheme, _InheritedProviderScope<MainScreenViewModel?>, _InheritedTheme,
+_LocalizationsScope-[GlobalKey#d6382]]):
+'package:flutter/src/material/bottom_navigation_bar.dart': Failed assertion: line 250 pos 15:
+'items.length >= 2': is not true.
+
+The relevant error-causing widget was:
+  Consumer<MainScreenViewModel>
+  Consumer:file:///home/anurag/OneDriveCollege/talawa/talawa/lib/views/base_view.dart:35:14
+
+When the exception was thrown, this was the stack:
+#2      new BottomNavigationBar (package:flutter/src/material/bottom_navigation_bar.dart:250:15)
+#3      _MainScreenState.build.<anonymous closure> (package:talawa/views/main_screen.dart:94:32)
+#4      Consumer.buildWithChild (package:provider/src/consumer.dart:179:19)
+#5      SingleChildStatelessWidget.build (package:nested/nested.dart:259:41)
+#6      StatelessElement.build (package:flutter/src/widgets/framework.dart:5791:49)
+#7      SingleChildStatelessElement.build (package:nested/nested.dart:279:18)
+#8      ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5723:15)
+#9      Element.rebuild (package:flutter/src/widgets/framework.dart:5435:7)
+#10     ComponentElement._firstBuild (package:flutter/src/widgets/framework.dart:5705:5)
+#11     ComponentElement.mount (package:flutter/src/widgets/framework.dart:5699:5)
+#12     SingleChildWidgetElementMixin.mount (package:nested/nested.dart:222:11)
+...     Normal element mounting (7 frames)
+#19     _InheritedProviderScopeElement.mount (package:provider/src/inherited_provider.dart:424:11)
+...     Normal element mounting (7 frames)
+#26     SingleChildWidgetElementMixin.mount (package:nested/nested.dart:222:11)
+...     Normal element mounting (41 frames)
+#67     Element.inflateWidget (package:flutter/src/widgets/framework.dart:4548:16)
+#68     MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7169:36)
+#69     MultiChildRenderObjectElement.mount (package:flutter/src/widgets/framework.dart:7185:32)
+...     Normal element mounting (332 frames)
+#401    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4548:16)
+#402    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7169:36)
+#403    MultiChildRenderObjectElement.mount (package:flutter/src/widgets/framework.dart:7185:32)
+...     Normal element mounting (222 frames)
+#625    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4548:16)
+#626    Element.updateChild (package:flutter/src/widgets/framework.dart:3998:20)
+#627    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5747:16)
+#628    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5884:11)
+#629    Element.rebuild (package:flutter/src/widgets/framework.dart:5435:7)
+#630    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2695:15)
+#631    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2752:11)
+#632    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3056:18)
+#633    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:1506:19)
+#634    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#635    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1434:15)
+#636    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1347:9)
+#637    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:1335:9)
+#640    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#641    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:1324:27)
+#642    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#645    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#646    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#647    main.<anonymous closure>.<anonymous closure> (file:///home/anurag/OneDriveCollege/talawa/talawa/test/views/main_screen_test.dart:102:20)
+<asynchronous suspension>
+#648    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#649    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'DemoHomeView'>]: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure>.<anonymous closure> (file:///home/anurag/OneDriveCollege/talawa/talawa/test/views/main_screen_test.dart:103:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///home/anurag/OneDriveCollege/talawa/talawa/test/views/main_screen_test.dart line 103
+The test description was:
+  Test MainScreen renders DemoHomeView in demo mode
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +0 -1: Test for main_screen.dart Test MainScreen renders DemoHomeView in demo mode [E]                                                                                                           
+  Test failed. See exception logs above.
+  The test description was: Test MainScreen renders DemoHomeView in demo mode
+  
+
+To run this test again: /home/anurag/flutter/bin/cache/dart-sdk/bin/dart test /home/anurag/OneDriveCollege/talawa/talawa/test/views/main_screen_test.dart -p vm --plain-name 'Test for main_screen.dart Test MainScreen renders DemoHomeView in demo mode'
+00:03 +0 -1: (tearDownAll)                                                                                                                                                                             00:03 +0 -1: Some tests failed.                                                                                                                                                                        

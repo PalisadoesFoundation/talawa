@@ -129,41 +129,18 @@ class FocusTarget {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    appTour.tutorialCoachMark.skip();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      AppLocalizations.of(context)!.strictTranslate('SKIP'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
                     next?.call();
                     appTour.tutorialCoachMark.next();
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: nextCrossAlign,
-                      children: <Widget>[
-                        Text(
-                          AppLocalizations.of(context)!
-                              .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      AppLocalizations.of(context)!
+                          .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
