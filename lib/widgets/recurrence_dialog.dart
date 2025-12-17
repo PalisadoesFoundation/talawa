@@ -139,11 +139,8 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
     );
     return RadioListTile<String>(
       title: Text(text),
-      // ignore: deprecated_member_use
       value: text,
-      // ignore: deprecated_member_use
       groupValue: widget.model.recurrenceLabel,
-      // ignore: deprecated_member_use
       onChanged: (value) => updateModel(
         value!,
         true,
@@ -168,11 +165,8 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
   ) {
     return RadioListTile<String>(
       title: Text(text),
-      // ignore: deprecated_member_use
       value: text,
-      // ignore: deprecated_member_use
       groupValue: widget.model.recurrenceLabel,
-      // ignore: deprecated_member_use
       onChanged: onChanged,
     );
   }

@@ -57,10 +57,6 @@ void main() {
 
     testWidgets("Test if SelectOrganization Page is displayed",
         (WidgetTester tester) async {
-      // Mock GraphQL response
-      // Mock GraphQL response
-      setupMockGraphQLClient({'organizations': []});
-
       await tester.runAsync(() async {
         await tester.pumpWidget(createSelectOrgPage());
         await tester.pumpAndSettle(const Duration(milliseconds: 500));
@@ -72,25 +68,6 @@ void main() {
     testWidgets('Test organization search list with valid data',
         (tester) async {
       // Populate mock data for organizations
-      final orgs = List.generate(
-        5,
-        (i) => {
-          "id": "$i",
-          "name": "Organization $i",
-          "description": "Organization $i description",
-          "addressLine1": "Address 1",
-          "addressLine2": "Address 2",
-          "avatarURL": null,
-          "countryCode": "US",
-          "state": "State",
-          "isUserRegistrationRequired": true,
-        },
-      );
-
-      // Mock GraphQL response with data
-      // Mock GraphQL response with data
-      setupMockGraphQLClient({'organizations': orgs});
-
       orgViewModel.organizations = List.generate(
         5,
         (i) => OrgInfo(
@@ -118,10 +95,6 @@ void main() {
     });
 
     testWidgets("Test if back-arrow is present", (WidgetTester tester) async {
-      // Mock GraphQL response
-      // Mock GraphQL response
-      setupMockGraphQLClient({'organizations': []});
-
       await tester.runAsync(() async {
         await tester.pumpWidget(createSelectOrgPage());
         await tester.pumpAndSettle(const Duration(milliseconds: 500));

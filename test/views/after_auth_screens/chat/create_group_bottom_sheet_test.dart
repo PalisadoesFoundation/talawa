@@ -13,7 +13,6 @@ import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_
 import 'package:talawa/views/after_auth_screens/chat/create_group_bottom_sheet.dart';
 
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 /// Helper function to create MaterialApp with localization support for testing
@@ -56,17 +55,6 @@ void main() {
       mockUserConfig = locator<UserConfig>();
       mockOrgService = locator<OrganizationService>();
       mockGroupChatViewModel = getAndRegisterGroupChatViewModel();
-
-      // Add default stubs to prevent ResponseFormatException
-      when(
-        (mockGroupChatViewModel as MockGroupChatViewModel).createGroupChat(
-          groupName: anyNamed('groupName'),
-          description: anyNamed('description'),
-          memberIds: anyNamed('memberIds'),
-        ),
-      ).thenAnswer((_) async => null);
-
-      when(mockGroupChatViewModel.initialise()).thenAnswer((_) async {});
 
       final currentUser = User(
         id: 'current-user',
@@ -904,15 +892,6 @@ void main() {
         ),
         'Test Group',
       );
-
-      // Mock successful creation
-      when(
-        mockGroupChatViewModel.createGroupChat(
-          groupName: 'Test Group',
-          description: anyNamed('description'),
-          memberIds: ['user1', 'user2'],
-        ),
-      ).thenAnswer((_) async => Chat(id: 'new-group', name: 'Test Group'));
 
       // We need to simulate the scenario where exactly 100 members are selected
       // The GroupMemberSelector widget enforces a UI limit, but the _createGroup method

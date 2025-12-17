@@ -45,7 +45,7 @@ class AppTour {
       onFinish: onFinish,
       onClickTarget: onClickTarget,
       onSkip: () {
-        if (model.scaffoldKey.currentState?.isDrawerOpen ?? false) {
+        if (model.scaffoldKey.currentState!.isDrawerOpen) {
           navigationService.pop();
         }
         model.tourSkipped = true;
@@ -124,21 +124,23 @@ class FocusTarget {
           ),
           builder: (context, controller) {
             return GestureDetector(
-              behavior: HitTestBehavior.opaque,
               onTap: () {
                 next?.call();
                 appTour.tutorialCoachMark.next();
               },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  AppLocalizations.of(context)!
-                      .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 20,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: nextCrossAlign,
+                children: <Widget>[
+                  Text(
+                    AppLocalizations.of(context)!
+                        .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 20,
+                    ),
                   ),
-                ),
+                ],
               ),
             );
           },
