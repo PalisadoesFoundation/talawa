@@ -148,8 +148,7 @@ class MainScreenViewModel extends BaseModel {
   /// array of target.
   final List<FocusTarget> targets = [];
 
-  /// flag to represent if app is in demoMode.
-  // static bool demoMode = false;
+
 
   /// Initializing function.
   ///

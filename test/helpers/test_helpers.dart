@@ -16,8 +16,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/models/chats/chat.dart';
+
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
@@ -27,6 +27,7 @@ import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/plugin/manager.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/chat_core_service.dart';
 import 'package:talawa/services/chat_membership_service.dart';
 import 'package:talawa/services/chat_message_service.dart';
@@ -1305,7 +1306,7 @@ void registerServices() {
   getAndRegisterImagePicker();
   getAndRegisterImageService();
   getAndRegisterFundService();
-  locator.registerSingleton(AppConfigService());
+
   getAndRegisterUserProfileService();
   mockFlutterSecureStorage();
 }

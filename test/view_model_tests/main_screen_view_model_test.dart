@@ -3,20 +3,30 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 
 import '../helpers/test_helpers.dart';
+import '../helpers/test_locator.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late MainScreenViewModel viewModel;
 
-  setUp(() {
+  setUpAll(() {
+    testSetupLocator();
     getAndRegisterNavigationService();
+  });
+
+  setUp(() {
     viewModel = MainScreenViewModel();
+  });
+
+  tearDownAll(() {
+    locator.reset();
   });
 
   group('MainScreenViewModel', () {

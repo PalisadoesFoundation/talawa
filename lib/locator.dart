@@ -1,9 +1,9 @@
 import 'package:app_links/app_links.dart';
-import 'package:talawa/services/app_config_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
