@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,7 +11,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_agenda_item_page.dart';
 import 'package:talawa/views/base_view.dart';
-
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
@@ -48,13 +45,37 @@ Widget createEditAgendaItemScreen() {
   );
 }
 
+Widget createTestApp({
+  required Widget home,
+}) {
+  return BaseView<AppLanguage>(
+    onModelReady: (model) => model.initialize(),
+    builder: (context, langModel, child) {
+      return MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: const [
+          AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
+        home: home,
+      );
+    },
+  );
+}
+
 EventAgendaItem testAgendaItem = EventAgendaItem(
   id: '1',
   name: 'Test Agenda Item',
   description: 'Test Description',
   duration: '00:30',
   categories: [],
-  attachments: [],
+  attachments: [
+    // Base64 mock image used for attachment testing
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+  ],
   urls: [],
 );
 
@@ -97,26 +118,63 @@ void main() {
       expect(find.byKey(const Key('Category 1')), findsOneWidget);
     });
 
-    testWidgets('Update button works correctly', (WidgetTester tester) async {
-      await tester.pumpWidget(createEditAgendaItemScreen());
+    testWidgets('Update button navigates back after successful update',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createTestApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => BaseView<EditAgendaItemViewModel>(
+                        onModelReady: (model) {
+                          model.initialize(testAgendaItem, testCategories);
+                        },
+                        builder: (context, model, child) {
+                          return EditAgendaItemPage(
+                            agendaItem: testAgendaItem,
+                            categories: testCategories,
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Open Editor'),
+              ),
+            ),
+          ),
+        ),
+      );
       await tester.pumpAndSettle();
 
+      // Navigate to the page
+      await tester.tap(find.text('Open Editor'));
+      await tester.pumpAndSettle();
+      expect(find.byType(EditAgendaItemPage), findsOneWidget);
+
+      // Test no changes path
       await tester.tap(find.text('Update'));
       await tester.pumpAndSettle();
-
       expect(find.text("No changes made"), findsOneWidget);
+      expect(find.byType(EditAgendaItemPage), findsOneWidget); // Still visible
 
+      // Make a change
       await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
       await tester.pumpAndSettle();
-
       await tester.tap(find.text('Category 1').last);
       await tester.pumpAndSettle();
 
+      // Tap update and verify navigation
       await tester.tap(find.text('Update'));
       await tester.pumpAndSettle();
-      expect(find.byType(EditAgendaItemPage), findsNothing);
-    });
 
+      // Verify page was popped (back to button screen)
+      expect(find.byType(EditAgendaItemPage), findsNothing);
+      expect(find.text('Open Editor'), findsOneWidget);
+    });
     testWidgets('Add URL works correctly', (WidgetTester tester) async {
       await tester.pumpWidget(createEditAgendaItemScreen());
       await tester.pumpAndSettle();
@@ -132,6 +190,34 @@ void main() {
       expect(find.byKey(const Key('https://example.com')), findsOneWidget);
     });
 
+    testWidgets('Remove URL chip works correctly', (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byKey(const Key('urlTextField')),
+        'https://example.com',
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Add'));
+      await tester.pumpAndSettle();
+
+      // Ensure the URL chip is added
+      expect(find.byKey(const Key('https://example.com')), findsOneWidget);
+
+      // Find and tap the delete icon on the URL chip
+      final deleteButtonFinder = find.descendant(
+        of: find.byKey(const Key('https://example.com')),
+        matching: find.byIcon(Icons.cancel),
+      );
+
+      await tester.tap(deleteButtonFinder);
+      await tester.pumpAndSettle();
+
+      // Verify the URL chip is removed
+      expect(find.byKey(const Key('https://example.com')), findsNothing);
+    });
+
     testWidgets('Add Attachments button works correctly',
         (WidgetTester tester) async {
       await tester.pumpWidget(createEditAgendaItemScreen());
@@ -139,6 +225,30 @@ void main() {
 
       await tester.tap(find.text('Add Attachments'));
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('Remove attachment using delete button',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Ensure the attachment grid and image are rendered
+      expect(find.byType(GridView), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
+
+      final deleteButton = find.descendant(
+        of: find.byType(Stack),
+        matching: find.byIcon(Icons.close),
+      );
+
+      expect(deleteButton, findsOneWidget);
+
+      // Remove the attachment
+      await tester.tap(deleteButton);
+      await tester.pumpAndSettle();
+
+      // Verify the attachment image is removed
+      expect(find.byType(Image), findsNothing);
     });
 
     testWidgets('Remove a selected category', (WidgetTester tester) async {
@@ -311,6 +421,141 @@ void main() {
       validFieldState.validate();
       await tester.pumpAndSettle();
       expect(find.text('Invalid Description'), findsNothing);
+    });
+
+    testWidgets('Close button navigates back', (WidgetTester tester) async {
+      final navigationService = locator<NavigationService>();
+
+      // Build the test app using the shared wrapper to avoid
+      // duplicating MaterialApp and localization setup.
+      await tester.pumpWidget(
+        createTestApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => BaseView<EditAgendaItemViewModel>(
+                        onModelReady: (model) {
+                          model.initialize(testAgendaItem, testCategories);
+                        },
+                        builder: (context, model, child) {
+                          return EditAgendaItemPage(
+                            agendaItem: testAgendaItem,
+                            categories: testCategories,
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Open Editor'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Navigate to the edit agenda item page
+      await tester.tap(find.text('Open Editor'));
+      await tester.pumpAndSettle();
+      expect(find.byType(EditAgendaItemPage), findsOneWidget);
+
+      final closeIcon = find.descendant(
+        of: find.byType(AppBar),
+        matching: find.byIcon(Icons.close),
+      );
+
+      await tester.tap(closeIcon);
+      await tester.pumpAndSettle();
+      // Verify that the navigation stack was popped
+      verify(navigationService.pop()).called(1);
+    });
+
+    // NOTE: Invalid duration formats (e.g., "abc") are currently accepted.
+    // Only empty input is validated. This test documents existing behavior.
+    testWidgets('Duration field does not reject invalid non-empty format',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      final durationField = find.byKey(const Key('edit_event_agenda_duration'));
+      expect(durationField, findsOneWidget);
+
+      // Enter invalid but non-empty duration
+      await tester.enterText(durationField, 'abc');
+      await tester.pumpAndSettle();
+
+      // Trigger validation
+      final formFieldState =
+          tester.state<FormFieldState<String>>(durationField);
+      final result = formFieldState.validate();
+      await tester.pumpAndSettle();
+
+      // No validation error is expected with current implementation
+      expect(result, isTrue);
+    });
+
+    testWidgets('Multiple categories can be selected',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Select first category
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Category 1').last);
+      await tester.pumpAndSettle();
+
+      // Select second category
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Category 2').last);
+      await tester.pumpAndSettle();
+
+      // Verify both categories are displayed
+      expect(find.byKey(const Key('Category 1')), findsOneWidget);
+      expect(find.byKey(const Key('Category 2')), findsOneWidget);
+    });
+
+    testWidgets('Multiple URL chips behave correctly',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      const urls = [
+        'https://example.com',
+        'https://flutter.dev',
+      ];
+
+      for (final url in urls) {
+        await tester.enterText(
+          find.byKey(const Key('urlTextField')),
+          url,
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Add'));
+        await tester.pumpAndSettle();
+
+        // Verify each URL chip appears
+        expect(find.byKey(Key(url)), findsOneWidget);
+      }
+
+      // Remove only the first URL
+      final deleteButtonFinder = find.descendant(
+        of: find.byKey(const Key('https://example.com')),
+        matching: find.byIcon(Icons.cancel),
+      );
+
+      await tester.tap(deleteButtonFinder);
+      await tester.pumpAndSettle();
+
+      // Verify correct chip removal
+      expect(find.byKey(const Key('https://example.com')), findsNothing);
+      expect(find.byKey(const Key('https://flutter.dev')), findsOneWidget);
     });
   });
 }
