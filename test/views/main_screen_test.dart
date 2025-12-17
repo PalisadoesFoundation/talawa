@@ -85,26 +85,31 @@ void main() {
   group("Test for main_screen.dart", () {
     testWidgets('Test MainScreen renders DemoHomeView in demo mode',
         (tester) async {
-      appConfig.isDemoMode = true;
+      var prev = appConfig.isDemoMode;
+      try {
+        appConfig.isDemoMode = true;
 
-      // Stubbing
-      when(mockViewModel.pages)
-          .thenReturn([Container(key: const Key('DemoHomeView'))]);
-      when(mockViewModel.navBarItems).thenReturn([
-        const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label1'),
-        const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label2'),
-      ]);
-      when(mockViewModel.currentPageIndex).thenReturn(0);
-      when(mockViewModel.scaffoldKey).thenReturn(GlobalKey<ScaffoldState>());
-      // Stub methods to do nothing
-      // We can't easily stub void methods with Mockito 5 without generate mocks, but 'Mock' class allows it if we don't call verify?
-      // Actually, if it's a manual mock extending Mock, it returns null for void methods by default (or throws if strict).
-      // But MockMainScreenViewModel extends Mock (Mockito).
-      // We need to make sure it doesn't throw.
+        // Stubbing
+        when(mockViewModel.pages)
+            .thenReturn([Container(key: const Key('DemoHomeView'))]);
+        when(mockViewModel.navBarItems).thenReturn([
+          const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label1'),
+          const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label2'),
+        ]);
+        when(mockViewModel.currentPageIndex).thenReturn(0);
+        when(mockViewModel.scaffoldKey).thenReturn(GlobalKey<ScaffoldState>());
+        // Stub methods to do nothing
+        // We can't easily stub void methods with Mockito 5 without generate mocks, but 'Mock' class allows it if we don't call verify?
+        // Actually, if it's a manual mock extending Mock, it returns null for void methods by default (or throws if strict).
+        // But MockMainScreenViewModel extends Mock (Mockito).
+        // We need to make sure it doesn't throw.
 
-      await tester.pumpWidget(createMainScreen(demoMode: true));
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('DemoHomeView')), findsOneWidget);
+        await tester.pumpWidget(createMainScreen(demoMode: true));
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key('DemoHomeView')), findsOneWidget);
+      } finally {
+        appConfig.isDemoMode = prev;
+      }
     });
 
     testWidgets('Testing Main Screen for normal mode',

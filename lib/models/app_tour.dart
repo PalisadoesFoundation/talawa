@@ -123,28 +123,23 @@ class FocusTarget {
             bottom: SizeConfig.screenHeight! * 0.025,
           ),
           builder: (context, controller) {
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    next?.call();
-                    appTour.tutorialCoachMark.next();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      AppLocalizations.of(context)!
-                          .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 20,
-                      ),
-                    ),
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                next?.call();
+                appTour.tutorialCoachMark.next();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 20,
                   ),
                 ),
-              ],
+              ),
             );
           },
         ),
