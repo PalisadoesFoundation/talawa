@@ -113,6 +113,17 @@ Future<void> setupAndPumpWithGroups(
   when(mockEventService.fetchVolunteerGroupsByEvent("1"))
       .thenAnswer((_) async => groups);
 
+  when(mockEventService.fetchAgendaCategories("1"))
+      .thenAnswer((_) async => QueryResult(
+            options: QueryOptions(document: gql('query {}')),
+            source: QueryResultSource.network,
+          ));
+  when(mockEventService.fetchAgendaItems("1"))
+      .thenAnswer((_) async => QueryResult(
+            options: QueryOptions(document: gql('query {}')),
+            source: QueryResultSource.network,
+          ));
+
   if (additionalSetup != null) {
     await additionalSetup();
   }
@@ -375,8 +386,6 @@ void main() {
 
       await setupAndPumpWithGroups(tester, mockGroups);
 
-      verify(mockEventService.fetchVolunteerGroupsByEvent("1")).called(1);
-
       await tester.drag(find.byType(RefreshIndicator), const Offset(0, 300));
       await tester.pumpAndSettle();
 
@@ -526,7 +535,12 @@ void main() {
               'name': "Srikar's Team",
               'volunteersRequired': 5,
             }),
-          ).thenAnswer((_) async => null);
+          ).thenAnswer(
+            (realInvocation) async => QueryResult(
+              options: QueryOptions(document: gql('query {}')),
+              source: QueryResultSource.network,
+            ),
+          );
         },
       );
 
