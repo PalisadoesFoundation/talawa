@@ -364,7 +364,8 @@ void main() {
       expect(find.text('Org 2'), findsOneWidget);
     });
 
-    testWidgets('calls switchOrg when an organization is tapped', (tester) async {
+    testWidgets('calls switchOrg when an organization is tapped',
+        (tester) async {
       final org1 = OrgInfo(id: '1', name: 'Org 1', image: null);
       when(mockViewModel.switchAbleOrg).thenReturn([org1]);
 
@@ -407,7 +408,8 @@ void main() {
           .called(1);
     });
 
-    testWidgets('shows leave organization button when logged in', (tester) async {
+    testWidgets('shows leave organization button when logged in',
+        (tester) async {
       when(mockUserConfig.loggedIn).thenReturn(true);
 
       await tester.pumpWidget(createTestWidget());
@@ -426,7 +428,8 @@ void main() {
       expect(find.text('Leave Current Organization'), findsNothing);
     });
 
-    testWidgets('calls exitAlertDialog when leave organization button is tapped',
+    testWidgets(
+        'calls exitAlertDialog when leave organization button is tapped',
         (tester) async {
       when(mockUserConfig.loggedIn).thenReturn(true);
       // Mock the exitAlertDialog to return a dummy widget
