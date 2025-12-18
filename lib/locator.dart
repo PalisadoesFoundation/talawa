@@ -126,7 +126,13 @@ final sessionManager = locator<SessionManager>();
 ///GetIt for ActonHandlerService.
 final actionHandlerService = locator<ActionHandlerService>();
 
-///GetIt for AppConfigService.
+/// GetIt for AppConfigService.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `AppConfigService`: The AppConfigService instance.
 AppConfigService get appConfig => locator<AppConfigService>();
 
 /// This function registers the widgets/objects in "GetIt".
