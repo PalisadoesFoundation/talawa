@@ -171,7 +171,10 @@ void main() {
         final OrganizationService organizationService = OrganizationService();
         final result = await organizationService.getOrgMembersList('123');
         expect(result, isEmpty);
-        verifyNever(locator<GraphqlConfig>().clientToQuery());
+        verifyNever(mockDbFunctions.gqlAuthQuery(
+          argThat(contains('usersByOrganizationId')),
+          variables: anyNamed('variables'),
+        ));
       } finally {
         appConfig.isDemoMode = false; // Reset
       }

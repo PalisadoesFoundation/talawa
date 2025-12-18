@@ -1451,6 +1451,7 @@ void setupMockGraphQLClient(Map<String, dynamic> data) {
   when(mockGraphqlConfig.authClient()).thenReturn(client);
 }
 
+/// MockMainScreenViewModel class.
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
   List<Widget> get pages => super.noSuchMethod(
