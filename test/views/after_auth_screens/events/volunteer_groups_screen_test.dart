@@ -22,13 +22,13 @@ import 'package:talawa/views/base_view.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-const String testEventId = "1";
-const String testOrgId = "XYZ"; // From test_helpers.dart mock
-const Key groupDataKey = Key("group_data");
-const Key addGroupBtnKey = Key("add_group_btn");
-const Key addGrpDialogueKey = Key("add_grp_dialogue");
-const Key groupNameFieldKey = Key("group_name_field");
-const Key volunteersRequiredFieldKey = Key("volunteers_required_field");
+const String _testEventId = "1";
+const String _testOrgId = "XYZ"; // From test_helpers.dart mock
+const Key _groupDataKey = Key("group_data");
+const Key _addGroupBtnKey = Key("add_group_btn");
+const Key _addGrpDialogueKey = Key("add_grp_dialogue");
+const Key _groupNameFieldKey = Key("group_name_field");
+const Key _volunteersRequiredFieldKey = Key("volunteers_required_field");
 
 Event getTestEvent({
   bool isPublic = false,
@@ -36,7 +36,7 @@ Event getTestEvent({
   bool asAdmin = false,
 }) {
   return Event(
-    id: testEventId,
+    id: _testEventId,
     name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
@@ -115,12 +115,12 @@ Future<void> setupAndPumpWithGroups(
   final mockEventService = locator<EventService>();
 
   // Mock fetching groups
-  when(mockEventService.fetchVolunteerGroupsByEvent(testEventId))
+  when(mockEventService.fetchVolunteerGroupsByEvent(_testEventId))
       .thenAnswer((_) async => groups);
 
   // Mock fetching categories (Called by EventInfoViewModel.fetchCategories)
   // Must return valid structure to avoid null errors in ViewModel
-  when(mockEventService.fetchAgendaCategories(testOrgId)).thenAnswer(
+  when(mockEventService.fetchAgendaCategories(_testOrgId)).thenAnswer(
     (_) async => QueryResult(
       options: QueryOptions(document: gql('query {}')),
       source: QueryResultSource.network,
@@ -132,7 +132,7 @@ Future<void> setupAndPumpWithGroups(
 
   // Mock fetching agenda items (Called by EventInfoViewModel.fetchAgendaItems)
   // Must return valid structure
-  when(mockEventService.fetchAgendaItems(testEventId)).thenAnswer(
+  when(mockEventService.fetchAgendaItems(_testEventId)).thenAnswer(
     (_) async => QueryResult(
       options: QueryOptions(document: gql('query {}')),
       source: QueryResultSource.network,
@@ -207,7 +207,7 @@ void main() {
         additionalSetup: () async {
           when(
             locator<EventService>().createVolunteerGroup({
-              'eventId': testEventId,
+              'eventId': _testEventId,
               'name': "New Group",
               'volunteersRequired': 5,
             }),
@@ -225,20 +225,20 @@ void main() {
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
-      expect(find.byKey(groupDataKey), findsNWidgets(2));
+      expect(find.byKey(_groupDataKey), findsNWidgets(2));
 
-      expect(find.byKey(addGroupBtnKey), findsOneWidget);
-      await tester.tap(find.byKey(addGroupBtnKey));
+      expect(find.byKey(_addGroupBtnKey), findsOneWidget);
+      await tester.tap(find.byKey(_addGroupBtnKey));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(addGrpDialogueKey), findsOneWidget);
+      expect(find.byKey(_addGrpDialogueKey), findsOneWidget);
 
       await tester.enterText(
-        find.byKey(groupNameFieldKey),
+        find.byKey(_groupNameFieldKey),
         "New Group",
       );
       await tester.enterText(
-        find.byKey(volunteersRequiredFieldKey),
+        find.byKey(_volunteersRequiredFieldKey),
         "5",
       );
 
@@ -269,7 +269,7 @@ void main() {
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
-      expect(find.byKey(groupDataKey), findsNWidgets(2));
+      expect(find.byKey(_groupDataKey), findsNWidgets(2));
 
       expect(find.byIcon(Icons.edit), findsNWidgets(2));
 
@@ -290,7 +290,7 @@ void main() {
         additionalSetup: () async {
           when(
             locator<EventService>().createVolunteerGroup({
-              'eventId': testEventId,
+              'eventId': _testEventId,
               'name': "New Group",
               'volunteersRequired': 5,
             }),
@@ -300,28 +300,28 @@ void main() {
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
-      expect(find.byKey(groupDataKey), findsNWidgets(2));
+      expect(find.byKey(_groupDataKey), findsNWidgets(2));
 
-      expect(find.byKey(addGroupBtnKey), findsOneWidget);
-      await tester.tap(find.byKey(addGroupBtnKey));
+      expect(find.byKey(_addGroupBtnKey), findsOneWidget);
+      await tester.tap(find.byKey(_addGroupBtnKey));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(addGrpDialogueKey), findsOneWidget);
+      expect(find.byKey(_addGrpDialogueKey), findsOneWidget);
       expect(find.text("Cancel"), findsOneWidget);
 
       await tester.tap(find.text("Cancel"));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(addGrpDialogueKey), findsNothing);
-      await tester.tap(find.byKey(addGroupBtnKey));
+      expect(find.byKey(_addGrpDialogueKey), findsNothing);
+      await tester.tap(find.byKey(_addGroupBtnKey));
       await tester.pumpAndSettle();
 
       await tester.enterText(
-        find.byKey(groupNameFieldKey),
+        find.byKey(_groupNameFieldKey),
         "New Group",
       );
       await tester.enterText(
-        find.byKey(volunteersRequiredFieldKey),
+        find.byKey(_volunteersRequiredFieldKey),
         "5",
       );
 
@@ -347,20 +347,20 @@ void main() {
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
-      expect(find.byKey(groupDataKey), findsNWidgets(2));
+      expect(find.byKey(_groupDataKey), findsNWidgets(2));
 
-      expect(find.byKey(addGroupBtnKey), findsOneWidget);
-      await tester.tap(find.byKey(addGroupBtnKey));
+      expect(find.byKey(_addGroupBtnKey), findsOneWidget);
+      await tester.tap(find.byKey(_addGroupBtnKey));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(addGrpDialogueKey), findsOneWidget);
+      expect(find.byKey(_addGrpDialogueKey), findsOneWidget);
 
       await tester.enterText(
-        find.byKey(groupNameFieldKey),
+        find.byKey(_groupNameFieldKey),
         "",
       );
       await tester.enterText(
-        find.byKey(volunteersRequiredFieldKey),
+        find.byKey(_volunteersRequiredFieldKey),
         "0",
       );
 
@@ -404,7 +404,7 @@ void main() {
       await tester.drag(find.byType(RefreshIndicator), const Offset(0, 300));
       await tester.pumpAndSettle();
 
-      verify(mockEventService.fetchVolunteerGroupsByEvent(testEventId))
+      verify(mockEventService.fetchVolunteerGroupsByEvent(_testEventId))
           .called(2);
     });
 
@@ -463,7 +463,7 @@ void main() {
         additionalSetup: () async {
           when(
             mockEventService.createVolunteerGroup({
-              'eventId': testEventId,
+              'eventId': _testEventId,
               'name': "Srikar's Team",
               'volunteersRequired': 5,
             }),
@@ -479,15 +479,15 @@ void main() {
         },
       );
 
-      await tester.tap(find.byKey(addGroupBtnKey));
+      await tester.tap(find.byKey(_addGroupBtnKey));
       await tester.pumpAndSettle();
 
       await tester.enterText(
-        find.byKey(groupNameFieldKey),
+        find.byKey(_groupNameFieldKey),
         "Srikar's Team",
       );
       await tester.enterText(
-        find.byKey(volunteersRequiredFieldKey),
+        find.byKey(_volunteersRequiredFieldKey),
         "5",
       );
 
@@ -547,7 +547,7 @@ void main() {
         additionalSetup: () async {
           when(
             mockEventService.createVolunteerGroup({
-              'eventId': testEventId,
+              'eventId': _testEventId,
               'name': "Srikar's Team",
               'volunteersRequired': 5,
             }),
@@ -560,15 +560,15 @@ void main() {
         },
       );
 
-      await tester.tap(find.byKey(addGroupBtnKey));
+      await tester.tap(find.byKey(_addGroupBtnKey));
       await tester.pumpAndSettle();
 
       await tester.enterText(
-        find.byKey(groupNameFieldKey),
+        find.byKey(_groupNameFieldKey),
         "Srikar's Team",
       );
       await tester.enterText(
-        find.byKey(volunteersRequiredFieldKey),
+        find.byKey(_volunteersRequiredFieldKey),
         "5",
       );
 
