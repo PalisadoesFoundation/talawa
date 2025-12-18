@@ -1453,6 +1453,7 @@ void setupMockGraphQLClient(Map<String, dynamic> data) {
 
 /// MockMainScreenViewModel class.
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   List<Widget> get pages => super.noSuchMethod(
         Invocation.getter(#pages),
@@ -1474,7 +1475,7 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
   GlobalKey<ScaffoldState> get scaffoldKey => super.noSuchMethod(
         Invocation.getter(#scaffoldKey),
-        returnValue: GlobalKey<ScaffoldState>(),
-        returnValueForMissingStub: GlobalKey<ScaffoldState>(),
+        returnValue: _scaffoldKey,
+        returnValueForMissingStub: _scaffoldKey,
       ) as GlobalKey<ScaffoldState>;
 }

@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/services/app_config_service.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/org_service.dart';
 
 import '../helpers/test_helpers.dart';
