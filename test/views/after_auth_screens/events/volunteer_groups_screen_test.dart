@@ -155,8 +155,7 @@ void main() {
 
   group("Widget Tests for VolunteerGroupscreen", () {
     testWidgets("Check if VolunteerGroupscreen shows up", (tester) async {
-      await tester.pumpWidget(volunteerGroupsScreen());
-      await tester.pumpAndSettle();
+      await setupAndPumpWithGroups(tester, []);
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
     });
@@ -164,8 +163,7 @@ void main() {
     testWidgets(
         "Check if no groups are displayed when there are no volunteer groups",
         (tester) async {
-      await tester.pumpWidget(volunteerGroupsScreen());
-      await tester.pumpAndSettle();
+      await setupAndPumpWithGroups(tester, []);
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsOneWidget);
