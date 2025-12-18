@@ -11,8 +11,8 @@ import 'package:talawa/utils/app_localization.dart';
 /// MenuPage returns a widget that renders a menu page with vertical stack of links.
 class MenuPage extends StatelessWidget {
   const MenuPage({
-    required Key key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

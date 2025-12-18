@@ -4,16 +4,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/custom_drawer.dart';
+import 'package:talawa/widgets/from_palisadoes.dart';
+
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
+
+class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
+  @override
+  GlobalKey get keyDrawerCurOrg => GlobalKey(debugLabel: "DrawerCurrentOrg");
+
+  @override
+  GlobalKey get keyDrawerSwitchableOrg =>
+      GlobalKey(debugLabel: "DrawerSwitchableOrg");
+
+  @override
+  GlobalKey get keyDrawerJoinOrg => GlobalKey(debugLabel: "DrawerJoinOrg");
+
+  @override
+  GlobalKey get keyDrawerLeaveCurrentOrg =>
+      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
+}
 
 Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
@@ -268,6 +295,161 @@ void main() {
 
       // Assert
       expect(viewModel.selectedOrg, equals(org1));
+    });
+  });
+
+  group('CustomDrawer Widget Tests', () {
+    late MockCustomDrawerViewModel mockViewModel;
+    late MockMainScreenViewModel mockHomeModel;
+    late MockNavigationService mockNavigationService;
+    late MockUserConfig mockUserConfig;
+
+    setUp(() {
+      mockViewModel = MockCustomDrawerViewModel();
+      mockHomeModel = MockMainScreenViewModel();
+
+      locator.allowReassignment = true;
+      locator.registerFactory<CustomDrawerViewModel>(() => mockViewModel);
+
+      mockNavigationService =
+          locator<NavigationService>() as MockNavigationService;
+      mockUserConfig = locator<UserConfig>() as MockUserConfig;
+
+      // Default stubs
+      when(mockViewModel.controller).thenReturn(ScrollController());
+      when(mockViewModel.switchAbleOrg).thenReturn([]);
+      when(mockViewModel.selectedOrg).thenReturn(null);
+      when(mockViewModel.initialize(any, any)).thenReturn(null);
+    });
+
+    Widget createTestWidget() {
+      return MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        themeMode: ThemeMode.light,
+        theme: TalawaTheme.lightTheme,
+        home: Scaffold(
+          body: CustomDrawer(homeModel: mockHomeModel),
+        ),
+      );
+    }
+
+    testWidgets('renders correctly with organization info', (tester) async {
+      final org = OrgInfo(id: '1', name: 'Test Org', image: null);
+      when(mockViewModel.selectedOrg).thenReturn(org);
+      when(mockViewModel.switchAbleOrg).thenReturn([org]);
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('Test Org'), findsWidgets);
+      expect(find.text('Selected Organization'), findsOneWidget);
+      expect(find.byType(CustomAvatar), findsWidgets);
+    });
+
+    testWidgets('displays list of switchable organizations', (tester) async {
+      final org1 = OrgInfo(id: '1', name: 'Org 1', image: null);
+      final org2 = OrgInfo(id: '2', name: 'Org 2', image: null);
+      when(mockViewModel.switchAbleOrg).thenReturn([org1, org2]);
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('Switch Organization'), findsOneWidget);
+      expect(find.text('Org 1'), findsOneWidget);
+      expect(find.text('Org 2'), findsOneWidget);
+    });
+
+    testWidgets('calls switchOrg when an organization is tapped', (tester) async {
+      final org1 = OrgInfo(id: '1', name: 'Org 1', image: null);
+      when(mockViewModel.switchAbleOrg).thenReturn([org1]);
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Org 1'));
+      verify(mockViewModel.switchOrg(org1)).called(1);
+    });
+
+    testWidgets('navigates to join org screen when join button is tapped',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      // Scroll if necessary (though list is short)
+      final joinButton = find.text('Join new Organization');
+      await tester.ensureVisible(joinButton);
+      await tester.tap(joinButton);
+      verify(mockNavigationService.popAndPushScreen(Routes.joinOrg,
+              arguments: '-1'))
+          .called(1);
+    });
+
+    testWidgets(
+        'navigates to set url screen when join button is tapped and not logged in',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(false);
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      final joinButton = find.text('Join new Organization');
+      await tester.ensureVisible(joinButton);
+      await tester.tap(joinButton);
+      verify(mockNavigationService.popAndPushScreen(Routes.setUrlScreen,
+              arguments: ''))
+          .called(1);
+    });
+
+    testWidgets('shows leave organization button when logged in', (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('Leave Current Organization'), findsOneWidget);
+    });
+
+    testWidgets('hides leave organization button when not logged in',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(false);
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('Leave Current Organization'), findsNothing);
+    });
+
+    testWidgets('calls exitAlertDialog when leave organization button is tapped',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+      // Mock the exitAlertDialog to return a dummy widget
+      when(mockViewModel.exitAlertDialog(any)).thenReturn(CustomAlertDialog(
+        success: () {},
+        dialogSubTitle: 'Test Subtitle',
+      ));
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      final leaveButton = find.text('Leave Current Organization');
+      await tester.ensureVisible(leaveButton);
+      await tester.tap(leaveButton);
+
+      verify(mockNavigationService.pushDialog(any)).called(1);
+    });
+
+    testWidgets('renders FromPalisadoes widget', (tester) async {
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.byType(FromPalisadoes), findsOneWidget);
     });
   });
 }

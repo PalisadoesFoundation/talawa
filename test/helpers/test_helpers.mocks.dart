@@ -82,9 +82,12 @@ import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_vi
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart'
     as _i53;
 import 'package:talawa/view_model/lang_view_model.dart' as _i37;
+import 'package:talawa/view_model/main_screen_view_model.dart' as _i71;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i38;
 import 'package:talawa/view_model/theme_view_model.dart' as _i46;
+import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart'
+    as _i70;
 import 'package:talawa/widgets/custom_alert_dialog.dart' as _i7;
 
 // ignore_for_file: type=lint
@@ -448,6 +451,17 @@ class _FakeDateRangePickerController_30 extends _i2.SmartFake
 class _FakeEventCalendarViewModel_31 extends _i2.SmartFake
     implements _i20.EventCalendarViewModel {
   _FakeEventCalendarViewModel_31(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeScrollController_32 extends _i2.SmartFake
+    implements _i1.ScrollController {
+  _FakeScrollController_32(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -9240,6 +9254,176 @@ class MockBaseEventViewModel extends _i2.Mock
         Invocation.method(
           #notifyListeners,
           [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [CustomDrawerViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCustomDrawerViewModel extends _i2.Mock
+    implements _i70.CustomDrawerViewModel {
+  @override
+  _i1.ScrollController get controller => (super.noSuchMethod(
+        Invocation.getter(#controller),
+        returnValue: _FakeScrollController_32(
+          this,
+          Invocation.getter(#controller),
+        ),
+        returnValueForMissingStub: _FakeScrollController_32(
+          this,
+          Invocation.getter(#controller),
+        ),
+      ) as _i1.ScrollController);
+
+  @override
+  List<_i5.OrgInfo> get switchAbleOrg => (super.noSuchMethod(
+        Invocation.getter(#switchAbleOrg),
+        returnValue: <_i5.OrgInfo>[],
+        returnValueForMissingStub: <_i5.OrgInfo>[],
+      ) as List<_i5.OrgInfo>);
+
+  @override
+  set switchAbleOrg(List<_i5.OrgInfo>? value) => super.noSuchMethod(
+        Invocation.setter(
+          #switchAbleOrg,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i21.ViewState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i21.ViewState.idle,
+        returnValueForMissingStub: _i21.ViewState.idle,
+      ) as _i21.ViewState);
+
+  @override
+  bool get isBusy => (super.noSuchMethod(
+        Invocation.getter(#isBusy),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  void initialize(
+    _i71.MainScreenViewModel? homeModel,
+    _i1.BuildContext? context,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #initialize,
+          [
+            homeModel,
+            context,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void switchOrg(_i5.OrgInfo? switchToOrg) => super.noSuchMethod(
+        Invocation.method(
+          #switchOrg,
+          [switchToOrg],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool isPresentinSwitchableOrg(_i5.OrgInfo? switchToOrg) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isPresentinSwitchableOrg,
+          [switchToOrg],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.CustomAlertDialog exitAlertDialog(_i1.BuildContext? context) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #exitAlertDialog,
+          [context],
+        ),
+        returnValue: _FakeCustomAlertDialog_12(
+          this,
+          Invocation.method(
+            #exitAlertDialog,
+            [context],
+          ),
+        ),
+        returnValueForMissingStub: _FakeCustomAlertDialog_12(
+          this,
+          Invocation.method(
+            #exitAlertDialog,
+            [context],
+          ),
+        ),
+      ) as _i7.CustomAlertDialog);
+
+  @override
+  void setSelectedOrganizationName(_i5.OrgInfo? updatedOrganization) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #setSelectedOrganizationName,
+          [updatedOrganization],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setState(_i21.ViewState? viewState) => super.noSuchMethod(
+        Invocation.method(
+          #setState,
+          [viewState],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(_i12.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i12.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );

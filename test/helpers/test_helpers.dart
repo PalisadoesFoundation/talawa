@@ -128,6 +128,7 @@ import 'test_helpers.mocks.dart';
     ),
     MockSpec<EditEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<BaseEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<CustomDrawerViewModel>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 
