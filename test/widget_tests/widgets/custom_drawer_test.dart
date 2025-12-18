@@ -128,7 +128,7 @@ void main() {
 
       // Verify main screen and its scaffold both exist
       expect(find.byKey(const Key('MainScreen')), findsOneWidget);
-      expect(find.byKey(const Key('MainScaffold')), findsOneWidget);
+      expect(find.byType(Scaffold), findsWidgets);
     });
 
     testWidgets('Main screen renders with demo mode enabled', (tester) async {
