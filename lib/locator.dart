@@ -64,7 +64,7 @@ GetIt locator = GetIt.instance;
 final userConfig = locator<UserConfig>();
 
 ///GetIt for NavigationService.
-NavigationService get navigationService => locator<NavigationService>();
+final navigationService = locator<NavigationService>();
 
 ///GetIt for DataBaseMutationFunctions.
 final databaseFunctions = locator<DataBaseMutationFunctions>();

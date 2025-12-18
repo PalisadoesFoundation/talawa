@@ -383,8 +383,6 @@ void main() {
 
     testWidgets('showHome handles keyDrawerLeaveCurrentOrg target',
         (tester) async {
-      final mockNavigationService = getAndRegisterNavigationService();
-
       final key = GlobalKey();
       await tester.pumpWidget(
         createTestWidget(
@@ -403,7 +401,7 @@ void main() {
       await viewModel.showHome(target);
       await tester.pump();
 
-      verify(mockNavigationService.pop()).called(1);
+      verify(navigationService.pop()).called(1);
     });
 
     testWidgets('showHome handles unrecognized target', (tester) async {
