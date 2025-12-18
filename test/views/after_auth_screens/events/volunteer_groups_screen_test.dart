@@ -294,7 +294,7 @@ void main() {
               'name': "New Group",
               'volunteersRequired': 5,
             }),
-          ).thenThrow("exception");
+          ).thenThrow(Exception("Test exception"));
         },
       );
 
