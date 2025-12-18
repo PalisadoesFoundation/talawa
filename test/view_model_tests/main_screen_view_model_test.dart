@@ -459,7 +459,8 @@ void main() {
       expect(viewModel.keySPPalisadoes, isNotNull);
     });
 
-    testWidgets('tourHomeTargets clears existing targets before adding new ones',
+    testWidgets(
+        'tourHomeTargets clears existing targets before adding new ones',
         (tester) async {
       when(mockUserConfig.loggedIn).thenReturn(true);
 
@@ -492,7 +493,8 @@ void main() {
       );
     });
 
-    testWidgets('tourEventTargets clears existing targets before adding new ones',
+    testWidgets(
+        'tourEventTargets clears existing targets before adding new ones',
         (tester) async {
       await tester.pumpWidget(
         createTestWidget(
