@@ -12,7 +12,6 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
-
 class MockAppTour extends Mock implements AppTour {
   Function(TargetFocus)? capturedOnClickTarget;
   dynamic Function()? capturedOnFinish;
@@ -38,7 +37,6 @@ class MockAppTour extends Mock implements AppTour {
     callCount = 0;
   }
 }
-
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -163,7 +161,8 @@ void main() {
 
       expect(viewModel.targets.any((t) => t.keyName == 'keySHOrgName'), true);
       expect(viewModel.targets.any((t) => t.keyName == 'keySHMenuIcon'), true);
-      expect(viewModel.targets.any((t) => t.keyName == 'keyDrawerCurOrg'), true);
+      expect(
+          viewModel.targets.any((t) => t.keyName == 'keyDrawerCurOrg'), true);
       expect(
           viewModel.targets.any((t) => t.keyName == 'keyDrawerSwitchableOrg'),
           true);
