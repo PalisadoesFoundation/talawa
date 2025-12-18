@@ -160,7 +160,6 @@ void main() {
       expect(find.text("There aren't any volunteer groups"), findsOneWidget);
     });
     testWidgets("Check if groups show up", (tester) async {
-      final mockEventService = locator<EventService>();
       final mockGroups = [
         EventVolunteerGroup(name: "Group 1", createdAt: "2027-09-08"),
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),
@@ -174,27 +173,24 @@ void main() {
         },
       };
 
-      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
-          .thenAnswer((_) async => mockGroups);
-
-      when(
-        mockEventService.createVolunteerGroup({
-          'eventId': "1",
-          'name': "New Group",
-          'volunteersRequired': 5,
-        }),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          data: mockResult2,
-          source: QueryResultSource.network,
-          options: QueryOptions(
-            document: gql(EventQueries().createVolunteerGroup()),
+      await setupAndPumpWithGroups(tester, mockGroups,
+          additionalSetup: () async {
+        when(
+          locator<EventService>().createVolunteerGroup({
+            'eventId': "1",
+            'name': "New Group",
+            'volunteersRequired': 5,
+          }),
+        ).thenAnswer(
+          (realInvocation) async => QueryResult(
+            data: mockResult2,
+            source: QueryResultSource.network,
+            options: QueryOptions(
+              document: gql(EventQueries().createVolunteerGroup()),
+            ),
           ),
-        ),
-      );
-
-      await tester.pumpWidget(volunteerGroupsScreen());
-      await tester.pumpAndSettle();
+        );
+      });
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
@@ -224,7 +220,6 @@ void main() {
       );
     });
     testWidgets("Check if edit group icon show up", (tester) async {
-      final mockEventService = locator<EventService>();
       final mockGroups = [
         EventVolunteerGroup(
           name: "Group 1",
@@ -238,11 +233,7 @@ void main() {
         ),
       ];
 
-      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
-          .thenAnswer((_) async => mockGroups);
-
-      await tester.pumpWidget(volunteerGroupsScreen());
-      await tester.pumpAndSettle();
+      await setupAndPumpWithGroups(tester, mockGroups);
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
@@ -254,38 +245,28 @@ void main() {
       await tester.pumpAndSettle();
     });
     testWidgets("Check if no groups show up", (tester) async {
-      final mockEventService = locator<EventService>();
-
-      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
-          .thenAnswer((_) async => []);
-
-      await tester.pumpWidget(volunteerGroupsScreen());
-      await tester.pumpAndSettle();
+      await setupAndPumpWithGroups(tester, []);
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsOneWidget);
     });
     testWidgets("Check if add group method throw error show up",
         (tester) async {
-      final mockEventService = locator<EventService>();
       final mockGroups = [
         EventVolunteerGroup(name: "Group 1", createdAt: "2027-09-08"),
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),
       ];
 
-      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
-          .thenAnswer((_) async => mockGroups);
-
-      when(
-        mockEventService.createVolunteerGroup({
-          'eventId': "1",
-          'name': "New Group",
-          'volunteersRequired': 5,
-        }),
-      ).thenThrow("exception");
-
-      await tester.pumpWidget(volunteerGroupsScreen());
-      await tester.pumpAndSettle();
+      await setupAndPumpWithGroups(tester, mockGroups,
+          additionalSetup: () async {
+        when(
+          locator<EventService>().createVolunteerGroup({
+            'eventId': "1",
+            'name': "New Group",
+            'volunteersRequired': 5,
+          }),
+        ).thenThrow("exception");
+      });
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
