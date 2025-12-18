@@ -316,19 +316,7 @@ void main() {
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),
       ];
 
-      await setupAndPumpWithGroups(
-        tester,
-        mockGroups,
-        additionalSetup: () async {
-          when(
-            locator<EventService>().createVolunteerGroup({
-              'eventId': "1",
-              'name': "New Group",
-              'volunteersRequired': 5,
-            }),
-          ).thenThrow("exception");
-        },
-      );
+      await setupAndPumpWithGroups(tester, mockGroups);
 
       await tester.pumpAndSettle();
 
