@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/router.dart' as router;
