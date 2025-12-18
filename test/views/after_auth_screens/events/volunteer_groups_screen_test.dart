@@ -173,24 +173,27 @@ void main() {
         },
       };
 
-      await setupAndPumpWithGroups(tester, mockGroups,
-          additionalSetup: () async {
-        when(
-          locator<EventService>().createVolunteerGroup({
-            'eventId': "1",
-            'name': "New Group",
-            'volunteersRequired': 5,
-          }),
-        ).thenAnswer(
-          (realInvocation) async => QueryResult(
-            data: mockResult2,
-            source: QueryResultSource.network,
-            options: QueryOptions(
-              document: gql(EventQueries().createVolunteerGroup()),
+      await setupAndPumpWithGroups(
+        tester,
+        mockGroups,
+        additionalSetup: () async {
+          when(
+            locator<EventService>().createVolunteerGroup({
+              'eventId': "1",
+              'name': "New Group",
+              'volunteersRequired': 5,
+            }),
+          ).thenAnswer(
+            (realInvocation) async => QueryResult(
+              data: mockResult2,
+              source: QueryResultSource.network,
+              options: QueryOptions(
+                document: gql(EventQueries().createVolunteerGroup()),
+              ),
             ),
-          ),
-        );
-      });
+          );
+        },
+      );
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
@@ -257,16 +260,19 @@ void main() {
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),
       ];
 
-      await setupAndPumpWithGroups(tester, mockGroups,
-          additionalSetup: () async {
-        when(
-          locator<EventService>().createVolunteerGroup({
-            'eventId': "1",
-            'name': "New Group",
-            'volunteersRequired': 5,
-          }),
-        ).thenThrow("exception");
-      });
+      await setupAndPumpWithGroups(
+        tester,
+        mockGroups,
+        additionalSetup: () async {
+          when(
+            locator<EventService>().createVolunteerGroup({
+              'eventId': "1",
+              'name': "New Group",
+              'volunteersRequired': 5,
+            }),
+          ).thenThrow("exception");
+        },
+      );
 
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       expect(find.text("There aren't any volunteer groups"), findsNothing);
@@ -310,16 +316,19 @@ void main() {
         EventVolunteerGroup(name: "Group 2", createdAt: "2027-09-09"),
       ];
 
-      await setupAndPumpWithGroups(tester, mockGroups,
-          additionalSetup: () async {
-        when(
-          locator<EventService>().createVolunteerGroup({
-            'eventId': "1",
-            'name': "New Group",
-            'volunteersRequired': 5,
-          }),
-        ).thenThrow("exception");
-      });
+      await setupAndPumpWithGroups(
+        tester,
+        mockGroups,
+        additionalSetup: () async {
+          when(
+            locator<EventService>().createVolunteerGroup({
+              'eventId': "1",
+              'name': "New Group",
+              'volunteersRequired': 5,
+            }),
+          ).thenThrow("exception");
+        },
+      );
 
       await tester.pumpAndSettle();
 
@@ -383,7 +392,7 @@ void main() {
       await tester.drag(find.byType(RefreshIndicator), const Offset(0, 300));
       await tester.pumpAndSettle();
 
-      verify(mockEventService.fetchVolunteerGroupsByEvent("1")).called(1);
+      verify(mockEventService.fetchVolunteerGroupsByEvent("1")).called(2);
     });
 
     testWidgets("Check if edit group navigation works with correct arguments",
@@ -435,24 +444,27 @@ void main() {
         'volunteers': [],
       };
 
-      await setupAndPumpWithGroups(tester, mockGroups,
-          additionalSetup: () async {
-        when(
-          mockEventService.createVolunteerGroup({
-            'eventId': "1",
-            'name': "Srikar's Team",
-            'volunteersRequired': 5,
-          }),
-        ).thenAnswer(
-          (realInvocation) async => QueryResult(
-            data: {'createEventVolunteerGroup': newGroupMap},
-            source: QueryResultSource.network,
-            options: QueryOptions(
-              document: gql(EventQueries().createVolunteerGroup()),
+      await setupAndPumpWithGroups(
+        tester,
+        mockGroups,
+        additionalSetup: () async {
+          when(
+            mockEventService.createVolunteerGroup({
+              'eventId': "1",
+              'name': "Srikar's Team",
+              'volunteersRequired': 5,
+            }),
+          ).thenAnswer(
+            (realInvocation) async => QueryResult(
+              data: {'createEventVolunteerGroup': newGroupMap},
+              source: QueryResultSource.network,
+              options: QueryOptions(
+                document: gql(EventQueries().createVolunteerGroup()),
+              ),
             ),
-          ),
-        );
-      });
+          );
+        },
+      );
 
       await tester.tap(find.byKey(const Key("add_group_btn")));
       await tester.pumpAndSettle();
@@ -516,16 +528,19 @@ void main() {
         EventVolunteerGroup(name: "Srikar's Team", createdAt: "2027-09-08"),
       ];
 
-      await setupAndPumpWithGroups(tester, mockGroups,
-          additionalSetup: () async {
-        when(
-          mockEventService.createVolunteerGroup({
-            'eventId': "1",
-            'name': "Srikar's Team",
-            'volunteersRequired': 5,
-          }),
-        ).thenAnswer((_) async => null);
-      });
+      await setupAndPumpWithGroups(
+        tester,
+        mockGroups,
+        additionalSetup: () async {
+          when(
+            mockEventService.createVolunteerGroup({
+              'eventId': "1",
+              'name': "Srikar's Team",
+              'volunteersRequired': 5,
+            }),
+          ).thenAnswer((_) async => null);
+        },
+      );
 
       await tester.tap(find.byKey(const Key("add_group_btn")));
       await tester.pumpAndSettle();
