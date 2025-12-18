@@ -94,7 +94,7 @@ Widget volunteerGroupsScreen({
             home: Scaffold(
               body: VolunteerGroupsScreen(
                 event: getTestEvent(),
-                model: EventInfoViewModel(),
+                model: model,
               ),
             ),
             navigatorKey: locator<NavigationService>().navigatorKey,
