@@ -50,7 +50,6 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/services/user_profile_service.dart';
-import 'package:talawa/utils/validators.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
@@ -76,7 +75,7 @@ import 'package:talawa/view_model/widgets_view_models/interactions_view_model.da
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
 import '../service_tests/user_config_test.dart';
-import '../views/main_screen_test.dart';
+
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
@@ -1458,23 +1457,23 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
         Invocation.getter(#pages),
         returnValue: <Widget>[],
         returnValueForMissingStub: <Widget>[],
-      );
+      ) as List<Widget>;
   @override
   List<BottomNavigationBarItem> get navBarItems => super.noSuchMethod(
         Invocation.getter(#navBarItems),
         returnValue: <BottomNavigationBarItem>[],
         returnValueForMissingStub: <BottomNavigationBarItem>[],
-      );
+      ) as List<BottomNavigationBarItem>;
   @override
   int get currentPageIndex => super.noSuchMethod(
         Invocation.getter(#currentPageIndex),
         returnValue: 0,
         returnValueForMissingStub: 0,
-      );
+      ) as int;
   @override
   GlobalKey<ScaffoldState> get scaffoldKey => super.noSuchMethod(
         Invocation.getter(#scaffoldKey),
         returnValue: GlobalKey<ScaffoldState>(),
         returnValueForMissingStub: GlobalKey<ScaffoldState>(),
-      );
+      ) as GlobalKey<ScaffoldState>;
 }

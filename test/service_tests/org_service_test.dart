@@ -1,11 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/org_service.dart';
-import 'package:talawa/services/user_config.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_helpers.mocks.dart';
@@ -14,7 +12,6 @@ import '../helpers/test_locator.dart';
 /// Tests org_service.dart.
 void main() {
   late MockDataBaseMutationFunctions mockDbFunctions;
-  late MockGraphqlConfig mockGraphqlConfig;
 
   setUp(() {
     testSetupLocator();
@@ -22,7 +19,6 @@ void main() {
       locator.registerSingleton(AppConfigService());
     }
     registerServices();
-    mockGraphqlConfig = getAndRegisterGraphqlConfig() as MockGraphqlConfig;
     mockDbFunctions = getAndRegisterDatabaseMutationFunctions()
         as MockDataBaseMutationFunctions;
   });

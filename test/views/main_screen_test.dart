@@ -85,7 +85,7 @@ void main() {
   group("Test for main_screen.dart", () {
     testWidgets('Test MainScreen renders DemoHomeView in demo mode',
         (tester) async {
-      var prev = appConfig.isDemoMode;
+      final prev = appConfig.isDemoMode;
       try {
         appConfig.isDemoMode = true;
 
