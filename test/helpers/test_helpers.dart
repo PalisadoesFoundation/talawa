@@ -897,11 +897,11 @@ ConnectivityService getAndRegisterConnectivityService() {
   _removeRegistrationIfExists<ConnectivityService>();
   final service = MockConnectivityService();
 
+  final controller = StreamController<List<ConnectivityResult>>.broadcast();
   when(service.connectionStream).thenAnswer((_) =>
       Stream<List<ConnectivityResult>>.value([ConnectivityResult.wifi])
           .asBroadcastStream());
-  when(service.connectionStatusController)
-      .thenReturn(StreamController<List<ConnectivityResult>>());
+  when(service.connectionStatusController).thenReturn(controller);
   when(service.getConnectionType())
       .thenAnswer((_) async => [ConnectivityResult.wifi]);
 
