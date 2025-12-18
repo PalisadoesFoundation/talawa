@@ -32,7 +32,6 @@ const Key _volunteersRequiredFieldKey = Key("volunteers_required_field");
 
 Event getTestEvent({
   bool isPublic = false,
-  bool viewOnMap = true,
   bool asAdmin = false,
 }) {
   return Event(
@@ -66,11 +65,7 @@ Event getTestEvent({
   );
 }
 
-Widget volunteerGroupsScreen({
-  bool isPublic = true,
-  bool viewOnMap = true,
-  bool asAdmin = true,
-}) {
+Widget volunteerGroupsScreen() {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),
     builder: (context, langModel, child) {
@@ -106,7 +101,18 @@ Widget volunteerGroupsScreen({
   );
 }
 
-/// Helper to setup mocks and pump widget with groups
+/// Helper to setup mocks and pump widget with groups.
+///
+/// Configures EventService mocks for fetching groups, agenda categories,
+/// and agenda items to avoid null errors in ViewModel initialization.
+///
+/// **params**:
+/// * `tester`: The widget tester instance
+/// * `groups`: List of mock EventVolunteerGroup objects to be returned
+/// * `additionalSetup`: Optional callback for per-test mock configuration
+///
+/// **returns**:
+///   None
 Future<void> setupAndPumpWithGroups(
   WidgetTester tester,
   List<EventVolunteerGroup> groups, {
@@ -523,6 +529,22 @@ void main() {
         EventVolunteerGroup(
           name: "Srikar's Team",
           createdAt: null,
+          volunteersRequired: 5,
+        ),
+      ];
+
+      await setupAndPumpWithGroups(tester, mockGroups);
+
+      expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
+      expect(find.text("N/A"), findsOneWidget);
+    });
+
+    testWidgets("Check if null group name is handled correctly",
+        (tester) async {
+      final mockGroups = [
+        EventVolunteerGroup(
+          name: null, // Test null name
+          createdAt: "2027-09-08",
           volunteersRequired: 5,
         ),
       ];
