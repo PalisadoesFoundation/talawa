@@ -82,7 +82,7 @@ void main() {
     // Services are cleaned up in setUp by registerServices
   });
 
-  group('EditAgendaItemViewModel Tests -', () {
+  group('EditAgendaItemViewModel Tests - Complete Coverage', () {
     test('initialize() populates the form correctly', () {
       model.initialize(testAgendaItem, testCategories);
 
