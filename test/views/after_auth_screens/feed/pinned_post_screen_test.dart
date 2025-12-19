@@ -86,19 +86,17 @@ void main() {
 
   setUp(() {
     registerServices();
+    if (!locator.isRegistered<SizeConfig>()) {
+      locator.registerSingleton<SizeConfig>(SizeConfig());
+    }
+    if (!locator.isRegistered<NavigationService>()) {
+      locator.registerSingleton<NavigationService>(NavigationService());
+    }
+    if (!locator.isRegistered<BaseCacheManager>()) {
+      locator.registerSingleton<BaseCacheManager>(MockCacheManager());
+    }
     locator<SizeConfig>().test();
   });
-  GetIt.instance.registerSingleton<BaseCacheManager>(
-    MockCacheManager(),
-  );
-
-  GetIt.instance.registerSingleton<NavigationService>(
-    NavigationService(),
-  );
-
-  GetIt.instance.registerSingleton<SizeConfig>(
-    SizeConfig(),
-  );
 
   tearDown(() {
     unregisterServices();
