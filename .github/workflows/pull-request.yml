@@ -322,7 +322,8 @@ jobs:
         run: flutter test --coverage
       - name: Remove generated files from coverage
         run: |
-          sed -i '/\.g\.dart/d' coverage/lcov.info
+          dart pub global activate remove_from_coverage
+          dart pub global run remove_from_coverage:remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$'
 
       #######################################################################
       # DO NOT DELETE ANY references to env.CODECOV_UNIQUE_NAME in this
