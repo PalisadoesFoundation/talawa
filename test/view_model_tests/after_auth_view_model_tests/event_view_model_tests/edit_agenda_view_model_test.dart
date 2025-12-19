@@ -6,9 +6,9 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/services/event_service.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
-import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/image_service.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
