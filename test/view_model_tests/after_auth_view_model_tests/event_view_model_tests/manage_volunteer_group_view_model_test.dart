@@ -384,5 +384,515 @@ void main() {
       expect(group.name, "Old Name");
       expect(group.volunteersRequired, 0);
     });
+
+    // ============================================================
+    // EXCEPTION HANDLING TESTS - Test GraphQL exception handling
+    // ============================================================
+
+    test(
+        "Test addVolunteerToGroup handles QueryResult with exception gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Failed to add volunteer')
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().addVolunteerToGroup()),
+        ),
+      );
+
+      when(
+        mockEventService.addVolunteerToGroup({
+          'eventId': "1",
+          'userId': "volunteer1",
+          'groupId': "group1",
+        }),
+      ).thenAnswer((_) async => mockResultWithException);
+
+      await model.addVolunteerToGroup("volunteer1", "1", "group1");
+
+      // Should handle exception gracefully
+      expect(model.volunteers.length, 0);
+    });
+
+    test(
+        "Test addVolunteerToGroup handles QueryResult with null data gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithNullData = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        options: QueryOptions(
+          document: gql(EventQueries().addVolunteerToGroup()),
+        ),
+      );
+
+      when(
+        mockEventService.addVolunteerToGroup({
+          'eventId': "1",
+          'userId': "volunteer1",
+          'groupId': "group1",
+        }),
+      ).thenAnswer((_) async => mockResultWithNullData);
+
+      await model.addVolunteerToGroup("volunteer1", "1", "group1");
+
+      // Should handle null data gracefully
+      expect(model.volunteers.length, 0);
+    });
+
+    test(
+        "Test addVolunteerToGroup handles QueryResult with missing mutation data gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithMissingData = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          // Data exists but mutation field is missing
+          'otherField': 'value',
+        },
+        options: QueryOptions(
+          document: gql(EventQueries().addVolunteerToGroup()),
+        ),
+      );
+
+      when(
+        mockEventService.addVolunteerToGroup({
+          'eventId': "1",
+          'userId': "volunteer1",
+          'groupId': "group1",
+        }),
+      ).thenAnswer((_) async => mockResultWithMissingData);
+
+      await model.addVolunteerToGroup("volunteer1", "1", "group1");
+
+      // Should handle missing mutation data gracefully
+      expect(model.volunteers.length, 0);
+    });
+
+    test(
+        "Test deleteVolunteerGroup handles QueryResult with exception gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Failed to delete group')
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().removeEventVolunteerGroup()),
+        ),
+      );
+
+      when(mockEventService.removeVolunteerGroup({"id": "group1"}))
+          .thenAnswer((_) async => mockResultWithException);
+
+      await model.deleteVolunteerGroup("group1");
+
+      // Should handle exception gracefully
+      verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
+    });
+
+    test(
+        "Test deleteVolunteerGroup handles QueryResult with null data gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithNullData = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        options: QueryOptions(
+          document: gql(EventQueries().removeEventVolunteerGroup()),
+        ),
+      );
+
+      when(mockEventService.removeVolunteerGroup({"id": "group1"}))
+          .thenAnswer((_) async => mockResultWithNullData);
+
+      await model.deleteVolunteerGroup("group1");
+
+      // Should handle null data gracefully
+      verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
+    });
+
+    test(
+        "Test deleteVolunteerGroup handles QueryResult with missing mutation data gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithMissingData = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          // Data exists but mutation field is missing
+          'otherField': 'value',
+        },
+        options: QueryOptions(
+          document: gql(EventQueries().removeEventVolunteerGroup()),
+        ),
+      );
+
+      when(mockEventService.removeVolunteerGroup({"id": "group1"}))
+          .thenAnswer((_) async => mockResultWithMissingData);
+
+      await model.deleteVolunteerGroup("group1");
+
+      // Should handle missing mutation data gracefully
+      verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
+    });
+
+    test(
+        "Test removeVolunteerFromGroup handles QueryResult with exception gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+      final int prevLength = model.volunteers.length;
+
+      final mockResultWithException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Failed to remove volunteer')
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().removeVolunteerMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.removeVolunteerFromGroup({
+          'id': 'volunteer1',
+        }),
+      ).thenAnswer((_) async => mockResultWithException);
+
+      await model.removeVolunteerFromGroup("volunteer1");
+
+      // Should not crash, volunteers should remain unchanged
+      expect(model.volunteers.length, prevLength);
+    });
+
+    test(
+        "Test updateVolunteerGroup handles QueryResult with exception gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+      final group = EventVolunteerGroup(
+        id: "group1",
+        name: "Old Name",
+        volunteersRequired: 5,
+      );
+
+      final mockResultWithException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Failed to update group')
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().updateVolunteerGroupMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.updateVolunteerGroup({
+          'id': group.id,
+          'data': {
+            'eventId': "1",
+            'name': "New Name",
+            'volunteersRequired': 10,
+          },
+        }),
+      ).thenAnswer((_) async => mockResultWithException);
+
+      await model.updateVolunteerGroup(group, "1", "New Name", 10);
+
+      // Original values should remain unchanged
+      expect(group.name, "Old Name");
+      expect(group.volunteersRequired, 5);
+    });
+
+    test(
+        "Test updateVolunteerGroup handles QueryResult with null data gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+      final group = EventVolunteerGroup(
+        id: "group1",
+        name: "Old Name",
+        volunteersRequired: 5,
+      );
+
+      final mockResultWithNullData = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        options: QueryOptions(
+          document: gql(EventQueries().updateVolunteerGroupMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.updateVolunteerGroup({
+          'id': group.id,
+          'data': {
+            'eventId': "1",
+            'name': "New Name",
+            'volunteersRequired': 10,
+          },
+        }),
+      ).thenAnswer((_) async => mockResultWithNullData);
+
+      await model.updateVolunteerGroup(group, "1", "New Name", 10);
+
+      // Original values should remain unchanged
+      expect(group.name, "Old Name");
+      expect(group.volunteersRequired, 5);
+    });
+
+    test(
+        "Test updateVolunteerGroup handles QueryResult with missing mutation data gracefully",
+        () async {
+      final mockEventService = locator<EventService>();
+      final group = EventVolunteerGroup(
+        id: "group1",
+        name: "Old Name",
+        volunteersRequired: 5,
+      );
+
+      final mockResultWithMissingData = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          // Data exists but mutation field is missing
+          'otherField': 'value',
+        },
+        options: QueryOptions(
+          document: gql(EventQueries().updateVolunteerGroupMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.updateVolunteerGroup({
+          'id': group.id,
+          'data': {
+            'eventId': "1",
+            'name': "New Name",
+            'volunteersRequired': 10,
+          },
+        }),
+      ).thenAnswer((_) async => mockResultWithMissingData);
+
+      await model.updateVolunteerGroup(group, "1", "New Name", 10);
+
+      // Original values should remain unchanged
+      expect(group.name, "Old Name");
+      expect(group.volunteersRequired, 5);
+    });
+
+    // ============================================================
+    // NULL RESULT TESTS - Test when GraphQL service returns null
+    // ============================================================
+
+    test('addVolunteerToGroup handles empty data gracefully', () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+
+      await model.initialize(event, group);
+      final initialVolunteersCount = model.volunteers.length;
+
+      final mockEventService = getAndRegisterEventService();
+
+      when(
+        mockEventService.addVolunteerToGroup({
+          'eventId': '1',
+          'userId': 'volunteer1',
+          'groupId': 'group1',
+        }),
+      ).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      await model.addVolunteerToGroup('volunteer1', '1', 'group1');
+
+      // Volunteers list should remain unchanged
+      expect(model.volunteers.length, initialVolunteersCount);
+    });
+
+    test('deleteVolunteerGroup handles empty data gracefully', () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+
+      await model.initialize(event, group);
+
+      final mockEventService = getAndRegisterEventService();
+
+      when(
+        mockEventService.removeVolunteerGroup({'id': 'group1'}),
+      ).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            options: QueryOptions(
+              document: gql(EventQueries().removeEventVolunteerGroup()),
+            ),
+          ));
+
+      // Should handle gracefully without crashing
+      await model.deleteVolunteerGroup('group1');
+
+      // No exception should be thrown
+      expect(true, true);
+    });
+
+    test('removeVolunteerFromGroup handles empty data gracefully', () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+
+      await model.initialize(event, group);
+      final initialVolunteersCount = model.volunteers.length;
+
+      final mockEventService = getAndRegisterEventService();
+
+      when(
+        mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}),
+      ).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            options: QueryOptions(
+              document: gql(EventQueries().removeVolunteerMutation()),
+            ),
+          ));
+
+      await model.removeVolunteerFromGroup('volunteer1');
+
+      // Volunteers list should remain unchanged
+      expect(model.volunteers.length, initialVolunteersCount);
+    });
+
+    test('updateVolunteerGroup handles empty data gracefully', () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group = EventVolunteerGroup(
+        id: "group1",
+        name: "Old Name",
+        volunteersRequired: 5,
+        volunteers: [],
+      );
+
+      await model.initialize(event, group);
+
+      final mockEventService = getAndRegisterEventService();
+
+      when(
+        mockEventService.updateVolunteerGroup({
+          'id': group.id,
+          'data': {
+            'eventId': "1",
+            'name': "New Name",
+            'volunteersRequired': 10,
+          },
+        }),
+      ).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            options: QueryOptions(
+              document: gql(EventQueries().updateVolunteerGroupMutation()),
+            ),
+          ));
+
+      await model.updateVolunteerGroup(group, "1", "New Name", 10);
+
+      // Original values should remain unchanged
+      expect(group.name, "Old Name");
+      expect(group.volunteersRequired, 5);
+    });
+
+    // ============================================================
+    // ADDITIONAL COVERAGE TESTS
+    // ============================================================
+
+    test('memberCheckedMap getter returns the map', () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+
+      await model.initialize(event, group);
+
+      // Access the memberCheckedMap getter (line 25)
+      expect(model.memberCheckedMap, isA<Map<String, bool>>());
+      expect(model.memberCheckedMap, isEmpty);
+    });
+
+    test(
+        'removeVolunteerFromGroup handles response with null removeEventVolunteer',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+
+      await model.initialize(event, group);
+
+      final mockEventService = getAndRegisterEventService();
+
+      // Mock response where data exists but removeEventVolunteer is null
+      final mockResultWithNullField = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'removeEventVolunteer': null,
+        },
+        options: QueryOptions(
+          document: gql(EventQueries().removeVolunteerMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}),
+      ).thenAnswer((_) async => mockResultWithNullField);
+
+      await model.removeVolunteerFromGroup('volunteer1');
+
+      // Should print 'Failed to remove volunteer.' - line 212 covered
+      expect(model.volunteers.length, 0);
+    });
+
+    test('removeVolunteerFromGroup handles exception thrown by service',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+
+      await model.initialize(event, group);
+
+      final mockEventService = getAndRegisterEventService();
+
+      // Mock service to throw an exception
+      when(
+        mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}),
+      ).thenThrow(Exception('Network error'));
+
+      // Should handle gracefully without crashing - line 215 covered
+      await model.removeVolunteerFromGroup('volunteer1');
+
+      expect(model.volunteers.length, 0);
+    });
   });
 }

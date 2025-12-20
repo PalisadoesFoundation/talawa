@@ -268,7 +268,13 @@ void main() {
       when(eventService.fetchAgendaItems('1'))
           .thenAnswer((_) async => mockResult);
       when(eventService.deleteAgendaItem({"removeAgendaItemId": "1"}))
-          .thenAnswer((_) async => true);
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {'deleteAgendaItem': true},
+                options: QueryOptions(
+                  document: gql(EventQueries().deleteAgendaItem()),
+                ),
+              ));
 
       await tester.pumpWidget(createManageAgendaScreen('1'));
       await tester.pumpAndSettle();
@@ -331,7 +337,13 @@ void main() {
       when(eventService.fetchAgendaItems('1'))
           .thenAnswer((_) async => mockResult);
       when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
-          .thenAnswer((_) async => true);
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {'deleteAgendaItem': true},
+                options: QueryOptions(
+                  document: gql(EventQueries().deleteAgendaItem()),
+                ),
+              ));
       await tester.pumpWidget(createManageAgendaScreen('1'));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key("delete_agenda_item1")));

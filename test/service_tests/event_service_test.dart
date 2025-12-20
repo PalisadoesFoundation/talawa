@@ -300,7 +300,7 @@ void main() {
 
       expect(result, isNotNull);
       expect(
-        (result as QueryResult).data!['createVolunteerGroup']['_id'],
+        result.data!['createVolunteerGroup']['_id'],
         'groupId1',
       );
       expect(

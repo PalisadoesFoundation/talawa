@@ -261,8 +261,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: this will be `map` type and contain all the volunteer group details need to be created.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the created volunteer group.
-  Future<dynamic> createVolunteerGroup(Map<String, dynamic> variables) async {
+  /// * `Future<QueryResult>`: Information about the created volunteer group.
+  Future<QueryResult> createVolunteerGroup(Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().createVolunteerGroup(),
       variables: {'data': variables},
@@ -276,8 +276,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: This will be a `map` type and contain the ID of the volunteer group to be deleted.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the removed volunteer group.
-  Future<dynamic> removeVolunteerGroup(Map<String, dynamic> variables) async {
+  /// * `Future<QueryResult>`: Information about the removed volunteer group.
+  Future<QueryResult> removeVolunteerGroup(Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().removeEventVolunteerGroup(),
       variables: variables,
@@ -291,8 +291,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: this will be `map` type and contain all the details needed to add a volunteer to a group.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the added volunteer.
-  Future<dynamic> addVolunteerToGroup(Map<String, dynamic> variables) async {
+  /// * `Future<QueryResult>`: Information about the added volunteer.
+  Future<QueryResult> addVolunteerToGroup(Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().addVolunteerToGroup(),
       variables: {'data': variables},
@@ -306,8 +306,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: this will be `map` type and contain the ID of the volunteer to be removed.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the removed volunteer.
-  Future<dynamic> removeVolunteerFromGroup(
+  /// * `Future<QueryResult>`: Information about the removed volunteer.
+  Future<QueryResult> removeVolunteerFromGroup(
     Map<String, dynamic> variables,
   ) async {
     final result = await _dbFunctions.gqlAuthMutation(
@@ -323,8 +323,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: This is a `Map<String, dynamic>` type that contains the ID of the volunteer group to be updated and the fields to be updated.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the updated volunteer group.
-  Future<dynamic> updateVolunteerGroup(Map<String, dynamic> variables) async {
+  /// * `Future<QueryResult>`: Information about the updated volunteer group.
+  Future<QueryResult> updateVolunteerGroup(Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().updateVolunteerGroupMutation(),
       variables: variables,
@@ -370,8 +370,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `orgId`: ID of organisation to fetch categories.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the created agenda item.
-  Future<dynamic> fetchAgendaCategories(String orgId) async {
+  /// * `Future<QueryResult>`: Information about the created agenda item.
+  Future<QueryResult> fetchAgendaCategories(String orgId) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
     );
@@ -384,8 +384,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the created agenda item.
-  Future<dynamic> createAgendaItem(Map<String, dynamic> variables) async {
+  /// * `Future<QueryResult>`: Information about the created agenda item.
+  Future<QueryResult> createAgendaItem(Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().createAgendaItem(),
       variables: {'input': variables},
@@ -399,8 +399,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the deleted agenda item.
-  Future<dynamic> deleteAgendaItem(Map<String, dynamic> variables) async {
+  /// * `Future<QueryResult>`: Information about the deleted agenda item.
+  Future<QueryResult> deleteAgendaItem(Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().deleteAgendaItem(),
       variables: variables,
@@ -415,8 +415,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the updated agenda item.
-  Future<dynamic> updateAgendaItem(
+  /// * `Future<QueryResult>`: Information about the updated agenda item.
+  Future<QueryResult> updateAgendaItem(
     String itemId,
     Map<String, dynamic> variables,
   ) async {
@@ -436,8 +436,8 @@ class EventService extends BaseFeedManager<Event> {
   /// * `eventId`: ID of the event to fetch agenda items.
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: A list of agenda items for the specified organization.
-  Future<dynamic> fetchAgendaItems(String eventId) async {
+  /// * `Future<QueryResult>`: A list of agenda items for the specified organization.
+  Future<QueryResult> fetchAgendaItems(String eventId) async {
     final result = await _dbFunctions.gqlAuthQuery(
       EventQueries().fetchAgendaItemsByEvent(eventId),
     );
