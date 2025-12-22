@@ -10,7 +10,6 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
-
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
