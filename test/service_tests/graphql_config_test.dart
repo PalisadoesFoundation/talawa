@@ -23,12 +23,14 @@ void main() {
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     await Hive.openBox('url');
+    // Initialize dotenv before accessing dotenv.env
+    await initializeDotEnvForTests();
   });
 
   setUp(() {
     getAndRegisterUserConfig();
     getAndRegisterDatabaseMutationFunctions();
-    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
+    dotenv.env['API_URL'] = 'http://<IPv4>:4000/graphql';
   });
 
   tearDown(() {

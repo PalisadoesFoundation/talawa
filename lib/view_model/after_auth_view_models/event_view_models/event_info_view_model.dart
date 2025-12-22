@@ -204,8 +204,7 @@ class EventInfoViewModel extends BaseModel {
           .fetchAgendaCategories(userConfig.currentOrg.id!);
 
       if (result.hasException) {
-        print(
-            "Error fetching categories: ${result.exception?.graphqlErrors}");
+        print("Error fetching categories: ${result.exception?.graphqlErrors}");
         return;
       }
 
@@ -310,13 +309,11 @@ class EventInfoViewModel extends BaseModel {
       final result = await locator<EventService>().createAgendaItem(variables);
 
       if (result.hasException) {
-        print(
-            "Error creating agenda item: ${result.exception?.graphqlErrors}");
+        print("Error creating agenda item: ${result.exception?.graphqlErrors}");
         return null;
       }
 
-      if (result.data == null ||
-          result.data!['createAgendaItem'] == null) {
+      if (result.data == null || result.data!['createAgendaItem'] == null) {
         print('Failed to create agenda item or no data returned');
         return null;
       }
@@ -378,8 +375,7 @@ class EventInfoViewModel extends BaseModel {
         return;
       }
 
-      if (result.data == null ||
-          result.data!['updateAgendaItem'] == null) {
+      if (result.data == null || result.data!['updateAgendaItem'] == null) {
         print('Failed to update agenda item sequence or no data returned');
         return;
       }

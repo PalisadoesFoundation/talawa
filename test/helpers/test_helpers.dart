@@ -2,8 +2,12 @@ import 'dart:async';
 import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -1337,4 +1341,24 @@ void unregisterViewModels() {
   locator.unregister<SelectOrganizationViewModel>();
   locator.unregister<CustomDrawerViewModel>();
   locator.unregister<SelectContactViewModel>();
+}
+
+/// Initialize dotenv for tests
+/// Call this in setUpAll() before accessing dotenv.env
+/// This prevents NotInitializedError when accessing dotenv.env
+Future<void> initializeDotEnvForTests() async {
+  // Get the project root directory (where pubspec.yaml is located)
+  // Tests might run from different directories, so we need to find the root
+  final Directory currentDir = Directory.current;
+  final File envFile = File('${currentDir.path}/.env');
+
+  // Check if .env file exists, if not create it with minimal content
+  if (!await envFile.exists()) {
+    // Create .env file with minimal content to initialize dotenv
+    await envFile.writeAsString('API_URL=http://localhost:4000/graphql\n');
+  }
+
+  // Load the .env file (will use existing or newly created file)
+  // Use absolute path to ensure we load from project root
+  await dotenv.load(fileName: envFile.path);
 }

@@ -58,8 +58,10 @@ Future<void> main() async {
   // await Hive.openBox<User>('currentUser');
   // await Hive.openBox<OrgInfo>('currentOrg');
   //setting up MVVM
-  setUpAll(() {
+  setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
+    // Initialize dotenv before accessing dotenv.env
+    await initializeDotEnvForTests();
     setupLocator();
     registerServices();
 
@@ -68,7 +70,7 @@ Future<void> main() async {
     locator<SizeConfig>().test();
   });
   setUp(() {
-    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
+    dotenv.env['API_URL'] = 'http://<IPv4>:4000/graphql';
   });
 
   //Testing in light mode/normal mode

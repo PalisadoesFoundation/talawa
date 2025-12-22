@@ -76,8 +76,13 @@ Future<void> main() async {
 
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
+  setUpAll(() async {
+    // Initialize dotenv before accessing dotenv.env
+    await initializeDotEnvForTests();
+  });
+
   setUp(() {
-    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
+    dotenv.env['API_URL'] = 'http://<IPv4>:4000/graphql';
     registerServices();
     registerViewModels();
     model = AuthLandingViewModel();

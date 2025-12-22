@@ -108,8 +108,7 @@ class ManageVolunteerGroupViewModel extends BaseModel {
         return;
       }
 
-      if (result.data == null ||
-          result.data!['createEventVolunteer'] == null) {
+      if (result.data == null || result.data!['createEventVolunteer'] == null) {
         print('Failed to add volunteer to group or no data returned');
         return;
       }
@@ -178,8 +177,7 @@ class ManageVolunteerGroupViewModel extends BaseModel {
         return;
       }
 
-      if (result.data == null ||
-          result.data!['removeEventVolunteer'] == null) {
+      if (result.data == null || result.data!['removeEventVolunteer'] == null) {
         print('Failed to remove volunteer.');
         return;
       }

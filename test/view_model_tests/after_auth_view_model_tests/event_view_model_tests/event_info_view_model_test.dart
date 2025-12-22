@@ -899,8 +899,8 @@ void main() {
                 source: QueryResultSource.network,
                 data: null,
                 options: QueryOptions(
-                  document: gql(
-                      EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ')),
+                  document: gql(EventQueries()
+                      .fetchAgendaItemCategoriesByOrganization('XYZ')),
                 ),
               ));
 
@@ -917,13 +917,14 @@ void main() {
 
       final eventService = getAndRegisterEventService();
 
-      when(eventService.fetchAgendaItems('1')).thenAnswer((_) async => QueryResult(
-            source: QueryResultSource.network,
-            data: null,
-            options: QueryOptions(
-              document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
-            ),
-          ));
+      when(eventService.fetchAgendaItems('1'))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: null,
+                options: QueryOptions(
+                  document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
+                ),
+              ));
 
       // Should handle gracefully without crashing
       await model.fetchAgendaItems();

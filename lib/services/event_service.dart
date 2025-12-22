@@ -262,7 +262,8 @@ class EventService extends BaseFeedManager<Event> {
   ///
   /// **returns**:
   /// * `Future<QueryResult>`: Information about the created volunteer group.
-  Future<QueryResult> createVolunteerGroup(Map<String, dynamic> variables) async {
+  Future<QueryResult> createVolunteerGroup(
+      Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().createVolunteerGroup(),
       variables: {'data': variables},
@@ -277,7 +278,8 @@ class EventService extends BaseFeedManager<Event> {
   ///
   /// **returns**:
   /// * `Future<QueryResult>`: Information about the removed volunteer group.
-  Future<QueryResult> removeVolunteerGroup(Map<String, dynamic> variables) async {
+  Future<QueryResult> removeVolunteerGroup(
+      Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().removeEventVolunteerGroup(),
       variables: variables,
@@ -292,7 +294,8 @@ class EventService extends BaseFeedManager<Event> {
   ///
   /// **returns**:
   /// * `Future<QueryResult>`: Information about the added volunteer.
-  Future<QueryResult> addVolunteerToGroup(Map<String, dynamic> variables) async {
+  Future<QueryResult> addVolunteerToGroup(
+      Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().addVolunteerToGroup(),
       variables: {'data': variables},
@@ -324,7 +327,8 @@ class EventService extends BaseFeedManager<Event> {
   ///
   /// **returns**:
   /// * `Future<QueryResult>`: Information about the updated volunteer group.
-  Future<QueryResult> updateVolunteerGroup(Map<String, dynamic> variables) async {
+  Future<QueryResult> updateVolunteerGroup(
+      Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().updateVolunteerGroupMutation(),
       variables: variables,
