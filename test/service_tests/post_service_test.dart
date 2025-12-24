@@ -361,7 +361,9 @@ void main() {
 /// This is useful for testing purposes where you want to control the API response.
 class TestablePostService extends PostService {
   @override
-  Future<List<Post>> getNewFeedAndRefreshCache() async {
+  Future<List<Post>> getNewFeedAndRefreshCache({
+    Map<String, dynamic>? params,
+  }) async {
     return [
       Post(
         id: 'test_post',
@@ -381,7 +383,7 @@ class TestablePostService extends PostService {
   }
 
   @override
-  Future<List<Post>> fetchDataFromApi() async {
+  Future<List<Post>> fetchDataFromApi({Map<String, dynamic>? params}) async {
     // Mock new posts for pagination
     return [
       Post(
