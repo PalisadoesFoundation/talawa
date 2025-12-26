@@ -1,7 +1,7 @@
 # pubspec.yaml
 name: talawa_lint
 environment:
-  sdk: ">=2.12.0 <4.0.0"
+  sdk: ">=3.5.0 <4.0.0" 
 
 dev_dependencies:
   lint: ^2.3.0
@@ -15,7 +15,7 @@ dependencies:
   
   # custom_lint_builder will give us tools for writing lints
   args: ^2.4.2
-  custom_lint: 0.7.0
-  custom_lint_builder: ^0.7.0
+  custom_lint: 0.6.4 
+  custom_lint_builder: 0.6.4 
   # watcher: ^1.1.0
   
