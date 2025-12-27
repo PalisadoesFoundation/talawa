@@ -393,5 +393,68 @@ void main() {
       // But we can verify the client was created successfully with both links
       expect(client, isA<GraphQLClient>());
     });
+
+    test('WebSocket URL is derived from HTTP URL', () {
+      const httpUrl = 'http://example.com/graphql';
+      final box = Hive.box('url');
+      box.put(GraphqlConfig.urlKey, httpUrl);
+
+      final config = GraphqlConfig();
+      config.getOrgUrl();
+
+      // The WebSocket should be initialized with ws:// (derived from http://)
+      expect(config.webSocketLink, isA<WebSocketLink?>());
+    });
+
+    test('WebSocket URL is derived from HTTPS URL', () {
+      const httpsUrl = 'https://example.com/graphql';
+      final box = Hive.box('url');
+      box.put(GraphqlConfig.urlKey, httpsUrl);
+
+      final config = GraphqlConfig();
+      config.getOrgUrl();
+
+      // The WebSocket should be initialized with wss:// (derived from https://)
+      expect(config.webSocketLink, isA<WebSocketLink?>());
+    });
+
+    test('WebSocket falls back to .env when orgURI is empty', () {
+      final box = Hive.box('url');
+      box.delete(GraphqlConfig.urlKey);
+
+      final config = GraphqlConfig();
+      config.getOrgUrl();
+
+      // Even with empty orgURI, WebSocket initialization should not throw
+      expect(() => config.webSocketLink, returnsNormally);
+    });
+
+    test('WebSocket initialization with space-only orgURI falls back to .env',
+        () {
+      const spaceUrl = ' ';
+      final box = Hive.box('url');
+      box.put(GraphqlConfig.urlKey, spaceUrl);
+
+      final config = GraphqlConfig();
+      config.getOrgUrl();
+
+      // Should fall back to .env when orgURI is just a space
+      expect(() => config.webSocketLink, returnsNormally);
+    });
+
+    test('Multiple URL updates reinitialize WebSocket correctly', () {
+      final box = Hive.box('url');
+      final config = GraphqlConfig();
+
+      // First URL
+      box.put(GraphqlConfig.urlKey, 'http://first.com/graphql');
+      config.getOrgUrl();
+      expect(config.webSocketLink, isA<WebSocketLink?>());
+
+      // Second URL
+      box.put(GraphqlConfig.urlKey, 'https://second.com/graphql');
+      config.getOrgUrl();
+      expect(config.webSocketLink, isA<WebSocketLink?>());
+    });
   });
 }

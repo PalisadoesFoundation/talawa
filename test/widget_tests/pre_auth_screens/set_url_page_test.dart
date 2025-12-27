@@ -11,7 +11,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
+import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
@@ -47,6 +47,7 @@ Widget createSetUrlScreen({
         darkTheme: TalawaTheme.darkTheme,
         home: const SetUrl(
           key: Key('SetUrl'),
+          uri: '',
         ),
         navigatorKey: navigationService.navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -315,15 +316,12 @@ Future<void> main() async {
         const Offset(100, 0),
       );
 
-      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
-
-      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) => 1);
-
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pop());
+      verify(
+        navigationService.pushScreen('/selectLang'),
+      );
     });
   });
 
@@ -553,15 +551,12 @@ Future<void> main() async {
         const Offset(100, 0),
       );
 
-      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
-
-      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) => 1);
-
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pop());
+      verify(
+        navigationService.pushScreen('/selectLang'),
+      );
     });
   });
 }

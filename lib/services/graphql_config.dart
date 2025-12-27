@@ -49,11 +49,19 @@ class GraphqlConfig {
   /// Initialize WebSocket link for GraphQL subscriptions
   void _initializeWebSocketLink() {
     try {
-      // Get socket URL from environment variables
-      final socketUrl = dotenv.env['SOCKET_URL'] ??
-          (kReleaseMode
-              ? 'wss://api-test.talawa.io/graphql'
-              : 'ws://localhost:4000/graphql');
+      // Derive socket URL from orgURI by replacing http with ws
+      String socketUrl;
+      if (orgURI != null && orgURI!.isNotEmpty && orgURI != ' ') {
+        socketUrl = orgURI!
+            .replaceFirst('http://', 'ws://')
+            .replaceFirst('https://', 'wss://');
+      } else {
+        // Fallback to environment variable or default
+        socketUrl = dotenv.env['SOCKET_URL'] ??
+            (kReleaseMode
+                ? 'wss://api-test.talawa.io/graphql'
+                : 'ws://localhost:4000/graphql');
+      }
 
       webSocketLink = WebSocketLink(
         socketUrl,
