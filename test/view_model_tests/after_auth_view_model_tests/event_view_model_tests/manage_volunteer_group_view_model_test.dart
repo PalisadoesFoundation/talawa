@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/events/event_volunteer.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -102,28 +101,12 @@ void main() {
           'groupId': "group1",
         }),
       ).thenThrow(Exception('Failed to add volunteer'));
-      String log = "";
-      await runZonedGuarded(
-        () async {
-          await model.addVolunteerToGroup("volunteer1", "1", "group1");
-        },
-        (error, stack) {
-          expect(error, isA<Exception>());
-          expect(error.toString(), contains('Failed to add volunteer'));
-          expect(stack, isNotNull);
-        },
-        zoneSpecification: ZoneSpecification(
-          print: (self, parent, zone, line) {
-            log = line;
-          },
-        ),
-      );
-      expect(
-        log,
-        contains("Failed to add volunteer"),
-      );
+
+      // Exception should be caught and handled gracefully without bubbling up
+      await model.addVolunteerToGroup("volunteer1", "1", "group1");
+
+      // Verify model is in a clean state after error (no volunteers added)
       expect(model.volunteers.length, 0);
-      // Verify model is in a clean state after error
       expect(model.isFetchingVolunteers, isFalse);
     });
 
@@ -210,32 +193,15 @@ void main() {
       when(
         mockEventService.removeVolunteerFromGroup(
           {
-            'volunteerId': 'volunteer1',
+            'id': 'volunteer1',
           },
         ),
       ).thenThrow(Exception('Failed to remove volunteer'));
-      String log = "";
-      await runZonedGuarded(
-        () async {
-          await model.removeVolunteerFromGroup("volunteer1");
-        },
-        (error, stack) {
-          expect(error, isA<Exception>());
-          expect(stack, isNotNull);
-          expect(error.toString(), contains('Failed to remove volunteer'));
-        },
-        zoneSpecification: ZoneSpecification(
-          print: (self, parent, zone, line) {
-            log = line;
-          },
-        ),
-      );
 
-      expect(
-        log,
-        contains('Failed to remove volunteer'),
-      );
+      // Exception should be caught and handled gracefully without bubbling up
+      await model.removeVolunteerFromGroup("volunteer1");
 
+      // Volunteers list should remain unchanged after error
       expect(model.volunteers.length, prevlength);
     });
 
@@ -274,30 +240,11 @@ void main() {
         ),
       ).thenThrow(Exception("Failed to delete group"));
 
-      String log = "";
-      await runZonedGuarded(
-        () async {
-          await model.deleteVolunteerGroup("group1");
-        },
-        (error, stack) {
-          expect(
-            error,
-            isA<Exception>(),
-          );
-          expect(error.toString(), contains('Failed to delete group'));
-          expect(stack, isNotNull);
-        },
-        zoneSpecification: ZoneSpecification(
-          print: (self, parent, zone, line) {
-            log = line;
-          },
-        ),
-      );
+      // Exception should be caught and handled gracefully without bubbling up
+      await model.deleteVolunteerGroup("group1");
 
-      expect(
-        log,
-        contains('Failed to delete group'),
-      );
+      // Verify service was called
+      verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
 
       // Assuming the method should notify listeners
       verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
@@ -357,30 +304,11 @@ void main() {
           },
         }),
       ).thenThrow(Exception('Failed to update group'));
-      String log = "";
-      await runZonedGuarded(
-        () async {
-          await model.updateVolunteerGroup(group, "1", "Updated Group", 20);
-        },
-        (error, stack) {
-          expect(
-            error,
-            isA<Exception>(),
-          );
-          expect(error.toString(), "Failed to update group");
-          expect(stack, isNotNull);
-        },
-        zoneSpecification: ZoneSpecification(
-          print: (self, parent, zone, line) {
-            log = line;
-          },
-        ),
-      );
 
-      expect(
-        log,
-        contains('Failed to update group'),
-      );
+      // Exception should be caught and handled gracefully without bubbling up
+      await model.updateVolunteerGroup(group, "1", "Updated Group", 20);
+
+      // Original values should remain unchanged after error
       expect(group.name, "Old Name");
       expect(group.volunteersRequired, 0);
     });
@@ -482,7 +410,7 @@ void main() {
     test(
         "Test deleteVolunteerGroup handles QueryResult with exception gracefully",
         () async {
-      final mockEventService = locator<EventService>();
+      final mockEventService = getAndRegisterEventService();
 
       final mockResultWithException = QueryResult(
         source: QueryResultSource.network,
@@ -893,6 +821,654 @@ void main() {
       await model.removeVolunteerFromGroup('volunteer1');
 
       expect(model.volunteers.length, 0);
+    });
+
+    // ============================================================
+    // ADDITIONAL ERROR CASE TESTS - Comprehensive exception handling
+    // ============================================================
+
+    test('addVolunteerToGroup handles QueryResult with multiple GraphQL errors',
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithMultipleErrors = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Error 1'),
+            GraphQLError(message: 'Error 2'),
+            GraphQLError(message: 'Error 3'),
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().addVolunteerToGroup()),
+        ),
+      );
+
+      when(
+        mockEventService.addVolunteerToGroup({
+          'eventId': "1",
+          'userId': "volunteer1",
+          'groupId': "group1",
+        }),
+      ).thenAnswer((_) async => mockResultWithMultipleErrors);
+
+      await model.addVolunteerToGroup("volunteer1", "1", "group1");
+
+      // Should handle multiple errors gracefully
+      expect(model.volunteers.length, 0);
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test('deleteVolunteerGroup handles QueryResult with linkException',
+        () async {
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithLinkException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: UnknownException(
+            Exception('Network connection failed'),
+            StackTrace.current,
+          ),
+          graphqlErrors: const [],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().removeEventVolunteerGroup()),
+        ),
+      );
+
+      when(mockEventService.removeVolunteerGroup({"id": "group1"}))
+          .thenAnswer((_) async => mockResultWithLinkException);
+
+      await model.deleteVolunteerGroup("group1");
+
+      // Should handle linkException gracefully
+      verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
+    });
+
+    test(
+        'removeVolunteerFromGroup handles QueryResult with empty graphqlErrors',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group = EventVolunteerGroup(
+        id: "group1",
+        volunteers: [EventVolunteer(id: 'volunteer1')],
+      );
+      await model.initialize(event, group);
+
+      expect(model.volunteers.length, 1);
+
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithEmptyErrors = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().removeVolunteerMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}),
+      ).thenAnswer((_) async => mockResultWithEmptyErrors);
+
+      await model.removeVolunteerFromGroup("volunteer1");
+
+      // Should handle exception with empty errors gracefully
+      expect(model.volunteers.length, 1); // Volunteer should remain
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test(
+        'updateVolunteerGroup handles QueryResult with exception and preserves group state',
+        () async {
+      final mockEventService = locator<EventService>();
+      final group = EventVolunteerGroup(
+        id: "group1",
+        name: "Original Name",
+        volunteersRequired: 5,
+        volunteers: [EventVolunteer(id: 'volunteer1')],
+      );
+
+      // Store original state
+      final originalName = group.name;
+      final originalVolunteersRequired = group.volunteersRequired;
+      final originalVolunteersCount = group.volunteers?.length ?? 0;
+
+      final mockResultWithException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Update failed'),
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().updateVolunteerGroupMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.updateVolunteerGroup({
+          'id': group.id,
+          'data': {
+            'eventId': "1",
+            'name': "New Name",
+            'volunteersRequired': 10,
+          },
+        }),
+      ).thenAnswer((_) async => mockResultWithException);
+
+      await model.updateVolunteerGroup(group, "1", "New Name", 10);
+
+      // All original state should be preserved after exception
+      expect(group.name, originalName);
+      expect(group.volunteersRequired, originalVolunteersRequired);
+      expect(group.volunteers?.length, originalVolunteersCount);
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test(
+        'addVolunteerToGroup handles QueryResult with exception when volunteers list already has items',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group = EventVolunteerGroup(
+        id: "group1",
+        volunteers: [EventVolunteer(id: 'existingVolunteer')],
+      );
+      await model.initialize(event, group);
+
+      expect(model.volunteers.length, 1);
+
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Failed to add volunteer'),
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().addVolunteerToGroup()),
+        ),
+      );
+
+      when(
+        mockEventService.addVolunteerToGroup({
+          'eventId': "1",
+          'userId': "volunteer1",
+          'groupId': "group1",
+        }),
+      ).thenAnswer((_) async => mockResultWithException);
+
+      await model.addVolunteerToGroup("volunteer1", "1", "group1");
+
+      // Existing volunteers should remain unchanged
+      expect(model.volunteers.length, 1);
+      expect(model.volunteers.first.id, "existingVolunteer");
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test(
+        'deleteVolunteerGroup handles QueryResult with exception and null data combination',
+        () async {
+      final mockEventService = locator<EventService>();
+
+      // Test case where both exception exists and data is null
+      final mockResultWithExceptionAndNullData = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Server error'),
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().removeEventVolunteerGroup()),
+        ),
+      );
+
+      when(mockEventService.removeVolunteerGroup({"id": "group1"}))
+          .thenAnswer((_) async => mockResultWithExceptionAndNullData);
+
+      await model.deleteVolunteerGroup("group1");
+
+      // Should handle exception (exception check happens before null data check)
+      verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
+    });
+
+    test(
+        'removeVolunteerFromGroup handles QueryResult with exception when removing from non-empty list',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group = EventVolunteerGroup(
+        id: "group1",
+        volunteers: [
+          EventVolunteer(id: 'volunteer1'),
+          EventVolunteer(id: 'volunteer2'),
+          EventVolunteer(id: 'volunteer3'),
+        ],
+      );
+      await model.initialize(event, group);
+
+      expect(model.volunteers.length, 3);
+
+      final mockEventService = locator<EventService>();
+
+      final mockResultWithException = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        exception: OperationException(
+          linkException: null,
+          graphqlErrors: const [
+            GraphQLError(message: 'Failed to remove'),
+          ],
+        ),
+        options: QueryOptions(
+          document: gql(EventQueries().removeVolunteerMutation()),
+        ),
+      );
+
+      when(
+        mockEventService.removeVolunteerFromGroup({'id': 'volunteer2'}),
+      ).thenAnswer((_) async => mockResultWithException);
+
+      await model.removeVolunteerFromGroup("volunteer2");
+
+      // All volunteers should remain unchanged after exception
+      expect(model.volunteers.length, 3);
+      expect(model.volunteers.map((v) => v.id).toSet(),
+          {'volunteer1', 'volunteer2', 'volunteer3'});
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    // ============================================================
+    // CONCURRENT OPERATIONS TESTS
+    // ============================================================
+
+    test('handles multiple concurrent addVolunteerToGroup calls correctly',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+      await model.initialize(event, group);
+
+      final mockEventService = locator<EventService>();
+
+      // Mock successful responses for all calls
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer1",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'createEventVolunteer': {'_id': 'volunteer1', 'userId': 'user1'}
+            },
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer2",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'createEventVolunteer': {'_id': 'volunteer2', 'userId': 'user2'}
+            },
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer3",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'createEventVolunteer': {'_id': 'volunteer3', 'userId': 'user3'}
+            },
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      // Fire all operations concurrently
+      await Future.wait([
+        model.addVolunteerToGroup("volunteer1", "1", "group1"),
+        model.addVolunteerToGroup("volunteer2", "1", "group1"),
+        model.addVolunteerToGroup("volunteer3", "1", "group1"),
+      ]);
+
+      // Verify final state is consistent
+      expect(model.volunteers.length, 3);
+      expect(model.volunteers.map((v) => v.id).toSet(),
+          {'volunteer1', 'volunteer2', 'volunteer3'});
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test(
+        'handles concurrent addVolunteerToGroup with different resolution orders',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+      await model.initialize(event, group);
+
+      final mockEventService = locator<EventService>();
+
+      // Mock: first call succeeds, second has exception, third has null data
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer1",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'createEventVolunteer': {'_id': 'volunteer1', 'userId': 'user1'}
+            },
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer2",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            exception: OperationException(
+              linkException: null,
+              graphqlErrors: const [GraphQLError(message: 'Error')],
+            ),
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer3",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      // Fire all operations concurrently - they may resolve in any order
+      await Future.wait([
+        model.addVolunteerToGroup("volunteer1", "1", "group1"),
+        model.addVolunteerToGroup("volunteer2", "1", "group1"),
+        model.addVolunteerToGroup("volunteer3", "1", "group1"),
+      ]);
+
+      // Only the successful one should be added
+      expect(model.volunteers.length, 1);
+      expect(model.volunteers.first.id, "volunteer1");
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test('handles concurrent removeVolunteerFromGroup calls correctly',
+        () async {
+      // First, add some volunteers
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group = EventVolunteerGroup(
+        id: "group1",
+        volunteers: [
+          EventVolunteer(id: 'volunteer1'),
+          EventVolunteer(id: 'volunteer2'),
+          EventVolunteer(id: 'volunteer3'),
+        ],
+      );
+      await model.initialize(event, group);
+
+      expect(model.volunteers.length, 3);
+
+      final mockEventService = locator<EventService>();
+
+      // Mock successful removal for all calls
+      when(mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'removeEventVolunteer': {'id': 'volunteer1'}
+                },
+                options: QueryOptions(
+                  document: gql(EventQueries().removeVolunteerMutation()),
+                ),
+              ));
+
+      when(mockEventService.removeVolunteerFromGroup({'id': 'volunteer2'}))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'removeEventVolunteer': {'id': 'volunteer2'}
+                },
+                options: QueryOptions(
+                  document: gql(EventQueries().removeVolunteerMutation()),
+                ),
+              ));
+
+      // Fire removals concurrently
+      await Future.wait([
+        model.removeVolunteerFromGroup("volunteer1"),
+        model.removeVolunteerFromGroup("volunteer2"),
+      ]);
+
+      // Verify final state - only volunteer3 should remain
+      expect(model.volunteers.length, 1);
+      expect(model.volunteers.first.id, "volunteer3");
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test('handles mixed concurrent add and remove operations correctly',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group = EventVolunteerGroup(
+        id: "group1",
+        volunteers: [EventVolunteer(id: 'volunteer1')],
+      );
+      await model.initialize(event, group);
+
+      expect(model.volunteers.length, 1);
+
+      final mockEventService = locator<EventService>();
+
+      // Mock add operation
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer2",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'createEventVolunteer': {'_id': 'volunteer2', 'userId': 'user2'}
+            },
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      // Mock remove operation
+      when(mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'removeEventVolunteer': {'id': 'volunteer1'}
+                },
+                options: QueryOptions(
+                  document: gql(EventQueries().removeVolunteerMutation()),
+                ),
+              ));
+
+      // Fire both operations concurrently
+      await Future.wait([
+        model.addVolunteerToGroup("volunteer2", "1", "group1"),
+        model.removeVolunteerFromGroup("volunteer1"),
+      ]);
+
+      // Verify final state - volunteer1 removed, volunteer2 added
+      expect(model.volunteers.length, 1);
+      expect(model.volunteers.first.id, "volunteer2");
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test('handles concurrent operations with exceptions without bubbling up',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group =
+          EventVolunteerGroup(id: "group1", volunteers: []);
+      await model.initialize(event, group);
+
+      final mockEventService = locator<EventService>();
+
+      // Mock: one succeeds, two fail with exceptions
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer1",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'createEventVolunteer': {'_id': 'volunteer1', 'userId': 'user1'}
+            },
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer2",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            exception: OperationException(
+              linkException: null,
+              graphqlErrors: const [GraphQLError(message: 'Error adding')],
+            ),
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      when(mockEventService.addVolunteerToGroup({
+        'eventId': "1",
+        'userId': "volunteer3",
+        'groupId': "group1",
+      })).thenAnswer((_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            exception: OperationException(
+              linkException: null,
+              graphqlErrors: const [GraphQLError(message: 'Another error')],
+            ),
+            options: QueryOptions(
+              document: gql(EventQueries().addVolunteerToGroup()),
+            ),
+          ));
+
+      // Fire all operations concurrently - no exceptions should bubble up
+      await Future.wait([
+        model.addVolunteerToGroup("volunteer1", "1", "group1"),
+        model.addVolunteerToGroup("volunteer2", "1", "group1"),
+        model.addVolunteerToGroup("volunteer3", "1", "group1"),
+      ]);
+
+      // Only the successful one should be added, exceptions handled gracefully
+      expect(model.volunteers.length, 1);
+      expect(model.volunteers.first.id, "volunteer1");
+      expect(model.isFetchingVolunteers, isFalse);
+    });
+
+    test(
+        'handles concurrent removeVolunteerFromGroup with mixed success and failure',
+        () async {
+      final Event event = Event(id: "1");
+      final EventVolunteerGroup group = EventVolunteerGroup(
+        id: "group1",
+        volunteers: [
+          EventVolunteer(id: 'volunteer1'),
+          EventVolunteer(id: 'volunteer2'),
+          EventVolunteer(id: 'volunteer3'),
+        ],
+      );
+      await model.initialize(event, group);
+
+      expect(model.volunteers.length, 3);
+
+      final mockEventService = getAndRegisterEventService();
+
+      // Mock: first succeeds, second has exception, third has null data
+      when(mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'removeEventVolunteer': {'id': 'volunteer1'}
+                },
+                options: QueryOptions(
+                  document: gql(EventQueries().removeVolunteerMutation()),
+                ),
+              ));
+
+      when(mockEventService.removeVolunteerFromGroup({'id': 'volunteer2'}))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: null,
+                exception: OperationException(
+                  linkException: null,
+                  graphqlErrors: const [GraphQLError(message: 'Error')],
+                ),
+                options: QueryOptions(
+                  document: gql(EventQueries().removeVolunteerMutation()),
+                ),
+              ));
+
+      when(mockEventService.removeVolunteerFromGroup({'id': 'volunteer3'}))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: null,
+                options: QueryOptions(
+                  document: gql(EventQueries().removeVolunteerMutation()),
+                ),
+              ));
+
+      // Fire all operations concurrently
+      await Future.wait([
+        model.removeVolunteerFromGroup("volunteer1"),
+        model.removeVolunteerFromGroup("volunteer2"),
+        model.removeVolunteerFromGroup("volunteer3"),
+      ]);
+
+      // Only volunteer1 should be removed (successful), others remain
+      expect(model.volunteers.length, 2);
+      expect(model.volunteers.map((v) => v.id).toSet(),
+          {'volunteer2', 'volunteer3'});
+      expect(model.isFetchingVolunteers, isFalse);
     });
   });
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -101,25 +103,46 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       };
       final result =
           await locator<EventService>().addVolunteerToGroup(variables);
-
-      if (result.hasException) {
-        print(
-            "Error adding volunteer to group: ${result.exception?.graphqlErrors}");
+      final queryResult = result as QueryResult?;
+      if (queryResult?.hasException == true) {
+        debugPrint(
+            "Error adding volunteer to group: ${queryResult?.exception?.graphqlErrors}");
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to add volunteer to group",
+          MessageType.error,
+        );
+        return;
+      }
+      if (queryResult?.data == null ||
+          queryResult?.data!['createEventVolunteer'] == null) {
+        debugPrint('Failed to add volunteer to group or no data returned');
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to add volunteer to group",
+          MessageType.error,
+        );
         return;
       }
 
-      if (result.data == null || result.data!['createEventVolunteer'] == null) {
-        print('Failed to add volunteer to group or no data returned');
+      final data = queryResult?.data;
+      if (data?['createEventVolunteer'] == null) {
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to add volunteer to group",
+          MessageType.error,
+        );
         return;
       }
-
       final addedVolunteerData =
-          result.data!['createEventVolunteer'] as Map<String, dynamic>;
+          data?['createEventVolunteer'] as Map<String, dynamic>;
       final addedVolunteer = EventVolunteer.fromJson(addedVolunteerData);
       _volunteers.add(addedVolunteer);
       notifyListeners();
-    } catch (e) {
-      print('Error adding volunteer to group: $e');
+    } catch (e, stackTrace) {
+      debugPrint('Error adding volunteer to group: $e');
+      debugPrint('Stack trace: $stackTrace');
+      navigationService.showTalawaErrorSnackBar(
+        "Error adding volunteer to group",
+        MessageType.error,
+      );
     }
   }
 
@@ -137,22 +160,38 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       };
       final result =
           await locator<EventService>().removeVolunteerGroup(variables);
-
-      if (result.hasException) {
-        print(
-            "Error removing volunteer group: ${result.exception?.graphqlErrors}");
+      final queryResult = result as QueryResult?;
+      if (queryResult?.hasException == true) {
+        debugPrint(
+            "Error removing volunteer group: ${queryResult?.exception?.graphqlErrors}");
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to remove volunteer group",
+          MessageType.error,
+        );
+        return;
+      }
+      if (queryResult?.data == null ||
+          queryResult?.data!['removeEventVolunteerGroup'] == null) {
+        debugPrint('Failed to remove volunteer group or no data returned');
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to remove volunteer group",
+          MessageType.error,
+        );
         return;
       }
 
-      if (result.data == null ||
-          result.data!['removeEventVolunteerGroup'] == null) {
-        print('Failed to remove volunteer group or no data returned');
-        return;
-      }
+      final data = queryResult?.data;
 
-      notifyListeners();
-    } catch (e) {
-      print('Error deleting volunteer group: $e');
+      if (data != null && data['removeEventVolunteerGroup'] != null) {
+        notifyListeners();
+      }
+    } catch (e, stackTrace) {
+      debugPrint('Error deleting volunteer group: $e');
+      debugPrint('Stack trace: $stackTrace');
+      navigationService.showTalawaErrorSnackBar(
+        "Error deleting volunteer group",
+        MessageType.error,
+      );
     }
   }
 
@@ -170,23 +209,45 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       };
       final result =
           await locator<EventService>().removeVolunteerFromGroup(variables);
-
-      if (result.hasException) {
-        print(
-            "Error removing volunteer from group: ${result.exception?.graphqlErrors}");
+      final queryResult = result as QueryResult?;
+      if (queryResult?.hasException == true) {
+        debugPrint(
+            "Error removing volunteer from group: ${queryResult?.exception?.graphqlErrors}");
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to remove volunteer from group",
+          MessageType.error,
+        );
+        return;
+      }
+      if (queryResult?.data == null ||
+          queryResult?.data!['removeEventVolunteer'] == null) {
+        debugPrint('Failed to remove volunteer or no data returned');
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to remove volunteer from group",
+          MessageType.error,
+        );
         return;
       }
 
-      if (result.data == null || result.data!['removeEventVolunteer'] == null) {
-        print('Failed to remove volunteer.');
-        return;
-      }
+      final data = queryResult?.data;
 
-      _volunteers.removeWhere((volunteer) => volunteer.id == volunteerId);
-      print('Volunteer removed successfully.');
-      notifyListeners();
-    } catch (e) {
-      print('Error removing volunteer: $e');
+      if (data != null && data['removeEventVolunteer'] != null) {
+        _volunteers.removeWhere((volunteer) => volunteer.id == volunteerId);
+        notifyListeners();
+      } else {
+        debugPrint('Failed to remove volunteer or no data returned');
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to remove volunteer from group",
+          MessageType.error,
+        );
+      }
+    } catch (e, stackTrace) {
+      debugPrint('Error removing volunteer from group: $e');
+      debugPrint('Stack trace: $stackTrace');
+      navigationService.showTalawaErrorSnackBar(
+        "Error removing volunteer from group",
+        MessageType.error,
+      );
     }
   }
 
@@ -218,24 +279,38 @@ class ManageVolunteerGroupViewModel extends BaseModel {
     try {
       final result =
           await locator<EventService>().updateVolunteerGroup(variables);
-
-      if (result.hasException) {
-        print(
-            "Error updating volunteer group: ${result.exception?.graphqlErrors}");
+      final queryResult = result as QueryResult?;
+      if (queryResult?.hasException == true) {
+        debugPrint(
+            "Error updating volunteer group: ${queryResult?.exception?.graphqlErrors}");
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to update volunteer group",
+          MessageType.error,
+        );
+        return;
+      }
+      if (queryResult?.data == null ||
+          queryResult?.data!['updateEventVolunteerGroup'] == null) {
+        debugPrint('Failed to update volunteer group or no data returned');
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to update volunteer group",
+          MessageType.error,
+        );
         return;
       }
 
-      if (result.data == null ||
-          result.data!['updateEventVolunteerGroup'] == null) {
-        print('Failed to update volunteer group or no data returned');
-        return;
+      if (queryResult?.data != null) {
+        group.name = name;
+        group.volunteersRequired = volunteersRequired;
+        notifyListeners();
       }
-
-      group.name = name;
-      group.volunteersRequired = volunteersRequired;
-      notifyListeners();
-    } catch (e) {
-      print('Error updating volunteer group: $e');
+    } catch (e, stackTrace) {
+      debugPrint('Error updating volunteer group: $e');
+      debugPrint('Stack trace: $stackTrace');
+      navigationService.showTalawaErrorSnackBar(
+        "Error updating volunteer group",
+        MessageType.error,
+      );
     }
   }
 }

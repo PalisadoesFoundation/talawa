@@ -391,10 +391,6 @@ void main() {
             getAndRegisterMultiMediaPickerService();
         final mockImageService = getAndRegisterImageService();
 
-        // Create a new model instance after setting up mocks
-        final testModel = EditAgendaItemViewModel();
-        testModel.initialize(testAgendaItem, testCategories);
-
         // Create a mock file
         final testFile = File('test_image.png');
 
@@ -402,10 +398,16 @@ void main() {
         when(mockMultiMediaPickerService.getPhotoFromGallery(camera: true))
             .thenAnswer((_) async => testFile);
 
-        // Mock imageService to return base64 string
-        // Override the default mock to return specific value for this test
+        // Reset the mock to clear the default 'any' matcher
+        reset(mockImageService);
+
+        // Mock imageService to return base64 string with the specific file
         when(mockImageService.convertToBase64(testFile))
             .thenAnswer((_) async => 'camera_base64_string');
+
+        // Create a new model instance after setting up mocks
+        final testModel = EditAgendaItemViewModel();
+        testModel.initialize(testAgendaItem, testCategories);
 
         // Initial attachments count
         final initialCount = testModel.attachments.length;
@@ -415,20 +417,13 @@ void main() {
 
         // Verify attachment was added
         expect(testModel.attachments.length, initialCount + 1);
-        // Check that an attachment was added (may be default mock value or our custom value)
-        expect(testModel.attachments.length, greaterThan(initialCount));
-        // Verify the specific value was added if mock matched, otherwise check default
-        final hasCustomValue =
-            testModel.attachments.contains('camera_base64_string');
-        final hasDefaultValue =
-            testModel.attachments.contains('VGVzdCBmaWxlIGNvbnRlbnQ=');
-        expect(hasCustomValue || hasDefaultValue, true);
+        // Assert the exact expected value (no fallback)
+        expect(testModel.attachments.contains('camera_base64_string'), true);
 
         // Verify services were called with correct parameters
         verify(mockMultiMediaPickerService.getPhotoFromGallery(camera: true))
             .called(1);
-        // Note: We verify the picker was called, and the result (attachment added) confirms convertToBase64 was called
-        // The specific File instance matching is handled by the mock setup
+        verify(mockImageService.convertToBase64(testFile)).called(1);
       });
 
       test(
@@ -466,13 +461,16 @@ void main() {
             getAndRegisterMultiMediaPickerService();
         final mockImageService = getAndRegisterImageService();
 
-        // Create a new model instance after setting up mocks
-        final testModel = EditAgendaItemViewModel();
-        testModel.initialize(testAgendaItem, testCategories);
-
         // Create mock files
         final testFile1 = File('test_image1.png');
         final testFile2 = File('test_image2.png');
+
+        // Reset the mock to clear the default 'any' matcher
+        reset(mockImageService);
+
+        // Create a new model instance after setting up mocks
+        final testModel = EditAgendaItemViewModel();
+        testModel.initialize(testAgendaItem, testCategories);
 
         // Mock first pick
         when(mockMultiMediaPickerService.getPhotoFromGallery(camera: false))
@@ -482,6 +480,7 @@ void main() {
 
         await testModel.pickAttachment(fromCamera: false);
         expect(testModel.attachments.length, 2); // 1 initial + 1 new
+        expect(testModel.attachments.contains('base64string1'), true);
 
         // Mock second pick
         when(mockMultiMediaPickerService.getPhotoFromGallery(camera: false))
@@ -491,13 +490,9 @@ void main() {
 
         await testModel.pickAttachment(fromCamera: false);
         expect(testModel.attachments.length, 3); // 1 initial + 2 new
-        // Verify attachments were added (may be default mock value or our custom values)
-        final hasValue1 = testModel.attachments.contains('base64string1') ||
-            testModel.attachments.contains('VGVzdCBmaWxlIGNvbnRlbnQ=');
-        final hasValue2 = testModel.attachments.contains('base64string2') ||
-            testModel.attachments.contains('VGVzdCBmaWxlIGNvbnRlbnQ=');
-        expect(hasValue1, true);
-        expect(hasValue2, true);
+        // Assert the exact expected values (no fallback)
+        expect(testModel.attachments.contains('base64string1'), true);
+        expect(testModel.attachments.contains('base64string2'), true);
       });
     });
 

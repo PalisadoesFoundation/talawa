@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
@@ -9,7 +10,9 @@ import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// a_line_ending_with_end_punctuation.
+/// ViewModel for editing an existing agenda item.
+///
+/// Handles form state, validation, and GraphQL mutations for updating agenda items.
 class EditAgendaItemViewModel extends BaseModel {
   final _eventService = locator<EventService>();
   final _multiMediaPickerService = locator<MultiMediaPickerService>();
@@ -157,7 +160,7 @@ class EditAgendaItemViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `bool`: define_the_return
+  /// * `bool`: `true` if any form field has been modified from the original agenda item values, `false` otherwise.
   bool checkForChanges() {
     final bool titleChanged = titleController.text != (_agendaItem.title ?? '');
     final bool descriptionChanged =
@@ -196,9 +199,18 @@ class EditAgendaItemViewModel extends BaseModel {
   Future<void> updateAgendaItem() async {
     try {
       if (!checkForChanges()) return;
+      if (_agendaItem.id == null) {
+        navigationService.showTalawaErrorSnackBar(
+          "Cannot update agenda item: ID is missing",
+          MessageType.error,
+        );
+        return;
+      }
       final List<String> attachmentPaths = _currentAttachments;
-      final List<String> categoryIds =
-          _selectedCategories.map((category) => category.id!).toList();
+      final List<String> categoryIds = _selectedCategories
+          .where((category) => category.id != null)
+          .map((category) => category.id!)
+          .toList();
 
       final updatedAgendaItem = {
         'title': titleController.text,
@@ -215,16 +227,27 @@ class EditAgendaItemViewModel extends BaseModel {
       );
 
       if (result.hasException) {
-        print("Error updating agenda item: ${result.exception?.graphqlErrors}");
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to update agenda item",
+          MessageType.error,
+        );
         return;
       }
 
       if (result.data == null || result.data!['updateAgendaItem'] == null) {
-        print('Failed to update agenda item or no data returned');
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to update agenda item",
+          MessageType.error,
+        );
         return;
       }
-    } catch (e) {
-      print('Error updating agenda item: $e');
+    } catch (e, stackTrace) {
+      debugPrint('Error updating agenda item: $e');
+      debugPrint('Stack trace: $stackTrace');
+      navigationService.showTalawaErrorSnackBar(
+        "Error updating agenda item",
+        MessageType.error,
+      );
     }
   }
 

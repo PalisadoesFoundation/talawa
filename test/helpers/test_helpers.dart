@@ -1343,22 +1343,17 @@ void unregisterViewModels() {
   locator.unregister<SelectContactViewModel>();
 }
 
-/// Initialize dotenv for tests
-/// Call this in setUpAll() before accessing dotenv.env
-/// This prevents NotInitializedError when accessing dotenv.env
+/// Initializes dotenv for tests.
+///
+/// Call this in setUpAll() before accessing dotenv.env.
+/// This prevents NotInitializedError when accessing dotenv.env.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 Future<void> initializeDotEnvForTests() async {
-  // Get the project root directory (where pubspec.yaml is located)
-  // Tests might run from different directories, so we need to find the root
-  final Directory currentDir = Directory.current;
-  final File envFile = File('${currentDir.path}/.env');
-
-  // Check if .env file exists, if not create it with minimal content
-  if (!await envFile.exists()) {
-    // Create .env file with minimal content to initialize dotenv
-    await envFile.writeAsString('API_URL=http://localhost:4000/graphql\n');
-  }
-
-  // Load the .env file (will use existing or newly created file)
-  // Use absolute path to ensure we load from project root
-  await dotenv.load(fileName: envFile.path);
+  // Set dotenv.env directly to avoid filesystem IO
+  dotenv.env['API_URL'] = 'http://localhost:4000/graphql';
 }

@@ -38,9 +38,7 @@ void main() {
     test("test initialization", () async {
       final Event event =
           Event(id: "1", isRegisterable: true, isRegistered: false);
-      // ignore: prefer_const_constructors
       final exploreEventsViewModel = ExploreEventsViewModel();
-      // ignore: prefer_const_constructors
       final mockEventService = getAndRegisterEventService();
 
       // Mock fetchCategories call - use "XYZ" as it's the test org ID

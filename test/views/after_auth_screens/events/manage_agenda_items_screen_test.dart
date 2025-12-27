@@ -126,13 +126,13 @@ void main() {
         data: {
           'agendaItemByEvent': [
             {
-              'id': '1',
+              '_id': '1',
               'title': 'Agenda 1',
               'duration': '1h',
               'sequence': 1,
             },
             {
-              'id': '2',
+              '_id': '2',
               'title': 'Agenda 2',
               'duration': '30m',
               'sequence': 2,
