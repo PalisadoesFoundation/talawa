@@ -70,7 +70,6 @@ class _SetUrlState extends State<SetUrl> {
                             semanticLabel: 'Join Organisation with QR',
                           ),
                           onPressed: () => model.scanQR(context),
-                          // model.scanQR(context),
                         ),
                       ),
                       Padding(
@@ -122,10 +121,11 @@ class _SetUrlState extends State<SetUrl> {
                             onTap: () async {
                               model.urlFocus.unfocus();
                               model.validate = AutovalidateMode.always;
-                              model.formKey.currentState!.validate();
 
                               /// Checking url. If valid, than show the pop-up
-                              await model.checkURLandShowPopUp('');
+                              if (model.formKey.currentState!.validate()) {
+                                await model.checkURLandShowPopUp('');
+                              }
                             },
                             child: Container(
                               height: 48,
