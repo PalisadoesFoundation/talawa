@@ -31,7 +31,6 @@ class SetUrl extends StatefulWidget {
 class _SetUrlState extends State<SetUrl> {
   @override
   Widget build(BuildContext context) {
-    print("built");
     return BaseView<SetUrlViewModel>(
       onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
       builder: (context, model, child) {

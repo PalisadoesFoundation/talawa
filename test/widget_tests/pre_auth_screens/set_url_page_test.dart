@@ -210,6 +210,71 @@ Future<void> main() async {
       await tester.tap(changeLanguageWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
     });
+
+    testWidgets("Testing Verify button functionality", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field and enter a valid URL
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.pump();
+
+      // Find and tap the Verify button
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+      expect(verifyButton, findsOneWidget);
+
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Testing TextFormField onFieldSubmitted", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      // Enter text and submit
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump();
+    });
+
+    testWidgets("Testing QR scanner button", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the QR scanner button
+      final qrScannerButton = find.byIcon(Icons.qr_code_scanner);
+      expect(qrScannerButton, findsOneWidget);
+
+      // Tap the QR scanner button
+      await tester.tap(qrScannerButton);
+      await tester.pumpAndSettle();
+
+      // Verify that the QR scanner bottom sheet appears
+      expect(find.text('Scan QR'), findsOneWidget);
+    });
+
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -462,6 +527,73 @@ Future<void> main() async {
       await tester.tap(changeLanguageWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
     });
+
+    testWidgets("Testing Verify button functionality in dark mode",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field and enter a valid URL
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.pump();
+
+      // Find and tap the Verify button
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+      expect(verifyButton, findsOneWidget);
+
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Testing TextFormField onFieldSubmitted in dark mode",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      // Enter text and submit
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump();
+    });
+
+    testWidgets("Testing QR scanner button in dark mode", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the QR scanner button
+      final qrScannerButton = find.byIcon(Icons.qr_code_scanner);
+      expect(qrScannerButton, findsOneWidget);
+
+      // Tap the QR scanner button
+      await tester.tap(qrScannerButton);
+      await tester.pumpAndSettle();
+
+      // Verify that the QR scanner bottom sheet appears
+      expect(find.text('Scan QR'), findsOneWidget);
+    });
+
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(

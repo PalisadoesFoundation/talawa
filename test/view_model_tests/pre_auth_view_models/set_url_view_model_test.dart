@@ -113,6 +113,9 @@ Future<void> main() async {
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
+      // Set a non-empty URL to bypass the empty URL check
+      model.url.text = 'https://example.com/graphql';
+
       await model.checkURLandNavigate('/', 'arguments');
 
       final captured = verify(
@@ -131,8 +134,9 @@ Future<void> main() async {
       verify(graphqlConfig.getOrgUrl());
 
       final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), '');
-      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+      expect(box.get(SetUrlViewModel.urlKey), 'https://example.com/graphql');
+      expect(box.get(SetUrlViewModel.imageUrlKey),
+          'https://example.com/graphql/talawa/');
     });
     testWidgets('Check if initialize is working fine ', (tester) async {
       final model = SetUrlViewModel();
@@ -160,7 +164,9 @@ Future<void> main() async {
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
-      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
+      model.url.text = 'https://invalid.com/graphql';
+      when(service.validateUrlExistence('https://invalid.com/graphql'))
+          .thenAnswer((_) async => false);
 
       await model.checkURLandNavigate('/', 'arguments');
 
@@ -174,12 +180,37 @@ Future<void> main() async {
       locator.unregister<Validator>();
     });
 
-    testWidgets(
-        'Check if checkURLandShowPopUp() is working fine when urlPresent is true',
+    testWidgets('Check if checkURLandNavigate() shows error for empty URL',
         (tester) async {
       locator.registerSingleton(Validator());
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+
+      // Leave URL empty
+      model.url.text = '';
+
+      await model.checkURLandNavigate('/', 'arguments');
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "URL cannot be empty",
+          MessageType.error,
+        ),
+      );
+      verify(navigationService.pop());
+    });
+
+    testWidgets(
+        'Check if checkURLandShowPopUp() is working fine when urlPresent is true',
+        (tester) async {
+      if (locator.isRegistered<Validator>()) {
+        await locator.unregister<Validator>();
+      }
+      locator.registerSingleton(Validator());
+
+      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+
+      model.url.text = 'https://example.com/graphql';
 
       await model.checkURLandShowPopUp('arguments');
 
@@ -199,8 +230,9 @@ Future<void> main() async {
       verify(navigationService.showSnackBar("Url is valid"));
 
       final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), '');
-      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+      expect(box.get(SetUrlViewModel.urlKey), 'https://example.com/graphql');
+      expect(box.get(SetUrlViewModel.imageUrlKey),
+          'https://example.com/graphql/talawa/');
     });
 
     testWidgets(
@@ -212,7 +244,9 @@ Future<void> main() async {
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
-      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
+      model.url.text = 'https://invalid.com/graphql';
+      when(service.validateUrlExistence('https://invalid.com/graphql'))
+          .thenAnswer((_) async => false);
 
       await model.checkURLandShowPopUp('arguments');
 
@@ -253,6 +287,182 @@ Future<void> main() async {
 
       (tester.widget(find.byType(QRView)) as QRView)
           .onQRViewCreated(controller);
+    });
+
+    testWidgets(
+        'Check if _onQRViewCreated() handles QR code missing organization info - no question mark',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('invalidqrcode', BarcodeFormat.qrcode, null);
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      // Should show error for missing organization info (no ? means data.length < 2)
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "QR code missing organization information",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets('Check if _onQRViewCreated() handles QR code with empty URL',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('?orgId=1&scan', BarcodeFormat.qrcode, null);
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Invalid QR code format",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets(
+        'Check if _onQRViewCreated() handles QR code missing organization info',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          'https://example.com/graphql',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "QR code missing organization information",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets(
+        'Check if _onQRViewCreated() handles invalid organization format',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          'https://example.com/graphql?invalidformat',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Invalid QR code organization format",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets('Check if _onQRViewCreated() handles invalid organization ID',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          'https://example.com/graphql?orgId=',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Invalid organization ID in QR code",
+          MessageType.error,
+        ),
+      );
     });
 
     testWidgets(
