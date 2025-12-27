@@ -245,9 +245,6 @@ void main() {
 
       // Verify service was called
       verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
-
-      // Assuming the method should notify listeners
-      verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
     });
 
     // Tests updating a volunteer group successfully.
