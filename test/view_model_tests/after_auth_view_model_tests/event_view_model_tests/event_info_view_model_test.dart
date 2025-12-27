@@ -9,11 +9,8 @@ import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
-import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
@@ -23,8 +20,9 @@ void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
-    locator<GraphqlConfig>().test();
-    locator<SizeConfig>().test();
+  });
+
+  setUpAll(() {
     registerServices();
   });
 
@@ -77,14 +75,15 @@ void main() {
         },
       );
       expect(model.fabTitle, "Register");
+      expect(model.event.id, "1");
     });
 
     test("Test register for event", () async {
+      final model = EventInfoViewModel();
       final Event event1 =
           Event(id: "1", isRegisterable: true, isRegistered: false);
       model.event = event1;
 
-      final eventService = getAndRegisterEventService();
       when(eventService.registerForAnEvent(model.event.id!))
           .thenAnswer((realInvocation) async {
         return "Event Registered";
@@ -106,6 +105,7 @@ void main() {
     });
 
     test("Test getFabTitle function", () {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1", isRegisterable: false);
       model.event = event1;
       expect(model.getFabTitle(), "Not Registrable");
@@ -121,10 +121,9 @@ void main() {
       expect(model.getFabTitle(), "Registered");
     });
     test("Test createVolunteerGroup success", () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = {
         'createEventVolunteerGroup': {
           '_id': 'group1',
@@ -160,10 +159,9 @@ void main() {
     });
 
     test("Test createVolunteerGroup Failure", () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
 
       when(
         eventService.createVolunteerGroup({
@@ -179,10 +177,9 @@ void main() {
     });
 
     test("Test fetchVolunteerGroups success", () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = [
         EventVolunteerGroup(
           id: 'group1',
@@ -202,11 +199,10 @@ void main() {
     });
 
     test("Test fetchVolunteerGroups failure", () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
       model.volunteerGroups.clear();
-
-      final eventService = getAndRegisterEventService();
       when(eventService.fetchVolunteerGroupsByEvent("1"))
           .thenThrow(Exception('Failed to fetch volunteer groups'));
 
@@ -216,16 +212,15 @@ void main() {
     });
 
     test('createAgendaItem success', () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
           'createAgendaItem': {
             'id': '1',
-            'title': 'Test Agenda',
+            'name': 'Test Agenda',
             'duration': '1h',
             'sequence': 1,
           },
@@ -258,19 +253,18 @@ void main() {
       );
 
       expect(result, isNotNull);
-      expect(result!.title, 'Test Agenda');
+      expect(result!.name, 'Test Agenda');
       expect(model.agendaItems.length, 1);
-      expect(model.agendaItems.first.title, 'Test Agenda');
+      expect(model.agendaItems.first.name, 'Test Agenda');
     });
     test('deleteAgendaItem success', () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       model.agendaItems.clear();
       model.agendaItems.addAll([
-        EventAgendaItem(id: '1', title: 'Item 1'),
-        EventAgendaItem(id: '2', title: 'Item 2'),
+        EventAgendaItem(id: '1', name: 'Item 1'),
+        EventAgendaItem(id: '2', name: 'Item 2'),
       ]);
 
       when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
@@ -289,16 +283,15 @@ void main() {
     });
 
     test('updateAgendaItemSequence success', () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
           'updateAgendaItem': {
-            'id': '1',
-            'title': 'Updated Item',
+            '_id': '1',
+            'name': 'Updated Item',
             'sequence': 2,
           },
         },
@@ -306,8 +299,8 @@ void main() {
       );
       model.agendaItems.clear();
       model.agendaItems.addAll([
-        EventAgendaItem(id: '1', title: 'Item 1', sequence: 1),
-        EventAgendaItem(id: '2', title: 'Item 2', sequence: 2),
+        EventAgendaItem(id: '1', name: 'Item 1', sequence: 1),
+        EventAgendaItem(id: '2', name: 'Item 2', sequence: 2),
       ]);
 
       when(
@@ -320,53 +313,13 @@ void main() {
       await model.updateAgendaItemSequence('1', 2);
 
       expect(model.agendaItems.first.sequence, 2);
-      expect(model.agendaItems.first.title, 'Updated Item');
-    });
-    test('fetchAgendaItems success', () async {
-      final Event event1 = Event(id: "1");
-      model.event = event1;
-
-      final eventService = getAndRegisterEventService();
-      final mockResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'agendaItemByEvent': [
-            {
-              'id': '1',
-              'title': 'Agenda 1',
-              'duration': '1h',
-              'sequence': 1,
-            },
-            {
-              'id': '2',
-              'title': 'Agenda 2',
-              'duration': '30m',
-              'sequence': 2,
-            },
-          ],
-        },
-        options: QueryOptions(
-          document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
-        ),
-      );
-
-      when(eventService.fetchAgendaItems('1'))
-          .thenAnswer((_) async => mockResult);
-
-      await model.fetchAgendaItems();
-
-      expect(model.agendaItems.length, 2);
-      expect(model.agendaItems[0].title, 'Agenda 1');
-      expect(model.agendaItems[1].title, 'Agenda 2');
-      expect(model.agendaItems[0].sequence, 1);
-      expect(model.agendaItems[1].sequence, 2);
+      expect(model.agendaItems.first.name, 'Updated Item');
     });
 
     test('fetchCategories success', () async {
+      final model = EventInfoViewModel();
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {

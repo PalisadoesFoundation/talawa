@@ -34,7 +34,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
@@ -163,7 +162,6 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => SignupDetailsViewModel());
   locator.registerFactory(() => WaitingViewModel());
-  locator.registerFactory(() => ExploreEventsViewModel());
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());

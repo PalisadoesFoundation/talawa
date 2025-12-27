@@ -35,8 +35,8 @@ import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
@@ -83,6 +83,7 @@ final imageCropper = locator<ImageCropper>();
 final sessionManager = locator<SessionManager>();
 final actionHandlerService = locator<ActionHandlerService>();
 final pinnedPostService = locator<PinnedPostService>();
+final appLinks = locator<AppLinks>();
 final fundService = locator<FundService>();
 final fundViewModel = locator<FundViewModel>();
 final userProfileService = locator<UserProfileService>();
@@ -146,7 +147,7 @@ void testSetupLocator() {
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => SignupDetailsViewModel());
   locator.registerFactory(() => WaitingViewModel());
-  locator.registerFactory(() => ExploreEventsViewModel());
+  locator.registerFactory(() => EventCalendarViewModel());
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());
@@ -170,5 +171,5 @@ void testSetupLocator() {
   locator.registerFactory(() => SelectContactViewModel());
 
   //AppLinks
-  locator.registerSingleton(AppLinks());
+  locator.registerSingleton<AppLinks>(AppLinks());
 }

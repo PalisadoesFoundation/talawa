@@ -7,7 +7,7 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
-import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
+import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/funds/funds_screen.dart';
 import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
@@ -254,9 +254,8 @@ class MainScreenViewModel extends BaseModel {
           key: const Key("HomeView"),
           homeModel: this,
         ),
-        ExploreEvents(
-          key: const Key('ExploreEvents'),
-          homeModel: this,
+        const EventCalendar(
+          key: Key('ExploreEvents'),
         ),
         const ChatPage(
           key: Key('Chats'),
@@ -277,9 +276,8 @@ class MainScreenViewModel extends BaseModel {
           key: const Key("DemoHomeView"),
           homeModel: this,
         ),
-        DemoExploreEvents(
-          key: const Key('DemoExploreEvents'),
-          homeModel: this,
+        const DemoExploreEvents(
+          key: Key('DemoExploreEvents'),
         ),
         const ChatPage(
           key: Key('DemoChats'),

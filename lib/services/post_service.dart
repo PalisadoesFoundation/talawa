@@ -78,7 +78,7 @@ class PostService extends BaseFeedManager<Post> {
   List<Post> get posts => _posts;
 
   @override
-  Future<List<Post>> fetchDataFromApi() async {
+  Future<List<Post>> fetchDataFromApi({Map<String, dynamic>? params}) async {
     // variables
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsByOrgID();

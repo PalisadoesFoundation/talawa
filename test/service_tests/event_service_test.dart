@@ -1,24 +1,16 @@
 // ignore_for_file: avoid_dynamic_calls
 
-import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
-import '../model_tests/user/user_info_test.dart';
 
 void main() {
   setUpAll(() {
@@ -27,269 +19,416 @@ void main() {
     registerServices();
   });
 
-  group('Test EventService', () {
-    test('Test editEvent method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      final Map<String, dynamic> variables = <String, dynamic>{};
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().updateEvent(eventId: 'eventId'),
-          variables: variables,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'updateEvent': {
-              '_id': 'eventId',
-              'title': 'Test task',
-              'description': 'Test description',
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
+  group('EventService Tests', () {
+    late EventService eventService;
+    late DataBaseMutationFunctions mockDbFunctions;
 
-      final service = EventService();
-
-      await service.editEvent(
-        eventId: 'eventId',
-        variables: variables,
-      );
+    setUp(() {
+      eventService = EventService();
+      mockDbFunctions = locator<DataBaseMutationFunctions>();
     });
 
-    test('Test deleteEvent method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().deleteEvent('eventId'),
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'deleteEvent': {
-              '_id': 'eventId',
-              'title': 'Test task',
-              'description': 'Test description',
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-      final services = EventService();
-      await services.deleteEvent('eventId');
-    });
+    group('Event CRUD Operations', () {
+      test('createEvent - creates event successfully', () async {
+        final variables = {
+          'title': 'New Event',
+          'description': 'Event description',
+          'location': 'Event location',
+          'isPublic': true,
+          'isRegisterable': true,
+        };
 
-    test('Test createEvent method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      final createEventViewModel = CreateEventViewModel();
-      createEventViewModel
-        ..eventTitleTextController.text = 'title'
-        ..eventDescriptionTextController.text = 'description'
-        ..eventLocationTextController.text = 'location'
-        ..isPublicSwitch = true
-        ..isRegisterableSwitch = true
-        ..isRecurring = true
-        ..isAllDay = true
-        ..eventStartDate = DateTime.now()
-        ..eventEndDate = DateTime.now()
-        ..eventStartTime = TimeOfDay.now()
-        ..eventEndTime = TimeOfDay.now();
-
-      final Map<String, dynamic> variables = {
-        "data": {
-          'title': createEventViewModel.eventTitleTextController.text,
-          'description':
-              createEventViewModel.eventDescriptionTextController.text,
-          'location': createEventViewModel.eventLocationTextController.text,
-          'isPublic': createEventViewModel.isPublicSwitch,
-          'isRegisterable': createEventViewModel.isRegisterableSwitch,
-          'recurring': createEventViewModel.isRecurring,
-          'allDay': createEventViewModel.isAllDay,
-        },
-      };
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().addEvent(),
-          variables: variables,
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'createdEvent': {
-              '_id': 'eventId',
-              'title': 'Test task',
-              'description': 'Test description',
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-      final services = EventService();
-      await services.createEvent(variables: variables);
-    });
-
-    test('Test registerForAnEvent method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().registerForEvent(),
-          variables: {'eventId': 'eventId'},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'registerForEvent': {
-              '_id': 'eventId',
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-      final services = EventService();
-      await services.registerForAnEvent('eventId');
-    });
-
-    test('Test fetchAttendeesByEvent method', () {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          EventQueries().attendeesByEvent('eventId'),
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'getEventAttendeesByEventId': {'userId': 'userId'},
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-      final services = EventService();
-      services.fetchAttendeesByEvent('eventId');
-    });
-
-    test('Test getEvents method with pagination', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = EventQueries().fetchOrgEvents();
-
-      // Mock the query with correct variables for pagination
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-          variables: {
-            'orgId': 'XYZ',
-            'first': 10,
-            'after': null,
-          },
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(
-            document: gql(query),
-            variables: {
-              'orgId': 'XYZ',
-              'first': 10,
-              'after': null,
-            },
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().addEvent(),
+            variables: variables,
           ),
-          data: {
-            'organization': {
-              'events': {
-                'edges': [
-                  {
-                    'node': {
-                      'id': '1234567890',
-                      'name': 'Sample Event',
-                      'description': 'This is a sample event description.',
-                      'location': 'Sample Location',
-                      'recurring': true,
-                      'allDay': false,
-                      'isPublic': true,
-                      'isRegistered': true,
-                      'isRegisterable': true,
-                      'creator': {
-                        'id': 'user123',
-                        'name': 'Creator Name',
-                        'email': 'creator@example.com',
-                      },
-                      'organization': {
-                        'id': 'org123',
-                        'name': 'Organization Name',
-                        'description': 'Sample organization description.',
-                      },
-                      'attendees': [
-                        testDataNotFromOrg,
-                      ],
-                    },
-                    'cursor': 'cursor1',
-                  }
-                ],
-                'pageInfo': {
-                  'hasNextPage': true,
-                  'endCursor': 'cursor1',
-                },
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'createEvent': {
+                'id': 'eventId123',
+                'name': 'New Event',
+                'description': 'Event description',
               },
             },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
+            source: QueryResultSource.network,
+          ),
+        );
 
-      final service = EventService();
-      await service.getEvents();
+        final result = await eventService.createEvent(variables: variables);
 
-      // Add your assertions here
-      expect(service.events.isNotEmpty, isTrue);
-      expect(service.pageInfo.hasNextPage, isTrue);
-      expect(service.pageInfo.endCursor, 'cursor1');
-    });
+        expect(result, isNotNull);
+        expect(result.data, isNotNull);
+        expect(result.data!['createEvent']['id'], 'eventId123');
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().addEvent(),
+            variables: variables,
+          ),
+        ).called(1);
+      });
 
-    test('hasMoreEvents returns true when pageInfo.hasNextPage is true', () {
-      final service = EventService();
-      service.pageInfo = PageInfo(hasNextPage: true);
-      expect(service.hasMoreEvents, isTrue);
-    });
+      test('editEvent - standalone event', () async {
+        final variables = {
+          'id': 'eventId',
+          'title': 'Updated Event',
+        };
 
-    test('Test dispose method', () {
-      final eventService = EventService();
-      eventService.dispose();
-    });
-
-    test('Test for getters', () {
-      final model = EventService();
-      expect(model.eventStream, isA<Stream<List<Event>>>());
-    });
-
-    test('Test createVolunteerGroup method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      final Map<String, dynamic> variables = {
-        'name': 'Volunteer Group 1',
-        'eventId': 'eventId1',
-      };
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().createVolunteerGroup(),
-          variables: {'data': variables},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'createVolunteerGroup': {
-              '_id': 'groupId1',
-              'name': 'Volunteer Group 1',
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateStandaloneEvent(),
+            variables: {
+              'input': variables,
             },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'updateEvent': {
+                'id': 'eventId',
+                'name': 'Updated Event',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.editEvent(
+          variables: variables,
+          recurrenceType: 'standalone',
+        );
+
+        expect(result, isNotNull);
+        expect(result.data, isNotNull);
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateStandaloneEvent(),
+            variables: {
+              'input': variables,
+            },
+          ),
+        ).called(1);
+      });
+
+      test('editEvent - single recurring instance', () async {
+        final variables = {'id': 'eventId', 'title': 'Updated'};
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateSingleRecurringEventInstance(),
+            variables: {'input': variables},
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'updateEvent': {'id': 'eventId'},
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.editEvent(
+          variables: variables,
+          recurrenceType: 'single',
+        );
+
+        expect(result, isNotNull);
+      });
+
+      test('editEvent - entire series', () async {
+        final variables = {'id': 'eventId', 'title': 'Updated Series'};
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateEntireRecurringEventSeries(),
+            variables: {'input': variables},
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'updateEvent': {'id': 'eventId'},
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.editEvent(
+          variables: variables,
+          recurrenceType: 'series',
+        );
+
+        expect(result, isNotNull);
+      });
+
+      test('editEvent - this and following', () async {
+        final variables = {'id': 'eventId', 'title': 'Updated'};
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateThisAndFollowingEvents(),
+            variables: {'input': variables},
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'updateEvent': {'id': 'eventId'},
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.editEvent(
+          variables: variables,
+          recurrenceType: 'thisAndFollowing',
+        );
+
+        expect(result, isNotNull);
+      });
+
+      test('deleteEvent - standalone event', () async {
+        final event = Event(id: 'eventId', name: 'Test Event');
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().deleteStandaloneEvent(),
+            variables: {
+              'input': {'id': 'eventId'},
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'deleteEvent': {'id': 'eventId'},
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.deleteEvent(event);
+
+        expect(result, isNotNull);
+        expect(result.data, isNotNull);
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().deleteStandaloneEvent(),
+            variables: {
+              'input': {'id': 'eventId'},
+            },
+          ),
+        ).called(1);
+      });
+
+      test('deleteEvent - single recurring instance', () async {
+        final event = Event(id: 'eventId', name: 'Test Event');
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().deleteSingleEventOfRecurring(),
+            variables: {
+              'input': {'id': 'eventId'},
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'deleteEvent': {'id': 'eventId'},
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.deleteEvent(
+          event,
+          recurrenceType: 'single',
+        );
+
+        expect(result, isNotNull);
+      });
+
+      test('deleteEvent - entire series', () async {
+        final baseEvent = Event(id: 'baseEventId', name: 'Base Event');
+        final event = Event(
+          id: 'eventId',
+          name: 'Test Event',
+          baseEvent: baseEvent,
+        );
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().deleteEntireEventSeriesOfRecurring(),
+            variables: {
+              'input': {'id': 'baseEventId'},
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'deleteEvent': {'id': 'baseEventId'},
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.deleteEvent(
+          event,
+          recurrenceType: 'series',
+        );
+
+        expect(result, isNotNull);
+      });
+
+      test('deleteEvent - this and following', () async {
+        final event = Event(id: 'eventId', name: 'Test Event');
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().deleteThisAndFollowing(),
+            variables: {
+              'input': {'id': 'eventId'},
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'deleteEvent': {'id': 'eventId'},
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.deleteEvent(
+          event,
+          recurrenceType: 'thisAndFollowing',
+        );
+
+        expect(result, isNotNull);
+      });
+    });
+
+    group('Event Fetching', () {
+      test('fetchDataFromApi - returns list of events on success', () async {
+        final query = EventQueries().fetchOrgEvents();
+        final mockData = {
+          "organization": {
+            "events": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "event1",
+                    "name": "Test Event 1",
+                    "description": "Description 1",
+                    "location": "Location 1",
+                    "allDay": false,
+                    "startAt": "2024-01-01T10:00:00.000Z",
+                    "endAt": "2024-01-01T12:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": true,
+                  },
+                },
+                {
+                  "node": {
+                    "id": "event2",
+                    "name": "Test Event 2",
+                    "description": "Description 2",
+                    "location": "Location 2",
+                    "allDay": false,
+                    "startAt": "2024-02-01T11:00:00.000Z",
+                    "endAt": "2024-02-01T13:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": false,
+                  },
+                }
+              ],
+            },
+          },
+        };
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: mockData,
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final events = await eventService.fetchDataFromApi();
+
+        expect(events, isA<List<Event>>());
+        expect(events.length, 2);
+        expect(events[0].name, "Test Event 1");
+        expect(events[1].name, "Test Event 2");
+      });
+
+      test('fetchDataFromApi - throws exception when data is null', () {
+        final query = EventQueries().fetchOrgEvents();
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+          ),
+        );
+
+        expect(
+          () async => await eventService.fetchDataFromApi(),
+          throwsException,
+        );
+      });
+
+      test('fetchDataFromApi - uses custom date range params', () async {
+        final query = EventQueries().fetchOrgEvents();
+        final startDate = DateTime(2024, 1, 1);
+        final endDate = DateTime(2024, 12, 31);
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: argThat(
+              predicate(
+                (Map<String, dynamic> vars) =>
+                    vars['startDate'] == startDate.toUtc().toIso8601String() &&
+                    vars['endDate'] == endDate.toUtc().toIso8601String(),
+              ),
+              named: 'variables',
+            ),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              "organization": {
+                "events": {"edges": []},
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        await eventService.fetchDataFromApi(
+          params: {
+            'startDate': startDate.toUtc().toIso8601String(),
+            'endDate': endDate.toUtc().toIso8601String(),
           },
           source: QueryResultSource.network,
         ),
@@ -309,467 +448,664 @@ void main() {
       );
     });
 
-    test('Test removeVolunteerGroup method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      final variables = {'groupId': 'groupId123'};
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().removeEventVolunteerGroup(),
-          variables: variables,
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'removeVolunteerGroup': {
-              '_id': 'groupId123',
-              'name': 'Volunteer Group 1',
+        verify(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).called(3);
+      });
+
+      test(
+          'fetchEventsWithDates - fetches events for date range and updates stream',
+          () async {
+        final startDate = DateTime(2024, 1, 1);
+        final endDate = DateTime(2024, 1, 31);
+
+        // Mock the base class method getNewFeedAndRefreshCache
+        final eventServiceMock = EventService();
+
+        // Reset the mock to count only this test's calls
+        reset(mockDbFunctions);
+
+        // Mock the query response data
+        final query = EventQueries().fetchOrgEvents();
+        final mockData = {
+          "organization": {
+            "events": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "event1",
+                    "name": "Event 1",
+                    "description": "Description 1",
+                    "location": "Location 1",
+                    "allDay": false,
+                    "startAt": "2024-01-01T10:00:00.000Z",
+                    "endAt": "2024-01-01T12:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": true,
+                  },
+                },
+                {
+                  "node": {
+                    "id": "event2",
+                    "name": "Event 2",
+                    "description": "Description 2",
+                    "location": "Location 2",
+                    "allDay": false,
+                    "startAt": "2024-01-15T11:00:00.000Z",
+                    "endAt": "2024-01-15T13:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": false,
+                  },
+                }
+              ],
             },
           },
-          source: QueryResultSource.network,
-        ),
-      );
+        };
 
-      final service = EventService();
-      final result = await service.removeVolunteerGroup(variables);
-      expect(result, isA<QueryResult>());
-      expect(result.data!['removeVolunteerGroup']['_id'], 'groupId123');
-    });
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: argThat(
+              predicate(
+                (Map<String, dynamic> vars) =>
+                    vars['startDate'] == startDate.toUtc().toIso8601String() &&
+                    vars['endDate'] == endDate.toUtc().toIso8601String() &&
+                    vars['includeRecurring'] == true,
+              ),
+              named: 'variables',
+            ),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: mockData,
+            source: QueryResultSource.network,
+          ),
+        );
 
-    test('Test addVolunteerToGroup method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      final variables = {
-        'groupId': 'groupId123',
-        'volunteerId': 'volunteerId123',
-      };
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().addVolunteerToGroup(),
-          variables: {'data': variables},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'addVolunteerToGroup': {
-              '_id': 'volunteerId123',
-              'name': 'Volunteer Name',
+        // Test the actual method
+        await eventServiceMock.fetchEventsWithDates(
+          startDate,
+          endDate,
+          includeRecurring: true,
+        );
+
+        // Verify the parameters passed to the API call
+        verify(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: argThat(
+              predicate(
+                (Map<String, dynamic> vars) =>
+                    vars['startDate'] == startDate.toUtc().toIso8601String() &&
+                    vars['endDate'] == endDate.toUtc().toIso8601String() &&
+                    vars['includeRecurring'] == true,
+              ),
+              named: 'variables',
+            ),
+          ),
+        ).called(1);
+
+        // Verify events are added to the list
+        expect(eventServiceMock.events.length, 2);
+        expect(eventServiceMock.events[0].name, "Event 1");
+        expect(eventServiceMock.events[1].name, "Event 2");
+      });
+
+      test('fetchEventsWithDates - prevents duplicate events', () async {
+        final startDate = DateTime(2024, 1, 1);
+        final endDate = DateTime(2024, 1, 31);
+
+        // Mock the query response with duplicate event
+        final query = EventQueries().fetchOrgEvents();
+        final mockData = {
+          "organization": {
+            "events": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "event1",
+                    "name": "Event 1",
+                    "description": "Description 1",
+                    "location": "Location 1",
+                    "allDay": false,
+                    "startAt": "2024-01-01T10:00:00.000Z",
+                    "endAt": "2024-01-01T12:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": true,
+                  },
+                }
+              ],
             },
           },
-          source: QueryResultSource.network,
-        ),
-      );
+        };
 
-      final service = EventService();
-      final result = await service.addVolunteerToGroup(variables);
-      expect(result, isA<QueryResult>());
-      expect(result.data!['addVolunteerToGroup']['_id'], 'volunteerId123');
-    });
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: mockData,
+            source: QueryResultSource.network,
+          ),
+        );
 
-    test('Test removeVolunteerFromGroup method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      final variables = {'volunteerId': 'volunteerId123'};
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().removeVolunteerMutation(),
-          variables: variables,
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'removeVolunteer': {
-              '_id': 'volunteerId123',
-              'name': 'Volunteer Name',
+        // First call to add the event
+        await eventService.fetchEventsWithDates(startDate, endDate);
+
+        // Second call with same event should not add duplicate
+        await eventService.fetchEventsWithDates(startDate, endDate);
+
+        // Should still have only one event
+        expect(eventService.events.length, 1);
+        expect(eventService.events[0].name, "Event 1");
+      });
+
+      test('fetchEventsWithDates - handles events with null IDs', () async {
+        final startDate = DateTime(2024, 1, 1);
+        final endDate = DateTime(2024, 1, 31);
+
+        // Mock the query response with event that has null ID
+        final query = EventQueries().fetchOrgEvents();
+        final mockData = {
+          "organization": {
+            "events": {
+              "edges": [
+                {
+                  "node": {
+                    "id": null,
+                    "name": "Event Without ID",
+                    "description": "Description",
+                    "location": "Location",
+                    "allDay": false,
+                    "startAt": "2024-01-01T10:00:00.000Z",
+                    "endAt": "2024-01-01T12:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": true,
+                  },
+                }
+              ],
             },
           },
-          source: QueryResultSource.network,
-        ),
-      );
+        };
 
-      final service = EventService();
-      final result = await service.removeVolunteerFromGroup(variables);
-      expect(result, isA<QueryResult>());
-      expect(result.data!['removeVolunteer']['_id'], 'volunteerId123');
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: mockData,
+            source: QueryResultSource.network,
+          ),
+        );
+
+        await eventService.fetchEventsWithDates(startDate, endDate);
+
+        // Events with null IDs should be filtered out
+        expect(eventService.events.length, 0);
+      });
     });
 
-    test('Test updateVolunteerGroup method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      final variables = {
-        'groupId': 'groupId123',
-        'name': 'Updated Volunteer Group Name',
-      };
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          EventQueries().updateVolunteerGroupMutation(),
-          variables: variables,
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'updateVolunteerGroup': {
-              '_id': 'groupId123',
-              'name': 'Updated Volunteer Group Name',
+    group('Event Registration and Attendees', () {
+      test('registerForAnEvent - registers successfully', () async {
+        const eventId = 'eventId123';
+        final variables = {'eventId': eventId};
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().registerForEvent(),
+            variables: variables,
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'registerForEvent': {'id': eventId},
             },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
+            source: QueryResultSource.network,
+          ),
+        );
 
-      final service = EventService();
-      final result = await service.updateVolunteerGroup(variables);
-      expect(result, isA<QueryResult>());
-      expect(result.data!['updateVolunteerGroup']['_id'], 'groupId123');
-      expect(
-        result.data!['updateVolunteerGroup']['name'],
-        'Updated Volunteer Group Name',
-      );
+        final result = await eventService.registerForAnEvent(eventId);
+
+        expect(result, isNotNull);
+        expect(result.data, isNotNull);
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().registerForEvent(),
+            variables: variables,
+          ),
+        ).called(1);
+      });
+
+      test('fetchAttendeesByEvent - returns attendees', () async {
+        const eventId = 'eventId123';
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            EventQueries().attendeesByEvent(eventId),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'getEventAttendeesByEventId': [
+                {'userId': 'user1'},
+                {'userId': 'user2'},
+              ],
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.fetchAttendeesByEvent(eventId);
+
+        expect(result, isNotNull);
+        expect(result.data, isNotNull);
+        verify(
+          mockDbFunctions.gqlAuthQuery(
+            EventQueries().attendeesByEvent(eventId),
+          ),
+        ).called(1);
+      });
     });
 
-    test('Test fetchVolunteerGroupsByEvent method success', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const query = '';
-      const eventId = 'eventId123';
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          EventQueries().fetchVolunteerGroups(),
-          variables: {
-            "where": {"eventId": eventId},
-          },
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'getEventVolunteerGroups': [
-              {
+    group('Volunteer Groups', () {
+      test('createVolunteerGroup - creates successfully', () async {
+        final variables = {
+          'name': 'Volunteer Group 1',
+          'eventId': 'eventId1',
+        };
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().createVolunteerGroup(),
+            variables: {'data': variables},
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'createVolunteerGroup': {
                 '_id': 'groupId1',
                 'name': 'Volunteer Group 1',
-                'eventId': eventId,
               },
-              {
-                '_id': 'groupId2',
-                'name': 'Volunteer Group 2',
-                'eventId': eventId,
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.createVolunteerGroup(variables);
+
+        expect(result, isNotNull);
+        expect(
+          (result as QueryResult).data!['createVolunteerGroup']['_id'],
+          'groupId1',
+        );
+        expect(
+          result.data!['createVolunteerGroup']['name'],
+          'Volunteer Group 1',
+        );
+      });
+
+      test('removeVolunteerGroup - removes successfully', () async {
+        final variables = {'groupId': 'groupId123'};
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().removeEventVolunteerGroup(),
+            variables: variables,
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'removeVolunteerGroup': {
+                '_id': 'groupId123',
+                'name': 'Volunteer Group 1',
               },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.removeVolunteerGroup(variables);
+
+        expect(result, isA<QueryResult>());
+        expect(result.data!['removeVolunteerGroup']['_id'], 'groupId123');
+      });
+
+      test('updateVolunteerGroup - updates successfully', () async {
+        final variables = {
+          'groupId': 'groupId123',
+          'name': 'Updated Volunteer Group Name',
+        };
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateVolunteerGroupMutation(),
+            variables: variables,
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'updateVolunteerGroup': {
+                '_id': 'groupId123',
+                'name': 'Updated Volunteer Group Name',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.updateVolunteerGroup(variables);
+
+        expect(result, isA<QueryResult>());
+        expect(result.data!['updateVolunteerGroup']['_id'], 'groupId123');
+        expect(
+          result.data!['updateVolunteerGroup']['name'],
+          'Updated Volunteer Group Name',
+        );
+      });
+
+      test('addVolunteerToGroup - adds successfully', () async {
+        final variables = {
+          'groupId': 'groupId123',
+          'volunteerId': 'volunteerId123',
+        };
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().addVolunteerToGroup(),
+            variables: {'data': variables},
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'addVolunteerToGroup': {
+                '_id': 'volunteerId123',
+                'name': 'Volunteer Name',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.addVolunteerToGroup(variables);
+
+        expect(result, isA<QueryResult>());
+        expect(result.data!['addVolunteerToGroup']['_id'], 'volunteerId123');
+      });
+
+      test('removeVolunteerFromGroup - removes successfully', () async {
+        final variables = {'volunteerId': 'volunteerId123'};
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().removeVolunteerMutation(),
+            variables: variables,
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'removeVolunteer': {
+                '_id': 'volunteerId123',
+                'name': 'Volunteer Name',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.removeVolunteerFromGroup(variables);
+
+        expect(result, isA<QueryResult>());
+        expect(result.data!['removeVolunteer']['_id'], 'volunteerId123');
+      });
+
+      test('fetchVolunteerGroupsByEvent - returns list of groups', () async {
+        const eventId = 'eventId123';
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            EventQueries().fetchVolunteerGroups(),
+            variables: {
+              "where": {"eventId": eventId},
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql('')),
+            data: {
+              'getEventVolunteerGroups': [
+                {
+                  '_id': 'groupId1',
+                  'name': 'Volunteer Group 1',
+                  'eventId': eventId,
+                },
+                {
+                  '_id': 'groupId2',
+                  'name': 'Volunteer Group 2',
+                  'eventId': eventId,
+                },
+              ],
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await eventService.fetchVolunteerGroupsByEvent(eventId);
+
+        expect(result, isA<List<EventVolunteerGroup>>());
+        expect(result.length, 2);
+        expect(result[0].id, 'groupId1');
+        expect(result[1].id, 'groupId2');
+      });
+
+      test('fetchVolunteerGroupsByEvent - throws on error', () {
+        const eventId = 'eventId123';
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            EventQueries().fetchVolunteerGroups(),
+            variables: {
+              "where": {"eventId": eventId},
+            },
+          ),
+        ).thenThrow(Exception("query error"));
+
+        expect(
+          () async => await eventService.fetchVolunteerGroupsByEvent(eventId),
+          throwsException,
+        );
+      });
+    });
+
+    group('Agenda Items', () {
+      test('fetchAgendaCategories - returns categories', () async {
+        const orgId = 'org123';
+        final mockResult = QueryResult(
+          options: QueryOptions(
+            document: gql(
+              EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
+            ),
+          ),
+          data: {
+            'fetchAgendaCategories': [
+              {'_id': 'cat1', 'name': 'Category 1'},
+              {'_id': 'cat2', 'name': 'Category 2'},
             ],
           },
           source: QueryResultSource.network,
-        ),
-      );
+        );
 
-      final service = EventService();
-      final result = await service.fetchVolunteerGroupsByEvent(eventId);
-
-      expect(result, isA<List<EventVolunteerGroup>>());
-      expect(result.length, 2);
-      expect(result[0].id, 'groupId1');
-      expect(result[1].id, 'groupId2');
-    });
-    test('Test fetchVolunteerGroupsByEvent method failure', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      const eventId = 'eventId123';
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          EventQueries().fetchVolunteerGroups(),
-          variables: {
-            "where": {"eventId": eventId},
-          },
-        ),
-      ).thenThrow(
-        Exception("query error"),
-      );
-
-      final service = EventService();
-
-      try {
-        await service.fetchVolunteerGroupsByEvent(eventId);
-      } catch (e) {
-        expect(e, isA<Exception>());
-        expect(e.toString(), equals('Exception: query error'));
-      }
-    });
-    test('fetchAgendaCategories returns correct data', () async {
-      const orgId = 'org123';
-      final mockResult = QueryResult(
-        options: QueryOptions(
-          document: gql(
+        when(
+          mockDbFunctions.gqlAuthMutation(
             EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
           ),
-        ),
-        data: {
-          'fetchAgendaCategories': [
-            {'_id': 'cat1', 'name': 'Category 1'},
-            {'_id': 'cat2', 'name': 'Category 2'},
-          ],
-        },
-        source: QueryResultSource.network,
-      );
+        ).thenAnswer((_) async => mockResult);
 
-      when(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
-        ),
-      ).thenAnswer((_) async => mockResult);
+        final result = await eventService.fetchAgendaCategories(orgId);
 
-      final service = EventService();
-      final result = await service.fetchAgendaCategories(orgId);
+        expect(result, equals(mockResult));
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
+          ),
+        ).called(1);
+      });
 
-      expect(result, equals(mockResult));
-      verify(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
-        ),
-      ).called(1);
-    });
-
-    test('createAgendaItem sends correct mutation and variables', () async {
-      final variables = {'title': 'New Agenda', 'description': 'Description'};
-      final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
-        data: {
-          'createAgendaItem': {'_id': 'agenda1'},
-        },
-        source: QueryResultSource.network,
-      );
-
-      when(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().createAgendaItem(),
-          variables: {'input': variables},
-        ),
-      ).thenAnswer((_) async => mockResult);
-
-      final service = EventService();
-
-      final result = await service.createAgendaItem(variables);
-
-      expect(result, equals(mockResult));
-      verify(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().createAgendaItem(),
-          variables: {'input': variables},
-        ),
-      ).called(1);
-    });
-
-    test('deleteAgendaItem sends correct mutation and variables', () async {
-      final variables = {'agendaItemId': 'agenda1'};
-      final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
-        data: {
-          'deleteAgendaItem': {'_id': 'agenda1'},
-        },
-        source: QueryResultSource.network,
-      );
-
-      when(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().deleteAgendaItem(),
-          variables: variables,
-        ),
-      ).thenAnswer((_) async => mockResult);
-
-      final result = await EventService().deleteAgendaItem(variables);
-
-      expect(result, equals(mockResult));
-      verify(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().deleteAgendaItem(),
-          variables: variables,
-        ),
-      ).called(1);
-    });
-
-    test('updateAgendaItem sends correct mutation and variables', () async {
-      const itemId = 'agenda1';
-      final variables = {'title': 'Updated Agenda'};
-      final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
-        data: {
-          'updateAgendaItem': {'_id': 'agenda1', 'title': 'Updated Agenda'},
-        },
-        source: QueryResultSource.network,
-      );
-
-      when(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().updateAgendaItem(),
-          variables: {
-            'updateAgendaItemId': itemId,
-            'input': variables,
+      test('createAgendaItem - creates successfully', () async {
+        final variables = {'title': 'New Agenda', 'description': 'Description'};
+        final mockResult = QueryResult(
+          options: QueryOptions(document: gql('')),
+          data: {
+            'createAgendaItem': {'_id': 'agenda1'},
           },
-        ),
-      ).thenAnswer((_) async => mockResult);
-
-      final result = await EventService().updateAgendaItem(itemId, variables);
-
-      expect(result, equals(mockResult));
-      verify(
-        databaseFunctions.gqlAuthMutation(
-          EventQueries().updateAgendaItem(),
-          variables: {
-            'updateAgendaItemId': itemId,
-            'input': variables,
-          },
-        ),
-      ).called(1);
-    });
-
-    test('fetchAgendaItems returns correct data', () async {
-      const eventId = 'event123';
-      final mockResult = QueryResult(
-        options: QueryOptions(document: gql('')),
-        data: {
-          'fetchAgendaItems': [
-            {'_id': 'agenda1', 'title': 'Agenda Item 1'},
-            {'_id': 'agenda2', 'title': 'Agenda Item 2'},
-          ],
-        },
-        source: QueryResultSource.network,
-      );
-
-      when(
-        databaseFunctions.gqlAuthQuery(
-          EventQueries().fetchAgendaItemsByEvent(eventId),
-        ),
-      ).thenAnswer((_) async => mockResult);
-
-      final result = await EventService().fetchAgendaItems(eventId);
-
-      expect(result, equals(mockResult));
-      verify(
-        databaseFunctions.gqlAuthQuery(
-          EventQueries().fetchAgendaItemsByEvent(eventId),
-        ),
-      ).called(1);
-    });
-
-    test(
-        'setOrgStreamSubscription updates _currentOrg when stream emits new value',
-        () async {
-      final userConfig = locator<UserConfig>();
-      userConfig.initialiseStream();
-
-      final eventService = EventService();
-      eventService.setOrgStreamSubscription();
-
-      final orgInfo2 = OrgInfo(name: 'Organization temp', id: '1');
-      userConfig.currentOrgInfoController.add(orgInfo2);
-      await Future.delayed(const Duration(milliseconds: 100));
-      expect(eventService.currentOrg.name, 'Organization temp');
-      expect(eventService.currentOrg.id, '1');
-    });
-
-    test('fetchDataFromApi should throw an exception if data is null',
-        () async {
-      final dbFunctions = locator<DataBaseMutationFunctions>();
-      final eventService = EventService();
-      final String mutation = EventQueries().fetchOrgEvents();
-      final options = QueryOptions(
-        document: gql(
-          mutation,
-        ),
-      );
-      when(
-        dbFunctions.gqlAuthQuery(
-          mutation,
-          variables: anyNamed('variables'),
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: options,
-          data: null,
           source: QueryResultSource.network,
-        ),
-      );
-      try {
-        await eventService.fetchDataFromApi();
-      } catch (e) {
-        expect(e, isA<Exception>());
-      }
-    });
+        );
 
-    test('fetchDataFromApi should return a list of events if data is valid',
-        () async {
-      final dbFunctions = locator<DataBaseMutationFunctions>();
-      final eventService = EventService();
-      final String mutation = EventQueries().fetchOrgEvents();
-      final options = QueryOptions(
-        document: gql(mutation),
-      );
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().createAgendaItem(),
+            variables: {'input': variables},
+          ),
+        ).thenAnswer((_) async => mockResult);
 
-      final data = {
-        "organization": {
-          "events": {
-            "edges": [
-              {
-                "node": {
-                  "id": "event1",
-                  "name": "Test Event 1",
-                  "description": "Description of Test Event 1",
-                  "location": "Location 1",
-                  "allDay": false,
-                  "startAt": "2022-01-01T10:00:00.000Z",
-                  "endAt": "2022-01-01T12:00:00.000Z",
-                  "isPublic": true,
-                  "isRegisterable": true,
-                  "organization": {
-                    "id": "org1",
-                    "name": "Organization 1",
-                  },
-                },
-                "cursor": "cursor1",
-              },
-              {
-                "node": {
-                  "id": "event2",
-                  "name": "Test Event 2",
-                  "description": "Description of Test Event 2",
-                  "location": "Location 2",
-                  "allDay": false,
-                  "startAt": "2022-02-01T11:00:00.000Z",
-                  "endAt": "2022-02-01T13:00:00.000Z",
-                  "isPublic": true,
-                  "isRegisterable": false,
-                  "organization": {
-                    "id": "org2",
-                    "name": "Organization 2",
-                  },
-                },
-                "cursor": "cursor2",
-              }
-            ],
-            "pageInfo": {
-              "hasNextPage": false,
-              "endCursor": "cursor2",
+        final result = await eventService.createAgendaItem(variables);
+
+        expect(result, equals(mockResult));
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().createAgendaItem(),
+            variables: {'input': variables},
+          ),
+        ).called(1);
+      });
+
+      test('deleteAgendaItem - deletes successfully', () async {
+        final variables = {'agendaItemId': 'agenda1'};
+        final mockResult = QueryResult(
+          options: QueryOptions(document: gql('')),
+          data: {
+            'deleteAgendaItem': {'_id': 'agenda1'},
+          },
+          source: QueryResultSource.network,
+        );
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().deleteAgendaItem(),
+            variables: variables,
+          ),
+        ).thenAnswer((_) async => mockResult);
+
+        final result = await eventService.deleteAgendaItem(variables);
+
+        expect(result, equals(mockResult));
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().deleteAgendaItem(),
+            variables: variables,
+          ),
+        ).called(1);
+      });
+
+      test('updateAgendaItem - updates successfully', () async {
+        const itemId = 'agenda1';
+        final variables = {'title': 'Updated Agenda'};
+        final mockResult = QueryResult(
+          options: QueryOptions(document: gql('')),
+          data: {
+            'updateAgendaItem': {'_id': 'agenda1', 'title': 'Updated Agenda'},
+          },
+          source: QueryResultSource.network,
+        );
+
+        when(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateAgendaItem(),
+            variables: {
+              'updateAgendaItemId': itemId,
+              'input': variables,
             },
-          },
-        },
-      };
+          ),
+        ).thenAnswer((_) async => mockResult);
 
-      when(
-        dbFunctions.gqlAuthQuery(
-          mutation,
-          variables: anyNamed('variables'),
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: options,
-          data: data,
+        final result = await eventService.updateAgendaItem(itemId, variables);
+
+        expect(result, equals(mockResult));
+        verify(
+          mockDbFunctions.gqlAuthMutation(
+            EventQueries().updateAgendaItem(),
+            variables: {
+              'updateAgendaItemId': itemId,
+              'input': variables,
+            },
+          ),
+        ).called(1);
+      });
+
+      test('fetchAgendaItems - returns agenda items', () async {
+        const eventId = 'event123';
+        final mockResult = QueryResult(
+          options: QueryOptions(document: gql('')),
+          data: {
+            'fetchAgendaItems': [
+              {'_id': 'agenda1', 'title': 'Agenda Item 1'},
+              {'_id': 'agenda2', 'title': 'Agenda Item 2'},
+            ],
+          },
           source: QueryResultSource.network,
-        ),
-      );
-      final events = await eventService.fetchDataFromApi();
-      expect(events, isA<List<Event>>());
-      expect(events.length, 2);
-      expect(events[0].name, "Test Event 1");
-      expect(events[1].name, "Test Event 2");
+        );
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            EventQueries().fetchAgendaItemsByEvent(eventId),
+          ),
+        ).thenAnswer((_) async => mockResult);
+
+        final result = await eventService.fetchAgendaItems(eventId);
+
+        expect(result, equals(mockResult));
+        verify(
+          mockDbFunctions.gqlAuthQuery(
+            EventQueries().fetchAgendaItemsByEvent(eventId),
+          ),
+        ).called(1);
+      });
+    });
+
+    group('Event Stream and State', () {
+      test('eventStream getter returns stream', () {
+        expect(eventService.eventStream, isA<Stream<List<Event>>>());
+      });
+
+      test('events getter returns list', () {
+        expect(eventService.events, isA<List<Event>>());
+      });
+
+      test('clearEvents - clears events list and cache', () async {
+        await eventService.clearEvents();
+        expect(eventService.events, isEmpty);
+      });
+    });
+
+    test('dispose - cancels stream subscription', () {
+      // This test just ensures dispose doesn't throw an error
+      expect(() => eventService.dispose(), returnsNormally);
     });
   });
 }
