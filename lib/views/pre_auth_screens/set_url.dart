@@ -106,9 +106,13 @@ class _SetUrlState extends State<SetUrl> {
 
                           return AppLocalizations.of(context)!.translate(msg);
                         },
-                        onFieldSubmitted: (value) =>
-                            AppLocalizations.of(context)!
-                                .translate(Validator.validateURL(value)),
+                        onFieldSubmitted: (value) async {
+                          model.urlFocus.unfocus();
+                          model.validate = AutovalidateMode.always;
+                          if (model.formKey.currentState!.validate()) {
+                            await model.checkURLandShowPopUp('');
+                          }
+                        },
                         decoration: InputDecoration(
                           labelText:
                               '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
