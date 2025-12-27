@@ -388,6 +388,104 @@ Future<void> main() async {
         navigationService.pushScreen('/selectLang'),
       );
     });
+
+    testWidgets("Testing Login button text color with focusedBorder",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final loginButton = find.byKey(const Key('LoginButton'));
+      expect(loginButton, findsOneWidget);
+
+      final button = tester.widget<RaisedRoundedButton>(loginButton);
+      final theme = TalawaTheme.lightTheme;
+
+      // Verify that text color uses focusedBorder color if available, otherwise primary
+      final expectedColor =
+          theme.inputDecorationTheme.focusedBorder?.borderSide.color ??
+              theme.colorScheme.primary;
+
+      expect(button.textColor, expectedColor);
+    });
+
+    testWidgets("Testing SignUp button text color with focusedBorder",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final signupButton = find.byKey(const Key('SignUpButton'));
+      expect(signupButton, findsOneWidget);
+
+      final button = tester.widget<RaisedRoundedButton>(signupButton);
+      final theme = TalawaTheme.lightTheme;
+
+      // SignUp button's backgroundColor uses focusedBorder color if available, otherwise primary
+      final expectedColor =
+          theme.inputDecorationTheme.focusedBorder?.borderSide.color ??
+              theme.colorScheme.primary;
+
+      expect(button.backgroundColor, expectedColor);
+    });
+
+    testWidgets(
+        "Testing button colors fallback to primary when focusedBorder borderSide is null",
+        (tester) async {
+      // Create a theme with focusedBorder that has no borderSide color
+      final themeWithNullBorderColor = TalawaTheme.lightTheme.copyWith(
+        inputDecorationTheme: const InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide.none, // This should result in null color
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: themeWithNullBorderColor,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final loginButton = find.byKey(const Key('LoginButton'));
+      final signupButton = find.byKey(const Key('SignUpButton'));
+
+      expect(loginButton, findsOneWidget);
+      expect(signupButton, findsOneWidget);
+
+      final loginWidget = tester.widget<RaisedRoundedButton>(loginButton);
+      final signupWidget = tester.widget<RaisedRoundedButton>(signupButton);
+
+      // Verify that borderSide color evaluates to null or uses fallback
+      final borderColor = themeWithNullBorderColor
+          .inputDecorationTheme.focusedBorder?.borderSide.color;
+
+      // If borderSide.color is null, both buttons should use colorScheme.primary
+      if (borderColor == null) {
+        expect(
+          loginWidget.textColor,
+          themeWithNullBorderColor.colorScheme.primary,
+        );
+        expect(
+          signupWidget.backgroundColor,
+          themeWithNullBorderColor.colorScheme.primary,
+        );
+      } else {
+        // Otherwise they use the border color
+        expect(loginWidget.textColor, borderColor);
+        expect(signupWidget.backgroundColor, borderColor);
+      }
+    });
   });
 
   //Testing in dark mode

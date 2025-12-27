@@ -57,8 +57,6 @@ jobs:
         run: ./.github/workflows/scripts/countline.py --exclude_directories test/ --exclude_files lib/views/after_auth_screens/add_post_page.dart lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart lib/views/after_auth_screens/events/create_agenda_item_page.dart lib/views/after_auth_screens/events/edit_agenda_item_page.dart lib/utils/event_queries.dart lib/views/after_auth_screens/funds/fundraising_campaigns_screen.dart lib/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart lib/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart lib/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart lib/views/after_auth_screens/events/event_page_form.dart lib/views/after_auth_screens/events/custom_recurring_event.dart lib/view_model/pre_auth_view_models/set_url_view_model.dart
       - name: Check for presence of ignore directives corresponding to custom lints
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Run check_ignore
         run: |
           if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
@@ -314,8 +312,6 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
@@ -358,8 +354,6 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android
@@ -383,8 +377,6 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Building for ios
         run: flutter build ios --release --no-codesign
 

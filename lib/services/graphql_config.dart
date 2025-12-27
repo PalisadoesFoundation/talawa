@@ -51,8 +51,9 @@ class GraphqlConfig {
     try {
       // Derive socket URL from orgURI by replacing http with ws
       String socketUrl;
-      if (orgURI != null && orgURI!.trim().isNotEmpty) {
-        socketUrl = orgURI!
+      final trimmedOrg = orgURI?.trim();
+      if (trimmedOrg != null && trimmedOrg.isNotEmpty) {
+        socketUrl = trimmedOrg
             .replaceFirst('http://', 'ws://')
             .replaceFirst('https://', 'wss://');
       } else {

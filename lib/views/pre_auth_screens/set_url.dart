@@ -151,10 +151,11 @@ class _SetUrlState extends State<SetUrl> {
                         },
                         showArrow: true,
                         textColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
+                                .inputDecorationTheme
+                                .focusedBorder
+                                ?.borderSide
+                                .color ??
+                            Theme.of(context).colorScheme.primary,
                         backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
@@ -173,10 +174,11 @@ class _SetUrlState extends State<SetUrl> {
                         textColor:
                             Theme.of(context).colorScheme.secondaryContainer,
                         backgroundColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
+                                .inputDecorationTheme
+                                .focusedBorder
+                                ?.borderSide
+                                .color ??
+                            Theme.of(context).colorScheme.primary,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.06,
