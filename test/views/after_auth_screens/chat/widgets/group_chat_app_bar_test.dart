@@ -100,7 +100,7 @@ void main() {
 
         // Verify group name and member count are displayed
         expect(find.text(groupName), findsOneWidget);
-        expect(find.textContaining('$memberCount'), findsOneWidget);
+        expect(find.text('$memberCount members'), findsOneWidget);
       });
 
       testWidgets('Shows back button', (tester) async {
@@ -762,11 +762,13 @@ void main() {
           ],
         );
 
+        // Set up mocks for user config and member data
         final userConfig = locator<UserConfig>();
         when(userConfig.currentUser).thenReturn(
           User(id: 'user1', name: 'Alice'),
         );
 
+        // Mock fetchGroupMembers to return test data (members Alice and Bob)
         when(groupChatViewModel.fetchGroupMembers(chatId: chatId))
             .thenAnswer((_) async => [
                   {
@@ -781,20 +783,22 @@ void main() {
                   },
                 ]);
 
+        // Mock getChatMessages - this is called by the callback
         when(groupChatViewModel.getChatMessages(chatId))
             .thenAnswer((_) async {});
-
+        // Mock member removal validation to allow Bob to be removed
         when(groupChatViewModel.validateMemberRemoval(
           chatId: chatId,
           memberId: 'user2',
         )).thenReturn({'isValid': true, 'error': null});
-
+        // Mock successful member removal
         when(groupChatViewModel.removeGroupMember(
           chatId: chatId,
           memberId: 'user2',
           chat: chat,
         )).thenAnswer((_) async => true);
 
+        // Build and display the widget with the AppBar
         await tester.pumpWidget(
           createGroupChatAppBarTestWidget(
             chatId: chatId,
@@ -807,6 +811,7 @@ void main() {
 
         await tester.pump();
 
+        // Navigate to Manage Members dialog through the AppBar menu
         final moreButton = find.descendant(
           of: find.byType(AppBar),
           matching: find.byIcon(Icons.more_vert),
@@ -816,10 +821,11 @@ void main() {
         await tester.pumpAndSettle();
         await tester.tap(find.text('Manage Members'));
         await tester.pumpAndSettle();
-
+        // Verify the ManageMembersDialog opened and members loaded
         expect(find.text('Alice'), findsOneWidget);
         expect(find.text('Bob'), findsOneWidget);
 
+        // Simulate member removal by removing Bob
         final removeButtons = find.byIcon(Icons.remove_circle);
         await tester.tap(removeButtons.last);
         await tester.pumpAndSettle();
@@ -831,7 +837,7 @@ void main() {
         await tester.tap(removeConfirmButton);
         await tester.pumpAndSettle();
 
-        // Verify getChatMessages was called by the callback (line 193 coverage)
+        // Verify getChatMessages was called by the callback
         verify(groupChatViewModel.getChatMessages(chatId)).called(1);
 
         // Verify the complete member removal flow
@@ -860,11 +866,12 @@ void main() {
           ],
         );
 
+        // Set up mocks for user config and member data
         final userConfig = locator<UserConfig>();
         when(userConfig.currentUser).thenReturn(
           User(id: 'user1', name: 'Alice'),
         );
-
+        // Mock fetchGroupMembers to return test data
         when(groupChatViewModel.fetchGroupMembers(chatId: chatId))
             .thenAnswer((_) async => [
                   {
@@ -878,21 +885,22 @@ void main() {
                     'email': 'bob@example.com'
                   },
                 ]);
-
+        // Mock getChatMessages for callback execution
         when(groupChatViewModel.getChatMessages(chatId))
             .thenAnswer((_) async {});
-
+        // Mock member removal validation
         when(groupChatViewModel.validateMemberRemoval(
           chatId: chatId,
           memberId: 'user2',
         )).thenReturn({'isValid': true, 'error': null});
-
+        // Mock successful member removal
         when(groupChatViewModel.removeGroupMember(
           chatId: chatId,
           memberId: 'user2',
           chat: chat,
         )).thenAnswer((_) async => true);
 
+        // Build and display the widget with the AppBar
         await tester.pumpWidget(
           createGroupChatAppBarTestWidget(
             chatId: chatId,
@@ -905,6 +913,7 @@ void main() {
 
         await tester.pump();
 
+        // Navigate to Manage Members dialog through the AppBar menu
         final moreButton = find.descendant(
           of: find.byType(AppBar),
           matching: find.byIcon(Icons.more_vert),
