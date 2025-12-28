@@ -1,7 +1,7 @@
 # pubspec.yaml
 name: talawa_lint
 environment:
-  sdk: ">=3.5.0 <4.0.0" 
+  sdk: ">=3.0.0 <4.0.0" 
 
 dev_dependencies:
   lint: ^2.3.0

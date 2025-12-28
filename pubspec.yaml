@@ -10,7 +10,7 @@ homepage: https://github.com/PalisadoesFoundation/talawa
 
 repository: https://github.com/PalisadoesFoundation/talawa
 environment:
-  sdk: ">=3.5.0 <4.0.0" 
+  sdk: ">=3.0.0 <4.0.0" 
 
 dependencies:
   ############# Remove ###########
@@ -119,8 +119,9 @@ flutter:
           weight: 800
 
 dependency_overrides:
-  analyzer: ^6.4.1  # Required by talawa_lint for analyzer 6.x compatibility; remove when talawa_lint updates to analyzer 7+
-  custom_lint: ^0.6.4  # Pinned for talawa_lint compatibility; upgrade when talawa_lint supports 0.8.1+
-  custom_lint_builder: ^0.6.4  # Same as custom_lint
-  rxdart: ^0.27.7  # [original reason if known, or TODO: verify if still needed]
-  intl: 0.20.2  # [original reason if known, or TODO: verify if still needed]
+  analyzer: 6.4.1  # Pin for talawa_lint analyzer 6.x API compatibility; remove when talawa_lint/analyzer can move to 7+
+  custom_lint: 0.6.4  # Pin to keep workspace on the same custom_lint as talawa_lint; upgrade to 0.8.x after plugin update
+  custom_lint_builder: 0.6.4  # Match custom_lint version for plugin build tooling; remove after coordinated upgrade
+  rxdart: 0.27.7  # Transitive via graphql_flutter/gql; pinned for deterministic resolution. Re-evaluate after graphql stack upgrade
+  intl: 0.20.2  # Used widely for date/time/number formatting; pinned to current verified version. Revisit in follow-up
+ 
