@@ -919,7 +919,7 @@ void main() {
 
         expect(find.byType(AppBar), findsOneWidget);
         expect(find.text('Test Group'), findsOneWidget);
-        expect(find.textContaining('-1 members'), findsOneWidget);
+        expect(find.text('-1 members'), findsOneWidget);
       });
 
       testWidgets('Handles very long group name', (tester) async {
@@ -990,7 +990,7 @@ void main() {
 
         expect(find.byType(AppBar), findsOneWidget);
         expect(find.text('Test Group'), findsOneWidget);
-        expect(find.textContaining('$largeCount members'), findsOneWidget);
+        expect(find.text('$largeCount members'), findsOneWidget);
       });
 
       testWidgets('Displays member count with single member', (tester) async {
