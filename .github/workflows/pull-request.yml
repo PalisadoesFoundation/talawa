@@ -72,13 +72,13 @@ jobs:
           git checkout temp_branch
           pip install GitPython
           python ./.github/workflows/scripts/check_ignore.py --repository "$GITHUB_REPOSITORY" --merge_branch_name "$GITHUB_HEAD_REF"
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_HEAD_REF: ${{ github.head_ref }}
           if git stash list | grep -q "stash@{0}"; then
             echo "Restoring stashed changes..."
             git stash pop
           fi
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
       - name: Compare translation files
         run: |
           chmod +x .github/workflows/scripts/compare_translations.py
@@ -147,8 +147,8 @@ jobs:
           # Check for changes in sensitive files
           CHANGED_UNAUTH_FILES=""
           for pattern in $SENSITIVE_FILES; do
-            # Convert glob patterns to regex: *.pem → \.pem$, etc.
-            regex_pattern=$(echo "$pattern" | sed -E 's/\*/[^/]*/g; s/\?/./g')
+            # Convert glob patterns to regex: *.pem → \.pem$, escape dots
+            regex_pattern=$(echo "$pattern" | sed -E 's/\./\\./g; s/\*/[^/]*/g; s/\?/./g')
             FILES=$(git diff --name-only --diff-filter=ACMRD $BASE_SHA ${{ github.event.pull_request.head.sha }} | grep -E "$regex_pattern" || true)
 
             if [ ! -z "$FILES" ]; then
