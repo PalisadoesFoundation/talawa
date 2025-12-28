@@ -238,9 +238,11 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandShowPopUp() is working fine when urlPresent is false',
         (tester) async {
-      //await locator.unregister<Validator>();
+      if (locator.isRegistered<Validator>()) {
+        await locator.unregister<Validator>();
+      }
       final service = MockValidator();
-      //locator.registerSingleton<Validator>(service);
+      locator.registerSingleton<Validator>(service);
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
@@ -250,9 +252,20 @@ Future<void> main() async {
 
       await model.checkURLandShowPopUp('arguments');
 
+      final captured = verify(
+        (navigationService as MockNavigationService).pushDialog(captureAny),
+      ).captured;
+      expect(
+        captured[0],
+        isA<CustomProgressDialog>().having(
+          (e) => e.key,
+          'key',
+          const Key('UrlCheckProgress'),
+        ),
+      );
       verify(navigationService.pop());
-      verifyNever(
-        navigationService.showTalawaErrorSnackBar(
+      verify(
+        navigationService.showTalawaErrorDialog(
           "URL doesn't exist/no connection please check",
           MessageType.info,
         ),

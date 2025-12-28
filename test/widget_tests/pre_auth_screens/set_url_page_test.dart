@@ -285,6 +285,7 @@ Future<void> main() async {
 
       // Verify that validation was triggered and passed (no error message)
       // The behavior is now consistent with the Verify button
+      expect(find.text('Enter a valid URL'), findsNothing);
     });
 
     testWidgets("Testing TextFormField onFieldSubmitted with invalid URL",
@@ -494,21 +495,20 @@ Future<void> main() async {
     });
 
     testWidgets(
-        "Testing button colors fallback to primary when focusedBorder borderSide is null",
+        "Testing button colors fallback to primary when focusedBorder is null",
         (tester) async {
-      // Create a theme with focusedBorder that has no borderSide color
-      final themeWithNullBorderColor = TalawaTheme.lightTheme.copyWith(
+      // Create a theme with no focusedBorder to trigger the ?? fallback
+      final themeWithNullFocusedBorder = TalawaTheme.lightTheme.copyWith(
         inputDecorationTheme: const InputDecorationTheme(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide.none, // This should result in null color
-          ),
+          focusedBorder:
+              null, // This will make focusedBorder?.borderSide.color null
         ),
       );
 
       await tester.pumpWidget(
         createSetUrlScreen(
           themeMode: ThemeMode.light,
-          theme: themeWithNullBorderColor,
+          theme: themeWithNullFocusedBorder,
         ),
       );
       await tester.pumpAndSettle();
@@ -522,25 +522,15 @@ Future<void> main() async {
       final loginWidget = tester.widget<RaisedRoundedButton>(loginButton);
       final signupWidget = tester.widget<RaisedRoundedButton>(signupButton);
 
-      // Verify that borderSide color evaluates to null or uses fallback
-      final borderColor = themeWithNullBorderColor
-          .inputDecorationTheme.focusedBorder?.borderSide.color;
-
-      // If borderSide.color is null, both buttons should use colorScheme.primary
-      if (borderColor == null) {
-        expect(
-          loginWidget.textColor,
-          themeWithNullBorderColor.colorScheme.primary,
-        );
-        expect(
-          signupWidget.backgroundColor,
-          themeWithNullBorderColor.colorScheme.primary,
-        );
-      } else {
-        // Otherwise they use the border color
-        expect(loginWidget.textColor, borderColor);
-        expect(signupWidget.backgroundColor, borderColor);
-      }
+      // Since focusedBorder is null, both buttons should use colorScheme.primary
+      expect(
+        loginWidget.textColor,
+        themeWithNullFocusedBorder.colorScheme.primary,
+      );
+      expect(
+        signupWidget.backgroundColor,
+        themeWithNullFocusedBorder.colorScheme.primary,
+      );
     });
   });
 
@@ -759,6 +749,7 @@ Future<void> main() async {
 
       // Verify that validation was triggered and passed (no error message)
       // The behavior is now consistent with the Verify button
+      expect(find.text('Enter a valid URL'), findsNothing);
     });
 
     testWidgets(
