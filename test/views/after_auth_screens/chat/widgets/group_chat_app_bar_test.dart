@@ -935,6 +935,169 @@ void main() {
       });
     });
 
+    group('Edge Case Tests', () {
+      testWidgets('Handles empty group name gracefully', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId)).thenReturn('');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(0);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: '',
+            memberCount: 0,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        // Verify AppBar still renders without breaking
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('0 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles zero members gracefully', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(0);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 0,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('Test Group'), findsOneWidget);
+        expect(find.text('0 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles negative member count gracefully', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(-1);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: -1,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('Test Group'), findsOneWidget);
+        expect(find.textContaining('-1 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles very long group name', (tester) async {
+        const chatId = 'chat1';
+        const longGroupName =
+            'This is a very long group name that might cause text overflow and should be handled gracefully with ellipsis or wrapping';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn(longGroupName);
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(5);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: longGroupName,
+            memberCount: 5,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.textContaining('very long'), findsOneWidget);
+        expect(find.text('5 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles getGroupDisplayName returning empty string',
+          (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId)).thenReturn('');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(3);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: '',
+            memberCount: 3,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('3 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles very large member count', (tester) async {
+        const chatId = 'chat1';
+        const largeCount = 999999;
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(largeCount);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: largeCount,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('Test Group'), findsOneWidget);
+        expect(find.textContaining('$largeCount members'), findsOneWidget);
+      });
+
+      testWidgets('Displays member count with single member', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(1);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 1,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('1 members'), findsOneWidget);
+      });
+    });
+
     group('Menu Icon Tests', () {
       testWidgets('Menu items have correct icons for admin', (tester) async {
         const chatId = 'chat1';
