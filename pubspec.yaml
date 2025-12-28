@@ -65,6 +65,8 @@ dependencies:
   plugin_platform_interface: ^2.1.7
   pointycastle: ^4.0.0
   provider: ^6.1.5
+  qr_code_scanner_plus: ^2.0.14
+  qr_flutter: ^4.1.0
   quick_actions: ^1.1.0
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
@@ -105,7 +107,6 @@ flutter:
     - assets/images/
     - assets/icons/
     - lang/
-    - .env
   fonts:
     - family: product-sans
       fonts:

@@ -5,19 +5,24 @@ import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/pre_auth_view_models/auth_landing_view_model.dart';
+import 'package:talawa/utils/validators.dart';
+import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 /// This widget lets a user sign in/up with the organization url.
 ///
-/// enter the organization URL and then login.
+/// The user can enter an organization through the QR code scanner,
+/// or enter the organization URL and then login.
 /// There is also a signup option which navigates to a screen for the user
 /// to select an organization.
 /// At the bottom, there is also a gesture detector for changing the language.
 class SetUrl extends StatefulWidget {
-  const SetUrl({super.key});
+  const SetUrl({required Key key, required this.uri}) : super(key: key);
+
+  /// Variable.
+  final String uri;
 
   @override
   _SetUrlState createState() => _SetUrlState();
@@ -26,29 +31,47 @@ class SetUrl extends StatefulWidget {
 class _SetUrlState extends State<SetUrl> {
   @override
   Widget build(BuildContext context) {
-    return BaseView<AuthLandingViewModel>(
-      onModelReady: (model) => model.initialise(),
+    return BaseView<SetUrlViewModel>(
+      onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('SetUrlScreenScaffold'),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: LayoutBuilder(builder: (context, constraints) {
-            return SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              margin: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth! * 0.06,
                 SizeConfig.safeBlockVertical! * 4,
                 SizeConfig.screenWidth! * 0.06,
                 0.0,
               ),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: constraints.maxHeight,
-                ),
-                child: IntrinsicHeight(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight,
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                child: Form(
+                  key: model.formKey,
+                  autovalidateMode: model.validate,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Container(
+                        alignment: Alignment.centerRight,
+                        margin: EdgeInsets.only(
+                          top: SizeConfig.safeBlockVertical! * 2,
+                        ),
+                        // QR code scanner for joining the organization.
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.qr_code_scanner,
+                            size: 30,
+                            semanticLabel: 'Join Organisation with QR',
+                          ),
+                          onPressed: () => model.scanQR(context),
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.only(
                           top: SizeConfig.screenHeight! * 0.08,
@@ -64,50 +87,59 @@ class _SetUrlState extends State<SetUrl> {
                       ),
                       CustomRichText(
                         key: const Key('UrlPageText'),
-                        words:
+                        words: model.greeting,
+                      ),
+                      //Form input for entering the organization URL
+                      TextFormField(
+                        key: const Key('UrlInputField'),
+                        controller: model.url,
+                        focusNode: model.urlFocus,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.text,
+                        enableSuggestions: true,
+                        validator: (value) {
+                          final String? msg = Validator.validateURL(value!);
+                          if (msg == null) {
+                            return null;
+                          }
 
-                            /// greeting message.
-                            [
-                          {
-                            'text': 'Join ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.titleLarge!.copyWith(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          },
-                          {
-                            'text': 'and ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.headlineSmall,
-                          },
-                          {
-                            'text': 'Collaborate ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.titleLarge!.copyWith(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          },
-                          {
-                            'text': 'with your ',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.headlineSmall,
-                          },
-                          {
-                            'text': 'Organizations',
-                            'textStyle': Theme.of(
-                              navigationService.navigatorKey.currentContext!,
-                            ).textTheme.headlineSmall!.copyWith(
-                                  fontSize: 24,
-                                  color: const Color(0xFF4285F4),
-                                ),
-                          },
-                        ],
+                          return AppLocalizations.of(context)!.translate(msg);
+                        },
+                        onFieldSubmitted: (value) async {
+                          model.urlFocus.unfocus();
+                          model.validate = AutovalidateMode.always;
+                          if (model.formKey.currentState!.validate()) {
+                            await model.checkURLandShowPopUp('');
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText:
+                              '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
+                          labelStyle: Theme.of(context).textTheme.titleMedium,
+                          suffixIcon: InkWell(
+                            key: const Key('VerifyButton'),
+                            onTap: () async {
+                              model.urlFocus.unfocus();
+                              model.validate = AutovalidateMode.always;
+
+                              /// Checking url. If valid, than show the pop-up
+                              if (model.formKey.currentState!.validate()) {
+                                await model.checkURLandShowPopUp('');
+                              }
+                            },
+                            child: Container(
+                              height: 48,
+                              width: 48,
+                              alignment: Alignment.center,
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate("Verify"),
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.086,
@@ -122,7 +154,12 @@ class _SetUrlState extends State<SetUrl> {
                           await model.checkURLandNavigate('/login', '');
                         },
                         showArrow: true,
-                        textColor: Theme.of(context).primaryColor,
+                        textColor: Theme.of(context)
+                                .inputDecorationTheme
+                                .focusedBorder
+                                ?.borderSide
+                                .color ??
+                            Theme.of(context).colorScheme.primary,
                         backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
@@ -140,7 +177,12 @@ class _SetUrlState extends State<SetUrl> {
                         showArrow: true,
                         textColor:
                             Theme.of(context).colorScheme.secondaryContainer,
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: Theme.of(context)
+                                .inputDecorationTheme
+                                .focusedBorder
+                                ?.borderSide
+                                .color ??
+                            Theme.of(context).colorScheme.primary,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.06,
@@ -190,8 +232,8 @@ class _SetUrlState extends State<SetUrl> {
                   ),
                 ),
               ),
-            );
-          }),
+            ),
+          ),
         );
       },
     );
