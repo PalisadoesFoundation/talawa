@@ -33,12 +33,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v4
         with:
-          distribution: "zulu" # See 'Supported distributions' for available options
+          distribution: "zulu"  # See 'Supported distributions' for available options
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.27.3"
-          channel: "stable" # or: 'beta', 'dev' or 'master'
+          channel: "stable"  # or: 'beta', 'dev' or 'master'
       - name: Set default branch.
         run: git remote set-head origin --auto
         shell: bash
@@ -71,7 +71,10 @@ jobs:
           git diff --name-only develop..HEAD
           git checkout temp_branch
           pip install GitPython
-          python ./.github/workflows/scripts/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
+          python ./.github/workflows/scripts/check_ignore.py --repository "$GITHUB_REPOSITORY" --merge_branch_name "$GITHUB_HEAD_REF"
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
           if git stash list | grep -q "stash@{0}"; then
             echo "Restoring stashed changes..."
             git stash pop
@@ -102,11 +105,14 @@ jobs:
       - name: Check if the source and target branches are different
         if: ${{ github.event.pull_request.base.ref == github.event.pull_request.head.ref }}
         run: |
-          echo "Source Branch ${{ github.event.pull_request.head.ref }}"
-          echo "Target Branch ${{ github.event.pull_request.base.ref }}"
+          echo "Source Branch $PR_HEAD_REF"
+          echo "Target Branch $PR_BASE_REF"
           echo "Error: Source and Target Branches are the same. Please ensure they are different."
           echo "Error: Close this PR and try again."          
           exit 1
+        env:
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
 
   Branch-check:
     if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
@@ -128,10 +134,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch all history for all branches and tags
+          fetch-depth: 0  # Fetch all history for all branches and tags
       - name: Get Changed Unauthorized files
         id: changed-unauth-files
-        run : | 
+        run: |
           # Get the base branch ref
           BASE_SHA=$(git merge-base ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
 
@@ -141,7 +147,9 @@ jobs:
           # Check for changes in sensitive files
           CHANGED_UNAUTH_FILES=""
           for pattern in $SENSITIVE_FILES; do
-            FILES=$(git diff --name-only --diff-filter=ACMRD $BASE_SHA ${{ github.event.pull_request.head.sha }} | grep -E "$pattern" || true)
+            # Convert glob patterns to regex: *.pem → \.pem$, etc.
+            regex_pattern=$(echo "$pattern" | sed -E 's/\*/[^/]*/g; s/\?/./g')
+            FILES=$(git diff --name-only --diff-filter=ACMRD $BASE_SHA ${{ github.event.pull_request.head.sha }} | grep -E "$regex_pattern" || true)
 
             if [ ! -z "$FILES" ]; then
               CHANGED_UNAUTH_FILES="$CHANGED_UNAUTH_FILES $FILES"
@@ -181,7 +189,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 #Fetch all history for all branches and tags
+          fetch-depth: 0  # Fetch all history for all branches and tags
 
       - name: Get changed files
         id: changed-files
@@ -191,18 +199,9 @@ jobs:
 
           #Get all changed files
           ALL_CHANGED_FILES=$(git diff --name-only --diff-filter=ACMRT $BASE_SHA ${{github.event.pull_request.head.sha}} | tr '\n' ' ')
+          CHANGED_FILES_COUNT=$(git diff --name-only --diff-filter=ACMRT $BASE_SHA ${{github.event.pull_request.head.sha}} | wc -l)
           echo "all_changed_files=${ALL_CHANGED_FILES}" >> $GITHUB_OUTPUT
-      - env:
-          CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
-        if: steps.changed_files.outputs.any_changed == 'true' || steps.changed_files.outputs.any_deleted == 'true'
-        name: Show changed files
-        run: |
-          echo "Unauthorized changes were made in the following files:"
-          for FILE in ${CHANGED_FILES}; do
-            echo "$FILE"
-          done
-          echo "To override this, apply the 'ignore-sensitive-files-pr' label"
-          exit 1
+          echo "all_changed_files_count=${CHANGED_FILES_COUNT}" >> $GITHUB_OUTPUT
 
       - name: Echo number of changed files
         env:
@@ -228,12 +227,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: "zulu" # See 'Supported distributions' for available options
+          distribution: "zulu"  # See 'Supported distributions' for available options
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.27.3"
-          channel: "stable" # or: 'beta', 'dev' or 'master'
+          channel: "stable"  # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
@@ -259,12 +258,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: "zulu" # See 'Supported distributions' for available options
+          distribution: "zulu"  # See 'Supported distributions' for available options
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.27.3"
-          channel: "stable" # or: 'beta', 'dev' or 'master'
+          channel: "stable"  # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android
@@ -279,7 +278,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.27.3"
-          channel: "stable" # or: 'beta', 'dev' or 'master'
+          channel: "stable"  # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios
         run: flutter build ios --release --no-codesign
@@ -314,7 +313,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.11
 
