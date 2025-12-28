@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Installation | Talawa Mobile Documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://docs-mobile.talawa.io/docs/installation"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Installation | Talawa Mobile Documentation"><meta data-rh="true" name="description" content="We recommend that you follow these steps before beginning development work on the Talawa mobile app."><meta data-rh="true" property="og:description" content="We recommend that you follow these steps before beginning development work on the Talawa mobile app."><link data-rh="true" rel="icon" href="/img/icons/logo.png"><link data-rh="true" rel="canonical" href="https://docs-mobile.talawa.io/docs/installation"><link data-rh="true" rel="alternate" href="https://docs-mobile.talawa.io/docs/installation" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs-mobile.talawa.io/docs/installation" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Installation","item":"https://docs-mobile.talawa.io/docs/installation"}]}</script><link rel="stylesheet" href="https://docs.talawa.io/css/styles-latest.css"><link rel="stylesheet" href="/assets/css/styles.19429ee7.css">
-<script src="/assets/js/runtime~main.51e1c2df.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.6d4f5b8b.js" defer="defer"></script>
 <script src="/assets/js/main.7cc4ba54.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -106,21 +106,6 @@
 <li class="">Clone and change into the project.<!-- -->
 <div class="language-bash codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-bash codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ git clone https://github.com/PalisadoesFoundation/talawa.git</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ cd talawa</span><br></span></code></pre></div></div>
 </li>
-<li class="">The <code>.env</code> file contains the URL of the Talawa API instance that the app will use. There is a <code>.env.example</code> file that you can use as a starter.<!-- -->
-<ol>
-<li class="">Copy <code>.env.example</code> to become <code>.env</code>
-<div class="language-bash codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-bash codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">$ cp .env.example .env</span><br></span></code></pre></div></div>
-</li>
-<li class="">Edit the <code>.env</code> file and update the URL with that of the API. The default value will not work.<!-- -->
-<ol>
-<li class="">If you are running the Talawa mobile app in an emulator mode on your local system, then the IPv4 address to <code>127.0.0.1</code> will be the required value.<!-- -->
-<div class="language-text codeBlockContainer_GgOQ theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_Kaw8"><pre tabindex="0" class="prism-code language-text codeBlock_UPZ1 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_dUH4"><span class="token-line" style="color:#393A34"><span class="token plain">`API_URL=http://&lt;IPv4&gt;:4000/graphql`</span><br></span></code></pre></div></div>
-</li>
-<li class="">If you are running the app on a tethered device on the same network as your development system running the API, then the IP address will need to be that of the network interface of your development system.</li>
-</ol>
-</li>
-</ol>
-</li>
 <li class="">Next you&#x27;ll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.<!-- -->
 <ol>
 <li class="">Install FVM using the instructions on the FVM website</li>
@@ -179,6 +164,13 @@
 <li class="">Connect your phone</li>
 </ol>
 </li>
+</ol>
+</li>
+<li class=""><strong>Set the API URL</strong>: When you first launch the app, you will be prompted to enter the Talawa API URL.<!-- -->
+<ol>
+<li class="">If you are running the API locally on your development machine and testing on an emulator, use <code>http://10.0.2.2:4000/graphql</code> (Android emulator special address that maps to localhost).</li>
+<li class="">If you are running the API on your local network and testing on a physical device, use <code>http://&lt;YOUR_LOCAL_IP&gt;:4000/graphql</code> where <code>&lt;YOUR_LOCAL_IP&gt;</code> is the IP address of your development machine on your local network.</li>
+<li class="">Alternatively, you can scan a QR code if your organization provides one with the API URL pre-configured.</li>
 </ol>
 </li>
 <li class="">Start developing!</li>
