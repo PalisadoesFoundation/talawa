@@ -1175,6 +1175,44 @@ void main() {
         expect(find.byIcon(Icons.info), findsOneWidget);
         expect(find.byIcon(Icons.exit_to_app), findsOneWidget);
       });
+
+      testWidgets(
+          'Admin menu contains divider between regular and delete options',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          members: [],
+        );
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 3,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        // Find and tap the more menu button
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+
+        // Verify PopupMenuDivider is present in admin menu
+        expect(find.byType(PopupMenuDivider), findsOneWidget);
+
+        // Verify it separates regular options from delete option
+        expect(find.byIcon(Icons.delete), findsOneWidget);
+      });
     });
 
     group('AppBar Properties Tests', () {
