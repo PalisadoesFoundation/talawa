@@ -120,8 +120,7 @@ flutter:
 
 dependency_overrides:
   analyzer: ^6.4.1  # Required by talawa_lint for analyzer 6.x compatibility; remove when talawa_lint updates to analyzer 7+
-  custom_lint: 0.6.4  # Pinned for talawa_lint compatibility; upgrade when talawa_lint supports 0.8.1+
-  custom_lint_builder: 0.6.4  # Same as custom_lint
+  custom_lint: ^0.6.4  # Pinned for talawa_lint compatibility; upgrade when talawa_lint supports 0.8.1+
+  custom_lint_builder: ^0.6.4  # Same as custom_lint
   rxdart: ^0.27.7  # [original reason if known, or TODO: verify if still needed]
   intl: 0.20.2  # [original reason if known, or TODO: verify if still needed]
-  
