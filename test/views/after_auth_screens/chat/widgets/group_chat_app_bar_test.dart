@@ -1012,7 +1012,7 @@ void main() {
         await tester.pump();
 
         expect(find.byType(AppBar), findsOneWidget);
-        expect(find.text('1 members'), findsOneWidget);
+        expect(find.text('1 member'), findsOneWidget);
       });
     });
 

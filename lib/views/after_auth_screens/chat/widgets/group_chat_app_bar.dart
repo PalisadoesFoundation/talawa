@@ -226,7 +226,7 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           Text(
-            '$currentMemberCount members',
+            '$currentMemberCount member${currentMemberCount == 1 ? '' : 's'}',
             style: const TextStyle(
               fontSize: 12,
               color: Colors.grey,
