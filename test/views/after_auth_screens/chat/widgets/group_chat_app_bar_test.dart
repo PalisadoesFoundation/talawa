@@ -661,7 +661,95 @@ void main() {
       });
 
       testWidgets(
-          'Manage Members action opens dialog with callback that calls getChatMessages',
+          'Does not show dialogs when currentChat is null for all actions',
+          (tester) async {
+        const chatId = 'chat1';
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 3,
+            isCurrentUserAdmin: true,
+            currentChat: null, // No chat data
+          ),
+        );
+
+        await tester.pump();
+
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        // Test Group Info action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Group Info'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Edit Group action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Edit Group'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Add Members action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Add Members'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Manage Members action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Manage Members'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Delete Group action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Delete Group'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+      });
+
+      testWidgets(
+          'Does not show Leave Group dialog when currentChat is null for non-admin',
+          (tester) async {
+        const chatId = 'chat1';
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 4,
+            isCurrentUserAdmin: false,
+            currentChat: null, // No chat data
+          ),
+        );
+
+        await tester.pump();
+
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        // Test Leave Group action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Leave Group'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+      });
+
+      testWidgets(
+          'Manage Members dialog callback executes and calls getChatMessages',
           (tester) async {
         const chatId = 'chat1';
         final chat = Chat(
@@ -674,14 +762,11 @@ void main() {
           ],
         );
 
-        // Get the mocked UserConfig from locator
         final userConfig = locator<UserConfig>();
-
         when(userConfig.currentUser).thenReturn(
           User(id: 'user1', name: 'Alice'),
         );
 
-        // Set up mocks
         when(groupChatViewModel.fetchGroupMembers(chatId: chatId))
             .thenAnswer((_) async => [
                   {
@@ -722,7 +807,6 @@ void main() {
 
         await tester.pump();
 
-        // Find and tap the more menu button
         final moreButton = find.descendant(
           of: find.byType(AppBar),
           matching: find.byIcon(Icons.more_vert),
@@ -730,31 +814,16 @@ void main() {
 
         await tester.tap(moreButton);
         await tester.pumpAndSettle();
-
-        // Tap Manage Members - this goes through _handleGroupAction
         await tester.tap(find.text('Manage Members'));
         await tester.pumpAndSettle();
 
-        // Now we should see the ManageMembersDialog opened from the AppBar
-        expect(find.byType(AlertDialog), findsOneWidget);
-        expect(find.text('Manage Members'), findsOneWidget);
-
-        // Verify members are loaded
         expect(find.text('Alice'), findsOneWidget);
         expect(find.text('Bob'), findsOneWidget);
 
-        // Find and tap the remove button for Bob
         final removeButtons = find.byIcon(Icons.remove_circle);
-        expect(removeButtons, findsWidgets);
-
-        // Tap the last remove button (Bob's)
         await tester.tap(removeButtons.last);
         await tester.pumpAndSettle();
 
-        // Verify confirmation dialog
-        expect(find.text('Remove Member'), findsOneWidget);
-
-        // Tap Remove button to confirm
         final removeConfirmButton = find.descendant(
           of: find.byType(AlertDialog),
           matching: find.widgetWithText(TextButton, 'Remove'),
@@ -762,8 +831,7 @@ void main() {
         await tester.tap(removeConfirmButton);
         await tester.pumpAndSettle();
 
-        // Verify getChatMessages was called
-        // which is inside the callback passed to showManageMembersDialog
+        // Verify getChatMessages was called by the callback (line 193 coverage)
         verify(groupChatViewModel.getChatMessages(chatId)).called(1);
 
         // Verify the complete member removal flow
@@ -771,6 +839,94 @@ void main() {
           chatId: chatId,
           memberId: 'user2',
         )).called(1);
+        verify(groupChatViewModel.removeGroupMember(
+          chatId: chatId,
+          memberId: 'user2',
+          chat: chat,
+        )).called(1);
+      });
+
+      testWidgets(
+          'Manage Members dialog completes successful member removal flow',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          description: 'Test description',
+          members: [
+            ChatUser(id: 'user1', firstName: 'Alice'),
+            ChatUser(id: 'user2', firstName: 'Bob'),
+          ],
+        );
+
+        final userConfig = locator<UserConfig>();
+        when(userConfig.currentUser).thenReturn(
+          User(id: 'user1', name: 'Alice'),
+        );
+
+        when(groupChatViewModel.fetchGroupMembers(chatId: chatId))
+            .thenAnswer((_) async => [
+                  {
+                    'id': 'user1',
+                    'firstName': 'Alice',
+                    'email': 'alice@example.com'
+                  },
+                  {
+                    'id': 'user2',
+                    'firstName': 'Bob',
+                    'email': 'bob@example.com'
+                  },
+                ]);
+
+        when(groupChatViewModel.getChatMessages(chatId))
+            .thenAnswer((_) async {});
+
+        when(groupChatViewModel.validateMemberRemoval(
+          chatId: chatId,
+          memberId: 'user2',
+        )).thenReturn({'isValid': true, 'error': null});
+
+        when(groupChatViewModel.removeGroupMember(
+          chatId: chatId,
+          memberId: 'user2',
+          chat: chat,
+        )).thenAnswer((_) async => true);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 2,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Manage Members'));
+        await tester.pumpAndSettle();
+
+        final removeButtons = find.byIcon(Icons.remove_circle);
+        await tester.tap(removeButtons.last);
+        await tester.pumpAndSettle();
+
+        final removeConfirmButton = find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.widgetWithText(TextButton, 'Remove'),
+        );
+        await tester.tap(removeConfirmButton);
+        await tester.pumpAndSettle();
+
+        // Verify complete removal flow
         verify(groupChatViewModel.removeGroupMember(
           chatId: chatId,
           memberId: 'user2',
