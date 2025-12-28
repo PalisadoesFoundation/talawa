@@ -6,9 +6,11 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_user.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_app_bar.dart';
@@ -656,6 +658,125 @@ void main() {
 
         // No dialog should be shown since currentChat is null
         expect(find.byType(AlertDialog), findsNothing);
+      });
+
+      testWidgets(
+          'Manage Members action opens dialog with callback that calls getChatMessages',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          description: 'Test description',
+          members: [
+            ChatUser(id: 'user1', firstName: 'Alice'),
+            ChatUser(id: 'user2', firstName: 'Bob'),
+          ],
+        );
+
+        // Get the mocked UserConfig from locator
+        final userConfig = locator<UserConfig>();
+
+        when(userConfig.currentUser).thenReturn(
+          User(id: 'user1', name: 'Alice'),
+        );
+
+        // Set up mocks
+        when(groupChatViewModel.fetchGroupMembers(
+          chatId: chatId,
+          limit: 32,
+        )).thenAnswer((_) async => [
+              {
+                'id': 'user1',
+                'firstName': 'Alice',
+                'email': 'alice@example.com'
+              },
+              {'id': 'user2', 'firstName': 'Bob', 'email': 'bob@example.com'},
+            ]);
+
+        when(groupChatViewModel.getChatMessages(chatId))
+            .thenAnswer((_) async {});
+
+        when(groupChatViewModel.validateMemberRemoval(
+          chatId: chatId,
+          memberId: 'user2',
+        )).thenReturn({'isValid': true, 'error': null});
+
+        when(groupChatViewModel.removeGroupMember(
+          chatId: chatId,
+          memberId: 'user2',
+          chat: chat,
+        )).thenAnswer((_) async => true);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            theme: TalawaTheme.darkTheme,
+            home: Scaffold(
+              appBar: GroupChatAppBar(
+                chatId: chatId,
+                model: groupChatViewModel,
+                groupChatName: 'Test Group',
+                memberCount: 2,
+                isCurrentUserAdmin: true,
+                currentChat: chat,
+              ),
+              body: const Center(child: Text('Test Body')),
+            ),
+            onGenerateRoute: router.generateRoute,
+          ),
+        );
+
+        await tester.pump();
+
+        // Find and tap the more menu button
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+
+        // Tap Manage Members - this goes through _handleGroupAction
+        await tester.tap(find.text('Manage Members'));
+        await tester.pumpAndSettle();
+
+        // Now we should see the ManageMembersDialog opened from the AppBar
+        expect(find.byType(AlertDialog), findsOneWidget);
+        expect(find.text('Manage Members'), findsOneWidget);
+
+        // Verify members are loaded
+        expect(find.text('Alice'), findsOneWidget);
+        expect(find.text('Bob'), findsOneWidget);
+
+        // Find and tap the remove button for Bob
+        final removeButtons = find.byIcon(Icons.remove_circle);
+        expect(removeButtons, findsWidgets);
+
+        // Tap the last remove button (Bob's)
+        await tester.tap(removeButtons.last);
+        await tester.pumpAndSettle();
+
+        // Verify confirmation dialog
+        expect(find.text('Remove Member'), findsOneWidget);
+
+        // Tap Remove button to confirm
+        final removeConfirmButton = find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.widgetWithText(TextButton, 'Remove'),
+        );
+        await tester.tap(removeConfirmButton);
+        await tester.pumpAndSettle();
+
+        // Verify getChatMessages was called
+        // which is inside the callback passed to showManageMembersDialog
+        verify(groupChatViewModel.getChatMessages(chatId)).called(1);
       });
     });
 
