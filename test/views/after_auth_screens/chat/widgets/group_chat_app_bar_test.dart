@@ -682,17 +682,19 @@ void main() {
         );
 
         // Set up mocks
-        when(groupChatViewModel.fetchGroupMembers(
-          chatId: chatId,
-          limit: 32,
-        )).thenAnswer((_) async => [
-              {
-                'id': 'user1',
-                'firstName': 'Alice',
-                'email': 'alice@example.com'
-              },
-              {'id': 'user2', 'firstName': 'Bob', 'email': 'bob@example.com'},
-            ]);
+        when(groupChatViewModel.fetchGroupMembers(chatId: chatId))
+            .thenAnswer((_) async => [
+                  {
+                    'id': 'user1',
+                    'firstName': 'Alice',
+                    'email': 'alice@example.com'
+                  },
+                  {
+                    'id': 'user2',
+                    'firstName': 'Bob',
+                    'email': 'bob@example.com'
+                  },
+                ]);
 
         when(groupChatViewModel.getChatMessages(chatId))
             .thenAnswer((_) async {});
@@ -709,26 +711,12 @@ void main() {
         )).thenAnswer((_) async => true);
 
         await tester.pumpWidget(
-          MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            theme: TalawaTheme.darkTheme,
-            home: Scaffold(
-              appBar: GroupChatAppBar(
-                chatId: chatId,
-                model: groupChatViewModel,
-                groupChatName: 'Test Group',
-                memberCount: 2,
-                isCurrentUserAdmin: true,
-                currentChat: chat,
-              ),
-              body: const Center(child: Text('Test Body')),
-            ),
-            onGenerateRoute: router.generateRoute,
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 2,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
           ),
         );
 
@@ -777,6 +765,17 @@ void main() {
         // Verify getChatMessages was called
         // which is inside the callback passed to showManageMembersDialog
         verify(groupChatViewModel.getChatMessages(chatId)).called(1);
+
+        // Verify the complete member removal flow
+        verify(groupChatViewModel.validateMemberRemoval(
+          chatId: chatId,
+          memberId: 'user2',
+        )).called(1);
+        verify(groupChatViewModel.removeGroupMember(
+          chatId: chatId,
+          memberId: 'user2',
+          chat: chat,
+        )).called(1);
       });
     });
 
