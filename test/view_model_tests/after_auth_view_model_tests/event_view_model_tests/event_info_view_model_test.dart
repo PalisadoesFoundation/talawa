@@ -49,7 +49,13 @@ void main() {
 
       when(eventService.registerForAnEvent(model.event.id!))
           .thenAnswer((realInvocation) async {
-        return "Event Registered";
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'registerForEvent': {'id': model.event.id}
+          },
+          options: QueryOptions(document: gql('')),
+        );
       });
       await model.registerForEvent();
 
@@ -231,8 +237,13 @@ void main() {
       ]);
 
       when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
-          .thenAnswer((_) async => true);
-
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'removeAgendaItem': {'id': '1'}
+                },
+                options: QueryOptions(document: gql('')),
+              ));
       await model.deleteAgendaItem('1');
 
       expect(model.agendaItems.length, 1);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
@@ -87,7 +86,7 @@ class EventInfoViewModel extends BaseModel {
       // use `registerForAnEvent` function provided by `EventService` service.
       final registerResult =
           await eventService.registerForAnEvent(event.id ?? '');
-      if (registerResult != null) {
+      if (!registerResult.hasException) {
         event.isRegistered = true;
         final userConfig = locator<UserConfig>();
         attendees.add(
@@ -145,10 +144,17 @@ class EventInfoViewModel extends BaseModel {
 
       final result = await eventService.createVolunteerGroup(variables);
 
-      if (result is! QueryResult ||
-          result.data == null ||
+      if (result.hasException) {
+        debugPrint(
+          'Error creating volunteer group: ${result.exception?.graphqlErrors}',
+        );
+        return null;
+      }
+
+      if (result.data == null ||
           result.data!['createEventVolunteerGroup'] == null) {
-        throw Exception('Failed to create volunteer group or no data returned');
+        debugPrint('Failed to create volunteer group or no data returned');
+        return null;
       }
 
       final data = result.data!['createEventVolunteerGroup'];
@@ -197,7 +203,14 @@ class EventInfoViewModel extends BaseModel {
       final result =
           await eventService.fetchAgendaCategories(userConfig.currentOrg.id!);
 
-      if (result is! QueryResult || result.data == null) return;
+      if (result.hasException) {
+        debugPrint(
+          'Error fetching categories: ${result.exception?.graphqlErrors}',
+        );
+        return;
+      }
+
+      if (result.data == null) return;
 
       final List categoryJson =
           result.data!['agendaItemCategoriesByOrganization'] as List;
@@ -276,10 +289,16 @@ class EventInfoViewModel extends BaseModel {
       };
       final result = await eventService.createAgendaItem(variables);
 
-      if (result is! QueryResult ||
-          result.data == null ||
-          result.data!['createAgendaItem'] == null) {
-        throw Exception('Failed to create agenda item or no data returned');
+      if (result.hasException) {
+        debugPrint(
+          'Error creating agenda item: ${result.exception?.graphqlErrors}',
+        );
+        return null;
+      }
+
+      if (result.data == null || result.data!['createAgendaItem'] == null) {
+        debugPrint('Failed to create agenda item or no data returned');
+        return null;
       }
 
       final data = result.data!['createAgendaItem'];
@@ -309,7 +328,16 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> deleteAgendaItem(String id) async {
     try {
-      await eventService.deleteAgendaItem({"removeAgendaItemId": id});
+      final result =
+          await eventService.deleteAgendaItem({"removeAgendaItemId": id});
+
+      if (result.hasException) {
+        debugPrint(
+          'Error deleting agenda item: ${result.exception?.graphqlErrors}',
+        );
+        return;
+      }
+
       _agendaItems.removeWhere((item) => item.id == id);
       notifyListeners();
     } catch (e) {
@@ -332,10 +360,16 @@ class EventInfoViewModel extends BaseModel {
         {'sequence': newSequence},
       );
 
-      if (result is! QueryResult ||
-          result.data == null ||
-          result.data!['updateAgendaItem'] == null) {
-        throw Exception('Failed to update agenda item sequence');
+      if (result.hasException) {
+        debugPrint(
+          'Error updating agenda item: ${result.exception?.graphqlErrors}',
+        );
+        return;
+      }
+
+      if (result.data == null || result.data!['updateAgendaItem'] == null) {
+        debugPrint('Failed to update agenda item sequence');
+        return;
       }
 
       final updatedItem = EventAgendaItem.fromJson(

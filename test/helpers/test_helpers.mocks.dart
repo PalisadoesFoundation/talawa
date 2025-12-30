@@ -1844,82 +1844,184 @@ class MockEventService extends _i2.Mock implements _i16.EventService {
       ) as _i9.Future<void>);
 
   @override
-  _i9.Future<dynamic> fetchAttendeesByEvent(String? eventId) =>
+  _i9.Future<_i3.QueryResult<Object?>> fetchAttendeesByEvent(String? eventId) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchAttendeesByEvent,
           [eventId],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #fetchAttendeesByEvent,
+            [eventId],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #fetchAttendeesByEvent,
+            [eventId],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> registerForAnEvent(String? eventId) =>
+  _i9.Future<_i3.QueryResult<Object?>> registerForAnEvent(String? eventId) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerForAnEvent,
           [eventId],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #registerForAnEvent,
+            [eventId],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #registerForAnEvent,
+            [eventId],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> createVolunteerGroup(Map<String, dynamic>? variables) =>
+  _i9.Future<_i3.QueryResult<Object?>> createVolunteerGroup(
+          Map<String, dynamic>? variables) =>
       (super.noSuchMethod(
         Invocation.method(
           #createVolunteerGroup,
           [variables],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #createVolunteerGroup,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #createVolunteerGroup,
+            [variables],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> removeVolunteerGroup(Map<String, dynamic>? variables) =>
+  _i9.Future<_i3.QueryResult<Object?>> removeVolunteerGroup(
+          Map<String, dynamic>? variables) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeVolunteerGroup,
           [variables],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #removeVolunteerGroup,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #removeVolunteerGroup,
+            [variables],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> addVolunteerToGroup(Map<String, dynamic>? variables) =>
+  _i9.Future<_i3.QueryResult<Object?>> addVolunteerToGroup(
+          Map<String, dynamic>? variables) =>
       (super.noSuchMethod(
         Invocation.method(
           #addVolunteerToGroup,
           [variables],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #addVolunteerToGroup,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #addVolunteerToGroup,
+            [variables],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> removeVolunteerFromGroup(
+  _i9.Future<_i3.QueryResult<Object?>> removeVolunteerFromGroup(
           Map<String, dynamic>? variables) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeVolunteerFromGroup,
           [variables],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #removeVolunteerFromGroup,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #removeVolunteerFromGroup,
+            [variables],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> updateVolunteerGroup(Map<String, dynamic>? variables) =>
+  _i9.Future<_i3.QueryResult<Object?>> updateVolunteerGroup(
+          Map<String, dynamic>? variables) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateVolunteerGroup,
           [variables],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #updateVolunteerGroup,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #updateVolunteerGroup,
+            [variables],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
   _i9.Future<List<_i30.EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
@@ -1937,40 +2039,84 @@ class MockEventService extends _i2.Mock implements _i16.EventService {
       ) as _i9.Future<List<_i30.EventVolunteerGroup>>);
 
   @override
-  _i9.Future<dynamic> fetchAgendaCategories(String? orgId) =>
+  _i9.Future<_i3.QueryResult<Object?>> fetchAgendaCategories(String? orgId) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchAgendaCategories,
           [orgId],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #fetchAgendaCategories,
+            [orgId],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #fetchAgendaCategories,
+            [orgId],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> createAgendaItem(Map<String, dynamic>? variables) =>
+  _i9.Future<_i3.QueryResult<Object?>> createAgendaItem(
+          Map<String, dynamic>? variables) =>
       (super.noSuchMethod(
         Invocation.method(
           #createAgendaItem,
           [variables],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #createAgendaItem,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #createAgendaItem,
+            [variables],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> deleteAgendaItem(Map<String, dynamic>? variables) =>
+  _i9.Future<_i3.QueryResult<Object?>> deleteAgendaItem(
+          Map<String, dynamic>? variables) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteAgendaItem,
           [variables],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #deleteAgendaItem,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #deleteAgendaItem,
+            [variables],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> updateAgendaItem(
+  _i9.Future<_i3.QueryResult<Object?>> updateAgendaItem(
     String? itemId,
     Map<String, dynamic>? variables,
   ) =>
@@ -1982,19 +2128,54 @@ class MockEventService extends _i2.Mock implements _i16.EventService {
             variables,
           ],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #updateAgendaItem,
+            [
+              itemId,
+              variables,
+            ],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #updateAgendaItem,
+            [
+              itemId,
+              variables,
+            ],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i9.Future<dynamic> fetchAgendaItems(String? eventId) => (super.noSuchMethod(
+  _i9.Future<_i3.QueryResult<Object?>> fetchAgendaItems(String? eventId) =>
+      (super.noSuchMethod(
         Invocation.method(
           #fetchAgendaItems,
           [eventId],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-        returnValueForMissingStub: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #fetchAgendaItems,
+            [eventId],
+          ),
+        )),
+        returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #fetchAgendaItems,
+            [eventId],
+          ),
+        )),
+      ) as _i9.Future<_i3.QueryResult<Object?>>);
 
   @override
   void dispose() => super.noSuchMethod(

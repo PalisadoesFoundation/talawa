@@ -1,4 +1,3 @@
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -100,8 +99,8 @@ class ManageVolunteerGroupViewModel extends BaseModel {
         'userId': volunteerId,
         'groupId': groupId,
       };
-      final result = await locator<EventService>()
-          .addVolunteerToGroup(variables) as QueryResult;
+      final result =
+          await locator<EventService>().addVolunteerToGroup(variables);
       final data = result.data;
       if (data == null || data['createEventVolunteer'] == null) {
         return;
@@ -128,8 +127,8 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       final variables = {
         'id': groupId,
       };
-      final result = await locator<EventService>()
-          .removeVolunteerGroup(variables) as QueryResult;
+      final result =
+          await locator<EventService>().removeVolunteerGroup(variables);
       final data = result.data;
 
       if (data != null && data['removeEventVolunteerGroup'] != null) {
@@ -152,8 +151,8 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       final variables = {
         'id': volunteerId,
       };
-      final result = await locator<EventService>()
-          .removeVolunteerFromGroup(variables) as QueryResult;
+      final result =
+          await locator<EventService>().removeVolunteerFromGroup(variables);
       final data = result.data;
 
       if (data != null && data['removeEventVolunteer'] != null) {
@@ -194,8 +193,8 @@ class ManageVolunteerGroupViewModel extends BaseModel {
     };
 
     try {
-      final result = await locator<EventService>()
-          .updateVolunteerGroup(variables) as QueryResult;
+      final result =
+          await locator<EventService>().updateVolunteerGroup(variables);
 
       if (result.data != null) {
         group.name = name;

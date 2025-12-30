@@ -242,7 +242,13 @@ void main() {
       ];
 
       when(eventService.deleteAgendaItem({"removeAgendaItemId": "1"}))
-          .thenAnswer((_) async => true);
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'removeAgendaItem': {'id': '1'}
+                },
+                options: QueryOptions(document: gql('')),
+              ));
 
       await tester
           .pumpWidget(createManageAgendaScreen('1', agendaItems: agendaItems));
@@ -295,9 +301,14 @@ void main() {
         ),
       ];
 
-      when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
-          .thenAnswer((_) async => true);
-
+      when(eventService.deleteAgendaItem({"removeAgendaItemId": "1"}))
+          .thenAnswer((_) async => QueryResult(
+                source: QueryResultSource.network,
+                data: {
+                  'removeAgendaItem': {'id': '1'}
+                },
+                options: QueryOptions(document: gql('')),
+              ));
       await tester
           .pumpWidget(createManageAgendaScreen('1', agendaItems: agendaItems));
       await tester.pumpAndSettle();
