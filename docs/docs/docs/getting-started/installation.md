@@ -9,6 +9,11 @@ We recommend that you follow these steps before beginning development work on th
 
 ## Prerequisites
 
+
+**Important:**
+Talawa now requires Dart SDK version `>=3.0.0 <4.0.0`. Please ensure your Flutter/Dart environment matches this requirement.
+Some dependencies are overridden in `pubspec.yaml` to ensure compatibility. See that file for details.
+
 You must install the following applications beforehand on your system for best results. 
 
 1. [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api): The API system that the mobile app uses for accessing data.
