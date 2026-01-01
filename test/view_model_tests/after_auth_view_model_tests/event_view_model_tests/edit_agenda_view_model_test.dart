@@ -114,5 +114,36 @@ void main() {
         }),
       ).called(1);
     });
+
+    testWidgets('updateAgendaItem handles hasException gracefully',
+        (WidgetTester tester) async {
+      model.initialize(testAgendaItem, testCategories);
+      model.titleController.text = 'Updated Title';
+
+      when(
+        eventService.updateAgendaItem('1', {
+          'title': 'Updated Title',
+          'description': 'Test Description',
+          'duration': '60',
+          'attachments': ['base64image1'],
+          'urls': ['https://example.com'],
+          'categories': ['cat1'],
+        }),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(
+            graphqlErrors: [const GraphQLError(message: 'Test error')],
+          ),
+        ),
+      );
+
+      // Should not throw, just handle the exception gracefully
+      await model.updateAgendaItem();
+
+      // Method should complete without throwing
+      // The hasException path is taken but handled gracefully
+    });
   });
 }

@@ -318,5 +318,151 @@ void main() {
       expect(model.categories[0].name, 'Category 1');
       expect(model.categories[1].name, 'Category 2');
     });
+
+    // hasException tests for 100% patch coverage
+    test('createVolunteerGroup returns null when hasException', () async {
+      final model = EventInfoViewModel();
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      when(
+        eventService.createVolunteerGroup({
+          'eventId': "1",
+          'name': 'Group 1',
+          'volunteersRequired': 10,
+        }),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(
+            graphqlErrors: [const GraphQLError(message: 'Test error')],
+          ),
+        ),
+      );
+
+      final result = await model.createVolunteerGroup(event1, 'Group 1', 10);
+
+      expect(result, isNull);
+    });
+
+    test('fetchCategories handles hasException gracefully', () async {
+      final model = EventInfoViewModel();
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+      model.categories.clear();
+
+      when(eventService.fetchAgendaCategories("XYZ")).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(
+            graphqlErrors: [const GraphQLError(message: 'Test error')],
+          ),
+        ),
+      );
+
+      await model.fetchCategories();
+
+      expect(model.categories.length, 0);
+    });
+
+    test('createAgendaItem returns null when hasException', () async {
+      final model = EventInfoViewModel();
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      when(
+        eventService.createAgendaItem({
+          'title': 'Test Agenda',
+          'sequence': 1,
+          'description': 'desc',
+          'duration': '1h',
+          'organizationId': 'XYZ',
+          'attachments': <String>[],
+          'relatedEventId': model.event.id,
+          'urls': <String>[],
+          'categories': ['cat1'],
+        }),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(
+            graphqlErrors: [const GraphQLError(message: 'Test error')],
+          ),
+        ),
+      );
+
+      final result = await model.createAgendaItem(
+        title: 'Test Agenda',
+        duration: '1h',
+        attachments: [],
+        categories: ['cat1'],
+        description: 'desc',
+        sequence: 1,
+        urls: [],
+      );
+
+      expect(result, isNull);
+    });
+
+    test('deleteAgendaItem handles hasException gracefully', () async {
+      final model = EventInfoViewModel();
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', name: 'Item 1'),
+        EventAgendaItem(id: '2', name: 'Item 2'),
+      ]);
+
+      when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
+          .thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(
+            graphqlErrors: [const GraphQLError(message: 'Test error')],
+          ),
+        ),
+      );
+
+      await model.deleteAgendaItem('1');
+
+      // Items should not be removed when there's an exception
+      expect(model.agendaItems.length, 2);
+    });
+
+    test('updateAgendaItemSequence handles hasException gracefully', () async {
+      final model = EventInfoViewModel();
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', name: 'Item 1', sequence: 1),
+        EventAgendaItem(id: '2', name: 'Item 2', sequence: 2),
+      ]);
+
+      when(
+        eventService.updateAgendaItem(
+          '1',
+          {'sequence': 2},
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          exception: OperationException(
+            graphqlErrors: [const GraphQLError(message: 'Test error')],
+          ),
+        ),
+      );
+
+      await model.updateAgendaItemSequence('1', 2);
+
+      // Sequence should not be updated when there's an exception
+      expect(model.agendaItems.first.sequence, 1);
+    });
   });
 }
