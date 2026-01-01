@@ -71,7 +71,11 @@ Widget volunteerGroupsScreen() {
       return BaseView<EventInfoViewModel>(
         onModelReady: (model) {
           model.initialize(
-            getTestEvent(),
+            getTestEvent(
+              isPublic: isPublic,
+              viewOnMap: viewOnMap,
+              asAdmin: asAdmin,
+            ),
           );
         },
         builder: (context, model, child) {
