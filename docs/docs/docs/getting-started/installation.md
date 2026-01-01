@@ -9,7 +9,6 @@ We recommend that you follow these steps before beginning development work on th
 
 ## Prerequisites
 
-
 **Important:**
 Talawa now requires Dart SDK version `>=3.0.0 <4.0.0`. Please ensure your Flutter/Dart environment matches this requirement.
 Some dependencies are overridden in `pubspec.yaml` to ensure compatibility. See that file for details.
@@ -91,8 +90,8 @@ We have tried to make the process simple. Here's what you need to do.
    1. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
       1. Install FVM using the instructions on the FVM website
         - https://fvm.app
-      2. Ensure you are using Flutter version `3.32.8` 
-        - `fvm use 3.32.8`
+      2. Ensure you are using Flutter version `3.22.0` or higher (required for Dart SDK >=3.0.0)
+        - `fvm use 3.22.0`
    2. Install packages.
       ```bash
       $ cd talawa_lint
