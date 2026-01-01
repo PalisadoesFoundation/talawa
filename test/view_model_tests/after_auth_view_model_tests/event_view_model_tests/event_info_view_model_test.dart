@@ -464,5 +464,73 @@ void main() {
       // Sequence should not be updated when there's an exception
       expect(model.agendaItems.first.sequence, 1);
     });
+
+    // Data null tests for 100% patch coverage
+    test('createAgendaItem returns null when data is null', () async {
+      final model = EventInfoViewModel();
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      when(
+        eventService.createAgendaItem({
+          'title': 'Test Agenda',
+          'sequence': 1,
+          'description': 'desc',
+          'duration': '1h',
+          'organizationId': 'XYZ',
+          'attachments': <String>[],
+          'relatedEventId': model.event.id,
+          'urls': <String>[],
+          'categories': ['cat1'],
+        }),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          data: null,
+        ),
+      );
+
+      final result = await model.createAgendaItem(
+        title: 'Test Agenda',
+        duration: '1h',
+        attachments: [],
+        categories: ['cat1'],
+        description: 'desc',
+        sequence: 1,
+        urls: [],
+      );
+
+      expect(result, isNull);
+    });
+
+    test('updateAgendaItemSequence handles null data gracefully', () async {
+      final model = EventInfoViewModel();
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', name: 'Item 1', sequence: 1),
+        EventAgendaItem(id: '2', name: 'Item 2', sequence: 2),
+      ]);
+
+      when(
+        eventService.updateAgendaItem(
+          '1',
+          {'sequence': 2},
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          data: null,
+        ),
+      );
+
+      await model.updateAgendaItemSequence('1', 2);
+
+      // Sequence should not be updated when data is null
+      expect(model.agendaItems.first.sequence, 1);
+    });
   });
 }

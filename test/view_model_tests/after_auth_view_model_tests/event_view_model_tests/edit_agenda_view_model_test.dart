@@ -26,9 +26,18 @@ void main() {
     AgendaCategory(id: 'cat2', name: 'Category 2'),
   ];
 
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+  });
+
   setUp(() {
     registerServices();
     model = EditAgendaItemViewModel();
+  });
+
+  tearDown(() {
+    unregisterServices();
   });
 
   group('EditAgendaItemViewModel Tests -', () {
@@ -82,20 +91,29 @@ void main() {
       expect(model.checkForChanges(), true);
     });
 
-    testWidgets('updateAgendaItem() calls event service with correct data',
-        (WidgetTester tester) async {
+    test('updateAgendaItem() success updates local state', () async {
       model.initialize(testAgendaItem, testCategories);
       model.titleController.text = 'Updated Title';
 
       when(
         eventService.updateAgendaItem('1', {
-          'title': model.titleController.text,
+          'title': 'Updated Title',
+          'description': 'Test Description',
+          'duration': '60',
+          'attachments': ['base64image1'],
+          'urls': ['https://example.com'],
+          'categories': ['cat1'],
         }),
       ).thenAnswer(
         (_) async => QueryResult(
           source: QueryResultSource.network,
           data: {
-            'updateAgendaItem': {'id': '1'},
+            'updateAgendaItem': {
+              '_id': '1',
+              'name': 'Updated Title',
+              'description': 'Test Description',
+              'duration': '60',
+            },
           },
           options: QueryOptions(document: gql('')),
         ),
@@ -115,8 +133,7 @@ void main() {
       ).called(1);
     });
 
-    testWidgets('updateAgendaItem handles hasException gracefully',
-        (WidgetTester tester) async {
+    test('updateAgendaItem() handles hasException gracefully', () async {
       model.initialize(testAgendaItem, testCategories);
       model.titleController.text = 'Updated Title';
 
@@ -143,7 +160,61 @@ void main() {
       await model.updateAgendaItem();
 
       // Method should complete without throwing
-      // The hasException path is taken but handled gracefully
+    });
+
+    test('updateAgendaItem() handles null data gracefully', () async {
+      model.initialize(testAgendaItem, testCategories);
+      model.titleController.text = 'Updated Title';
+
+      when(
+        eventService.updateAgendaItem('1', {
+          'title': 'Updated Title',
+          'description': 'Test Description',
+          'duration': '60',
+          'attachments': ['base64image1'],
+          'urls': ['https://example.com'],
+          'categories': ['cat1'],
+        }),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          data: null,
+        ),
+      );
+
+      // Should not throw, just handle the null data gracefully
+      await model.updateAgendaItem();
+
+      // Method should complete without throwing
+    });
+
+    test('updateAgendaItem() handles null updateAgendaItem in response',
+        () async {
+      model.initialize(testAgendaItem, testCategories);
+      model.titleController.text = 'Updated Title';
+
+      when(
+        eventService.updateAgendaItem('1', {
+          'title': 'Updated Title',
+          'description': 'Test Description',
+          'duration': '60',
+          'attachments': ['base64image1'],
+          'urls': ['https://example.com'],
+          'categories': ['cat1'],
+        }),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+          data: {'updateAgendaItem': null},
+        ),
+      );
+
+      // Should not throw, just handle the null response gracefully
+      await model.updateAgendaItem();
+
+      // Method should complete without throwing
     });
   });
 }
