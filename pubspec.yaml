@@ -119,7 +119,7 @@ flutter:
           weight: 800
 
 dependency_overrides:
-  analyzer: 6.4.1  # Pin for talawa_lint analyzer 6.x API compatibility; remove when talawa_lint/analyzer can move to 7+
+  analyzer: ">=6.4.0 <7.0.0"  # Pin for talawa_lint analyzer 6.x API compatibility; remove when talawa_lint/analyzer can move to 7+
   custom_lint: 0.6.4  # Pin to keep workspace on the same custom_lint as talawa_lint; upgrade to 0.8.x after plugin update
   custom_lint_builder: 0.6.4  # Match custom_lint version for plugin build tooling; remove after coordinated upgrade
   rxdart: 0.27.7  # Transitive via graphql_flutter/gql; pinned for deterministic resolution. Re-evaluate after graphql stack upgrade
