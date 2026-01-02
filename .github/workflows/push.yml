@@ -261,8 +261,14 @@ jobs:
           DOCS_BRANCH="docs/auto-update-${SAFE_REF_NAME}"
           
           # Checkout new branch (orphaned or based on current doesn't strictly matter for docs, 
-          # but basing on current ensures history continuity if merged)
-          git checkout -b $DOCS_BRANCH 2>/dev/null || git checkout $DOCS_BRANCH
+          # fetch remote branch if it exists to ensure local state matches remote for force-with-lease
+          if git fetch --no-tags origin "$DOCS_BRANCH"; then
+            echo "Branch $DOCS_BRANCH exists on remote. Checking it out."
+            git checkout -B "$DOCS_BRANCH" "origin/$DOCS_BRANCH"
+          else
+            echo "Branch $DOCS_BRANCH does not exist on remote. Creating new branch."
+            git checkout -b "$DOCS_BRANCH"
+          fi
           
           # Stage generated documentation files
           git add -A docs/docs/auto-docs
