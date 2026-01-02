@@ -95,6 +95,12 @@ void main() {
       model.initialize(testAgendaItem, testCategories);
       model.titleController.text = 'Updated Title';
 
+      // Track if notifyListeners was called
+      var listenerCalled = false;
+      model.addListener(() {
+        listenerCalled = true;
+      });
+
       when(
         eventService.updateAgendaItem('1', {
           'title': 'Updated Title',
@@ -111,8 +117,8 @@ void main() {
             'updateAgendaItem': {
               '_id': '1',
               'name': 'Updated Title',
-              'description': 'Test Description',
-              'duration': '60',
+              'description': 'Updated Description',
+              'duration': '90',
             },
           },
           options: QueryOptions(document: gql('')),
@@ -121,6 +127,7 @@ void main() {
 
       await model.updateAgendaItem();
 
+      // Verify service was called
       verify(
         eventService.updateAgendaItem('1', {
           'title': 'Updated Title',
@@ -131,11 +138,20 @@ void main() {
           'categories': ['cat1'],
         }),
       ).called(1);
+
+      // Verify notifyListeners was called
+      expect(listenerCalled, true);
     });
 
     test('updateAgendaItem() handles hasException gracefully', () async {
       model.initialize(testAgendaItem, testCategories);
       model.titleController.text = 'Updated Title';
+
+      // Track if notifyListeners was called (should not be called on error)
+      var listenerCalled = false;
+      model.addListener(() {
+        listenerCalled = true;
+      });
 
       when(
         eventService.updateAgendaItem('1', {
@@ -159,12 +175,19 @@ void main() {
       // Should not throw, just handle the exception gracefully
       await model.updateAgendaItem();
 
-      // Verify the hasException path was taken (debugPrint called)
+      // Verify state was not modified on error
+      expect(listenerCalled, false);
     });
 
     test('updateAgendaItem() handles null data gracefully', () async {
       model.initialize(testAgendaItem, testCategories);
       model.titleController.text = 'Updated Title';
+
+      // Track if notifyListeners was called (should not be called on null data)
+      var listenerCalled = false;
+      model.addListener(() {
+        listenerCalled = true;
+      });
 
       when(
         eventService.updateAgendaItem('1', {
@@ -186,13 +209,20 @@ void main() {
       // Should not throw, just handle the null data gracefully
       await model.updateAgendaItem();
 
-      // Method should complete without throwing
+      // Verify state was not modified on null data
+      expect(listenerCalled, false);
     });
 
     test('updateAgendaItem() handles null updateAgendaItem in response',
         () async {
       model.initialize(testAgendaItem, testCategories);
       model.titleController.text = 'Updated Title';
+
+      // Track if notifyListeners was called (should not be called on null response)
+      var listenerCalled = false;
+      model.addListener(() {
+        listenerCalled = true;
+      });
 
       when(
         eventService.updateAgendaItem('1', {
@@ -214,7 +244,8 @@ void main() {
       // Should not throw, just handle the null response gracefully
       await model.updateAgendaItem();
 
-      // Method should complete without throwing
+      // Verify state was not modified on null response
+      expect(listenerCalled, false);
     });
   });
 }
