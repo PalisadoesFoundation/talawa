@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+set -o pipefail
 
 # Run the Flutter command to generate the docs
 # Determine the flutter command
