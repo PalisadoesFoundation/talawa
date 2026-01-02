@@ -235,6 +235,35 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+      - name: Calculate Docs Branch Name
+        id: branch_name
+        run: |
+          # Use a deterministic branch for doc updates to allow consolidation
+          # Sanitize ref_name to ensure valid branch name:
+          # 1. Lowercase
+          # 2. Replace invalid chars (~^:?*[\]\ ) with -
+          # 3. Collapse multiple - and .
+          # 4. Remove leading/trailing - and .
+          REF_NAME="${{ github.ref_name }}"
+          SAFE_REF_NAME=$(echo "$REF_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]/-/g' | tr -s '-' | tr -s '.' | sed 's/^[-.]*//;s/[-.]*$//')
+          # Fallback to 'detached' if empty
+          SAFE_REF_NAME="${SAFE_REF_NAME:-detached}"
+          
+          DOCS_BRANCH="docs/auto-update-${SAFE_REF_NAME}"
+          echo "DOCS_BRANCH=$DOCS_BRANCH" >> $GITHUB_ENV
+
+      - name: Prepare Docs Branch
+        run: |
+          # Checkout new branch (orphaned or based on current doesn't strictly matter for docs, 
+          # fetch remote branch if it exists to ensure local state matches remote for force-with-lease
+          if git fetch --no-tags origin "$DOCS_BRANCH"; then
+            echo "Branch $DOCS_BRANCH exists on remote. Checking it out."
+            git checkout -B "$DOCS_BRANCH" "origin/$DOCS_BRANCH"
+          else
+            echo "Branch $DOCS_BRANCH does not exist on remote. Creating new branch."
+            git checkout -b "$DOCS_BRANCH"
+          fi
+
       - name: Activate dart_doc_markdown
         run: |
           if ! flutter pub global activate dart_doc_markdown; then
@@ -263,29 +292,6 @@ jobs:
           if [ "$DOC_COUNT" -eq 0 ]; then
             echo "Error: No markdown files generated in docs/docs/auto-docs"
             exit 1
-          fi
-          
-          # Use a deterministic branch for doc updates to allow consolidation
-          # Sanitize ref_name to ensure valid branch name:
-          # 1. Lowercase
-          # 2. Replace invalid chars (~^:?*[\]\ ) with -
-          # 3. Collapse multiple - and .
-          # 4. Remove leading/trailing - and .
-          REF_NAME="${{ github.ref_name }}"
-          SAFE_REF_NAME=$(echo "$REF_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]/-/g' | tr -s '-' | tr -s '.' | sed 's/^[-.]*//;s/[-.]*$//')
-          # Fallback to 'detached' if empty
-          SAFE_REF_NAME="${SAFE_REF_NAME:-detached}"
-          
-          DOCS_BRANCH="docs/auto-update-${SAFE_REF_NAME}"
-          
-          # Checkout new branch (orphaned or based on current doesn't strictly matter for docs, 
-          # fetch remote branch if it exists to ensure local state matches remote for force-with-lease
-          if git fetch --no-tags origin "$DOCS_BRANCH"; then
-            echo "Branch $DOCS_BRANCH exists on remote. Checking it out."
-            git checkout -B "$DOCS_BRANCH" "origin/$DOCS_BRANCH"
-          else
-            echo "Branch $DOCS_BRANCH does not exist on remote. Creating new branch."
-            git checkout -b "$DOCS_BRANCH"
           fi
           
           # Stage generated documentation files
