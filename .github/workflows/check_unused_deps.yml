@@ -1,0 +1,32 @@
+name: Unused Dependency Check
+
+on:
+  pull_request:
+    paths:
+      - 'pubspec.yaml'
+      - 'lib/**'
+      - 'test/**'
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: 3.32.8
+
+jobs:
+  check-unused-dependencies:
+    name: Check Unused Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run dependency validator
+        run: flutter pub run dependency_validator

@@ -1,0 +1,10 @@
+ignore:
+  - build_runner
+  - custom_lint
+  - dependency_validator
+  - hive_generator
+  - json_serializable
+  - mocktail_image_network
+  - talawa_lint
+  - permission_handler
+  - url_launcher_platform_interface
