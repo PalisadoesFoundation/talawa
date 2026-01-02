@@ -1,27 +1,27 @@
 #!/bin/bash
 
 # Run the Flutter command to generate the docs
-echo "Generating Flutter documentation..."
-flutter pub global run dartdoc --output docs/docs/auto-docs lib
+# Determine the flutter command
+if command -v fvm &> /dev/null; then
+    echo "FVM detected, using 'fvm flutter'..."
+    FLUTTER_CMD="fvm flutter"
+else
+    echo "Using standard 'flutter' command..."
+    FLUTTER_CMD="flutter"
+fi
 
-# Convert HTML files to Markdown
-echo "Converting HTML files to Markdown..."
-find docs/docs/auto-docs -type f -name "*.html" | while read file; do
-  output_dir="$(dirname "$file")"
-  mkdir -p "$output_dir"
-
-  # Ensure filename case is preserved
-  filename=$(basename "$file" .html)
-
-  # Convert HTML to Markdown using pandoc
-  pandoc -f html -t markdown -o "$output_dir/$filename.md" "$file"
-
-  # Delete the original HTML file after conversion
-  rm "$file"
-done
+# Run dart_doc_markdown to generate the docs
+echo "Generating documentation using dart_doc_markdown..."
+$FLUTTER_CMD pub global run dart_doc_markdown . docs/docs/auto-docs
 
 # Fix the markdown using the Python scripts
 echo "Fixing markdown..."
-python scripts/docusaurus/fix_markdown.py
+
+# Remove test documentation
+echo "Removing test documentation..."
+find docs/docs/auto-docs -type d -name "*_test" -exec rm -rf {} +
+find docs/docs/auto-docs -type f -name "*_test.md" -delete
+
+python3 scripts/docusaurus/fix_markdown.py
 
 echo "Documentation generation completed."

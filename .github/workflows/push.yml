@@ -92,7 +92,7 @@ jobs:
     name: Testing codebase
     runs-on: ubuntu-latest
     needs: Flutter-Codebase-Check
-    # needs: Update-Documentation
+    needs: Update-Documentation
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -212,3 +212,44 @@ jobs:
           body: |
             This is an automated release, triggered by a recent push. 
             This may or may not be stable, so please have a look at the stable release(s).
+
+  Update-Documentation:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Update Documentation
+    runs-on: ubuntu-latest
+    needs: Flutter-Codebase-Check
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17.0"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Activate dart_doc_markdown
+        run: flutter pub global activate dart_doc_markdown
+      - name: Generate Documentation
+        run: |
+          chmod +x scripts/docusaurus/generate_docs.sh
+          ./scripts/docusaurus/generate_docs.sh
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A docs/docs/auto-docs
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: update automated documentation [skip ci]"
+            git push
+          else
+            echo "No changes to documentation."
+          fi
