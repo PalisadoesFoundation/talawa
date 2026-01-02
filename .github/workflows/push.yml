@@ -255,7 +255,7 @@ jobs:
           # but basing on current ensures history continuity if merged)
           git checkout -b $DOCS_BRANCH 2>/dev/null || git checkout $DOCS_BRANCH
           
-          # Reset to the generated state
+          # Stage generated documentation files
           git add -A docs/docs/auto-docs
           
           if ! git diff --cached --quiet; then
