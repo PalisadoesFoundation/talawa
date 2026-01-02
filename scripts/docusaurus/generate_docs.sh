@@ -39,6 +39,17 @@ else
     echo "Warning: docs/docs/auto-docs directory not found"
 fi
 
-python3 scripts/docusaurus/fix_markdown.py
+FIX_SCRIPT="scripts/docusaurus/fix_markdown.py"
+if [ ! -f "$FIX_SCRIPT" ]; then
+    echo "Error: Python script '$FIX_SCRIPT' not found." >&2
+    exit 1
+fi
+
+python3 "$FIX_SCRIPT"
+FIX_EXIT_CODE=$?
+if [ $FIX_EXIT_CODE -ne 0 ]; then
+    echo "Error: Python script '$FIX_SCRIPT' failed with exit code $FIX_EXIT_CODE" >&2
+    exit $FIX_EXIT_CODE
+fi
 
 echo "Documentation generation completed."
