@@ -32,7 +32,8 @@ echo "Fixing markdown..."
 # Remove test documentation
 echo "Removing test documentation..."
 if [ -d "docs/docs/auto-docs" ]; then
-    find docs/docs/auto-docs -type d -name "*_test" -exec rm -rf {} +
+    # Safe removal using -depth to handle nested structures correctly
+    find docs/docs/auto-docs -depth -type d -name "*_test" -exec rm -rf {} \;
     find docs/docs/auto-docs -type f -name "*_test.md" -delete
 else
     echo "Warning: docs/docs/auto-docs directory not found"
