@@ -242,7 +242,6 @@ jobs:
              exit 1
           fi
       - name: Generate Documentation
-        continue-on-error: true
         run: |
           chmod +x scripts/docusaurus/generate_docs.sh
           ./scripts/docusaurus/generate_docs.sh
