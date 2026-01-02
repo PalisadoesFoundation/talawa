@@ -41,7 +41,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: ^9.2.4
-  flutter_svg: 2.2.3
+  flutter_svg: ^2.2.3
   get_it: ^9.1.1
   graphql_flutter: ^5.2.1
   hive: ^2.2.3
