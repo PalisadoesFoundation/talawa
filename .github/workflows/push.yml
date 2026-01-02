@@ -298,5 +298,5 @@ jobs:
             git push --force-with-lease origin "$DOCS_BRANCH"
             echo "::notice::Documentation updates pushed to branch $DOCS_BRANCH"
           else
-            echo "No changes to documentation."
+            echo "::notice::No changes to documentation."
           fi
