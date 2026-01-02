@@ -446,7 +446,31 @@ jobs:
           source venv/bin/activate
           pydocstyle --convention=google --add-ignore=D415,D205 .github scripts
 
-      - name: Run docstring compliance check
-        run: |
-          source venv/bin/activate
           python .github/workflows/scripts/check_docstrings.py --directories .github scripts
+
+  check-unused-dependencies:
+    name: Check Unused Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-cache-
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run dependency validator
+        run: dart run dependency_validator
