@@ -389,11 +389,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          cache: pnpm
-          cache-dependency-path: |
-            docs/pnpm-lock.yaml
-            docs/package.json
+          node-version: 20
+          cache: 'pnpm'
+          cache-dependency-path: docs/pnpm-lock.yaml
       # Run Docusaurus in the ./docs directory
       - name: Install dependencies
         working-directory: ./docs
