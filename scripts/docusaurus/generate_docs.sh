@@ -13,14 +13,23 @@ fi
 # Run dart_doc_markdown to generate the docs
 echo "Generating documentation using dart_doc_markdown..."
 $FLUTTER_CMD pub global run dart_doc_markdown . docs/docs/auto-docs
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "Error: Command '$FLUTTER_CMD pub global run dart_doc_markdown . docs/docs/auto-docs' failed with exit code $EXIT_CODE" >&2
+    exit $EXIT_CODE
+fi
 
 # Fix the markdown using the Python scripts
 echo "Fixing markdown..."
 
 # Remove test documentation
 echo "Removing test documentation..."
-find docs/docs/auto-docs -type d -name "*_test" -exec rm -rf {} +
-find docs/docs/auto-docs -type f -name "*_test.md" -delete
+if [ -d "docs/docs/auto-docs" ]; then
+    find docs/docs/auto-docs -type d -name "*_test" -exec rm -rf {} +
+    find docs/docs/auto-docs -type f -name "*_test.md" -delete
+else
+    echo "Warning: docs/docs/auto-docs directory not found"
+fi
 
 python3 scripts/docusaurus/fix_markdown.py
 
