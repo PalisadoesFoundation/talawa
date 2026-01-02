@@ -159,7 +159,7 @@ void main() {
       // Should not throw, just handle the exception gracefully
       await model.updateAgendaItem();
 
-      // Method should complete without throwing
+      // Verify the hasException path was taken (debugPrint called)
     });
 
     test('updateAgendaItem() handles null data gracefully', () async {

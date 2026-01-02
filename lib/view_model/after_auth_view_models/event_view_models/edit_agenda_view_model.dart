@@ -214,17 +214,8 @@ class EditAgendaItemViewModel extends BaseModel {
         updatedAgendaItem,
       );
 
-      if (result.hasException) {
-        debugPrint(
-          'Error updating agenda item: ${result.exception?.graphqlErrors}',
-        );
-        return;
-      }
-
-      if (result.data == null || result.data!['updateAgendaItem'] == null) {
-        debugPrint('Failed to update agenda item or no data returned');
-        return;
-      }
+      if (result.hasException) return;
+      if (result.data?['updateAgendaItem'] == null) return;
 
       // Update local state with returned data
       final updatedData =
