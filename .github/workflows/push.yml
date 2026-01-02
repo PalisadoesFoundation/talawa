@@ -261,8 +261,8 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "docs: update automated documentation for ${{ github.ref_name }} [skip ci]"
             
-            # Force push to update the branch pointer, effectively "consolidating" updates
-            git push -f origin $DOCS_BRANCH
+            # Force push with lease to update the branch pointer safely
+            git push --force-with-lease origin $DOCS_BRANCH
             echo "::notice::Documentation updates pushed to branch $DOCS_BRANCH"
           else
             echo "No changes to documentation."
