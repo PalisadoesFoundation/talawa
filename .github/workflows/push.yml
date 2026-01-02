@@ -248,8 +248,17 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           # Use a deterministic branch for doc updates to allow consolidation
-          # Clean ref_name to ensure valid branch name (though git refs usually are safe, simple precaution)
-          DOCS_BRANCH="docs/auto-update-${{ github.ref_name }}"
+          # Sanitize ref_name to ensure valid branch name:
+          # 1. Lowercase
+          # 2. Replace invalid chars (~^:?*[\]\ ) with -
+          # 3. Collapse multiple -
+          # 4. Remove leading/trailing -
+          REF_NAME="${{ github.ref_name }}"
+          SAFE_REF_NAME=$(echo "$REF_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]/-/g' | tr -s '-' | sed 's/^-//;s/-$//')
+          # Fallback to 'detached' if empty
+          SAFE_REF_NAME="${SAFE_REF_NAME:-detached}"
+          
+          DOCS_BRANCH="docs/auto-update-${SAFE_REF_NAME}"
           
           # Checkout new branch (orphaned or based on current doesn't strictly matter for docs, 
           # but basing on current ensures history continuity if merged)
