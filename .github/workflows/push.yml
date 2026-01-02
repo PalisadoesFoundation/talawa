@@ -250,6 +250,21 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
+          # Verify documentation was generated
+          if [ ! -d "docs/docs/auto-docs" ] || [ -z "$(ls -A docs/docs/auto-docs)" ]; then
+            echo "Error: docs/docs/auto-docs is missing or empty. Documentation generation may have failed."
+            exit 1
+          fi
+          
+          # Count generated files for logging
+          DOC_COUNT=$(find docs/docs/auto-docs -type f -name "*.md" | wc -l)
+          echo "Generated $DOC_COUNT markdown documentation files"
+          
+          if [ "$DOC_COUNT" -eq 0 ]; then
+            echo "Error: No markdown files generated in docs/docs/auto-docs"
+            exit 1
+          fi
+          
           # Use a deterministic branch for doc updates to allow consolidation
           # Sanitize ref_name to ensure valid branch name:
           # 1. Lowercase
