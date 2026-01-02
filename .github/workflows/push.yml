@@ -236,7 +236,11 @@ jobs:
         with:
           python-version: '3.x'
       - name: Activate dart_doc_markdown
-        run: flutter pub global activate dart_doc_markdown
+        run: |
+          if ! flutter pub global activate dart_doc_markdown; then
+             echo "Error: Failed to activate dart_doc_markdown."
+             exit 1
+          fi
       - name: Generate Documentation
         continue-on-error: true
         run: |
