@@ -11,6 +11,13 @@ else
 fi
 
 # Run dart_doc_markdown to generate the docs
+# Check if dart_doc_markdown is installed and activated
+if ! $FLUTTER_CMD pub global list | grep -q "dart_doc_markdown"; then
+    echo "Error: dart_doc_markdown is not activated."
+    echo "Please run: $FLUTTER_CMD pub global activate dart_doc_markdown"
+    exit 1
+fi
+
 echo "Generating documentation using dart_doc_markdown..."
 $FLUTTER_CMD pub global run dart_doc_markdown . docs/docs/auto-docs
 EXIT_CODE=$?
