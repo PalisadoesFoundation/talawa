@@ -11,6 +11,9 @@ jobs:
     permissions:
       pull-requests: read
     steps:
+      - name: Sleep for 30 seconds to make sure the review status propagates
+        run: sleep 30s
+        shell: bash    
       - name: Check CodeRabbit approval using GitHub Script
         uses: actions/github-script@v7
         with:
