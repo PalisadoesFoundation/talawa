@@ -1233,6 +1233,7 @@ void registerServices() {
   getAndRegisterFundService();
 
   getAndRegisterUserProfileService();
+  getAndRegisterSizeConfig();
   mockFlutterSecureStorage();
 }
 
@@ -1302,6 +1303,7 @@ void registerViewModels() {
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => InteractionsViewModel());
+  _removeRegistrationIfExists<SizeConfig>();
   locator.registerFactory(() => SizeConfig());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
@@ -1329,7 +1331,7 @@ void unregisterViewModels() {
   locator.unregister<AddPostViewModel>();
   locator.unregister<ProfilePageViewModel>();
   locator.unregister<InteractionsViewModel>();
-  locator.unregister<SizeConfig>();
+
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
@@ -1347,6 +1349,13 @@ void unregisterViewModels() {
 ///
 /// **returns**:
 ///   None
+SizeConfig getAndRegisterSizeConfig() {
+  _removeRegistrationIfExists<SizeConfig>();
+  final service = SizeConfig();
+  locator.registerSingleton<SizeConfig>(service);
+  return service;
+}
+
 void setupMockGraphQLClient(Map<String, dynamic> data) {
   final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
   final mockHttpClient = MockHttpClient();

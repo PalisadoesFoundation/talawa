@@ -444,6 +444,7 @@ class Queries {
         name
         avatarURL
         description
+        emailAddress
       }
     }
     ''';
