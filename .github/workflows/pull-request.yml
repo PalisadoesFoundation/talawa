@@ -446,6 +446,9 @@ jobs:
           source venv/bin/activate
           pydocstyle --convention=google --add-ignore=D415,D205 .github scripts
 
+      - name: Run docstring compliance check
+        run: |
+          source venv/bin/activate
           python .github/workflows/scripts/check_docstrings.py --directories .github scripts
 
   check-unused-dependencies:
