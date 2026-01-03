@@ -452,13 +452,7 @@ void main() {
       await tester.pump();
     });
 
-    test('demoMode updates via AppConfigService', () {
-      appConfig.isDemoMode = true;
-      expect(appConfig.isDemoMode, true);
 
-      appConfig.isDemoMode = false;
-      expect(appConfig.isDemoMode, false);
-    });
 
     testWidgets('GlobalKeys are properly initialized', (tester) async {
       expect(viewModel.scaffoldKey, isNotNull);

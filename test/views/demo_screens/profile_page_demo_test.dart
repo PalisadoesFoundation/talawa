@@ -12,7 +12,18 @@ import 'package:talawa/widgets/custom_avatar.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-Widget createDemoProfileScreen() {
+import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/widgets/from_palisadoes.dart';
+
+class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
+  @override
+  final GlobalKey keySPPalisadoes = GlobalKey(debugLabel: 'PalisadoesLogo');
+  
+  @override
+  final GlobalKey keySPDonateUs = GlobalKey(debugLabel: 'DonateUsButton');
+}
+
+Widget createDemoProfileScreen({MainScreenViewModel? homeModel}) {
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: const [
@@ -22,10 +33,10 @@ Widget createDemoProfileScreen() {
     ],
     themeMode: ThemeMode.light,
     theme: TalawaTheme.lightTheme,
-    home: const Scaffold(
-      key: Key('TestScaffold'),
-      body: DemoProfilePage(),
-      drawer: Drawer(
+    home: Scaffold(
+      key: const Key('TestScaffold'),
+      body: DemoProfilePage(homeModel: homeModel),
+      drawer: const Drawer(
         key: Key("Drawer"),
         child: Text('Drawer'),
       ),
@@ -47,8 +58,14 @@ void main() {
   });
 
   group('Demo Profile Page tests', () {
+    late MockMainScreenViewModel mockHomeModel;
+
+    setUp(() {
+      mockHomeModel = MockMainScreenViewModel();
+    });
+
     testWidgets('renders DemoProfilePage correctly', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen());
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       // Check if the AppBar is rendered
@@ -70,15 +87,15 @@ void main() {
       expect(find.text('User'), findsOneWidget);
 
       // Check if donate button is present
-      expect(find.byKey(const Key('DonateUsButton')), findsOneWidget);
+      expect(find.byKey(mockHomeModel.keySPDonateUs), findsOneWidget);
       expect(find.textContaining('Donate to the Community'), findsOneWidget);
     });
 
     testWidgets('Test for donate button opens drawer', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen());
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
-      final donateButton = find.byKey(const Key('DonateUsButton'));
+      final donateButton = find.byKey(mockHomeModel.keySPDonateUs);
       expect(donateButton, findsOneWidget);
 
       await tester.tap(donateButton);
@@ -89,7 +106,7 @@ void main() {
     });
 
     testWidgets('Test for menu button opens drawer', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen());
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final menuButton = find.byIcon(Icons.menu);
@@ -104,7 +121,7 @@ void main() {
 
     testWidgets('Test settings icon navigates to settings page',
         (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen());
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final settingsIcon = find.byKey(const Key('settingIcon'));
@@ -118,7 +135,7 @@ void main() {
     });
 
     testWidgets('Test AppBar has correct styling', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen());
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final appBar = tester.widget<AppBar>(
@@ -131,11 +148,53 @@ void main() {
     });
 
     testWidgets('Test Posts tab is present', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen());
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       // Check if Posts tab exists
       expect(find.text('Posts'), findsOneWidget);
+    });
+
+    testWidgets('ExitDemoButton works correctly', (tester) async {
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester.pumpAndSettle();
+
+      final exitButton = find.byKey(const Key('ExitDemoButton'));
+      expect(exitButton, findsOneWidget);
+
+      final icon = tester.widget<Icon>(find.descendant(of: exitButton, matching: find.byType(Icon)));
+      expect(icon.icon, Icons.logout);
+      // We can check color if we wrap in Theme, but logic check is most important
+
+      await tester.tap(exitButton);
+      verify(mockHomeModel.exitDemoMode()).called(1);
+    });
+
+    testWidgets('FromPalisadoes widget is rendered', (tester) async {
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(FromPalisadoes), findsOneWidget);
+    });
+
+    testWidgets('Tabs render and switch correctly', (tester) async {
+      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester.pumpAndSettle();
+
+      // Check Events tab
+      final eventsTab = find.text('Events');
+      expect(eventsTab, findsOneWidget);
+      await tester.tap(eventsTab);
+      await tester.pumpAndSettle();
+      // Verify Events content (Empty container with surface color in code, so hard to distinct visually without key, but we ensure no crash)
+      // Actually code says: Container(color: Theme.of(context).colorScheme.surface)
+      
+      // Check Tasks tab
+      final tasksTab = find.text('Tasks');
+      expect(tasksTab, findsOneWidget);
+      await tester.tap(tasksTab);
+      await tester.pumpAndSettle();
+      // Verify Tasks content (Container with onPrimary)
     });
   });
 }
