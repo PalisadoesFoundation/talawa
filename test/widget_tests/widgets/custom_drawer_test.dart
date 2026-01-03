@@ -34,19 +34,21 @@ import '../../helpers/test_locator.dart';
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
   GlobalKey<ScaffoldState> get scaffoldKey => GlobalKey<ScaffoldState>();
-  
+
   @override
   GlobalKey get keyDrawerCurOrg => GlobalKey(debugLabel: "DrawerCurrentOrg");
 
   @override
-  GlobalKey get keyDrawerSwitchableOrg => GlobalKey(debugLabel: "DrawerSwitchableOrg");
+  GlobalKey get keyDrawerSwitchableOrg =>
+      GlobalKey(debugLabel: "DrawerSwitchableOrg");
 
   @override
   GlobalKey get keyDrawerJoinOrg => GlobalKey(debugLabel: "DrawerJoinOrg");
 
   @override
-  GlobalKey get keyDrawerLeaveCurrentOrg => GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
-      
+  GlobalKey get keyDrawerLeaveCurrentOrg =>
+      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
+
   @override
   GlobalKey get keyBNHome => GlobalKey();
   @override
@@ -97,7 +99,7 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   GlobalKey get keySPLogout => GlobalKey();
   @override
   GlobalKey get keySPPalisadoes => GlobalKey();
-  
+
   @override
   int get currentPageIndex => 0;
   @override
@@ -114,16 +116,18 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
   List<BottomNavigationBarItem> get navBarItems => [
         const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        const BottomNavigationBarItem(
+            icon: Icon(Icons.settings), label: 'Settings'),
       ];
 }
 
 class SafeMockUserConfig extends MockUserConfig {
-  final StreamController<OrgInfo> _controller = StreamController<OrgInfo>.broadcast();
-  
+  final StreamController<OrgInfo> _controller =
+      StreamController<OrgInfo>.broadcast();
+
   @override
   StreamController<OrgInfo> get currentOrgInfoController => _controller;
-  
+
   @override
   Stream<OrgInfo> get currentOrgInfoStream => _controller.stream;
 }
@@ -286,10 +290,10 @@ void main() {
       if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
       final mockUserConfig = SafeMockUserConfig();
       locator.registerSingleton<UserConfig>(mockUserConfig);
-      
+
       // Basic stubs
       // Note: currentOrgInfoController and currentOrgInfoStream are handled by SafeMockUserConfig
-      
+
       viewModel = CustomDrawerViewModel();
     });
 
@@ -357,11 +361,13 @@ void main() {
       if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
       final mockUserConfig = SafeMockUserConfig();
       locator.registerSingleton<UserConfig>(mockUserConfig);
-      
+
       // Basic stubs needed for lifecycle tests (controller/stream already handled by SafeMock)
       when(mockUserConfig.loggedIn).thenReturn(true);
-      when(mockUserConfig.currentUser).thenReturn(User(id: '1', name: 'Test User'));
-      when(mockUserConfig.currentOrg).thenReturn(OrgInfo(id: '1', name: 'Test Org'));
+      when(mockUserConfig.currentUser)
+          .thenReturn(User(id: '1', name: 'Test User'));
+      when(mockUserConfig.currentOrg)
+          .thenReturn(OrgInfo(id: '1', name: 'Test Org'));
     });
     test(
       'switchOrg maintains state when attempting to switch to already selected org',
@@ -461,23 +467,26 @@ void main() {
       // 1. Setup mocks
       mockUserConfig = SafeMockUserConfig(); // Use wrapper
       mockNavigationService = MockNavigationService();
-      
+
       // Register mocks FIRST
       if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
       locator.registerSingleton<UserConfig>(mockUserConfig);
-      
-      if (locator.isRegistered<NavigationService>()) locator.unregister<NavigationService>();
+
+      if (locator.isRegistered<NavigationService>())
+        locator.unregister<NavigationService>();
       locator.registerSingleton<NavigationService>(mockNavigationService);
 
       // Stub UserConfig (controller/stream handled by SafeMock)
-      when(mockUserConfig.currentUser).thenReturn(User(id: '1', name: 'Test User'));
-      when(mockUserConfig.currentOrg).thenReturn(OrgInfo(id: '1', name: 'Test Org'));
+      when(mockUserConfig.currentUser)
+          .thenReturn(User(id: '1', name: 'Test User'));
+      when(mockUserConfig.currentOrg)
+          .thenReturn(OrgInfo(id: '1', name: 'Test Org'));
       when(mockUserConfig.loggedIn).thenReturn(true);
 
       // 2. Setup ViewModel
       mockViewModel = MockCustomDrawerViewModel();
       mockHomeModel = MockMainScreenViewModel();
-      
+
       // Default stubs for ViewModel
       when(mockViewModel.controller).thenReturn(ScrollController());
       when(mockViewModel.switchAbleOrg).thenReturn([]);
@@ -487,7 +496,7 @@ void main() {
         success: () {},
         dialogSubTitle: 'stub',
       ));
-      
+
       if (locator.isRegistered<CustomDrawerViewModel>()) {
         locator.unregister<CustomDrawerViewModel>();
       }
