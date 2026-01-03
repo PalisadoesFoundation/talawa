@@ -155,6 +155,7 @@ void main() {
           AttachmentModel(url: 'wrong_url'),
         ],
       );
+      await tester.pumpAndSettle();
       expect(find.byIcon(Icons.broken_image), findsOneWidget);
     });
   });
