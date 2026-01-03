@@ -83,6 +83,12 @@ class SessionManager {
   }
 
   /// Clears user tokens and session data on unrecoverable errors.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   Future<void> _clearTokens() async {
     try {
       final userBox = Hive.box<User>('currentUser');
