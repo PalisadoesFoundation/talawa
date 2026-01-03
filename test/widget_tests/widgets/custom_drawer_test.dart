@@ -404,10 +404,14 @@ void main() {
 
       // Stub UserConfig properties manually to avoid Bad state error from helper
       final streamController = StreamController<OrgInfo>.broadcast();
-      when(mockUserConfig.currentOrgInfoController).thenReturn(streamController);
-      when(mockUserConfig.currentOrgInfoStream).thenAnswer((_) => streamController.stream);
-      when(mockUserConfig.currentUser).thenReturn(User(id: '1', name: 'Test User'));
-      when(mockUserConfig.currentOrg).thenReturn(OrgInfo(id: '1', name: 'Test Org'));
+      when(mockUserConfig.currentOrgInfoController)
+          .thenReturn(streamController);
+      when(mockUserConfig.currentOrgInfoStream)
+          .thenAnswer((_) => streamController.stream);
+      when(mockUserConfig.currentUser)
+          .thenReturn(User(id: '1', name: 'Test User'));
+      when(mockUserConfig.currentOrg)
+          .thenReturn(OrgInfo(id: '1', name: 'Test Org'));
 
       mockViewModel = MockCustomDrawerViewModel();
       mockHomeModel = MockMainScreenViewModel();

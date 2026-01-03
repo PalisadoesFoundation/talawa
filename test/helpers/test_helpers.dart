@@ -1342,13 +1342,13 @@ void unregisterViewModels() {
   locator.unregister<SelectContactViewModel>();
 }
 
-/// Helper to setup mock GraphQL client with custom response.
+/// `getAndRegisterSizeConfig` returns a mock instance of the `SizeConfig` class.
 ///
 /// **params**:
-/// * `data`: A map containing the mock data to return.
+///   None
 ///
 /// **returns**:
-///   None
+/// * `SizeConfig`: A mock instance of the `SizeConfig` class.
 SizeConfig getAndRegisterSizeConfig() {
   _removeRegistrationIfExists<SizeConfig>();
   final service = SizeConfig();
@@ -1356,6 +1356,13 @@ SizeConfig getAndRegisterSizeConfig() {
   return service;
 }
 
+/// Helper to setup mock GraphQL client with custom response.
+///
+/// **params**:
+/// * `data`: A map containing the mock data to return.
+///
+/// **returns**:
+///   None
 void setupMockGraphQLClient(Map<String, dynamic> data) {
   final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
   final mockHttpClient = MockHttpClient();

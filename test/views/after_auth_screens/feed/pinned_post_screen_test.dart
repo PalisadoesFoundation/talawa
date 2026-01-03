@@ -45,7 +45,11 @@ class MockCacheManager extends Mock implements DefaultCacheManager {
   }
 }
 
-Widget createApp() {
+Widget createApp({
+  String caption = 'Sample Title',
+  List<AttachmentModel>? attachments,
+  BaseCacheManager? cacheManager,
+}) {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),
     builder: (context, langModel, child) {
@@ -58,15 +62,16 @@ Widget createApp() {
         ],
         home: PinnedPostScreen(
           post: Post(
-            caption: 'Sample Title',
+            caption: caption,
             createdAt: DateTime(2023, 10, 1, 23, 0),
             pinnedAt: DateTime.now().subtract(const Duration(minutes: 5)),
             id: 'postId',
-            attachments: [
-              AttachmentModel(url: 'https://example.com/image.jpg'),
-            ],
+            attachments: attachments ??
+                [
+                  AttachmentModel(url: 'https://example.com/image.jpg'),
+                ],
           ),
-          cacheManager: MockCacheManager(),
+          cacheManager: cacheManager ?? MockCacheManager(),
         ),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -75,8 +80,19 @@ Widget createApp() {
   );
 }
 
-Future<void> showPinnedPostScreen(WidgetTester tester) async {
-  await tester.pumpWidget(createApp());
+Future<void> showPinnedPostScreen(
+  WidgetTester tester, {
+  String caption = 'Sample Title',
+  List<AttachmentModel>? attachments,
+  BaseCacheManager? cacheManager,
+}) async {
+  await tester.pumpWidget(
+    createApp(
+      caption: caption,
+      attachments: attachments,
+      cacheManager: cacheManager,
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
@@ -124,6 +140,55 @@ void main() {
       await showPinnedPostScreen(tester);
       await tester.pumpAndSettle();
       expect(find.byType(CachedNetworkImage), findsOneWidget);
+    });
+  });
+
+  testWidgets('Check if error widget is shown when image fails to load',
+      (tester) async {
+    await mockNetworkImagesFor(() async {
+      await showPinnedPostScreen(
+        tester,
+        attachments: [
+          AttachmentModel(url: 'wrong_url'),
+        ],
+      );
+      await tester.pumpAndSettle();
+      expect(find.byIcon(Icons.broken_image), findsOneWidget);
+    });
+  });
+
+  testWidgets('Check if empty attachments are handled gracefully',
+      (tester) async {
+    await mockNetworkImagesFor(() async {
+      await showPinnedPostScreen(
+        tester,
+        attachments: [],
+      );
+      expect(find.text('Sample Title'), findsOneWidget);
+
+      // Verify the PinnedPostScreen widget renders correctly
+      expect(find.byType(PinnedPostScreen), findsOneWidget);
+
+      // Verify the post pinned time is displayed
+      expect(find.textContaining('Minutes Ago'), findsOneWidget);
+
+      // Verify SafeArea is still present
+      expect(find.byType(SafeArea), findsOneWidget);
+    });
+  });
+
+  testWidgets('Check if null caption is handled', (tester) async {
+    await mockNetworkImagesFor(() async {
+      await showPinnedPostScreen(
+        tester,
+        caption: '',
+      );
+      expect(find.byType(SafeArea), findsOneWidget);
+      // Or verify the post card/container still renders
+      expect(find.byType(PinnedPostScreen), findsOneWidget);
+
+      // Verify that the default 'Sample Title' text is NOT displayed
+      expect(find.text('Sample Title'), findsNothing);
     });
   });
 }
