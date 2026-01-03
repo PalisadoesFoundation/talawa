@@ -30,8 +30,6 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
-
-
 Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
     locale: const Locale('en'),

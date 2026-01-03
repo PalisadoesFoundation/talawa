@@ -1396,10 +1396,12 @@ void setupMockGraphQLClient(Map<String, dynamic> data) {
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey _keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
-  final GlobalKey _keyDrawerSwitchableOrg = GlobalKey(debugLabel: "DrawerSwitchableOrg");
+  final GlobalKey _keyDrawerSwitchableOrg =
+      GlobalKey(debugLabel: "DrawerSwitchableOrg");
   final GlobalKey _keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
-  final GlobalKey _keyDrawerLeaveCurrentOrg = GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
-  
+  final GlobalKey _keyDrawerLeaveCurrentOrg =
+      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
+
   final GlobalKey _keyBNHome = GlobalKey();
   final GlobalKey _keyBNDemoHome = GlobalKey();
   final GlobalKey _keySHPinnedPost = GlobalKey();
@@ -1432,11 +1434,12 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
         returnValue: <Widget>[],
         returnValueForMissingStub: <Widget>[],
       ) as List<Widget>;
-      
+
   @override
   List<BottomNavigationBarItem> get navBarItems => [
         const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        const BottomNavigationBarItem(
+            icon: Icon(Icons.settings), label: 'Settings'),
       ];
 
   @override
@@ -1445,7 +1448,7 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int;
-      
+
   @override
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
@@ -1514,10 +1517,10 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
 
   @override
   bool get showAppTour => false;
-  
+
   @override
   List<FocusTarget> get targets => [];
-  
+
   @override
   void setupNavigationItems(BuildContext context) {}
 }
