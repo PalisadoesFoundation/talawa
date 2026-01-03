@@ -97,88 +97,93 @@ class DemoProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-
-                SizedBox(
-                  height: 20,
+              SizedBox(
+                height: 20,
+              ),
+              IconButton(
+                key: const Key('ExitDemoButton'),
+                icon: Icon(
+                  Icons.logout,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
-                IconButton(
-                  key: const Key('ExitDemoButton'),
-                  icon: Icon(
-                    Icons.logout,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onPressed: () {
-                    homeModel?.exitDemoMode();
-                  },
+                onPressed: () {
+                  homeModel?.exitDemoMode();
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              RaisedRoundedButton(
+                key: homeModel?.keySPDonateUs ?? const Key('DonateButton'),
+                buttonLabel: AppLocalizations.of(context)!.strictTranslate(
+                  'Donate to the Community',
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                RaisedRoundedButton(
-                  key: homeModel?.keySPDonateUs ?? const Key('DonateButton'),
-                  buttonLabel: AppLocalizations.of(context)!.strictTranslate(
-                    'Donate to the Community',
-                  ),
-                  onTap: () {
-                    Scaffold.maybeOf(context)?.openDrawer();
-                  },
-                  textColor: Theme.of(context)
-                      .inputDecorationTheme
-                      .focusedBorder!
-                      .borderSide
-                      .color,
-                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                ),
-                SizedBox(
-                  height: 600,
-                  width: double.infinity,
-                  child: ContainedTabBarView(
-                    tabs: [
-                      Tab(
-                        text: AppLocalizations.of(context)!.strictTranslate('Posts'),
+                onTap: () {
+                  Scaffold.maybeOf(context)?.openDrawer();
+                },
+                textColor: Theme.of(context)
+                    .inputDecorationTheme
+                    .focusedBorder!
+                    .borderSide
+                    .color,
+                backgroundColor:
+                    Theme.of(context).colorScheme.secondaryContainer,
+              ),
+              SizedBox(
+                height: 600,
+                width: double.infinity,
+                child: ContainedTabBarView(
+                  tabs: [
+                    Tab(
+                      text: AppLocalizations.of(context)!
+                          .strictTranslate('Posts'),
+                    ),
+                    Tab(
+                      text: AppLocalizations.of(context)!
+                          .strictTranslate('Events'),
+                    ),
+                    Tab(
+                      text: AppLocalizations.of(context)!
+                          .strictTranslate('Tasks'),
+                    ),
+                  ],
+                  views: [
+                    ColoredBox(
+                      color: Theme.of(context).colorScheme.surface,
+                      child: GridView.count(
+                        mainAxisSpacing: 5,
+                        crossAxisCount: 3,
+                        children: [
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                        ],
                       ),
-                      Tab(
-                        text: AppLocalizations.of(context)!.strictTranslate('Events'),
-                      ),
-                      Tab(
-                        text: AppLocalizations.of(context)!.strictTranslate('Tasks'),
-                      ),
-                    ],
-                    views: [
-                      ColoredBox(
-                        color: Theme.of(context).colorScheme.surface,
-                        child: GridView.count(
-                          mainAxisSpacing: 5,
-                          crossAxisCount: 3,
-                          children: [
-                            Image.asset('assets/images/pfp2.png'),
-                            Image.asset('assets/images/pfp2.png'),
-                            Image.asset('assets/images/pfp2.png'),
-                            Image.asset('assets/images/pfp2.png'),
-                            Image.asset('assets/images/pfp2.png'),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                      Container(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                    Container(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.05,
-                ),
-                FromPalisadoes(key: homeModel?.keySPPalisadoes ?? const Key('PalisadoesLogo')),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.02,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.05,
+              ),
+              FromPalisadoes(
+                key: homeModel?.keySPPalisadoes ?? const Key('PalisadoesLogo'),
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.02,
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
