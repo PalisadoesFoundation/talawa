@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -11,6 +9,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';

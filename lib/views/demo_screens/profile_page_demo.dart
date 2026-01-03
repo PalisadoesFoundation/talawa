@@ -97,7 +97,7 @@ class DemoProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               IconButton(
@@ -130,7 +130,7 @@ class DemoProfilePage extends StatelessWidget {
                     Theme.of(context).colorScheme.secondaryContainer,
               ),
               SizedBox(
-                height: 600,
+                height: SizeConfig.screenHeight! * 0.7,
                 width: double.infinity,
                 child: ContainedTabBarView(
                   tabs: [
