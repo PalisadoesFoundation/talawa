@@ -96,7 +96,7 @@ void main() {
         expect(success, false);
 
         verify(userConfig.currentUser =
-                argThat(predicate<User>((u) => u.id == null)) as User)
+                argThat(predicate<User>((u) => u.id == null)) ?? User())
             .called(1);
       });
 
