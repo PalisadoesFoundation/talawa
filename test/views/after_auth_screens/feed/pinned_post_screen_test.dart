@@ -168,6 +168,15 @@ void main() {
         attachments: [],
       );
       expect(find.text('Sample Title'), findsOneWidget);
+
+      // Verify the PinnedPostScreen widget renders correctly
+      expect(find.byType(PinnedPostScreen), findsOneWidget);
+
+      // Verify the post pinned time is displayed
+      expect(find.textContaining('Minutes Ago'), findsOneWidget);
+
+      // Verify SafeArea is still present
+      expect(find.byType(SafeArea), findsOneWidget);
     });
   });
 
@@ -181,12 +190,8 @@ void main() {
       // Or verify the post card/container still renders
       expect(find.byType(PinnedPostScreen), findsOneWidget);
 
-      /// Verify that the default 'Sample Title' text is NOT displayed
-      expect(
-        find.text('Sample Title'),
-        findsNothing,
-        reason: 'Empty caption should not display default "Sample Title" text',
-      );
+      // Verify that the default 'Sample Title' text is NOT displayed
+      expect(find.text('Sample Title'), findsNothing);
     });
   });
 }
