@@ -18,6 +18,8 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/services/app_config_service.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
@@ -576,5 +578,31 @@ Future<void> main() async {
       (tester.widget(find.byType(QRView)) as QRView)
           .onQRViewCreated(controller);
     });
+
+    testWidgets('Check if navigateToDemo() works correctly', (tester) async {
+      // 1. Mock AppConfigService
+      final mockAppConfigService = MockAppConfigService();
+      // Register it
+      if (locator.isRegistered<AppConfigService>()) {
+        locator.unregister<AppConfigService>();
+      }
+      locator.registerSingleton<AppConfigService>(mockAppConfigService);
+
+      // 2. Call the method
+      model.navigateToDemo();
+
+      // 3. Verify side effects
+      // Verify isDemoMode set to true
+      expect(mockAppConfigService.isDemoMode, true);
+
+      // Verify navigation
+      verify(navigationService.removeAllAndPush(
+          Routes.homeScreen, Routes.splashScreen));
+    });
   });
+}
+
+class MockAppConfigService extends Mock implements AppConfigService {
+  @override
+  bool isDemoMode = false;
 }
