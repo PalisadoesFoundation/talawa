@@ -40,6 +40,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
+
       - name: Set default branch.
         run: git remote set-head origin --auto
         shell: bash
@@ -450,3 +451,34 @@ jobs:
         run: |
           source venv/bin/activate
           python .github/workflows/scripts/check_docstrings.py --directories .github scripts
+
+
+
+  Check-Documentation:
+    name: Check Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+      
+      - name: Activate dart_doc_markdown
+        run: dart pub global activate dart_doc_markdown
+        
+      - name: Generate Documentation
+        run: |
+          chmod +x scripts/docusaurus/generate_docs.sh
+          ./scripts/docusaurus/generate_docs.sh
+          
+      - name: Verify No Changes
+        run: |
+          if [ -n "$(git status --porcelain docs/docs/auto-docs)" ]; then
+            echo "::error::Documentation is out of sync. Please run 'scripts/docusaurus/generate_docs.sh' locally and commit the changes."
+            echo "Changes detected:"
+            git status docs/docs/auto-docs
+            exit 1
+          else
+            echo "Documentation is up to date."
+          fi
