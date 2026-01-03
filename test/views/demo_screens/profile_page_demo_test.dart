@@ -14,8 +14,6 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-
-
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
   final GlobalKey keySPPalisadoes = GlobalKey(debugLabel: 'PalisadoesLogo');

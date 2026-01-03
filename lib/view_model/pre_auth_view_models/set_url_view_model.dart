@@ -3,8 +3,10 @@ import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -208,6 +210,19 @@ class SetUrlViewModel extends BaseModel {
         );
       }
     }
+  }
+
+  /// This function navigate to the demo page.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateToDemo() {
+    final AppConfigService appConfigService = locator<AppConfigService>();
+    appConfigService.isDemoMode = true;
+    navigationService.removeAllAndPush(Routes.homeScreen, Routes.splashScreen);
   }
 
   /// This function create a widget which is used to scan the QR-code.
