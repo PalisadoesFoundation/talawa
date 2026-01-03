@@ -178,6 +178,15 @@ void main() {
         caption: '',
       );
       expect(find.byType(SafeArea), findsOneWidget);
+      // Or verify the post card/container still renders
+      expect(find.byType(PinnedPostScreen), findsOneWidget);
+
+      /// Verify that the default 'Sample Title' text is NOT displayed
+      expect(
+        find.text('Sample Title'),
+        findsNothing,
+        reason: 'Empty caption should not display default "Sample Title" text',
+      );
     });
   });
 }
