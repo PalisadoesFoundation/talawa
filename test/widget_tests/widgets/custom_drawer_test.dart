@@ -9,7 +9,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -31,106 +30,7 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
-class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
-  @override
-  GlobalKey<ScaffoldState> get scaffoldKey => GlobalKey<ScaffoldState>();
 
-  @override
-  GlobalKey get keyDrawerCurOrg => GlobalKey(debugLabel: "DrawerCurrentOrg");
-
-  @override
-  GlobalKey get keyDrawerSwitchableOrg =>
-      GlobalKey(debugLabel: "DrawerSwitchableOrg");
-
-  @override
-  GlobalKey get keyDrawerJoinOrg => GlobalKey(debugLabel: "DrawerJoinOrg");
-
-  @override
-  GlobalKey get keyDrawerLeaveCurrentOrg =>
-      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
-
-  @override
-  GlobalKey get keyBNHome => GlobalKey();
-  @override
-  GlobalKey get keyBNDemoHome => GlobalKey();
-  @override
-  GlobalKey get keySHPinnedPost => GlobalKey();
-  @override
-  GlobalKey get keySHPost => GlobalKey();
-  @override
-  GlobalKey get keySHOrgName => GlobalKey();
-  @override
-  GlobalKey get keySHMenuIcon => GlobalKey();
-  @override
-  GlobalKey get keyBNEvents => GlobalKey();
-  @override
-  GlobalKey get keyBNDemoEvents => GlobalKey();
-  @override
-  GlobalKey get keySECategoryMenu => GlobalKey();
-  @override
-  GlobalKey get keySEDateFilter => GlobalKey();
-  @override
-  GlobalKey get keySEAdd => GlobalKey();
-  @override
-  GlobalKey get keySECard => GlobalKey();
-  @override
-  GlobalKey get keyBNPost => GlobalKey();
-  @override
-  GlobalKey get keyBNDemoPost => GlobalKey();
-  @override
-  GlobalKey get keyBNChat => GlobalKey();
-  @override
-  GlobalKey get keyBNProfile => GlobalKey();
-  @override
-  GlobalKey get keyBNDemoProfile => GlobalKey();
-  @override
-  GlobalKey get keyBNFunds => GlobalKey();
-  @override
-  GlobalKey get keySPEditProfile => GlobalKey();
-  @override
-  GlobalKey get keySPAppSetting => GlobalKey();
-  @override
-  GlobalKey get keySPHelp => GlobalKey();
-  @override
-  GlobalKey get keySPDonateUs => GlobalKey();
-  @override
-  GlobalKey get keySPInvite => GlobalKey();
-  @override
-  GlobalKey get keySPLogout => GlobalKey();
-  @override
-  GlobalKey get keySPPalisadoes => GlobalKey();
-
-  @override
-  int get currentPageIndex => 0;
-  @override
-  bool get showAppTour => false;
-  @override
-  List<FocusTarget> get targets => [];
-
-  @override
-  void setupNavigationItems(BuildContext context) {}
-
-  @override
-  List<Widget> get pages => [];
-
-  @override
-  List<BottomNavigationBarItem> get navBarItems => [
-        const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        const BottomNavigationBarItem(
-            icon: Icon(Icons.settings), label: 'Settings'),
-      ];
-}
-
-class SafeMockUserConfig extends MockUserConfig {
-  final StreamController<OrgInfo> _controller =
-      StreamController<OrgInfo>.broadcast();
-
-  @override
-  StreamController<OrgInfo> get currentOrgInfoController => _controller;
-
-  @override
-  Stream<OrgInfo> get currentOrgInfoStream => _controller.stream;
-}
 
 Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
@@ -459,7 +359,7 @@ void main() {
     late MockCustomDrawerViewModel mockViewModel;
     late MockMainScreenViewModel mockHomeModel;
     late MockNavigationService mockNavigationService;
-    late MockUserConfig mockUserConfig;
+    late SafeMockUserConfig mockUserConfig;
 
     setUp(() {
       locator.allowReassignment = true;

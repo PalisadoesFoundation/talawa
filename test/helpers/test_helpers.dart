@@ -17,7 +17,9 @@ import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/models/chats/chat.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
@@ -1393,28 +1395,140 @@ void setupMockGraphQLClient(Map<String, dynamic> data) {
 /// MockMainScreenViewModel class.
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey _keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
+  final GlobalKey _keyDrawerSwitchableOrg = GlobalKey(debugLabel: "DrawerSwitchableOrg");
+  final GlobalKey _keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
+  final GlobalKey _keyDrawerLeaveCurrentOrg = GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
+  
+  final GlobalKey _keyBNHome = GlobalKey();
+  final GlobalKey _keyBNDemoHome = GlobalKey();
+  final GlobalKey _keySHPinnedPost = GlobalKey();
+  final GlobalKey _keySHPost = GlobalKey();
+  final GlobalKey _keySHOrgName = GlobalKey();
+  final GlobalKey _keySHMenuIcon = GlobalKey();
+  final GlobalKey _keyBNEvents = GlobalKey();
+  final GlobalKey _keyBNDemoEvents = GlobalKey();
+  final GlobalKey _keySECategoryMenu = GlobalKey();
+  final GlobalKey _keySEDateFilter = GlobalKey();
+  final GlobalKey _keySEAdd = GlobalKey();
+  final GlobalKey _keySECard = GlobalKey();
+  final GlobalKey _keyBNPost = GlobalKey();
+  final GlobalKey _keyBNDemoPost = GlobalKey();
+  final GlobalKey _keyBNChat = GlobalKey();
+  final GlobalKey _keyBNProfile = GlobalKey();
+  final GlobalKey _keyBNDemoProfile = GlobalKey();
+  final GlobalKey _keyBNFunds = GlobalKey();
+  final GlobalKey _keySPEditProfile = GlobalKey();
+  final GlobalKey _keySPAppSetting = GlobalKey();
+  final GlobalKey _keySPHelp = GlobalKey();
+  final GlobalKey _keySPDonateUs = GlobalKey();
+  final GlobalKey _keySPInvite = GlobalKey();
+  final GlobalKey _keySPLogout = GlobalKey();
+  final GlobalKey _keySPPalisadoes = GlobalKey();
+
   @override
   List<Widget> get pages => super.noSuchMethod(
         Invocation.getter(#pages),
         returnValue: <Widget>[],
         returnValueForMissingStub: <Widget>[],
       ) as List<Widget>;
+      
   @override
-  List<BottomNavigationBarItem> get navBarItems => super.noSuchMethod(
-        Invocation.getter(#navBarItems),
-        returnValue: <BottomNavigationBarItem>[],
-        returnValueForMissingStub: <BottomNavigationBarItem>[],
-      ) as List<BottomNavigationBarItem>;
+  List<BottomNavigationBarItem> get navBarItems => [
+        const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+      ];
+
   @override
   int get currentPageIndex => super.noSuchMethod(
         Invocation.getter(#currentPageIndex),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int;
+      
   @override
-  GlobalKey<ScaffoldState> get scaffoldKey => super.noSuchMethod(
-        Invocation.getter(#scaffoldKey),
-        returnValue: _scaffoldKey,
-        returnValueForMissingStub: _scaffoldKey,
-      ) as GlobalKey<ScaffoldState>;
+  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
+
+  @override
+  GlobalKey get keyDrawerCurOrg => _keyDrawerCurOrg;
+
+  @override
+  GlobalKey get keyDrawerSwitchableOrg => _keyDrawerSwitchableOrg;
+
+  @override
+  GlobalKey get keyDrawerJoinOrg => _keyDrawerJoinOrg;
+
+  @override
+  GlobalKey get keyDrawerLeaveCurrentOrg => _keyDrawerLeaveCurrentOrg;
+
+  @override
+  GlobalKey get keyBNHome => _keyBNHome;
+  @override
+  GlobalKey get keyBNDemoHome => _keyBNDemoHome;
+  @override
+  GlobalKey get keySHPinnedPost => _keySHPinnedPost;
+  @override
+  GlobalKey get keySHPost => _keySHPost;
+  @override
+  GlobalKey get keySHOrgName => _keySHOrgName;
+  @override
+  GlobalKey get keySHMenuIcon => _keySHMenuIcon;
+  @override
+  GlobalKey get keyBNEvents => _keyBNEvents;
+  @override
+  GlobalKey get keyBNDemoEvents => _keyBNDemoEvents;
+  @override
+  GlobalKey get keySECategoryMenu => _keySECategoryMenu;
+  @override
+  GlobalKey get keySEDateFilter => _keySEDateFilter;
+  @override
+  GlobalKey get keySEAdd => _keySEAdd;
+  @override
+  GlobalKey get keySECard => _keySECard;
+  @override
+  GlobalKey get keyBNPost => _keyBNPost;
+  @override
+  GlobalKey get keyBNDemoPost => _keyBNDemoPost;
+  @override
+  GlobalKey get keyBNChat => _keyBNChat;
+  @override
+  GlobalKey get keyBNProfile => _keyBNProfile;
+  @override
+  GlobalKey get keyBNDemoProfile => _keyBNDemoProfile;
+  @override
+  GlobalKey get keyBNFunds => _keyBNFunds;
+  @override
+  GlobalKey get keySPEditProfile => _keySPEditProfile;
+  @override
+  GlobalKey get keySPAppSetting => _keySPAppSetting;
+  @override
+  GlobalKey get keySPHelp => _keySPHelp;
+  @override
+  GlobalKey get keySPDonateUs => _keySPDonateUs;
+  @override
+  GlobalKey get keySPInvite => _keySPInvite;
+  @override
+  GlobalKey get keySPLogout => _keySPLogout;
+  @override
+  GlobalKey get keySPPalisadoes => _keySPPalisadoes;
+
+  @override
+  bool get showAppTour => false;
+  
+  @override
+  List<FocusTarget> get targets => [];
+  
+  @override
+  void setupNavigationItems(BuildContext context) {}
+}
+
+class SafeMockUserConfig extends MockUserConfig {
+  final StreamController<OrgInfo> _controller =
+      StreamController<OrgInfo>.broadcast();
+
+  @override
+  StreamController<OrgInfo> get currentOrgInfoController => _controller;
+
+  @override
+  Stream<OrgInfo> get currentOrgInfoStream => _controller.stream;
 }
