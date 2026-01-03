@@ -211,5 +211,3 @@ jobs:
           body: |
             This is an automated release, triggered by a recent push. 
             This may or may not be stable, so please have a look at the stable release(s).
-
-
