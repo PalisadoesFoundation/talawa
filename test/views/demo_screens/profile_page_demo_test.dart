@@ -6,14 +6,15 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/from_palisadoes.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-import 'package:talawa/view_model/main_screen_view_model.dart';
-import 'package:talawa/widgets/from_palisadoes.dart';
+
 
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
