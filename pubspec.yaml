@@ -51,7 +51,7 @@ dependencies:
   intl: ^0.20.0
   mockito: ^5.4.4
   path_provider: ^2.1.5
-  permission_handler: 12.0.1
+
   pointycastle: ^4.0.0
   provider: ^6.1.5
   qr_code_scanner_plus: ^2.0.14
@@ -86,7 +86,6 @@ dev_dependencies:
   graphql: ^5.2.3
   hive_generator: ^2.0.1
 
-  image_cropper_platform_interface: ^8.0.0
   integration_test:
     sdk: flutter
   json_serializable: ^6.8.0

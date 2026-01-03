@@ -12,4 +12,5 @@ ignore:
   - mocktail_image_network # Test utilities
   - talawa_lint # Lints only
   - permission_handler # Platform-interface or plugin internals
+  - image_cropper_platform_interface # Transitive dependency used in mocks
   - url_launcher_platform_interface # Platform-interface or plugin internals
