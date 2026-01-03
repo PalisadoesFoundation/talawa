@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 
 /// Manages user sessions and periodically refreshes access tokens.
 class SessionManager {
@@ -13,6 +16,9 @@ class SessionManager {
 
   /// refresh interval in seconds.
   static const int _refreshInterval = 600;
+
+  /// Guard to prevent concurrent refresh attempts
+  bool _isRefreshing = false;
 
   /// Initializes as session refresher.
   ///
@@ -33,7 +39,7 @@ class SessionManager {
     );
   }
 
-  /// Asynchronously refreshes the user session.
+  /// Asynchronously refreshes the user session with retries and error handling.
   ///
   /// **params**:
   ///   None
@@ -42,11 +48,51 @@ class SessionManager {
   /// * `Future<bool>`: indicates if session refresh was
   /// successful.
   Future<bool> refreshSession() async {
-    if (userConfig.loggedIn && userConfig.currentUser.refreshToken != null) {
-      final refreshed = await databaseFunctions
-          .refreshAccessToken(userConfig.currentUser.refreshToken!);
-      return refreshed;
+    if (_isRefreshing) return false;
+
+    if (!userConfig.loggedIn || userConfig.currentUser.refreshToken == null) {
+      return false;
+    }
+
+    _isRefreshing = true;
+
+    try {
+      for (var attempt = 0; attempt < 3; attempt++) {
+        try {
+          final refreshed = await databaseFunctions
+              .refreshAccessToken(userConfig.currentUser.refreshToken!);
+
+          if (refreshed) {
+            return true;
+          } else {
+            throw Exception('Failed to refresh token');
+          }
+        } catch (e) {
+          await Future.delayed(Duration(milliseconds: 100 * (1 << attempt)));
+
+          if (attempt == 2) {
+            await _clearTokens();
+            return false;
+          }
+        }
+      }
+    } finally {
+      _isRefreshing = false;
     }
     return false;
+  }
+
+  /// Clears user tokens and session data on unrecoverable errors.
+  Future<void> _clearTokens() async {
+    try {
+      final userBox = Hive.box<User>('currentUser');
+      final orgBox = Hive.box<OrgInfo>('currentOrg');
+
+      await userBox.clear();
+      await orgBox.clear();
+
+      userConfig.currentUser = User(id: null, authToken: null);
+      userConfig.currentOrg = OrgInfo(name: 'Organization Name', id: null);
+    } catch (_) {}
   }
 }

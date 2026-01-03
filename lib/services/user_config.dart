@@ -25,8 +25,8 @@ import 'package:talawa/widgets/talawa_error_dialog.dart';
 /// * `updateUser` : helps to update the user.
 class UserConfig {
   // variables
-  User? _currentUser = User(id: 'null', authToken: 'null');
-  OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
+  User? _currentUser = User(id: null, authToken: null);
+  OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: null);
   late Stream<OrgInfo> _currentOrgInfoStream;
   final StreamController<OrgInfo> _currentOrgInfoController =
       StreamController<OrgInfo>.broadcast();
@@ -45,7 +45,7 @@ class UserConfig {
   String get currentOrgName => _currentOrg!.name!;
 
   /// Checks if a user is logged in.
-  bool get loggedIn => _currentUser?.id != 'null';
+  bool get loggedIn => _currentUser?.id != null && _currentUser?.id != 'null';
 
   /// Updates the current organization information.
   set currentOrg(OrgInfo org) => _currentOrg = org;
@@ -82,14 +82,14 @@ class UserConfig {
     final boxUser = Hive.box<User>('currentUser');
     final boxOrg = Hive.box<OrgInfo>('currentOrg');
     _currentOrg =
-        boxOrg.get('org') ?? OrgInfo(name: 'Organization Name', id: 'null');
+        boxOrg.get('org') ?? OrgInfo(name: 'Organization Name', id: null);
     _currentOrgInfoController.add(_currentOrg!);
 
     _currentUser = boxUser.get('user');
 
     // if there is not currentUser then returns false.
     if (_currentUser == null) {
-      _currentUser = User(id: 'null', authToken: 'null');
+      _currentUser = User(id: null, authToken: null);
       return false;
     }
     // generate access token
@@ -168,7 +168,7 @@ class UserConfig {
           await user.clear();
           await url.clear();
           await organisation.clear();
-          _currentUser = User(id: 'null', authToken: 'null');
+          _currentUser = User(id: null, authToken: null);
         }
       },
       onActionException: (e) async {
