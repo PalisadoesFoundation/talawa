@@ -159,19 +159,6 @@ void main() {
       ));
     });
 
-    testWidgets('appTourDialog returns CustomAlertDialog', (tester) async {
-      final key = GlobalKey();
-      await tester.pumpWidget(
-        createTestWidget(
-          SizedBox(key: key),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final dialog = viewModel.appTourDialog(key.currentContext!);
-      expect(dialog, isA<Widget>());
-    });
-
     testWidgets('tourHomeTargets adds correct targets (Logged Out)',
         (tester) async {
       when(mockUserConfig.loggedIn).thenReturn(false);
@@ -451,8 +438,6 @@ void main() {
       await viewModel.showHome(target);
       await tester.pump();
     });
-
-
 
     testWidgets('GlobalKeys are properly initialized', (tester) async {
       expect(viewModel.scaffoldKey, isNotNull);

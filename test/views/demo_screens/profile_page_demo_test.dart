@@ -18,7 +18,7 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
   final GlobalKey keySPPalisadoes = GlobalKey(debugLabel: 'PalisadoesLogo');
-  
+
   @override
   final GlobalKey keySPDonateUs = GlobalKey(debugLabel: 'DonateUsButton');
 }
@@ -65,7 +65,8 @@ void main() {
     });
 
     testWidgets('renders DemoProfilePage correctly', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       // Check if the AppBar is rendered
@@ -92,7 +93,8 @@ void main() {
     });
 
     testWidgets('Test for donate button opens drawer', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final donateButton = find.byKey(mockHomeModel.keySPDonateUs);
@@ -106,7 +108,8 @@ void main() {
     });
 
     testWidgets('Test for menu button opens drawer', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final menuButton = find.byIcon(Icons.menu);
@@ -121,7 +124,8 @@ void main() {
 
     testWidgets('Test settings icon navigates to settings page',
         (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final settingsIcon = find.byKey(const Key('settingIcon'));
@@ -135,7 +139,8 @@ void main() {
     });
 
     testWidgets('Test AppBar has correct styling', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final appBar = tester.widget<AppBar>(
@@ -148,7 +153,8 @@ void main() {
     });
 
     testWidgets('Test Posts tab is present', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       // Check if Posts tab exists
@@ -156,13 +162,15 @@ void main() {
     });
 
     testWidgets('ExitDemoButton works correctly', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       final exitButton = find.byKey(const Key('ExitDemoButton'));
       expect(exitButton, findsOneWidget);
 
-      final icon = tester.widget<Icon>(find.descendant(of: exitButton, matching: find.byType(Icon)));
+      final icon = tester.widget<Icon>(
+          find.descendant(of: exitButton, matching: find.byType(Icon)));
       expect(icon.icon, Icons.logout);
       // We can check color if we wrap in Theme, but logic check is most important
 
@@ -171,30 +179,51 @@ void main() {
     });
 
     testWidgets('FromPalisadoes widget is rendered', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
       expect(find.byType(FromPalisadoes), findsOneWidget);
     });
 
     testWidgets('Tabs render and switch correctly', (tester) async {
-      await tester.pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
+      await tester
+          .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
-      // Check Events tab
+      // Initial state: Posts tab is selected
+      expect(find.text('Posts'), findsOneWidget);
+      // Verify Posts content: GridView with images
+      expect(find.byType(GridView), findsOneWidget);
+      expect(find.byType(Image), findsNWidgets(5)); // 5 images in the grid
+
+      // Switch to Events tab
       final eventsTab = find.text('Events');
       expect(eventsTab, findsOneWidget);
       await tester.tap(eventsTab);
       await tester.pumpAndSettle();
-      // Verify Events content (Empty container with surface color in code, so hard to distinct visually without key, but we ensure no crash)
-      // Actually code says: Container(color: Theme.of(context).colorScheme.surface)
-      
-      // Check Tasks tab
+
+      // Verify Events content: Container with surface color
+      final surfaceColor = TalawaTheme.lightTheme.colorScheme.surface;
+      final eventsContainer = find.byWidgetPredicate(
+        (widget) => widget is Container && widget.color == surfaceColor,
+      );
+      expect(eventsContainer, findsOneWidget);
+      // Images should not be visible (or at least view switched)
+      // Note: ContainedTabBarView might keep state, but we check specific content
+
+      // Switch to Tasks tab
       final tasksTab = find.text('Tasks');
       expect(tasksTab, findsOneWidget);
       await tester.tap(tasksTab);
       await tester.pumpAndSettle();
-      // Verify Tasks content (Container with onPrimary)
+
+      // Verify Tasks content: Container with onPrimary color
+      final onPrimaryColor = TalawaTheme.lightTheme.colorScheme.onPrimary;
+      final tasksContainer = find.byWidgetPredicate(
+        (widget) => widget is Container && widget.color == onPrimaryColor,
+      );
+      expect(tasksContainer, findsOneWidget);
     });
   });
 }
