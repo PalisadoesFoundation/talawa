@@ -11,6 +11,7 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/create_group_bottom_sheet.dart';
+import 'package:talawa/views/after_auth_screens/chat/widgets/group_member_selector.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -925,6 +926,80 @@ void main() {
       // This test validates that the maximum member limit logic is in place
       // The actual error 'Maximum 99 members allowed (100 including you)' would be triggered
       // when _selectedMembers.length > 99, which is checked in the _createGroup method
+    });
+
+    testWidgets('should prevent selection when at 99-member limit',
+        (WidgetTester tester) async {
+      // Pre-select 99 members to simulate at-limit state
+      final preSelectedMembers = List.generate(
+        99,
+        (index) => User(id: 'existing$index', name: 'Existing $index'),
+      ).toSet();
+
+      Set<User>? callbackResult;
+
+      await tester.pumpWidget(
+        createTestMaterialApp(
+          child: GroupMemberSelector(
+            onMembersChanged: (members) => callbackResult = members,
+            selectedMembers: preSelectedMembers,
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Verify at limit: 99 selected + 1 current user = 100 displayed
+      expect(find.textContaining('100/100'), findsOneWidget);
+
+      // Try to select one more member
+      await tester.tap(
+        find.ancestor(
+          of: find.text('John Doe'),
+          matching: find.byType(CheckboxListTile),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Verify limit not exceeded
+      if (callbackResult != null) {
+        expect(callbackResult!.length, 99);
+      }
+      expect(find.textContaining('100/100'), findsOneWidget);
+    });
+
+    testWidgets('should invoke callback with correct member set',
+        (WidgetTester tester) async {
+      Set<User>? lastCallback;
+
+      await tester.pumpWidget(
+        createTestMaterialApp(
+          child: GroupMemberSelector(
+            onMembersChanged: (members) =>
+                lastCallback = Set<User>.from(members),
+            selectedMembers: const {},
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Select first member
+      await tester.tap(
+        find.ancestor(
+          of: find.text('John Doe'),
+          matching: find.byType(CheckboxListTile),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Verify callback received correct member
+      expect(lastCallback!.length, 1);
+      expect(lastCallback!.first.id, 'user1');
+      expect(
+        lastCallback!.any((user) => user.id == 'current-user'),
+        isFalse,
+      );
     });
   });
 }
