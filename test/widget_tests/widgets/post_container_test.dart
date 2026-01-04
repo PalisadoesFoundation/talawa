@@ -280,8 +280,28 @@ void main() {
       await tester.drag(pageView, const Offset(500, 0));
       await tester.pumpAndSettle();
 
-      // onPageChanged should have been called during both drags
-      expect(find.byType(PageView), findsOneWidget);
+      // Verify we returned to first page by checking active indicator
+      final containers = tester.widgetList<Container>(find.byType(Container));
+      final indicators = containers
+          .where(
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
+          )
+          .toList();
+
+      expect(indicators.length, equals(2));
+
+      // Count how many indicators have non-grey color (should be exactly 1 - the active one)
+      final activeIndicators = indicators
+          .where(
+            (indicator) =>
+                (indicator.decoration! as BoxDecoration).color != Colors.grey,
+          )
+          .toList();
+
+      expect(activeIndicators.length, equals(1));
     });
   });
 }
