@@ -131,7 +131,7 @@ dependency_overrides:
   # 1. Fork hive_generator to support analyzer 7.x
   # 2. Migrate to alternative code generation (e.g., freezed, json_serializable for persistence)
   # 3. Wait for hive_generator release supporting analyzer 7.x
-  analyzer: 6.4.0  # Pinned to maintain compatibility with custom_lint 0.6.6 and hive_generator 2.0.1
+  analyzer: ^6.4.0  # Allow patch updates within <7.0.0 while staying compatible with custom_lint 0.6.6 and hive_generator 2.0.1
   custom_lint_builder: ^0.6.6  # Matches custom_lint 0.6.6 version
   rxdart: 0.27.7  # Transitive via graphql_flutter/gql; pinned for deterministic resolution. Re-evaluate after graphql stack upgrade
   intl: 0.20.2  # Used widely for date/time/number formatting; pinned to current verified version. Revisit in follow-up 
