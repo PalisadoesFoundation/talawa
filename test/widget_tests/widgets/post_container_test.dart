@@ -13,9 +13,23 @@ void main() {
         ),
       );
       expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(PageView), findsNothing);
+      expect(find.byType(Column), findsNothing);
     });
 
-    testWidgets('renders image if attachment is image', (tester) async {
+    testWidgets('renders nothing if fileAttachmentList is null',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: PostContainer(fileAttachmentList: null),
+        ),
+      );
+      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(PageView), findsNothing);
+    });
+
+    testWidgets('does not show indicator dots for single attachment',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: PostContainer(
@@ -29,8 +43,16 @@ void main() {
         ),
       );
 
-      expect(find.byType(Image), findsOneWidget);
-      expect(find.byType(Image).evaluate().first.widget, isA<Image>());
+      // Verify no indicator dots are shown
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is Container &&
+              widget.decoration is BoxDecoration &&
+              (widget.decoration! as BoxDecoration).shape == BoxShape.circle,
+        ),
+        findsNothing,
+      );
     });
 
     testWidgets('shows indicator dots for multiple attachments',
@@ -63,14 +85,37 @@ void main() {
       );
     });
 
-    testWidgets('shows message for empty MIME type', (tester) async {
+    testWidgets('handles null URL in image attachment', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: PostContainer(
             fileAttachmentList: [
               AttachmentModel(
-                url: 'https://example.com/file.unknown',
-                mimetype: '',
+                url: null,
+                mimetype: 'image/jpeg',
+              ),
+            ],
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.byType(CachedNetworkImage), findsOneWidget);
+
+      final cachedImage = tester.widget<CachedNetworkImage>(
+        find.byType(CachedNetworkImage),
+      );
+      expect(cachedImage.imageUrl, isEmpty);
+    });
+
+    testWidgets('handles null mimetype', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: 'https://example.com/file',
+                mimetype: null,
               ),
             ],
           ),
@@ -112,7 +157,7 @@ void main() {
             fileAttachmentList: [
               AttachmentModel(
                 url: 'https://example.com/file.mp4',
-                mimetype: 'video/mimetype',
+                mimetype: 'video/mp4',
               ),
             ],
           ),
@@ -129,6 +174,7 @@ void main() {
 
       expect(sizedBoxInPageView, findsOneWidget);
     });
+
     testWidgets('PageView onPageChanged updates pindex correctly',
         (tester) async {
       // Arrange
@@ -154,6 +200,7 @@ void main() {
           ),
         ),
       );
+
       await tester.pumpAndSettle();
 
       // Initially first page indicator should be active (primary color)
