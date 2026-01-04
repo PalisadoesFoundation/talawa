@@ -169,8 +169,7 @@ void main() {
       await tester.drag(pageViewFinder, const Offset(-400, 0));
       await tester.pumpAndSettle();
 
-      // Assert - Second page indicator should now be active
-      // Find all indicator containers and verify the active one changed
+      // Assert - Verify we're now on a different page by checking indicators
       final containers = tester.widgetList<Container>(find.byType(Container));
       final indicators = containers
           .where(
@@ -269,20 +268,38 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Get PageView and perform a drag
+      // Get PageView and indicator dots
       final pageView = find.byType(PageView);
+      expect(pageView, findsOneWidget);
+
+      // Initially, first indicator should be active (primary color)
+      var containers = tester.widgetList<Container>(find.byType(Container));
+      var indicators = containers
+          .where(
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
+          )
+          .toList();
+      expect(indicators.length, equals(2));
+
+      // Verify first indicator is active initially
+      final firstIndicatorColorInitial =
+          (indicators[0].decoration! as BoxDecoration).color;
+      expect(firstIndicatorColorInitial, isNot(Colors.grey));
+
+      final secondIndicatorColorInitial =
+          (indicators[1].decoration! as BoxDecoration).color;
+      expect(secondIndicatorColorInitial, equals(Colors.grey));
 
       // Drag left to go to next page
       await tester.drag(pageView, const Offset(-500, 0));
       await tester.pumpAndSettle();
 
-      // Drag right to go back to previous page
-      await tester.drag(pageView, const Offset(500, 0));
-      await tester.pumpAndSettle();
-
-      // Verify we returned to first page by checking active indicator
-      final containers = tester.widgetList<Container>(find.byType(Container));
-      final indicators = containers
+      // Verify second indicator is now active
+      containers = tester.widgetList<Container>(find.byType(Container));
+      indicators = containers
           .where(
             (container) =>
                 container.decoration is BoxDecoration &&
@@ -291,17 +308,36 @@ void main() {
           )
           .toList();
 
-      expect(indicators.length, equals(2));
+      final firstIndicatorColorAfterSwipe =
+          (indicators[0].decoration! as BoxDecoration).color;
+      expect(firstIndicatorColorAfterSwipe, equals(Colors.grey));
 
-      // Count how many indicators have non-grey color (should be exactly 1 - the active one)
-      final activeIndicators = indicators
+      final secondIndicatorColorAfterSwipe =
+          (indicators[1].decoration! as BoxDecoration).color;
+      expect(secondIndicatorColorAfterSwipe, isNot(Colors.grey));
+
+      // Drag right to go back to previous page
+      await tester.drag(pageView, const Offset(500, 0));
+      await tester.pumpAndSettle();
+
+      // Verify first indicator is active (we're back on first page)
+      containers = tester.widgetList<Container>(find.byType(Container));
+      indicators = containers
           .where(
-            (indicator) =>
-                (indicator.decoration! as BoxDecoration).color != Colors.grey,
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
           )
           .toList();
 
-      expect(activeIndicators.length, equals(1));
+      final firstIndicatorColor =
+          (indicators[0].decoration! as BoxDecoration).color;
+      expect(firstIndicatorColor, isNot(Colors.grey));
+
+      final secondIndicatorColor =
+          (indicators[1].decoration! as BoxDecoration).color;
+      expect(secondIndicatorColor, equals(Colors.grey));
     });
   });
 }
