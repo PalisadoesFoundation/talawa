@@ -11,9 +11,13 @@ import 'package:custom_lint_builder/custom_lint_builder.dart';
 /// A visitor that checks for QueryResult.data access without hasException check.
 ///
 /// This visitor analyzes each function/method body and:
-/// 1. Tracks all variables that are of type QueryResult
+/// 1. Tracks all variables that are of type QueryResult from graphql_flutter
 /// 2. Tracks when hasException or exception is checked on those variables
 /// 3. Reports an error when .data is accessed without a prior check
+///
+/// Known limitations:
+/// - Control flow analysis is limited (early return patterns may not be detected)
+/// - Branch scoping is not tracked (check in one branch doesn't protect sibling branches)
 class TalawaQueryResultVisitor extends RecursiveAstVisitor<void> {
   TalawaQueryResultVisitor(this.rule, this.reporter);
 
@@ -78,16 +82,37 @@ class TalawaQueryResultVisitor extends RecursiveAstVisitor<void> {
     super.visitVariableDeclarationStatement(node);
   }
 
-  /// Check if a type is QueryResult or QueryResult<Object?>
+  /// Check if a type is QueryResult from graphql_flutter package.
+  ///
+  /// This method checks both the type name and its source library to ensure
+  /// we only match QueryResult from the graphql_flutter package, not similar
+  /// types from other packages like QueryResultBuilder or custom types.
   bool _isQueryResultType(DartType type) {
-    final typeName = type.getDisplayString();
-    return typeName.startsWith('QueryResult');
+    // Check if type name is exactly QueryResult (not QueryResultBuilder, etc.)
+    final element = type.element;
+    if (element == null) return false;
+
+    final typeName = element.name;
+    if (typeName != 'QueryResult') return false;
+
+    // Verify it comes from graphql_flutter package
+    final librarySource = element.library?.source.uri.toString() ?? '';
+    return librarySource.contains('graphql_flutter') ||
+        librarySource.contains('graphql/');
   }
 
-  /// Check if a type is Future<QueryResult>
+  /// Check if a type is Future<QueryResult> from graphql_flutter package.
   bool _isFutureQueryResult(DartType type) {
-    final typeName = type.getDisplayString();
-    return typeName.contains('Future') && typeName.contains('QueryResult');
+    if (type is! InterfaceType) return false;
+
+    // Check if it's a Future
+    if (type.element.name != 'Future') return false;
+
+    // Check if the type argument is QueryResult
+    final typeArgs = type.typeArguments;
+    if (typeArgs.isEmpty) return false;
+
+    return _isQueryResultType(typeArgs.first);
   }
 
   @override
