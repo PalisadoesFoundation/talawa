@@ -962,8 +962,10 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify limit not exceeded
+      // Either callback wasn't invoked (selection prevented) or it was invoked with 99 members
       if (callbackResult != null) {
-        expect(callbackResult!.length, 99);
+        expect(callbackResult!.length, 99,
+            reason: 'Callback should maintain 99 member limit');
       }
       expect(find.textContaining('100/100'), findsOneWidget);
     });
@@ -993,7 +995,9 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Verify callback received correct member
+      // Verify callback was invoked and received correct member
+      expect(lastCallback, isNotNull,
+          reason: 'Callback should be invoked after member selection');
       expect(lastCallback!.length, 1);
       expect(lastCallback!.first.id, 'user1');
       expect(
