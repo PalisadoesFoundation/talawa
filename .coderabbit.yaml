@@ -5,6 +5,9 @@ language: "en-US"
 early_access: false
 chat:
   auto_reply: true
+issue_enrichment:
+  auto_enrich:
+    enabled: false
 reviews:
   profile: "assertive"
   poem: false
@@ -19,8 +22,165 @@ reviews:
       - develop
       - develop
       - main
-  path_filters: 
-    - '!**/docs/docs/**'
+  path_filters:
+    - "!**/docs/docs/**"
     - "!*.html"
     - "!*.md"
     - "!*.svg"
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        Perform a comprehensive review with the following checks:
+
+        ## 1. Testing & Coverage
+        1. **Test Quality Analysis:**
+          - Verify all test files cover use cases including edge cases, error scenarios, and boundary conditions
+          - Validate assertions are meaningful and test descriptions are clear
+          - Confirm both success and failure paths are tested
+          - Check async operations, callbacks, and state changes are properly tested
+          - Verify widget tests include proper pump/pumpAndSettle patterns (for Flutter widgets)
+
+        2. **Coverage Assessment:**
+          - Aim for ≥95% coverage for new/modified code (≥99% ideal)
+          - Identify specific uncovered lines/functions with line numbers
+          - Note: ~99% coverage is acceptable when remaining gaps are defensive catch blocks requiring architectural changes
+          - Check for missing tests on:
+            - Error handling and validation logic
+            - Conditional branches and loops
+            - Model/ViewModel methods
+            - Navigation and routing logic
+
+        3. **Test Pattern Compliance:**
+          - Verify tests follow repository patterns (e.g., integration tests with proper structure)
+          - Check test file locations match conventions
+          - Validate proper use of test doubles (mocks, stubs, fakes)
+          - For integration tests: confirm proper GraphQL document nodes structure
+
+        ## 2. Implementation Correctness
+        1. **Logic Validation:**
+          - Verify implementation logic is correct and bug-free
+          - Validate database queries target correct tables/entities
+          - Check foreign key relationships and constraints are properly enforced
+          - Confirm business logic and validation rules are correctly implemented
+          - Verify proper error handling, exception types, and user feedback
+
+        2. **Critical Rule:**
+          - **ANY bugs or logic errors in files under test MUST be fixed in this PR before approval**
+          - Bugs in unrelated files may be deferred to separate issues
+
+        ## 3. Code Quality
+        1. **Best Practices:**
+          - Check for code duplication (DRY principle violations)
+          - Verify proper error handling and logging
+          - Identify security vulnerabilities (injection, authentication issues, data exposure)
+          - Assess performance concerns (inefficient algorithms, memory leaks, unnecessary rebuilds)
+          - For Flutter: check for proper widget disposal, stream/controller cleanup
+
+        2. **Language-Specific (Dart/Flutter):**
+          - Verify proper use of Dart null safety
+          - Check for appropriate use of const constructors (performance)
+          - Validate StatefulWidget vs StatelessWidget usage
+          - Ensure BuildContext is used safely (not across async gaps)
+
+        3. **Standards Compliance:**
+          - Follow repository coding standards and naming conventions
+          - Maintain consistent code organization and structure
+          - Verify proper separation of concerns (especially in MVVM pattern)
+
+        ## 4. Documentation
+        1. **Code Documentation:**
+          - Verify public functions/classes have proper DartDoc comments
+          - Check complex logic includes explanatory inline comments
+          - Validate auto-generated documentation is updated (Check-AutoDocs CI job)
+          - For DartDoc: confirm proper use of params/returns sections in integration test robots (repository convention)
+
+        2. **Project Documentation:**
+          - Ensure README.md or relevant docs updated for new features
+          - Validate Table of Contents is current (pre-commit hook requirement)
+          - Check for updated architecture/design docs if applicable
+
+        ## 5. File & Dependency Management
+        1. **Unnecessary Files:**
+          - Identify accidentally committed files (IDE configs, .env files, temporary files)
+          - Flag debug files, build artifacts, or files outside PR scope
+          - Check for unused imports or dead code
+          - Verify generated files are properly .gitignored
+
+        2. **Dependency Hygiene:**
+          - Validate new dependencies are necessary and properly versioned
+          - Check for unused dependencies
+          - Ensure pubspec.yaml changes are justified
+
+        ## 6. Requirements & Compliance
+        1. **Issue Requirements:**
+          - Verify ALL acceptance criteria from linked issue are met
+          - Confirm implementation matches described solution approach
+          - Check for scope creep or unrelated changes
+          - Validate no requirements are partially implemented
+
+        2. **Previous Feedback:**
+          - Re-evaluate all resolved comments to ensure fixes are complete
+          - Confirm no regressions of previously suggested improvements
+          - Verify all requested changes were implemented correctly
+
+        3. **PR Metadata:**
+          - Check proper title and description
+          - Verify linked to appropriate issue(s)
+          - Confirm target branch is correct (typically `develop`)
+
+        ## 7. Security & Sensitive Data
+        1. Verify no sensitive information exposed (Check-Sensitive-Files CI job)
+        2. Check for hardcoded credentials, API keys, or tokens
+        3. Validate proper data sanitization and validation
+
+        ## 8. CI/CD Compliance
+        1. Review all CI check results
+        2. Note: codecov/project failures with passing codecov/patch may be acceptable (meta-coverage issues)
+        3. Identify which failing checks require code changes vs. configuration
+
+        ## 9. Review Decision Criteria
+
+        ### REQUEST CHANGES if ANY of the following apply:
+        - Missing or incomplete test coverage (< 95% for new code, accounting for defensive code exceptions)
+        - Invalid, insufficient, or incorrectly structured tests
+        - Bugs or logic errors in implementation files under test
+        - Code quality issues or security concerns
+        - Incomplete implementation of issue requirements
+        - Non-compliance with previous review feedback
+        - Unnecessary files included
+        - CI checks failing due to code issues (not infrastructure)
+
+        ### APPROVE ONLY when ALL of these are satisfied:
+        - Complete test coverage (≥95% new code, ≥80% overall, or ~99% with acceptable gaps)
+        - All tests follow proper repository patterns and pass
+        - Zero bugs in implementation files under test
+        - No code quality or security issues
+        - Full implementation of ALL issue requirements
+        - Complete compliance with all previous feedback
+        - No unnecessary files
+        - CI checks passing or failures unrelated to PR changes
+        - **Zero changes required** (not even trivial ones)
+
+        ## 10. Approval Process
+        Only append the `[approve]` tag when:
+        - All criteria in section 9 "APPROVE" are fully satisfied
+        - You are confident the PR is production-ready and merge-safe
+        - Implementation files under test are correct and bug-free
+
+        ## 11. Review Philosophy
+        1. **Prioritization:**
+          - Focus on substantive issues over minor style suggestions
+          - Highlight issues that would cause CI failures or production bugs
+          - Flag deviations from established codebase patterns
+
+        2. **Scope Boundaries:**
+          - Test-focused PRs should maintain clear scope
+          - However, bugs in files being tested MUST be fixed (testing validates correctness)
+          - Bugs in unrelated files may be deferred to separate issues
+          - Respect team preference to defer test refactoring/improvements to dedicated efforts
+
+        3. **Coverage Philosophy:**
+          - ~99% coverage is acceptable when gaps are defensive catch blocks requiring broader refactoring
+          - Don't require test refactoring in feature PRs if team defers to dedicated test improvement efforts
+
+        Re-evaluate all previously resolved comments to ensure fixes are complete and correct.

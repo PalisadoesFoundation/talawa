@@ -45,7 +45,8 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: undefined,
+          // the custom css file is default css provided by docusaurus
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
@@ -128,10 +129,10 @@ const config: Config = {
           title: "Community",
           items: [
             {
-              label: "Slack",
-              to: "https://github.com/PalisadoesFoundation",
-              className: "footer__icon footer__slack",
-            },
+              label: "Forums",
+              to: "https://community.talawa.io/",
+              className: "footer__icon footer__news",
+            },            
             {
               label: "News",
               to: "https://www.palisadoes.org/news/",
