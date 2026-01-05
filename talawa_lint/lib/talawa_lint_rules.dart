@@ -122,3 +122,16 @@ class TalawaGoodDocLintRules {
     errorSeverity: analyzer.ErrorSeverity.WARNING,
   );
 }
+
+/// Lint rules for QueryResult hasException checking.
+class TalawaQueryResultLintRules {
+  static const missingHasExceptionCheck = LintCode(
+    name: 'talawa_query_result_check',
+    problemMessage:
+        'QueryResult.data accessed without checking hasException first.',
+    correctionMessage:
+        'Add an if (result.hasException) check before accessing data.',
+    url: 'https://docs.talawa.io/docs/developers/talawa/talawa-lint/',
+    errorSeverity: analyzer.ErrorSeverity.WARNING,
+  );
+}
