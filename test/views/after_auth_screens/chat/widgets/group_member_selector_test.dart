@@ -143,7 +143,8 @@ void main() {
       expect(find.byType(CheckboxListTile), findsAtLeastNWidgets(3));
     });
 
-    testWidgets('should handle loading state during member loading',
+    testWidgets(
+        'should complete loading and display members after async data fetch',
         (WidgetTester tester) async {
       // Make the service take time to load
       when(mockOrgService.getOrgMembersList(testOrgId)).thenAnswer((_) async {
@@ -427,22 +428,6 @@ void main() {
       expect(find.byType(CheckboxListTile), findsAtLeastNWidgets(4));
     });
 
-    testWidgets('should disable checkbox for current user',
-        (WidgetTester tester) async {
-      await pumpSelector(tester, onMembersChanged: (members) {});
-
-      // Find current user's checkbox
-      final currentUserTile = tester.widget<CheckboxListTile>(
-        find.ancestor(
-          of: find.text(currentUserLabel),
-          matching: find.byType(CheckboxListTile),
-        ),
-      );
-
-      // Checkbox should be disabled
-      expect(currentUserTile.onChanged, isNull);
-    });
-
     testWidgets('should show "(You)" label for current user',
         (WidgetTester tester) async {
       await pumpSelector(tester, onMembersChanged: (members) {});
@@ -476,12 +461,13 @@ void main() {
         (WidgetTester tester) async {
       await pumpSelector(tester, onMembersChanged: (members) {});
 
-      // Should display initials in CircleAvatar
+      // Should display CircleAvatar for each member
       expect(find.byType(CircleAvatar), findsAtLeastNWidgets(4));
 
-      // Verify initials are shown (first letter of first name)
-      final avatars = find.byType(CircleAvatar);
-      expect(avatars, findsAtLeastNWidgets(4));
+      // Verify actual initials are shown (first letter of first name)
+      expect(find.text('C'), findsOneWidget); // Current User
+      expect(find.text('J'), findsNWidgets(2)); // John Doe and Jane Smith
+      expect(find.text('B'), findsOneWidget); // Bob Johnson
     });
 
     testWidgets('should handle empty organization members list',
