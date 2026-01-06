@@ -130,9 +130,7 @@ def fix_mdx_syntax(content):
         r"Map/<([^,]+),\s*([^>]+)\/>", r"Map&lt;\1, \2&gt;", content
     )
     # Also handle standard Map<K,V> without slash escapes if present
-    content = re.sub(
-        r"Map<([^,]+),\s*([^>]+)>", r"Map&lt;\1, \2&gt;", content
-    )
+    content = re.sub(r"Map<([^,]+),\s*([^>]+)>", r"Map&lt;\1, \2&gt;", content)
     return content
 
 
@@ -149,17 +147,17 @@ def escape_generic_types(content):
     """
     # Pattern to match Word<Word> or Word<Word, Word> etc.
     # checking for common Dart types or just capitalized words followed by <...>
-    
+
     # Escape List<T>, Future<T>, Set<T>, Stream<T>, Iterable<T>
     # and any capitalized identifier followed by <...>
-    
+
     def escape_match(match):
         return f"{match.group(1)}&lt;{match.group(2)}&gt;"
 
     # Matches Identifier<Type> or Identifier<Type, Type>
     # We use a recursive-like pattern approximation for simple generics
     pattern = r"([a-zA-Z0-9_]+)<([a-zA-Z0-9_,\s<>]+)>"
-    
+
     # Apply multiple times to handle nesting like Future<List<String>>
     prev_content = ""
     while prev_content != content:
@@ -305,10 +303,12 @@ for root, _, files in os.walk(md_folder):
                 content = fix_nested_links(content)
                 content = flatten_nested_links(content)
                 content = fix_mdx_syntax(content)
-                
+
             # Apply generic type escaping to all files
             content = escape_generic_types(content)
-            content = fix_mdx_syntax(content) # Run this again/as well for Maps
+            content = fix_mdx_syntax(
+                content
+            )  # Run this again/as well for Maps
 
             content = clean_markdown(content)
 
