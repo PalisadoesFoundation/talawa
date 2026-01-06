@@ -23,7 +23,7 @@ Stream from
 ## Implementation
 
 ``` language-dart
-late final Stream<List<ConnectivityResult>> connectivityStream;
+late final Stream&lt;List&lt;ConnectivityResult&gt;&gt; connectivityStream;
 ```
 
 

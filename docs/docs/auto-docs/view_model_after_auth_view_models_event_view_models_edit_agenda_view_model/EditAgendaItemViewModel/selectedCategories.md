@@ -19,7 +19,7 @@ Get the list of selected categories.
 ## Implementation
 
 ``` language-dart
-List<AgendaCategory> get selectedCategories => _selectedCategories;
+List&lt;AgendaCategory&gt; get selectedCategories => _selectedCategories;
 ```
 
 

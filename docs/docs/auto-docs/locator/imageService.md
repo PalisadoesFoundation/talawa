@@ -22,7 +22,7 @@ GetIt for ImageService.
 ## Implementation
 
 ``` language-dart
-final imageService = locator<ImageService>;
+final imageService = locator&lt;ImageService&gt;;
 ```
 
 

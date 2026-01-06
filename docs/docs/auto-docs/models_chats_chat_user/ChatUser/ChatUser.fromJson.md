@@ -19,7 +19,7 @@ ChatUser.fromJson(
 ## Implementation
 
 ``` language-dart
-factory ChatUser.fromJson(Map<String, dynamic> json) =>
+factory ChatUser.fromJson(Map&lt;String, dynamic&gt; json) =>
     _$ChatUserFromJson(json);
 ```
 

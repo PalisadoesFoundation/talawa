@@ -24,7 +24,7 @@ The function uses `getEvents` method from `EventService`.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

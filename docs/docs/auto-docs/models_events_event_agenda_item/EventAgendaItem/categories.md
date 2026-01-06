@@ -22,7 +22,7 @@ Optional array of agenda categories.
 ## Implementation
 
 ``` language-dart
-final List<AgendaCategory>? categories;
+final List&lt;AgendaCategory&gt;? categories;
 ```
 
 

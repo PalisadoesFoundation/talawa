@@ -25,7 +25,7 @@ organization.
 
 **returns**:
 
--   `Future<dynamic>`: A list of agenda items for the specified
+-   `Future&lt;dynamic&gt;`: A list of agenda items for the specified
     organization.
 
 
@@ -33,7 +33,7 @@ organization.
 ## Implementation
 
 ``` language-dart
-Future<dynamic> fetchAgendaItems(String eventId) async 
+Future&lt;dynamic&gt; fetchAgendaItems(String eventId) async 
 ```
 
 

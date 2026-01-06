@@ -27,7 +27,7 @@ Returns an instance of `Venue`.
 ## Implementation
 
 ``` language-dart
-factory Venue.fromJson(Map<String, dynamic> json) 
+factory Venue.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

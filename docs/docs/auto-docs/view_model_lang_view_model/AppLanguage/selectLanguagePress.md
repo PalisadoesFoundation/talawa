@@ -25,7 +25,7 @@ authenticated else navigate to `demoMode - /MainScreenPage` route.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

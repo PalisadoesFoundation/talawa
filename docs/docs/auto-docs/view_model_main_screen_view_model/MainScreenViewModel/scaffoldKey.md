@@ -22,8 +22,8 @@ static variables.
 ## Implementation
 
 ``` language-dart
-static final GlobalKey<ScaffoldState> scaffoldKey =
-    GlobalKey<ScaffoldState>;
+static final GlobalKey&lt;ScaffoldState&gt; scaffoldKey =
+    GlobalKey&lt;ScaffoldState&gt;;
 ```
 
 

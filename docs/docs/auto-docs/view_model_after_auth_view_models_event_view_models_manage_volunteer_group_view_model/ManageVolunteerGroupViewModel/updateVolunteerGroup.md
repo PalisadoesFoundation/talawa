@@ -39,7 +39,7 @@ Updates the details of a volunteer group.
 ## Implementation
 
 ``` language-dart
-Future<void> updateVolunteerGroup(
+Future&lt;void&gt; updateVolunteerGroup(
   EventVolunteerGroup group,
   String eventId,
   String name,

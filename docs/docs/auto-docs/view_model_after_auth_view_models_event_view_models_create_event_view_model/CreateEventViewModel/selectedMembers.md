@@ -18,14 +18,14 @@ params: None
 
 returns:
 
--   `List<User>`: Returns a list of selectedMembers for events
+-   `List&lt;User&gt;`: Returns a list of selectedMembers for events
 
 
 
 ## Implementation
 
 ``` language-dart
-List<User> get selectedMembers => _selectedMembers;
+List&lt;User&gt; get selectedMembers => _selectedMembers;
 ```
 
 

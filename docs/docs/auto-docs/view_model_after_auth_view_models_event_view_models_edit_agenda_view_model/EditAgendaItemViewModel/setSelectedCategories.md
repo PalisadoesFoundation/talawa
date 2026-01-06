@@ -29,7 +29,7 @@ Updates the selected categories in the form.
 ## Implementation
 
 ``` language-dart
-void setSelectedCategories(List<AgendaCategory> categories) 
+void setSelectedCategories(List&lt;AgendaCategory&gt; categories) 
 ```
 
 

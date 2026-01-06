@@ -17,7 +17,7 @@ Checks the current internet connectivity status of the device.
 
 **returns**:
 
--   `Future<List<ConnectivityResult>>`: indicates if the url is
+-   `Future&lt;List&lt;ConnectivityResult&gt;&gt;`: indicates if the url is
     reachable.
 
 
@@ -25,7 +25,7 @@ Checks the current internet connectivity status of the device.
 ## Implementation
 
 ``` language-dart
-Future<List<ConnectivityResult>>  async 
+Future&lt;List&lt;ConnectivityResult&gt;&gt;  async 
 ```
 
 

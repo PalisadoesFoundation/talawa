@@ -32,7 +32,7 @@ params: None returns:
 /// None
 /// returns:
 /// * `PostObject`: Dart Object for posts
-Post.fromJson(Map<String, dynamic> json) 
+Post.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

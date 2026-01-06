@@ -17,14 +17,14 @@ Asynchronously refreshes the user session.
 
 **returns**:
 
--   `Future<bool>`: indicates if session refresh was successful.
+-   `Future&lt;bool&gt;`: indicates if session refresh was successful.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<bool>  async 
+Future&lt;bool&gt;  async 
 ```
 
 

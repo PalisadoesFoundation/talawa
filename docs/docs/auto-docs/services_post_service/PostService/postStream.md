@@ -19,7 +19,7 @@ Getter for Stream of posts.
 ## Implementation
 
 ``` language-dart
-Stream<List<Post>> get postStream => _postStream;
+Stream&lt;List&lt;Post&gt;&gt; get postStream => _postStream;
 ```
 
 

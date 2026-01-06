@@ -29,7 +29,7 @@ HiveField for all organisations user is admin of.
 
 ``` language-dart
 @HiveField(9)
-List<OrgInfo>? adminFor = [];
+List&lt;OrgInfo&gt;? adminFor = [];
 ```
 
 

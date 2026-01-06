@@ -29,7 +29,7 @@ Opens the `boxName` named box.
 ## Implementation
 
 ``` language-dart
-static Future<void> openBox<T>(String boxName) async 
+static Future&lt;void> openBox<T&gt;(String boxName) async 
 ```
 
 

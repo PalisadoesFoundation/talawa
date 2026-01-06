@@ -24,14 +24,14 @@ This function is used to create an agenda item.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the created agenda item.
+-   `Future&lt;dynamic&gt;`: Information about the created agenda item.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> fetchAgendaCategories(String orgId) async 
+Future&lt;dynamic&gt; fetchAgendaCategories(String orgId) async 
 ```
 
 

@@ -17,14 +17,14 @@ Fetches the list of current organization members.
 
 **returns**:
 
--   `Future<List<User>>`: A list of organization members.
+-   `Future&lt;List&lt;User&gt;&gt;`: A list of organization members.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<List<User>>  async 
+Future&lt;List&lt;User&gt;&gt;  async 
 ```
 
 

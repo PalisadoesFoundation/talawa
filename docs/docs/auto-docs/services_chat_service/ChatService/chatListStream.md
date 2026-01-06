@@ -19,7 +19,7 @@ Getter for chat list stream.
 ## Implementation
 
 ``` language-dart
-Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
+Stream&lt;ChatListTileDataModel&gt; get chatListStream => _chatListStream;
 ```
 
 

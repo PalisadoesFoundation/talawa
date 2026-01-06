@@ -28,7 +28,7 @@ Method to updated createdOrganisation list.
 ## Implementation
 
 ``` language-dart
-void updateCreatedOrg(List<OrgInfo> orgList) 
+void updateCreatedOrg(List&lt;OrgInfo&gt; orgList) 
 ```
 
 

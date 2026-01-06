@@ -18,7 +18,7 @@ represents all the week day occurences.
 ## Implementation
 
 ``` language-dart
-static const List<String> weekDayOccurences = [
+static const List&lt;String&gt; weekDayOccurences = [
   'First',
   'Second',
   'Third',

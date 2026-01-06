@@ -22,7 +22,7 @@ Key for Navigator State.
 ## Implementation
 
 ``` language-dart
-GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>;
+GlobalKey&lt;NavigatorState&gt; navigatorKey = GlobalKey&lt;NavigatorState&gt;;
 ```
 
 

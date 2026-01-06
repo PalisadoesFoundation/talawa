@@ -19,7 +19,7 @@ Getter for the stream of connection status changes.
 ## Implementation
 
 ``` language-dart
-Stream<List<ConnectivityResult>> get connectionStream =>
+Stream&lt;List&lt;ConnectivityResult&gt;&gt; get connectionStream =>
     connectionStatusController.stream;
 ```
 

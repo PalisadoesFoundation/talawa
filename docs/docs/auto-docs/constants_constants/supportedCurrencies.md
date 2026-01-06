@@ -26,7 +26,7 @@ transactions, conversions, or displays.
 ## Implementation
 
 ``` language-dart
-List<String> supportedCurrencies = [
+List&lt;String&gt; supportedCurrencies = [
   'AED',
   'ALL',
   'AMD',

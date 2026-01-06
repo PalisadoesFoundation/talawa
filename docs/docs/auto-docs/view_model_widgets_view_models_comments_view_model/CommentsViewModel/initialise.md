@@ -30,7 +30,7 @@ To verify things are working, check out the native platform logs.
 ## Implementation
 
 ``` language-dart
-Future<void> initialise(String postID) async 
+Future&lt;void&gt; initialise(String postID) async 
 ```
 
 

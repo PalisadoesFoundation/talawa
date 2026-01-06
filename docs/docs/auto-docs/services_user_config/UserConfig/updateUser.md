@@ -25,14 +25,14 @@ Updates the user details.
 
 **returns**:
 
--   `Future<bool>`: returns future of bool type.
+-   `Future&lt;bool&gt;`: returns future of bool type.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<bool> updateUser(User updatedUserDetails) async 
+Future&lt;bool&gt; updateUser(User updatedUserDetails) async 
 ```
 
 

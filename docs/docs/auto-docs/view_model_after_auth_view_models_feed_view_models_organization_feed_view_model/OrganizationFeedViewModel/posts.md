@@ -19,7 +19,7 @@ getter for the posts.
 ## Implementation
 
 ``` language-dart
-List<Post> get posts 
+List&lt;Post&gt; get posts 
 ```
 
 

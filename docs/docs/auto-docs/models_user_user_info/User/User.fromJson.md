@@ -17,7 +17,7 @@ User.fromJson(
 ## Implementation
 
 ``` language-dart
-factory User.fromJson(Map<String, dynamic> json, ) 
+factory User.fromJson(Map&lt;String, dynamic&gt; json, ) 
 ```
 
 

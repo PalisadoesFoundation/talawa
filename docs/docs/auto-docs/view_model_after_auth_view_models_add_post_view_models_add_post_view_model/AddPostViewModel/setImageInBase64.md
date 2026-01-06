@@ -29,7 +29,7 @@ Method to set Image in Bsse64.
 ## Implementation
 
 ``` language-dart
-Future<void> setImageInBase64(File file) async 
+Future&lt;void&gt; setImageInBase64(File file) async 
 ```
 
 

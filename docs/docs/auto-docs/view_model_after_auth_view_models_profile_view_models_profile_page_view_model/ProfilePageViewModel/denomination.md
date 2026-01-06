@@ -22,7 +22,7 @@ denomination.
 ## Implementation
 
 ``` language-dart
-final List<String> denomination = ['1', '5', '10'];
+final List&lt;String&gt; denomination = ['1', '5', '10'];
 ```
 
 

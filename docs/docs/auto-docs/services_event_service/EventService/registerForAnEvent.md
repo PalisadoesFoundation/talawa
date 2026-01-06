@@ -24,14 +24,14 @@ This function is used to register user for an event.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the event registration.
+-   `Future&lt;dynamic&gt;`: Information about the event registration.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> registerForAnEvent(String eventId) async 
+Future&lt;dynamic&gt; registerForAnEvent(String eventId) async 
 ```
 
 

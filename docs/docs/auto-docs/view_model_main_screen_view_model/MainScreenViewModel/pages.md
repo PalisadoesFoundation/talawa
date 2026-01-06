@@ -24,7 +24,7 @@ Features that should be implemented as plugins should be kept here.
 ## Implementation
 
 ``` language-dart
-List<Widget> pages = [];
+List&lt;Widget&gt; pages = [];
 ```
 
 

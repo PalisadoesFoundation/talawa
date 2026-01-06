@@ -24,7 +24,7 @@ This function push the route and replace the screen.
 
 **returns**:
 
--   `Future<dynamic>`: resolves if the Screen was succesfully
+-   `Future&lt;dynamic&gt;`: resolves if the Screen was succesfully
     pushedReplacementScreen.
 
 
@@ -32,7 +32,7 @@ This function push the route and replace the screen.
 ## Implementation
 
 ``` language-dart
-Future<dynamic> pushReplacementScreen(String routeName, ) 
+Future&lt;dynamic&gt; pushReplacementScreen(String routeName, ) 
 ```
 
 

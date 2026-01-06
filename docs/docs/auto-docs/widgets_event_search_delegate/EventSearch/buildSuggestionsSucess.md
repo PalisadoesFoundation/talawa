@@ -19,7 +19,7 @@ buildSuggestionsSucess(
 ## Implementation
 
 ``` language-dart
-Widget buildSuggestionsSucess(List<Event> suggestions) 
+Widget buildSuggestionsSucess(List&lt;Event&gt; suggestions) 
 ```
 
 

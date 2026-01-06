@@ -17,14 +17,14 @@ Retrieves all valid actions from the queue.
 
 **returns**:
 
--   `List<CachedUserAction>`: a list of valid actions.
+-   `List&lt;CachedUserAction&gt;`: a list of valid actions.
 
 
 
 ## Implementation
 
 ``` language-dart
-List<CachedUserAction>  
+List&lt;CachedUserAction&gt;  
 ```
 
 

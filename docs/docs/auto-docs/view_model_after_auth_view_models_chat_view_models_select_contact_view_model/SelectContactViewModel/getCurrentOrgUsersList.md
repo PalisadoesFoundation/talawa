@@ -22,7 +22,7 @@ function to get all users of current organization.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

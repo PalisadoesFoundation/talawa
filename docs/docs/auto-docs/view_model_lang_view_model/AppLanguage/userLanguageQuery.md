@@ -33,7 +33,7 @@ Services.
 ## Implementation
 
 ``` language-dart
-Future<void> userLanguageQuery(String userId) async 
+Future&lt;void&gt; userLanguageQuery(String userId) async 
 ```
 
 

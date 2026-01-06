@@ -31,7 +31,7 @@ getWeekDaysString(
 ## Implementation
 
 ``` language-dart
-static String getWeekDaysString(List<String> weekDays) 
+static String getWeekDaysString(List&lt;String&gt; weekDays) 
 ```
 
 

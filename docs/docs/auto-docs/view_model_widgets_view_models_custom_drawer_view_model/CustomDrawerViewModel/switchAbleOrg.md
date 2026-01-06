@@ -20,7 +20,7 @@ Getter method to retrieve the switchAble organization.
 
 ``` language-dart
 // ignore: unnecessary_getters_setters
-List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
+List&lt;OrgInfo&gt; get switchAbleOrg => _switchAbleOrg;
 ```
 
 
@@ -40,7 +40,7 @@ Setter method for switchAble organization.
 ## Implementation
 
 ``` language-dart
-set switchAbleOrg(List<OrgInfo> switchableOrg) =>
+set switchAbleOrg(List&lt;OrgInfo&gt; switchableOrg) =>
     _switchAbleOrg = switchableOrg;
 ```
 

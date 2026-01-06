@@ -29,7 +29,7 @@ This function retrieves direct chat messages by chat ID.
 ## Implementation
 
 ``` language-dart
-Future<void> getDirectChatMessagesByChatId(chatId) async 
+Future&lt;void&gt; getDirectChatMessagesByChatId(chatId) async 
 ```
 
 

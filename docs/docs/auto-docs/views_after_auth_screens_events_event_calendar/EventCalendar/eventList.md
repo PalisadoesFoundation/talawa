@@ -22,7 +22,7 @@ List of events that needs to bge passed when the calling this widget.
 ## Implementation
 
 ``` language-dart
-final List<Event> eventList;
+final List&lt;Event&gt; eventList;
 ```
 
 

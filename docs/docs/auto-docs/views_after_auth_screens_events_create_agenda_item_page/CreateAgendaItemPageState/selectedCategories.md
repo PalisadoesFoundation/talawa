@@ -22,7 +22,7 @@ List of selected categories for the agenda item.
 ## Implementation
 
 ``` language-dart
-List<AgendaCategory> selectedCategories = [];
+List&lt;AgendaCategory&gt; selectedCategories = [];
 ```
 
 

@@ -28,7 +28,7 @@ API.
 
 **returns**:
 
--   `Future<List<T>>`: A Future containing a list of data fetched from
+-   `Future&lt;List&lt;T&gt;&gt;`: A Future containing a list of data fetched from
     the API.
 
 
@@ -37,7 +37,7 @@ API.
 
 ``` language-dart
 @override
-Future<List<Event>>  async 
+Future&lt;List&lt;Event&gt;&gt;  async 
 ```
 
 

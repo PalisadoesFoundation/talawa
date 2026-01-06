@@ -19,7 +19,7 @@ Getter for Stream of update in any post.
 ## Implementation
 
 ``` language-dart
-Stream<Post> get updatedPostStream => _updatedPostStream;
+Stream&lt;Post&gt; get updatedPostStream => _updatedPostStream;
 ```
 
 

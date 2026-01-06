@@ -19,7 +19,7 @@ final
 ## Implementation
 
 ``` language-dart
-final List<Map<String, dynamic>> words;
+final List&lt;Map&lt;String, dynamic&gt;&gt; words;
 ```
 
 

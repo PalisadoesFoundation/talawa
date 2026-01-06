@@ -25,7 +25,7 @@ more.
 
 **returns**:
 
--   `List<OrgInfo>`: returning the OrgInfo object containing the json
+-   `List&lt;OrgInfo&gt;`: returning the OrgInfo object containing the json
     data
 
 
@@ -33,7 +33,7 @@ more.
 ## Implementation
 
 ``` language-dart
-List<OrgInfo> fromJsonToList(dynamic json) 
+List&lt;OrgInfo&gt; fromJsonToList(dynamic json) 
 ```
 
 

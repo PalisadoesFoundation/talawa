@@ -21,20 +21,20 @@ This function is used to update the information of a volunteer group.
 
 **params**:
 
--   `variables`: This is a `Map<String, dynamic>` type that contains the
+-   `variables`: This is a `Map&lt;String, dynamic&gt;` type that contains the
     ID of the volunteer group to be updated and the fields to be
     updated.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the updated volunteer group.
+-   `Future&lt;dynamic&gt;`: Information about the updated volunteer group.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> updateVolunteerGroup(Map<String, dynamic> variables) async 
+Future&lt;dynamic&gt; updateVolunteerGroup(Map&lt;String, dynamic&gt; variables) async 
 ```
 
 

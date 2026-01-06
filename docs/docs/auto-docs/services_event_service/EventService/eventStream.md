@@ -16,14 +16,14 @@ The event stream.
 
 params: None returns:
 
--   `Stream<Event>`: returns the event stream
+-   `Stream&lt;Event&gt;`: returns the event stream
 
 
 
 ## Implementation
 
 ``` language-dart
-Stream<List<Event>> get eventStream => _eventStream;
+Stream&lt;List&lt;Event&gt;&gt; get eventStream => _eventStream;
 ```
 
 

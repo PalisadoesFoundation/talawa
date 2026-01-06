@@ -23,7 +23,7 @@ Contains the data of the post.
 ## Implementation
 
 ``` language-dart
-final Map<String, String> post;
+final Map&lt;String, String&gt; post;
 ```
 
 

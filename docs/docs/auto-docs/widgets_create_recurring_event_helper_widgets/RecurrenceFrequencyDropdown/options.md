@@ -22,7 +22,7 @@ Options to be shown in dropdown.
 ## Implementation
 
 ``` language-dart
-final List<String> options;
+final List&lt;String&gt; options;
 ```
 
 

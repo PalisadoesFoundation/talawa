@@ -22,7 +22,7 @@ GlobalKey to identify and manage the state of a form widget.
 ## Implementation
 
 ``` language-dart
-final formKey = GlobalKey<FormState>;
+final formKey = GlobalKey&lt;FormState&gt;;
 ```
 
 

@@ -28,7 +28,7 @@ Method to update membershipRequests List.
 ## Implementation
 
 ``` language-dart
-void updateMemberRequestOrg(List<OrgInfo> orgList) 
+void updateMemberRequestOrg(List&lt;OrgInfo&gt; orgList) 
 ```
 
 

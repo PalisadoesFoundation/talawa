@@ -19,7 +19,7 @@ EventAgendaItem.fromJson(
 ## Implementation
 
 ``` language-dart
-factory EventAgendaItem.fromJson(Map<String, dynamic> json) 
+factory EventAgendaItem.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

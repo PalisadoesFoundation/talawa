@@ -25,14 +25,14 @@ application.
 
 **returns**:
 
--   `Future<bool>`: it returns Future of dynamic
+-   `Future&lt;bool&gt;`: it returns Future of dynamic
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<bool> refreshAccessToken(String refreshToken) async 
+Future&lt;bool&gt; refreshAccessToken(String refreshToken) async 
 ```
 
 

@@ -22,7 +22,7 @@ orgMembersList is used to store all users of current organization.
 ## Implementation
 
 ``` language-dart
-late List<User> orgMembersList = [];
+late List&lt;User&gt; orgMembersList = [];
 ```
 
 

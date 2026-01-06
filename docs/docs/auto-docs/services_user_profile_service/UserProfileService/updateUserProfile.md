@@ -36,7 +36,7 @@ Updates the user profile using a GraphQL mutation.
 
 ``` language-dart
 Future<QueryResult<Object?>> updateUserProfile(
-  Map<String, dynamic>? variables,
+  Map&lt;String, dynamic&gt;? variables,
 ) 
 ```
 

@@ -22,7 +22,7 @@ GetIt for SessionManager.
 ## Implementation
 
 ``` language-dart
-final sessionManager = locator<SessionManager>;
+final sessionManager = locator&lt;SessionManager&gt;;
 ```
 
 

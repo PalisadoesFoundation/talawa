@@ -20,7 +20,7 @@ Event.fromJson(
 
 ``` language-dart
 factory Event.fromJson(
-  Map<String, dynamic> json,
+  Map&lt;String, dynamic&gt; json,
 ) 
 ```
 

@@ -25,7 +25,7 @@ Performs graphQL query to check the app language. The function uses
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

@@ -26,14 +26,14 @@ This function is used to add a volunteer to a group.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the added volunteer.
+-   `Future&lt;dynamic&gt;`: Information about the added volunteer.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> addVolunteerToGroup(Map<String, dynamic> variables) async 
+Future&lt;dynamic&gt; addVolunteerToGroup(Map&lt;String, dynamic&gt; variables) async 
 ```
 
 

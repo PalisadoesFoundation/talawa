@@ -25,7 +25,7 @@ Updates the access token of the user.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

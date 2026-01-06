@@ -18,14 +18,14 @@ This function fetch all the users in the current organization and return
 
 **returns**:
 
--   `Future<List<User>>`: Current Organization Users List
+-   `Future&lt;List&lt;User&gt;&gt;`: Current Organization Users List
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<List<User>>  async 
+Future&lt;List&lt;User&gt;&gt;  async 
 ```
 
 

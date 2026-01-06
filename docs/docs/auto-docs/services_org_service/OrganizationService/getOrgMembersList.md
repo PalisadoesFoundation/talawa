@@ -24,7 +24,7 @@ Retrieves a list of organization members.
 
 **returns**:
 
--   `Future<List<User>>`: A promise that will be fulfilled with the list
+-   `Future&lt;List&lt;User&gt;&gt;`: A promise that will be fulfilled with the list
     of organization members.
 
 
@@ -32,7 +32,7 @@ Retrieves a list of organization members.
 ## Implementation
 
 ``` language-dart
-Future<List<User>> getOrgMembersList(String orgId) async 
+Future&lt;List&lt;User&gt;&gt; getOrgMembersList(String orgId) async 
 ```
 
 

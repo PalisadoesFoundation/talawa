@@ -116,7 +116,7 @@ def fix_nested_links(content):
 
 
 def fix_mdx_syntax(content):
-    """Fix MDX syntax errors related to `Map/<String, Object/>` patterns.
+    """Fix MDX syntax errors related to Map<String, Object> and other generics.
 
     Args:
         content (str): Markdown content with MDX syntax errors.
@@ -124,10 +124,47 @@ def fix_mdx_syntax(content):
     Returns:
         str: Content with fixed MDX syntax.
     """
-    # Replace occurrences of Map/<something/> with escaped characters
+    # Replace occurrences of Map<...> with escaped characters
+    # We handle the specific case where dart_doc_markdown might have escaped slashes or not
     content = re.sub(
-        r"Map/<([^,]+),\s*([^>]+)\/>", r"Map/&lt;\1, \2/&gt;", content
+        r"Map/<([^,]+),\s*([^>]+)\/>", r"Map&lt;\1, \2&gt;", content
     )
+    # Also handle standard Map<K,V> without slash escapes if present
+    content = re.sub(
+        r"Map<([^,]+),\s*([^>]+)>", r"Map&lt;\1, \2&gt;", content
+    )
+    return content
+
+
+def escape_generic_types(content):
+    """Escape angle brackets in generic types to avoid MDX parsing errors.
+
+    Matches patterns like List<Type>, Future<Type>, etc.
+
+    Args:
+        content (str): The markdown content.
+
+    Returns:
+        str: The content with escaped generic types.
+    """
+    # Pattern to match Word<Word> or Word<Word, Word> etc.
+    # checking for common Dart types or just capitalized words followed by <...>
+    
+    # Escape List<T>, Future<T>, Set<T>, Stream<T>, Iterable<T>
+    # and any capitalized identifier followed by <...>
+    
+    def escape_match(match):
+        return f"{match.group(1)}&lt;{match.group(2)}&gt;"
+
+    # Matches Identifier<Type> or Identifier<Type, Type>
+    # We use a recursive-like pattern approximation for simple generics
+    pattern = r"([a-zA-Z0-9_]+)<([a-zA-Z0-9_,\s<>]+)>"
+    
+    # Apply multiple times to handle nesting like Future<List<String>>
+    prev_content = ""
+    while prev_content != content:
+        prev_content = content
+        content = re.sub(pattern, escape_match, content)
 
     return content
 
@@ -265,7 +302,13 @@ for root, _, files in os.walk(md_folder):
                 )  # Convert backslashes to forward slashes
                 content = fix_nested_links(content)
                 content = flatten_nested_links(content)
+                content = fix_nested_links(content)
+                content = flatten_nested_links(content)
                 content = fix_mdx_syntax(content)
+                
+            # Apply generic type escaping to all files
+            content = escape_generic_types(content)
+            content = fix_mdx_syntax(content) # Run this again/as well for Maps
 
             content = clean_markdown(content)
 

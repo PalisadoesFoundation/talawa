@@ -18,7 +18,7 @@ final
 ## Implementation
 
 ``` language-dart
-final List<Event> eventList;
+final List&lt;Event&gt; eventList;
 ```
 
 

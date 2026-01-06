@@ -18,7 +18,7 @@ represents all the week days.
 ## Implementation
 
 ``` language-dart
-static const List<String> weekDays = [
+static const List&lt;String&gt; weekDays = [
   'Monday',
   'Tuesday',
   'Wednesday',

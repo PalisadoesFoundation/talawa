@@ -21,7 +21,7 @@ that can be converted to a JSON object.
 
 **returns**:
 
--   `Map<String, dynamic>`: A map structure that can be converted to a
+-   `Map&lt;String, dynamic&gt;`: A map structure that can be converted to a
     JSON object.
 
 
@@ -29,7 +29,7 @@ that can be converted to a JSON object.
 ## Implementation
 
 ``` language-dart
-Map<String, dynamic>  
+Map&lt;String, dynamic&gt;  
 ```
 
 

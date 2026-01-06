@@ -24,7 +24,7 @@ Removes a specific action from the queue.
 
 **returns**:
 
--   `Future<bool>`: returns true if the action was removed successfully,
+-   `Future&lt;bool&gt;`: returns true if the action was removed successfully,
     otherwise false.
 
 
@@ -32,7 +32,7 @@ Removes a specific action from the queue.
 ## Implementation
 
 ``` language-dart
-Future<bool> removeAction(dynamic key) async 
+Future&lt;bool&gt; removeAction(dynamic key) async 
 ```
 
 

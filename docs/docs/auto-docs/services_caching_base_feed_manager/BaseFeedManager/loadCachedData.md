@@ -17,14 +17,14 @@ Loads the data cached in Hive.
 
 **returns**:
 
--   `Future<List<T>>`: A Future containing a list of cached data.
+-   `Future&lt;List&lt;T&gt;&gt;`: A Future containing a list of cached data.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<List<T>>  async 
+Future&lt;List&lt;T&gt;&gt;  async 
 ```
 
 

@@ -18,7 +18,7 @@ getter/setter pair
 ## Implementation
 
 ``` language-dart
-late List<OrgInfo> pendingRequestOrg;
+late List&lt;OrgInfo&gt; pendingRequestOrg;
 ```
 
 

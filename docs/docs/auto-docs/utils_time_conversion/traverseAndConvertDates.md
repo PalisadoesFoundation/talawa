@@ -46,9 +46,9 @@ format.
 
 ``` language-dart
 void traverseAndConvertDates(
-  Map<String, dynamic> obj,
+  Map&lt;String, dynamic&gt; obj,
   String Function(String) convertFn,
-  Map<String, String> Function(String) splitFn,
+  Map&lt;String, String&gt; Function(String) splitFn,
 ) 
 ```
 

@@ -30,7 +30,7 @@ This function add comment on the post. The function uses
 ## Implementation
 
 ``` language-dart
-Future<void> createComment(String msg) async 
+Future&lt;void&gt; createComment(String msg) async 
 ```
 
 

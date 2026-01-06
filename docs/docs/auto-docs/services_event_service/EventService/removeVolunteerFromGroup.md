@@ -26,15 +26,15 @@ This function is used to remove a volunteer from a group.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the removed volunteer.
+-   `Future&lt;dynamic&gt;`: Information about the removed volunteer.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> removeVolunteerFromGroup(
-  Map<String, dynamic> variables,
+Future&lt;dynamic&gt; removeVolunteerFromGroup(
+  Map&lt;String, dynamic&gt; variables,
 ) async 
 ```
 

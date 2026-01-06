@@ -22,7 +22,7 @@ List of URLs associated with the agenda item.
 ## Implementation
 
 ``` language-dart
-List<String> urls = [];
+List&lt;String&gt; urls = [];
 ```
 
 

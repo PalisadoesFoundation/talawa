@@ -29,16 +29,16 @@ This function is used to update an agenda item.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the updated agenda item.
+-   `Future&lt;dynamic&gt;`: Information about the updated agenda item.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> updateAgendaItem(
+Future&lt;dynamic&gt; updateAgendaItem(
   String itemId,
-  Map<String, dynamic> variables,
+  Map&lt;String, dynamic&gt; variables,
 ) async 
 ```
 

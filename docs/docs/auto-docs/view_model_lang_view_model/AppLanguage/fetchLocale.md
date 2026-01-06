@@ -22,7 +22,7 @@ This function fetch the language of the user\'s app.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

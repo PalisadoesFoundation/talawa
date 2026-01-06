@@ -19,7 +19,7 @@ comment list getter.
 ## Implementation
 
 ``` language-dart
-List<Comment> get commentList => _commentlist;
+List&lt;Comment&gt; get commentList => _commentlist;
 ```
 
 

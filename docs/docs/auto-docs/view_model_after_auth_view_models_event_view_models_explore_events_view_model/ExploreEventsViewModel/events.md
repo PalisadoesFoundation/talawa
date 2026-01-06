@@ -19,7 +19,7 @@ Getter method to retrieve the list of events.
 ## Implementation
 
 ``` language-dart
-List<Event> get events => _events;
+List&lt;Event&gt; get events => _events;
 ```
 
 

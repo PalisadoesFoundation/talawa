@@ -22,7 +22,7 @@ DrawerKey.
 ## Implementation
 
 ``` language-dart
-final GlobalKey<ScaffoldState>? drawerKey;
+final GlobalKey&lt;ScaffoldState&gt;? drawerKey;
 ```
 
 

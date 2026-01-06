@@ -14,7 +14,7 @@ const delegate
 ## Implementation
 
 ``` language-dart
-static const LocalizationsDelegate<AppLocalizations> delegate =
+static const LocalizationsDelegate&lt;AppLocalizations&gt; delegate =
     ;
 ```
 

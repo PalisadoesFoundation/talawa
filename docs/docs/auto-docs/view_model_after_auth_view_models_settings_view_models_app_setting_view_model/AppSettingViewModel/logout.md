@@ -23,7 +23,7 @@ The function asks for the confimation in Custom Alert Dialog.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

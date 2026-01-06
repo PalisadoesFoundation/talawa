@@ -18,7 +18,7 @@ getter/setter pair
 ## Implementation
 
 ``` language-dart
-Map<String, dynamic>? postInfo;
+Map&lt;String, dynamic&gt;? postInfo;
 ```
 
 

@@ -22,7 +22,7 @@ GetIt for Connectivity.
 ## Implementation
 
 ``` language-dart
-final connectivity = locator<Connectivity>;
+final connectivity = locator&lt;Connectivity&gt;;
 ```
 
 

@@ -22,7 +22,7 @@ GetIt of user profile service.
 ## Implementation
 
 ``` language-dart
-final userProfileService = locator<UserProfileService>;
+final userProfileService = locator&lt;UserProfileService&gt;;
 ```
 
 

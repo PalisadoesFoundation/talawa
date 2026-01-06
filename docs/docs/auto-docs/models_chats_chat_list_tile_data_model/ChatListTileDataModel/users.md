@@ -18,7 +18,7 @@ getter/setter pair
 ## Implementation
 
 ``` language-dart
-List<ChatUser>? users;
+List&lt;ChatUser&gt;? users;
 ```
 
 

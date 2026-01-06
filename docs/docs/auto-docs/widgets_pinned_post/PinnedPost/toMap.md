@@ -25,14 +25,14 @@ converts post to mapped string.
 
 **returns**:
 
--   `Map<String, String>`: returns a map
+-   `Map&lt;String, String&gt;`: returns a map
 
 
 
 ## Implementation
 
 ``` language-dart
-Map<String, String> toMap(int index) 
+Map&lt;String, String&gt; toMap(int index) 
 ```
 
 

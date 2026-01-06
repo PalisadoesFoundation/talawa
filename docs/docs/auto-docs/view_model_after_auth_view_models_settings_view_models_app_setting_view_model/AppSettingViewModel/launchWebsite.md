@@ -26,7 +26,7 @@ Launches a website using the provided URL.
 
 **returns**:
 
--   `Future<bool>`: A
+-   `Future&lt;bool&gt;`: A
     [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)
     that resolves to a
     [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
@@ -37,7 +37,7 @@ Launches a website using the provided URL.
 ## Implementation
 
 ``` language-dart
-Future<bool> launchWebsite(String url) async => await launchUrlString(url);
+Future&lt;bool&gt; launchWebsite(String url) async => await launchUrlString(url);
 ```
 
 

@@ -29,7 +29,7 @@ Removes a volunteer from the group.
 ## Implementation
 
 ``` language-dart
-Future<void> removeVolunteerFromGroup(String volunteerId) async 
+Future&lt;void&gt; removeVolunteerFromGroup(String volunteerId) async 
 ```
 
 

@@ -1,0 +1,24 @@
+# Method: `getFunds`
+
+## Description
+
+This function is used to fetch all funds of the organization.
+
+ **params**:
+ * `first`: Number of funds to fetch from the beginning (pagination).
+ * `last`: Number of funds to fetch from the end (pagination).
+ * `after`: Cursor for pagination (fetch records after this cursor).
+ * `before`: Cursor for pagination (fetch records before this cursor).
+
+ **returns**:
+ * `Future&lt;Pair&lt;List&lt;Fund&gt;, PageInfo&gt;&gt;`: A pair containing the list of funds and pagination info.
+
+## Return Type
+`Future&lt;Pair&lt;List&lt;Fund&gt;, PageInfo&gt;&gt;`
+
+## Parameters
+
+- ``: `dynamic`
+- ``: `dynamic`
+- ``: `dynamic`
+- ``: `dynamic`

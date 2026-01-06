@@ -29,7 +29,7 @@ Saves a list of data to the cache, replacing any existing data.
 ## Implementation
 
 ``` language-dart
-Future<void> saveDataToCache(List<T> data) async 
+Future&lt;void&gt; saveDataToCache(List&lt;T&gt; data) async 
 ```
 
 

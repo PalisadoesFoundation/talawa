@@ -28,7 +28,7 @@ method to select multiple categories.
 ## Implementation
 
 ``` language-dart
-void setSelectedCategories(List<AgendaCategory> categories) 
+void setSelectedCategories(List&lt;AgendaCategory&gt; categories) 
 ```
 
 

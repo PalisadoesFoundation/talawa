@@ -19,7 +19,7 @@ ChatListTileDataModel.fromJson(
 ## Implementation
 
 ``` language-dart
-factory ChatListTileDataModel.fromJson(Map<String, dynamic> json) =>
+factory ChatListTileDataModel.fromJson(Map&lt;String, dynamic&gt; json) =>
     _$ChatListTileDataModelFromJson(json);
 ```
 

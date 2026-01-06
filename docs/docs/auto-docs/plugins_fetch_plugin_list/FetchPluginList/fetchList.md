@@ -22,7 +22,7 @@ Fetches plugins from server and stores them in Hive `pluginBox`.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

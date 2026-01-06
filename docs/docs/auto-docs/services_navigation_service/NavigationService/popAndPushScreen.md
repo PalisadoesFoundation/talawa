@@ -24,7 +24,7 @@ navigator.
 
 **returns**:
 
--   `Future<dynamic>`: resolves if the Screen was succesfully
+-   `Future&lt;dynamic&gt;`: resolves if the Screen was succesfully
     popAndPushed.
 
 
@@ -32,7 +32,7 @@ navigator.
 ## Implementation
 
 ``` language-dart
-Future<dynamic> popAndPushScreen(String routeName, ) 
+Future&lt;dynamic&gt; popAndPushScreen(String routeName, ) 
 ```
 
 

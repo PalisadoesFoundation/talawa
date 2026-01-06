@@ -18,7 +18,7 @@ connection.
 
 **returns**:
 
--   `Future<bool>`: indicating whether the device has a network
+-   `Future&lt;bool&gt;`: indicating whether the device has a network
     connection.
 
 
@@ -26,7 +26,7 @@ connection.
 ## Implementation
 
 ``` language-dart
-Future<bool>  async 
+Future&lt;bool&gt;  async 
 ```
 
 

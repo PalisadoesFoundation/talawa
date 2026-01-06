@@ -22,7 +22,7 @@ list of categories in that organisation.
 ## Implementation
 
 ``` language-dart
-final List<AgendaCategory> categories;
+final List&lt;AgendaCategory&gt; categories;
 ```
 
 

@@ -22,7 +22,7 @@ GetIt for DataBaseMutationFunctions.
 ## Implementation
 
 ``` language-dart
-final databaseFunctions = locator<DataBaseMutationFunctions>;
+final databaseFunctions = locator&lt;DataBaseMutationFunctions&gt;;
 ```
 
 

@@ -29,7 +29,7 @@ The attendees of the event.
 
 ``` language-dart
 @HiveField(16)
-List<Attendee>? attendees;
+List&lt;Attendee&gt;? attendees;
 ```
 
 

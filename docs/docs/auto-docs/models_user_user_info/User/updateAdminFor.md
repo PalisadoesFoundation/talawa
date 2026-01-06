@@ -28,7 +28,7 @@ Method to update adminFor List.
 ## Implementation
 
 ``` language-dart
-void updateAdminFor(List<OrgInfo> orgList) 
+void updateAdminFor(List&lt;OrgInfo&gt; orgList) 
 ```
 
 

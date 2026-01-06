@@ -26,14 +26,14 @@ This method basically update likedBy list of a Post in database.
 
 **returns**:
 
--   `Future<void>`: define_the_return
+-   `Future&lt;void&gt;`: define_the_return
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<bool> addLike(String postID) async 
+Future&lt;bool&gt; addLike(String postID) async 
 ```
 
 

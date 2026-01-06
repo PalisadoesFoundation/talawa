@@ -19,7 +19,7 @@ Retrieves the stream controller for current organization information.
 ## Implementation
 
 ``` language-dart
-StreamController<OrgInfo> get currentOrgInfoController =>
+StreamController&lt;OrgInfo&gt; get currentOrgInfoController =>
     _currentOrgInfoController;
 ```
 

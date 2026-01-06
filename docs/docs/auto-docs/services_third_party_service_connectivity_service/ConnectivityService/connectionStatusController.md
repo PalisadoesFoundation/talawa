@@ -22,7 +22,7 @@ Stream controller for network status changes.
 ## Implementation
 
 ``` language-dart
-late StreamController<List<ConnectivityResult>> connectionStatusController;
+late StreamController&lt;List&lt;ConnectivityResult&gt;&gt; connectionStatusController;
 ```
 
 

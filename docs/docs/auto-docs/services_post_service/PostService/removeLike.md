@@ -27,14 +27,14 @@ of a user in database.
 
 **returns**:
 
--   `Future<void>`: nothing
+-   `Future&lt;void&gt;`: nothing
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<bool> removeLike(String postID) async 
+Future&lt;bool&gt; removeLike(String postID) async 
 ```
 
 

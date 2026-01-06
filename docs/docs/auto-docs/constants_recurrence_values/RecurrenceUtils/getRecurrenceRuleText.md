@@ -54,7 +54,7 @@ getRecurrenceRuleText(
 ``` language-dart
 static String getRecurrenceRuleText(
   String frequency,
-  Set<String>? weekDays,
+  Set&lt;String&gt;? weekDays,
   int? interval,
   int? count,
   int? weekDayOccurenceInMonth,

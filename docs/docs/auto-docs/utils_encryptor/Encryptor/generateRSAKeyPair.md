@@ -21,7 +21,7 @@ usage should be done by getting the keys from the local storage.
 
 **returns**:
 
--   `AsymmetricKeyPair<PublicKey, PrivateKey>`: The generated public and
+-   `AsymmetricKeyPair&lt;PublicKey, PrivateKey&gt;`: The generated public and
     private keys.
 
 
@@ -29,7 +29,7 @@ usage should be done by getting the keys from the local storage.
 ## Implementation
 
 ``` language-dart
-AsymmetricKeyPair<PublicKey, PrivateKey>  
+AsymmetricKeyPair&lt;PublicKey, PrivateKey&gt;  
 ```
 
 

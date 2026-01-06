@@ -19,7 +19,7 @@ Comment.fromJson(
 ## Implementation
 
 ``` language-dart
-factory Comment.fromJson(Map<String, dynamic> json) 
+factory Comment.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

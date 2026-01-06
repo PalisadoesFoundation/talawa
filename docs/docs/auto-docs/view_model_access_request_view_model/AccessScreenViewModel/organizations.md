@@ -22,7 +22,7 @@ organizations list.
 ## Implementation
 
 ``` language-dart
-late List<OrgInfo> organizations = [];
+late List&lt;OrgInfo&gt; organizations = [];
 ```
 
 

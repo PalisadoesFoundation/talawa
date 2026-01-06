@@ -22,7 +22,7 @@ Method to fecth all agenda categories of an organisation.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

@@ -22,7 +22,7 @@ GetIt for CacheService.
 ## Implementation
 
 ``` language-dart
-final cacheService = locator<CacheService>;
+final cacheService = locator&lt;CacheService&gt;;
 ```
 
 

@@ -27,7 +27,7 @@ Loads secret keys from the Hive db.
 
 **returns**:
 
--   `Future<AsymmetricKeyPair<PublicKey, PrivateKey>>`: The public and
+-   `Future&lt;AsymmetricKeyPair&lt;PublicKey, PrivateKey&gt;&gt;`: The public and
     private key pair
 
 
@@ -35,7 +35,7 @@ Loads secret keys from the Hive db.
 ## Implementation
 
 ``` language-dart
-Future<AsymmetricKeyPair<PublicKey, PrivateKey>> loadKeyPair(
+Future&lt;AsymmetricKeyPair&lt;PublicKey, PrivateKey&gt;&gt; loadKeyPair(
   HiveInterface hive,
 ) async 
 ```

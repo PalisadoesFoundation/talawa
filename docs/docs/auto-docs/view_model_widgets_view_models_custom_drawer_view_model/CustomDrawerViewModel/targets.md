@@ -22,7 +22,7 @@ List of TargetFocus objects used for tutorial coaching.
 ## Implementation
 
 ``` language-dart
-final List<TargetFocus> targets = [];
+final List&lt;TargetFocus&gt; targets = [];
 ```
 
 

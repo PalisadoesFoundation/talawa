@@ -23,7 +23,7 @@ JSON factory constructor.
 ## Implementation
 
 ``` language-dart
-LikedBy.fromJson(Map<String, dynamic> json) 
+LikedBy.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

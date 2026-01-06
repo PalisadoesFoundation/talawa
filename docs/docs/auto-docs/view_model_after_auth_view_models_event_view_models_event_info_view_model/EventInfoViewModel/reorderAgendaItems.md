@@ -32,7 +32,7 @@ Method to redorder the sequence of agenda items.
 ## Implementation
 
 ``` language-dart
-Future<void> reorderAgendaItems(int oldIndex, int newIndex) async 
+Future&lt;void&gt; reorderAgendaItems(int oldIndex, int newIndex) async 
 ```
 
 

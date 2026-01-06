@@ -22,7 +22,7 @@ represents the week days of the event.
 ## Implementation
 
 ``` language-dart
-Set<String> weekDays = ;
+Set&lt;String&gt; weekDays = ;
 ```
 
 

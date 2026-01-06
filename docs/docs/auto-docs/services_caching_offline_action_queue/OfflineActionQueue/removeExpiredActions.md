@@ -17,7 +17,7 @@ Removes expired actions from the queue.
 
 **returns**:
 
--   `Future<bool>`: returns true if expired actions were removed
+-   `Future&lt;bool&gt;`: returns true if expired actions were removed
     successfully, otherwise false.
 
 
@@ -25,7 +25,7 @@ Removes expired actions from the queue.
 ## Implementation
 
 ``` language-dart
-Future<bool>  async 
+Future&lt;bool&gt;  async 
 ```
 
 

@@ -27,7 +27,7 @@ The function uses the `_multiMediaPickerService` services.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

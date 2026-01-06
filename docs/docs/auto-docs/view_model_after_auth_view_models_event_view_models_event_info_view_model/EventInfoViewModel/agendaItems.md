@@ -19,7 +19,7 @@ List of volunteer groups of an event.
 ## Implementation
 
 ``` language-dart
-List<EventAgendaItem> get agendaItems => _agendaItems;
+List&lt;EventAgendaItem&gt; get agendaItems => _agendaItems;
 ```
 
 

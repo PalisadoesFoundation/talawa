@@ -29,7 +29,7 @@ Closes the `boxName` named box.
 ## Implementation
 
 ``` language-dart
-static Future<void> closeBox<T>(String boxName) async 
+static Future&lt;void> closeBox<T&gt;(String boxName) async 
 ```
 
 

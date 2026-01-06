@@ -27,7 +27,7 @@ params:
 ## Implementation
 
 ``` language-dart
-Future<void> getChatMessages(String chatId) async 
+Future&lt;void&gt; getChatMessages(String chatId) async 
 ```
 
 

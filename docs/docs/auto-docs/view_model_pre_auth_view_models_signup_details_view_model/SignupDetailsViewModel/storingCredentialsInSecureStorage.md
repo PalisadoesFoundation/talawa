@@ -22,7 +22,7 @@ Storing credentials in secure storage.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

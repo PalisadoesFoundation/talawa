@@ -19,7 +19,7 @@ List of dummy pinned posts.
 ## Implementation
 
 ``` language-dart
-static const List<Map<String, String>> pinnedPosts = [
+static const List&lt;Map&lt;String, String&gt;&gt; pinnedPosts = [
   ,
   ,
   ,

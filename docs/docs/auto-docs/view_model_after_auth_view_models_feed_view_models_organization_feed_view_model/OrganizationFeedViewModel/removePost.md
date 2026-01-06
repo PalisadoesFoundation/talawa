@@ -29,7 +29,7 @@ function to remove the post.
 ## Implementation
 
 ``` language-dart
-Future<void> removePost(Post post) async 
+Future&lt;void&gt; removePost(Post post) async 
 ```
 
 

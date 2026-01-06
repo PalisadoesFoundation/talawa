@@ -21,7 +21,7 @@ GetIt for Queries.
 ## Implementation
 
 ``` language-dart
-final queries = locator<Queries>;
+final queries = locator&lt;Queries&gt;;
 ```
 
 

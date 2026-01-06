@@ -17,7 +17,7 @@ Clears all actions from the queue.
 
 **returns**:
 
--   `Future<bool>`: returns true if all actions were cleared
+-   `Future&lt;bool&gt;`: returns true if all actions were cleared
     successfully, otherwise false.
 
 
@@ -25,7 +25,7 @@ Clears all actions from the queue.
 ## Implementation
 
 ``` language-dart
-Future<bool>  async 
+Future&lt;bool&gt;  async 
 ```
 
 

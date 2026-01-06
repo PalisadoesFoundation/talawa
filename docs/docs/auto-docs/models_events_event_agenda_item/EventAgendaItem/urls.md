@@ -22,7 +22,7 @@ Optional array of URLs related to the agenda item.
 ## Implementation
 
 ``` language-dart
-final List<String>? urls;
+final List&lt;String&gt;? urls;
 ```
 
 

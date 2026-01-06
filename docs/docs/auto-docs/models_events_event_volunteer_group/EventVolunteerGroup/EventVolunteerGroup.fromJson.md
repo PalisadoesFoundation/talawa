@@ -19,7 +19,7 @@ EventVolunteerGroup.fromJson(
 ## Implementation
 
 ``` language-dart
-factory EventVolunteerGroup.fromJson(Map<String, dynamic> json) 
+factory EventVolunteerGroup.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

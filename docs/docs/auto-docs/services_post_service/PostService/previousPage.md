@@ -22,7 +22,7 @@ Method to handle pagination by fetching previous page of posts.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

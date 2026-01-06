@@ -24,7 +24,7 @@ This function initializes connectivity monitoring.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

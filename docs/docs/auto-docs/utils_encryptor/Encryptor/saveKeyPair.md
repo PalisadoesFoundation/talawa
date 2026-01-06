@@ -39,8 +39,8 @@ Any future usage of the keys must be initiated from here.
 ## Implementation
 
 ``` language-dart
-Future<void> saveKeyPair(
-  AsymmetricKeyPair<PublicKey, PrivateKey> keyPair,
+Future&lt;void&gt; saveKeyPair(
+  AsymmetricKeyPair&lt;PublicKey, PrivateKey&gt; keyPair,
   HiveInterface hive,
 ) async 
 ```

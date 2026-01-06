@@ -24,14 +24,14 @@ Specifically designed to
 
 **returns**:
 
--   `Future<bool>`: indicates if the url is reachable.
+-   `Future&lt;bool&gt;`: indicates if the url is reachable.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<bool>  async 
+Future&lt;bool&gt;  async 
 ```
 
 

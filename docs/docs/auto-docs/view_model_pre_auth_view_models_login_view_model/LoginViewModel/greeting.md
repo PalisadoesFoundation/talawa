@@ -23,7 +23,7 @@ List of maps to store greetings..
 ## Implementation
 
 ``` language-dart
-late List<Map<String, dynamic>> greeting;
+late List&lt;Map&lt;String, dynamic&gt;&gt; greeting;
 ```
 
 

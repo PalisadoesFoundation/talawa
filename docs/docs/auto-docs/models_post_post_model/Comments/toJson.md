@@ -18,14 +18,14 @@ Convert dart object to json.
 
 **returns**:
 
--   `Map<String, dynamic>`: json is returned.
+-   `Map&lt;String, dynamic&gt;`: json is returned.
 
 
 
 ## Implementation
 
 ``` language-dart
-Map<String, dynamic>  
+Map&lt;String, dynamic&gt;  
 ```
 
 

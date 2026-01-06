@@ -29,7 +29,7 @@ HiveField for all organisations user has sent membership request.
 
 ``` language-dart
 @HiveField(10)
-List<OrgInfo>? membershipRequests = [];
+List&lt;OrgInfo&gt;? membershipRequests = [];
 ```
 
 

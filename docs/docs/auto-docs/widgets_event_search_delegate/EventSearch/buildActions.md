@@ -49,7 +49,7 @@ See also:
 
 ``` language-dart
 @override
-List<Widget> buildActions(BuildContext context) 
+List&lt;Widget&gt; buildActions(BuildContext context) 
 ```
 
 

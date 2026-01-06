@@ -43,8 +43,8 @@ to decrypt the given message.
 ## Implementation
 
 ``` language-dart
-Future<void> receiveMessage(
-  Map<String, dynamic> message,
+Future&lt;void&gt; receiveMessage(
+  Map&lt;String, dynamic&gt; message,
   HiveInterface hive,
 ) async 
 ```

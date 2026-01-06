@@ -19,7 +19,7 @@ Gets the list of volunteers in the group.
 ## Implementation
 
 ``` language-dart
-List<EventVolunteer> get volunteers => _volunteers;
+List&lt;EventVolunteer&gt; get volunteers => _volunteers;
 ```
 
 

@@ -22,7 +22,7 @@ a_line_ending_with_end_punctuation.
 ## Implementation
 
 ``` language-dart
-final List<Venue> venues;
+final List&lt;Venue&gt; venues;
 ```
 
 

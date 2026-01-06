@@ -24,7 +24,7 @@ on the provided locale and supported locales.
 **params**:
 
 -   `locale`: (`Locale?`): The locale to be resolved. Can be null.
--   `supportedLocales`: (`Iterable<Locale>`): The list of supported
+-   `supportedLocales`: (`Iterable&lt;Locale&gt;`): The list of supported
     locales in the app.
 
 **returns**:
@@ -38,7 +38,7 @@ on the provided locale and supported locales.
 ## Implementation
 
 ``` language-dart
-Locale localeResoultion(Locale? locale, Iterable<Locale> supportedLocales) 
+Locale localeResoultion(Locale? locale, Iterable&lt;Locale&gt; supportedLocales) 
 ```
 
 

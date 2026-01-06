@@ -31,7 +31,7 @@ subclass:
 
 ``` language-dart
 @override
-State<SomeWidget>  => ;
+State&lt;SomeWidget&gt;  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
@@ -54,7 +54,7 @@ objects.
 
 ``` language-dart
 @override
-_BaseViewState<T>  => _BaseViewState<T>;
+_BaseViewState&lt;T&gt;  => _BaseViewState&lt;T&gt;;
 ```
 
 

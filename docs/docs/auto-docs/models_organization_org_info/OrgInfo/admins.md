@@ -29,7 +29,7 @@ The org admins.
 
 ``` language-dart
 @HiveField(3)
-List<User>? admins;
+List&lt;User&gt;? admins;
 ```
 
 

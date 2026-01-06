@@ -19,7 +19,7 @@ Get the list of URLs for the agenda item.
 ## Implementation
 
 ``` language-dart
-List<String> get urls => _currentUrls;
+List&lt;String&gt; get urls => _currentUrls;
 ```
 
 

@@ -19,7 +19,7 @@ loadTest(
 ## Implementation
 
 ``` language-dart
-Future<AppLocalizations> loadTest(Locale locale) async 
+Future&lt;AppLocalizations&gt; loadTest(Locale locale) async 
 ```
 
 

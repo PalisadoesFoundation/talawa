@@ -22,7 +22,7 @@ Represents a list of users who have liked a post.
 ## Implementation
 
 ``` language-dart
-final List<LikedBy> usersLiked;
+final List&lt;LikedBy&gt; usersLiked;
 ```
 
 

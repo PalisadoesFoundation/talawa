@@ -19,7 +19,7 @@ Getter for chat messages stream.
 ## Implementation
 
 ``` language-dart
-Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
+Stream&lt;ChatMessage&gt; get chatMessagesStream => _chatMessagesStream;
 ```
 
 

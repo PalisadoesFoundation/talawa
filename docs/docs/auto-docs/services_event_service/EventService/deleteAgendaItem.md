@@ -26,14 +26,14 @@ This function is used to delete an agenda item.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the deleted agenda item.
+-   `Future&lt;dynamic&gt;`: Information about the deleted agenda item.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> deleteAgendaItem(Map<String, dynamic> variables) async 
+Future&lt;dynamic&gt; deleteAgendaItem(Map&lt;String, dynamic&gt; variables) async 
 ```
 
 

@@ -32,7 +32,7 @@ The key pair to work with.
 @HiveField(0)
 
 /// The key pair to work with.
-final AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
+final AsymmetricKeyPair&lt;PublicKey, PrivateKey&gt; keyPair;
 ```
 
 

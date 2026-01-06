@@ -29,7 +29,7 @@ The org name.
 
 ``` language-dart
 @HiveField(4)
-List<User>? members;
+List&lt;User&gt;? members;
 ```
 
 

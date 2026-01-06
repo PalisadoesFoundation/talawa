@@ -29,7 +29,7 @@ List of comments on the post.
 
 ``` language-dart
 @HiveField(9)
-List<Comments>? comments;
+List&lt;Comments&gt;? comments;
 ```
 
 

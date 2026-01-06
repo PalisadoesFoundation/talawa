@@ -22,7 +22,7 @@ List of pinnedposts.
 ## Implementation
 
 ``` language-dart
-final List<Post> pinnedPosts;
+final List&lt;Post&gt; pinnedPosts;
 ```
 
 

@@ -22,7 +22,7 @@ Hive Box of url.
 ## Implementation
 
 ``` language-dart
-late final Box<dynamic> url;
+late final Box&lt;dynamic&gt; url;
 ```
 
 

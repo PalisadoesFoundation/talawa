@@ -22,7 +22,7 @@ Functions related to database mutations.
 ## Implementation
 
 ``` language-dart
-final databaseFunctions = locator<DataBaseMutationFunctions>;
+final databaseFunctions = locator&lt;DataBaseMutationFunctions&gt;;
 ```
 
 

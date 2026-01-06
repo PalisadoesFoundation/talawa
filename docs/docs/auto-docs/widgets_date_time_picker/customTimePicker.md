@@ -22,7 +22,7 @@ returned.
 ## Implementation
 
 ``` language-dart
-Future<TimeOfDay>  async 
+Future&lt;TimeOfDay&gt;  async 
 ```
 
 

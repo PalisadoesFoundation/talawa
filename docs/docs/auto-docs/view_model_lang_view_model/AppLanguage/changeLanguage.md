@@ -29,7 +29,7 @@ This function change the app default language.
 ## Implementation
 
 ``` language-dart
-Future<void> changeLanguage(Locale type) async 
+Future&lt;void&gt; changeLanguage(Locale type) async 
 ```
 
 

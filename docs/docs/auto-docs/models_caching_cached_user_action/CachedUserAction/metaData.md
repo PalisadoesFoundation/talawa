@@ -29,7 +29,7 @@ Any additional metadata related to the cached user action.
 
 ``` language-dart
 @HiveField(5)
-Map<String, dynamic>? metaData;
+Map&lt;String, dynamic&gt;? metaData;
 ```
 
 

@@ -22,7 +22,7 @@ This function is used to fetch all the events of an organization.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

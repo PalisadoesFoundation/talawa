@@ -17,14 +17,14 @@ This function is used to log in the user.
 
 **returns**:
 
--   `Future<bool>`: returns future of bool type.
+-   `Future&lt;bool&gt;`: returns future of bool type.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<bool>  async 
+Future&lt;bool&gt;  async 
 ```
 
 

@@ -19,7 +19,7 @@ params: None
 
 returns:
 
--   `Map<String, bool>`: Returns a map of entries with id and boolean if
+-   `Map&lt;String, bool&gt;`: Returns a map of entries with id and boolean if
     they are selected for events or not in bottom sheet.
 
 
@@ -27,7 +27,7 @@ returns:
 ## Implementation
 
 ``` language-dart
-Map<String, bool> get memberCheckedMap => _memberCheckedMap;
+Map&lt;String, bool&gt; get memberCheckedMap => _memberCheckedMap;
 ```
 
 

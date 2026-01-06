@@ -24,14 +24,14 @@ This function select the organization.
 
 **returns**:
 
--   `Future<void>`: None
+-   `Future&lt;void&gt;`: None
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<void> selectOrg(OrgInfo? item) async 
+Future&lt;void&gt; selectOrg(OrgInfo? item) async 
 ```
 
 

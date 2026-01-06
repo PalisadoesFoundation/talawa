@@ -23,7 +23,7 @@ application.
 ## Implementation
 
 ``` language-dart
-static Future<void>  async 
+static Future&lt;void&gt;  async 
 ```
 
 

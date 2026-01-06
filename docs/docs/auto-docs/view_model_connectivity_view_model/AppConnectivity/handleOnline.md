@@ -22,7 +22,7 @@ This function handles the actions to be taken when the device is online.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

@@ -20,14 +20,14 @@ Convert json to dart object.
 
 params: None returns:
 
--   `Map<String, dynamic>`: Dart object is returned.
+-   `Map&lt;String, dynamic&gt;`: Dart object is returned.
 
 
 
 ## Implementation
 
 ``` language-dart
-Comments.fromJson(Map<String, dynamic> json) 
+Comments.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

@@ -29,7 +29,7 @@ getter/setter pair
 
 ``` language-dart
 @HiveField(7)
-List<OrgInfo>? joinedOrganizations = [];
+List&lt;OrgInfo&gt;? joinedOrganizations = [];
 ```
 
 

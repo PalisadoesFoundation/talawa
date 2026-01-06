@@ -22,7 +22,7 @@ list of all the pluginList.
 ## Implementation
 
 ``` language-dart
-List<dynamic> pluginList = [];
+List&lt;dynamic&gt; pluginList = [];
 ```
 
 

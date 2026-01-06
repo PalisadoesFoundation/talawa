@@ -22,7 +22,7 @@ The function allows user to register for an event.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

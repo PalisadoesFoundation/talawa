@@ -23,14 +23,14 @@ Pushes a Screen.
 
 **returns**:
 
--   `Future<dynamic>`: resolves if the Screen was succesfully pushed.
+-   `Future&lt;dynamic&gt;`: resolves if the Screen was succesfully pushed.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> pushScreen(String routeName, ) 
+Future&lt;dynamic&gt; pushScreen(String routeName, ) 
 ```
 
 

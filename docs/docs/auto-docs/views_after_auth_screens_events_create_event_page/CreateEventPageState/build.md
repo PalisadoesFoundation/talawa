@@ -167,7 +167,7 @@ instance instead of the widget instance:
 ``` language-dart
 class MyButton extends StatefulWidget 
 
-class MyButtonState extends State<MyButton> 
+class MyButtonState extends State&lt;MyButton&gt; 
 ```
 
 Now when the parent rebuilds `MyButton` with green, the closure created

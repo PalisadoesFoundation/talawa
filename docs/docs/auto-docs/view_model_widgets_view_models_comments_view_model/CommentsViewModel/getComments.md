@@ -23,7 +23,7 @@ To verify things are working, check out the native platform logs.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

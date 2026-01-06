@@ -19,7 +19,7 @@ List of selected Agenda categories for an agenda item.
 ## Implementation
 
 ``` language-dart
-List<AgendaCategory> get selectedCategories => _selectedCategories;
+List&lt;AgendaCategory&gt; get selectedCategories => _selectedCategories;
 ```
 
 

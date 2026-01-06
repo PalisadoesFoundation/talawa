@@ -16,7 +16,7 @@ get chatMessagesByUser
 ## Implementation
 
 ``` language-dart
-Map<String, List<ChatMessage>> get chatMessagesByUser => _chatMessagesByUser;
+Map&lt;String, List&lt;ChatMessage&gt;&gt; get chatMessagesByUser => _chatMessagesByUser;
 ```
 
 

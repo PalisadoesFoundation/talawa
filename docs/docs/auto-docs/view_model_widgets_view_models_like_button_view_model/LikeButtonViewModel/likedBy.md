@@ -15,7 +15,7 @@ get likedBy
 ## Implementation
 
 ``` language-dart
-List<LikedBy> get likedBy => _likedBy;
+List&lt;LikedBy&gt; get likedBy => _likedBy;
 ```
 
 

@@ -29,7 +29,7 @@ The variables required for the operation, if any.
 
 ``` language-dart
 @HiveField(2)
-Map<String, dynamic>? variables;
+Map&lt;String, dynamic&gt;? variables;
 ```
 
 

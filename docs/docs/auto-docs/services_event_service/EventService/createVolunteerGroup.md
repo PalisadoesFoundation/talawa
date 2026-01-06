@@ -26,14 +26,14 @@ This function is used to create a volunteer group.
 
 **returns**:
 
--   `Future<dynamic>`: Information about the created volunteer group.
+-   `Future&lt;dynamic&gt;`: Information about the created volunteer group.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> createVolunteerGroup(Map<String, dynamic> variables) async 
+Future&lt;dynamic&gt; createVolunteerGroup(Map&lt;String, dynamic&gt; variables) async 
 ```
 
 

@@ -28,7 +28,7 @@ Method to updated joinedOrganisation list.
 ## Implementation
 
 ``` language-dart
-void updateJoinedOrg(List<OrgInfo> orgList) 
+void updateJoinedOrg(List&lt;OrgInfo&gt; orgList) 
 ```
 
 

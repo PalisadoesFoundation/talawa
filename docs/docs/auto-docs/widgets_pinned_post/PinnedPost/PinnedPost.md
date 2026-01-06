@@ -22,7 +22,7 @@ contains the pinned post.
 ## Implementation
 
 ``` language-dart
-final List<Post> pinnedPost;
+final List&lt;Post&gt; pinnedPost;
 ```
 
 

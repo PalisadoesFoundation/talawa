@@ -15,7 +15,7 @@ dynamic\>]]
 ## Implementation
 
 ``` language-dart
-Map<String, dynamic>  => _$ChatMessageToJson(this);
+Map&lt;String, dynamic&gt;  => _$ChatMessageToJson(this);
 ```
 
 

@@ -33,7 +33,7 @@ provided
 ## Implementation
 
 ``` language-dart
-Future<void> handleConnection(List<ConnectivityResult> result) async 
+Future&lt;void&gt; handleConnection(List&lt;ConnectivityResult&gt; result) async 
 ```
 
 

@@ -22,7 +22,7 @@ List of Attendee type to store the attendees data.
 ## Implementation
 
 ``` language-dart
-late List<Attendee> attendees = [];
+late List&lt;Attendee&gt; attendees = [];
 ```
 
 

@@ -31,7 +31,7 @@ Creates a CachedUserAction from a JSON-compatible map.
 ## Implementation
 
 ``` language-dart
-factory CachedUserAction.fromJson(Map<String, dynamic> json) 
+factory CachedUserAction.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

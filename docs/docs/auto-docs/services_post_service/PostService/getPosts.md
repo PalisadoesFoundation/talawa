@@ -17,14 +17,14 @@ Method used to fetch all posts of the current organisation.
 
 **returns**:
 
--   `Future<void>`: returns future void
+-   `Future&lt;void&gt;`: returns future void
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

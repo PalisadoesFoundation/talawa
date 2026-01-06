@@ -31,7 +31,7 @@ First function to initialize the ViewModel.
 ## Implementation
 
 ``` language-dart
-void initialize(List<LikedBy> likedBy, String postID) 
+void initialize(List&lt;LikedBy&gt; likedBy, String postID) 
 ```
 
 

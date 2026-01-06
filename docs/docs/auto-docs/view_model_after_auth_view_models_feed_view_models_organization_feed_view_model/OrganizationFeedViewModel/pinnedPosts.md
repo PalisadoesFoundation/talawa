@@ -19,7 +19,7 @@ getter for the pinned post.
 ## Implementation
 
 ``` language-dart
-List<Post> get pinnedPosts 
+List&lt;Post&gt; get pinnedPosts 
 ```
 
 

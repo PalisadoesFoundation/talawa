@@ -18,7 +18,7 @@ OrgInfo.fromJson(
 
 ``` language-dart
 factory OrgInfo.fromJson(
-  Map<String, dynamic> json1, ) 
+  Map&lt;String, dynamic&gt; json1, ) 
 ```
 
 

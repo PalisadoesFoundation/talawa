@@ -22,7 +22,7 @@ list of all the post.
 ## Implementation
 
 ``` language-dart
-final List<Post> posts;
+final List&lt;Post&gt; posts;
 ```
 
 

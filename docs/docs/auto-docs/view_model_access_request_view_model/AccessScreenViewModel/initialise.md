@@ -29,7 +29,7 @@ Initialization function.
 ## Implementation
 
 ``` language-dart
-Future<void> initialise(OrgInfo org) async 
+Future&lt;void&gt; initialise(OrgInfo org) async 
 ```
 
 

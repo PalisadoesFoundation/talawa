@@ -24,7 +24,7 @@ This function is used to fetch all volunteer groups for an event.
 
 **returns**:
 
--   `Future<List<EventVolunteerGroup>>`: returns the list of volunteer
+-   `Future&lt;List&lt;EventVolunteerGroup&gt;&gt;`: returns the list of volunteer
     groups
 
 
@@ -32,7 +32,7 @@ This function is used to fetch all volunteer groups for an event.
 ## Implementation
 
 ``` language-dart
-Future<List<EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
+Future&lt;List&lt;EventVolunteerGroup&gt;&gt; fetchVolunteerGroupsByEvent(
   String eventId,
 ) async 
 ```

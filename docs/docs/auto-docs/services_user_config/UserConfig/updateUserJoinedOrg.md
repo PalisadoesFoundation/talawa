@@ -29,7 +29,7 @@ Updates the user joined organization.
 ## Implementation
 
 ``` language-dart
-Future<void> updateUserJoinedOrg(List<OrgInfo> orgDetails) async 
+Future&lt;void&gt; updateUserJoinedOrg(List&lt;OrgInfo&gt; orgDetails) async 
 ```
 
 

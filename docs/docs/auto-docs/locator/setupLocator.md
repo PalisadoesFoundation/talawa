@@ -22,7 +22,7 @@ This function registers the widgets/objects in \"GetIt\".
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

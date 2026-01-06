@@ -32,7 +32,7 @@ Initializes the view model with the given event and volunteer group.
 ## Implementation
 
 ``` language-dart
-Future<void> initialize(Event parentEvent, EventVolunteerGroup group) async 
+Future&lt;void&gt; initialize(Event parentEvent, EventVolunteerGroup group) async 
 ```
 
 

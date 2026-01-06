@@ -18,7 +18,7 @@ API.
 
 **returns**:
 
--   `Future<List<T>>`: A Future containing a list of data fetched from
+-   `Future&lt;List&lt;T&gt;&gt;`: A Future containing a list of data fetched from
     the API.
 
 
@@ -26,7 +26,7 @@ API.
 ## Implementation
 
 ``` language-dart
-Future<List<T>> ;
+Future&lt;List&lt;T&gt;&gt; ;
 ```
 
 

@@ -22,7 +22,7 @@ Global FormKey.
 ## Implementation
 
 ``` language-dart
-final formKey = GlobalKey<FormState>;
+final formKey = GlobalKey&lt;FormState&gt;;
 ```
 
 

@@ -20,7 +20,7 @@ Gets the map of member IDs and their selection state.
 ## Implementation
 
 ``` language-dart
-Map<String, bool> get memberCheckedMap => _memberCheckedMap;
+Map&lt;String, bool&gt; get memberCheckedMap => _memberCheckedMap;
 ```
 
 

@@ -18,7 +18,7 @@ params: None.
 
 returns:
 
--   `Stream<dynamic>`: Stream of files.
+-   `Stream&lt;dynamic&gt;`: Stream of files.
 
 
 

@@ -22,7 +22,7 @@ GetIt for GraphqlConfig.
 ## Implementation
 
 ``` language-dart
-final graphqlConfig = locator<GraphqlConfig>;
+final graphqlConfig = locator&lt;GraphqlConfig&gt;;
 ```
 
 

@@ -32,7 +32,7 @@ Sends a message to a direct chat.
 ## Implementation
 
 ``` language-dart
-Future<void> sendMessageToDirectChat(
+Future&lt;void&gt; sendMessageToDirectChat(
   String chatId,
   String messageContent,
 ) async 

@@ -22,7 +22,7 @@ Stream for GraphQL query results.
 ## Implementation
 
 ``` language-dart
-late Stream<QueryResult> chatStream;
+late Stream&lt;QueryResult&gt; chatStream;
 ```
 
 

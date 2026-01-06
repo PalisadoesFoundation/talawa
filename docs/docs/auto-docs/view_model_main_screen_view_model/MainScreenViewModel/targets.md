@@ -22,7 +22,7 @@ array of target.
 ## Implementation
 
 ``` language-dart
-final List<FocusTarget> targets = [];
+final List&lt;FocusTarget&gt; targets = [];
 ```
 
 

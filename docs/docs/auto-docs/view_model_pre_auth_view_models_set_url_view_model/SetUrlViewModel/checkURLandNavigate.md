@@ -33,7 +33,7 @@ This function check the URL and navigate to the respective URL.
 ## Implementation
 
 ``` language-dart
-Future<void> checkURLandNavigate(String navigateTo, String argument) async 
+Future&lt;void&gt; checkURLandNavigate(String navigateTo, String argument) async 
 ```
 
 

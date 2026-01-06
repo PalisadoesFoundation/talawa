@@ -29,7 +29,7 @@ This function check the URL and navigate to the respective URL.
 ## Implementation
 
 ``` language-dart
-Future<void> checkURLandShowPopUp(String argument) async 
+Future&lt;void&gt; checkURLandShowPopUp(String argument) async 
 ```
 
 

@@ -29,7 +29,7 @@ HiveField for all organisations created by user.
 
 ``` language-dart
 @HiveField(8)
-List<OrgInfo>? createdOrganizations = [];
+List&lt;OrgInfo&gt;? createdOrganizations = [];
 ```
 
 

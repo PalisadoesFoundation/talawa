@@ -24,14 +24,14 @@ initializer.
 
 **returns**:
 
--   `Future<void>`: None
+-   `Future&lt;void&gt;`: None
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<void> initialise(String initialData) async 
+Future&lt;void&gt; initialise(String initialData) async 
 ```
 
 

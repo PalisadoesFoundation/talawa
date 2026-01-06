@@ -24,14 +24,14 @@ Popupmenu Button to select calendar view.
 
 **returns**:
 
--   `PopupMenuButton<String>`: custom PopupMenuButton..
+-   `PopupMenuButton&lt;String&gt;`: custom PopupMenuButton..
 
 
 
 ## Implementation
 
 ``` language-dart
-PopupMenuButton<String> calendarViewSelection(EventCalendarViewModel model) 
+PopupMenuButton&lt;String&gt; calendarViewSelection(EventCalendarViewModel model) 
 ```
 
 

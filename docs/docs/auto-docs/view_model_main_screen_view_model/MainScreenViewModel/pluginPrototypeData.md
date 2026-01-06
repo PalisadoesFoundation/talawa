@@ -28,7 +28,7 @@ to be displayed. Name of the feature provided by the admin must
 ## Implementation
 
 ``` language-dart
-Map<dynamic, dynamic> pluginPrototypeData = ;
+Map&lt;dynamic, dynamic&gt; pluginPrototypeData = ;
 ```
 
 

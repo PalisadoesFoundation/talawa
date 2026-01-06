@@ -19,7 +19,7 @@ Getter for User Posts.
 ## Implementation
 
 ``` language-dart
-List<Post> get userPosts 
+List&lt;Post&gt; get userPosts 
 ```
 
 

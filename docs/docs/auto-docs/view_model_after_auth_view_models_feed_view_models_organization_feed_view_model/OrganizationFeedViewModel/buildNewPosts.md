@@ -30,7 +30,7 @@ more_info_if_required
 ## Implementation
 
 ``` language-dart
-void buildNewPosts(List<Post> newPosts) 
+void buildNewPosts(List&lt;Post&gt; newPosts) 
 ```
 
 

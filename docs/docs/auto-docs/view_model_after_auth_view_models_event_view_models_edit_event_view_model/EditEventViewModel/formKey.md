@@ -22,7 +22,7 @@ Form key for edit event.
 ## Implementation
 
 ``` language-dart
-final formKey = GlobalKey<FormState>;
+final formKey = GlobalKey&lt;FormState&gt;;
 ```
 
 

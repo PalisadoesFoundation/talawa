@@ -15,7 +15,7 @@ get chats
 ## Implementation
 
 ``` language-dart
-List<ChatListTileDataModel> get chats => _chats;
+List&lt;ChatListTileDataModel&gt; get chats => _chats;
 ```
 
 

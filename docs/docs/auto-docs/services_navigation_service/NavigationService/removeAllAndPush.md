@@ -27,7 +27,7 @@ new route.
 
 **returns**:
 
--   `Future<dynamic>`: resolves if the Screen was succesfully
+-   `Future&lt;dynamic&gt;`: resolves if the Screen was succesfully
     removeAllAndPushed.
 
 
@@ -35,7 +35,7 @@ new route.
 ## Implementation
 
 ``` language-dart
-Future<dynamic> removeAllAndPush(
+Future&lt;dynamic&gt; removeAllAndPush(
   String routeName,
   String tillRoute, ) 
 ```

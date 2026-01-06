@@ -18,7 +18,7 @@ represents all the months.
 ## Implementation
 
 ``` language-dart
-static const List<String> monthNames = [
+static const List&lt;String&gt; monthNames = [
   'January',
   'February',
   'March',

@@ -22,7 +22,7 @@ The list of volunteers in the event volunteer group.
 ## Implementation
 
 ``` language-dart
-List<EventVolunteer>? volunteers;
+List&lt;EventVolunteer&gt;? volunteers;
 ```
 
 

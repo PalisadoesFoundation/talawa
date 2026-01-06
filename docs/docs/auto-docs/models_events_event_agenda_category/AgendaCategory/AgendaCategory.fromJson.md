@@ -23,7 +23,7 @@ Creates a new `AgendaCategory` instance from a JSON map.
 ## Implementation
 
 ``` language-dart
-factory AgendaCategory.fromJson(Map<String, dynamic> json) 
+factory AgendaCategory.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

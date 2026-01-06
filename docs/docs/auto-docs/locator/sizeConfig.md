@@ -22,7 +22,7 @@ GetIt for SizeConfig.
 ## Implementation
 
 ``` language-dart
-final sizeConfig = locator<SizeConfig>;
+final sizeConfig = locator&lt;SizeConfig&gt;;
 ```
 
 

@@ -29,7 +29,7 @@ Fetches all volunteer groups for the current event.
 ## Implementation
 
 ``` language-dart
-Future<void> fetchVolunteerGroups(String eventId) async 
+Future&lt;void&gt; fetchVolunteerGroups(String eventId) async 
 ```
 
 

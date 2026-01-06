@@ -22,7 +22,7 @@ GetIt for ActonHandlerService.
 ## Implementation
 
 ``` language-dart
-final actionHandlerService = locator<ActionHandlerService>;
+final actionHandlerService = locator&lt;ActionHandlerService&gt;;
 ```
 
 

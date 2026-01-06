@@ -22,7 +22,7 @@ GetIt for OrganizationService.
 ## Implementation
 
 ``` language-dart
-final organizationService = locator<OrganizationService>;
+final organizationService = locator&lt;OrganizationService&gt;;
 ```
 
 

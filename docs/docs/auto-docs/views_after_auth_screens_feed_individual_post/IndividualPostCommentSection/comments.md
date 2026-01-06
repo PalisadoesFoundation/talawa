@@ -22,7 +22,7 @@ List of comments on a post.
 ## Implementation
 
 ``` language-dart
-final List<Comments> comments;
+final List&lt;Comments&gt; comments;
 ```
 
 

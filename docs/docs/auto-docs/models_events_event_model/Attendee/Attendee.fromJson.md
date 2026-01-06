@@ -19,7 +19,7 @@ Attendee.fromJson(
 ## Implementation
 
 ``` language-dart
-Attendee.fromJson(Map<String, dynamic> json) 
+Attendee.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

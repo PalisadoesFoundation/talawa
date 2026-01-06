@@ -22,7 +22,7 @@ The list of labels for each step in the progress indicator.
 ## Implementation
 
 ``` language-dart
-final List<String> progressLabel = [
+final List&lt;String&gt; progressLabel = [
   'Select\nOrganization',
   'Enter Details',
   'Final',

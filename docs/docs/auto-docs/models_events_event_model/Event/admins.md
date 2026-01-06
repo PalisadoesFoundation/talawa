@@ -29,7 +29,7 @@ The admins of the event.
 
 ``` language-dart
 @HiveField(15)
-List<User>? admins;
+List&lt;User&gt;? admins;
 ```
 
 

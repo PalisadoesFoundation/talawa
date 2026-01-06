@@ -19,7 +19,7 @@ Getter for accessing the current list of events.
 ## Implementation
 
 ``` language-dart
-List<Event> get eventList => _eventList;
+List&lt;Event&gt; get eventList => _eventList;
 ```
 
 

@@ -19,7 +19,7 @@ Get the list of all available categories.
 ## Implementation
 
 ``` language-dart
-List<AgendaCategory> get categories => _categories;
+List&lt;AgendaCategory&gt; get categories => _categories;
 ```
 
 

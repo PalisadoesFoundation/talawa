@@ -22,7 +22,7 @@ A service that provides navigation-related functionalities.
 ## Implementation
 
 ``` language-dart
-final navigationService = locator<NavigationService>;
+final navigationService = locator&lt;NavigationService&gt;;
 ```
 
 

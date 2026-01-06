@@ -28,14 +28,14 @@ generateRoute
 
 **returns**:
 
--   `Route<dynamic>`: Return a Route
+-   `Route&lt;dynamic&gt;`: Return a Route
 
 
 
 ## Implementation
 
 ``` language-dart
-Route<dynamic> generateRoute(RouteSettings settings) 
+Route&lt;dynamic&gt; generateRoute(RouteSettings settings) 
 ```
 
 

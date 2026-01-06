@@ -36,7 +36,7 @@ object contains the following properties:
 ## Implementation
 
 ``` language-dart
-List<Language> languages = [
+List&lt;Language&gt; languages = [
   Language(
     countryCode: 'US',
     langCode: 'en',

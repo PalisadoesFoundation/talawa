@@ -29,7 +29,7 @@ Registers the `adapter` named adapter.
 ## Implementation
 
 ``` language-dart
-static Future<void> registerAdapter<T>(TypeAdapter<T> adapter) async 
+static Future&lt;void> registerAdapter<T&gt;(TypeAdapter&lt;T&gt; adapter) async 
 ```
 
 

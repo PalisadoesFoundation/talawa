@@ -22,7 +22,7 @@ represents all the days in a week.
 ## Implementation
 
 ``` language-dart
-List<String> days = [
+List&lt;String&gt; days = [
   WeekDays.monday,
   WeekDays.tuesday,
   WeekDays.wednesday,

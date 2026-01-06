@@ -36,7 +36,7 @@ Adds a volunteer to the specified group.
 ## Implementation
 
 ``` language-dart
-Future<void> addVolunteerToGroup(
+Future&lt;void&gt; addVolunteerToGroup(
   String volunteerId,
   String eventId,
   String groupId,

@@ -24,14 +24,14 @@ This function is used to convert the image into Base64 format.
 
 **returns**:
 
--   `Future<String>`: image in string format
+-   `Future&lt;String&gt;`: image in string format
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<String> convertToBase64(File file) async 
+Future&lt;String&gt; convertToBase64(File file) async 
 ```
 
 

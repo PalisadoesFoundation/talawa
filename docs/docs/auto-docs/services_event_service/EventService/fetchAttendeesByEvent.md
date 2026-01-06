@@ -24,14 +24,14 @@ This function is used to fetch all registrants of an event.
 
 **returns**:
 
--   `Future<dynamic>`: Information about event registrants.
+-   `Future&lt;dynamic&gt;`: Information about event registrants.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> fetchAttendeesByEvent(String eventId) async 
+Future&lt;dynamic&gt; fetchAttendeesByEvent(String eventId) async 
 ```
 
 

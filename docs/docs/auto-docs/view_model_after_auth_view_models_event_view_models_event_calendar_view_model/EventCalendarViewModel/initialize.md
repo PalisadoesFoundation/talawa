@@ -28,7 +28,7 @@ Initializes the view model.
 ## Implementation
 
 ``` language-dart
-void initialize(List<Event> eventList) 
+void initialize(List&lt;Event&gt; eventList) 
 ```
 
 

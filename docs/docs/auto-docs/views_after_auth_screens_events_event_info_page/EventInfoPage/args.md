@@ -22,7 +22,7 @@ Takes in Arguments for the Page.
 ## Implementation
 
 ``` language-dart
-final Map<String, dynamic> args;
+final Map&lt;String, dynamic&gt; args;
 ```
 
 

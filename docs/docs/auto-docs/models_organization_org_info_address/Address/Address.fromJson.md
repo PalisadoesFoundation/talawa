@@ -23,7 +23,7 @@ Factory method to construct an Address from a JSON object.
 ## Implementation
 
 ``` language-dart
-factory Address.fromJson(Map<String, dynamic> json) 
+factory Address.fromJson(Map&lt;String, dynamic&gt; json) 
 ```
 
 

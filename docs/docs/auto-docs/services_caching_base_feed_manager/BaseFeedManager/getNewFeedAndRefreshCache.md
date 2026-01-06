@@ -20,14 +20,14 @@ If offline, loads and returns cached data.
 
 **returns**:
 
--   `Future<List<T>>`: A Future containing a list of the latest data.
+-   `Future&lt;List&lt;T&gt;&gt;`: A Future containing a list of the latest data.
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<List<T>>  async 
+Future&lt;List&lt;T&gt;&gt;  async 
 ```
 
 

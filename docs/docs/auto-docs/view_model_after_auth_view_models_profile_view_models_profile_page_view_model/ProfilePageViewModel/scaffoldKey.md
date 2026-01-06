@@ -22,7 +22,7 @@ GlobalKey for scaffoldKey.
 ## Implementation
 
 ``` language-dart
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>;
+final GlobalKey&lt;ScaffoldState&gt; scaffoldKey = GlobalKey&lt;ScaffoldState&gt;;
 ```
 
 

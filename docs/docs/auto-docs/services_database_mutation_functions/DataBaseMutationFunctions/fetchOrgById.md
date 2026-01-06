@@ -24,14 +24,14 @@ This function fetch the organization using the `id` passed.
 
 **returns**:
 
--   `Future<dynamic>`: it returns Future of dynamic
+-   `Future&lt;dynamic&gt;`: it returns Future of dynamic
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<dynamic> fetchOrgById(String id) async 
+Future&lt;dynamic&gt; fetchOrgById(String id) async 
 ```
 
 

@@ -26,7 +26,7 @@ strings.
 
 **returns**:
 
--   `Map<String, String>`: A map containing the separate date and time
+-   `Map&lt;String, String&gt;`: A map containing the separate date and time
     strings.
 -   Returns an empty map if the input is invalid.
 
@@ -35,7 +35,7 @@ strings.
 ## Implementation
 
 ``` language-dart
-Map<String, String> splitDateTimeUTC(String dateTimeStr) 
+Map&lt;String, String&gt; splitDateTimeUTC(String dateTimeStr) 
 ```
 
 

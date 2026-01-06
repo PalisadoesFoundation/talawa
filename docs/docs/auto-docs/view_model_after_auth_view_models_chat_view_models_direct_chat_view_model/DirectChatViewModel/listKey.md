@@ -18,7 +18,7 @@ final
 ## Implementation
 
 ``` language-dart
-final listKey = GlobalKey<AnimatedListState>;
+final listKey = GlobalKey&lt;AnimatedListState&gt;;
 ```
 
 

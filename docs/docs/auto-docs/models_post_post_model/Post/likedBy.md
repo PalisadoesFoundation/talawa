@@ -29,7 +29,7 @@ List of users who liked the post.
 
 ``` language-dart
 @HiveField(8)
-List<LikedBy>? likedBy;
+List&lt;LikedBy&gt;? likedBy;
 ```
 
 

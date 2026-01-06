@@ -24,7 +24,7 @@ Adds an action to the queue with a TTL.
 
 **returns**:
 
--   `Future<bool>`: returns true if the action was added successfully,
+-   `Future&lt;bool&gt;`: returns true if the action was added successfully,
     otherwise false.
 
 
@@ -32,7 +32,7 @@ Adds an action to the queue with a TTL.
 ## Implementation
 
 ``` language-dart
-Future<bool> addAction(CachedUserAction action) async 
+Future&lt;bool&gt; addAction(CachedUserAction action) async 
 ```
 
 

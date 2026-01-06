@@ -24,7 +24,7 @@ that show up on the screen.
 ## Implementation
 
 ``` language-dart
-List<BottomNavigationBarItem> navBarItems = [];
+List&lt;BottomNavigationBarItem&gt; navBarItems = [];
 ```
 
 

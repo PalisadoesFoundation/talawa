@@ -22,7 +22,7 @@ Hive Box of organisation.
 ## Implementation
 
 ``` language-dart
-late final Box<OrgInfo> organisation;
+late final Box&lt;OrgInfo&gt; organisation;
 ```
 
 

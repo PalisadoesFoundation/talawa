@@ -22,7 +22,7 @@ Hive Box of user.
 ## Implementation
 
 ``` language-dart
-late final Box<User> user;
+late final Box&lt;User&gt; user;
 ```
 
 

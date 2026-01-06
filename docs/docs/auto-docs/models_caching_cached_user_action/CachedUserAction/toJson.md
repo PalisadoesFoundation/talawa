@@ -18,14 +18,14 @@ Converts a CachedUserAction to a JSON-compatible map.
 
 **returns**:
 
--   `Map<String, dynamic>`: a map representing the CachedUserAction.
+-   `Map&lt;String, dynamic&gt;`: a map representing the CachedUserAction.
 
 
 
 ## Implementation
 
 ``` language-dart
-Map<String, dynamic>  
+Map&lt;String, dynamic&gt;  
 ```
 
 

@@ -23,7 +23,7 @@ This function updates the Database Language by running the graphQL
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

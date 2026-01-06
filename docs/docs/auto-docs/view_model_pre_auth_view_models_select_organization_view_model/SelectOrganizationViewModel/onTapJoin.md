@@ -19,14 +19,14 @@ The function uses `joinOrgById` graph QL query
 
 **returns**:
 
--   `Future<void>`: None
+-   `Future&lt;void&gt;`: None
 
 
 
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

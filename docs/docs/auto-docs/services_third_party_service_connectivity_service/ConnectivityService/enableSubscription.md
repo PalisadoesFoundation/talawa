@@ -22,7 +22,7 @@ This function enables the subscription to connectivity changes.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

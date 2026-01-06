@@ -22,7 +22,7 @@ Organization selection required data.
 ## Implementation
 
 ``` language-dart
-late List<OrgInfo> organizations = [];
+late List&lt;OrgInfo&gt; organizations = [];
 ```
 
 

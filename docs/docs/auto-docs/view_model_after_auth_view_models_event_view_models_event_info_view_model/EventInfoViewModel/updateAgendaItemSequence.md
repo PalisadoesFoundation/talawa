@@ -32,7 +32,7 @@ Method to update the sequence of an agenda item.
 ## Implementation
 
 ``` language-dart
-Future<void> updateAgendaItemSequence(String itemId, int newSequence) async 
+Future&lt;void&gt; updateAgendaItemSequence(String itemId, int newSequence) async 
 ```
 
 

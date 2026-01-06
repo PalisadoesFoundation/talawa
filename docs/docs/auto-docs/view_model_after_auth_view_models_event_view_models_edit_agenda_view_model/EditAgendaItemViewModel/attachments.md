@@ -19,7 +19,7 @@ Get the list of attachments for the agenda item.
 ## Implementation
 
 ``` language-dart
-List<String> get attachments => _currentAttachments;
+List&lt;String&gt; get attachments => _currentAttachments;
 ```
 
 

@@ -30,7 +30,7 @@ This function add a new event if the event not exist.
 ## Implementation
 
 ``` language-dart
-Future<void> checkIfExistsAndAddNewEvents(List<Event> newEvents) async 
+Future&lt;void&gt; checkIfExistsAndAddNewEvents(List&lt;Event&gt; newEvents) async 
 ```
 
 

@@ -35,7 +35,7 @@ aInitializes the ViewModel with the provided agenda item and categories.
 ## Implementation
 
 ``` language-dart
-void initialize(EventAgendaItem agendaItem, List<AgendaCategory> categories) 
+void initialize(EventAgendaItem agendaItem, List&lt;AgendaCategory&gt; categories) 
 ```
 
 

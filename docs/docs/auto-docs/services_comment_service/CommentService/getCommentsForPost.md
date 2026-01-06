@@ -25,7 +25,7 @@ To verify things are working, check out the native platform logs.
 
 **returns**:
 
--   `Future<List<dynamic>>`: promise that will be fulfilled with list of
+-   `Future&lt;List&lt;dynamic&gt;&gt;`: promise that will be fulfilled with list of
     comments.
 
 
@@ -33,7 +33,7 @@ To verify things are working, check out the native platform logs.
 ## Implementation
 
 ``` language-dart
-Future<List<dynamic>> getCommentsForPost(String postId) async 
+Future&lt;List&lt;dynamic&gt;&gt; getCommentsForPost(String postId) async 
 ```
 
 

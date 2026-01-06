@@ -22,7 +22,7 @@ GetIt for UserConfig.
 ## Implementation
 
 ``` language-dart
-final userConfig = locator<UserConfig>;
+final userConfig = locator&lt;UserConfig&gt;;
 ```
 
 

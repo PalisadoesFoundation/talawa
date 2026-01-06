@@ -22,7 +22,7 @@ Optional array of attachment URLs.
 ## Implementation
 
 ``` language-dart
-final List<String>? attachments;
+final List&lt;String&gt;? attachments;
 ```
 
 

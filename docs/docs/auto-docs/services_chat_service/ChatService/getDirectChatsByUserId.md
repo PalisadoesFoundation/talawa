@@ -22,7 +22,7 @@ Retrieves direct chats by user ID.
 ## Implementation
 
 ``` language-dart
-Future<void>  async 
+Future&lt;void&gt;  async 
 ```
 
 

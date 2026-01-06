@@ -40,7 +40,7 @@ method per resource). The object will be retrieved with
 
 ``` language-dart
 @override
-Future<AppLocalizations> load(Locale locale) async 
+Future&lt;AppLocalizations&gt; load(Locale locale) async 
 ```
 
 

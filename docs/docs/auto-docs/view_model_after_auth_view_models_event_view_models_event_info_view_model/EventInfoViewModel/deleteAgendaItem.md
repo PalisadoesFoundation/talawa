@@ -31,7 +31,7 @@ more_info_if_required
 ## Implementation
 
 ``` language-dart
-Future<void> deleteAgendaItem(String id) async 
+Future&lt;void&gt; deleteAgendaItem(String id) async 
 ```
 
 

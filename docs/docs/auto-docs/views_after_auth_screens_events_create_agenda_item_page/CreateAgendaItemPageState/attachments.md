@@ -22,7 +22,7 @@ List of base64 encoded attachments associated with the agenda item.
 ## Implementation
 
 ``` language-dart
-List<String> attachments = [];
+List&lt;String&gt; attachments = [];
 ```
 
 

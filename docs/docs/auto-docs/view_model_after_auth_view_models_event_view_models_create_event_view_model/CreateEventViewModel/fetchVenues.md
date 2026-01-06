@@ -17,7 +17,7 @@ Fetches the list of venues registered to an organisation.
 
 **returns**:
 
--   `Future<List<Venue>>`: Returns the list of venues in an
+-   `Future&lt;List&lt;Venue&gt;&gt;`: Returns the list of venues in an
     organisation.
 
 
@@ -25,7 +25,7 @@ Fetches the list of venues registered to an organisation.
 ## Implementation
 
 ``` language-dart
-Future<List<Venue>>  async 
+Future&lt;List&lt;Venue&gt;&gt;  async 
 ```
 
 
