@@ -154,6 +154,14 @@ def escape_generic_types(content):
     # and any capitalized identifier followed by <...>
 
     def escape_match(match):
+        """Escape the generic type components.
+
+        Args:
+            match (re.Match): The regex match object.
+
+        Returns:
+            str: The escaped string.
+        """
         return f"{match.group(1)}&lt;{match.group(2)}&gt;"
 
     # Matches Identifier<Type> or Identifier<Type, Type>
