@@ -36,6 +36,13 @@ else
     echo "Warning: docs/docs/auto-docs directory not found"
 fi
 
+# Remove private documentation (directories or files starting with _)
+echo "Removing private documentation..."
+if [ -d "docs/docs/auto-docs" ]; then
+    find docs/docs/auto-docs -depth -type d -name "_*" -exec rm -rf {} \;
+    find docs/docs/auto-docs -type f -name "_*.md" -delete
+fi
+
 FIX_SCRIPT="scripts/docusaurus/fix_markdown.py"
 if [ ! -f "$FIX_SCRIPT" ]; then
     echo "Error: Python script '$FIX_SCRIPT' not found." >&2
