@@ -125,7 +125,8 @@ def fix_mdx_syntax(content):
         str: Content with fixed MDX syntax.
     """
     # Replace occurrences of Map<...> with escaped characters
-    # We handle the specific case where dart_doc_markdown might have escaped slashes or not
+    # We handle the specific case where dart_doc_markdown might have escaped
+    # slashes or not
     content = re.sub(
         r"Map/<([^,]+),\s*([^>]+)\/>", r"Map&lt;\1, \2&gt;", content
     )
@@ -146,7 +147,8 @@ def escape_generic_types(content):
         str: The content with escaped generic types.
     """
     # Pattern to match Word<Word> or Word<Word, Word> etc.
-    # checking for common Dart types or just capitalized words followed by <...>
+    # checking for common Dart types or just capitalized words followed by
+    # <...>
 
     # Escape List<T>, Future<T>, Set<T>, Stream<T>, Iterable<T>
     # and any capitalized identifier followed by <...>
@@ -326,7 +328,8 @@ for root, _, files in os.walk(md_folder):
             content = re.sub(r"^:::+.*$", "", content, flags=re.MULTILINE)
             # Remove lines with empty ()
             content = re.sub(r"\w+\(\)", "", content)
-            # This regular expression removes unnecessary empty parentheses `()`
+            # This regular expression removes unnecessary empty parentheses
+            # `()`
             # after markdown links formatted as `[[text](url)]()`. It keeps the
             # link text and URL intact while removing the trailing `()`
             # and extra outer [], which may appear due to a conversion process.
