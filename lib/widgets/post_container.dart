@@ -17,11 +17,30 @@ class PostContainer extends StatefulWidget {
 }
 
 class _PostContainerState extends State<PostContainer> {
+  /// Named constants for UI dimensions and spacing
+  static const double _containerHeight = 250.0;
+  static const double _errorIconSize = 48.0;
+  static const double _indicatorSize = 8.0;
+  static const double _indicatorSpacingHorizontal = 2.0;
+  static const double _indicatorSpacingVertical = 8.0;
+
   /// Controller for multiple attachments.
-  final PageController controller = PageController(initialPage: 0);
+  late final PageController controller;
 
   /// Index of current post displayed.
   int pindex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = PageController(initialPage: 0);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +50,7 @@ class _PostContainerState extends State<PostContainer> {
     return Column(
       children: [
         SizedBox(
-          height: 250,
+          height: _containerHeight,
           child: PageView.builder(
             controller: controller,
             itemCount: attachments.length,
@@ -48,8 +67,11 @@ class _PostContainerState extends State<PostContainer> {
                   imageUrl: att.url ?? '',
                   fit: BoxFit.cover,
                   errorWidget: (context, url, error) => const Center(
-                    child:
-                        Icon(Icons.broken_image, size: 48, color: Colors.grey),
+                    child: Icon(
+                      Icons.broken_image,
+                      size: _errorIconSize,
+                      color: Colors.grey,
+                    ),
                   ),
                   cacheKey: att.url, // Using the URL as cache key
                 );
@@ -69,9 +91,12 @@ class _PostContainerState extends State<PostContainer> {
             children: List.generate(
               attachments.length,
               (i) => Container(
-                margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
-                width: 8,
-                height: 8,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: _indicatorSpacingHorizontal,
+                  vertical: _indicatorSpacingVertical,
+                ),
+                width: _indicatorSize,
+                height: _indicatorSize,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: pindex == i

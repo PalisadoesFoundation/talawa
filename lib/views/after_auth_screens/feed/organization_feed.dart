@@ -24,12 +24,31 @@ class OrganizationFeed extends StatefulWidget {
 
 class _OrganizationFeedState extends State<OrganizationFeed> {
   final ScrollController _scrollController = ScrollController();
+  bool _isLoadingMore = false;
 
-  /// Counter for first time scrolling when at the start of the list.
-  int firstDownScroll = 0;
+  /// This function is used to listen to the scroll events and fetch more posts when the user scrolls to the bottom.
+  ///
+  /// **params**:
+  /// * `model`: The OrganizationFeedViewModel instance.
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> _scrollListener(OrganizationFeedViewModel model) async {
+    // Check if we're at the bottom for pagination
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      if (!_isLoadingMore) {
+        setState(() {
+          _isLoadingMore = true;
+        });
+        await model.nextPage();
+        setState(() {
+          _isLoadingMore = false;
+        });
+      }
+    }
+  }
 
-  /// Counter for first time scrolling when at the start of the list.
-  int firstUpScroll = 0;
   @override
   void dispose() {
     _scrollController.dispose();
@@ -39,7 +58,12 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
   @override
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
-      onModelReady: (model) async => await model.initialise(),
+      onModelReady: (model) async {
+        await model.initialise();
+        _scrollController.addListener(() {
+          _scrollListener(model);
+        });
+      },
       builder: (context, model, child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
@@ -85,95 +109,68 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => await model.fetchNewPosts(),
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (notification) {
-                      final currentScroll = _scrollController.position.pixels;
-
-                      if (notification is ScrollEndNotification &&
-                          notification.metrics.atEdge) {
-                        if (firstDownScroll > 0) {
-                          model.nextPage();
-                          firstDownScroll = 0;
-                        } else {
-                          firstDownScroll++;
-                        }
-                      }
-                      if (notification is ScrollEndNotification &&
-                          notification.metrics.atEdge &&
-                          currentScroll <= 0) {
-                        if (firstUpScroll > 0) {
-                          model.previousPage();
-                          firstUpScroll = 0;
-                        } else {
-                          firstUpScroll++;
-                        }
-                      }
-                      // Reset counters if scrolling occurs anywhere other than at the edge
-                      if (!notification.metrics.atEdge) {
-                        firstDownScroll = 0;
-                        firstUpScroll = 0;
-                      }
-
-                      return false;
-                    },
-                    child: ListView(
-                      controller: _scrollController,
-                      key: const Key('listView'),
-                      shrinkWrap: true,
-                      children: [
-                        // Always show PinnedPost if available
-                        if (model.pinnedPosts.isNotEmpty)
-                          PinnedPost(
-                            key: const Key('pinnedPosts'),
-                            pinnedPost: model.pinnedPosts,
-                          ),
-                        SizedBox(
-                          height: SizeConfig.screenHeight! * 0.01,
+                  onRefresh: () async => await model.refreshPosts(),
+                  child: ListView(
+                    controller: _scrollController,
+                    key: const Key('listView'),
+                    shrinkWrap: true,
+                    children: [
+                      // Always show PinnedPost if available
+                      if (model.pinnedPosts.isNotEmpty)
+                        PinnedPost(
+                          key: const Key('pinnedPosts'),
+                          pinnedPost: model.pinnedPosts,
                         ),
-                        model.posts.isNotEmpty
-                            ? PostListWidget(
-                                key: widget.homeModel?.keySHPost,
-                                posts: model.posts,
-                                redirectToIndividualPage:
-                                    model.navigateToIndividualPage,
-                                deletePost: model.deletePost,
-                              )
-                            : // if there is no post in an organisation then show text button to create a post.
-                            Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: SizeConfig.screenHeight! * 0.21,
-                                    ),
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .strictTranslate(
-                                        'There are no posts in this organization',
-                                      ),
-                                      style: TextStyle(
-                                        fontSize:
-                                            SizeConfig.screenHeight! * 0.026,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      navigationService
-                                          .pushScreen('/addpostscreen');
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .strictTranslate(
-                                        'Create your first post',
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.01,
+                      ),
+                      if (model.posts.isNotEmpty)
+                        PostListWidget(
+                          key: widget.homeModel?.keySHPost,
+                          posts: model.posts,
+                          redirectToIndividualPage:
+                              model.navigateToIndividualPage,
+                          deletePost: model.deletePost,
+                        )
+                      else // if there is no post in an organisation then show text button to create a post.
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: SizeConfig.screenHeight! * 0.21,
                               ),
-                      ],
-                    ),
+                              child: Text(
+                                AppLocalizations.of(context)!.strictTranslate(
+                                  'There are no posts in this organization',
+                                ),
+                                style: TextStyle(
+                                  fontSize: SizeConfig.screenHeight! * 0.026,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                navigationService.pushScreen('/addpostscreen');
+                              },
+                              child: Text(
+                                AppLocalizations.of(context)!.strictTranslate(
+                                  'Create your first post',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      if (_isLoadingMore)
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.screenHeight! * 0.02,
+                          ),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
         );

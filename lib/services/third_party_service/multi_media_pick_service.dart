@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -281,7 +280,6 @@ class MultiMediaPickerService {
     return CustomAlertDialog(
       success: () {
         navigationService.pop();
-        openAppSettings();
       },
       dialogTitle: 'Permission Denied',
       successText: 'SETTINGS',

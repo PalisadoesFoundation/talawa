@@ -2,23 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// EventInfoViewModel class helps interacting with model to serve view with the event information data.
 class EventInfoViewModel extends BaseModel {
-  /// ExploreEventsViewModel instance to fetch the event data.
-  late ExploreEventsViewModel exploreEventsInstance;
-
   /// Event instance to store the event data.
   late Event event;
+
+  /// Instance of EventService to manage event-related operations.
+  final eventService = locator<EventService>();
+
+  /// Instance  of calendar view model to manage calendar related operations.
+  final calendarViewModel = locator<EventCalendarViewModel>();
 
   /// String type variable to store the FAB title.
   late String fabTitle;
@@ -37,6 +40,8 @@ class EventInfoViewModel extends BaseModel {
   List<EventAgendaItem> get agendaItems => _agendaItems;
 
   late List<AgendaCategory> _categories = [];
+
+  /// List to store selected Agenda categories for an agenda item.
   late List<AgendaCategory> _selectedCategories = [];
 
   /// List of Agenda categories in an organisation.
@@ -48,14 +53,12 @@ class EventInfoViewModel extends BaseModel {
   /// This function initializes the EventInfoViewModel class with the required arguments.
   ///
   /// **params**:
-  /// * `args`: A map of arguments required to initialize the EventInfoViewModel class.
+  /// * `event`: An instance of the Event class required to initialize the EventInfoViewModel class.
   ///
   /// **returns**:
   ///   None
-  Future<void> initialize({required Map<String, dynamic> args}) async {
-    event = args["event"] as Event;
-    exploreEventsInstance =
-        args["exploreEventViewModel"] as ExploreEventsViewModel;
+  Future<void> initialize(Event event) async {
+    this.event = event;
     fabTitle = getFabTitle();
     await fetchCategories();
     await fetchAgendaItems();
@@ -83,7 +86,7 @@ class EventInfoViewModel extends BaseModel {
 
       // use `registerForAnEvent` function provided by `EventService` service.
       final registerResult =
-          await locator<EventService>().registerForAnEvent(event.id ?? '');
+          await eventService.registerForAnEvent(event.id ?? '');
       if (registerResult != null) {
         event.isRegistered = true;
         final userConfig = locator<UserConfig>();
@@ -99,7 +102,6 @@ class EventInfoViewModel extends BaseModel {
       fabTitle = getFabTitle();
       navigationService.pop();
       notifyListeners();
-      await locator<EventService>().getEvents();
     }
   }
 
@@ -141,10 +143,10 @@ class EventInfoViewModel extends BaseModel {
         'volunteersRequired': volunteersRequired,
       };
 
-      final result = await locator<EventService>()
-          .createVolunteerGroup(variables) as QueryResult;
+      final result = await eventService.createVolunteerGroup(variables);
 
-      if (result.data == null ||
+      if (result is! QueryResult ||
+          result.data == null ||
           result.data!['createEventVolunteerGroup'] == null) {
         throw Exception('Failed to create volunteer group or no data returned');
       }
@@ -172,8 +174,7 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchVolunteerGroups(String eventId) async {
     try {
-      final result =
-          await locator<EventService>().fetchVolunteerGroupsByEvent(eventId);
+      final result = await eventService.fetchVolunteerGroupsByEvent(eventId);
 
       _volunteerGroups.clear();
       _volunteerGroups.addAll(result);
@@ -193,10 +194,10 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchCategories() async {
     try {
-      final result = await locator<EventService>()
-          .fetchAgendaCategories(userConfig.currentOrg.id!) as QueryResult;
+      final result =
+          await eventService.fetchAgendaCategories(userConfig.currentOrg.id!);
 
-      if (result.data == null) return;
+      if (result is! QueryResult || result.data == null) return;
 
       final List categoryJson =
           result.data!['agendaItemCategoriesByOrganization'] as List;
@@ -230,20 +231,11 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> fetchAgendaItems() async {
-    try {
-      final result = await locator<EventService>()
-          .fetchAgendaItems(event.id ?? '') as QueryResult;
-
-      if (result.data == null) return;
-      final List agendaJson = result.data!['agendaItemByEvent'] as List;
-      _agendaItems = agendaJson
-          .map((json) => EventAgendaItem.fromJson(json as Map<String, dynamic>))
-          .toList();
-      _agendaItems.sort((a, b) => a.sequence!.compareTo(b.sequence!));
-      notifyListeners();
-    } catch (e) {
-      print('Error fetching agenda items: $e');
-    }
+    _agendaItems = event.agendaItems ?? [];
+    _agendaItems.sort(
+      (a, b) => (a.sequence ?? 0).compareTo(b.sequence ?? 0),
+    );
+    notifyListeners();
   }
 
   /// This function is used to create a new agenda item for an event.
@@ -282,9 +274,11 @@ class EventInfoViewModel extends BaseModel {
         'sequence': _agendaItems.length + 1,
         'organizationId': userConfig.currentOrg.id,
       };
-      final result = await locator<EventService>().createAgendaItem(variables)
-          as QueryResult;
-      if (result.data == null || result.data!['createAgendaItem'] == null) {
+      final result = await eventService.createAgendaItem(variables);
+
+      if (result is! QueryResult ||
+          result.data == null ||
+          result.data!['createAgendaItem'] == null) {
         throw Exception('Failed to create agenda item or no data returned');
       }
 
@@ -315,8 +309,7 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> deleteAgendaItem(String id) async {
     try {
-      await locator<EventService>()
-          .deleteAgendaItem({"removeAgendaItemId": id});
+      await eventService.deleteAgendaItem({"removeAgendaItemId": id});
       _agendaItems.removeWhere((item) => item.id == id);
       notifyListeners();
     } catch (e) {
@@ -334,10 +327,16 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> updateAgendaItemSequence(String itemId, int newSequence) async {
     try {
-      final result = await locator<EventService>().updateAgendaItem(
+      final result = await eventService.updateAgendaItem(
         itemId,
         {'sequence': newSequence},
-      ) as QueryResult<Object?>;
+      );
+
+      if (result is! QueryResult ||
+          result.data == null ||
+          result.data!['updateAgendaItem'] == null) {
+        throw Exception('Failed to update agenda item sequence');
+      }
 
       final updatedItem = EventAgendaItem.fromJson(
         result.data!['updateAgendaItem'] as Map<String, dynamic>,
@@ -379,5 +378,176 @@ class EventInfoViewModel extends BaseModel {
     }
 
     notifyListeners();
+  }
+
+  /// Method to delete an event. Shows a simple Yes/No dialog for standalone events and full dialog for recurrence events.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> deleteEvent() async {
+    print('Deleting event with id: ${event.id}');
+    print("event recurring: ${event.recurring}");
+    if (event.recurring == true || event.recurrenceRule != null) {
+      await _showRecurringEventDeleteDialog();
+    } else {
+      await _showStandaloneEventDeleteDialog();
+    }
+  }
+
+  /// Shows a dialog for deleting a standalone event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> _showStandaloneEventDeleteDialog() async {
+    final bool? confirm = await showDialog<bool>(
+      context: navigationService.navigatorKey.currentContext!,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Event'),
+        content: const Text('Are you sure you want to delete this event?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(
+              'Delete',
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+          ),
+        ],
+      ),
+    );
+    if (confirm == true) {
+      try {
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key('DeleteEvent'),
+          ),
+        );
+        final result = await eventService.deleteEvent(
+          event,
+          recurrenceType: 'standalone',
+        );
+        navigationService.pop();
+
+        if (result.hasException) {
+          throw Exception('Failed to delete event: ${result.exception}');
+        }
+
+        calendarViewModel.refreshCurrentViewEvents();
+        navigationService.pop();
+      } catch (e) {
+        navigationService.pop();
+        navigationService.showTalawaErrorSnackBar(
+          'Failed to delete event: $e',
+          MessageType.error,
+        );
+      }
+    }
+  }
+
+  /// Shows a dialog for deleting a recurring event with options.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> _showRecurringEventDeleteDialog() async {
+    final String? option = await showDialog<String>(
+      context: navigationService.navigatorKey.currentContext!,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Recurring Event'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('How would you like to delete this event?'),
+            const SizedBox(height: 16),
+            _buildDeleteOption(context, 'Delete this event only', 'single'),
+            const SizedBox(height: 8),
+            _buildDeleteOption(
+              context,
+              'Delete this and all future events',
+              'thisAndFollowing',
+            ),
+            const SizedBox(height: 8),
+            _buildDeleteOption(
+              context,
+              'Delete all events in the series',
+              'series',
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(null),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+
+    if (option != null) {
+      try {
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key('DeleteEvent'),
+          ),
+        );
+
+        final result = await eventService.deleteEvent(
+          event,
+          recurrenceType: option,
+        );
+
+        navigationService.pop();
+
+        if (result.hasException) {
+          throw Exception('Failed to delete event: ${result.exception}');
+        }
+        calendarViewModel.refreshCurrentViewEvents();
+        navigationService.pop();
+      } catch (e) {
+        navigationService.pop();
+        navigationService.showTalawaErrorSnackBar(
+          'Failed to delete event: $e',
+          MessageType.error,
+        );
+      }
+      setState(ViewState.idle);
+    }
+  }
+
+  /// Builds a delete option button for recurring events.
+  ///
+  /// **params**:
+  /// * `context`: Build context
+  /// * `text`: Display text for the option
+  /// * `value`: Value to return when selected
+  ///
+  /// **returns**:
+  /// * `Widget`: A button widget for the delete option
+  Widget _buildDeleteOption(BuildContext context, String text, String value) {
+    return InkWell(
+      onTap: () => Navigator.of(context).pop(value),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        decoration: BoxDecoration(
+          border: Border.all(color: Theme.of(context).dividerColor),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(text),
+      ),
+    );
   }
 }

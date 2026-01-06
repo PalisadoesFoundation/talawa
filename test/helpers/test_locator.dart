@@ -35,8 +35,8 @@ import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
@@ -46,12 +46,13 @@ import 'package:talawa/view_model/after_auth_view_models/settings_view_models/ap
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
-import 'package:talawa/view_model/pre_auth_view_models/auth_landing_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import "package:talawa/view_model/waiting_view_model.dart";
+import 'package:talawa/view_model/widgets_view_models/comment_interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
@@ -82,6 +83,7 @@ final imageCropper = locator<ImageCropper>();
 final sessionManager = locator<SessionManager>();
 final actionHandlerService = locator<ActionHandlerService>();
 final pinnedPostService = locator<PinnedPostService>();
+final appLinks = locator<AppLinks>();
 final fundService = locator<FundService>();
 final fundViewModel = locator<FundViewModel>();
 final userProfileService = locator<UserProfileService>();
@@ -137,7 +139,7 @@ void testSetupLocator() {
   locator.registerFactory(() => DemoViewModel());
   // locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => AuthLandingViewModel());
+  locator.registerFactory(() => SetUrlViewModel());
   locator.registerFactory(() => LoginViewModel());
   locator.registerFactory(() => ManageVolunteerGroupViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
@@ -145,7 +147,7 @@ void testSetupLocator() {
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => SignupDetailsViewModel());
   locator.registerFactory(() => WaitingViewModel());
-  locator.registerFactory(() => ExploreEventsViewModel());
+  locator.registerFactory(() => EventCalendarViewModel());
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());
@@ -162,11 +164,12 @@ void testSetupLocator() {
   locator.registerFactory(() => InteractionsViewModel());
   locator.registerFactory(() => AppLanguage(isTest: true));
   locator.registerFactory(() => CommentsViewModel());
+  locator.registerFactory(() => CommentInteractionsViewModel());
   locator.registerFactory(() => AppTheme());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => GroupChatViewModel());
   locator.registerFactory(() => SelectContactViewModel());
 
   //AppLinks
-  locator.registerSingleton(AppLinks());
+  locator.registerSingleton<AppLinks>(AppLinks());
 }
