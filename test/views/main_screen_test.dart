@@ -89,20 +89,10 @@ void main() {
       try {
         appConfig.isDemoMode = true;
 
-        // Stubbing
+        // Stubbing (navBarItems and scaffoldKey are handled by MockMainScreenViewModel overrides)
         when(mockViewModel.pages)
             .thenReturn([Container(key: const Key('DemoHomeView'))]);
-        when(mockViewModel.navBarItems).thenReturn([
-          const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label1'),
-          const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label2'),
-        ]);
         when(mockViewModel.currentPageIndex).thenReturn(0);
-        when(mockViewModel.scaffoldKey).thenReturn(GlobalKey<ScaffoldState>());
-        // Stub methods to do nothing
-        // We can't easily stub void methods with Mockito 5 without generate mocks, but 'Mock' class allows it if we don't call verify?
-        // Actually, if it's a manual mock extending Mock, it returns null for void methods by default (or throws if strict).
-        // But MockMainScreenViewModel extends Mock (Mockito).
-        // We need to make sure it doesn't throw.
 
         await tester.pumpWidget(createMainScreen(demoMode: true));
         await tester.pumpAndSettle();
@@ -116,15 +106,10 @@ void main() {
         (WidgetTester tester) async {
       appConfig.isDemoMode = false;
 
-      // Stubbing for normal mode
+      // Stubbing (navBarItems and scaffoldKey are handled by MockMainScreenViewModel overrides)
       when(mockViewModel.pages)
           .thenReturn([Container(key: const Key('HomeView'))]);
-      when(mockViewModel.navBarItems).thenReturn([
-        const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label1'),
-        const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label2'),
-      ]);
       when(mockViewModel.currentPageIndex).thenReturn(0);
-      when(mockViewModel.scaffoldKey).thenReturn(GlobalKey<ScaffoldState>());
 
       await tester.pumpWidget(createMainScreen(demoMode: appConfig.isDemoMode));
       await tester.pumpAndSettle(const Duration(seconds: 1));

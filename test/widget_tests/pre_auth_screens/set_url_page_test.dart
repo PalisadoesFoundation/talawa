@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -560,12 +559,10 @@ Future<void> main() async {
       await tester.tap(tryDemoButtonWidget);
       await tester.pumpAndSettle();
 
-      verify(navigationService.pushScreen(
-        Routes.mainScreen,
-        arguments: MainScreenArgs(
-          mainScreenIndex: 0,
-          toggleDemoMode: true,
-        ),
+      // navigateToDemo uses removeAllAndPush with Routes.homeScreen
+      verify(navigationService.removeAllAndPush(
+        Routes.homeScreen,
+        Routes.splashScreen,
       )).called(1);
     });
   });
