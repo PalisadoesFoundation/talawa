@@ -1,0 +1,8 @@
+{
+  "name": "Talawa Flutter",
+  "dockerFile": "../Dockerfile",
+  "workspaceFolder": "/home/flutteruser/app",
+  "remoteUser": "flutteruser",
+  "forwardPorts": [8080],
+  "postCreateCommand": "flutter pub get"
+}
