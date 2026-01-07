@@ -926,5 +926,37 @@ Future<void> main() async {
         navigationService.pushScreen('/selectLang'),
       );
     });
+
+    testWidgets("Testing if Try Demo button works", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the try demo button Finder
+      final tryDemoButtonWidget = find.byKey(const Key('TryDemoButton'));
+
+      //finding the try demo button
+      expect(tryDemoButtonWidget, findsOneWidget);
+
+      expect(
+        (tester.firstWidget(tryDemoButtonWidget) as RaisedRoundedButton)
+            .buttonLabel,
+        'Try Demo',
+      );
+      await tester.ensureVisible(tryDemoButtonWidget);
+      await tester.tap(tryDemoButtonWidget);
+      await tester.pumpAndSettle();
+
+      // navigateToDemo uses removeAllAndPush with Routes.homeScreen
+      verify(navigationService.removeAllAndPush(
+        Routes.homeScreen,
+        Routes.splashScreen,
+      )).called(1);
+    });
   });
 }
