@@ -177,6 +177,48 @@ def escape_generic_types(content):
     return content
 
 
+def sort_markdown_sections(content):
+    """Sorts markdown sections starting with ## alphabetically.
+
+    Args:
+        content (str): The markdown content.
+
+    Returns:
+        str: The sorted markdown content.
+    """
+    lines = content.split("\n")
+    header = []
+    sections = []
+    current_section = []
+
+    # Extract the main header (content before the first ##)
+    iterator = iter(lines)
+    for line in iterator:
+        if line.startswith("## "):
+            current_section.append(line)
+            break
+        header.append(line)
+
+    # Extract rest of the sections
+    for line in iterator:
+        if line.startswith("## "):
+            sections.append(current_section)
+            current_section = [line]
+        else:
+            current_section.append(line)
+
+    if current_section:
+        sections.append(current_section)
+
+    # Sort sections based on the section title (the first line of the section)
+    # The first line of a section is likely "## Title"
+    sections.sort(key=lambda x: x[0])
+
+    # Reconstruct content
+    result = header + [line for section in sections for line in section]
+    return "\n".join(result)
+
+
 def fix_links(content, parent_folder):
     """Update links from .html to .md and adjust relative paths.
 
@@ -313,6 +355,11 @@ for root, _, files in os.walk(md_folder):
                 content = fix_nested_links(content)
                 content = flatten_nested_links(content)
                 content = fix_mdx_syntax(content)
+
+                content = fix_mdx_syntax(content)
+
+            if file == "global_functions.md":
+                content = sort_markdown_sections(content)
 
             # Apply generic type escaping to all files
             content = escape_generic_types(content)
