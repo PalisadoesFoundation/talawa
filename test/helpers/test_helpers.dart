@@ -19,8 +19,6 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/models/chats/chat.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
@@ -1306,7 +1304,7 @@ void registerViewModels() {
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => InteractionsViewModel());
   _removeRegistrationIfExists<SizeConfig>();
-  locator.registerFactory(() => SizeConfig());
+  locator.registerSingleton<SizeConfig>(SizeConfig());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
@@ -1525,7 +1523,11 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   void setupNavigationItems(BuildContext context) {}
 }
 
+/// SafeMockUserConfig is a mock UserConfig that provides a real StreamController.
+///
+/// This avoids Mockito "Bad state" errors when stubbing StreamController properties.
 class SafeMockUserConfig extends MockUserConfig {
+  /// Controller for organization info changes.
   final StreamController<OrgInfo> _controller =
       StreamController<OrgInfo>.broadcast();
 

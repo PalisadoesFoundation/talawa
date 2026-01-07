@@ -1,22 +1,19 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
@@ -370,8 +367,9 @@ void main() {
       if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
       locator.registerSingleton<UserConfig>(mockUserConfig);
 
-      if (locator.isRegistered<NavigationService>())
+      if (locator.isRegistered<NavigationService>()) {
         locator.unregister<NavigationService>();
+      }
       locator.registerSingleton<NavigationService>(mockNavigationService);
 
       // Stub UserConfig (controller/stream handled by SafeMock)
