@@ -176,7 +176,6 @@ def escape_generic_types(content):
 
     return content
 
-
     return content
 
 
