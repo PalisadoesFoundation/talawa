@@ -251,4 +251,32 @@ class TalawaQueryResultVisitor extends RecursiveAstVisitor<void> {
   static bool isDataProperty(String propertyName) {
     return propertyName == 'data';
   }
+
+  // Test-only accessors for internal state inspection
+
+  /// Get the set of tracked QueryResult variables (test-only)
+  Set<String> get queryResultVariablesForTesting => _queryResultVariables;
+
+  /// Get the set of checked variables (test-only)
+  Set<String> get checkedVariablesForTesting => _checkedVariables;
+
+  /// Get the set of reported nodes (test-only)
+  Set<int> get reportedNodesForTesting => _reportedNodes;
+
+  /// Manually add a QueryResult variable for testing
+  void addQueryResultVariableForTesting(String name) {
+    _queryResultVariables.add(name);
+  }
+
+  /// Manually mark a variable as checked for testing
+  void markVariableCheckedForTesting(String name) {
+    _checkedVariables.add(name);
+  }
+
+  /// Reset all tracking for testing
+  void resetForTesting() {
+    _checkedVariables.clear();
+    _queryResultVariables.clear();
+    _reportedNodes.clear();
+  }
 }
