@@ -143,6 +143,34 @@ void main() {
       expect(find.byType(CheckboxListTile), findsAtLeastNWidgets(3));
     });
 
+    testWidgets('should show loading indicator during member loading',
+        (WidgetTester tester) async {
+      // Make the service take time to load
+      when(mockOrgService.getOrgMembersList(testOrgId)).thenAnswer((_) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+        return mockOrgMembers;
+      });
+
+      await tester.pumpWidget(
+        createTestMaterialApp(
+          child: GroupMemberSelector(
+            onMembersChanged: (members) {},
+            selectedMembers: const {},
+          ),
+        ),
+      );
+      await tester.pump(); // Capture intermediate state
+
+      // Verify loading indicator is visible during loading
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      await tester.pumpAndSettle(); // Complete loading
+
+      // Verify loading indicator is gone after loading completes
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(find.byType(CheckboxListTile), findsAtLeastNWidgets(3));
+    });
+
     testWidgets(
         'should complete loading and display members after async data fetch',
         (WidgetTester tester) async {
