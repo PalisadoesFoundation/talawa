@@ -67,4 +67,10 @@ class TalawaQueryResultLintRule extends DartLintRule {
   bool _isGeneratedFile(String filePath) {
     return filePath.endsWith('.g.dart') || filePath.endsWith('.mocks.dart');
   }
+
+  // Test-only methods - exposed for unit testing
+  // ignore: public_member_api_docs
+  bool isTestFileForTesting(String filePath) => _isTestFile(filePath);
+  // ignore: public_member_api_docs
+  bool isGeneratedFileForTesting(String filePath) => _isGeneratedFile(filePath);
 }

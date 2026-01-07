@@ -228,4 +228,27 @@ class TalawaQueryResultVisitor extends RecursiveAstVisitor<void> {
       _reportedNodes.add(nodeHash);
     }
   }
+
+  // Static helper methods exposed for unit testing
+
+  /// Check if type name matches QueryResult exactly (not QueryResultBuilder, etc.)
+  static bool isQueryResultTypeName(String typeName) {
+    return typeName == 'QueryResult' || typeName.startsWith('QueryResult<');
+  }
+
+  /// Check if library source is from graphql_flutter or graphql package.
+  static bool isFromGraphqlPackage(String librarySource) {
+    return librarySource.contains('graphql_flutter') ||
+        librarySource.contains('graphql/');
+  }
+
+  /// Check if property name is an exception-related property.
+  static bool isExceptionProperty(String propertyName) {
+    return propertyName == 'hasException' || propertyName == 'exception';
+  }
+
+  /// Check if property name is the data property.
+  static bool isDataProperty(String propertyName) {
+    return propertyName == 'data';
+  }
 }
