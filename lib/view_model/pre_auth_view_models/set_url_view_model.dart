@@ -6,6 +6,7 @@ import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
@@ -226,7 +227,15 @@ class SetUrlViewModel extends BaseModel {
   void navigateToDemo() {
     final AppConfigService appConfigService = locator<AppConfigService>();
     appConfigService.isDemoMode = true;
-    navigationService.removeAllAndPush(Routes.homeScreen, Routes.splashScreen);
+    navigationService.removeAllAndPush(
+      Routes.mainScreen,
+      Routes.splashScreen,
+      arguments: MainScreenArgs(
+        mainScreenIndex: 0,
+        fromSignUp: false,
+        toggleDemoMode: true,
+      ),
+    );
   }
 
   /// This function create a widget which is used to scan the QR-code.

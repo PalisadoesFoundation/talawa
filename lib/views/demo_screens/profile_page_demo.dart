@@ -92,23 +92,20 @@ class DemoProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: IconButton(
+                      key: const Key('ExitDemoButton'),
+                      icon: Icon(
+                        Icons.logout,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      onPressed: () {
+                        homeModel?.exitDemoMode();
+                      },
+                    ),
+                  ),
                 ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              IconButton(
-                key: const Key('ExitDemoButton'),
-                icon: Icon(
-                  Icons.logout,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () {
-                  homeModel?.exitDemoMode();
-                },
               ),
               const SizedBox(
                 height: 20,
