@@ -146,15 +146,8 @@ bool isPrivate(Token? name) =>
 
 class TalawaLintHelpers {
   static bool isVoid(Declaration node) {
-    final type = returnType(node);
-    if (type is VoidType) return true;
-
-    if (type is InterfaceType && type.isDartAsyncFuture) {
-      final args = type.typeArguments;
-      return args.isNotEmpty && args.first is VoidType;
-    }
-
-    return false;
+    return returnType(node) is VoidType ||
+        returnType(node)?.getDisplayString() == "Future<void>";
   }
 
   static bool isImplicitReturn(Declaration node) {
