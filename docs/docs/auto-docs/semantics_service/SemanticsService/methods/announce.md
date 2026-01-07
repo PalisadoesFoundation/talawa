@@ -1,0 +1,35 @@
+# Method: `announce`
+
+## Description
+
+Sends a semantic announcement.
+
+ This should be used for announcement that are not seamlessly announced by
+ the system as a result of a UI state change.
+
+ For example a camera application can use this method to make accessibility
+ announcements regarding objects in the viewfinder.
+
+ The assertiveness level of the announcement is determined by [assertiveness].
+ Currently, this is only supported by the web engine and has no effect on
+ other platforms. The default mode is [Assertiveness.polite].
+
+ Not all platforms support announcements. Check to see if
+ [isAnnounceSupported] before calling this method.
+
+ ### Android
+ Android has [deprecated announcement events][1] due to its disruptive
+ behavior with TalkBack forcing it to clear its speech queue and speak the
+ provided text. Instead, use mechanisms like [Semantics] to implicitly
+ trigger announcements.
+
+ [1]: https://developer.android.com/reference/android/view/View#announceForAccessibility(java.lang.CharSequence)
+
+## Return Type
+`Future&lt;void&gt;`
+
+## Parameters
+
+- `message`: `String`
+- `textDirection`: `TextDirection`
+- ``: `dynamic`

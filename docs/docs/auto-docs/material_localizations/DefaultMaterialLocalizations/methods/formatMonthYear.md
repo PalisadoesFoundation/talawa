@@ -1,0 +1,12 @@
+# Method: `formatMonthYear`
+
+## Description
+
+
+
+## Return Type
+`String`
+
+## Parameters
+
+- `date`: `DateTime`

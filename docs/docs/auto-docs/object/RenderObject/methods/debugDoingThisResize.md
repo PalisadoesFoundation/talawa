@@ -1,0 +1,12 @@
+# Method: `debugDoingThisResize`
+
+## Description
+
+Whether [performResize] for this render object is currently running.
+
+ Only valid when asserts are enabled. In release builds, always returns
+ false.
+
+## Return Type
+`bool`
+

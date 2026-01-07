@@ -1,0 +1,12 @@
+# Method: `formatFullDate`
+
+## Description
+
+
+
+## Return Type
+`String`
+
+## Parameters
+
+- `date`: `DateTime`

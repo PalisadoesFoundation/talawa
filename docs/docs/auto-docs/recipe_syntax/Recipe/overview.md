@@ -1,0 +1,132 @@
+# Overview for `Recipe`
+
+## Description
+
+
+
+## Members
+
+- **librarySeparator**: `int`
+- **librarySeparatorString**: `String`
+- **separator**: `int`
+- **separatorString**: `String`
+- **toType**: `int`
+- **toTypeString**: `String`
+- **pushErased**: `int`
+- **pushErasedString**: `String`
+- **pushDynamic**: `int`
+- **pushDynamicString**: `String`
+- **pushVoid**: `int`
+- **pushVoidString**: `String`
+- **wrapQuestion**: `int`
+- **wrapQuestionString**: `String`
+- **wrapFutureOr**: `int`
+- **wrapFutureOrString**: `String`
+- **startTypeArguments**: `int`
+- **startTypeArgumentsString**: `String`
+- **endTypeArguments**: `int`
+- **endTypeArgumentsString**: `String`
+- **startFunctionArguments**: `int`
+- **startFunctionArgumentsString**: `String`
+- **endFunctionArguments**: `int`
+- **endFunctionArgumentsString**: `String`
+- **startOptionalGroup**: `int`
+- **startOptionalGroupString**: `String`
+- **endOptionalGroup**: `int`
+- **endOptionalGroupString**: `String`
+- **startNamedGroup**: `int`
+- **startNamedGroupString**: `String`
+- **endNamedGroup**: `int`
+- **endNamedGroupString**: `String`
+- **nameSeparator**: `int`
+- **nameSeparatorString**: `String`
+- **requiredNameSeparator**: `int`
+- **requiredNameSeparatorString**: `String`
+- **genericFunctionTypeParameterIndex**: `int`
+- **genericFunctionTypeParameterIndexString**: `String`
+- **startRecord**: `int`
+- **startRecordString**: `String`
+- **extensionOp**: `int`
+- **extensionOpString**: `String`
+- **pushNeverExtension**: `int`
+- **pushNeverExtensionString**: `String`
+- **pushAnyExtension**: `int`
+- **pushAnyExtensionString**: `String`
+- **period**: `int`
+- **_formfeed**: `int`
+- **_formfeedString**: `String`
+- **_space**: `int`
+- **_spaceString**: `String`
+- **_exclamation**: `int`
+- **_exclamationString**: `String`
+- **_hash**: `int`
+- **_hashString**: `String`
+- **_dollar**: `int`
+- **_dollarString**: `String`
+- **_percent**: `int`
+- **_percentString**: `String`
+- **_ampersand**: `int`
+- **_ampersandString**: `String`
+- **_apostrophe**: `int`
+- **_apostropheString**: `String`
+- **_leftParen**: `int`
+- **_leftParenString**: `String`
+- **_rightParen**: `int`
+- **_rightParenString**: `String`
+- **_asterisk**: `int`
+- **_asteriskString**: `String`
+- **_plus**: `int`
+- **_plusString**: `String`
+- **_comma**: `int`
+- **_commaString**: `String`
+- **_minus**: `int`
+- **_minusString**: `String`
+- **_period**: `int`
+- **_periodString**: `String`
+- **_slash**: `int`
+- **_slashString**: `String`
+- **_digit0**: `int`
+- **_digit9**: `int`
+- **_colon**: `int`
+- **_colonString**: `String`
+- **_semicolon**: `int`
+- **_semicolonString**: `String`
+- **_lessThan**: `int`
+- **_lessThanString**: `String`
+- **_equals**: `int`
+- **_equalsString**: `String`
+- **_greaterThan**: `int`
+- **_greaterThanString**: `String`
+- **_question**: `int`
+- **_questionString**: `String`
+- **_at**: `int`
+- **_atString**: `String`
+- **_uppercaseA**: `int`
+- **_uppercaseZ**: `int`
+- **_leftBracket**: `int`
+- **_leftBracketString**: `String`
+- **_backslash**: `int`
+- **_backslashString**: `String`
+- **_rightBracket**: `int`
+- **_rightBracketString**: `String`
+- **_circumflex**: `int`
+- **_circumflexString**: `String`
+- **_underscore**: `int`
+- **_underscoreString**: `String`
+- **_backtick**: `int`
+- **_backtickString**: `String`
+- **_lowercaseA**: `int`
+- **_lowercaseZ**: `int`
+- **_leftBrace**: `int`
+- **_leftBraceString**: `String`
+- **_vertical**: `int`
+- **_verticalString**: `String`
+- **_rightBrace**: `int`
+- **_rightBraceString**: `String`
+- **_tilde**: `int`
+- **_tildeString**: `String`
+## Constructors
+
+### _
+
+

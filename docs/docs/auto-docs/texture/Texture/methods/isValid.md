@@ -1,0 +1,6 @@
+# Method: `isValid`
+
+## Description
+
+
+

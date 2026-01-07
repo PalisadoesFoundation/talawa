@@ -1,0 +1,6 @@
+# Method: `toDouble`
+
+## Description
+
+
+
