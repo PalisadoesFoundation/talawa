@@ -202,7 +202,6 @@ jobs:
             'INSTALLATION.md$'
             'ISSUE_GUIDELINES.md$'
             'PR_GUIDELINES.md$'
-            './*.md$'
             'README.md$'
             '.*.pem$'
             '.*.key$'
