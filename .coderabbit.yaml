@@ -30,7 +30,7 @@ reviews:
   path_instructions:
     - path: "**/*"
       instructions: |
-        Perform a comprehensive review with the following checks:
+        Perform a comprehensive analysis and reevaluate all resolved and dismissed items with the following criteria:
 
         ## 1. Testing & Coverage
         1. **Test Quality Analysis:**
