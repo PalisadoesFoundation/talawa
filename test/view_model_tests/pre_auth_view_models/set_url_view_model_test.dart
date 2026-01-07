@@ -9,6 +9,7 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -597,7 +598,14 @@ Future<void> main() async {
 
       // Verify navigation
       verify(navigationService.removeAllAndPush(
-          Routes.homeScreen, Routes.splashScreen));
+        Routes.mainScreen,
+        Routes.splashScreen,
+        arguments: MainScreenArgs(
+          mainScreenIndex: 0,
+          fromSignUp: false,
+          toggleDemoMode: true,
+        ),
+      ));
     });
   });
 }
