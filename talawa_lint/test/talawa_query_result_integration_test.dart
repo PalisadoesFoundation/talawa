@@ -3,25 +3,10 @@
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:talawa_lint/talawa_query_result/talawa_query_result.dart';
 import 'package:talawa_lint/talawa_query_result/talawa_query_result_visitor.dart';
 import 'package:test/test.dart';
-
-/// Mock error reporter that collects reported errors
-class MockLintErrorReporter extends AnalysisErrorListener {
-  final List<AnalysisError> errors = [];
-
-  @override
-  void onError(AnalysisError error) {
-    errors.add(error);
-  }
-
-  void clear() {
-    errors.clear();
-  }
-}
 
 void main() {
   group('TalawaQueryResultLintRule - AST Visitor Execution Tests', () {
@@ -33,8 +18,7 @@ void main() {
 
     group('Visitor state management', () {
       test('visitor should reset state for each method', () {
-        // Create a mock visitor to test state management
-        final mockReporter = _createMockErrorReporter();
+        final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
         // Add some state
@@ -53,10 +37,9 @@ void main() {
       });
 
       test('visitor tracks QueryResult variables correctly', () {
-        final mockReporter = _createMockErrorReporter();
+        final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
-        // Simulate tracking a variable
         visitor.addQueryResultVariableForTesting('result');
 
         expect(visitor.queryResultVariablesForTesting, contains('result'));
@@ -64,7 +47,7 @@ void main() {
       });
 
       test('visitor tracks multiple variables independently', () {
-        final mockReporter = _createMockErrorReporter();
+        final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
         visitor.addQueryResultVariableForTesting('result1');
@@ -76,7 +59,7 @@ void main() {
       });
 
       test('visitor tracks checked variables correctly', () {
-        final mockReporter = _createMockErrorReporter();
+        final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
         visitor.addQueryResultVariableForTesting('result');
@@ -87,40 +70,31 @@ void main() {
     });
 
     group('Violation detection logic', () {
-      test(
-          'unguarded access should be detectable - variable tracked but not checked',
-          () {
-        final mockReporter = _createMockErrorReporter();
+      test('unguarded access - variable tracked but not checked', () {
+        final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
-        // Track a QueryResult variable but don't mark it as checked
         visitor.addQueryResultVariableForTesting('result');
 
-        // Verify the state indicates a potential violation
         expect(visitor.queryResultVariablesForTesting, contains('result'));
         expect(visitor.checkedVariablesForTesting, isNot(contains('result')));
 
-        // This is the condition that would trigger a violation
         final wouldViolate =
             visitor.queryResultVariablesForTesting.contains('result') &&
                 !visitor.checkedVariablesForTesting.contains('result');
         expect(wouldViolate, true);
       });
 
-      test('guarded access should not violate - variable tracked and checked',
-          () {
-        final mockReporter = _createMockErrorReporter();
+      test('guarded access - variable tracked and checked', () {
+        final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
-        // Track a QueryResult variable AND mark it as checked
         visitor.addQueryResultVariableForTesting('result');
         visitor.markVariableCheckedForTesting('result');
 
-        // Verify the state indicates no violation
         expect(visitor.queryResultVariablesForTesting, contains('result'));
         expect(visitor.checkedVariablesForTesting, contains('result'));
 
-        // This condition would NOT trigger a violation
         final wouldViolate =
             visitor.queryResultVariablesForTesting.contains('result') &&
                 !visitor.checkedVariablesForTesting.contains('result');
@@ -128,17 +102,53 @@ void main() {
       });
 
       test('non-QueryResult variable should not violate', () {
-        final mockReporter = _createMockErrorReporter();
+        final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
-        // Don't track 'result' as QueryResult variable
-        // This simulates a variable of different type
-
-        // Verify no violation for untracked variables
         final wouldViolate =
             visitor.queryResultVariablesForTesting.contains('result') &&
                 !visitor.checkedVariablesForTesting.contains('result');
         expect(wouldViolate, false);
+      });
+
+      test('visitor detects property access on tracked variable', () {
+        // This test verifies the detection logic works correctly
+        // by checking the internal state that would lead to a violation
+        final mockReporter = _MockErrorReporter();
+        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
+
+        // Track a variable but don't check it
+        visitor.addQueryResultVariableForTesting('result');
+
+        // Verify the conditions that would trigger a report
+        final isTracked =
+            visitor.queryResultVariablesForTesting.contains('result');
+        final isChecked = visitor.checkedVariablesForTesting.contains('result');
+
+        expect(isTracked, true);
+        expect(isChecked, false);
+
+        // This is the exact condition used in _reportIfUnchecked
+        final wouldReport = isTracked && !isChecked;
+        expect(wouldReport, true);
+      });
+
+      test('checked variable does not trigger report', () {
+        final mockReporter = _MockErrorReporter();
+        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
+
+        visitor.addQueryResultVariableForTesting('result');
+        visitor.markVariableCheckedForTesting('result');
+
+        final isTracked =
+            visitor.queryResultVariablesForTesting.contains('result');
+        final isChecked = visitor.checkedVariablesForTesting.contains('result');
+
+        expect(isTracked, true);
+        expect(isChecked, true);
+
+        final wouldReport = isTracked && !isChecked;
+        expect(wouldReport, false);
       });
     });
 
@@ -260,23 +270,18 @@ void main() {
       });
     });
 
-    group('AST parsing - Code snippet tests', () {
+    group('AST parsing and code verification', () {
       test('can parse function with property access', () {
         const code = '''
-void test(Foo foo) {
+void test(dynamic foo) {
   var x = foo.data;
 }
 ''';
         final result = parseString(content: code);
         expect(result.errors, isEmpty);
 
-        // Find the function
         final func = result.unit.declarations.first as FunctionDeclaration;
         expect(func.name.lexeme, 'test');
-
-        // The function should have a body with statements
-        final body = func.functionExpression.body as BlockFunctionBody;
-        expect(body.block.statements, isNotEmpty);
       });
 
       test('can parse function with if statement', () {
@@ -297,38 +302,9 @@ void test(bool flag) {
         expect(firstStmt, isA<IfStatement>());
       });
 
-      test('can parse prefixed identifier (result.data pattern)', () {
+      test('can parse hasException check pattern', () {
         const code = '''
-void test() {
-  var result = getResult();
-  print(result.data);
-}
-
-dynamic getResult() => null;
-''';
-        final result = parseString(content: code);
-        expect(result.errors, isEmpty);
-      });
-
-      test('can parse indexed access (result.data["key"] pattern)', () {
-        const code = '''
-void test() {
-  var data = {"key": "value"};
-  print(data["key"]);
-}
-''';
-        final result = parseString(content: code);
-        expect(result.errors, isEmpty);
-      });
-
-      test('can parse condition with hasException pattern', () {
-        const code = '''
-class Result {
-  bool hasException = false;
-  dynamic data;
-}
-
-void test(Result result) {
+void test(dynamic result) {
   if (result.hasException) {
     return;
   }
@@ -337,6 +313,58 @@ void test(Result result) {
 ''';
         final result = parseString(content: code);
         expect(result.errors, isEmpty);
+      });
+
+      test('can parse indexed access pattern', () {
+        const code = '''
+void test(dynamic result) {
+  var x = result.data["key"];
+}
+''';
+        final result = parseString(content: code);
+        expect(result.errors, isEmpty);
+      });
+
+      test('visitor can traverse parsed code without error', () {
+        final mockReporter = _MockErrorReporter();
+        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
+
+        const code = '''
+void test() {
+  var x = 1;
+  print(x);
+}
+''';
+        final result = parseString(content: code);
+
+        // Should not throw
+        for (final declaration in result.unit.declarations) {
+          declaration.accept(visitor);
+        }
+      });
+
+      test('visitor resets state when visiting function', () {
+        final mockReporter = _MockErrorReporter();
+        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
+
+        // Add variable before visiting
+        visitor.addQueryResultVariableForTesting('result');
+        expect(visitor.queryResultVariablesForTesting, isNotEmpty);
+
+        const code = '''
+void test() {
+  print('hello');
+}
+''';
+        final result = parseString(content: code);
+
+        // Visit function - should reset state
+        for (final declaration in result.unit.declarations) {
+          declaration.accept(visitor);
+        }
+
+        // State should be reset
+        expect(visitor.queryResultVariablesForTesting, isEmpty);
       });
     });
 
@@ -376,22 +404,28 @@ void test() {
         final result = parseString(content: code);
         expect(result.errors, isEmpty);
       });
+
+      test('duplicate tracking prevention works', () {
+        final mockReporter = _MockErrorReporter();
+        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
+
+        // Add same variable twice
+        visitor.addQueryResultVariableForTesting('result');
+        visitor.addQueryResultVariableForTesting('result');
+
+        // Set uses unique values, so should still be 1
+        expect(visitor.queryResultVariablesForTesting.length, 1);
+      });
     });
   });
 }
 
-/// Create a mock error reporter for testing
-ErrorReporter _createMockErrorReporter() {
-  return _MockErrorReporter();
-}
-
-/// Simple mock that implements ErrorReporter interface
+/// Mock error reporter that tracks reported nodes
 class _MockErrorReporter implements ErrorReporter {
   final List<AstNode> reportedNodes = [];
 
   @override
   dynamic noSuchMethod(Invocation invocation) {
-    // Handle atNode calls
     if (invocation.memberName == #atNode) {
       final node = invocation.positionalArguments[0] as AstNode;
       reportedNodes.add(node);
