@@ -198,8 +198,8 @@ void main() {
       // Should show empty state
       expect(find.text(emptyStateText), findsOneWidget);
 
-      // Should not call service
-      verifyNever(mockOrgService.getOrgMembersList('any'));
+      // Should not call service when org ID is null
+      verifyZeroInteractions(mockOrgService);
     });
 
     testWidgets('should handle organization service error',
