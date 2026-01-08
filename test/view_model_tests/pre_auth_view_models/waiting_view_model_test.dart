@@ -89,7 +89,14 @@ void main() {
 
         when(mockDbFunctions.gqlAuthQuery(query)).thenAnswer(
           (_) async => QueryResult.internal(
-            parserFn: (map) => testOrgId,
+            parserFn: (map) {
+              // Realistic parser: extract organization from map
+              final orgMap = map['organization'] as Map<String, dynamic>?;
+              if (orgMap != null) {
+                return orgMap['_id'] as String? ?? testOrgId;
+              }
+              return null;
+            },
             source: QueryResultSource.network,
             data: mockOrgData,
           ),
@@ -113,7 +120,10 @@ void main() {
 
         when(mockDbFunctions.gqlAuthQuery(query)).thenAnswer(
           (_) async => QueryResult.internal(
-            parserFn: (map) => testOrgId,
+            parserFn: (map) {
+              // Realistic parser: return null for error case
+              return null;
+            },
             source: QueryResultSource.network,
             data: null,
             exception: OperationException(
@@ -142,7 +152,10 @@ void main() {
 
         when(mockDbFunctions.gqlAuthQuery(query)).thenAnswer(
           (_) async => QueryResult.internal(
-            parserFn: (map) => testOrgId,
+            parserFn: (map) {
+              // Realistic parser: return null when data is null
+              return null;
+            },
             source: QueryResultSource.network,
             data: null,
           ),

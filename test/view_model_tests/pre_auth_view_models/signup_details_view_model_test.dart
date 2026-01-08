@@ -53,7 +53,7 @@ class MockUserConfigWithMembershipRequests extends Mock implements UserConfig {
         id: 'xyz-membership',
         authToken: 'testtoken',
         joinedOrganizations: [], // Empty - user hasn't joined any org
-        membershipRequests: ['org1', 'org2'], // Has pending requests
+        membershipRequests: ['org1'], // Has pending request (matches GraphQL fixture)
       );
   @override
   OrgInfo get currentOrg => OrgInfo(
@@ -482,6 +482,80 @@ void main() {
           arguments: '-1',
         ),
       ).called(1);
+
+      // Negative assertion: should NOT navigate to mainScreen
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.mainScreen,
+          Routes.splashScreen,
+          arguments: isA<MainScreenArgs>(),
+        ),
+      );
+
+      // Clean up - restore original mock
+      locator.unregister<UserConfig>();
+      locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+    });
+
+    testWidgets(
+        'Check if signup() does NOT navigate to waitingScreen when GraphQL fails',
+        (tester) async {
+      // First, unregister the existing UserConfig and register our new mock
+      try {
+        locator.unregister<UserConfig>();
+      } catch (e) {
+        // Expected
+      }
+      locator.registerLazySingleton<UserConfig>(
+        () => MockUserConfigWithMembershipRequests(),
+      );
+
+      final model = SignupDetailsViewModel();
+
+      final org = OrgInfo(
+        id: "xyz-membership",
+        name: "Test Org",
+      );
+
+      // Create QueryResult with null data (GraphQL failure)
+      final queryResult = QueryResult(
+        options: QueryOptions(
+          document: gql(
+            queries.registerUser('', '', '', org.id),
+          ),
+        ),
+        data: null,
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      ).thenAnswer((_) async => queryResult);
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
+
+      expect(model.validate, AutovalidateMode.disabled);
+
+      verify(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      );
+
+      // Verify waitingScreen was NOT pushed (GraphQL failure path)
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.waitingScreen,
+          Routes.splashScreen,
+          arguments: '-1',
+        ),
+      );
 
       // Clean up - restore original mock
       locator.unregister<UserConfig>();

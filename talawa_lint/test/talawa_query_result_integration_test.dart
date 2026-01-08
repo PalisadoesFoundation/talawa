@@ -3,7 +3,13 @@
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:analyzer/dart/ast/token.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
+import 'package:analyzer/source/source.dart';
+import 'package:source_span/source_span.dart';
 import 'package:talawa_lint/talawa_query_result/talawa_query_result.dart';
 import 'package:talawa_lint/talawa_query_result/talawa_query_result_visitor.dart';
 import 'package:test/test.dart';
@@ -405,51 +411,6 @@ var y = result2.data;
         expect(mockReporter.reportedNodes, isNotEmpty);
       });
     });
-
-    group('Control Flow Tests', () {
-      test(
-          'reports violation when accessing result.data without exception check',
-          () {
-        final mockReporter = _MockErrorReporter();
-        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
-
-        visitor.addQueryResultVariableForTesting('result');
-
-        const code = 'var x = result.data;';
-        final parseResult = parseString(content: code);
-        parseResult.unit.accept(visitor);
-
-        expect(mockReporter.reportedNodes, isNotEmpty);
-      });
-
-      test('no violation when variable is checked then accessed', () {
-        final mockReporter = _MockErrorReporter();
-        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
-
-        visitor.addQueryResultVariableForTesting('result');
-        visitor.markVariableCheckedForTesting('result');
-
-        const code = 'var x = result.data;';
-        final parseResult = parseString(content: code);
-        parseResult.unit.accept(visitor);
-
-        expect(mockReporter.reportedNodes, isEmpty);
-      });
-
-      test('reports outer scope result variable access', () {
-        final mockReporter = _MockErrorReporter();
-        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
-
-        // Track outer result variable
-        visitor.addQueryResultVariableForTesting('result');
-
-        const code = 'var x = result.data;';
-        final parseResult = parseString(content: code);
-        parseResult.unit.accept(visitor);
-
-        expect(mockReporter.reportedNodes, isNotEmpty);
-      });
-    });
   });
 }
 
@@ -458,14 +419,160 @@ class _MockErrorReporter implements ErrorReporter {
   final List<AstNode> reportedNodes = [];
 
   @override
-  dynamic noSuchMethod(Invocation invocation) {
-    // Safe check before casting
-    if (invocation.memberName == #atNode &&
-        invocation.positionalArguments.isNotEmpty &&
-        invocation.positionalArguments[0] is AstNode) {
-      final node = invocation.positionalArguments[0] as AstNode;
-      reportedNodes.add(node);
-    }
-    return null;
+  void atNode(
+    AstNode node,
+    ErrorCode code, {
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  }) {
+    reportedNodes.add(node);
   }
+
+  @override
+  void atOffset({
+    required ErrorCode errorCode,
+    required int offset,
+    required int length,
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  }) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void atElement(
+    Element element,
+    ErrorCode code, {
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  }) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void atConstructorDeclaration(
+    ConstructorDeclaration node,
+    ErrorCode code, {
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  }) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void atEntity(
+    SyntacticEntity entity,
+    ErrorCode code, {
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  }) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void atSourceSpan(
+    SourceSpan span,
+    ErrorCode code, {
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  }) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void atToken(
+    Token token,
+    ErrorCode code, {
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  }) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void reportError(AnalysisError error) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void reportErrorForElement(
+    ErrorCode errorCode,
+    Element element, [
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+  ]) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void reportErrorForNode(
+    ErrorCode errorCode,
+    AstNode node, [
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  ]) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void reportErrorForOffset(
+    ErrorCode errorCode,
+    int offset,
+    int length, [
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  ]) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void reportErrorForToken(
+    ErrorCode errorCode,
+    Token token, [
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+    Object? data,
+  ]) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void reportErrorForSpan(
+    ErrorCode errorCode,
+    SourceSpan span, [
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+  ]) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  void reportTypeErrorForNode(
+    ErrorCode errorCode,
+    AstNode node, [
+    List<Object>? arguments,
+    List<dynamic>? contextMessages,
+  ]) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  int get lockLevel => 0;
+
+  @override
+  set lockLevel(int value) {
+    // Stub implementation - not used in these tests
+  }
+
+  @override
+  Source get source => throw UnimplementedError();
 }

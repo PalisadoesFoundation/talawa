@@ -18,4 +18,5 @@ dependencies:
   args: ^2.4.2
   custom_lint: 0.7.0
   custom_lint_builder: ^0.7.0
+  source_span: ^1.9.0
   # watcher: ^1.1.0
