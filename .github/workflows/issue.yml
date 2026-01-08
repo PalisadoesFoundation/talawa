@@ -1,55 +1,9 @@
-##############################################################################
-##############################################################################
-#
-# NOTE!
-#
-# Please read the README.md file in this directory that defines what should
-# be placed in this file
-#
-##############################################################################
-##############################################################################
-
 name: Issue Workflow
 on:
   issues:
     types: ['opened']
 jobs:
-  Opened-issue-label:
-    name: Adding Issue Label
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github/workflows/auto-label.json5
-          sparse-checkout-cone-mode: false
-      - uses: Renato66/auto-label@v3
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/github-script@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const issue_number = context.issue.number;
-            const apiParams = {
-              owner,
-              repo,
-              issue_number
-            };
-            const labels = await github.rest.issues.listLabelsOnIssue(apiParams);
-            if(labels.data.reduce((a, c)=>a||["dependencies"].includes(c.name), false))
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: ["good first issue", "security"]
-              });
-            else if(labels.data.reduce((a, c)=>a||["security", "ui/ux", "test", "ci/cd"].includes(c.name), false))
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: ["good first issue"]
-              });
+ Opened-issue-label:
+    uses: PalisadoesFoundation/.github/.github/workflows/issue.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
