@@ -44,7 +44,7 @@ class AppLocalizations {
   /// Loads localization for testing purposes.
   ///
   /// **params**:
-  /// * `locale`: The locale to load for testing
+  ///   None
   ///
   /// **returns**:
   ///   None
