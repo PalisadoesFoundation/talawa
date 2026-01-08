@@ -31,6 +31,15 @@ import 'package:talawa_lint/talawa_query_result/talawa_query_result.dart';
 import 'package:talawa_lint/talawa_query_result/talawa_query_result_visitor.dart';
 import 'package:test/test.dart';
 
+/// Extension to add firstOrNull for older SDK compatibility
+extension IterableFirstOrNull<T> on Iterable<T> {
+  T? get firstOrNull {
+    final iterator = this.iterator;
+    if (iterator.moveNext()) return iterator.current;
+    return null;
+  }
+}
+
 void main() {
   group('TalawaQueryResultLintRule - Core Behavior Tests', () {
     late TalawaQueryResultLintRule rule;
