@@ -315,12 +315,21 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build and start services with Docker Compose
-        run: docker compose up -d --build 
+        run: |
+          docker compose up -d --build
+          # Wait for container to be ready
+          timeout 60 bash -c 'until docker compose exec -T talawa-mobile flutter --version > /dev/null 2>&1; do sleep 2; done' || (echo "Container failed to become ready" && exit 1)
 
       - name: Validate Flutter setup inside container
         run: |
-          docker compose exec -T talawa-mobile flutter doctor
-          docker compose exec -T talawa-mobile flutter doctor | grep -q "No issues found" || echo "Warning: Flutter doctor reported issues"
+          # Run flutter doctor and capture output and exit code
+          if ! docker compose exec -T talawa-mobile flutter doctor > /tmp/flutter_doctor.txt 2>&1; then
+            echo "Error: Flutter doctor failed"
+            exit 1
+          fi
+          # Check for issues (optional warning, doesn't fail the step)
+          grep -q "No issues found" /tmp/flutter_doctor.txt || echo "⚠️ Warning: Flutter doctor reported non-critical issues"
+          
       - name: Build APK inside container to prove app can start
         run: docker compose exec -T talawa-mobile flutter build apk --debug --no-tree-shake-icons  
 
