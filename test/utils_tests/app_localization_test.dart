@@ -21,7 +21,15 @@ void main() {
       final result = await appLocalizations.load();
       expect(result, true);
 
-      // expect(appLocalizations.strictTranslate("Recover"), "Recover");
+      // isTest=true should return the key directly
+      expect(appLocalizations.translate("Recover"), "Recover");
+      expect(appLocalizations.strictTranslate("Recover"), "Recover");
+    });
+
+    test("Translate before load() returns null for missing keys", () {
+      final appLocalizations = AppLocalizations(const Locale('en'));
+      // Before load() is called, _localizedStrings is empty
+      expect(appLocalizations.translate("SomeKey"), null);
     });
 
     test("Translate and strict translate", () async {
