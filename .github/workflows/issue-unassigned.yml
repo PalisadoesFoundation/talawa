@@ -6,47 +6,6 @@ on:
 
 jobs:
   add-unapproved-label:
-    runs-on: ubuntu-latest
-
-    permissions:
-      issues: write
-      contents: read
-
-    steps:
-      - name: Add unapproved label
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const issue_number = context.issue.number;
-
-            try {
-              // Get the complete issue object (includes ALL labels, no pagination issues)
-              const { data: issue } = await github.rest.issues.get({
-                owner,
-                repo,
-                issue_number
-              });
-              
-              // Check if the issue already has the 'unapproved' label (exact match)
-              const hasUnapprovedLabel = issue.labels.some(
-                label => label.name === 'unapproved'
-              );
-              
-              // Only add if it doesn't already have the label
-              if (!hasUnapprovedLabel) {
-                await github.rest.issues.addLabels({
-                  owner,
-                  repo,
-                  issue_number,
-                  labels: ['unapproved']
-                });
-                
-                console.log(`Added 'unapproved' label to issue #${issue_number}`);
-              } else {
-                console.log(`Issue #${issue_number} already has 'unapproved' label - skipping`);
-              }
-            } catch (error) {
-              console.error(`Error processing issue #${issue_number}:`, error.message);
-              throw error; // Re-throw to fail the workflow and alert maintainers
-            }
+    uses: PalisadoesFoundation/.github/.github/workflows/issue-unassigned.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
