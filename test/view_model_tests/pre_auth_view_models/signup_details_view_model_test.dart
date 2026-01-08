@@ -53,7 +53,9 @@ class MockUserConfigWithMembershipRequests extends Mock implements UserConfig {
         id: 'xyz-membership',
         authToken: 'testtoken',
         joinedOrganizations: [], // Empty - user hasn't joined any org
-        membershipRequests: ['org1'], // Has pending request (matches GraphQL fixture)
+        membershipRequests: [
+          'org1'
+        ], // Has pending request (matches GraphQL fixture)
       );
   @override
   OrgInfo get currentOrg => OrgInfo(
@@ -549,6 +551,70 @@ void main() {
       );
 
       // Verify waitingScreen was NOT pushed (GraphQL failure path)
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.waitingScreen,
+          Routes.splashScreen,
+          arguments: '-1',
+        ),
+      );
+
+      // Clean up - restore original mock
+      locator.unregister<UserConfig>();
+      locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+    });
+
+    testWidgets(
+        'Check if signup() shows error snackbar and does NOT navigate when GraphQL mutation throws exception',
+        (tester) async {
+      // First, unregister the existing UserConfig and register our new mock
+      try {
+        locator.unregister<UserConfig>();
+      } catch (e) {
+        // Expected
+      }
+      locator.registerLazySingleton<UserConfig>(
+        () => MockUserConfigWithMembershipRequests(),
+      );
+
+      final model = SignupDetailsViewModel();
+
+      final org = OrgInfo(
+        id: "xyz-membership",
+        name: "Test Org",
+      );
+
+      // Mock GraphQL mutation to throw exception
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      ).thenThrow(Exception('GraphQL mutation failed'));
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
+
+      expect(model.validate, AutovalidateMode.disabled);
+
+      // Verify gqlNonAuthMutation was called
+      verify(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      ).called(1);
+
+      // Verify error snackbar was shown
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong',
+          MessageType.error,
+        ),
+      ).called(1);
+
+      // Verify waitingScreen was NOT navigated to
       verifyNever(
         navigationService.removeAllAndPush(
           Routes.waitingScreen,
