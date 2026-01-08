@@ -319,20 +319,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile', 'docker-compose.yml') }}
+          key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile', 'docker-compose.yml', 'pubspec.yaml', 'pubspec.lock') }}
           restore-keys: |
             ${{ runner.os }}-buildx-
 
       - name: Build and start services with Docker Compose
         run: |
-         docker buildx bake \
-           --file docker-compose.yml \
-           --load \
-           --set "*.cache-from=type=local,src=/tmp/.buildx-cache" \
-           --set "*.cache-to=type=local,dest=/tmp/.buildx-cache-new,mode=max"
-          # Move cache to avoid unbounded growth
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          DOCKER_BUILDKIT=1 docker compose build \
+            --build-arg BUILDKIT_INLINE_CACHE=1
           docker compose up -d
           # Wait for container to be ready
           echo "Waiting for Flutter to be ready in container..."
@@ -373,7 +367,7 @@ jobs:
       
       - name: Extract APK from container
         run: |
-          docker compose cp talawa-mobile:/app/build/app/outputs/flutter-apk/app-debug.apk ./docker-debug.apk
+          docker compose cp talawa-mobile:/home/flutteruser/app/build/app/outputs/flutter-apk/app-debug.apk ./docker-debug.apk
       
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
