@@ -115,21 +115,18 @@ void testFunction() {
         expect(functionDecl, isNotNull,
             reason: 'Should have function declaration');
 
-        // Visit function body statements directly to avoid state reset
-        // The visitor will:
-        // 1. Visit variable declaration (type detection requires resolution)
-        // 2. Visit if statement and detect hasException check
-        // 3. Visit data access
-        final body = functionDecl!.functionExpression.body;
-        if (body is BlockFunctionBody) {
-          for (final statement in body.block.statements) {
-            statement.accept(visitor);
-          }
-        }
+        // Visit the entire function declaration to let visitor traverse normally
+        // This allows the visitor to:
+        // 1. Reset state on function entry
+        // 2. Visit variable declaration
+        // 3. Visit if statement and detect hasException check
+        // 4. Visit data access
+        functionDecl!.accept(visitor);
 
-        // CRITICAL ASSERTION: Visitor should detect hasException check from if statement
-        // The visitor's visitIfStatement and _checkForExceptionCondition methods
-        // are called and should detect result.hasException
+        // Note: Without full type resolution (parseString doesn't provide it),
+        // the visitor cannot detect QueryResult type from declaredElement?.type.
+        // However, hasException detection from if-statement condition still works
+        // because it's based on AST pattern matching, not type information.
         expect(
           visitor.checkedVariablesForTesting,
           contains('result'),
@@ -416,7 +413,7 @@ void testFunction() {
       });
     });
 
-    group('Type Detection Tests', () {
+    group('AST Structure Tests', () {
       test(
           'visitor traverses variable declaration with QueryResult type annotation',
           () {
