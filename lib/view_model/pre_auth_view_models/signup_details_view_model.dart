@@ -144,37 +144,37 @@ class SignupDetailsViewModel extends BaseModel {
           return result;
         },
         onValidResult: (result) async {
-          if (result.data != null) {
-            final User signedInUser = User.fromJson(
-              result.data!['signUp'] as Map<String, dynamic>,
+          // Guard for lint rule - actionHandlerService validates but lint can't detect
+          if (result.hasException || result.data == null) return;
+          final User signedInUser = User.fromJson(
+            result.data!['signUp'] as Map<String, dynamic>,
+          );
+          final bool userSaved = await userConfig.updateUser(signedInUser);
+          graphqlConfig.getToken();
+          // if user successfully saved and access token is also generated.
+          if (userSaved &&
+              userConfig.currentUser.joinedOrganizations != null &&
+              userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
+            userConfig.saveCurrentOrgInHive(
+              userConfig.currentUser.joinedOrganizations![0],
             );
-            final bool userSaved = await userConfig.updateUser(signedInUser);
-            graphqlConfig.getToken();
-            // if user successfully saved and access token is also generated.
-            if (userSaved &&
-                userConfig.currentUser.joinedOrganizations != null &&
-                userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
-              userConfig.saveCurrentOrgInHive(
-                userConfig.currentUser.joinedOrganizations![0],
-              );
-              navigationService.removeAllAndPush(
-                Routes.mainScreen,
-                Routes.splashScreen,
-                arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
-              );
-            } else if (userConfig.currentUser.membershipRequests != null &&
-                userConfig.currentUser.membershipRequests!.isNotEmpty) {
-              navigationService.removeAllAndPush(
-                Routes.waitingScreen,
-                Routes.splashScreen,
-                arguments: '-1',
-              );
-            } else {
-              navigationService.showTalawaErrorSnackBar(
-                TalawaErrors.userNotFound,
-                MessageType.error,
-              );
-            }
+            navigationService.removeAllAndPush(
+              Routes.mainScreen,
+              Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+            );
+          } else if (userConfig.currentUser.membershipRequests != null &&
+              userConfig.currentUser.membershipRequests!.isNotEmpty) {
+            navigationService.removeAllAndPush(
+              Routes.waitingScreen,
+              Routes.splashScreen,
+              arguments: '-1',
+            );
+          } else {
+            navigationService.showTalawaErrorSnackBar(
+              TalawaErrors.userNotFound,
+              MessageType.error,
+            );
           }
           storingCredentialsInSecureStorage();
         },

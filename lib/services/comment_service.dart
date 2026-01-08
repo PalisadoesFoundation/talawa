@@ -41,10 +41,17 @@ class CommentService {
         },
       );
 
+      if (result.hasException || result.data == null) {
+        _navigationService.showTalawaErrorSnackBar(
+          "Failed to create comment",
+          MessageType.error,
+        );
+        return null;
+      }
       _navigationService.showSnackBar(
         "Comment sent",
       );
-      print("Comment created: ${result.data!}");
+      print("Comment created: ${result.data}");
       return Comment.fromJson(
         result.data!['createComment'] as Map<String, dynamic>,
       );
@@ -99,7 +106,14 @@ class CommentService {
       return {'comments': [], 'pageInfo': {}};
     }
 
-    final postData = result.data?['post'] as Map<String, dynamic>?;
+    if (result.hasException || result.data == null) {
+      _navigationService.showTalawaErrorSnackBar(
+        "Failed to fetch comments",
+        MessageType.error,
+      );
+      return {'comments': [], 'pageInfo': {}};
+    }
+    final postData = result.data!['post'] as Map<String, dynamic>?;
     if (postData == null) {
       return {'comments': [], 'pageInfo': {}};
     }

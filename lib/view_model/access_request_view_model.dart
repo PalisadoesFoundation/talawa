@@ -47,32 +47,36 @@ class AccessScreenViewModel extends BaseModel {
       queries.sendMembershipRequest(),
       variables: {"organizationId": selectedOrganization.id},
     );
-    if (result.data != null) {
-      final data =
-          result.data!['sendMembershipRequest'] as Map<String, dynamic>;
-      final organizationId = data['organizationId'] as String?;
+    if (result.hasException || result.data == null) {
+      navigationService.showTalawaErrorSnackBar(
+        'Failed to send membership request',
+        MessageType.error,
+      );
+      return;
+    }
+    final data = result.data!['sendMembershipRequest'] as Map<String, dynamic>;
+    final organizationId = data['organizationId'] as String?;
 
-      if (organizationId != selectedOrganization.id) {
-        navigationService.showTalawaErrorSnackBar(
-          'Some error occurred. Please try again later.',
-          MessageType.error,
-        );
-        return;
-      }
+    if (organizationId != selectedOrganization.id) {
+      navigationService.showTalawaErrorSnackBar(
+        'Some error occurred. Please try again later.',
+        MessageType.error,
+      );
+      return;
+    }
 
-      userConfig.updateUserMemberRequestOrg([selectedOrganization.id!]);
-      if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        );
-      } else {
-        navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
-          'Join in request sent to ${selectedOrganization.name} successfully',
-          MessageType.info,
-        );
-      }
+    userConfig.updateUserMemberRequestOrg([selectedOrganization.id!]);
+    if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+      navigationService.removeAllAndPush(
+        Routes.waitingScreen,
+        Routes.splashScreen,
+      );
+    } else {
+      navigationService.pop();
+      navigationService.showTalawaErrorSnackBar(
+        'Join in request sent to ${selectedOrganization.name} successfully',
+        MessageType.info,
+      );
     }
   }
 

@@ -385,6 +385,10 @@ class EventService extends BaseFeedManager<Event> {
         EventQueries().fetchVolunteerGroups(),
         variables: variables,
       );
+      if (result.hasException || result.data == null) {
+        throw Exception(
+            'Failed to fetch volunteer groups: ${result.exception}');
+      }
       final List groupsJson = result.data!['getEventVolunteerGroups'] as List;
 
       return groupsJson

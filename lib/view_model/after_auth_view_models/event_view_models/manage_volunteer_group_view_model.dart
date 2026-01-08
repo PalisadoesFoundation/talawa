@@ -101,8 +101,11 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       };
       final result =
           await locator<EventService>().addVolunteerToGroup(variables);
-      final data = result.data;
-      if (data == null || data['createEventVolunteer'] == null) {
+      if (result.hasException || result.data == null) {
+        return;
+      }
+      final data = result.data!;
+      if (data['createEventVolunteer'] == null) {
         return;
       }
       final addedVolunteerData =
@@ -129,9 +132,12 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       };
       final result =
           await locator<EventService>().removeVolunteerGroup(variables);
-      final data = result.data;
+      if (result.hasException || result.data == null) {
+        return;
+      }
+      final data = result.data!;
 
-      if (data != null && data['removeEventVolunteerGroup'] != null) {
+      if (data['removeEventVolunteerGroup'] != null) {
         notifyListeners();
       }
     } catch (e) {
@@ -153,9 +159,13 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       };
       final result =
           await locator<EventService>().removeVolunteerFromGroup(variables);
-      final data = result.data;
+      if (result.hasException || result.data == null) {
+        print('Failed to remove volunteer.');
+        return;
+      }
+      final data = result.data!;
 
-      if (data != null && data['removeEventVolunteer'] != null) {
+      if (data['removeEventVolunteer'] != null) {
         _volunteers.removeWhere((volunteer) => volunteer.id == volunteerId);
         print('Volunteer removed successfully.');
         notifyListeners();
@@ -196,11 +206,12 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       final result =
           await locator<EventService>().updateVolunteerGroup(variables);
 
-      if (result.data != null) {
-        group.name = name;
-        group.volunteersRequired = volunteersRequired;
-        notifyListeners();
+      if (result.hasException || result.data == null) {
+        return;
       }
+      group.name = name;
+      group.volunteersRequired = volunteersRequired;
+      notifyListeners();
     } catch (e) {
       print('Error updating volunteer group: $e');
     }

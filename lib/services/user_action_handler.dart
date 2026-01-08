@@ -28,7 +28,9 @@ class ActionHandlerService {
   }) async {
     try {
       final result = await action();
-      if (result == null || result.data == null) return null;
+      if (result == null || result.hasException || result.data == null) {
+        return null;
+      }
 
       if (result.isConcrete && result.source != QueryResultSource.cache) {
         await onValidResult?.call(result);

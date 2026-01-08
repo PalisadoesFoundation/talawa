@@ -173,13 +173,12 @@ class SelectOrganizationViewModel extends BaseModel {
           },
         );
 
-        final Map<String, dynamic>? resultData = result.data;
-        if (resultData == null) {
-          throw Exception('No data received');
+        if (result.hasException || result.data == null) {
+          throw Exception('Failed to join organization: ${result.exception}');
         }
 
         final Map<String, dynamic>? joinData =
-            resultData['joinPublicOrganization'] as Map<String, dynamic>?;
+            result.data!['joinPublicOrganization'] as Map<String, dynamic>?;
         if (joinData == null) {
           throw Exception('Join operation failed');
         }
@@ -191,6 +190,11 @@ class SelectOrganizationViewModel extends BaseModel {
 
         final QueryResult joinedOrgData = await databaseFunctions
             .gqlAuthQuery(queries.fetchOrgById(selectedOrganization?.id ?? ''));
+
+        if (joinedOrgData.hasException || joinedOrgData.data == null) {
+          throw Exception(
+              'Failed to fetch organization: ${joinedOrgData.exception}');
+        }
 
         final OrgInfo joinedOrg = OrgInfo.fromJson(
           joinedOrgData.data!['organization'] as Map<String, dynamic>,

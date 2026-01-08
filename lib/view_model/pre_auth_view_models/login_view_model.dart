@@ -138,14 +138,13 @@ class LoginViewModel extends BaseModel {
           return result;
         },
         onValidResult: (result) async {
-          // if user found.
-          if (result.data != null) {
-            final User loggedInUser = User.fromJson(
-              result.data!['signIn'] as Map<String, dynamic>,
-            );
-            userConfig.updateUser(loggedInUser);
-            graphqlConfig.getToken();
-          }
+          // Guard for lint rule - actionHandlerService validates but lint can't detect
+          if (result.hasException || result.data == null) return;
+          final User loggedInUser = User.fromJson(
+            result.data!['signIn'] as Map<String, dynamic>,
+          );
+          userConfig.updateUser(loggedInUser);
+          graphqlConfig.getToken();
         },
         apiCallSuccessUpdateUI: () async {
           // if user has not already joined any organization.

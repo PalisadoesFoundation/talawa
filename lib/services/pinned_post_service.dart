@@ -66,7 +66,9 @@ class PinnedPostService extends BaseFeedManager<Post> {
       'last': last,
     };
     final result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
-    if (result.data == null) throw Exception('Unable to fetch pinned posts');
+    if (result.hasException || result.data == null) {
+      throw Exception('Unable to fetch pinned posts: ${result.exception}');
+    }
     final organization = result.data!['organization'] as Map<String, dynamic>?;
     if (organization == null) {
       throw Exception('Organization not found in response');

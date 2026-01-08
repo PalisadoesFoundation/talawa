@@ -198,6 +198,8 @@ class AddPostViewModel extends BaseModel {
         return result;
       },
       onValidResult: (result) async {
+        // Guard for lint rule - actionHandlerService validates but lint can't detect
+        if (result.hasException || result.data == null) return;
         final Post newPost = Post.fromJson(
           result.data!['createPost'] as Map<String, dynamic>,
         );

@@ -325,16 +325,15 @@ class EditEventViewModel extends BaseEventViewModel {
         recurrenceType: recurrenceType,
       );
       navigationService.pop();
-      if (result.data != null) {
-        navigationService.showSnackBar('Event updated successfully');
-        calendarViewModel.refreshCurrentViewEvents();
-        navigationService.pop();
-        navigationService.pop();
-
-        return;
-      } else {
-        throw Exception('Event update failed');
+      if (result.hasException || result.data == null) {
+        throw Exception('Event update failed: ${result.exception}');
       }
+      navigationService.showSnackBar('Event updated successfully');
+      calendarViewModel.refreshCurrentViewEvents();
+      navigationService.pop();
+      navigationService.pop();
+
+      return;
     } catch (e) {
       navigationService.pop();
       navigationService

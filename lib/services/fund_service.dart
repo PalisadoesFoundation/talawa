@@ -56,6 +56,9 @@ class FundService {
         _fundQueries.fetchOrgFunds(),
         variables: variables,
       );
+      if (result.hasException || result.data == null) {
+        throw Exception('Failed to fetch funds: ${result.exception}');
+      }
 
       final organizationData =
           result.data!['organization'] as Map<String, dynamic>;
@@ -120,11 +123,8 @@ class FundService {
         variables: variables,
       );
 
-      if (result.data == null) {
-        if (result.exception != null) {
-          throw Exception('GraphQL Error: ${result.exception}');
-        }
-        throw Exception('Unable to fetch campaigns - null data received');
+      if (result.hasException || result.data == null) {
+        throw Exception('GraphQL Error: ${result.exception}');
       }
 
       final fundData = result.data!['fund'] as Map<String, dynamic>;
@@ -173,8 +173,8 @@ class FundService {
         },
       );
 
-      if (result.data == null) {
-        throw Exception('Unable to fetch pledges');
+      if (result.hasException || result.data == null) {
+        throw Exception('Unable to fetch pledges: ${result.exception}');
       }
 
       final pledgesList =

@@ -92,9 +92,9 @@ class PostService extends BaseFeedManager<Post> {
     };
     final result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
     //Checking if the dbFunctions return the postJSON, if not return.
-    if (result.data == null) {
+    if (result.hasException || result.data == null) {
       // Handle the case where the result or result.data is null
-      throw Exception('unable to fetch data');
+      throw Exception('Unable to fetch data: ${result.exception}');
     }
     final organizations = result.data!['organization'] as Map<String, dynamic>;
     final Map<String, dynamic> posts =

@@ -57,13 +57,12 @@ class CreateEventViewModel extends BaseEventViewModel {
       );
 
       final result = await eventService.createEvent(variables: variables);
-      if (result.data != null) {
-        navigationService.pop();
-        navigationService.showSnackBar('Event created successfully');
-        clearFormState();
-      } else {
-        throw Exception('Event creation failed');
+      if (result.hasException || result.data == null) {
+        throw Exception('Event creation failed: ${result.exception}');
       }
+      navigationService.pop();
+      navigationService.showSnackBar('Event created successfully');
+      clearFormState();
     } catch (e) {
       navigationService.pop();
       navigationService
@@ -135,7 +134,7 @@ class CreateEventViewModel extends BaseEventViewModel {
       variables: {"orgId": currentOrg.id},
     );
 
-    if (result.data == null) return [];
+    if (result.hasException || result.data == null) return [];
 
     final List<dynamic> venuesList =
         result.data!['getVenueByOrgId'] as List<dynamic>;
