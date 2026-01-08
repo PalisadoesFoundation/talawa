@@ -307,6 +307,7 @@ jobs:
   Docker-Validation:
     name: Docker Build and Validation
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     needs: Flutter-Testing
     steps:
       - uses: actions/checkout@v4
@@ -346,9 +347,13 @@ jobs:
         run: |
           # Run flutter doctor and display output
           echo "Running flutter doctor..."
-          docker compose exec -T talawa-mobile flutter doctor -v 2>&1 | tee /tmp/flutter_doctor.txt || true
-          echo "Flutter doctor output:"
+          docker compose exec -T talawa-mobile flutter doctor -v 2>&1 | tee /tmp/flutter_doctor.txt; EXIT_CODE=$?          echo "Flutter doctor output:"
           cat /tmp/flutter_doctor.txt
+          # Check if flutter doctor command itself failed
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "⚠️  Flutter doctor exited with code $EXIT_CODE (non-zero, but continuing with pattern checks)"
+          fi
+
           # Check for critical issues (X marks indicate failures, ! marks indicate warnings)
           if grep -q "\[✗\]" /tmp/flutter_doctor.txt || grep -q "Android license status unknown" /tmp/flutter_doctor.txt; then
             echo "❌ Critical Flutter doctor issues detected"
@@ -379,7 +384,7 @@ jobs:
 
       - name: Stop services
         if: always()
-        run: docker compose down
+        run: docker compose down -v
 
       
   Python-Compliance:
