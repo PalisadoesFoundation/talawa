@@ -74,11 +74,14 @@ class AppLocalizations {
 
   /// Translates the given key to a localized string.
   ///
+  /// Returns `null` if the key is not found in the localization map.
+  /// For a non-null fallback, use [strictTranslate] instead.
+  ///
   /// **params**:
   /// * `key`: The translation key
   ///
   /// **returns**:
-  /// * `String?`: The translated string or null
+  /// * `String?`: The translated string or null if not found
   String? translate(String? key) {
     if (key == null) {
       return '...';
@@ -90,11 +93,14 @@ class AppLocalizations {
 
   /// Translates the given key to a localized string, returning the key if not found.
   ///
+  /// Unlike [translate], this method never returns null. If the key is not found,
+  /// the key itself is returned as a fallback.
+  ///
   /// **params**:
   /// * `key`: The translation key
   ///
   /// **returns**:
-  /// * `String`: The translated string or the key itself
+  /// * `String`: The translated string or the key itself as fallback
   String strictTranslate(String key) {
     if (isTest) return key;
 
