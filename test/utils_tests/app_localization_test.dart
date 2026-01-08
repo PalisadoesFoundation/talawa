@@ -91,5 +91,11 @@ void main() {
         false,
       );
     });
+
+    test("Localization delegate loads in test mode", () async {
+      const testDelegate = AppLocalizationsDelegate(isTest: true);
+      final localizations = await testDelegate.load(const Locale('en'));
+      expect(localizations.isTest, true);
+    });
   });
 }
