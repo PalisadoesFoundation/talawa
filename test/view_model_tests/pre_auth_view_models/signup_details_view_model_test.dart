@@ -46,6 +46,29 @@ class MockUserConfig extends Mock implements UserConfig {
   void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {}
 }
 
+/// Mock UserConfig for testing membershipRequests navigation path
+class MockUserConfigWithMembershipRequests extends Mock implements UserConfig {
+  @override
+  User get currentUser => User(
+        id: 'xyz-membership',
+        authToken: 'testtoken',
+        joinedOrganizations: [], // Empty - user hasn't joined any org
+        membershipRequests: ['org1', 'org2'], // Has pending requests
+      );
+  @override
+  OrgInfo get currentOrg => OrgInfo(
+        id: 'xyz1',
+        name: 'Test Org',
+      );
+  @override
+  Future<bool> updateUser(User updatedUserDetails) {
+    return Future.value(true); // Always return true for this test
+  }
+
+  @override
+  void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {}
+}
+
 var mockSignUpData = {
   'signUp': {
     'authenticationToken': 'testtoken',
@@ -370,6 +393,102 @@ void main() {
       );
     });
   });
+
+  group('Testing membershipRequests navigation', () {
+    testWidgets(
+        'Check if signup() navigates to waitingScreen when user has membershipRequests',
+        (tester) async {
+      // First, unregister the existing UserConfig and register our new mock
+      try {
+        locator.unregister<UserConfig>();
+      } catch (e) {
+        // Expected
+      }
+      locator.registerLazySingleton<UserConfig>(
+        () => MockUserConfigWithMembershipRequests(),
+      );
+
+      final model = SignupDetailsViewModel();
+
+      final org = OrgInfo(
+        id: "xyz-membership",
+        name: "Test Org",
+      );
+
+      // Create mock data for user with membership requests
+      final mockSignUpDataWithMembershipRequests = {
+        'signUp': {
+          'authenticationToken': 'testtoken',
+          'refreshToken': 'testtoken',
+          'user': {
+            'id': 'xyz-membership',
+            'name': 'Test User',
+            'avatarURL': 'https://example.com/avatar.png',
+            'emailAddress': 'testuser@gmail.com',
+            'organizationsWhereMember': {
+              'edges': [], // No joined organizations
+            },
+            'organizationsMembershipRequestFromUser': {
+              'edges': [
+                {
+                  'node': {
+                    'organization': {
+                      'id': 'org1',
+                      'name': 'Pending Org 1',
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      };
+
+      final queryResult = QueryResult(
+        options: QueryOptions(
+          document: gql(
+            queries.registerUser('', '', '', org.id),
+          ),
+        ),
+        data: mockSignUpDataWithMembershipRequests,
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      ).thenAnswer((_) async => queryResult);
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
+
+      expect(model.validate, AutovalidateMode.disabled);
+
+      verify(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      );
+
+      // Verify navigation to waitingScreen
+      verify(
+        navigationService.removeAllAndPush(
+          Routes.waitingScreen,
+          Routes.splashScreen,
+          arguments: '-1',
+        ),
+      ).called(1);
+
+      // Clean up - restore original mock
+      locator.unregister<UserConfig>();
+      locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+    });
+  });
+
   group('Testing storingCredentialsInSecureStorage()', () {
     test('Should handle exception while storing email and password', () async {
       final model = SignupDetailsViewModel();

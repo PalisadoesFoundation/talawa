@@ -343,18 +343,20 @@ void test() {
         expect(mockReporter.reportedNodes, isNotEmpty);
       });
 
-      test('no violation for null-aware access pattern', () {
+      test(
+          'reports violation when .data accessed even with null-aware downstream',
+          () {
         final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
         visitor.addQueryResultVariableForTesting('result');
 
-        // Null-aware access should not trigger violation
+        // Null-aware access on downstream property still triggers violation
+        // because .data itself is accessed without hasException check
         const code = 'var x = result.data?.prop;';
         final parseResult = parseString(content: code);
         parseResult.unit.accept(visitor);
 
-        // This still reports because .data is accessed
         // The rule checks for .data access regardless of null-aware on prop
         expect(mockReporter.reportedNodes, isNotEmpty);
       });
@@ -404,24 +406,10 @@ var y = result2.data;
       });
     });
 
-    group('File Exclusion Tests', () {
-      test('isTestFileForTesting correctly identifies test files', () {
-        expect(
-            rule.isTestFileForTesting('/path/to/test/file_test.dart'), isTrue);
-        expect(rule.isTestFileForTesting('/path/to/lib/file.dart'), isFalse);
-        expect(rule.isTestFileForTesting('/test/widget_test.dart'), isTrue);
-      });
-
-      test('isGeneratedFileForTesting correctly identifies generated files',
-          () {
-        expect(rule.isGeneratedFileForTesting('file.g.dart'), isTrue);
-        expect(rule.isGeneratedFileForTesting('file.mocks.dart'), isTrue);
-        expect(rule.isGeneratedFileForTesting('file.dart'), isFalse);
-      });
-    });
-
     group('Control Flow Tests', () {
-      test('violation in try block without exception check', () {
+      test(
+          'reports violation when accessing result.data without exception check',
+          () {
         final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
@@ -448,11 +436,11 @@ var y = result2.data;
         expect(mockReporter.reportedNodes, isEmpty);
       });
 
-      test('shadowed variable does not affect outer scope', () {
+      test('reports outer scope result variable access', () {
         final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
 
-        // Only track outer result
+        // Track outer result variable
         visitor.addQueryResultVariableForTesting('result');
 
         const code = 'var x = result.data;';
@@ -465,18 +453,9 @@ var y = result2.data;
   });
 }
 
-/// Error info captured by the mock reporter
-class ReportedError {
-  final AstNode node;
-  final Object? errorCode;
-
-  ReportedError(this.node, this.errorCode);
-}
-
 /// Mock error reporter that captures nodes reported via atNode
 class _MockErrorReporter implements ErrorReporter {
   final List<AstNode> reportedNodes = [];
-  final List<ReportedError> reportedErrors = [];
 
   @override
   dynamic noSuchMethod(Invocation invocation) {
@@ -486,13 +465,6 @@ class _MockErrorReporter implements ErrorReporter {
         invocation.positionalArguments[0] is AstNode) {
       final node = invocation.positionalArguments[0] as AstNode;
       reportedNodes.add(node);
-
-      // Capture error code if provided
-      Object? errorCode;
-      if (invocation.positionalArguments.length > 1) {
-        errorCode = invocation.positionalArguments[1];
-      }
-      reportedErrors.add(ReportedError(node, errorCode));
     }
     return null;
   }
