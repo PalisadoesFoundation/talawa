@@ -561,6 +561,15 @@ void main() {
         ),
       );
 
+      // Verify mainScreen was NOT navigated to (GraphQL failure path)
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.mainScreen,
+          Routes.splashScreen,
+          arguments: isA<MainScreenArgs>(),
+        ),
+      );
+
       // Verify error snackbar was shown when GraphQL returns null data
       verify(
         navigationService.showTalawaErrorSnackBar(
@@ -616,6 +625,15 @@ void main() {
           Routes.waitingScreen,
           Routes.splashScreen,
           arguments: '-1',
+        ),
+      );
+
+      // Verify mainScreen was NOT navigated to (exception path)
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.mainScreen,
+          Routes.splashScreen,
+          arguments: isA<MainScreenArgs>(),
         ),
       );
     });

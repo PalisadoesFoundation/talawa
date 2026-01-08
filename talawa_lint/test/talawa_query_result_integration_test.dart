@@ -1410,5 +1410,21 @@ class _MockErrorReporter implements ErrorReporter {
   }
 
   @override
-  Source get source => throw UnimplementedError();
+  Source get source => _MockSource();
+}
+
+/// Mock Source implementation for testing
+/// Uses noSuchMethod fallback for any accessed properties/methods
+class _MockSource implements Source {
+  @override
+  String get fullName => 'test_source.dart';
+
+  @override
+  String get shortName => 'test_source.dart';
+
+  @override
+  Uri get uri => Uri.parse('file:///test_source.dart');
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => null;
 }
