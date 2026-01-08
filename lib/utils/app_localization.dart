@@ -48,7 +48,7 @@ class AppLocalizations {
   ///
   /// **returns**:
   ///   None
-  Future<void> loadTest(Locale locale) async {
+  Future<void> loadTest() async {
     isTest = true;
   }
 
@@ -132,7 +132,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
     final AppLocalizations localizations =
         AppLocalizations(locale, isTest: isTest);
     if (isTest) {
-      await localizations.loadTest(locale);
+      await localizations.loadTest();
     } else {
       await localizations.load();
     }
