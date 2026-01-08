@@ -399,7 +399,7 @@ packages:
     source: hosted
     version: "0.10.13"
   source_span:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: source_span
       sha256: "254ee5351d6cb365c859e20ee823c3bb479bf4a293c22d17a9f1bf144ce86f7c"

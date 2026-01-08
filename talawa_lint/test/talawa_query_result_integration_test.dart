@@ -1,6 +1,24 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+/// Integration tests for TalawaQueryResultLintRule.
+///
+/// **Architectural Limitation:**
+/// These tests use `parseString()` which only builds an AST without type resolution.
+/// As a result, `declaredElement?.type` and `expression.staticType` (used in
+/// `TalawaQueryResultVisitor`) are null, causing `_queryResultVariables` to stay empty.
+///
+/// **Test Scope:**
+/// - Tests verify AST traversal and hasException detection logic
+/// - Tests parse real code with QueryResult<Object?> type annotations
+/// - Tests exercise visitor's control-flow analysis (if statements, binary expressions)
+/// - Tests do NOT verify full type detection or violation reporting (requires full analyzer resolution)
+///
+/// **Note on Helper Methods:**
+/// Some tests in "Visitor State Management" group use `addQueryResultVariableForTesting`
+/// and `markVariableCheckedForTesting` to test state management in isolation.
+/// These are unit tests for visitor state, not integration tests for type detection.
+
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
@@ -22,9 +40,9 @@ void main() {
       rule = const TalawaQueryResultLintRule();
     });
 
-    group('CRITICAL: End-to-End Integration Tests', () {
+    group('CRITICAL: End-to-End Integration Tests (AST-only)', () {
       test(
-          'MUST detect QueryResult type from variable declaration and report violation',
+          'AST traversal: visitor traverses QueryResult type annotation in variable declaration',
           () {
         final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
@@ -52,15 +70,15 @@ var x = result.data;
         expect(parseResult.unit.declarations, isNotEmpty,
             reason: 'Should have parsed declarations');
 
-        // Verify data access was detected (violation should be reported if
-        // type detection worked, but since it doesn't with parseString,
-        // we verify AST traversal occurred)
-        // Note: Full type detection requires analyzer resolution which
-        // parseString doesn't provide, but visitor's AST traversal is tested
+        // Note: This test only verifies AST traversal, not type detection.
+        // Type detection requires full analyzer resolution (declaredElement?.type
+        // is null with parseString), so _queryResultVariables stays empty and
+        // no violations are reported. For full integration testing with type
+        // resolution, use CustomLintResolver to create a resolved unit.
       });
 
       test(
-          'MUST detect hasException check from if statement and NOT report violation',
+          'AST traversal + hasException detection: visitor detects hasException check from if statement',
           () {
         final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
@@ -118,7 +136,7 @@ void testFunction() {
       });
 
       test(
-          'MUST report violation when data is accessed without hasException check',
+          'AST traversal: visitor traverses unguarded data access (type detection requires full resolution)',
           () {
         final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);
@@ -140,10 +158,11 @@ var x = result.data;
         // and visitPropertyAccess for result.data
         parseResult.unit.accept(visitor);
 
-        // Note: Type detection requires full analyzer resolution which
-        // parseString doesn't provide. However, we verify AST traversal.
-        // In a real scenario with full resolution, violation would be reported.
-        // For now, we verify the visitor traverses the AST correctly.
+        // Note: This test only verifies AST traversal, not violation reporting.
+        // Type detection requires full analyzer resolution (declaredElement?.type
+        // is null with parseString), so _queryResultVariables stays empty and
+        // no violations are reported. For full integration testing with type
+        // resolution and violation reporting, use CustomLintResolver.
         expect(parseResult.unit.declarations, isNotEmpty,
             reason: 'Should have parsed declarations');
       });
@@ -264,7 +283,7 @@ void testFunction() {
       });
     });
 
-    group('Visitor State Management', () {
+    group('Visitor State Management (Unit Tests)', () {
       test('tracks QueryResult variables correctly', () {
         final mockReporter = _MockErrorReporter();
         final visitor = TalawaQueryResultVisitor(rule, mockReporter);

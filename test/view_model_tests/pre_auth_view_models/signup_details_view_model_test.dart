@@ -397,10 +397,8 @@ void main() {
   });
 
   group('Testing membershipRequests navigation', () {
-    testWidgets(
-        'Check if signup() navigates to waitingScreen when user has membershipRequests',
-        (tester) async {
-      // First, unregister the existing UserConfig and register our new mock
+    setUp(() {
+      // Unregister existing UserConfig and register MockUserConfigWithMembershipRequests
       try {
         locator.unregister<UserConfig>();
       } catch (e) {
@@ -409,7 +407,17 @@ void main() {
       locator.registerLazySingleton<UserConfig>(
         () => MockUserConfigWithMembershipRequests(),
       );
+    });
 
+    tearDown(() {
+      // Restore original UserConfig mock
+      locator.unregister<UserConfig>();
+      locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+    });
+
+    testWidgets(
+        'Check if signup() navigates to waitingScreen when user has membershipRequests',
+        (tester) async {
       final model = SignupDetailsViewModel();
 
       final org = OrgInfo(
@@ -494,24 +502,18 @@ void main() {
         ),
       );
 
-      // Clean up - restore original mock
-      locator.unregister<UserConfig>();
-      locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+      // Negative assertion: should NOT show error snackbar on success
+      verifyNever(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong',
+          MessageType.error,
+        ),
+      );
     });
 
     testWidgets(
         'Check if signup() does NOT navigate to waitingScreen when GraphQL fails',
         (tester) async {
-      // First, unregister the existing UserConfig and register our new mock
-      try {
-        locator.unregister<UserConfig>();
-      } catch (e) {
-        // Expected
-      }
-      locator.registerLazySingleton<UserConfig>(
-        () => MockUserConfigWithMembershipRequests(),
-      );
-
       final model = SignupDetailsViewModel();
 
       final org = OrgInfo(
@@ -559,24 +561,18 @@ void main() {
         ),
       );
 
-      // Clean up - restore original mock
-      locator.unregister<UserConfig>();
-      locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+      // Verify error snackbar was shown when GraphQL returns null data
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong',
+          MessageType.error,
+        ),
+      ).called(1);
     });
 
     testWidgets(
         'Check if signup() shows error snackbar and does NOT navigate when GraphQL mutation throws exception',
         (tester) async {
-      // First, unregister the existing UserConfig and register our new mock
-      try {
-        locator.unregister<UserConfig>();
-      } catch (e) {
-        // Expected
-      }
-      locator.registerLazySingleton<UserConfig>(
-        () => MockUserConfigWithMembershipRequests(),
-      );
-
       final model = SignupDetailsViewModel();
 
       final org = OrgInfo(
@@ -622,10 +618,6 @@ void main() {
           arguments: '-1',
         ),
       );
-
-      // Clean up - restore original mock
-      locator.unregister<UserConfig>();
-      locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
     });
   });
 
