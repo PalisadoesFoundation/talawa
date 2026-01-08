@@ -1,13 +1,14 @@
 // ignore_for_file: talawa_api_doc
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/app_localization.dart';
 
 void main() {
-  group("Test for App Localization Class", () {
-    WidgetsFlutterBinding.ensureInitialized();
+  TestWidgetsFlutterBinding.ensureInitialized();
 
+  group("Test for App Localization Class", () {
     test("Load JSON File for localizations", () async {
       final appLocalizations = AppLocalizations(const Locale('en'));
       final result = await appLocalizations.load();
@@ -50,7 +51,6 @@ void main() {
   });
 
   group("Test for App Localization Delegate", () {
-    WidgetsFlutterBinding.ensureInitialized();
     const appLocalizationsDelgate = AppLocalizationsDelegate();
 
     test("Language is supported or not", () {
@@ -96,6 +96,34 @@ void main() {
       const testDelegate = AppLocalizationsDelegate(isTest: true);
       final localizations = await testDelegate.load(const Locale('en'));
       expect(localizations.isTest, true);
+    });
+  });
+
+  group("Test for AppLocalizations.of() method", () {
+    testWidgets("of() returns AppLocalizations from context", (tester) async {
+      AppLocalizations? result;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: const [
+            AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('en')],
+          home: Builder(
+            builder: (context) {
+              result = AppLocalizations.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(result, isNotNull);
+      expect(result!.isTest, true);
     });
   });
 }
