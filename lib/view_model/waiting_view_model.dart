@@ -53,9 +53,13 @@ class WaitingViewModel extends BaseModel {
       final QueryResult joinedOrgData =
           await databaseFunctions.gqlAuthQuery(queries.fetchOrgById(orgId));
 
-      if (joinedOrgData.hasException || joinedOrgData.data == null) {
+      if (joinedOrgData.hasException) {
         throw Exception(
-            'Failed to fetch organization: ${joinedOrgData.exception}');
+          'Failed to fetch organization: ${joinedOrgData.exception?.toString() ?? 'Unknown error'}',
+        );
+      }
+      if (joinedOrgData.data == null) {
+        throw Exception('Organization fetch returned no data');
       }
 
       final OrgInfo orgInfo = OrgInfo.fromJson(

@@ -112,8 +112,7 @@ class EditProfilePageViewModel extends BaseModel {
         return databaseFunctions.noData;
       },
       onValidResult: (result) async {
-        // Guard for lint rule - actionHandlerService validates but lint can't detect
-        if (result.hasException || result.data == null) return;
+        // ActionHandlerService.executeApiCall() already validates result.data is not null
         final user = result.data!['user'] as Map<String, dynamic>;
 
         final User userInfo = User.fromJson(

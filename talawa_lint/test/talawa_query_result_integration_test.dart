@@ -276,15 +276,30 @@ void test() {
       });
 
       test('handles empty code', () {
+        final mockReporter = _MockErrorReporter();
+        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
+
         const code = '';
         final parseResult = parseString(content: code);
         expect(parseResult.errors, isEmpty);
+
+        // Exercise the visitor on the empty AST
+        parseResult.unit.accept(visitor);
+        expect(mockReporter.reportedNodes, isEmpty);
       });
 
       test('handles nested expressions', () {
+        final mockReporter = _MockErrorReporter();
+        final visitor = TalawaQueryResultVisitor(rule, mockReporter);
+
         const code = 'var x = a.b.c.data;';
         final parseResult = parseString(content: code);
         expect(parseResult.errors, isEmpty);
+
+        // Exercise the visitor on the parsed AST
+        parseResult.unit.accept(visitor);
+        // No violations expected for untracked variable 'a'
+        expect(mockReporter.reportedNodes, isEmpty);
       });
     });
 
@@ -321,7 +336,10 @@ class _MockErrorReporter implements ErrorReporter {
 
   @override
   dynamic noSuchMethod(Invocation invocation) {
-    if (invocation.memberName == #atNode) {
+    // Safe check before casting
+    if (invocation.memberName == #atNode &&
+        invocation.positionalArguments.isNotEmpty &&
+        invocation.positionalArguments[0] is AstNode) {
       final node = invocation.positionalArguments[0] as AstNode;
       reportedNodes.add(node);
     }
