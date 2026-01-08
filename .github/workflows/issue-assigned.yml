@@ -3,7 +3,7 @@
 #
 # NOTE!
 #
-# Please read the README.md file in this directory that defines what should 
+# Please read the README.md file in this directory that defines what should
 # be placed in this file
 #
 ##############################################################################
@@ -12,7 +12,7 @@
 name: Issue Assignment Workflow
 on:
   issues:
-    types: ['assigned']
+    types: ["assigned"]
 
 jobs:
   Remove-Unapproved-Label:

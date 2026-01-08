@@ -1,9 +1,9 @@
 name: Issue Workflow
 on:
   issues:
-    types: ['opened']
+    types: ["opened"]
 jobs:
- Opened-issue-label:
+  Opened-issue-label:
     uses: PalisadoesFoundation/.github/.github/workflows/issue.yml@main
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
