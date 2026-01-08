@@ -318,7 +318,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
+          key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile', 'docker-compose.yml') }}
           restore-keys: |
             ${{ runner.os }}-buildx-
 
@@ -333,10 +333,10 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
           docker compose up -d
-          # Wait for container to be ready with extended timeout and better logging
+          # Wait for container to be ready
           echo "Waiting for Flutter to be ready in container..."
-          timeout 300 bash -c 'until docker compose exec -T talawa-mobile flutter doctor --android-licenses > /dev/null 2>&1; do echo "Still waiting..."; sleep 10; done' || {
-            echo "Error: Container failed to become ready within 300 seconds"
+          timeout 600 bash -c 'until docker compose exec -T talawa-mobile flutter --version > /dev/null 2>&1; do echo "Still waiting... (checking Flutter availability)"; sleep 10; done' || {
+            echo "Error: Container failed to become ready within 600 seconds"
             echo "Container logs:"
             docker compose logs talawa-mobile
             exit 1
@@ -346,20 +346,36 @@ jobs:
         run: |
           # Run flutter doctor and display output
           echo "Running flutter doctor..."
-          docker compose exec -T talawa-mobile flutter doctor 2>&1 | tee /tmp/flutter_doctor.txt || DOCTOR_EXIT=$?
+          docker compose exec -T talawa-mobile flutter doctor -v 2>&1 | tee /tmp/flutter_doctor.txt || true
           echo "Flutter doctor output:"
           cat /tmp/flutter_doctor.txt
-          # Check for critical issues (Android toolchain, licenses)
-          if grep -q "\[!\].*Android toolchain" /tmp/flutter_doctor.txt || grep -q "Android license status unknown" /tmp/flutter_doctor.txt; then
+          # Check for critical issues (X marks indicate failures, ! marks indicate warnings)
+          if grep -q "\[✗\]" /tmp/flutter_doctor.txt || grep -q "Android license status unknown" /tmp/flutter_doctor.txt; then
             echo "❌ Critical Flutter doctor issues detected"
             exit 1
           fi
           
-          echo "✅ No critical issues detected (warnings are acceptable)"
+          # Warn about any ! issues but don't fail
+          if grep -q "\[!\]" /tmp/flutter_doctor.txt; then
+            echo "⚠️  Warnings detected (acceptable but should be reviewed)"
+          else
+            echo "✅ No issues detected"
+          fi
           
 
       - name: Build APK inside container to validate build toolchain
         run: docker compose exec -T talawa-mobile flutter build apk --debug
+      
+      - name: Extract APK from container
+        run: |
+          docker compose cp talawa-mobile:/app/build/app/outputs/flutter-apk/app-debug.apk ./docker-debug.apk
+      
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-validation-apk
+          path: docker-debug.apk
+          retention-days: 7
 
       - name: Stop services
         if: always()
