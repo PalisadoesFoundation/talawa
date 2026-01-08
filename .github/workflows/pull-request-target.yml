@@ -1,64 +1,10 @@
-##############################################################################
-##############################################################################
-#
-# NOTE!
-#
-# Please read the README.md file in this directory that defines what should
-# be placed in this file
-#
-##############################################################################
-##############################################################################
-
 name: PR Target Workflow
+
 on:
   pull_request_target:
 
-# Required for arkid15r/check-pr-issue-action
-permissions:
-  contents: read
-  issues: read
-  pull-requests: write
-
 jobs:
   PR-Greeting:
-    name: Pull Request Greeting
-    runs-on: ubuntu-latest
-    steps:
-      - name: Add the PR Review Policy
-        uses: thollander/actions-comment-pull-request@v3
-        with:
-          comment-tag: pr_review_policy
-          message: |
-            ## Our Pull Request Approval Process
-
-            This PR will be reviewed according to our:
-
-            1. [Palisadoes Contributing Guidelines](https://developer.palisadoes.org/docs/contributor-guide/contributing) 
-
-            2. [AI Usage Policy](https://developer.palisadoes.org/docs/contributor-guide/ai) 
-
-            Your PR may be automatically closed if:
-
-            1. Our PR template isn't filled in correctly
-
-            1. [You haven't correctly linked your PR to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
-
-            Thanks for contributing!
-
-  Check-PR-Issue:
-    name: Check Correct PR Issue Assignment
-    runs-on: ubuntu-latest
-    needs: [PR-Greeting]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check PR linked issue and assignee
-        uses: arkid15r/check-pr-issue-action@0.1.3
-        with:
-          close_pr_on_failure: 'true'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          no_assignee_message: 'The linked issue must be assigned to the PR author.'
-          no_issue_message: 'The PR must be linked to an issue assigned to the PR author.'
-          check_issue_reference: 'true'
-          require_assignee: 'true'
-          # List of usernames who can create PRs without having an assigned issue
-          skip_users_file_path: '.github/workflows/config/check-pr-issue-skip-usernames.txt'
+    uses: PalisadoesFoundation/.github/.github/workflows/pr-target-policy.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
