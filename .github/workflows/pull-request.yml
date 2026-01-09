@@ -325,8 +325,13 @@ jobs:
 
       - name: Build and start services with Docker Compose
         run: |
-          DOCKER_BUILDKIT=1 docker compose build \
-            --build-arg BUILDKIT_INLINE_CACHE=1
+          docker buildx bake \
+            --load \
+            --set "*.cache-from=type=local,src=/tmp/.buildx-cache" \
+            --set "*.cache-to=type=local,dest=/tmp/.buildx-cache-new,mode=max"
+          # Move cache to avoid growing cache size indefinitely
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
           docker compose up -d
           # Wait for container to be ready
           echo "Waiting for Flutter to be ready in container..."
@@ -341,7 +346,9 @@ jobs:
         run: |
           # Run flutter doctor and display output
           echo "Running flutter doctor..."
-          docker compose exec -T talawa-mobile flutter doctor -v 2>&1 | tee /tmp/flutter_doctor.txt; EXIT_CODE=$?          echo "Flutter doctor output:"
+          docker compose exec -T talawa-mobile flutter doctor -v 2>&1 | tee /tmp/flutter_doctor.txt
+          EXIT_CODE=$?
+          echo "Flutter doctor output:"
           cat /tmp/flutter_doctor.txt
           # Check if flutter doctor command itself failed
           if [ $EXIT_CODE -ne 0 ]; then
