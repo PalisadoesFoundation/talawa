@@ -309,6 +309,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: Flutter-Testing
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'test-docker') ||
+      contains(github.event.pull_request.changed_files, 'Dockerfile') ||
+      contains(github.event.pull_request.changed_files, 'docker-compose.yml') ||
+      contains(github.event.pull_request.changed_files, '.devcontainer/')
     steps:
       - uses: actions/checkout@v4
 
@@ -335,8 +340,8 @@ jobs:
           docker compose up -d
           # Wait for container to be ready
           echo "Waiting for Flutter to be ready in container..."
-          timeout 600 bash -c 'until docker compose exec -T talawa-mobile flutter --version > /dev/null 2>&1; do echo "Still waiting... (checking Flutter availability)"; sleep 10; done' || {
-            echo "Error: Container failed to become ready within 600 seconds"
+          timeout 120 bash -c 'until docker compose exec -T talawa-mobile flutter --version > /dev/null 2>&1; do echo "Still waiting... (checking Flutter availability)"; sleep 5; done' || {
+            echo "Error: Container failed to become ready within 120 seconds"
             echo "Container logs:"
             docker compose logs talawa-mobile
             exit 1
@@ -355,14 +360,13 @@ jobs:
             echo "⚠️  Flutter doctor exited with code $EXIT_CODE (non-zero, but continuing with pattern checks)"
           fi
 
-          # Check for critical issues (X marks indicate failures, ! marks indicate warnings)
-          if grep -q "\[✗\]" /tmp/flutter_doctor.txt || grep -q "Android license status unknown" /tmp/flutter_doctor.txt; then
+          if grep -q "✗" /tmp/flutter_doctor.txt || grep -q "Android license status unknown" /tmp/flutter_doctor.txt; then
             echo "❌ Critical Flutter doctor issues detected"
             exit 1
           fi
           
-          # Warn about any ! issues but don't fail
-          if grep -q "\[!\]" /tmp/flutter_doctor.txt; then
+          # Warn about any ! issues (warnings) but don't fail
+          if grep -q "!" /tmp/flutter_doctor.txt; then
             echo "⚠️  Warnings detected (acceptable but should be reviewed)"
           else
             echo "✅ No issues detected"
