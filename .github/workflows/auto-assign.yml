@@ -4,9 +4,6 @@ on:
   issue_comment:
     types: [created]
 
-env:
-  MAX_OPEN_ASSIGNMENTS: 2
-
 jobs:
   handle-comment:
     uses: PalisadoesFoundation/.github/.github/workflows/auto-assign.yml@main
