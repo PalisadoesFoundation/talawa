@@ -6,6 +6,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 /// ProfilePage returns a widget that renders a page of user's profile.
@@ -91,13 +92,26 @@ class DemoProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: IconButton(
+                      key: const Key('ExitDemoButton'),
+                      icon: Icon(
+                        Icons.logout,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      onPressed: () {
+                        homeModel?.exitDemoMode();
+                      },
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
                 height: 20,
               ),
               RaisedRoundedButton(
-                key: const Key('DonateUsButton'),
+                key: homeModel?.keySPDonateUs ?? const Key('DonateButton'),
                 buttonLabel: AppLocalizations.of(context)!.strictTranslate(
                   'Donate to the Community',
                 ),
@@ -113,7 +127,7 @@ class DemoProfilePage extends StatelessWidget {
                     Theme.of(context).colorScheme.secondaryContainer,
               ),
               SizedBox(
-                height: 600,
+                height: SizeConfig.screenHeight! * 0.7,
                 width: double.infinity,
                 child: ContainedTabBarView(
                   tabs: [
@@ -121,13 +135,47 @@ class DemoProfilePage extends StatelessWidget {
                       text: AppLocalizations.of(context)!
                           .strictTranslate('Posts'),
                     ),
+                    Tab(
+                      text: AppLocalizations.of(context)!
+                          .strictTranslate('Events'),
+                    ),
+                    Tab(
+                      text: AppLocalizations.of(context)!
+                          .strictTranslate('Tasks'),
+                    ),
                   ],
                   views: [
+                    ColoredBox(
+                      color: Theme.of(context).colorScheme.surface,
+                      child: GridView.count(
+                        mainAxisSpacing: 5,
+                        crossAxisCount: 3,
+                        children: [
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                          Image.asset('assets/images/pfp2.png'),
+                        ],
+                      ),
+                    ),
                     Container(
                       color: Theme.of(context).colorScheme.surface,
                     ),
+                    Container(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.05,
+              ),
+              FromPalisadoes(
+                key: homeModel?.keySPPalisadoes ?? const Key('PalisadoesLogo'),
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.02,
               ),
             ],
           ),

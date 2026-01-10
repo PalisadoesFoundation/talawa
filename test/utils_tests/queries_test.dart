@@ -231,5 +231,13 @@ void main() {
       expect(query.contains('organizationId:'), true);
       expect(query.contains('{') && query.contains('}'), true);
     });
+
+    test("Check if fetchUsersByOrganizationId includes emailAddress field", () {
+      const orgId = 'testOrgId123';
+      final query = Queries().fetchUsersByOrganizationId(orgId);
+
+      // Verify emailAddress is included
+      expect(RegExp(r'\bemailAddress\b').hasMatch(query), true);
+    });
   });
 }

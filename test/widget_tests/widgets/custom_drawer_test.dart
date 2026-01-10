@@ -9,6 +9,7 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -25,22 +26,6 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
-
-class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
-  @override
-  GlobalKey get keyDrawerCurOrg => GlobalKey(debugLabel: "DrawerCurrentOrg");
-
-  @override
-  GlobalKey get keyDrawerSwitchableOrg =>
-      GlobalKey(debugLabel: "DrawerSwitchableOrg");
-
-  @override
-  GlobalKey get keyDrawerJoinOrg => GlobalKey(debugLabel: "DrawerJoinOrg");
-
-  @override
-  GlobalKey get keyDrawerLeaveCurrentOrg =>
-      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
-}
 
 Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
@@ -147,10 +132,63 @@ void main() {
     });
   });
 
+  group('MainScreen drawer & demo mode', () {
+    late MainScreenViewModel mockHomeModel;
+
+    setUp(() {
+      mockHomeModel = MockMainScreenViewModel();
+
+      // Stub keys (handled by Mock override now)
+      // Stub properties (handled by Mock override now)
+
+      if (locator.isRegistered<MainScreenViewModel>()) {
+        locator.unregister<MainScreenViewModel>();
+      }
+      locator.registerFactory<MainScreenViewModel>(() => mockHomeModel);
+    });
+    testWidgets('Main screen renders with drawer and scaffold', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // Verify main screen and its scaffold both exist
+      expect(find.byKey(const Key('MainScreen')), findsOneWidget);
+      expect(find.byType(Scaffold), findsOneWidget);
+    });
+
+    testWidgets('Main screen renders with demo mode enabled', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // Verify main screen rendered in demo mode
+      expect(find.byType(MainScreen), findsOneWidget);
+      final mainScreen = tester.widget<MainScreen>(find.byType(MainScreen));
+      expect(mainScreen.mainScreenArgs.toggleDemoMode, isTrue);
+    });
+
+    testWidgets('Main screen receives expected arguments', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      final mainScreen =
+          tester.widget<MainScreen>(find.byKey(const Key('MainScreen')));
+      expect(mainScreen.mainScreenArgs.mainScreenIndex, 0);
+      expect(mainScreen.mainScreenArgs.fromSignUp, isFalse);
+      expect(mainScreen.mainScreenArgs.toggleDemoMode, isTrue);
+    });
+  });
   group('CustomDrawerViewModel methods', () {
     late CustomDrawerViewModel viewModel;
 
     setUp(() {
+      // Use SafeMockUserConfig to avoid Bad state errors
+      locator.allowReassignment = true;
+      if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
+      final mockUserConfig = SafeMockUserConfig();
+      locator.registerSingleton<UserConfig>(mockUserConfig);
+
+      // Basic stubs
+      // Note: currentOrgInfoController and currentOrgInfoStream are handled by SafeMockUserConfig
+
       viewModel = CustomDrawerViewModel();
     });
 
@@ -212,6 +250,20 @@ void main() {
   });
 
   group('CustomDrawerViewModel lifecycle', () {
+    setUp(() {
+      // Use SafeMockUserConfig
+      locator.allowReassignment = true;
+      if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
+      final mockUserConfig = SafeMockUserConfig();
+      locator.registerSingleton<UserConfig>(mockUserConfig);
+
+      // Basic stubs needed for lifecycle tests (controller/stream already handled by SafeMock)
+      when(mockUserConfig.loggedIn).thenReturn(true);
+      when(mockUserConfig.currentUser)
+          .thenReturn(User(id: '1', name: 'Test User'));
+      when(mockUserConfig.currentOrg)
+          .thenReturn(OrgInfo(id: '1', name: 'Test Org'));
+    });
     test(
       'switchOrg maintains state when attempting to switch to already selected org',
       () {
@@ -302,24 +354,49 @@ void main() {
     late MockCustomDrawerViewModel mockViewModel;
     late MockMainScreenViewModel mockHomeModel;
     late MockNavigationService mockNavigationService;
-    late MockUserConfig mockUserConfig;
+    late SafeMockUserConfig mockUserConfig;
 
     setUp(() {
+      locator.allowReassignment = true;
+
+      // 1. Setup mocks
+      mockUserConfig = SafeMockUserConfig(); // Use wrapper
+      mockNavigationService = MockNavigationService();
+
+      // Register mocks FIRST
+      if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
+      locator.registerSingleton<UserConfig>(mockUserConfig);
+
+      if (locator.isRegistered<NavigationService>()) {
+        locator.unregister<NavigationService>();
+      }
+      locator.registerSingleton<NavigationService>(mockNavigationService);
+
+      // Stub UserConfig (controller/stream handled by SafeMock)
+      when(mockUserConfig.currentUser)
+          .thenReturn(User(id: '1', name: 'Test User'));
+      when(mockUserConfig.currentOrg)
+          .thenReturn(OrgInfo(id: '1', name: 'Test Org'));
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      // 2. Setup ViewModel
       mockViewModel = MockCustomDrawerViewModel();
       mockHomeModel = MockMainScreenViewModel();
 
-      locator.allowReassignment = true;
-      locator.registerFactory<CustomDrawerViewModel>(() => mockViewModel);
-
-      mockNavigationService =
-          locator<NavigationService>() as MockNavigationService;
-      mockUserConfig = locator<UserConfig>() as MockUserConfig;
-
-      // Default stubs
+      // Default stubs for ViewModel
       when(mockViewModel.controller).thenReturn(ScrollController());
       when(mockViewModel.switchAbleOrg).thenReturn([]);
       when(mockViewModel.selectedOrg).thenReturn(null);
       when(mockViewModel.initialize(any, any)).thenReturn(null);
+      when(mockViewModel.exitAlertDialog(any)).thenReturn(CustomAlertDialog(
+        success: () {},
+        dialogSubTitle: 'stub',
+      ));
+
+      if (locator.isRegistered<CustomDrawerViewModel>()) {
+        locator.unregister<CustomDrawerViewModel>();
+      }
+      locator.registerFactory<CustomDrawerViewModel>(() => mockViewModel);
     });
 
     Widget createTestWidget() {

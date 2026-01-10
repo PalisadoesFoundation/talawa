@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -60,10 +61,11 @@ import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model
 import 'package:talawa/views/demo_page_view.dart';
 
 GetIt locator = GetIt.instance;
-final userConfig = locator<UserConfig>();
-final navigationService = locator<NavigationService>();
-final databaseFunctions = locator<DataBaseMutationFunctions>();
-final graphqlConfig = locator<GraphqlConfig>();
+UserConfig get userConfig => locator<UserConfig>();
+NavigationService get navigationService => locator<NavigationService>();
+DataBaseMutationFunctions get databaseFunctions =>
+    locator<DataBaseMutationFunctions>();
+GraphqlConfig get graphqlConfig => locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
 final appLanguageService = locator<AppLanguage>();
@@ -87,8 +89,10 @@ final appLinks = locator<AppLinks>();
 final fundService = locator<FundService>();
 final fundViewModel = locator<FundViewModel>();
 final userProfileService = locator<UserProfileService>();
+AppConfigService get appConfig => locator<AppConfigService>();
 
 void testSetupLocator() {
+  locator.allowReassignment = true;
   locator.registerSingleton(CacheService());
 
   locator.registerSingleton(DataBaseMutationFunctions());
@@ -96,6 +100,7 @@ void testSetupLocator() {
   locator.registerSingleton(GraphqlConfig());
 
   //services
+  locator.registerSingleton(AppConfigService());
   locator.registerSingleton(NavigationService());
 
   //sizeConfig
@@ -117,7 +122,7 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
-  locator.registerSingleton(() => OrganizationService());
+
   locator.registerSingleton(Validator());
   locator.registerLazySingleton(() => PinnedPostService());
   locator.registerLazySingleton(() => FundService());

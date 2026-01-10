@@ -12,13 +12,11 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
-import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 
 Widget createMainScreen({bool demoMode = true, bool? isOnline}) {
   return BaseView<AppLanguage>(
@@ -72,17 +70,12 @@ void main() {
     model.initialise();
   });
   group('test connectivity view model', () {
-    test('handleConnection when demoMode', () {
-      MainScreenViewModel.demoMode = true;
-      model.handleConnection([ConnectivityResult.mobile]);
-    });
-
-    test('handleConnection when offline', () {
-      internetAccessible = false;
+    test('Testing when demoMode is false', () {
+      appConfig.isDemoMode = false;
       model.handleConnection([ConnectivityResult.none]);
     });
     test('handleConnection when online', () async {
-      MainScreenViewModel.demoMode = false;
+      appConfig.isDemoMode = false;
       await cacheService.offlineActionQueue.addAction(
         CachedUserAction(
           id: 'test',

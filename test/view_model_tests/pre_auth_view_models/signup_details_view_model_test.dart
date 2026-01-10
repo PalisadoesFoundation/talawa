@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -11,10 +12,12 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
 class MockUserConfig extends Mock implements UserConfig {
@@ -109,6 +112,7 @@ class SignUpMock extends StatelessWidget {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() {
     testSetupLocator();
     getAndRegisterNavigationService();
@@ -120,6 +124,13 @@ void main() {
       // UserConfig registered, which is expected
     }
     locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+    mockFlutterSecureStorage();
+    locator.unregister<GraphqlConfig>();
+    locator.registerLazySingleton<GraphqlConfig>(() {
+      final mock = MockGraphqlConfig();
+      when(mock.getToken()).thenAnswer((_) => Future.value('test_token'));
+      return mock;
+    });
   });
   group("Testing initialise()", () {
     testWidgets('Check if initialise() is working fine', (tester) async {
@@ -379,6 +390,13 @@ void main() {
       /// Always get exception as no plugin  is registered for storing credentials using secure storage
       await runZonedGuarded(
         () async {
+          const MethodChannel channel =
+              MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+              .setMockMethodCallHandler(channel, (MethodCall methodCall) {
+            throw Exception('Mock failure');
+          });
+
           model.email.text = "test.user@example.com";
           model.password.text = "password123";
           await model.storingCredentialsInSecureStorage();

@@ -10,6 +10,7 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   late CommentInteractionsViewModel viewModel;
   late MockActionHandlerService mockActionHandlerService;
 

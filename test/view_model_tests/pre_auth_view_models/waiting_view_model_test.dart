@@ -10,6 +10,7 @@ import 'package:talawa/view_model/waiting_view_model.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   setUp(() {
     registerServices();
   });

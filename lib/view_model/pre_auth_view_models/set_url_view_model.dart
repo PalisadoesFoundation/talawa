@@ -3,8 +3,11 @@ import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -208,6 +211,31 @@ class SetUrlViewModel extends BaseModel {
         );
       }
     }
+  }
+
+  /// Enables demo mode via AppConfigService, then navigates to the app home screen.
+  ///
+  /// by clearing the navigation stack (so the demo becomes the active session).
+  /// There are no params and no return value but there are side effects
+  /// (modifies app config and performs navigation).
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateToDemo() {
+    final AppConfigService appConfigService = locator<AppConfigService>();
+    appConfigService.isDemoMode = true;
+    navigationService.removeAllAndPush(
+      Routes.mainScreen,
+      Routes.splashScreen,
+      arguments: MainScreenArgs(
+        mainScreenIndex: 0,
+        fromSignUp: false,
+        toggleDemoMode: true,
+      ),
+    );
   }
 
   /// This function create a widget which is used to scan the QR-code.

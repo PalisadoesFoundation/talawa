@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/app_tour.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -40,14 +42,15 @@ class MockAppTour extends Mock implements AppTour {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  testSetupLocator();
   late MainScreenViewModel viewModel;
   late UserConfig mockUserConfig;
   late MockAppTour mockAppTour;
 
   setUpAll(() {
+    testSetupLocator();
     registerServices();
     SizeConfig().test();
+    getAndRegisterNavigationService();
   });
 
   setUp(() {
@@ -59,6 +62,7 @@ void main() {
 
   tearDownAll(() {
     unregisterServices();
+    locator.reset();
   });
 
   Widget createTestWidget(Widget child) {
@@ -114,7 +118,7 @@ void main() {
     testWidgets(
         'setupNavigationItems sets navBarItems and pages for normal mode',
         (tester) async {
-      MainScreenViewModel.demoMode = false;
+      appConfig.isDemoMode = false;
       final key = GlobalKey();
       await tester.pumpWidget(
         createTestWidget(
@@ -130,7 +134,7 @@ void main() {
 
     testWidgets('setupNavigationItems sets navBarItems and pages for demo mode',
         (tester) async {
-      MainScreenViewModel.demoMode = true;
+      appConfig.isDemoMode = true;
       final key = GlobalKey();
       await tester.pumpWidget(
         createTestWidget(
@@ -142,6 +146,17 @@ void main() {
       viewModel.setupNavigationItems(key.currentContext!);
       expect(viewModel.navBarItems.length, 6);
       expect(viewModel.pages.length, 6);
+    });
+
+    test('exitDemoMode sets isDemoMode to false and navigates', () {
+      appConfig.isDemoMode = true;
+      viewModel.exitDemoMode();
+      expect(appConfig.isDemoMode, false);
+      verify(locator<NavigationService>().removeAllAndPush(
+        Routes.setUrlScreen,
+        Routes.splashScreen,
+        arguments: '',
+      ));
     });
 
     testWidgets('tourHomeTargets adds correct targets (Logged Out)',
@@ -315,7 +330,7 @@ void main() {
       );
       expect(viewModel.currentPageIndex, 0);
       expect(viewModel.showAppTour, true);
-      expect(MainScreenViewModel.demoMode, false);
+      expect(appConfig.isDemoMode, false);
       await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle();
     });
@@ -338,7 +353,7 @@ void main() {
       );
       expect(viewModel.currentPageIndex, 1);
       expect(viewModel.showAppTour, true);
-      expect(MainScreenViewModel.demoMode, true);
+      expect(appConfig.isDemoMode, true);
       await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle();
     });
@@ -422,14 +437,6 @@ void main() {
 
       await viewModel.showHome(target);
       await tester.pump();
-    });
-
-    test('demoMode static variable can be set', () {
-      MainScreenViewModel.demoMode = true;
-      expect(MainScreenViewModel.demoMode, true);
-
-      MainScreenViewModel.demoMode = false;
-      expect(MainScreenViewModel.demoMode, false);
     });
 
     testWidgets('GlobalKeys are properly initialized', (tester) async {
@@ -606,7 +613,7 @@ void main() {
     testWidgets(
         'setupNavigationItems verifies navigation items are correctly labeled',
         (tester) async {
-      MainScreenViewModel.demoMode = false;
+      appConfig.isDemoMode = false;
       final key = GlobalKey();
       await tester.pumpWidget(
         createTestWidget(

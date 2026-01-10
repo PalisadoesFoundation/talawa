@@ -19,8 +19,8 @@ void main() {
     });
 
     setUp(() {
-      locator<SizeConfig>().test();
       registerServices();
+      locator<SizeConfig>().test();
       model = CreateEventViewModel();
     });
 

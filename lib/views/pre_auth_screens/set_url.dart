@@ -185,6 +185,19 @@ class _SetUrlState extends State<SetUrl> {
                             Theme.of(context).colorScheme.primary,
                       ),
                       SizedBox(
+                        height: SizeConfig.screenHeight! * 0.0215,
+                      ),
+                      //Try Demo button.
+                      RaisedRoundedButton(
+                        key: const Key('TryDemoButton'),
+                        buttonLabel: AppLocalizations.of(context)!
+                            .strictTranslate('Try Demo'),
+                        onTap: () => model.navigateToDemo(),
+                        showArrow: true,
+                        textColor: Theme.of(context).primaryColor,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      SizedBox(
                         height: SizeConfig.screenHeight! * 0.06,
                       ),
                       //Gesture Detector which navigates to a different screen for changing the language.
