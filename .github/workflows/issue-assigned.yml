@@ -1,19 +1,11 @@
-##############################################################################
-##############################################################################
-#
-# NOTE!
-#
-# Please read the README.md file in this directory that defines what should
-# be placed in this file
-#
-##############################################################################
-##############################################################################
-
 name: Issue Assignment Workflow
+
 on:
   issues:
-    types: ["assigned"]
+    types: [assigned]
 
 jobs:
-  Remove-Unapproved-Label:
+  issue-assigned:
     uses: PalisadoesFoundation/.github/.github/workflows/issue-assigned.yml@main
+    # secrets:
+    #   ORG_ACCESS_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
