@@ -1,64 +1,9 @@
-##############################################################################
-##############################################################################
-#
-# NOTE!
-#
-# Please read the README.md file in this directory that defines what should
-# be placed in this file
-#
-##############################################################################
-##############################################################################
-
 name: Issue Workflow
+
 on:
   issues:
-    types: ['opened']
-jobs:
-  Opened-issue-label:
-    name: Adding Issue Label
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github/workflows/auto-label.json5
-          sparse-checkout-cone-mode: false
-      - uses: Renato66/auto-label@v3
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/github-script@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const issue_number = context.issue.number;
-            const apiParams = {
-              owner,
-              repo,
-              issue_number
-            };
-            const labels = await github.rest.issues.listLabelsOnIssue(apiParams);
-            if(labels.data.reduce((a, c)=>a||["dependencies"].includes(c.name), false))
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: ["good first issue", "security"]
-              });
-            else if(labels.data.reduce((a, c)=>a||["security", "ui/ux", "test", "ci/cd"].includes(c.name), false))
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: ["good first issue"]
-              });
+    types: [opened]
 
-  Issue-Greeting:
-    name: Greeting Message to User
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/first-interaction@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: "Congratulations on making your first Issue! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa-admin/blob/develop/CONTRIBUTING.md) and [Issue Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa-admin/blob/develop/ISSUE_GUIDELINES.md) to ensure that you are following our guidelines for contributing and making issues."
+jobs:
+  issue-workflow:
+    uses: PalisadoesFoundation/.github/.github/workflows/issue.yml@main
