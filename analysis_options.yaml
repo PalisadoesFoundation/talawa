@@ -1,7 +1,7 @@
 include: package:lint/analysis_options.yaml
 
 analyzer:
-  exclude: 
+  exclude:
     - lib/generated_plugin_registrant.dart
     - test/helpers/test_helpers.mocks.dart
 
@@ -40,7 +40,7 @@ linter:
     always_declare_return_types: true
 
     type_annotate_public_apis: false
-    
+
     # To make a quick navigation to particular files
     always_use_package_imports: true
 
@@ -60,24 +60,24 @@ linter:
     prefer_const_literals_to_create_immutables: false
 
     depend_on_referenced_packages: true
-    
+
     # This new lint rule advises to use methods on dynamic objects
     # only after properly type casting. It's quite good and will avoid
-    # null errors. 
-    # For now, it affects the whole code base; wherever we have done 
-    # something like 
-    # 
-    # ``` 
+    # null errors.
+    # For now, it affects the whole code base; wherever we have done
+    # something like
+    #
+    # ```
     # var obj = json_data['obj'];
     # obj.fun_call(param);
     # ```
     #
-    # To fix: Turn on this lint and type cast the object of your file as 
+    # To fix: Turn on this lint and type cast the object of your file as
     #
     # ```
     # MyObj obj = json_data['obj'] as MyObj;
     # ```
-    
+
     avoid_dynamic_calls: true
 
     #############################################
