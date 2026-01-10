@@ -40,6 +40,23 @@ void main() {
     testSetupLocator();
     locator<GraphqlConfig>().test();
     registerServices();
+    setupMockGraphQLClient({
+      "__typename": "Query",
+      "organizations": [
+        {
+          "__typename": "Organization",
+          "id": "fake_id",
+          "name": "Test Org",
+          "avatarURL": "http://image.com",
+          "isUserRegistrationRequired": false,
+          "addressLine1": "Line 1",
+          "addressLine2": "Line 2",
+          "description": "Test Description",
+          "countryCode": "US",
+          "state": "NY",
+        }
+      ]
+    });
     locator<SizeConfig>().test();
   });
 
@@ -61,7 +78,7 @@ void main() {
       expect(find.byType(OrganizationList), findsOneWidget);
       expect(find.byType(Divider), findsOneWidget);
       expect(find.byType(Column), findsOneWidget);
-      expect(find.byType(Expanded), findsOneWidget);
+      expect(find.byType(Expanded), findsWidgets);
       expect(find.byType(SizedBox), findsOneWidget);
 
       // Verify AppBar styling

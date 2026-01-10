@@ -11,4 +11,4 @@ Please read the following for a complete guide on how to get started with submit
 
 2. [Repository Contributing Guidelines](https://docs-mobile.talawa.io/).
 
-   1. This can also be found here [contributing.md](docs/docs/docs/developer-resources/general/contributing.md)
+   1. This can also be found in the root directory: [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/CONTRIBUTING.md)

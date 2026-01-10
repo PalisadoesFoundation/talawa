@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
@@ -102,19 +101,17 @@ void main() {
 
   setUp(() {
     registerServices();
+    if (!locator.isRegistered<SizeConfig>()) {
+      locator.registerSingleton<SizeConfig>(SizeConfig());
+    }
+    if (!locator.isRegistered<NavigationService>()) {
+      locator.registerSingleton<NavigationService>(NavigationService());
+    }
+    if (!locator.isRegistered<BaseCacheManager>()) {
+      locator.registerSingleton<BaseCacheManager>(MockCacheManager());
+    }
     locator<SizeConfig>().test();
   });
-  GetIt.instance.registerSingleton<BaseCacheManager>(
-    MockCacheManager(),
-  );
-
-  GetIt.instance.registerSingleton<NavigationService>(
-    NavigationService(),
-  );
-
-  GetIt.instance.registerSingleton<SizeConfig>(
-    SizeConfig(),
-  );
 
   tearDown(() {
     unregisterServices();

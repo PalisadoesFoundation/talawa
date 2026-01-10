@@ -3,6 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -60,17 +61,42 @@ import 'package:talawa/views/demo_page_view.dart';
 /// Intializaing the locator.
 GetIt locator = GetIt.instance;
 
-///GetIt for UserConfig.
-final userConfig = locator<UserConfig>();
+/// GetIt for UserConfig.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `UserConfig`: The UserConfig service instance.
+UserConfig get userConfig => locator<UserConfig>();
 
-///GetIt for NavigationService.
-final navigationService = locator<NavigationService>();
+/// GetIt for NavigationService.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `NavigationService`: The NavigationService instance.
+NavigationService get navigationService => locator<NavigationService>();
 
-///GetIt for DataBaseMutationFunctions.
-final databaseFunctions = locator<DataBaseMutationFunctions>();
+/// GetIt for DataBaseMutationFunctions.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `DataBaseMutationFunctions`: The DataBaseMutationFunctions instance.
+DataBaseMutationFunctions get databaseFunctions =>
+    locator<DataBaseMutationFunctions>();
 
-///GetIt for GraphqlConfig.
-final graphqlConfig = locator<GraphqlConfig>();
+/// GetIt for GraphqlConfig.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `GraphqlConfig`: The GraphqlConfig instance.
+GraphqlConfig get graphqlConfig => locator<GraphqlConfig>();
 
 ///GetIt for SizeConfig.
 final sizeConfig = locator<SizeConfig>();
@@ -98,6 +124,15 @@ final sessionManager = locator<SessionManager>();
 
 ///GetIt for ActonHandlerService.
 final actionHandlerService = locator<ActionHandlerService>();
+
+/// GetIt for AppConfigService.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `AppConfigService`: The AppConfigService instance.
+AppConfigService get appConfig => locator<AppConfigService>();
 
 /// This function registers the widgets/objects in "GetIt".
 ///
@@ -190,4 +225,7 @@ Future<void> setupLocator() async {
 
   //AppLinks
   locator.registerSingleton(AppLinks());
+
+  //AppConfigService
+  locator.registerSingleton(AppConfigService());
 }

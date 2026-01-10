@@ -85,6 +85,15 @@ class MenuPage extends StatelessWidget {
       );
     }
 
+    // If not logged in (e.g. Demo Mode), skip API call and use bundled plugins
+    // This prevents "Unauthenticated" errors
+    if (!userConfig.loggedIn) {
+      PluginManager.instance.initialize(getBundledPlugins());
+      return const PluginInjector(
+        injectorType: InjectorType.g1,
+      );
+    }
+
     // Otherwise, fetch from database and initialize
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),

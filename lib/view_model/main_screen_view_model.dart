@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/services/user_config.dart';
@@ -147,10 +148,9 @@ class MainScreenViewModel extends BaseModel {
   /// array of target.
   final List<FocusTarget> targets = [];
 
-  /// flag to represent if app is in demoMode.
-  static bool demoMode = false;
-
-  /// Initalizing function.
+  /// Initializing function.
+  ///
+  /// This function initializes the view model.
   ///
   /// **params**:
   /// * `ctx`: BuildContext, contain parent info
@@ -166,7 +166,8 @@ class MainScreenViewModel extends BaseModel {
     required int mainScreenIndex,
     bool demoMode = false,
   }) {
-    MainScreenViewModel.demoMode = demoMode;
+    // MainScreenViewModel.demoMode = demoMode;
+    appConfig.isDemoMode = demoMode;
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
     context = ctx;
@@ -184,6 +185,22 @@ class MainScreenViewModel extends BaseModel {
         ),
       );
     }
+  }
+
+  /// Exits demo mode and navigates to the splash screen.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void exitDemoMode() {
+    appConfig.isDemoMode = false;
+    navigationService.removeAllAndPush(
+      Routes.setUrlScreen,
+      Routes.splashScreen,
+      arguments: '',
+    );
   }
 
   /// Contains the Widgets to be rendered for corresponding navbar items.
@@ -248,7 +265,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     ];
 
-    if (!demoMode) {
+    if (!appConfig.isDemoMode) {
       pages = [
         OrganizationFeed(
           key: const Key("HomeView"),
