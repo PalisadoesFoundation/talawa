@@ -290,5 +290,96 @@ void main() {
         expect(focusTarget.focusWidget.enableOverlayTab, true);
       },
     );
+
+    testWidgets(
+      'should render Skip button when not on final step',
+      (tester) async {
+        late FakeMainScreenViewModel viewModel;
+        late BuildContext capturedContext;
+
+        // Set up test environment
+        await tester.pumpWidget(
+          MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizationsDelegate(isTest: true),
+            ],
+            supportedLocales: const [
+              Locale('en'),
+            ],
+            home: Builder(
+              builder: (context) {
+                SizeConfig().init(context);
+                capturedContext = context;
+                viewModel = FakeMainScreenViewModel()..context = context;
+                return Scaffold(
+                  key: viewModel.scaffoldKey,
+                  body: const SizedBox.shrink(),
+                );
+              },
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        // Use mock tutorial for this test
+        final mockTutorial = MockTutorialCoachMark();
+        final appTour = AppTour(model: viewModel)
+          ..tutorialCoachMark = mockTutorial;
+
+        // Create a focus target with isEnd=false to test Skip button
+        final FocusTarget focusTarget = FocusTarget(
+          key: GlobalKey(),
+          keyName: 'mid-step',
+          description: 'Mid Tour Step',
+          isEnd: false,
+          appTour: appTour,
+        );
+
+        // Test content building
+        final List<TargetContent> contents = focusTarget.focusWidget.contents!;
+        final FakeTutorialCoachMarkController fakeController =
+            FakeTutorialCoachMarkController();
+
+        // Test next button content (which now includes Skip button)
+        final TargetContent nextContent = contents[1];
+        final Widget? buttonRowMaybe =
+            nextContent.builder?.call(capturedContext, fakeController);
+        expect(buttonRowMaybe, isNotNull);
+        
+        if (buttonRowMaybe is! Row) {
+          fail('Next content did not return a Row');
+        }
+        final Row buttonRow = buttonRowMaybe;
+        
+        // Should have 3 children: Skip button, SizedBox, Next button
+        expect(buttonRow.children.length, 3);
+
+        // Test Skip button
+        final Widget skipGestureDetector = buttonRow.children[0];
+        if (skipGestureDetector is! GestureDetector) {
+          fail('First child was not a GestureDetector for Skip button');
+        }
+        expect(skipGestureDetector.onTap, isNotNull);
+
+        // Test Skip button text
+        final Widget? skipTextWidget = skipGestureDetector.child;
+        if (skipTextWidget is! Text) {
+          fail('Skip button child was not a Text widget');
+        }
+        expect(skipTextWidget.data, 'Skip');
+
+        // Test SizedBox separator
+        final Widget separator = buttonRow.children[1];
+        if (separator is! SizedBox) {
+          fail('Separator was not a SizedBox');
+        }
+        expect((separator).width, 20);
+
+        // Test Skip button tap
+        skipGestureDetector.onTap!();
+        verify(mockTutorial.skip()).called(1);
+      },
+    );
   });
 }
