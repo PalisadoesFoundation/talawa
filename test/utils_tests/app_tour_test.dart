@@ -133,6 +133,7 @@ void main() {
         await tester.pump();
 
         final bool skipResult = appTour.tutorialCoachMark.onSkip!.call();
+        await tester.pump();
         expect(skipResult, isTrue);
         expect(viewModel.tourSkipped, isTrue);
         expect(viewModel.lastTappedIndex, 0);
@@ -247,10 +248,19 @@ void main() {
         final Widget? nextButtonMaybe =
             nextContent.builder?.call(capturedContext, fakeController);
         expect(nextButtonMaybe, isNotNull);
-        if (nextButtonMaybe is! GestureDetector) {
-          fail('Next content did not return a GestureDetector');
+        if (nextButtonMaybe is! Row) {
+          fail('Next content did not return a Row');
         }
-        final GestureDetector nextButton = nextButtonMaybe;
+        final Row nextRow = nextButtonMaybe;
+        expect(nextRow.children.length, 1); // Next button only since isEnd=true
+
+        // Since isEnd=true, skip button is not shown, only Next/Complete button
+        final Widget nextGestureDetectorWidget = nextRow.children.last;
+        if (nextGestureDetectorWidget is! GestureDetector) {
+          fail('Next button was not a GestureDetector');
+        }
+        final GestureDetector nextButton = nextGestureDetectorWidget;
+
         final Widget? nextColumnMaybe = nextButton.child;
         expect(nextColumnMaybe, isNotNull);
         if (nextColumnMaybe is! Column) {
