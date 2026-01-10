@@ -69,7 +69,7 @@ Future<void> main() async {
     locator<SizeConfig>().test();
   });
   setUp(() {
-    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
+    dotenv.testLoad(mergeWith: {'API_URL': 'http://<IPv4>:4000/graphql'});
   });
 
   //Testing in light mode/normal mode

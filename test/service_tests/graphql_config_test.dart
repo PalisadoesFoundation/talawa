@@ -28,7 +28,7 @@ void main() {
   setUp(() {
     getAndRegisterUserConfig();
     getAndRegisterDatabaseMutationFunctions();
-    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
+    dotenv.testLoad(mergeWith: {'API_URL': 'http://<IPv4>:4000/graphql'});
   });
 
   tearDown(() {
