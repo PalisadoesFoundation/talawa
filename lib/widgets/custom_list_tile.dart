@@ -77,7 +77,6 @@ class CustomListTile extends StatelessWidget {
         break;
       default:
         onTap = onTapOption;
-        break;
     }
 
     return InkWell(
