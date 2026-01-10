@@ -22,6 +22,13 @@ Core features include:
  4. Recurring meetings
  5. Facilities registrations
 
+# Requirements
+
+- Flutter 3.22.0 or newer (ships with Dart 3.0+; matches the SDK constraint `>=3.0.0 <4.0.0`)
+- Dart 3.0 or newer when building with a standalone SDK
+
+See [INSTALLATION.md](INSTALLATION.md) for setup instructions and tooling tips.
+
  ``talawa`` is based on the original ``quito`` code created by the [Palisadoes Foundation](http://www.palisadoes.org) as part of its annual Calico Challenge program. Calico provides paid summer internships for  Jamaican university students to work on selected open source projects. They are mentored by software professionals and receive stipends based on the completion of predefined milestones. Calico was started in 2015. Visit [The Palisadoes Foundation's website](http://www.palisadoes.org/) for more details on its origin and activities.
 
 # Talawa Components

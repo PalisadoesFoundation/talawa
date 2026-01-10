@@ -10,7 +10,7 @@ We recommend that you follow these steps before beginning development work on th
 ## Prerequisites
 
 **Important:**
-Talawa now requires Dart SDK version `>=3.0.0 <4.0.0`. Please ensure your Flutter/Dart environment matches this requirement.
+Talawa now requires Flutter `3.22.0+` (which bundles Dart `>=3.0.0 <4.0.0`). Ensure your Flutter/Dart environment meets this minimum.
 Some dependencies are overridden in `pubspec.yaml` to ensure compatibility. See that file for details.
 
 You must install the following applications beforehand on your system for best results. 
