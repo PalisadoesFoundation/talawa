@@ -5,7 +5,5 @@ on:
     types: [unassigned]
 
 jobs:
-  add-unapproved-label:
+  issue-unassigned:
     uses: PalisadoesFoundation/.github/.github/workflows/issue-unassigned.yml@main
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
