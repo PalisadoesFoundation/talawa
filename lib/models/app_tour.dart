@@ -7,9 +7,7 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// Class that handles all the apptour routines.
 class AppTour {
-  AppTour({
-    required this.model,
-  });
+  AppTour({required this.model});
 
   ///instance of mainscreenviewmodel.
   MainScreenViewModel model;
@@ -153,8 +151,9 @@ class FocusTarget {
                     crossAxisAlignment: nextCrossAlign,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context)!
-                            .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                        AppLocalizations.of(
+                          context,
+                        )!.strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                           fontSize: 20,

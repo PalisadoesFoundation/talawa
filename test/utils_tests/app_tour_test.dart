@@ -50,9 +50,7 @@ void main() {
             localizationsDelegates: const [
               AppLocalizationsDelegate(isTest: true),
             ],
-            supportedLocales: const [
-              Locale('en'),
-            ],
+            supportedLocales: const [Locale('en')],
             home: Builder(
               builder: (context) {
                 // Initialize size config and capture context for later use
@@ -61,9 +59,7 @@ void main() {
                 viewModel = FakeMainScreenViewModel()..context = context;
                 return Scaffold(
                   key: viewModel.scaffoldKey,
-                  drawer: const Drawer(
-                    child: Center(child: Text('drawer')),
-                  ),
+                  drawer: const Drawer(child: Center(child: Text('drawer'))),
                   body: Container(
                     key: primaryTargetKey,
                     child: const Text('Organization Name'),
@@ -155,231 +151,231 @@ void main() {
   });
 
   group('FocusTarget', () {
-    testWidgets(
-      'should build content correctly and handle next actions',
-      (tester) async {
-        late FakeMainScreenViewModel viewModel;
-        late BuildContext capturedContext;
+    testWidgets('should build content correctly and handle next actions', (
+      tester,
+    ) async {
+      late FakeMainScreenViewModel viewModel;
+      late BuildContext capturedContext;
 
-        // Set up test environment
-        await tester.pumpWidget(
-          MaterialApp(
-            localizationsDelegates: const [
-              AppLocalizationsDelegate(isTest: true),
-            ],
-            supportedLocales: const [
-              Locale('en'),
-            ],
-            home: Builder(
-              builder: (context) {
-                SizeConfig().init(context);
-                capturedContext = context;
-                viewModel = FakeMainScreenViewModel()..context = context;
-                return Scaffold(
-                  key: viewModel.scaffoldKey,
-                  body: const SizedBox.shrink(),
-                );
-              },
-            ),
+      // Set up test environment
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizationsDelegate(isTest: true),
+          ],
+          supportedLocales: const [Locale('en')],
+          home: Builder(
+            builder: (context) {
+              SizeConfig().init(context);
+              capturedContext = context;
+              viewModel = FakeMainScreenViewModel()..context = context;
+              return Scaffold(
+                key: viewModel.scaffoldKey,
+                body: const SizedBox.shrink(),
+              );
+            },
           ),
-        );
+        ),
+      );
 
-        await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
-        // Use mock tutorial for this test
-        final mockTutorial = MockTutorialCoachMark();
-        final appTour = AppTour(model: viewModel)
-          ..tutorialCoachMark = mockTutorial;
+      // Use mock tutorial for this test
+      final mockTutorial = MockTutorialCoachMark();
+      final appTour = AppTour(model: viewModel)
+        ..tutorialCoachMark = mockTutorial;
 
-        bool nextCallbackTriggered = false;
+      bool nextCallbackTriggered = false;
 
-        // Create a focus target with various properties
-        final FocusTarget focusTarget = FocusTarget(
-          key: GlobalKey(),
-          keyName: 'detail',
-          description: 'Detail Description',
-          align: ContentAlign.top,
-          crossAlign: CrossAxisAlignment.center,
-          skipAlignment: Alignment.bottomLeft,
-          nextCrossAlign: CrossAxisAlignment.center,
-          isCircle: true,
-          isEnd: true,
-          next: () {
-            nextCallbackTriggered = true;
-          },
-          appTour: appTour,
-        );
+      // Create a focus target with various properties
+      final FocusTarget focusTarget = FocusTarget(
+        key: GlobalKey(),
+        keyName: 'detail',
+        description: 'Detail Description',
+        align: ContentAlign.top,
+        crossAlign: CrossAxisAlignment.center,
+        skipAlignment: Alignment.bottomLeft,
+        nextCrossAlign: CrossAxisAlignment.center,
+        isCircle: true,
+        isEnd: true,
+        next: () {
+          nextCallbackTriggered = true;
+        },
+        appTour: appTour,
+      );
 
-        // Test content building
-        final List<TargetContent> contents = focusTarget.focusWidget.contents!;
-        final FakeTutorialCoachMarkController fakeController =
-            FakeTutorialCoachMarkController();
-        final mockController = MockTutorialCoachMarkController();
+      // Test content building
+      final List<TargetContent> contents = focusTarget.focusWidget.contents!;
+      final FakeTutorialCoachMarkController fakeController =
+          FakeTutorialCoachMarkController();
+      final mockController = MockTutorialCoachMarkController();
 
-        // Check description content
-        final TargetContent descriptionContent = contents[0];
-        final Widget? descriptionWidgetMaybe =
-            descriptionContent.builder?.call(capturedContext, fakeController);
-        expect(descriptionWidgetMaybe, isNotNull);
-        if (descriptionWidgetMaybe is! Container) {
-          fail('Description content did not return a Container');
-        }
-        final Container descriptionWidget = descriptionWidgetMaybe;
+      // Check description content
+      final TargetContent descriptionContent = contents[0];
+      final Widget? descriptionWidgetMaybe = descriptionContent.builder?.call(
+        capturedContext,
+        fakeController,
+      );
+      expect(descriptionWidgetMaybe, isNotNull);
+      if (descriptionWidgetMaybe is! Container) {
+        fail('Description content did not return a Container');
+      }
+      final Container descriptionWidget = descriptionWidgetMaybe;
 
-        final Column descriptionColumn = descriptionWidget.child! as Column;
+      final Column descriptionColumn = descriptionWidget.child! as Column;
 
-        final Text descriptionText = descriptionColumn.children.first as Text;
-        expect(descriptionText.data, 'Detail Description');
-        expect(descriptionColumn.crossAxisAlignment, CrossAxisAlignment.center);
+      final Text descriptionText = descriptionColumn.children.first as Text;
+      expect(descriptionText.data, 'Detail Description');
+      expect(descriptionColumn.crossAxisAlignment, CrossAxisAlignment.center);
 
-        // Make sure it works with mock controller too
-        expect(
-          () => descriptionContent.builder!(capturedContext, mockController),
-          returnsNormally,
-        );
+      // Make sure it works with mock controller too
+      expect(
+        () => descriptionContent.builder!(capturedContext, mockController),
+        returnsNormally,
+      );
 
-        // Test next button content
-        final TargetContent nextContent = contents[1];
-        expect(
-          nextContent.customPosition!.bottom,
-          SizeConfig.screenHeight! * 0.025,
-        );
+      // Test next button content
+      final TargetContent nextContent = contents[1];
+      expect(
+        nextContent.customPosition!.bottom,
+        SizeConfig.screenHeight! * 0.025,
+      );
 
-        final Widget? nextButtonMaybe =
-            nextContent.builder?.call(capturedContext, fakeController);
-        expect(nextButtonMaybe, isNotNull);
-        if (nextButtonMaybe is! Row) {
-          fail('Next content did not return a Row');
-        }
-        final Row nextRow = nextButtonMaybe;
-        expect(nextRow.children.length, 1); // Next button only since isEnd=true
+      final Widget? nextButtonMaybe = nextContent.builder?.call(
+        capturedContext,
+        fakeController,
+      );
+      expect(nextButtonMaybe, isNotNull);
+      if (nextButtonMaybe is! Row) {
+        fail('Next content did not return a Row');
+      }
+      final Row nextRow = nextButtonMaybe;
+      expect(nextRow.children.length, 1); // Next button only since isEnd=true
 
-        // Since isEnd=true, skip button is not shown, only Next/Complete button
-        final Widget nextGestureDetectorWidget = nextRow.children.last;
-        if (nextGestureDetectorWidget is! GestureDetector) {
-          fail('Next button was not a GestureDetector');
-        }
-        final GestureDetector nextButton = nextGestureDetectorWidget;
+      // Since isEnd=true, skip button is not shown, only Next/Complete button
+      final Widget nextGestureDetectorWidget = nextRow.children.last;
+      if (nextGestureDetectorWidget is! GestureDetector) {
+        fail('Next button was not a GestureDetector');
+      }
+      final GestureDetector nextButton = nextGestureDetectorWidget;
 
-        final Widget? nextColumnMaybe = nextButton.child;
-        expect(nextColumnMaybe, isNotNull);
-        if (nextColumnMaybe is! Column) {
-          fail('Next button child was not a Column');
-        }
-        final Column nextColumn = nextColumnMaybe;
-        final Widget nextTextWidget = nextColumn.children.first;
-        if (nextTextWidget is! Text) {
-          fail('Next button label was not a Text widget');
-        }
-        final Text nextText = nextTextWidget;
-        expect(nextText.data, 'COMPLETE');
-        expect(nextColumn.crossAxisAlignment, CrossAxisAlignment.center);
-        expect(nextButton.onTap, isNotNull);
+      final Widget? nextColumnMaybe = nextButton.child;
+      expect(nextColumnMaybe, isNotNull);
+      if (nextColumnMaybe is! Column) {
+        fail('Next button child was not a Column');
+      }
+      final Column nextColumn = nextColumnMaybe;
+      final Widget nextTextWidget = nextColumn.children.first;
+      if (nextTextWidget is! Text) {
+        fail('Next button label was not a Text widget');
+      }
+      final Text nextText = nextTextWidget;
+      expect(nextText.data, 'COMPLETE');
+      expect(nextColumn.crossAxisAlignment, CrossAxisAlignment.center);
+      expect(nextButton.onTap, isNotNull);
 
-        // Test next button tap
-        // The implementation calls appTour.tutorialCoachMark.next(), not controller.next()
-        nextButton.onTap!();
-        expect(nextCallbackTriggered, isTrue);
-        verify(mockTutorial.next()).called(1);
-        expect(fakeController.nextCount, 0);
+      // Test next button tap
+      // The implementation calls appTour.tutorialCoachMark.next(), not controller.next()
+      nextButton.onTap!();
+      expect(nextCallbackTriggered, isTrue);
+      verify(mockTutorial.next()).called(1);
+      expect(fakeController.nextCount, 0);
 
-        // Verify focus target properties
-        expect(focusTarget.focusWidget.shape, ShapeLightFocus.Circle);
-        expect(focusTarget.focusWidget.alignSkip, Alignment.bottomLeft);
-        expect(focusTarget.focusWidget.identify, 'detail');
-        expect(focusTarget.focusWidget.enableOverlayTab, true);
-      },
-    );
+      // Verify focus target properties
+      expect(focusTarget.focusWidget.shape, ShapeLightFocus.Circle);
+      expect(focusTarget.focusWidget.alignSkip, Alignment.bottomLeft);
+      expect(focusTarget.focusWidget.identify, 'detail');
+      expect(focusTarget.focusWidget.enableOverlayTab, true);
+    });
 
-    testWidgets(
-      'should render Skip button when not on final step',
-      (tester) async {
-        late FakeMainScreenViewModel viewModel;
-        late BuildContext capturedContext;
+    testWidgets('should render Skip button when not on final step', (
+      tester,
+    ) async {
+      late FakeMainScreenViewModel viewModel;
+      late BuildContext capturedContext;
 
-        // Set up test environment
-        await tester.pumpWidget(
-          MaterialApp(
-            localizationsDelegates: const [
-              AppLocalizationsDelegate(isTest: true),
-            ],
-            supportedLocales: const [
-              Locale('en'),
-            ],
-            home: Builder(
-              builder: (context) {
-                SizeConfig().init(context);
-                capturedContext = context;
-                viewModel = FakeMainScreenViewModel()..context = context;
-                return Scaffold(
-                  key: viewModel.scaffoldKey,
-                  body: const SizedBox.shrink(),
-                );
-              },
-            ),
+      // Set up test environment
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizationsDelegate(isTest: true),
+          ],
+          supportedLocales: const [Locale('en')],
+          home: Builder(
+            builder: (context) {
+              SizeConfig().init(context);
+              capturedContext = context;
+              viewModel = FakeMainScreenViewModel()..context = context;
+              return Scaffold(
+                key: viewModel.scaffoldKey,
+                body: const SizedBox.shrink(),
+              );
+            },
           ),
-        );
+        ),
+      );
 
-        await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
-        // Use mock tutorial for this test
-        final mockTutorial = MockTutorialCoachMark();
-        final appTour = AppTour(model: viewModel)
-          ..tutorialCoachMark = mockTutorial;
+      // Use mock tutorial for this test
+      final mockTutorial = MockTutorialCoachMark();
+      final appTour = AppTour(model: viewModel)
+        ..tutorialCoachMark = mockTutorial;
 
-        // Create a focus target with isEnd=false to test Skip button
-        final FocusTarget focusTarget = FocusTarget(
-          key: GlobalKey(),
-          keyName: 'mid-step',
-          description: 'Mid Tour Step',
-          isEnd: false,
-          appTour: appTour,
-        );
+      // Create a focus target with isEnd=false to test Skip button
+      final FocusTarget focusTarget = FocusTarget(
+        key: GlobalKey(),
+        keyName: 'mid-step',
+        description: 'Mid Tour Step',
+        isEnd: false,
+        appTour: appTour,
+      );
 
-        // Test content building
-        final List<TargetContent> contents = focusTarget.focusWidget.contents!;
-        final FakeTutorialCoachMarkController fakeController =
-            FakeTutorialCoachMarkController();
+      // Test content building
+      final List<TargetContent> contents = focusTarget.focusWidget.contents!;
+      final FakeTutorialCoachMarkController fakeController =
+          FakeTutorialCoachMarkController();
 
-        // Test next button content (which now includes Skip button)
-        final TargetContent nextContent = contents[1];
-        final Widget? buttonRowMaybe =
-            nextContent.builder?.call(capturedContext, fakeController);
-        expect(buttonRowMaybe, isNotNull);
-        
-        if (buttonRowMaybe is! Row) {
-          fail('Next content did not return a Row');
-        }
-        final Row buttonRow = buttonRowMaybe;
-        
-        // Should have 3 children: Skip button, SizedBox, Next button
-        expect(buttonRow.children.length, 3);
+      // Test next button content (which now includes Skip button)
+      final TargetContent nextContent = contents[1];
+      final Widget? buttonRowMaybe = nextContent.builder?.call(
+        capturedContext,
+        fakeController,
+      );
+      expect(buttonRowMaybe, isNotNull);
 
-        // Test Skip button
-        final Widget skipGestureDetector = buttonRow.children[0];
-        if (skipGestureDetector is! GestureDetector) {
-          fail('First child was not a GestureDetector for Skip button');
-        }
-        expect(skipGestureDetector.onTap, isNotNull);
+      if (buttonRowMaybe is! Row) {
+        fail('Next content did not return a Row');
+      }
+      final Row buttonRow = buttonRowMaybe;
 
-        // Test Skip button text
-        final Widget? skipTextWidget = skipGestureDetector.child;
-        if (skipTextWidget is! Text) {
-          fail('Skip button child was not a Text widget');
-        }
-        expect(skipTextWidget.data, 'Skip');
+      // Should have 3 children: Skip button, SizedBox, Next button
+      expect(buttonRow.children.length, 3);
 
-        // Test SizedBox separator
-        final Widget separator = buttonRow.children[1];
-        if (separator is! SizedBox) {
-          fail('Separator was not a SizedBox');
-        }
-        expect((separator).width, 20);
+      // Test Skip button
+      final Widget skipGestureDetector = buttonRow.children[0];
+      if (skipGestureDetector is! GestureDetector) {
+        fail('First child was not a GestureDetector for Skip button');
+      }
+      expect(skipGestureDetector.onTap, isNotNull);
 
-        // Test Skip button tap
-        skipGestureDetector.onTap!();
-        verify(mockTutorial.skip()).called(1);
-      },
-    );
+      // Test Skip button text
+      final Widget? skipTextWidget = skipGestureDetector.child;
+      if (skipTextWidget is! Text) {
+        fail('Skip button child was not a Text widget');
+      }
+      expect(skipTextWidget.data, 'Skip');
+
+      // Test SizedBox separator
+      final Widget separator = buttonRow.children[1];
+      if (separator is! SizedBox) {
+        fail('Separator was not a SizedBox');
+      }
+      expect((separator).width, 20);
+
+      // Test Skip button tap
+      skipGestureDetector.onTap!();
+      verify(mockTutorial.skip()).called(1);
+    });
   });
 }
