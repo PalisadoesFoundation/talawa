@@ -129,6 +129,7 @@ void main() {
         await tester.pump();
 
         final bool skipResult = appTour.tutorialCoachMark.onSkip!.call();
+        // Pump to allow addPostFrameCallback to execute (preventing setState during build)
         await tester.pump();
         expect(skipResult, isTrue);
         expect(viewModel.tourSkipped, isTrue);
@@ -371,11 +372,30 @@ void main() {
       if (separator is! SizedBox) {
         fail('Separator was not a SizedBox');
       }
-      expect((separator).width, 20);
+      expect(separator.width, 20);
 
       // Test Skip button tap
       skipGestureDetector.onTap!();
       verify(mockTutorial.skip()).called(1);
+
+      // Test Next button
+      final Widget nextGestureDetector = buttonRow.children[2];
+      if (nextGestureDetector is! GestureDetector) {
+        fail('Third child was not a GestureDetector for Next button');
+      }
+      final GestureDetector nextButton = nextGestureDetector;
+
+      final Widget? nextColumnMaybe = nextButton.child;
+      if (nextColumnMaybe is! Column) {
+        fail('Next button child was not a Column');
+      }
+      final Column nextColumn = nextColumnMaybe;
+      final Widget nextTextWidget = nextColumn.children.first;
+      if (nextTextWidget is! Text) {
+        fail('Next button label was not a Text widget');
+      }
+      final Text nextText = nextTextWidget;
+      expect(nextText.data, 'NEXT'); // Should show NEXT when isEnd=false
     });
   });
 }
