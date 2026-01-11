@@ -123,6 +123,7 @@ class FocusTarget {
             bottom: SizeConfig.screenHeight! * 0.025,
           ),
           builder: (context, controller) {
+            final loc = AppLocalizations.of(context)!;
             return Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -132,7 +133,7 @@ class FocusTarget {
                       appTour.tutorialCoachMark.skip();
                     },
                     child: Text(
-                      AppLocalizations.of(context)!.strictTranslate('Skip'),
+                      loc.strictTranslate('Skip'),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 20,
@@ -151,9 +152,7 @@ class FocusTarget {
                     crossAxisAlignment: nextCrossAlign,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(
-                          context,
-                        )!.strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                        loc.strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                           fontSize: 20,
