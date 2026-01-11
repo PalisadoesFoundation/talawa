@@ -124,6 +124,10 @@ class FocusTarget {
           ),
           builder: (context, controller) {
             final loc = AppLocalizations.of(context)!;
+            final buttonTextStyle = TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 20,
+            );
             return Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -133,11 +137,8 @@ class FocusTarget {
                       appTour.tutorialCoachMark.skip();
                     },
                     child: Text(
-                      loc.strictTranslate('Skip'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 20,
-                      ),
+                      loc.strictTranslate('SKIP'),
+                      style: buttonTextStyle,
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -147,18 +148,9 @@ class FocusTarget {
                     next?.call();
                     appTour.tutorialCoachMark.next();
                   },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: nextCrossAlign,
-                    children: <Widget>[
-                      Text(
-                        loc.strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    loc.strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                    style: buttonTextStyle,
                   ),
                 ),
               ],

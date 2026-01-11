@@ -260,19 +260,15 @@ void main() {
       }
       final GestureDetector nextButton = nextGestureDetectorWidget;
 
-      final Widget? nextColumnMaybe = nextButton.child;
-      expect(nextColumnMaybe, isNotNull);
-      if (nextColumnMaybe is! Column) {
-        fail('Next button child was not a Column');
+      final Widget? nextTextWidgetMaybe = nextButton.child;
+      expect(nextTextWidgetMaybe, isNotNull);
+      if (nextTextWidgetMaybe is! Text) {
+        fail('Next button child was not a Text widget');
       }
-      final Column nextColumn = nextColumnMaybe;
-      final Widget nextTextWidget = nextColumn.children.first;
-      if (nextTextWidget is! Text) {
-        fail('Next button label was not a Text widget');
-      }
-      final Text nextText = nextTextWidget;
+      final Text nextText = nextTextWidgetMaybe;
+      
       expect(nextText.data, 'COMPLETE');
-      expect(nextColumn.crossAxisAlignment, CrossAxisAlignment.center);
+      // Column crossAxisAlignment check removed as Column is gone
       expect(nextButton.onTap, isNotNull);
 
       // Test next button tap
@@ -365,7 +361,7 @@ void main() {
       if (skipTextWidget is! Text) {
         fail('Skip button child was not a Text widget');
       }
-      expect(skipTextWidget.data, 'Skip');
+      expect(skipTextWidget.data, 'SKIP');
 
       // Test SizedBox separator
       final Widget separator = buttonRow.children[1];
@@ -385,16 +381,11 @@ void main() {
       }
       final GestureDetector nextButton = nextGestureDetector;
 
-      final Widget? nextColumnMaybe = nextButton.child;
-      if (nextColumnMaybe is! Column) {
-        fail('Next button child was not a Column');
+      final Widget? nextTextWidgetMaybe = nextButton.child;
+      if (nextTextWidgetMaybe is! Text) {
+        fail('Next button child was not a Text widget');
       }
-      final Column nextColumn = nextColumnMaybe;
-      final Widget nextTextWidget = nextColumn.children.first;
-      if (nextTextWidget is! Text) {
-        fail('Next button label was not a Text widget');
-      }
-      final Text nextText = nextTextWidget;
+      final Text nextText = nextTextWidgetMaybe;
       expect(nextText.data, 'NEXT'); // Should show NEXT when isEnd=false
     });
   });
