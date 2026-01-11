@@ -324,7 +324,7 @@ class ChatUtils {
       case 'rename':
       case 'add_member':
       case 'delete':
-        // These actions are always valid for admins
+      // These actions are always valid for admins
       default:
         return {'isValid': false, 'error': 'Unknown action'};
     }

@@ -653,7 +653,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
     // Initialize pattern-specific defaults
     switch (newFrequency) {
       case Frequency.daily:
-        // For daily, we don't need special defaults
+      // For daily, we don't need special defaults
 
       case Frequency.weekly:
         // For weekly, initialize with the current day of week
