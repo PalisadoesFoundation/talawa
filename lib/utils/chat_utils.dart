@@ -321,12 +321,10 @@ class ChatUtils {
                 'Cannot remove members. Group must have at least 3 members.',
           };
         }
-        break;
       case 'rename':
       case 'add_member':
       case 'delete':
         // These actions are always valid for admins
-        break;
       default:
         return {'isValid': false, 'error': 'Unknown action'};
     }
