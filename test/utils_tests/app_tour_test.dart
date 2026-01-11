@@ -266,7 +266,7 @@ void main() {
         fail('Next button child was not a Text widget');
       }
       final Text nextText = nextTextWidgetMaybe;
-      
+
       expect(nextText.data, 'COMPLETE');
       // Column crossAxisAlignment check removed as Column is gone
       expect(nextButton.onTap, isNotNull);
@@ -285,9 +285,8 @@ void main() {
       expect(focusTarget.focusWidget.enableOverlayTab, true);
     });
 
-    testWidgets('should render Skip button when not on final step', (
-      tester,
-    ) async {
+    testWidgets('should render Skip button when not on final step',
+        (tester) async {
       late FakeMainScreenViewModel viewModel;
       late BuildContext capturedContext;
 
