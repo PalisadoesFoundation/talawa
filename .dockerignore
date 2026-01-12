@@ -6,7 +6,7 @@ build/
 .packages
 .pub-cache/
 .pub/
-*.lock
+
 
 # IDE and editor files
 .idea/
