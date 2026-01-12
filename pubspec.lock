@@ -193,22 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.4"
-  ci:
-    dependency: transitive
-    description:
-      name: ci
-      sha256: "145d095ce05cddac4d797a158bc4cf3b6016d1fe63d8c3d2fbd7212590adca13"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
-  cli_util:
-    dependency: transitive
-    description:
-      name: cli_util
-      sha256: ff6785f7e9e3c38ac98b2fb035701789de90154024a75b6cb926445e83197d1c
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.2"
   clock:
     dependency: "direct dev"
     description:
@@ -305,30 +289,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.21"
-  custom_lint:
-    dependency: "direct dev"
-    description:
-      name: custom_lint
-      sha256: "4500e88854e7581ee43586abeaf4443cb22375d6d289241a87b1aadf678d5545"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.10"
-  custom_lint_builder:
-    dependency: "direct overridden"
-    description:
-      name: custom_lint_builder
-      sha256: "5a95eff100da256fbf086b329c17c8b49058c261cdf56d3a4157d3c31c511d78"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.10"
-  custom_lint_core:
-    dependency: transitive
-    description:
-      name: custom_lint_core
-      sha256: "76a4046cc71d976222a078a8fd4a65e198b70545a8d690a75196dd14f08510f6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.10"
   dart_style:
     dependency: transitive
     description:
@@ -666,14 +626,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.12.0"
-  freezed_annotation:
-    dependency: transitive
-    description:
-      name: freezed_annotation
-      sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.4"
   frontend_server_client:
     dependency: transitive
     description:
@@ -815,14 +767,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  hotreloader:
-    dependency: transitive
-    description:
-      name: hotreloader
-      sha256: bc167a1163807b03bada490bfe2df25b0d744df359227880220a5cbd04e5734b
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.3.0"
   html:
     dependency: transitive
     description:
