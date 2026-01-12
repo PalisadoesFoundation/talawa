@@ -66,7 +66,7 @@ jobs:
           git branch
           git checkout -b temp_branch
           git branch
-          git checkout -b develop origin/develop 2>/dev/null || git checkout develop
+          git checkout develop
           git pull
           git branch
           git diff --name-only develop..HEAD
