@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
 
 /// GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.
