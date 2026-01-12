@@ -1,0 +1,24 @@
+services:
+  talawa-mobile:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: talawa-mobile
+    working_dir: /home/flutteruser/app
+    init: true
+    volumes:
+      - .:/home/flutteruser/app
+      - flutter-pub-cache:/home/flutteruser/.pub-cache
+    ports:
+      - "8080:8080"
+      - "9100:9100"  
+    environment:
+      - FLUTTER_ROOT=/flutter
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null
+    
+volumes:
+  flutter-pub-cache:
+    driver: local

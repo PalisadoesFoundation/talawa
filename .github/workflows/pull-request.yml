@@ -298,6 +298,49 @@ jobs:
           echo "- Source branch may be incorrect please use develop as source branch."
           exit 1
 
+  Docker-Validation:
+    name: Docker Validation
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'test-docker') }}  # Run if label present (override)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Filter changed files
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            docker:
+              - 'Dockerfile'
+              - 'docker-compose.yml'
+              - '.devcontainer/**'
+              - '.dockerignore'
+              - 'docs/docs/docs/getting-started/installation.md'
+
+      - name: Set up Docker Buildx
+        if: steps.filter.outputs.docker == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Lint Dockerfile
+        if: steps.filter.outputs.docker == 'true'
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+          failure-threshold: warning
+
+      - name: Build Docker image
+        if: steps.filter.outputs.docker == 'true'
+        run: docker compose build --no-cache
+
+      - name: Quick smoke test
+        if: steps.filter.outputs.docker == 'true'
+        run: |
+          docker compose up -d
+          sleep 10  # Wait for container startup
+          docker compose exec talawa-mobile flutter doctor || exit 1
+          docker compose down
+
   Flutter-Testing:
     name: Testing codebase
     runs-on: ubuntu-latest

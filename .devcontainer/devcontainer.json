@@ -1,0 +1,19 @@
+{
+  "name": "Talawa Flutter",
+    "dockerFile": "../Dockerfile",
+  "workspaceFolder": "/home/flutteruser/app",
+  "remoteUser": "flutteruser",
+  "forwardPorts": [8080, 9100],
+  "postCreateCommand": "flutter pub get",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.flutter",
+        "Dart-Code.dart-code"
+      ],
+      "settings": {
+        "dart.flutterSdkPath": "/flutter"
+      }
+    }
+  }
+}
