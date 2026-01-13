@@ -7,9 +7,7 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// Class that handles all the apptour routines.
 class AppTour {
-  AppTour({
-    required this.model,
-  });
+  AppTour({required this.model});
 
   ///instance of mainscreenviewmodel.
   MainScreenViewModel model;
@@ -45,11 +43,13 @@ class AppTour {
       onFinish: onFinish,
       onClickTarget: onClickTarget,
       onSkip: () {
-        if (model.scaffoldKey.currentState!.isDrawerOpen) {
-          navigationService.pop();
-        }
-        model.tourSkipped = true;
-        model.onTabTapped(0);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (model.scaffoldKey.currentState?.isDrawerOpen ?? false) {
+            navigationService.pop();
+          }
+          model.tourSkipped = true;
+          model.onTabTapped(0);
+        });
         return true;
       },
       onClickOverlay: (target) {
@@ -123,25 +123,37 @@ class FocusTarget {
             bottom: SizeConfig.screenHeight! * 0.025,
           ),
           builder: (context, controller) {
-            return GestureDetector(
-              onTap: () {
-                next?.call();
-                appTour.tutorialCoachMark.next();
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: nextCrossAlign,
-                children: <Widget>[
-                  Text(
-                    AppLocalizations.of(context)!
-                        .strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20,
+            final loc = AppLocalizations.of(context)!;
+            final buttonTextStyle = TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 20,
+            );
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (!isEnd) ...[
+                  GestureDetector(
+                    onTap: () {
+                      appTour.tutorialCoachMark.skip();
+                    },
+                    child: Text(
+                      loc.strictTranslate('SKIP'),
+                      style: buttonTextStyle,
                     ),
                   ),
+                  const SizedBox(width: 20),
                 ],
-              ),
+                GestureDetector(
+                  onTap: () {
+                    next?.call();
+                    appTour.tutorialCoachMark.next();
+                  },
+                  child: Text(
+                    loc.strictTranslate(isEnd ? 'COMPLETE' : 'NEXT'),
+                    style: buttonTextStyle,
+                  ),
+                ),
+              ],
             );
           },
         ),
