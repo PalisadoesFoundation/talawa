@@ -84,19 +84,25 @@ void main() {
       const data = """
     query {
       organizations{
-        id,
-        name,
-        addressLine1,
-        addressLine2,
-        description,
-        avatarURL,
-        countryCode,
-        state,
-        isUserRegistrationRequired,
+        ...OrganizationFields
       }
     }
-    """;
-      expect(data, ff);
+    fragment OrganizationFields on Organization {
+  id
+  name
+  addressLine1
+  addressLine2
+  avatarMimeType
+  avatarURL
+  postalCode
+  countryCode
+  description
+  isUserRegistrationRequired
+  state
+}
+""";
+      expect(ff.replaceAll(RegExp(r'\s+'), ' ').trim(),
+          data.replaceAll(RegExp(r'\s+'), ' ').trim());
     });
     test("Check if fetchJoinInOrgByName works correctly", () {
       var mutation = false;

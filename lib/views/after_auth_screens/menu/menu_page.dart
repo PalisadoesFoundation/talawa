@@ -7,6 +7,7 @@ import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/plugin/plugin_injector.dart';
 import 'package:talawa/plugin/types.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/gql_fragments.dart';
 
 /// MenuPage returns a widget that renders a menu page with vertical stack of links.
 class MenuPage extends StatelessWidget {
@@ -102,12 +103,10 @@ class MenuPage extends StatelessWidget {
           document: gql('''
             query GetAllPlugins {
               getPlugins(input: {}) {
-                id
-                pluginId
-                isActivated
-                isInstalled
+                ...PluginFields
               }
             }
+            $pluginFieldsFragment
           '''),
           fetchPolicy: FetchPolicy.networkOnly,
         ),

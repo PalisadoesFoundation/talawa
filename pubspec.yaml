@@ -92,6 +92,7 @@ dev_dependencies:
   file: ^7.0.1
   flutter_test:
     sdk: flutter
+  gql: ^1.0.1
   graphql: ^5.2.3
   hive_generator: ^2.0.1
 
