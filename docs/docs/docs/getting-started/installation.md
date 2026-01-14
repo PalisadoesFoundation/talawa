@@ -86,8 +86,8 @@ We have tried to make the process simple. Here's what you need to do.
    1. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
       1. Install FVM using the instructions on the FVM website
         - https://fvm.app
-      2. Ensure you are using Flutter version `3.32.8` 
-        - `fvm use 3.32.8`
+      2. Ensure you are using Flutter version `3.35.0` 
+        - `fvm use 3.35.0`
    2. Install packages.
       ```bash
       $ cd talawa_lint
@@ -95,6 +95,8 @@ We have tried to make the process simple. Here's what you need to do.
       $ cd ..
       $ fvm flutter pub get
       ```
+   
+   3. **Troubleshooting**: If you encounter dependency version conflicts during installation, please refer to our [Handling Upgrades](../developer-resources/general/handling-upgrades.md) guide for checking and updating local package dependencies.
    3. Run the `flutter doctor` command to determine whether everything is OK. 
       1. Here is the specific command.
          ```bash
