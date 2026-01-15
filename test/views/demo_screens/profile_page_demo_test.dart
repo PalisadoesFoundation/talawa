@@ -44,23 +44,25 @@ Widget createDemoProfileScreen({MainScreenViewModel? homeModel}) {
 }
 
 void main() {
-  setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    testSetupLocator();
-    registerServices();
-    locator<SizeConfig>().test();
-    locator<GraphqlConfig>().test();
-  });
-
-  tearDownAll(() {
-    unregisterServices();
-  });
+  // tearDownAll removed
 
   group('Demo Profile Page tests', () {
     late MockMainScreenViewModel mockHomeModel;
 
     setUp(() {
       mockHomeModel = MockMainScreenViewModel();
+      locator.reset();
+      testSetupLocator();
+      registerServices();
+      SizeConfig.screenHeight = 800;
+      SizeConfig.screenWidth = 600;
+      locator<SizeConfig>().test();
+      locator<GraphqlConfig>().test();
+      when(userConfig.loggedIn).thenReturn(true);
+    });
+
+    tearDown(() {
+      locator.reset();
     });
 
     testWidgets('renders DemoProfilePage correctly', (tester) async {
