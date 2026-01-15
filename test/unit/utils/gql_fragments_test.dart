@@ -22,7 +22,7 @@ void main() {
     });
 
     test('AuthorFields fragment should be valid GraphQL', () {
-      final doc = gql(authorFragment);
+      final doc = gql(authorFieldsFragment);
       expect(doc, isA<DocumentNode>());
       expect(doc.definitions.first, isA<FragmentDefinitionNode>());
       expect((doc.definitions.first as FragmentDefinitionNode).name.value,
@@ -34,7 +34,7 @@ void main() {
       // or just ensure strict parsing works.
       // Note: gql() parses the string, but doesn't validate schema references without a schema.
       // It mainly checks syntax.
-      final doc = gql(postFragment);
+      final doc = gql(postFieldsFragment);
       expect(doc, isA<DocumentNode>());
       expect(doc.definitions.first, isA<FragmentDefinitionNode>());
       expect((doc.definitions.first as FragmentDefinitionNode).name.value,

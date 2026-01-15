@@ -27,7 +27,7 @@ fragment OrganizationFields on Organization {
 ''';
 
 /// Fragment for Author fields.
-const String authorFragment = '''
+const String authorFieldsFragment = '''
 fragment AuthorFields on User {
   id
   name
@@ -37,7 +37,7 @@ fragment AuthorFields on User {
 
 /// Fragment for Post fields.
 // Note: Post fields often include author
-const String postFragment = '''
+const String postFieldsFragment = '''
 fragment PostFields on Post {
   id
   title
