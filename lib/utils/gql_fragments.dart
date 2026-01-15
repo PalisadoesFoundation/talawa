@@ -36,7 +36,9 @@ fragment AuthorFields on User {
 ''';
 
 /// Fragment for Post fields.
-// Note: Post fields often include author
+///
+/// **Important**: This fragment uses `...AuthorFields`.
+/// Any query using `$postFieldsFragment` MUST also include `$authorFieldsFragment`.
 const String postFieldsFragment = '''
 fragment PostFields on Post {
   id
