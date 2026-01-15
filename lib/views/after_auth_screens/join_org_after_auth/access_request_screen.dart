@@ -74,7 +74,7 @@ class SendAccessRequest extends StatelessWidget {
                             Row(
                               children: [
                                 Icon(Icons.lock, color: Color(0xFFAEAEAE)),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     "This is a private organization. You need permission to join. Only approved members can access its resources and participate in its activities. Private organizations are designed to protect sensitive information and ensure a safe environment for their members.",
@@ -83,7 +83,7 @@ class SendAccessRequest extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -91,7 +91,7 @@ class SendAccessRequest extends StatelessWidget {
                                   Icons.admin_panel_settings,
                                   color: Color(0xFFAEAEAE),
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     "After you request access, the organization's admin will review your request. If approved, you will be notified and granted access. Admins may consider your profile and reason for joining before approval. If you have questions, contact the organization directly.",
