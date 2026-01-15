@@ -316,7 +316,7 @@ jobs:
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
-        run: flutter test --coverage
+        run: flutter test --concurrency=$(nproc) --coverage
       - name: Remove generated files from coverage
         run: |
           dart pub global activate remove_from_coverage
