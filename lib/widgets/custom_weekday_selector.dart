@@ -4,7 +4,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 
 /// Custom Widget to select weekdays.
 class CustomWeekDaySelector extends StatefulWidget {
-  const CustomWeekDaySelector({required this.model});
+  const CustomWeekDaySelector({super.key, required this.model});
 
   /// instance of create event view model.
   final CreateEventViewModel model;
