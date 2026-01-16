@@ -54,6 +54,8 @@ void main() {
           "description": "Test Description",
           "countryCode": "US",
           "state": "NY",
+          "avatarMimeType": "image/png",
+          "postalCode": "10001",
         }
       ]
     });
