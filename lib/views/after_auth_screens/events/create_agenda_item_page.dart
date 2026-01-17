@@ -345,14 +345,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                       ),
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .strictTranslate('Please enter a duration');
-                    }
-                    // Add additional validation for mm:ss format if needed
-                    return null;
-                  },
+                  validator:Validator.validateTime,
                 ),
                 SizedBox(height: SizeConfig.screenHeight! * 0.013),
                 Row(

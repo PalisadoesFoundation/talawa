@@ -29,6 +29,31 @@ void main() {
         });
       });
 
+      group('validateTime', () {
+        test('returns error when value is null', () {
+          expect(Validator.validateTime(null), 'Please enter a duration');
+        });
+
+        test('returns error when value is empty', () {
+          expect(Validator.validateTime(''), 'Please enter a duration');
+        });
+
+        test('returns error for invalid format', () {
+          expect(Validator.validateTime('1:20'),
+              'Invalid duration format (mm:ss)');
+        });
+
+        test('returns error when seconds are >= 60', () {
+          expect(Validator.validateTime('10:75'),
+              'Seconds must be less than 60');
+        });
+
+        test('returns null for valid mm:ss format', () {
+          expect(Validator.validateTime('05:30'), null);
+        });
+      });
+
+
       group('Test validateName', () {
         test('Test validateName when value is empty', () {
           final result = Validator.validateName('');

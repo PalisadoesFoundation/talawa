@@ -25,6 +25,37 @@ class Validator {
     return null;
   }
 
+/// --->done by me
+  /// Method to validate a duration value in `mm:ss` format.
+  ///
+  /// **params**:
+  /// * `value`: the duration value entered by the user
+  ///
+  /// **returns**:
+  /// * `String?`: error message if the duration is invalid, otherwise `null`.
+  static String? validateTime(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please enter a duration';
+    }
+
+    final match = RegExp(r'^(\d{2}):(\d{2})$').firstMatch(value.trim());
+
+    if (match == null) {
+      return 'Invalid duration format (mm:ss)';
+    }
+
+    final seconds = int.parse(match.group(2)!);
+
+    if (seconds >= 60) {
+      return 'Seconds must be less than 60';
+    }
+
+    return null;
+  }
+
+
+
+
   /// Method to validate a user's name.
   ///
   /// **params**:
