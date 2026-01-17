@@ -26,88 +26,94 @@ class ManageAgendaScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: agendaItems.isEmpty
-                  ? Center(
-                      child: Text(
-                        'No agenda items yet',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                      ),
-                    )
-                  : ReorderableListView.builder(
-                      itemCount: model.agendaItems.length,
-                      onReorder: (oldIndex, newIndex) {
-                        model.reorderAgendaItems(oldIndex, newIndex);
-                      },
-                      itemBuilder: (context, index) {
-                        final item = model.agendaItems[index];
-                        return ExpandableAgendaItemTile(
-                          key: Key("agenda_item$index"),
-                          item: item,
-                          onEdit: () async {
-                            final bool? wasUpdated = await Navigator.push<bool>(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditAgendaItemPage(
-                                  agendaItem: item,
-                                  categories: model.categories,
+                      ? Center(
+                          child: Text(
+                            'No agenda items yet',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: Colors.white,
                                 ),
-                              ),
+                          ),
+                        )
+                      : ReorderableListView.builder(
+                          itemCount: model.agendaItems.length,
+                          onReorder: (oldIndex, newIndex) {
+                            model.reorderAgendaItems(oldIndex, newIndex);
+                          },
+                          itemBuilder: (context, index) {
+                            final item = model.agendaItems[index];
+                            return ExpandableAgendaItemTile(
+                              key: Key("agenda_item$index"),
+                              item: item,
+                              onEdit: () async {
+                                final bool? wasUpdated =
+                                    await Navigator.push<bool>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditAgendaItemPage(
+                                      agendaItem: item,
+                                      categories: model.categories,
+                                    ),
+                                  ),
+                                );
+                                // Refresh agenda items only if changes were made
+                                if (wasUpdated == true) {
+                                  await model.fetchAgendaItems();
+                                }
+                              },
+                              onDelete: () async {
+                                await model.deleteAgendaItem(item.id ?? '');
+                                if (context.mounted) {
+                                  DelightToastBar(
+                                    autoDismiss: true,
+                                    snackbarDuration:
+                                        const Duration(seconds: 2),
+                                    builder: (context) {
+                                      return ToastCard(
+                                        title: const Text(
+                                          "Agenda item removed",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        leading: const Icon(
+                                          Icons.error_outline,
+                                          color: Colors.redAccent,
+                                        ),
+                                        color: Colors.black
+                                            .withAlpha((0.8 * 255).toInt()),
+                                      );
+                                    },
+                                  ).show(context);
+                                }
+                              },
                             );
-                            // Refresh agenda items only if changes were made
-                            if (wasUpdated == true) {
-                              await model.fetchAgendaItems();
-                            }
                           },
-                          onDelete: () async {
-                            await model.deleteAgendaItem(item.id ?? '');
-                            if (context.mounted) {
-                              DelightToastBar(
-                                autoDismiss: true,
-                                snackbarDuration: const Duration(seconds: 2),
-                                builder: (context) {
-                                  return ToastCard(
-                                    title: const Text(
-                                      "Agenda item removed",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    leading: const Icon(
-                                      Icons.error_outline,
-                                      color: Colors.redAccent,
-                                    ),
-                                    color: Colors.black
-                                        .withAlpha((0.8 * 255).toInt()),
-                                  );
-                                },
-                              ).show(context);
-                            }
-                          },
-                        );
-                      },
-                    ),
+                        ),
+                ),
+                SizedBox(height: SizeConfig.screenHeight! * 0.011),
+                ElevatedButton.icon(
+                  key: const Key('add_item_btn'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CreateAgendaItemPage(model: model),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add, color: Colors.white),
+                  label: const Text('Add Agenda Item'),
+                ),
+              ],
             ),
-            SizedBox(height: SizeConfig.screenHeight! * 0.011),
-            ElevatedButton.icon(
-              key: const Key('add_item_btn'),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CreateAgendaItemPage(model: model),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.add, color: Colors.white),
-              label: const Text('Add Agenda Item'),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        );
       },
     );
   }

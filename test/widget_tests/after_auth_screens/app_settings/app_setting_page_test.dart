@@ -153,7 +153,9 @@ Future<void> main() async {
         final Language userLanguage = languages.firstWhere(
           (element) =>
               element.langCode ==
-              locator<NavigationService>().navigatorKey.currentContext!
+              locator<NavigationService>()
+                  .navigatorKey
+                  .currentContext!
                   .read<AppLanguage>()
                   .appLocal
                   .languageCode,

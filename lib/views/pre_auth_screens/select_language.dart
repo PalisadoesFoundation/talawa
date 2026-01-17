@@ -72,8 +72,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     ),
                     onTap: () async {
                       await context.read<AppLanguage>().changeLanguage(
-                        Locale(languages[index].langCode),
-                      );
+                            Locale(languages[index].langCode),
+                          );
                     },
                     child: Consumer<AppLanguage>(
                       builder: (context, appLang, _) {
