@@ -136,7 +136,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 key: const Key('NavigateToMainScreen'),
-                onPressed: () async {
+                onPressed: () {
                   context.read<AppLanguage>().selectLanguagePress();
                 },
                 child: Text(

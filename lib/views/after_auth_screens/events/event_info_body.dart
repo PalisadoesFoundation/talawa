@@ -130,7 +130,7 @@ class EventInfoBody extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.011,
                 ),
-                if (event.startTime != null && event.endTime != null)
+                if (event.startTime.isNotEmpty && event.endTime.isNotEmpty)
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
