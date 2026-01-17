@@ -21,6 +21,9 @@ on:
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
   FLUTTER_VERSION: 3.32.8
+  # Test concurrency: defaults to nproc, capped at 4 (override if needed)
+  # Note: Flutter 3.32.x may have --concurrency flag behavior issues
+  FLUTTER_TEST_CONCURRENCY: 4
 
 jobs:
   Merge-Conflict-Check:
@@ -108,7 +111,10 @@ jobs:
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
-        run: flutter test --coverage
+        run: |
+          CONCURRENCY="${FLUTTER_TEST_CONCURRENCY:-$(nproc)}"
+          if [ "$CONCURRENCY" -gt 4 ]; then CONCURRENCY=4; fi
+          flutter test --concurrency="$CONCURRENCY" --coverage
       - name: Remove generated files from coverage
         run: |
           sed -i '/\.g\.dart/d' coverage/lcov.info
