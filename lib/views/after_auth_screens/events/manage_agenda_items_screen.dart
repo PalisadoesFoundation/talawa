@@ -14,7 +14,7 @@ class ManageAgendaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<EventInfoViewModel, List<dynamic>>(
+    return Selector<EventInfoViewModel, List<EventAgendaItem>>(
       selector: (_, model) => model.agendaItems,
       builder: (context, agendaItems, child) {
         final model = context.read<EventInfoViewModel>();
