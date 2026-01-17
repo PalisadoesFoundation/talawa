@@ -63,7 +63,21 @@ Inside the closure, we create a new instance of the `Calculator` class, call its
 To run this test, you can run the following command in your terminal:
 
 ```bash
+# Run all tests sequentially
 flutter test
+
+# Run tests in parallel for faster execution (recommended)
+# On macOS
+flutter test --concurrency=$(sysctl -n hw.logicalcpu)
+
+# On Linux
+flutter test --concurrency=$(nproc)
+
+# Or use a fixed concurrency value (capped at 4 to avoid resource issues)
+flutter test --concurrency=4
+
+# Run with coverage
+flutter test --coverage
 ```
 
 This will run all the tests in your project, including the `Calculator add` method test we just wrote. If the test passes, you should see the following output in your terminal:
