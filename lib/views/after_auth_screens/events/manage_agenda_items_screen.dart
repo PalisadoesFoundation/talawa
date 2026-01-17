@@ -14,15 +14,18 @@ class ManageAgendaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<EventInfoViewModel>(context);
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: model.agendaItems.isEmpty
+    return Selector<EventInfoViewModel, List<dynamic>>(
+      selector: (_, model) => model.agendaItems,
+      builder: (context, agendaItems, child) {
+        final model = context.read<EventInfoViewModel>();
+        return Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: agendaItems.isEmpty
                   ? Center(
                       child: Text(
                         'No agenda items yet',
@@ -104,6 +107,8 @@ class ManageAgendaScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+      },
     );
   }
 }

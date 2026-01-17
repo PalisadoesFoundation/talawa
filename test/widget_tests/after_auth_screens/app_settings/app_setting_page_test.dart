@@ -153,10 +153,10 @@ Future<void> main() async {
         final Language userLanguage = languages.firstWhere(
           (element) =>
               element.langCode ==
-              Provider.of<AppLanguage>(
-                locator<NavigationService>().navigatorKey.currentContext!,
-                listen: false,
-              ).appLocal.languageCode,
+              locator<NavigationService>().navigatorKey.currentContext!
+                  .read<AppLanguage>()
+                  .appLocal
+                  .languageCode,
         );
         expect(
           ((tester.firstWidget(languageSelectionButton) as TextButton).child!
