@@ -155,6 +155,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               controller: model.nameTextController,
                               focusNode: model.nameFocus,
                               keyboardType: TextInputType.name,
+                              validator: (value) => Validator.validateName(value ?? ''),
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
                                     .strictTranslate('Name'),
