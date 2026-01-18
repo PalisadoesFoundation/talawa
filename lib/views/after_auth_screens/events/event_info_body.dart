@@ -190,7 +190,7 @@ class EventInfoBody extends StatelessWidget {
                       Expanded(
                         child: Text(
                           RecurrenceUtils.getRecurrenceRuleText(
-                            frequency: event.recurrenceRule!.frequency!,
+                            frequency: event.recurrenceRule!.frequency,
                             interval: event.recurrenceRule!.interval ?? 1,
                             weekDays: event.recurrenceRule!.byDay != null
                                 ? RecurrenceUtils.convertShortCodesToWeekDays(
