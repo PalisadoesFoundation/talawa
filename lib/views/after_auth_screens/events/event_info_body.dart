@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -171,6 +172,45 @@ class EventInfoBody extends StatelessWidget {
                     const Spacer(),
                   ],
                 ),
+                // Display recurrence information if event has a recurrence rule
+                if (event.recurrenceRule != null) ...[
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.011,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.repeat,
+                        size: 12,
+                      ),
+                      SizedBox(
+                        width: SizeConfig.screenWidth! * 0.027,
+                      ),
+                      Expanded(
+                        child: Text(
+                          RecurrenceUtils.getRecurrenceRuleText(
+                            frequency: event.recurrenceRule!.frequency ?? '',
+                            interval: event.recurrenceRule!.interval ?? 1,
+                            weekDays: event.recurrenceRule!.byDay != null
+                                ? RecurrenceUtils.convertShortCodesToWeekDays(
+                                    event.recurrenceRule!.byDay!,
+                                  )
+                                : {},
+                            byMonthDay: event.recurrenceRule!.byMonthDay,
+                            byMonth: event.recurrenceRule!.byMonth,
+                            count: event.recurrenceRule!.count,
+                            endDate: event.recurrenceRule!.recurrenceEndDate,
+                            never: event.recurrenceRule!.recurrenceEndDate ==
+                                    null &&
+                                event.recurrenceRule!.count == null,
+                          ),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
                 const Divider(),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.013,
