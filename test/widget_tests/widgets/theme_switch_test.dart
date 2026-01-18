@@ -85,14 +85,14 @@ void main() {
         (listTile as ListTile).contentPadding,
         const EdgeInsets.fromLTRB(3.6, 0.0, 3.6, 0.0),
       );
-      
+
       // Find the Switch widget inside the Selector
       final switchFinder = find.descendant(
         of: listTileFinder,
         matching: find.byType(Switch),
       );
       expect(switchFinder, findsOneWidget);
-      
+
       final switchWidget = tester.widget<Switch>(switchFinder);
       expect(switchWidget.autofocus, true);
       expect(switchWidget.value, true);

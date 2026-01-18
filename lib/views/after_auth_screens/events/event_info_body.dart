@@ -22,180 +22,182 @@ class EventInfoBody extends StatelessWidget {
         final theme = Theme.of(context);
         final isCreator = event.creator?.id == userConfig.currentUser.id;
 
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header with title and actions
-            Row(
+        return SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Text(
-                    event.name ?? "Unknown event",
-                    style: theme.textTheme.headlineMedium,
-                  ),
+                // Header with title and actions
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        event.name ?? "Unknown event",
+                        style: theme.textTheme.headlineMedium,
+                      ),
+                    ),
+                    if (isCreator)
+                      IconButton(
+                        onPressed: () => navigationService
+                            .pushScreen(Routes.eventPageForm, arguments: event),
+                        icon:
+                            Icon(Icons.edit, color: theme.colorScheme.primary),
+                      ),
+                  ],
                 ),
-                if (isCreator)
-                  IconButton(
-                    onPressed: () => navigationService
-                        .pushScreen(Routes.eventPageForm, arguments: event),
-                    icon: Icon(Icons.edit, color: theme.colorScheme.primary),
-                  ),
-              ],
-            ),
 
-            const SizedBox(height: 8),
-            Text(
-              "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator?.name ?? "Unknown creator"}",
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w600),
-            ),
-
-            const SizedBox(height: 16),
-            _InfoCard(
-              children: [
-                _InfoRow(
-                  icon: Icons.calendar_today,
-                  text: '${event.startDate} - ${event.endDate}',
-                  trailing:
-                      _PublicPrivateChip(isPublic: event.isPublic == true),
-                ),
                 const SizedBox(height: 8),
-                _InfoRow(
-                  icon: Icons.schedule,
-                  text: "${event.startTime} - ${event.endTime}",
-                  trailing: event.allDay == true
-                      ? Chip(
-                          label: Text(
-                            AppLocalizations.of(context)!
-                                .strictTranslate("All day"),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: theme.colorScheme.onPrimary,
-                            ),
-                          ),
-                          backgroundColor: theme.colorScheme.primary,
-                          padding: EdgeInsets.zero,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                        )
-                      : null,
+                Text(
+                  "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator?.name ?? "Unknown creator"}",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.w600),
                 ),
-                const SizedBox(height: 8),
-                _InfoRow(
-                  icon: Icons.place,
-                  text: event.location ?? "No location specified",
-                ),
-              ],
-            ),
 
-            const SizedBox(height: 16),
-
-            // Recurring event section
-            if (event.isRecurringEventTemplate == true ||
-                event.recurring == true ||
-                event.recurrenceRule != null) ...[
-              const _SectionTitle(title: "Recurring Event"),
-              _InfoCard(
-                children: [
-                  if (event.recurrenceRule != null) ...[
+                const SizedBox(height: 16),
+                _InfoCard(
+                  children: [
                     _InfoRow(
-                      icon: Icons.repeat,
-                      text:
-                          _formatRecurrenceRule(context, event.recurrenceRule!),
+                      icon: Icons.calendar_today,
+                      text: '${event.startDate} - ${event.endDate}',
+                      trailing:
+                          _PublicPrivateChip(isPublic: event.isPublic == true),
                     ),
                     const SizedBox(height: 8),
+                    _InfoRow(
+                      icon: Icons.schedule,
+                      text: "${event.startTime} - ${event.endTime}",
+                      trailing: event.allDay == true
+                          ? Chip(
+                              label: Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate("All day"),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: theme.colorScheme.onPrimary,
+                                ),
+                              ),
+                              backgroundColor: theme.colorScheme.primary,
+                              padding: EdgeInsets.zero,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                            )
+                          : null,
+                    ),
+                    const SizedBox(height: 8),
+                    _InfoRow(
+                      icon: Icons.place,
+                      text: event.location ?? "No location specified",
+                    ),
                   ],
-                  if (event.progressLabel != null)
-                    _InfoRow(
-                      icon: Icons.event_repeat,
-                      text: event.progressLabel!,
-                    ),
-                  if (event.sequenceNumber != null && event.totalCount != null)
-                    _InfoRow(
-                      icon: Icons.numbers,
-                      text:
-                          "Event ${event.sequenceNumber} of ${event.totalCount}",
-                    ),
-                  if (event.baseEvent != null)
-                    _InfoRow(
-                      icon: Icons.event_note,
-                      text:
-                          "Part of: ${event.baseEvent!.name ?? 'Event series'}",
-                    ),
-                ],
-              ),
-              const SizedBox(height: 16),
-            ],
-
-            // Description
-            const _SectionTitle(title: "Description"),
-            _InfoCard(
-              children: [
-                Text(
-                  event.description ?? "No description provided",
-                  style: theme.textTheme.bodyMedium,
                 ),
-              ],
-            ),
 
-            const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-            // Attendees
-            const _SectionTitle(title: "Attendees"),
-            _InfoCard(
-              children: [
-                if (Provider.of<EventInfoViewModel>(context).isBusy)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 24.0),
-                    child: Center(child: CircularProgressIndicator()),
-                  )
-                else if (Provider.of<EventInfoViewModel>(context)
-                    .attendees
-                    .isEmpty)
-                  Text(
-                    AppLocalizations.of(context)!
-                        .strictTranslate("No attendees yet"),
-                    style: theme.textTheme.bodyMedium,
-                  ),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Venues
-            if (event.venues?.isNotEmpty == true) ...[
-              const _SectionTitle(title: "Venues"),
-              _InfoCard(
-                children: event.venues!
-                    .map(
-                      (venue) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              venue.name ?? "Unnamed venue",
-                              style: theme.textTheme.titleMedium,
-                            ),
-                            if (venue != event.venues!.last) const Divider(),
-                          ],
+                // Recurring event section
+                if (event.isRecurringEventTemplate == true ||
+                    event.recurring == true ||
+                    event.recurrenceRule != null) ...[
+                  const _SectionTitle(title: "Recurring Event"),
+                  _InfoCard(
+                    children: [
+                      if (event.recurrenceRule != null) ...[
+                        _InfoRow(
+                          icon: Icons.repeat,
+                          text: _formatRecurrenceRule(
+                              context, event.recurrenceRule!),
                         ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-      },  // Close Selector builder
-    );  // Close Selector
-  }  // Close build method
+                        const SizedBox(height: 8),
+                      ],
+                      if (event.progressLabel != null)
+                        _InfoRow(
+                          icon: Icons.event_repeat,
+                          text: event.progressLabel!,
+                        ),
+                      if (event.sequenceNumber != null &&
+                          event.totalCount != null)
+                        _InfoRow(
+                          icon: Icons.numbers,
+                          text:
+                              "Event ${event.sequenceNumber} of ${event.totalCount}",
+                        ),
+                      if (event.baseEvent != null)
+                        _InfoRow(
+                          icon: Icons.event_note,
+                          text:
+                              "Part of: ${event.baseEvent!.name ?? 'Event series'}",
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                ],
 
+                // Description
+                const _SectionTitle(title: "Description"),
+                _InfoCard(
+                  children: [
+                    Text(
+                      event.description ?? "No description provided",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 16),
+
+                // Attendees
+                const _SectionTitle(title: "Attendees"),
+                _InfoCard(
+                  children: [
+                    if (Provider.of<EventInfoViewModel>(context).isBusy)
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0),
+                        child: Center(child: CircularProgressIndicator()),
+                      )
+                    else if (Provider.of<EventInfoViewModel>(context)
+                        .attendees
+                        .isEmpty)
+                      Text(
+                        AppLocalizations.of(context)!
+                            .strictTranslate("No attendees yet"),
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                  ],
+                ),
+
+                const SizedBox(height: 16),
+
+                // Venues
+                if (event.venues?.isNotEmpty == true) ...[
+                  const _SectionTitle(title: "Venues"),
+                  _InfoCard(
+                    children: event.venues!
+                        .map(
+                          (venue) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  venue.name ?? "Unnamed venue",
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                                if (venue != event.venues!.last)
+                                  const Divider(),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+      }, // Close Selector builder
+    ); // Close Selector
+  } // Close build method
 
   /// Formats recurrence rule for display.
   ///
