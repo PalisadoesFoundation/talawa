@@ -172,11 +172,11 @@ class RecurrenceUtils {
     // Format the interval part
     switch (frequency) {
       case Frequency.daily:
-        text = interval > 1 ? 'Repeats every $interval days' : 'Repeats daily';
+        text = interval > 1 ? 'Every $interval days' : 'Daily';
         break;
 
       case Frequency.weekly:
-        text = interval > 1 ? 'Repeats every $interval weeks' : 'Repeats weekly';
+        text = interval > 1 ? 'Every $interval weeks' : 'Weekly';
 
         // Add weekday information for weekly recurrence
         if (weekDays.isNotEmpty) {
@@ -185,7 +185,7 @@ class RecurrenceUtils {
         break;
 
       case Frequency.monthly:
-        text = interval > 1 ? 'Repeats every $interval months' : 'Repeats monthly';
+        text = interval > 1 ? 'Every $interval months' : 'Monthly';
 
         // By weekday pattern (e.g., "on the first Monday")
         if (useDayOfWeekMonthly && byPosition != null && weekDays.isNotEmpty) {
@@ -201,7 +201,7 @@ class RecurrenceUtils {
         break;
 
       case Frequency.yearly:
-        text = interval > 1 ? 'Repeats every $interval years' : 'Repeats yearly';
+        text = interval > 1 ? 'Every $interval years' : 'Yearly';
 
         // Add month information if available
         String monthText = '';
@@ -231,8 +231,8 @@ class RecurrenceUtils {
       default:
         // Handle unknown frequency types
         text = interval > 1
-            ? 'Repeats every $interval ${frequency.toLowerCase()}s'
-            : 'Repeats ${frequency.toLowerCase()}';
+            ? 'Every $interval ${frequency.toLowerCase()}s'
+            : frequency.toLowerCase();
         break;
     }
 
