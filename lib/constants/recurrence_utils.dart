@@ -227,6 +227,13 @@ class RecurrenceUtils {
           text += ' on day ${byMonthDay.first}';
         }
         break;
+
+      default:
+        // Handle unknown frequency types
+        text = interval > 1
+            ? 'Every $interval ${frequency.toLowerCase()}s'
+            : 'Repeats ${frequency.toLowerCase()}';
+        break;
     }
 
     // Add end condition
