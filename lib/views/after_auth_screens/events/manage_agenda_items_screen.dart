@@ -46,10 +46,6 @@ class ManageAgendaScreen extends StatelessWidget {
                             model.reorderAgendaItems(oldIndex, newIndex);
                           },
                           itemBuilder: (context, index) {
-                            // Bounds check to prevent index out of range errors
-                            if (index >= model.agendaItems.length) {
-                              return const SizedBox.shrink();
-                            }
                             final item = model.agendaItems[index];
                             return ExpandableAgendaItemTile(
                               key: Key("agenda_item$index"),
