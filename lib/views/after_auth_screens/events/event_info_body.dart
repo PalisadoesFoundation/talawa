@@ -170,8 +170,9 @@ class EventInfoBody extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: InfoRow(
                             icon: Icons.person,
-                            text: '${attendee.firstName ?? ''} ${attendee.lastName ?? ''}'
-                                .trim(),
+                            text:
+                                '${attendee.firstName ?? ''} ${attendee.lastName ?? ''}'
+                                    .trim(),
                           ),
                         ),
                       ),
