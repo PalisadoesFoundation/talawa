@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_windowmanager_plus/flutter_windowmanager_plus.dart';
 import 'package:mockito/mockito.dart';
@@ -95,6 +96,20 @@ void main() {
   });
 
   group('WindowManagerWrapper', () {
+    setUp(() {
+      const MethodChannel channel = MethodChannel('flutter_windowmanager_plus');
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+        return true;
+      });
+    });
+
+    tearDown(() {
+      const MethodChannel channel = MethodChannel('flutter_windowmanager_plus');
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
+    });
+
     test('addFlags calls FlutterWindowManagerPlus.addFlags', () async {
       final wrapper = WindowManagerWrapper();
       // On non-Android platforms (test environment), this should verify the call doesn't crash
