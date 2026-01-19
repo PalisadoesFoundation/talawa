@@ -23,6 +23,18 @@ class _RecoverState extends State<Recover> {
   final formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    securityService.disableSecure();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final text = [
       {

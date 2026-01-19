@@ -1,5 +1,5 @@
-// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
+// ignore_for_file: talawa_api_doc
 
 import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -19,6 +19,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/security_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
@@ -59,6 +60,7 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'package:talawa/views/demo_page_view.dart';
+import '../services/mock_security_service.dart';
 
 GetIt locator = GetIt.instance;
 UserConfig get userConfig => locator<UserConfig>();
@@ -96,6 +98,8 @@ void testSetupLocator() {
   locator.registerSingleton(CacheService());
 
   locator.registerSingleton(DataBaseMutationFunctions());
+
+  locator.registerSingleton<SecurityService>(MockSecurityService());
 
   locator.registerSingleton(GraphqlConfig());
 
