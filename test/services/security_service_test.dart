@@ -7,12 +7,14 @@ class MockWindowManagerWrapper extends Mock implements WindowManagerWrapper {
   @override
   Future<bool> addFlags(int? flags) =>
       super.noSuchMethod(Invocation.method(#addFlags, [flags]),
-          returnValue: Future.value(true));
+          returnValue: Future.value(true),
+          returnValueForMissingStub: Future.value(true)) as Future<bool>;
 
   @override
   Future<bool> clearFlags(int? flags) =>
       super.noSuchMethod(Invocation.method(#clearFlags, [flags]),
-          returnValue: Future.value(true));
+          returnValue: Future.value(true),
+          returnValueForMissingStub: Future.value(true)) as Future<bool>;
 }
 
 void main() {
