@@ -7,6 +7,8 @@ void main() {
   final List<MethodCall> log = <MethodCall>[];
 
   setUp(() {
+    log.clear();
+
     // Verify that the channel name matches what the plugin uses.
     // Looking at the plugin source or docs, it uses 'flutter_windowmanager'.
     const MethodChannel channel = MethodChannel('flutter_windowmanager');
@@ -16,8 +18,6 @@ void main() {
       log.add(methodCall);
       return true;
     });
-
-    log.clear();
   });
 
   tearDown(() {
@@ -60,5 +60,21 @@ void main() {
     final service = SecurityService(isAndroid: false);
     await service.disableSecure();
     expect(log, isEmpty);
+  });
+  test('enableSecure and disableSecure handle PlatformException gracefully',
+      () async {
+    const MethodChannel channel = MethodChannel('flutter_windowmanager');
+
+    // Simulate PlatformException
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      throw PlatformException(code: 'ERROR', message: 'Test error');
+    });
+
+    final service = SecurityService(isAndroid: true);
+
+    // Should not throw exception
+    await service.enableSecure();
+    await service.disableSecure();
   });
 }

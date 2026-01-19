@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';

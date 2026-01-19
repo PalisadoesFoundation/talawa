@@ -21,7 +21,11 @@ class SecurityService {
   ///   None
   Future<void> enableSecure() async {
     if (_isAndroid) {
-      await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+      try {
+        await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+      } catch (e) {
+        debugPrint('Error enabling secure mode: $e');
+      }
     }
   }
 
@@ -37,7 +41,11 @@ class SecurityService {
   ///   None
   Future<void> disableSecure() async {
     if (_isAndroid) {
-      await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+      try {
+        await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+      } catch (e) {
+        debugPrint('Error disabling secure mode: $e');
+      }
     }
   }
 }
