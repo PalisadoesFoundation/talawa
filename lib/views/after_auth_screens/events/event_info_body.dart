@@ -17,10 +17,7 @@ class EventInfoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<EventInfoViewModel, EventInfoViewModel>(
-      selector: (_, model) => model,
-      shouldRebuild: (previous, next) =>
-          previous.event != next.event || previous.isBusy != next.isBusy,
+    return Consumer<EventInfoViewModel>(
       builder: (context, model, child) {
         final event = model.event;
         final theme = Theme.of(context);
