@@ -6,6 +6,10 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/recurrence_rule_model.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
+import 'package:talawa/views/after_auth_screens/events/widgets/info_card.dart';
+import 'package:talawa/views/after_auth_screens/events/widgets/info_row.dart';
+import 'package:talawa/views/after_auth_screens/events/widgets/public_private_chip.dart';
+import 'package:talawa/views/after_auth_screens/events/widgets/section_title.dart';
 
 /// EventInfoBody displays the body content of an event.
 class EventInfoBody extends StatelessWidget {
@@ -55,16 +59,16 @@ class EventInfoBody extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 16),
-                _InfoCard(
+                InfoCard(
                   children: [
-                    _InfoRow(
+                    InfoRow(
                       icon: Icons.calendar_today,
                       text: '${event.startDate} - ${event.endDate}',
                       trailing:
-                          _PublicPrivateChip(isPublic: event.isPublic == true),
+                          PublicPrivateChip(isPublic: event.isPublic == true),
                     ),
                     const SizedBox(height: 8),
-                    _InfoRow(
+                    InfoRow(
                       icon: Icons.schedule,
                       text: "${event.startTime} - ${event.endTime}",
                       trailing: event.allDay == true
@@ -85,7 +89,7 @@ class EventInfoBody extends StatelessWidget {
                           : null,
                     ),
                     const SizedBox(height: 8),
-                    _InfoRow(
+                    InfoRow(
                       icon: Icons.place,
                       text: event.location ?? "No location specified",
                     ),
@@ -98,11 +102,11 @@ class EventInfoBody extends StatelessWidget {
                 if (event.isRecurringEventTemplate == true ||
                     event.recurring == true ||
                     event.recurrenceRule != null) ...[
-                  const _SectionTitle(title: "Recurring Event"),
-                  _InfoCard(
+                  const SectionTitle(title: "Recurring Event"),
+                  InfoCard(
                     children: [
                       if (event.recurrenceRule != null) ...[
-                        _InfoRow(
+                        InfoRow(
                           icon: Icons.repeat,
                           text: _formatRecurrenceRule(
                               context, event.recurrenceRule!),
@@ -110,19 +114,19 @@ class EventInfoBody extends StatelessWidget {
                         const SizedBox(height: 8),
                       ],
                       if (event.progressLabel != null)
-                        _InfoRow(
+                        InfoRow(
                           icon: Icons.event_repeat,
                           text: event.progressLabel!,
                         ),
                       if (event.sequenceNumber != null &&
                           event.totalCount != null)
-                        _InfoRow(
+                        InfoRow(
                           icon: Icons.numbers,
                           text:
                               "Event ${event.sequenceNumber} of ${event.totalCount}",
                         ),
                       if (event.baseEvent != null)
-                        _InfoRow(
+                        InfoRow(
                           icon: Icons.event_note,
                           text:
                               "Part of: ${event.baseEvent!.name ?? 'Event series'}",
@@ -133,8 +137,8 @@ class EventInfoBody extends StatelessWidget {
                 ],
 
                 // Description
-                const _SectionTitle(title: "Description"),
-                _InfoCard(
+                const SectionTitle(title: "Description"),
+                InfoCard(
                   children: [
                     Text(
                       event.description ?? "No description provided",
@@ -146,8 +150,8 @@ class EventInfoBody extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Attendees
-                const _SectionTitle(title: "Attendees"),
-                _InfoCard(
+                const SectionTitle(title: "Attendees"),
+                InfoCard(
                   children: [
                     if (Provider.of<EventInfoViewModel>(context).isBusy)
                       const Padding(
@@ -169,8 +173,8 @@ class EventInfoBody extends StatelessWidget {
 
                 // Venues
                 if (event.venues?.isNotEmpty == true) ...[
-                  const _SectionTitle(title: "Venues"),
-                  _InfoCard(
+                  const SectionTitle(title: "Venues"),
+                  InfoCard(
                     children: event.venues!
                         .map(
                           (venue) => Padding(
@@ -246,119 +250,5 @@ class EventInfoBody extends StatelessWidget {
     }
 
     return text;
-  }
-}
-
-/// Widget for section titles.
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.title});
-
-  /// The title text.
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        AppLocalizations.of(context)!.strictTranslate(title),
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-      ),
-    );
-  }
-}
-
-/// Widget for info cards.
-class _InfoCard extends StatelessWidget {
-  const _InfoCard({required this.children});
-
-  /// The child widgets.
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Theme.of(context).dividerColor),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
-      ),
-    );
-  }
-}
-
-/// Widget for info rows with icons.
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({
-    required this.icon,
-    required this.text,
-    this.trailing,
-  });
-
-  /// The icon to display.
-  final IconData icon;
-
-  /// The text to display.
-  final String text;
-
-  /// Optional trailing widget.
-  final Widget? trailing;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, size: 16, color: Theme.of(context).colorScheme.primary),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        if (trailing != null) trailing!,
-      ],
-    );
-  }
-}
-
-/// Widget for public/private event indicator.
-class _PublicPrivateChip extends StatelessWidget {
-  const _PublicPrivateChip({required this.isPublic});
-
-  /// Whether the event is public.
-  final bool isPublic;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          isPublic ? Icons.lock_open : Icons.lock,
-          size: 14,
-          color: isPublic
-              ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).colorScheme.primary,
-        ),
-        const SizedBox(width: 4),
-        Text(
-          AppLocalizations.of(context)!
-              .strictTranslate(isPublic ? 'public' : 'private'),
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ],
-    );
   }
 }
