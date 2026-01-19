@@ -67,7 +67,7 @@ void main() {
 
     // Simulate PlatformException
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) {
       throw PlatformException(code: 'ERROR', message: 'Test error');
     });
 

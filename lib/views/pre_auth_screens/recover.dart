@@ -32,6 +32,7 @@ class _RecoverState extends State<Recover> {
 
   @override
   void dispose() {
+    email.dispose();
     securityService.disableSecure();
     super.dispose();
   }
