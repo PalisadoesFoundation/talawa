@@ -96,10 +96,14 @@ void main() {
   });
 
   group('WindowManagerWrapper', () {
+    final List<MethodCall> log = <MethodCall>[];
+
     setUp(() {
+      log.clear();
       const MethodChannel channel = MethodChannel('flutter_windowmanager_plus');
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+        log.add(methodCall);
         return true;
       });
     });
@@ -110,16 +114,27 @@ void main() {
           .setMockMethodCallHandler(channel, null);
     });
 
-    test('addFlags calls FlutterWindowManagerPlus.addFlags', () async {
+    test(
+        'addFlags returns false and does not call channel on non-Android (Unit Test environment)',
+        () async {
       final wrapper = WindowManagerWrapper();
-      // On non-Android platforms (test environment), this should verify the call doesn't crash
-      // checks that the code path is executable.
-      await wrapper.addFlags(0);
+      final result = await wrapper.addFlags(10);
+
+      // flutter_windowmanager_plus checks Platform.isAndroid internally.
+      // Since unit tests run on host (Linux/Mac/Windows), this check fails,
+      // and it returns false without invoking the method channel.
+      expect(result, isFalse);
+      expect(log, isEmpty);
     });
 
-    test('clearFlags calls FlutterWindowManagerPlus.clearFlags', () async {
+    test(
+        'clearFlags returns false and does not call channel on non-Android (Unit Test environment)',
+        () async {
       final wrapper = WindowManagerWrapper();
-      await wrapper.clearFlags(0);
+      final result = await wrapper.clearFlags(10);
+
+      expect(result, isFalse);
+      expect(log, isEmpty);
     });
   });
 }
