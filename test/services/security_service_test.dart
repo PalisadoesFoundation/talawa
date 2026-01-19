@@ -4,11 +4,9 @@ import 'package:talawa/services/security_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late SecurityService securityService;
   final List<MethodCall> log = <MethodCall>[];
 
   setUp(() {
-    securityService = SecurityService();
     // Verify that the channel name matches what the plugin uses.
     // Looking at the plugin source or docs, it uses 'flutter_windowmanager'.
     const MethodChannel channel = MethodChannel('flutter_windowmanager');

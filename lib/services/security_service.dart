@@ -4,10 +4,10 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 /// Service to handle window security flags, primarily for blocking screenshots.
 class SecurityService {
-  final bool _isAndroid;
-
   SecurityService({bool? isAndroid})
       : _isAndroid = isAndroid ?? (!kIsWeb && Platform.isAndroid);
+
+  final bool _isAndroid;
 
   /// Enables secure mode by setting the FLAG_SECURE on the window.
   ///
