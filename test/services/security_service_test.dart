@@ -1,80 +1,86 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_windowmanager_plus/flutter_windowmanager_plus.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/services/security_service.dart';
+
+class MockWindowManagerWrapper extends Mock implements WindowManagerWrapper {
+  @override
+  Future<bool> addFlags(int? flags) =>
+      super.noSuchMethod(Invocation.method(#addFlags, [flags]),
+          returnValue: Future.value(true));
+
+  @override
+  Future<bool> clearFlags(int? flags) =>
+      super.noSuchMethod(Invocation.method(#clearFlags, [flags]),
+          returnValue: Future.value(true));
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final List<MethodCall> log = <MethodCall>[];
+  late MockWindowManagerWrapper mockWindowManager;
 
   setUp(() {
-    log.clear();
-
-    // Verify that the channel name matches what the plugin uses.
-    // Looking at the plugin source or docs, it uses 'flutter_windowmanager'.
-    const MethodChannel channel = MethodChannel('flutter_windowmanager');
-
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-      log.add(methodCall);
-      return true;
-    });
-  });
-
-  tearDown(() {
-    const MethodChannel channel = MethodChannel('flutter_windowmanager');
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, null);
+    mockWindowManager = MockWindowManagerWrapper();
   });
 
   test('enableSecure does not call addFlags on non-Android', () async {
-    final service = SecurityService(isAndroid: false);
+    final service = SecurityService(
+      isAndroid: false,
+      windowManager: mockWindowManager,
+    );
 
     await service.enableSecure();
 
-    expect(log, isEmpty);
+    verifyNever(mockWindowManager.addFlags(any));
   });
 
   test('enableSecure calls addFlags on Android', () async {
-    final service = SecurityService(isAndroid: true);
+    final service = SecurityService(
+      isAndroid: true,
+      windowManager: mockWindowManager,
+    );
     await service.enableSecure();
 
-    expect(log, hasLength(1));
-    expect(log.first.method, 'addFlags');
-    // FLAG_SECURE is 8192
-    expect(log.first.arguments, {'flags': 8192});
+    verify(mockWindowManager.addFlags(FlutterWindowManagerPlus.FLAG_SECURE))
+        .called(1);
   });
 
   test('disableSecure calls clearFlags on Android', () async {
-    final service = SecurityService(isAndroid: true);
+    final service = SecurityService(
+      isAndroid: true,
+      windowManager: mockWindowManager,
+    );
     await service.disableSecure();
 
-    expect(log, hasLength(1));
-    expect(log.first.method, 'clearFlags');
-    expect(log.first.arguments, {'flags': 8192});
+    verify(mockWindowManager.clearFlags(FlutterWindowManagerPlus.FLAG_SECURE))
+        .called(1);
   });
 
   test('disableSecure does not throw on non-Android', () async {
-    // Default isAndroid checks Platform.isAndroid, but we can force false to be safe/explicit if needed,
-    // or rely on the default behavior which we assume is false in this env, or mock it.
-    // Given the refactor, let's explicit test the "false" case via injection.
-    final service = SecurityService(isAndroid: false);
+    final service = SecurityService(
+      isAndroid: false,
+      windowManager: mockWindowManager,
+    );
     await service.disableSecure();
-    expect(log, isEmpty);
+    verifyNever(mockWindowManager.clearFlags(any));
   });
-  test('enableSecure and disableSecure handle PlatformException gracefully',
-      () async {
-    const MethodChannel channel = MethodChannel('flutter_windowmanager');
 
-    // Simulate PlatformException
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, (MethodCall methodCall) {
-      throw PlatformException(code: 'ERROR', message: 'Test error');
-    });
+  test('enableSecure and disableSecure handle exceptions gracefully', () async {
+    // Arrange to throw exception
+    when(mockWindowManager.addFlags(any)).thenThrow(Exception('Test error'));
+    when(mockWindowManager.clearFlags(any)).thenThrow(Exception('Test error'));
 
-    final service = SecurityService(isAndroid: true);
+    final service = SecurityService(
+      isAndroid: true,
+      windowManager: mockWindowManager,
+    );
 
     // Should not throw exception
     await service.enableSecure();
     await service.disableSecure();
+
+    // Calls happened but were caught
+    verify(mockWindowManager.addFlags(any)).called(1);
+    verify(mockWindowManager.clearFlags(any)).called(1);
   });
 }
