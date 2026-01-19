@@ -153,18 +153,27 @@ class EventInfoBody extends StatelessWidget {
                 const SectionTitle(title: "Attendees"),
                 InfoCard(
                   children: [
-                    if (Provider.of<EventInfoViewModel>(context).isBusy)
+                    if (model.isBusy)
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 24.0),
                         child: Center(child: CircularProgressIndicator()),
                       )
-                    else if (Provider.of<EventInfoViewModel>(context)
-                        .attendees
-                        .isEmpty)
+                    else if (model.attendees.isEmpty)
                       Text(
                         AppLocalizations.of(context)!
                             .strictTranslate("No attendees yet"),
                         style: theme.textTheme.bodyMedium,
+                      )
+                    else
+                      ...model.attendees.map(
+                        (attendee) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: InfoRow(
+                            icon: Icons.person,
+                            text: '${attendee.firstName ?? ''} ${attendee.lastName ?? ''}'
+                                .trim(),
+                          ),
+                        ),
                       ),
                   ],
                 ),
