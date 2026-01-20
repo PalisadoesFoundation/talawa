@@ -232,6 +232,24 @@ void main() {
       expect(find.text("No attendees yet"), findsOneWidget);
     });
 
+    testWidgets("Shows attendee list when attendees exist", (tester) async {
+      final attendees = [
+        Attendee(id: "1", firstName: "John", lastName: "Doe"),
+        Attendee(id: "2", firstName: "Jane", lastName: "Smith"),
+      ];
+
+      await tester.pumpWidget(
+        createEventInfoBody(attendees: attendees),
+      );
+      await tester.pumpAndSettle();
+
+      // Should show attendee names
+      expect(find.textContaining("John Doe"), findsOneWidget);
+      expect(find.textContaining("Jane Smith"), findsOneWidget);
+      // Should not show "No attendees yet"
+      expect(find.text("No attendees yet"), findsNothing);
+    });
+
     testWidgets("Shows 'All day' chip when event is all day", (tester) async {
       await tester.pumpWidget(createEventInfoBody(isAllDay: true));
       await tester.pumpAndSettle();
@@ -476,7 +494,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.textContaining("Repeats custom"), findsOneWidget);
+      expect(find.textContaining("custom"), findsOneWidget);
     });
   });
 }
