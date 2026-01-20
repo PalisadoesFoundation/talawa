@@ -10,7 +10,7 @@ homepage: https://github.com/PalisadoesFoundation/talawa
 
 repository: https://github.com/PalisadoesFoundation/talawa
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ">=3.5.0 <4.0.0"
 
 dependency_overrides:
   # Intentional override to resolve diamond dependency conflict between:
