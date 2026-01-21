@@ -246,7 +246,9 @@ class EventInfoBody extends StatelessWidget {
         }
         break;
       default:
-        text += frequency.toLowerCase();
+        text += interval > 1
+            ? "every $interval ${frequency.toLowerCase()}s"
+            : frequency.toLowerCase();
     }
 
     if (rule.count != null) {

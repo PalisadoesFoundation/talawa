@@ -528,7 +528,9 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.textContaining("Every 3 custom_types"), findsOneWidget);
+      // Should show "Repeats every 3 custom_types"
+      expect(find.textContaining("Repeats every 3"), findsOneWidget);
+      expect(find.textContaining("custom_type"), findsOneWidget);
     });
   });
 }
