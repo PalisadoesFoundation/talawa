@@ -216,10 +216,8 @@ class DemoExploreEventsState extends State<DemoExploreEvents> {
           switch (value) {
             case "Month":
               calendarView = CalendarView.month;
-              break;
             case "Schedule":
               calendarView = CalendarView.schedule;
-              break;
             default:
               break;
           }

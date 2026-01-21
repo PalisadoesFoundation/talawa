@@ -19,3 +19,4 @@ dependencies:
   custom_lint_builder: 0.6.4
   # watcher: ^1.1.0
   
+  _fe_analyzer_shared: any

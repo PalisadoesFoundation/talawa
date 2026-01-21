@@ -109,8 +109,6 @@ class CachedUserAction extends HiveObject {
           operation,
           variables: this.variables,
         );
-      default:
-        return databaseFunctions.noData;
     }
   }
 
