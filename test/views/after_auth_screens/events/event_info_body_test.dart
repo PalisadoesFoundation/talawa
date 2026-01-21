@@ -528,9 +528,8 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Should show "Repeats every 3 custom_types"
       expect(find.textContaining("Repeats every 3"), findsOneWidget);
-      expect(find.textContaining("custom_type"), findsOneWidget);
+      expect(find.textContaining("custom_types"), findsOneWidget);
     });
   });
 
@@ -557,7 +556,7 @@ void main() {
       await tester.pumpWidget(
         createEventInfoBody(hasVenues: false),
       );
-      
+
       // Update the event to have multiple venues
       _eventInfoViewModel.initialize(multiVenueEvent);
       await tester.pumpAndSettle();
