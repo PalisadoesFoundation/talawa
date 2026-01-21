@@ -3,6 +3,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
+import 'package:talawa/widgets/common/cached_image.dart';
 
 /// A screen widget to display detailed information about an organization.
 class OrganisationInfoScreen extends StatelessWidget {
@@ -64,8 +65,8 @@ class OrganisationInfoScreen extends StatelessWidget {
                 Stack(
                   children: [
                     orgInfo.image != null
-                        ? Image.network(
-                            orgInfo.image!,
+                        ? AppCachedImage(
+                            url: orgInfo.image!,
                             height: imageHeight,
                             width: double.infinity,
                             fit: BoxFit.cover,
