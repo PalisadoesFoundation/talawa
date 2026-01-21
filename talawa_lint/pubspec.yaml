@@ -9,14 +9,13 @@ dev_dependencies:
 dependencies:
   # we will use analyzer for inspecting Dart files
   # _fe_analyzer_shared: ^61.0.0
+  _fe_analyzer_shared: any
   analyzer: ">=6.4.0 <8.0.0"
   analyzer_plugin: ">=0.11.3 <0.14.0"
-  # args:
   
+  # args:
   # custom_lint_builder will give us tools for writing lints
   args: ^2.4.2
   custom_lint: 0.6.4
   custom_lint_builder: 0.6.4
   # watcher: ^1.1.0
-  
-  _fe_analyzer_shared: any
