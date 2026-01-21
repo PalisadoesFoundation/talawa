@@ -496,5 +496,39 @@ void main() {
 
       expect(find.textContaining("custom"), findsOneWidget);
     });
+
+    testWidgets("Formats unknown frequency with interval 1 correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'UNKNOWN_FREQ',
+        interval: 1,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("unknown_freq"), findsOneWidget);
+    });
+
+    testWidgets("Formats unknown frequency with interval > 1 correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'CUSTOM_TYPE',
+        interval: 3,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Every 3 custom_types"), findsOneWidget);
+    });
   });
 }
