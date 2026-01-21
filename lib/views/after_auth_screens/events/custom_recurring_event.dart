@@ -669,13 +669,11 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           DateTime.sunday: WeekDays.sunday,
         };
         viewModel.weekDays = {weekdayToCode[weekday]!};
-        break;
 
       case Frequency.monthly:
         // For monthly, default to day of month (e.g., "15th of each month")
         final dayOfMonth = viewModel.eventStartDate.day;
         viewModel.byMonthDay = [dayOfMonth];
-        break;
 
       case Frequency.yearly:
         // For yearly, default to month and day (e.g., "January 15")
@@ -683,7 +681,6 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
         final month = viewModel.eventStartDate.month;
         viewModel.byMonthDay = [dayOfMonth];
         viewModel.byMonth = [month];
-        break;
     }
   }
 }

@@ -173,19 +173,15 @@ class EventService extends BaseFeedManager<Event> {
     switch (recurrenceType) {
       case 'single':
         query = EventQueries().deleteSingleEventOfRecurring();
-        break;
       case 'series':
         variables['input']!["id"] = event.baseEvent?.id;
 
         query = EventQueries().deleteEntireEventSeriesOfRecurring();
-        break;
       case 'thisAndFollowing':
         query = EventQueries().deleteThisAndFollowing();
-        break;
       case 'standalone':
       default:
         query = EventQueries().deleteStandaloneEvent();
-        break;
     }
 
     final result =
@@ -213,17 +209,13 @@ class EventService extends BaseFeedManager<Event> {
     switch (recurrenceType) {
       case 'single':
         query = EventQueries().updateSingleRecurringEventInstance();
-        break;
       case 'series':
         query = EventQueries().updateEntireRecurringEventSeries();
-        break;
       case 'thisAndFollowing':
         query = EventQueries().updateThisAndFollowingEvents();
-        break;
       case 'standalone':
       default:
         query = EventQueries().updateStandaloneEvent();
-        break;
     }
 
     final Map<String, dynamic> inputVariables = {
