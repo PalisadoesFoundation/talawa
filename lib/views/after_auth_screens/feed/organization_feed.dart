@@ -41,7 +41,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
         setState(() {
           _isLoadingMore = true;
         });
-        await model.nextPage();
+        model.nextPage();
         setState(() {
           _isLoadingMore = false;
         });
@@ -59,7 +59,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) async {
-        await model.initialise();
+        model.initialise();
         _scrollController.addListener(() {
           _scrollListener(model);
         });
@@ -109,68 +109,94 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => await model.refreshPosts(),
-                  child: ListView(
+                  onRefresh: () async => Future.sync(() => model.fetchNewPosts()),
+                  // Using ListView.builder for efficient, lazy loading of feed items.
+                  // This prevents memory spikes and scroll jank when the feed is large.
+                  child: ListView.builder(
                     controller: _scrollController,
                     key: const Key('listView'),
                     shrinkWrap: true,
-                    children: [
-                      // Always show PinnedPost if available
-                      if (model.pinnedPosts.isNotEmpty)
-                        PinnedPost(
-                          key: const Key('pinnedPosts'),
-                          pinnedPost: model.pinnedPosts,
-                        ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.01,
-                      ),
-                      if (model.posts.isNotEmpty)
-                        PostListWidget(
-                          key: widget.homeModel?.keySHPost,
-                          posts: model.posts,
-                          redirectToIndividualPage:
-                              model.navigateToIndividualPage,
-                          deletePost: model.deletePost,
-                        )
-                      else // if there is no post in an organisation then show text button to create a post.
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: SizeConfig.screenHeight! * 0.21,
+                    itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) + (model.posts.isNotEmpty ? 1 : 0) + (model.posts.isEmpty && model.pinnedPosts.isEmpty ? 1 : 0) + (_isLoadingMore ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      int currentIndex = 0;
+                      // Show pinned posts if available
+                      if (model.pinnedPosts.isNotEmpty) {
+                        if (index == currentIndex) {
+                          return PinnedPost(
+                            key: const Key('pinnedPosts'),
+                            pinnedPost: model.pinnedPosts,
+                          );
+                        }
+                        currentIndex++;
+                      }
+                      // Show posts if available
+                      if (model.posts.isNotEmpty) {
+                        if (index == currentIndex) {
+                          return Column(
+                            children: [
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.01,
                               ),
-                              child: Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  'There are no posts in this organization',
-                                ),
-                                style: TextStyle(
-                                  fontSize: SizeConfig.screenHeight! * 0.026,
-                                ),
-                                textAlign: TextAlign.center,
+                              PostListWidget(
+                                key: widget.homeModel?.keySHPost,
+                                posts: model.posts,
+                                redirectToIndividualPage: model.navigateToIndividualPage,
+                                deletePost: model.removePost,
                               ),
+                            ],
+                          );
+                        }
+                        currentIndex++;
+                      }
+                      // Show no posts message if no posts
+                      if (model.posts.isEmpty && model.pinnedPosts.isEmpty) {
+                        if (index == currentIndex) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: SizeConfig.screenHeight! * 0.21,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                    'There are no posts in this organization',
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: SizeConfig.screenHeight! * 0.026,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  navigationService.pushScreen('/addpostscreen');
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                    'Create your first post',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        currentIndex++;
+                      }
+                      // Show end-of-list loader if loading more
+                      if (_isLoadingMore) {
+                        if (index == currentIndex) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: SizeConfig.screenHeight! * 0.02,
                             ),
-                            TextButton(
-                              onPressed: () {
-                                navigationService.pushScreen('/addpostscreen');
-                              },
-                              child: Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  'Create your first post',
-                                ),
-                              ),
+                            child: const Center(
+                              child: CircularProgressIndicator(),
                             ),
-                          ],
-                        ),
-                      if (_isLoadingMore)
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: SizeConfig.screenHeight! * 0.02,
-                          ),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
-                    ],
+                          );
+                        }
+                      }
+                      return const SizedBox.shrink();
+                    },
                   ),
                 ),
         );
