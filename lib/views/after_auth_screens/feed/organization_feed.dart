@@ -108,14 +108,13 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
-              : RefreshIndicator(
-                  onRefresh: () async => Future.sync(() => model.fetchNewPosts()),
+                  : RefreshIndicator(
+                    onRefresh: () async => model.fetchNewPosts(),
                   // Using ListView.builder for efficient, lazy loading of feed items.
                   // This prevents memory spikes and scroll jank when the feed is large.
                   child: ListView.builder(
                     controller: _scrollController,
                     key: const Key('listView'),
-                    shrinkWrap: true,
                     itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) + (model.posts.isNotEmpty ? 1 : 0) + (model.posts.isEmpty && model.pinnedPosts.isEmpty ? 1 : 0) + (_isLoadingMore ? 1 : 0),
                     itemBuilder: (context, index) {
                       int currentIndex = 0;
