@@ -27,6 +27,18 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    securityService.disableSecure();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
       onModelReady: (model) {

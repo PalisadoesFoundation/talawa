@@ -16,6 +16,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/security_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
@@ -125,6 +126,9 @@ final sessionManager = locator<SessionManager>();
 ///GetIt for ActonHandlerService.
 final actionHandlerService = locator<ActionHandlerService>();
 
+///GetIt for SecurityService.
+final securityService = locator<SecurityService>();
+
 /// GetIt for AppConfigService.
 ///
 /// **params**:
@@ -143,6 +147,8 @@ AppConfigService get appConfig => locator<AppConfigService>();
 ///   None
 Future<void> setupLocator() async {
   locator.registerSingleton(DataBaseMutationFunctions());
+
+  locator.registerSingleton(SecurityService());
 
   locator.registerSingleton(GraphqlConfig());
   //services
