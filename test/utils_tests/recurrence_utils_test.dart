@@ -433,6 +433,26 @@ void main() {
         );
         expect(result, 'Daily, until Dec 31, 2024');
       });
+
+      test('should handle unknown frequency with interval 1', () {
+        final result = RecurrenceUtils.getRecurrenceRuleText(
+          frequency: 'UNKNOWN_FREQ',
+          interval: 1,
+          weekDays: {},
+          never: true,
+        );
+        expect(result, 'unknown_freq');
+      });
+
+      test('should handle unknown frequency with interval > 1', () {
+        final result = RecurrenceUtils.getRecurrenceRuleText(
+          frequency: 'CUSTOM_TYPE',
+          interval: 3,
+          weekDays: {},
+          never: true,
+        );
+        expect(result, 'Every 3 custom_types');
+      });
     });
 
     group('buildRecurrenceData', () {
