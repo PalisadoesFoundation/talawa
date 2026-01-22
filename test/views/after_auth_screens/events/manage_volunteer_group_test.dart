@@ -381,6 +381,16 @@ void main() {
 
     testWidgets("Check if deleting volunteer group work properly",
         (tester) async {
+      when(locator<EventService>().removeVolunteerGroup({'id': group1.id}))
+          .thenAnswer((_) async => QueryResult(
+                data: {
+                  'deleteEventVolunteerGroup': {'id': group1.id}
+                },
+                source: QueryResultSource.network,
+                options: QueryOptions(
+                    document: gql(EventQueries().removeEventVolunteerGroup())),
+              ));
+
       await tester.pumpWidget(createManageGroupScreen1(group1));
       await tester.pumpAndSettle();
 

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
+
 import 'package:talawa/models/events/event_venue.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/widgets/common/cached_image.dart';
 import 'package:talawa/widgets/venue_selector.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -103,7 +106,7 @@ void main() {
         (tester) async {
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueSelectionWidget());
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         expect(find.byKey(const Key('add_venue_container')), findsOneWidget);
         expect(find.text('Add Venue'), findsOneWidget);
@@ -115,7 +118,7 @@ void main() {
     testWidgets('should show loading state when tapped', (tester) async {
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueSelectionWidget());
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Tap to trigger loading
         await tester.tap(find.byKey(const Key('venue_selector_gesture')));
@@ -135,7 +138,7 @@ void main() {
             fetchException: Exception('Network error'),
           ),
         );
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Tap to trigger fetch
         await tester.tap(find.byKey(const Key('venue_selector_gesture')));
@@ -153,7 +156,7 @@ void main() {
 
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueSelectionWidget(mockVenues: venues));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Tap to open bottom sheet
         await tester.tap(find.byKey(const Key('venue_selector_gesture')));
@@ -174,7 +177,7 @@ void main() {
 
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueSelectionWidget(mockVenues: venues));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Tap to open bottom sheet
         await tester.tap(find.byKey(const Key('venue_selector_gesture')));
@@ -183,7 +186,7 @@ void main() {
 
         // Select a venue
         await tester.tap(find.text('Main Hall'));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(seconds: 2));
 
         // Verify selected venue container is shown
         expect(
@@ -191,8 +194,23 @@ void main() {
         expect(find.byKey(const Key('add_venue_container')), findsNothing);
 
         // Verify venue details
-        expect(find.text('Main Hall'), findsOneWidget);
-        expect(find.text('Capacity: 100'), findsOneWidget);
+        expect(
+            find.descendant(
+                of: find.byKey(const Key('selected_venue_container')),
+                matching: find.text('Main Hall')),
+            findsOneWidget);
+        expect(
+            find.descendant(
+                of: find.byKey(const Key('selected_venue_container')),
+                matching: find.text('Capacity: 100')),
+            findsOneWidget);
+
+        // Verify image in container
+        expect(
+            find.descendant(
+                of: find.byKey(const Key('selected_venue_container')),
+                matching: find.byType(AppCachedImage)),
+            findsOneWidget);
 
         // Verify buttons exist
         expect(find.byKey(const Key('edit_venue_button')), findsOneWidget);
@@ -206,14 +224,14 @@ void main() {
 
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueSelectionWidget(mockVenues: venues));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Select a venue first
         await tester.tap(find.byKey(const Key('venue_selector_gesture')));
         await tester.pump();
         await tester.pump(const Duration(seconds: 1));
         await tester.tap(find.text('Main Hall'));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Verify we represent selected state
         expect(
@@ -221,7 +239,7 @@ void main() {
 
         // Tap clear button
         await tester.tap(find.byKey(const Key('clear_venue_button')));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Verify we are back to initial state
         expect(find.byKey(const Key('selected_venue_container')), findsNothing);
@@ -250,13 +268,18 @@ void main() {
 
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueBottomSheet(venues));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         expect(find.text('Select Venue'), findsOneWidget);
         expect(find.text('Venue 1'), findsOneWidget);
         expect(find.text('Venue 2'), findsOneWidget);
         expect(find.text('Capacity: 100'), findsOneWidget);
         expect(find.text('Capacity: 200'), findsOneWidget);
+        // Both venues have images (one empty string, one valid).
+        // Valid -> AppCachedImage. Empty -> Image.asset.
+        // Wait, venue 2 has empty imageUrl. So 1 AppCachedImage, 1 Image.
+        expect(find.byType(AppCachedImage), findsOneWidget);
+        expect(find.byType(Image), findsNWidgets(2));
       });
     });
 
@@ -282,7 +305,7 @@ void main() {
 
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueBottomSheet(venues));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         expect(find.text('Venue Without Capacity'), findsOneWidget);
         expect(find.text('Capacity:'), findsNothing);
@@ -302,7 +325,7 @@ void main() {
 
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueBottomSheet(venues));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Should display default image
         expect(find.byType(Image), findsOneWidget);
@@ -321,7 +344,7 @@ void main() {
 
       mockNetworkImages(() async {
         await tester.pumpWidget(createVenueBottomSheet(venues));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
 
         expect(find.text('Unnamed Venue'), findsOneWidget);
         expect(find.text('Capacity: 100'), findsOneWidget);
@@ -361,11 +384,13 @@ void main() {
 
         // Open bottom sheet
         await tester.tap(find.text('Show Bottom Sheet'));
-        await tester.pumpAndSettle();
+        await tester.pump(); // Start animation
+        await tester.pump(const Duration(seconds: 1)); // Wait for animation
 
         // Tap on venue
         await tester.tap(find.text('Test Venue'));
-        await tester.pumpAndSettle();
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
 
         // Verify venue was returned
         expect(selectedVenue, isNotNull);
