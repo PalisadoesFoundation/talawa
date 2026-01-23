@@ -130,7 +130,8 @@ void main() {
     });
     testWidgets('check if side drawer shows up', (tester) async {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
-      when(mockViewModel.isFetchingPosts).thenReturn(false); // Ensure not fetching
+      when(mockViewModel.isFetchingPosts)
+          .thenReturn(false); // Ensure not fetching
       when(mockViewModel.isBusy).thenReturn(false); // Ensure not busy
       when(mockViewModel.posts).thenReturn([]); // No posts
       when(mockViewModel.pinnedPosts).thenReturn([]); // No pinned posts

@@ -108,14 +108,19 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
-                  : RefreshIndicator(
-                    onRefresh: () async => model.fetchNewPosts(),
+              : RefreshIndicator(
+                  onRefresh: () async => model.fetchNewPosts(),
                   // Using ListView.builder for efficient, lazy loading of feed items.
                   // This prevents memory spikes and scroll jank when the feed is large.
                   child: ListView.builder(
                     controller: _scrollController,
                     key: const Key('listView'),
-                    itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) + (model.posts.isNotEmpty ? 1 : 0) + (model.posts.isEmpty && model.pinnedPosts.isEmpty ? 1 : 0) + (_isLoadingMore ? 1 : 0),
+                    itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) +
+                        (model.posts.isNotEmpty ? 1 : 0) +
+                        (model.posts.isEmpty && model.pinnedPosts.isEmpty
+                            ? 1
+                            : 0) +
+                        (_isLoadingMore ? 1 : 0),
                     itemBuilder: (context, index) {
                       int currentIndex = 0;
                       // Show pinned posts if available
@@ -139,7 +144,8 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                               PostListWidget(
                                 key: widget.homeModel?.keySHPost,
                                 posts: model.posts,
-                                redirectToIndividualPage: model.navigateToIndividualPage,
+                                redirectToIndividualPage:
+                                    model.navigateToIndividualPage,
                                 deletePost: model.removePost,
                               ),
                             ],
@@ -168,7 +174,8 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  navigationService.pushScreen('/addpostscreen');
+                                  navigationService
+                                      .pushScreen('/addpostscreen');
                                 },
                                 child: Text(
                                   AppLocalizations.of(context)!.strictTranslate(
