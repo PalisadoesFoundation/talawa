@@ -34,14 +34,14 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
   /// **returns**:
   ///   None
   Future<void> _scrollListener(OrganizationFeedViewModel model) async {
-    // Check if we're at the bottom for pagination
+    // Check if we're at the bottom for pagination and if more data is available
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      if (!_isLoadingMore) {
+      if (!_isLoadingMore && model.hasMore) {
         setState(() {
           _isLoadingMore = true;
         });
-        model.nextPage();
+        model.nextPage(); 
         setState(() {
           _isLoadingMore = false;
         });
@@ -116,11 +116,11 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                     controller: _scrollController,
                     key: const Key('listView'),
                     itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) +
-                        (model.posts.isNotEmpty ? 1 : 0) +
-                        (model.posts.isEmpty && model.pinnedPosts.isEmpty
-                            ? 1
-                            : 0) +
-                        (_isLoadingMore ? 1 : 0),
+                      (model.posts.isNotEmpty ? 1 : 0) +
+                      (model.posts.isEmpty && model.pinnedPosts.isEmpty
+                        ? 1
+                        : 0) +
+                      ((_isLoadingMore && model.hasMore) ? 1 : 0),
                     itemBuilder: (context, index) {
                       int currentIndex = 0;
                       // Show pinned posts if available
@@ -188,8 +188,8 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                         }
                         currentIndex++;
                       }
-                      // Show end-of-list loader if loading more
-                      if (_isLoadingMore) {
+                      // Show end-of-list loader if loading more and hasMore
+                      if (_isLoadingMore && model.hasMore) {
                         if (index == currentIndex) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
