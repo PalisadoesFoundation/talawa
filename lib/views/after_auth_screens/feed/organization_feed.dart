@@ -41,7 +41,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
         setState(() {
           _isLoadingMore = true;
         });
-        model.nextPage(); 
+        model.nextPage();
         setState(() {
           _isLoadingMore = false;
         });
