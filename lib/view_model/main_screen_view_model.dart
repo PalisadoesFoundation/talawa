@@ -491,8 +491,10 @@ class MainScreenViewModel extends BaseModel {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
         scaffoldKey.currentState!.openDrawer();
+        return;
       case "keyDrawerLeaveCurrentOrg":
         navigationService.pop();
+        return;
       case "keyBNHome":
         // Close drawer when moving to bottom navigation tour
         if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
@@ -500,6 +502,7 @@ class MainScreenViewModel extends BaseModel {
           // Add a small delay to let the drawer close animation complete
           await Future.delayed(const Duration(milliseconds: 300));
         }
+        return;
     }
   }
 

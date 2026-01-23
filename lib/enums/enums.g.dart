@@ -28,8 +28,10 @@ class CachedUserActionStatusAdapter
     switch (obj) {
       case CachedUserActionStatus.pending:
         writer.writeByte(0);
+        return;
       case CachedUserActionStatus.completed:
         writer.writeByte(1);
+        return;
     }
   }
 
@@ -69,12 +71,16 @@ class CachedOperationTypeAdapter extends TypeAdapter<CachedOperationType> {
     switch (obj) {
       case CachedOperationType.gqlAuthQuery:
         writer.writeByte(0);
+        return;
       case CachedOperationType.gqlAuthMutation:
         writer.writeByte(1);
+        return;
       case CachedOperationType.gqlNonAuthQuery:
         writer.writeByte(2);
+        return;
       case CachedOperationType.gqlNonAuthMutation:
         writer.writeByte(3);
+        return;
     }
   }
 
@@ -112,10 +118,13 @@ class VoteTypeAdapter extends TypeAdapter<VoteType> {
     switch (obj) {
       case VoteType.upVote:
         writer.writeByte(0);
+        return;
       case VoteType.downVote:
         writer.writeByte(1);
+        return;
       case VoteType.none:
         writer.writeByte(2);
+        return;
     }
   }
 

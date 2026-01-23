@@ -219,7 +219,6 @@ class DemoExploreEventsState extends State<DemoExploreEvents> {
             case "Schedule":
               calendarView = CalendarView.schedule;
             default:
-              break;
           }
           // Update the calendar controller's view
           calendarController.view = calendarView;
