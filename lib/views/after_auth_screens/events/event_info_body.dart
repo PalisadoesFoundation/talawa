@@ -226,25 +226,21 @@ class EventInfoBody extends StatelessWidget {
     switch (frequency) {
       case "DAILY":
         text += interval == 1 ? "daily" : "every $interval days";
-        break;
       case "WEEKLY":
         text += interval == 1 ? "weekly" : "every $interval weeks";
         if (rule.byDay?.isNotEmpty == true) {
           text += " on ${rule.byDay!.join(', ')}";
         }
-        break;
       case "MONTHLY":
         text += interval == 1 ? "monthly" : "every $interval months";
         if (rule.byMonthDay?.isNotEmpty == true) {
           text += " on day ${rule.byMonthDay!.join(', ')}";
         }
-        break;
       case "YEARLY":
         text += interval == 1 ? "yearly" : "every $interval years";
         if (rule.byMonth?.isNotEmpty == true) {
           text += " in ${rule.byMonth!.join(', ')}";
         }
-        break;
       default:
         text += interval > 1
             ? "every $interval ${frequency.toLowerCase()}s"

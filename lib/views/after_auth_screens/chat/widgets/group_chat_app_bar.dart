@@ -171,17 +171,17 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     switch (action) {
       case GroupChatAction.info:
         GroupChatDialogs.showGroupInfo(context, chat);
-        break;
+        return;
       case GroupChatAction.edit:
         GroupChatDialogs.showEditGroupDialog(context, chat, model, chatId);
-        break;
+        return;
       case GroupChatAction.addMembers:
         GroupChatDialogs.showAddMembersDialog(
           context,
           model,
           chatId,
         );
-        break;
+        return;
       case GroupChatAction.manageMembers:
         GroupChatDialogs.showManageMembersDialog(
           context,
@@ -193,13 +193,13 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             model.getChatMessages(chatId);
           },
         );
-        break;
+        return;
       case GroupChatAction.delete:
         GroupChatDialogs.showDeleteGroupDialog(context, model, chatId);
-        break;
+        return;
       case GroupChatAction.leave:
         GroupChatDialogs.showLeaveGroupDialog(context, model, chatId, chat);
-        break;
+        return;
     }
   }
 

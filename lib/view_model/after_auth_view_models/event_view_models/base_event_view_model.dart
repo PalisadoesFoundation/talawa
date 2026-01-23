@@ -240,24 +240,20 @@ abstract class BaseEventViewModel extends BaseModel {
         weekDays = {};
         byMonth = null;
         byMonthDay = null;
-        break;
       case Frequency.weekly:
         if (weekDays.isEmpty) {
           weekDays = {days[eventStartDate.weekday - 1]};
         }
         byMonth = null;
         byMonthDay = null;
-        break;
       case Frequency.monthly:
         byMonth = null;
         byMonthDay = [eventStartDate.day];
         weekDays = {};
-        break;
       case Frequency.yearly:
         weekDays = {};
         byMonth = [eventStartDate.month];
         byMonthDay = [eventStartDate.day];
-        break;
     }
     notifyListeners();
   }
