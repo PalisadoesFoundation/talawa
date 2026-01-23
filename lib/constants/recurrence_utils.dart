@@ -223,6 +223,11 @@ class RecurrenceUtils {
         else if (byMonthDay != null && byMonthDay.isNotEmpty) {
           text += ' on day ${byMonthDay.first}';
         }
+      default:
+        // Handle unknown frequency types
+        text = interval > 1
+            ? 'Every $interval ${frequency.toLowerCase()}s'
+            : frequency.toLowerCase();
     }
 
     // Add end condition

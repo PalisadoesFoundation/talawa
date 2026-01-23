@@ -90,8 +90,6 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
       );
 
       if (chat != null) {
-        debugPrint('SUCCESS: Group created with ID: ${chat.id}');
-
         // Refresh the group chats to show the new group
         await groupChatViewModel.initialise();
 
@@ -100,11 +98,9 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
           navigationService.pop();
         }
       } else {
-        debugPrint('ERROR: Chat is null');
         showError('Failed to create group: Unknown error');
       }
     } catch (e) {
-      debugPrint('EXCEPTION in _createGroup: $e');
       showError('Failed to create group: Please try again.');
     } finally {
       if (mounted) {
