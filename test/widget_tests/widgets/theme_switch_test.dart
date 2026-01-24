@@ -30,7 +30,8 @@ class LocalizationsInj extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       localizationsDelegates: const [
-        AppLocalizations.delegate,
+        AppLocalizationsDelegate(
+            isTest: true), // Use test mode to bypass async JSON loading
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -76,6 +77,8 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
+
+      // Verify ListTile is rendered
       expect(find.byType(ListTile), findsOneWidget);
       expect(find.byType(Text), findsOneWidget);
 
