@@ -45,6 +45,22 @@ void main() {
     setUp(() {
       registerViewModels();
       registerServices();
+      // Setup mock GraphQL client to prevent network calls and ResponseFormatException
+      setupMockGraphQLClient({
+        'organizations': [
+          {
+            'id': '1',
+            'name': 'Unity Foundation - North',
+            'addressLine1': 'Accra',
+            'addressLine2': '',
+            'countryCode': 'GH',
+            'state': '',
+            'isUserRegistrationRequired': true,
+            'description': 'Test Org',
+            'avatarURL': null,
+          }
+        ],
+      });
       locator.registerFactory(() => Queries());
       orgViewModel = SelectOrganizationViewModel();
     });

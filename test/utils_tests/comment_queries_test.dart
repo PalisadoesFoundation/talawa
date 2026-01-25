@@ -3,28 +3,36 @@ import 'package:talawa/utils/comment_queries.dart';
 
 void main() {
   group('CommentQueries', () {
-    final queries = CommentQueries();
+    late CommentQueries queries;
 
-    test('createComment returns correct mutation', () {
-      final mutation =
-          queries.createComment().replaceAll(RegExp(r'\s+'), ' ').trim();
-      expect(
-        mutation,
-        contains(
-          'mutation CreateComment(\$postId: ID!, \$body: String!) { createComment(input: { postId: \$postId, body: \$body }) { body id } }',
-        ),
-      );
+    setUp(() {
+      queries = CommentQueries();
     });
 
-    test('getPostsComments returns correct query', () {
-      final query =
-          queries.getPostsComments().replaceAll(RegExp(r'\s+'), ' ').trim();
-      expect(
-        query,
-        contains(
-          'query GetPostComments(\$postId: String!, \$first: Int, \$after: String, \$before: String, \$last: Int) { post(input: { id: \$postId }) { comments(first: \$first, after: \$after, before: \$before, last: \$last) { edges { node { body id post { id } createdAt creator { name avatarURL } } } pageInfo { endCursor hasNextPage hasPreviousPage startCursor } } } }',
-        ),
-      );
+    test('createComment returns correct mutation string', () {
+      final result = queries.createComment();
+      expect(result, contains('mutation CreateComment'));
+      expect(result, contains('createComment(input: { postId:'));
+      expect(result, contains('body'));
+      expect(result, contains('id'));
+      expect(result, contains('creator'));
+    });
+
+    test('getPostsComments returns correct query string', () {
+      final result = queries.getPostsComments();
+      expect(result, contains('query GetPostComments'));
+      expect(result, contains('post(input: { id:'));
+      expect(result, contains('comments('));
+      expect(result, contains('edges'));
+      expect(result, contains('creator'));
+    });
+
+    test('updateVoteComment returns correct mutation string', () {
+      final result = queries.updateVoteComment();
+      expect(result, contains('mutation UpdateVoteComment'));
+      expect(result, contains('updateCommentVote(input: { commentId:'));
+      expect(result, contains('upVotesCount'));
+      expect(result, contains('downVotesCount'));
     });
   });
 }

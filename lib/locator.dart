@@ -3,6 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -15,6 +16,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/security_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
@@ -34,7 +36,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
@@ -44,12 +45,13 @@ import 'package:talawa/view_model/after_auth_view_models/settings_view_models/ap
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
-import 'package:talawa/view_model/pre_auth_view_models/auth_landing_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/waiting_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/comment_interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
@@ -60,17 +62,42 @@ import 'package:talawa/views/demo_page_view.dart';
 /// Intializaing the locator.
 GetIt locator = GetIt.instance;
 
-///GetIt for UserConfig.
-final userConfig = locator<UserConfig>();
+/// GetIt for UserConfig.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `UserConfig`: The UserConfig service instance.
+UserConfig get userConfig => locator<UserConfig>();
 
-///GetIt for NavigationService.
-final navigationService = locator<NavigationService>();
+/// GetIt for NavigationService.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `NavigationService`: The NavigationService instance.
+NavigationService get navigationService => locator<NavigationService>();
 
-///GetIt for DataBaseMutationFunctions.
-final databaseFunctions = locator<DataBaseMutationFunctions>();
+/// GetIt for DataBaseMutationFunctions.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `DataBaseMutationFunctions`: The DataBaseMutationFunctions instance.
+DataBaseMutationFunctions get databaseFunctions =>
+    locator<DataBaseMutationFunctions>();
 
-///GetIt for GraphqlConfig.
-final graphqlConfig = locator<GraphqlConfig>();
+/// GetIt for GraphqlConfig.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `GraphqlConfig`: The GraphqlConfig instance.
+GraphqlConfig get graphqlConfig => locator<GraphqlConfig>();
 
 ///GetIt for SizeConfig.
 final sizeConfig = locator<SizeConfig>();
@@ -99,6 +126,18 @@ final sessionManager = locator<SessionManager>();
 ///GetIt for ActonHandlerService.
 final actionHandlerService = locator<ActionHandlerService>();
 
+///GetIt for SecurityService.
+final securityService = locator<SecurityService>();
+
+/// GetIt for AppConfigService.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `AppConfigService`: The AppConfigService instance.
+AppConfigService get appConfig => locator<AppConfigService>();
+
 /// This function registers the widgets/objects in "GetIt".
 ///
 /// **params**:
@@ -108,6 +147,8 @@ final actionHandlerService = locator<ActionHandlerService>();
 ///   None
 Future<void> setupLocator() async {
   locator.registerSingleton(DataBaseMutationFunctions());
+
+  locator.registerSingleton(SecurityService());
 
   locator.registerSingleton(GraphqlConfig());
   //services
@@ -155,14 +196,13 @@ Future<void> setupLocator() async {
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => AuthLandingViewModel());
+  locator.registerFactory(() => SetUrlViewModel());
   locator.registerFactory(() => LoginViewModel());
   locator.registerFactory(() => ManageVolunteerGroupViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => SignupDetailsViewModel());
   locator.registerFactory(() => WaitingViewModel());
-  locator.registerFactory(() => ExploreEventsViewModel());
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());
@@ -186,8 +226,12 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => GroupChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => UserProfileService());
+  locator.registerFactory(() => CommentInteractionsViewModel());
   locator.registerFactory(() => FundService());
 
   //AppLinks
   locator.registerSingleton(AppLinks());
+
+  //AppConfigService
+  locator.registerSingleton(AppConfigService());
 }

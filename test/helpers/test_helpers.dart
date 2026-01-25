@@ -1,24 +1,34 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
-import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/plugin/manager.dart';
+import 'package:talawa/services/app_config_service.dart';
+import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_core_service.dart';
 import 'package:talawa/services/chat_membership_service.dart';
 import 'package:talawa/services/chat_message_service.dart';
@@ -31,23 +41,26 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
+import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/services/user_profile_service.dart';
-import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
@@ -62,10 +75,8 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-import '../service_tests/image_service_test.dart';
-import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 import '../service_tests/user_config_test.dart';
-import '../views/main_screen_test.dart';
+
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
@@ -94,14 +105,12 @@ import 'test_helpers.mocks.dart';
       onMissingStub: OnMissingStub.returnDefault,
     ),
     MockSpec<OrganizationService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<ExploreEventsViewModel>(
-      onMissingStub: OnMissingStub.returnDefault,
-    ),
     MockSpec<OrganizationFeedViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
     MockSpec<FundViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
@@ -113,7 +122,11 @@ import 'test_helpers.mocks.dart';
     MockSpec<AppSettingViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImageService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ActionHandlerService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<XFile>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ConnectivityService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<Connectivity>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<FlutterImageCompress>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
@@ -123,6 +136,14 @@ import 'test_helpers.mocks.dart';
     MockSpec<ChatMembershipService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ChatMessageService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<UserProfileService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<PinnedPostService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<User>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<EventCalendarViewModel>(
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
+    MockSpec<EditEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<BaseEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<CustomDrawerViewModel>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 
@@ -497,6 +518,22 @@ FundService getAndRegisterFundService() {
   return service;
 }
 
+/// `getAndRegisterLocalActionHandlerService` returns a mock instance of the `ActionHandlerService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `MockActionHandlerService`: A mock instance of the `ActionHandlerService` class.
+MockActionHandlerService getAndRegisterLocalActionHandlerService() {
+  if (locator.isRegistered<ActionHandlerService>()) {
+    locator.unregister<ActionHandlerService>();
+  }
+  final service = MockActionHandlerService();
+  locator.registerSingleton<ActionHandlerService>(service);
+  return service;
+}
+
 /// `getAndRegisterGraphqlConfig` returns a mock instance of the `GraphqlConfig` class.
 ///
 /// **params**:
@@ -685,6 +722,26 @@ PostService getAndRegisterPostService() {
   return service;
 }
 
+/// `getAndRegisterPinnedPostService` returns a mock instance of the `PinnedPostService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `PinnedPostService`: A mock instance of the `PinnedPostService` class.
+PinnedPostService getAndRegisterPinnedPostService() {
+  _removeRegistrationIfExists<PinnedPostService>();
+  final service = MockPinnedPostService();
+
+  final StreamController<List<Post>> streamController = StreamController();
+  final Stream<List<Post>> stream = streamController.stream.asBroadcastStream();
+  when(service.pinnedPostStream).thenAnswer((_) => stream);
+  when(service.refreshPinnedPosts()).thenAnswer((_) async {});
+
+  locator.registerSingleton<PinnedPostService>(service);
+  return service;
+}
+
 /// `getAndRegisterMultiMediaPickerService` returns a mock instance of the `MultiMediaPickerService` class.
 ///
 /// **params**:
@@ -723,6 +780,19 @@ ImageCropper getAndRegisterImageCropper() {
 ImageService getAndRegisterImageService() {
   _removeRegistrationIfExists<ImageService>();
   final service = MockImageService();
+  // Mock the convertToBase64 method to return a proper base64 string
+  when(service.convertToBase64(any)).thenAnswer((realInvocation) async {
+    // Return a dummy base64 string for testing
+    return 'VGVzdCBmaWxlIGNvbnRlbnQ='; // "Test file content" in base64
+  });
+
+  // Mock the cropImage method
+  when(service.cropImage(imageFile: anyNamed('imageFile')))
+      .thenAnswer((realInvocation) async {
+    final imageFile = realInvocation.namedArguments[#imageFile] as File;
+    return imageFile; // Return the same file for testing
+  });
+
   locator.registerLazySingleton<ImageService>(() => service);
   return service;
 }
@@ -752,57 +822,6 @@ EventService getAndRegisterEventService() {
   _removeRegistrationIfExists<EventService>();
   final service = MockEventService();
 
-  //Mock Stream for currentOrgStream
-  final StreamController<List<Event>> streamController = StreamController();
-  final Stream<List<Event>> stream =
-      streamController.stream.asBroadcastStream();
-  when(service.eventStream).thenAnswer((invocation) => stream);
-  when(service.getEvents()).thenAnswer(
-    (invocation) async => streamController.add([
-      Event(
-        id: '1',
-        name: 'test',
-        startAt: DateTime.now(),
-        endAt: DateTime.now().add(const Duration(hours: 1)),
-        location: 'ABC',
-        description: 'test',
-        creator: User(
-          id: "xzy1",
-          name: "Test User",
-          email: "testuser@gmail.com",
-          refreshToken: "testtoken",
-          authToken: 'testtoken',
-        ),
-        admins: [
-          User(
-            id: "xzy1",
-            name: "Test User",
-          ),
-        ],
-        isPublic: true,
-        organization: OrgInfo(id: 'XYZ'),
-      ),
-    ]),
-  );
-  const data = {
-    'getEventAttendeesByEventId': [
-      {
-        'userId': 'xzy1',
-      }
-    ],
-  };
-  when(service.fetchAttendeesByEvent('1')).thenAnswer(
-    (realInvocation) async => QueryResult(
-      source: QueryResultSource.network,
-      data: data,
-      options: QueryOptions(
-        document: gql(
-          EventQueries().attendeesByEvent('1'),
-        ),
-      ),
-    ),
-  );
-
   locator.registerSingleton<EventService>(service);
   return service;
 }
@@ -831,8 +850,16 @@ Connectivity getAndRegisterConnectivity() {
 ConnectivityService getAndRegisterConnectivityService() {
   _removeRegistrationIfExists<ConnectivityService>();
   final service = MockConnectivityService();
+
+  final controller = StreamController<List<ConnectivityResult>>.broadcast();
+  when(service.connectionStream).thenAnswer((_) =>
+      Stream<List<ConnectivityResult>>.value([ConnectivityResult.wifi])
+          .asBroadcastStream());
+  when(service.connectionStatusController).thenReturn(controller);
+  when(service.getConnectionType())
+      .thenAnswer((_) async => [ConnectivityResult.wifi]);
+
   locator.registerSingleton<ConnectivityService>(service);
-  // when(service.)
   return service;
 }
 
@@ -873,14 +900,8 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   _removeRegistrationIfExists<CreateEventViewModel>();
   final cachedViewModel = MockCreateEventViewModel();
 
-  final formKey = GlobalKey<FormState>();
   final textEditingController = TextEditingController();
-  final focusNode = FocusNode();
 
-  when(cachedViewModel.formKey).thenReturn(formKey);
-  when(cachedViewModel.titleFocus).thenReturn(focusNode);
-  when(cachedViewModel.locationFocus).thenReturn(focusNode);
-  when(cachedViewModel.descriptionFocus).thenReturn(focusNode);
   when(cachedViewModel.eventLocationTextController)
       .thenReturn(textEditingController);
   when(cachedViewModel.eventTitleTextController)
@@ -925,7 +946,7 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     when(cachedViewModel.selectedMembers).thenReturn([]);
   });
 
-  when(cachedViewModel.createEvent()).thenAnswer((realInvocation) async {
+  when(cachedViewModel.execute()).thenAnswer((realInvocation) async {
     print('called');
   });
 
@@ -1125,31 +1146,16 @@ GroupChatViewModel getAndRegisterGroupChatViewModel() {
   when(cachedViewModel.deleteGroupChat(any)).thenAnswer((_) async => true);
   when(cachedViewModel.leaveGroupChat(any, any)).thenAnswer((_) async => true);
 
+  // Add default stub for createGroupChat to prevent ResponseFormatException
+  when(
+    cachedViewModel.createGroupChat(
+      groupName: anyNamed('groupName'),
+      description: anyNamed('description'),
+      memberIds: anyNamed('memberIds'),
+    ),
+  ).thenAnswer((_) async => null);
+
   locator.registerSingleton<GroupChatViewModel>(cachedViewModel);
-  return cachedViewModel;
-}
-
-/// `getAndRegisterExploreEventsViewModel` returns a mock instance of the `ExploreEventsViewModel` class.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-/// * `ExploreEventsViewModel`: A mock instance of the `ExploreEventsViewModel` class.
-ExploreEventsViewModel getAndRegisterExploreEventsViewModel() {
-  _removeRegistrationIfExists<ExploreEventsViewModel>();
-  final cachedViewModel = MockExploreEventsViewModel();
-
-  const String chosenValue = 'All Events';
-  const String emptyListMessage = "Looks like there aren't any events.";
-
-  final EventService mockEventService = EventService();
-
-  when(cachedViewModel.eventService).thenReturn(mockEventService);
-  when(cachedViewModel.chosenValue).thenReturn(chosenValue);
-  when(cachedViewModel.emptyListMessage).thenReturn(emptyListMessage);
-
-  locator.registerSingleton<ExploreEventsViewModel>(cachedViewModel);
   return cachedViewModel;
 }
 
@@ -1212,6 +1218,7 @@ void registerServices() {
   getAndRegisterGraphqlConfig();
   getAndRegisterUserConfig();
   getAndRegisterPostService();
+  getAndRegisterPinnedPostService();
   getAndRegisterEventService();
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivity();
@@ -1222,8 +1229,12 @@ void registerServices() {
   getAndRegisterChatService();
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
+  getAndRegisterImageService();
   getAndRegisterFundService();
+
   getAndRegisterUserProfileService();
+  getAndRegisterSizeConfig();
+  mockFlutterSecureStorage();
 }
 
 /// `unregisterServices` unregisters all the services required for the test.
@@ -1234,22 +1245,48 @@ void registerServices() {
 /// **returns**:
 ///   None
 void unregisterServices() {
-  locator.unregister<NavigationService>();
-  locator.unregister<GraphqlConfig>();
-  locator.unregister<UserConfig>();
-  locator.unregister<PostService>();
-  locator.unregister<EventService>();
-  locator.unregister<FundService>();
-  locator.unregister<MultiMediaPickerService>();
-  locator.unregister<Connectivity>();
-  locator.unregister<ConnectivityService>();
-  locator.unregister<DataBaseMutationFunctions>();
-  locator.unregister<OrganizationService>();
-  locator.unregister<CommentService>();
-  locator.unregister<ImageCropper>();
-  locator.unregister<ImagePicker>();
-  locator.unregister<ChatService>();
-  locator.unregister<UserProfileService>();
+  _removeRegistrationIfExists<NavigationService>();
+  _removeRegistrationIfExists<GraphqlConfig>();
+  _removeRegistrationIfExists<UserConfig>();
+  _removeRegistrationIfExists<PostService>();
+  _removeRegistrationIfExists<PinnedPostService>();
+  _removeRegistrationIfExists<EventService>();
+  _removeRegistrationIfExists<FundService>();
+  _removeRegistrationIfExists<MultiMediaPickerService>();
+  _removeRegistrationIfExists<Connectivity>();
+  _removeRegistrationIfExists<ConnectivityService>();
+  _removeRegistrationIfExists<DataBaseMutationFunctions>();
+  _removeRegistrationIfExists<OrganizationService>();
+  _removeRegistrationIfExists<CommentService>();
+  _removeRegistrationIfExists<ImageCropper>();
+  _removeRegistrationIfExists<ImagePicker>();
+  _removeRegistrationIfExists<ImageService>();
+  _removeRegistrationIfExists<ChatService>();
+  _removeRegistrationIfExists<UserProfileService>();
+  _removeRegistrationIfExists<AppConfigService>();
+  _removeRegistrationIfExists<CacheService>();
+  _removeRegistrationIfExists<SizeConfig>();
+  _removeRegistrationIfExists<SessionManager>();
+  _removeRegistrationIfExists<Validator>();
+  PluginManager.instance.reset();
+}
+
+/// Mock FlutterSecureStorage channel.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
+void mockFlutterSecureStorage() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const MethodChannel channel =
+      MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
+
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+    return null;
+  });
 }
 
 /// registerViewModels registers all the view models required for the test.
@@ -1262,17 +1299,17 @@ void unregisterServices() {
 void registerViewModels() {
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => ExploreEventsViewModel());
-  locator
-      .registerFactory<CreateEventViewModel>(() => MockCreateEventViewModel());
+  locator.registerFactory<CreateEventViewModel>(() => CreateEventViewModel());
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => InteractionsViewModel());
-  locator.registerFactory(() => SizeConfig());
+  _removeRegistrationIfExists<SizeConfig>();
+  locator.registerSingleton<SizeConfig>(SizeConfig());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
   locator.registerFactory(() => EventInfoViewModel());
+  locator.registerFactory(() => EventCalendarViewModel());
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
@@ -1290,17 +1327,213 @@ void unregisterViewModels() {
   locator.unregister<MainScreenViewModel>();
   locator.unregister<EditAgendaItemViewModel>();
   locator.unregister<OrganizationFeedViewModel>();
-  locator.unregister<ExploreEventsViewModel>();
   locator.unregister<CreateEventViewModel>();
   locator.unregister<AddPostViewModel>();
   locator.unregister<ProfilePageViewModel>();
   locator.unregister<InteractionsViewModel>();
-  locator.unregister<SizeConfig>();
+
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
+  locator.unregister<EventCalendarViewModel>();
   locator.unregister<ProgressDialogViewModel>();
   locator.unregister<SelectOrganizationViewModel>();
   locator.unregister<CustomDrawerViewModel>();
   locator.unregister<SelectContactViewModel>();
+}
+
+/// `getAndRegisterSizeConfig` returns a mock instance of the `SizeConfig` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `SizeConfig`: A mock instance of the `SizeConfig` class.
+SizeConfig getAndRegisterSizeConfig() {
+  _removeRegistrationIfExists<SizeConfig>();
+  final service = SizeConfig();
+  locator.registerSingleton<SizeConfig>(service);
+  return service;
+}
+
+/// Helper to setup mock GraphQL client with custom response.
+///
+/// **params**:
+/// * `data`: A map containing the mock data to return.
+///
+/// **returns**:
+///   None
+void setupMockGraphQLClient(Map<String, dynamic> data) {
+  final mockGraphqlConfig = locator<GraphqlConfig>() as MockGraphqlConfig;
+  final mockHttpClient = MockHttpClient();
+
+  when(mockHttpClient.send(any)).thenAnswer((_) async {
+    return http.StreamedResponse(
+      Stream.fromIterable([
+        utf8.encode(jsonEncode({"data": data}))
+      ]),
+      200,
+    );
+  });
+
+  final link = HttpLink(
+    'https://talawa-graphql-api.herokuapp.com/graphql',
+    httpClient: mockHttpClient,
+  );
+
+  final client = GraphQLClient(
+    link: link,
+    cache: GraphQLCache(),
+  );
+
+  when(mockGraphqlConfig.clientToQuery()).thenReturn(client);
+  when(mockGraphqlConfig.authClient()).thenReturn(client);
+}
+
+/// MockMainScreenViewModel class.
+class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey _keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
+  final GlobalKey _keyDrawerSwitchableOrg =
+      GlobalKey(debugLabel: "DrawerSwitchableOrg");
+  final GlobalKey _keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
+  final GlobalKey _keyDrawerLeaveCurrentOrg =
+      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
+
+  final GlobalKey _keyBNHome = GlobalKey();
+  final GlobalKey _keyBNDemoHome = GlobalKey();
+  final GlobalKey _keySHPinnedPost = GlobalKey();
+  final GlobalKey _keySHPost = GlobalKey();
+  final GlobalKey _keySHOrgName = GlobalKey();
+  final GlobalKey _keySHMenuIcon = GlobalKey();
+  final GlobalKey _keyBNEvents = GlobalKey();
+  final GlobalKey _keyBNDemoEvents = GlobalKey();
+  final GlobalKey _keySECategoryMenu = GlobalKey();
+  final GlobalKey _keySEDateFilter = GlobalKey();
+  final GlobalKey _keySEAdd = GlobalKey();
+  final GlobalKey _keySECard = GlobalKey();
+  final GlobalKey _keyBNPost = GlobalKey();
+  final GlobalKey _keyBNDemoPost = GlobalKey();
+  final GlobalKey _keyBNChat = GlobalKey();
+  final GlobalKey _keyBNProfile = GlobalKey();
+  final GlobalKey _keyBNDemoProfile = GlobalKey();
+  final GlobalKey _keyBNFunds = GlobalKey();
+  final GlobalKey _keySPEditProfile = GlobalKey();
+  final GlobalKey _keySPAppSetting = GlobalKey();
+  final GlobalKey _keySPHelp = GlobalKey();
+  final GlobalKey _keySPDonateUs = GlobalKey();
+  final GlobalKey _keySPInvite = GlobalKey();
+  final GlobalKey _keySPLogout = GlobalKey();
+  final GlobalKey _keySPPalisadoes = GlobalKey();
+
+  @override
+  List<Widget> get pages => super.noSuchMethod(
+        Invocation.getter(#pages),
+        returnValue: <Widget>[],
+        returnValueForMissingStub: <Widget>[],
+      ) as List<Widget>;
+
+  @override
+  List<BottomNavigationBarItem> get navBarItems => [
+        const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        const BottomNavigationBarItem(
+            icon: Icon(Icons.settings), label: 'Settings'),
+      ];
+
+  @override
+  int get currentPageIndex => super.noSuchMethod(
+        Invocation.getter(#currentPageIndex),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int;
+
+  @override
+  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
+
+  @override
+  GlobalKey get keyDrawerCurOrg => _keyDrawerCurOrg;
+
+  @override
+  GlobalKey get keyDrawerSwitchableOrg => _keyDrawerSwitchableOrg;
+
+  @override
+  GlobalKey get keyDrawerJoinOrg => _keyDrawerJoinOrg;
+
+  @override
+  GlobalKey get keyDrawerLeaveCurrentOrg => _keyDrawerLeaveCurrentOrg;
+
+  @override
+  GlobalKey get keyBNHome => _keyBNHome;
+  @override
+  GlobalKey get keyBNDemoHome => _keyBNDemoHome;
+  @override
+  GlobalKey get keySHPinnedPost => _keySHPinnedPost;
+  @override
+  GlobalKey get keySHPost => _keySHPost;
+  @override
+  GlobalKey get keySHOrgName => _keySHOrgName;
+  @override
+  GlobalKey get keySHMenuIcon => _keySHMenuIcon;
+  @override
+  GlobalKey get keyBNEvents => _keyBNEvents;
+  @override
+  GlobalKey get keyBNDemoEvents => _keyBNDemoEvents;
+  @override
+  GlobalKey get keySECategoryMenu => _keySECategoryMenu;
+  @override
+  GlobalKey get keySEDateFilter => _keySEDateFilter;
+  @override
+  GlobalKey get keySEAdd => _keySEAdd;
+  @override
+  GlobalKey get keySECard => _keySECard;
+  @override
+  GlobalKey get keyBNPost => _keyBNPost;
+  @override
+  GlobalKey get keyBNDemoPost => _keyBNDemoPost;
+  @override
+  GlobalKey get keyBNChat => _keyBNChat;
+  @override
+  GlobalKey get keyBNProfile => _keyBNProfile;
+  @override
+  GlobalKey get keyBNDemoProfile => _keyBNDemoProfile;
+  @override
+  GlobalKey get keyBNFunds => _keyBNFunds;
+  @override
+  GlobalKey get keySPEditProfile => _keySPEditProfile;
+  @override
+  GlobalKey get keySPAppSetting => _keySPAppSetting;
+  @override
+  GlobalKey get keySPHelp => _keySPHelp;
+  @override
+  GlobalKey get keySPDonateUs => _keySPDonateUs;
+  @override
+  GlobalKey get keySPInvite => _keySPInvite;
+  @override
+  GlobalKey get keySPLogout => _keySPLogout;
+  @override
+  GlobalKey get keySPPalisadoes => _keySPPalisadoes;
+
+  @override
+  bool get showAppTour => false;
+
+  @override
+  List<FocusTarget> get targets => [];
+
+  @override
+  void setupNavigationItems(BuildContext context) {}
+}
+
+/// SafeMockUserConfig is a mock UserConfig that provides a real StreamController.
+///
+/// This avoids Mockito "Bad state" errors when stubbing StreamController properties.
+class SafeMockUserConfig extends MockUserConfig {
+  /// Controller for organization info changes.
+  final StreamController<OrgInfo> _controller =
+      StreamController<OrgInfo>.broadcast();
+
+  @override
+  StreamController<OrgInfo> get currentOrgInfoController => _controller;
+
+  @override
+  Stream<OrgInfo> get currentOrgInfoStream => _controller.stream;
 }

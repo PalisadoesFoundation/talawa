@@ -21,12 +21,24 @@ on:
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
   FLUTTER_VERSION: 3.32.8
+  # Test concurrency: defaults to nproc, capped at 4 (override if needed)
+  # Note: Flutter 3.32.x may have --concurrency flag behavior issues
+  FLUTTER_TEST_CONCURRENCY: 4
 
 jobs:
+  Merge-Conflict-Check:
+    runs-on: ubuntu-latest
+    name: Find merge conflicts
+    steps:
+      - uses: actions/checkout@v4
+      - name: Merge conflict finder
+        uses: olivernybroe/action-conflict-finder@v4.1
+
   Flutter-Codebase-Check:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: Checking Codebase
     runs-on: ubuntu-latest
+    needs: [Merge-Conflict-Check]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,8 +64,6 @@ jobs:
         uses: actions/setup-python@v5
       - name: Check for presence of ignore directives corresponding to custom lints
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Run check_ignore
         run: |
           if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
@@ -96,14 +106,15 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
-        run: flutter test --coverage
+        run: |
+          CONCURRENCY="${FLUTTER_TEST_CONCURRENCY:-$(nproc)}"
+          if [ "$CONCURRENCY" -gt 4 ]; then CONCURRENCY=4; fi
+          flutter test --concurrency="$CONCURRENCY" --coverage
       - name: Remove generated files from coverage
         run: |
           sed -i '/\.g\.dart/d' coverage/lcov.info
@@ -119,8 +130,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
           verbose: true
-          exclude: 'docs/'
-          gcov_ignore: 'docs/'
+          exclude: "docs/"
+          gcov_ignore: "docs/"
 
   Android-Build-and-Release:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -140,8 +151,6 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
@@ -173,7 +182,7 @@ jobs:
       contents: write
     runs-on: macos-14
     needs: Flutter-Testing
-    
+
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
@@ -184,8 +193,6 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
       - name: Building for ios
         run: flutter build ios --release --no-codesign
         # '--no-codesign' is used for building without code signing.

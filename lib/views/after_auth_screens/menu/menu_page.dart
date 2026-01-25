@@ -7,12 +7,13 @@ import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/plugin/plugin_injector.dart';
 import 'package:talawa/plugin/types.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/gql_fragments.dart';
 
 /// MenuPage returns a widget that renders a menu page with vertical stack of links.
 class MenuPage extends StatelessWidget {
   const MenuPage({
-    required Key key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +86,15 @@ class MenuPage extends StatelessWidget {
       );
     }
 
+    // If not logged in (e.g. Demo Mode), skip API call and use bundled plugins
+    // This prevents "Unauthenticated" errors
+    if (!userConfig.loggedIn) {
+      PluginManager.instance.initialize(getBundledPlugins());
+      return const PluginInjector(
+        injectorType: InjectorType.g1,
+      );
+    }
+
     // Otherwise, fetch from database and initialize
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
@@ -93,12 +103,10 @@ class MenuPage extends StatelessWidget {
           document: gql('''
             query GetAllPlugins {
               getPlugins(input: {}) {
-                id
-                pluginId
-                isActivated
-                isInstalled
+                ...PluginFields
               }
             }
+            $pluginFieldsFragment
           '''),
           fetchPolicy: FetchPolicy.networkOnly,
         ),

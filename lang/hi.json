@@ -66,6 +66,7 @@
   "Add Event Title": "घटना का शीर्षक जोड़ें",
   "Where is the event": "घटना कहाँ है",
   "Add Location": "स्थान जोड़ना",
+  "Add Venue": "कार्यक्रम स्थल जोड़ना",
   "Describe the event": "घटना का वर्णन करें",
   "Add Description": "विवरण जोड़ें",
   "Add Event": "कार्यक्रम जोड़ें",
@@ -240,7 +241,7 @@
   "You are all set to go lets get you in": "आप सभी सेट हैं जाने के लिए, चलो आपको भेजते हैं",
   "App Tour": "ऐप टूर",
   "Start": "शुरू करें",
-  "Skip": "छोड़ दें",
+  "SKIP": "छोड़ दें",
   "Posts": "पोस्ट्स",
   "Tasks": "टास्क",
   "Or": "या",
@@ -328,5 +329,6 @@
   "Upcoming": "आगामी",
   "Ended": "समाप्त",
   "Active": "सक्रिय",
-  "Unnamed Organization": "बिना नाम का संगठन"
+  "Unnamed Organization": "अनाम संगठन",
+  "Try Demo": "डेमो आज़माएं"
 }

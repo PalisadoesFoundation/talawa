@@ -71,6 +71,7 @@
   "Add Event Title": "Ajouter le titre de l'événement",
   "Where is the event": "Où est l'événement",
   "Add Location": "Ajouter un emplacement",
+  "Add Venue": "Ajouter un lieu d'événement",
   "Describe the event": "Décrivez l'événement",
   "Add Description": "Ajouter une description",
   "Add Event": "Ajouter un évènement",
@@ -240,7 +241,7 @@
   "You are all set to go lets get you in": "Vous êtes prêt à partir, laissez-nous vous faire entrer",
   "App Tour": "Visite guidée de l'application",
   "Start": "Démarrer",
-  "Skip": "Ignorer",
+  "SKIP": "Ignorer",
   "Posts": "Publications",
   "Tasks": "Tâches",
   "Or": "Ou",
@@ -328,5 +329,6 @@
   "Upcoming": "À venir",
   "Ended": "Terminée",
   "Active": "Active",
-  "Unnamed Organization": "Organisation Sans Nom"
+  "Unnamed Organization": "Organisation Sans Nom",
+  "Try Demo": "Essayer la démo"
 }

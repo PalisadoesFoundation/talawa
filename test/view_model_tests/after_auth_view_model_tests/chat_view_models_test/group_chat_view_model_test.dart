@@ -18,6 +18,7 @@ import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() {
     testSetupLocator();
   });

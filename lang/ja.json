@@ -66,6 +66,7 @@
   "Add Event Title": "イベントタイトルを追加",
   "Where is the event": "イベントはどこですか",
   "Add Location": "場所を追加",
+  "Add Venue": "会場を追加",
   "Describe the event": "イベントについて説明する",
   "Add Description": "説明を追加",
   "Add Event": "イベントを追加",
@@ -240,7 +241,7 @@
   "You are all set to go lets get you in": "あなたは完全に準備が整いました。入れてあげましょう。",
   "App Tour": "アプリトール",
   "Start": "開始",
-  "Skip": "スキップ",
+  "SKIP": "スキップ",
   "Posts": "投稿",
   "Tasks": "タスク",
   "Or": "または",
@@ -328,5 +329,6 @@
   "Upcoming": "予定",
   "Ended": "終了",
   "Active": "アクティブ",
-  "Unnamed Organization": "無名の組織"
+  "Unnamed Organization": "無名の組織",
+  "Try Demo": "デモを試す"
 }

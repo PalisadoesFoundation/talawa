@@ -131,6 +131,18 @@ void main() {
             Pair([mockFund], PageInfo(hasNextPage: false, endCursor: '')),
       );
 
+      when(
+        mockFundService.getCampaigns(
+          '1',
+          first: 10,
+          last: null,
+          after: null,
+          before: null,
+        ),
+      ).thenAnswer(
+        (_) async => Pair([], PageInfo(hasNextPage: false, endCursor: '')),
+      );
+
       await tester.pumpWidget(createFundScreen());
       await tester.pumpAndSettle();
 
