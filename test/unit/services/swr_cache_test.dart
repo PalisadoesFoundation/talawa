@@ -74,7 +74,8 @@ void main() {
 
     test('revalidate propagates fetcher exceptions', () async {
       expect(
-        () => cache.revalidate<String>('key', () async => throw Exception('fetch failed')),
+        () => cache.revalidate<String>(
+            'key', () async => throw Exception('fetch failed')),
         throwsException,
       );
       expect(cache.get<String>('key'), isNull);
