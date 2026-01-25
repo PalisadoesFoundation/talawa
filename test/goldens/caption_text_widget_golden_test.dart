@@ -118,6 +118,27 @@ void main() {
       );
     });
 
+    testWidgets('caption_text_widget long text collapsed - dark theme',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createCaptionWidgetForGolden(
+          caption:
+              'This is a very long caption that exceeds the trim length of 150 characters. '
+              'It should be trimmed and show a "show more" button. This text continues to make '
+              'sure we exceed the character limit and test the trimming functionality properly.',
+          themeMode: ThemeMode.dark,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile(
+          goldenFileName('caption_text_widget', 'long_collapsed', 'dark'),
+        ),
+      );
+    });
+
     testWidgets('caption_text_widget long text expanded - light theme',
         (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -143,6 +164,31 @@ void main() {
       );
     });
 
+    testWidgets('caption_text_widget long text expanded - dark theme',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createCaptionWidgetForGolden(
+          caption:
+              'This is a very long caption that exceeds the trim length of 150 characters. '
+              'It should be trimmed and show a "show more" button. This text continues to make '
+              'sure we exceed the character limit and test the trimming functionality properly.',
+          themeMode: ThemeMode.dark,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Tap "show more" to expand
+      await tester.tap(find.text('show more'));
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile(
+          goldenFileName('caption_text_widget', 'long_expanded', 'dark'),
+        ),
+      );
+    });
+
     testWidgets('caption_text_widget long text with hashtags - light theme',
         (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -163,6 +209,31 @@ void main() {
             'caption_text_widget',
             'long_with_hashtags',
             'light',
+          ),
+        ),
+      );
+    });
+
+    testWidgets('caption_text_widget long text with hashtags - dark theme',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createCaptionWidgetForGolden(
+          caption:
+              'This is a very long caption with #hashtags that exceeds the trim length. '
+              '#Flutter #Talawa #OpenSource #Community #Development #Testing #GoldenTests '
+              'This text continues to make sure we exceed the character limit properly.',
+          themeMode: ThemeMode.dark,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile(
+          goldenFileName(
+            'caption_text_widget',
+            'long_with_hashtags',
+            'dark',
           ),
         ),
       );

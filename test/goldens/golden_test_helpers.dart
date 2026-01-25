@@ -32,8 +32,8 @@ Widget themedWidget(Widget child, {ThemeMode themeMode = ThemeMode.light}) {
 }
 
 /// Module-level variables to store original rendering settings.
-late Size _originalSize;
-late double _originalDpr;
+Size? _originalSize;
+double? _originalDpr;
 
 /// Sets up deterministic rendering for golden tests.
 ///
@@ -56,6 +56,7 @@ void setUpGoldenTests() {
 
   _originalSize = view.physicalSize;
   _originalDpr = view.devicePixelRatio;
+
   view.physicalSize = const Size(1080, 1920);
   view.devicePixelRatio = 1.0;
 }
@@ -77,9 +78,16 @@ void tearDownGoldenTests() {
       .platformDispatcher
       .views
       .first;
-  view.physicalSize = _originalSize;
-  view.devicePixelRatio = _originalDpr;
+
+  if (_originalSize != null) {
+    view.physicalSize = _originalSize!;
+  }
+
+  if (_originalDpr != null) {
+    view.devicePixelRatio = _originalDpr!;
+  }
 }
+
 
 /// Generates a consistent golden file name.
 ///
