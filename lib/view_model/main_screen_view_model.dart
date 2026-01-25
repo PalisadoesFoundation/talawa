@@ -1,14 +1,26 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:talawa/constants/routing_constants.dart';
+>>>>>>> upstream/develop
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+<<<<<<< HEAD
 // import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+=======
+import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
+import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
+import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/funds/funds_screen.dart';
+import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
+>>>>>>> upstream/develop
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
@@ -30,8 +42,12 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// * `tourProfile`
 class MainScreenViewModel extends BaseModel {
   /// static variables.
+<<<<<<< HEAD
   static final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>();
+=======
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+>>>>>>> upstream/develop
 
   /// static variables.
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
@@ -53,6 +69,7 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
   /// static variables.
+<<<<<<< HEAD
   static final GlobalKey keyDrawerCurOrg =
       GlobalKey(debugLabel: "DrawerCurrentOrg");
 
@@ -66,6 +83,19 @@ class MainScreenViewModel extends BaseModel {
 
   /// static variables.
   static final GlobalKey keyDrawerLeaveCurrentOrg =
+=======
+  final GlobalKey keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
+
+  /// static variables.
+  final GlobalKey keyDrawerSwitchableOrg =
+      GlobalKey(debugLabel: "DrawerSwitchableOrg");
+
+  /// static variables.
+  final GlobalKey keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
+
+  /// static variables.
+  final GlobalKey keyDrawerLeaveCurrentOrg =
+>>>>>>> upstream/develop
       GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
 
   /// static variables.
@@ -104,6 +134,12 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keyBNDemoProfile = GlobalKey(debugLabel: "DemoProfileTab");
 
   /// static variables.
+<<<<<<< HEAD
+=======
+  final GlobalKey keyBNFunds = GlobalKey(debugLabel: "FundsTab");
+
+  /// static variables.
+>>>>>>> upstream/develop
   final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
 
   /// static variables.
@@ -145,6 +181,7 @@ class MainScreenViewModel extends BaseModel {
   /// array of target.
   final List<FocusTarget> targets = [];
 
+<<<<<<< HEAD
   /// flag to represent if app is in demoMode.
   static bool demoMode = false;
 
@@ -152,13 +189,21 @@ class MainScreenViewModel extends BaseModel {
   bool testMode = false;
 
   /// Initalizing function.
+=======
+  /// Initializing function.
+  ///
+  /// This function initializes the view model.
+>>>>>>> upstream/develop
   ///
   /// **params**:
   /// * `ctx`: BuildContext, contain parent info
   /// * `fromSignUp`: Bool to find user entry
   /// * `mainScreenIndex`: Index to find tab on mainScreen
   /// * `demoMode`: Whether the app is in demo mode
+<<<<<<< HEAD
   /// * `testMode`: Whether the app is in test mode
+=======
+>>>>>>> upstream/develop
   ///
   /// **returns**:
   ///   None
@@ -167,16 +212,25 @@ class MainScreenViewModel extends BaseModel {
     required bool fromSignUp,
     required int mainScreenIndex,
     bool demoMode = false,
+<<<<<<< HEAD
     bool testMode = false,
   }) {
     this.testMode = testMode;
     MainScreenViewModel.demoMode = demoMode;
+=======
+  }) {
+    // MainScreenViewModel.demoMode = demoMode;
+    appConfig.isDemoMode = demoMode;
+>>>>>>> upstream/develop
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
     context = ctx;
     final appTourDialogWidget = appTourDialog(ctx);
+<<<<<<< HEAD
     print(ctx);
     print(context);
+=======
+>>>>>>> upstream/develop
 
     notifyListeners();
     if (!showAppTour) {
@@ -192,6 +246,25 @@ class MainScreenViewModel extends BaseModel {
     }
   }
 
+<<<<<<< HEAD
+=======
+  /// Exits demo mode and navigates to the splash screen.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void exitDemoMode() {
+    appConfig.isDemoMode = false;
+    navigationService.removeAllAndPush(
+      Routes.setUrlScreen,
+      Routes.splashScreen,
+      arguments: '',
+    );
+  }
+
+>>>>>>> upstream/develop
   /// Contains the Widgets to be rendered for corresponding navbar items.
   List<Widget> pages = [];
 
@@ -225,6 +298,7 @@ class MainScreenViewModel extends BaseModel {
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Events'),
       ),
+<<<<<<< HEAD
 
       /// Makes chat inaccessible for the user
       //TODO: add chat functionality
@@ -235,6 +309,22 @@ class MainScreenViewModel extends BaseModel {
       //   ),
       //   label: AppLocalizations.of(context)!.strictTranslate('Chat'),
       // ),
+=======
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.chat_outlined,
+          key: keyBNChat,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Chat'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.currency_exchange,
+          key: keyBNFunds,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Funds'),
+      ),
+>>>>>>> upstream/develop
       BottomNavigationBarItem(
         icon: Icon(
           Icons.account_circle,
@@ -242,14 +332,27 @@ class MainScreenViewModel extends BaseModel {
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Profile'),
       ),
+<<<<<<< HEAD
     ];
 
     if (!demoMode) {
+=======
+      BottomNavigationBarItem(
+        icon: const Icon(
+          Icons.menu,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Menu'),
+      ),
+    ];
+
+    if (!appConfig.isDemoMode) {
+>>>>>>> upstream/develop
       pages = [
         OrganizationFeed(
           key: const Key("HomeView"),
           homeModel: this,
         ),
+<<<<<<< HEAD
         ExploreEvents(
           key: const Key('ExploreEvents'),
           homeModel: this,
@@ -264,6 +367,22 @@ class MainScreenViewModel extends BaseModel {
         ProfilePage(
           key: keySPEditProfile,
           homeModel: this,
+=======
+        const EventCalendar(
+          key: Key('ExploreEvents'),
+        ),
+        const ChatPage(
+          key: Key('Chats'),
+        ),
+        const FundScreen(
+          key: Key('Funds'),
+        ),
+        ProfilePage(
+          key: keySPEditProfile,
+        ),
+        const MenuPage(
+          key: Key('Menu'),
+>>>>>>> upstream/develop
         ),
       ];
     } else {
@@ -272,6 +391,7 @@ class MainScreenViewModel extends BaseModel {
           key: const Key("DemoHomeView"),
           homeModel: this,
         ),
+<<<<<<< HEAD
         DemoExploreEvents(
           key: const Key('DemoExploreEvents'),
           homeModel: this,
@@ -283,10 +403,27 @@ class MainScreenViewModel extends BaseModel {
         // const ChatPage(
         //   key: Key('Chats'),
         // ),
+=======
+        const DemoExploreEvents(
+          key: Key('DemoExploreEvents'),
+        ),
+        const ChatPage(
+          key: Key('DemoChats'),
+        ),
+        const FundScreen(
+          key: Key('Funds'),
+        ),
+>>>>>>> upstream/develop
         DemoProfilePage(
           key: const Key('DemoProfile'),
           homeModel: this,
         ),
+<<<<<<< HEAD
+=======
+        const MenuPage(
+          key: Key('Menu'),
+        ),
+>>>>>>> upstream/develop
       ];
     }
   }
@@ -321,10 +458,15 @@ class MainScreenViewModel extends BaseModel {
       secondaryButtonText: 'Skip',
       success: () {
         navigationService.pop();
+<<<<<<< HEAD
         print(MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen);
         if (MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen ??
             false) {
           MainScreenViewModel.scaffoldKey.currentState?.closeDrawer();
+=======
+        if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
+          scaffoldKey.currentState?.closeDrawer();
+>>>>>>> upstream/develop
         }
         tourHomeTargets();
       },
@@ -467,6 +609,7 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
+<<<<<<< HEAD
   void showHome(TargetFocus clickedTarget) {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
@@ -474,6 +617,24 @@ class MainScreenViewModel extends BaseModel {
         break;
       case "keyDrawerLeaveCurrentOrg":
         navigationService.pop();
+=======
+  Future<void> showHome(TargetFocus clickedTarget) async {
+    switch (clickedTarget.identify) {
+      case "keySHMenuIcon":
+        scaffoldKey.currentState!.openDrawer();
+        return;
+      case "keyDrawerLeaveCurrentOrg":
+        navigationService.pop();
+        return;
+      case "keyBNHome":
+        // Close drawer when moving to bottom navigation tour
+        if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
+          scaffoldKey.currentState?.closeDrawer();
+          // Add a small delay to let the drawer close animation complete
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
+        return;
+>>>>>>> upstream/develop
     }
   }
 
@@ -540,7 +701,11 @@ class MainScreenViewModel extends BaseModel {
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
+<<<<<<< HEAD
           tourProfile();
+=======
+          tourChat();
+>>>>>>> upstream/develop
         }
       },
       onClickTarget: (TargetFocus a) {},
@@ -572,8 +737,12 @@ class MainScreenViewModel extends BaseModel {
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
+<<<<<<< HEAD
           // tourChat();
           tourProfile();
+=======
+          tourChat();
+>>>>>>> upstream/develop
         }
       },
       onClickTarget: (TargetFocus a) {},
@@ -665,6 +834,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
 
+<<<<<<< HEAD
 // Uncomment the section below if you want to add the keySPInvite target
 // targets.add(
 //   FocusTarget(
@@ -674,6 +844,8 @@ class MainScreenViewModel extends BaseModel {
 //   ),
 // );
 
+=======
+>>>>>>> upstream/develop
     targets.add(
       FocusTarget(
         key: keySPPalisadoes,

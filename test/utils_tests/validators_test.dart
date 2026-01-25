@@ -29,43 +29,21 @@ void main() {
         });
       });
 
-      group('Test validateFirstName', () {
-        test('Test validateFirstName when value is empty', () {
-          final result = Validator.validateFirstName('');
+      group('Test validateName', () {
+        test('Test validateName when value is empty', () {
+          final result = Validator.validateName('');
 
-          expect(result, 'Firstname must not be left blank.');
+          expect(result, 'Name must not be left blank.');
         });
 
-        test('Test validateFirstName when value does not match regex pattern',
-            () {
-          final result = Validator.validateFirstName('123');
+        test('Test validateName when value does not match regex pattern', () {
+          final result = Validator.validateName('123');
 
-          expect(result, 'Invalid Firstname');
+          expect(result, 'Invalid Name');
         });
 
-        test('Test validateFirstName when value match regex pattern', () {
-          final result = Validator.validateFirstName('Name');
-
-          expect(result, null);
-        });
-      });
-
-      group('Test validateLastName', () {
-        test('Test validateLastName when value is empty', () {
-          final result = Validator.validateLastName('');
-
-          expect(result, 'Lastname must not be left blank.');
-        });
-
-        test('Test validateLastName when value does not match regex pattern',
-            () {
-          final result = Validator.validateLastName('123');
-
-          expect(result, 'Invalid Lastname');
-        });
-
-        test('Test validateLastName when value match regex pattern', () {
-          final result = Validator.validateLastName('Name');
+        test('Test validateName when value match regex pattern', () {
+          final result = Validator.validateName('Name');
 
           expect(result, null);
         });
@@ -225,18 +203,43 @@ void main() {
 
             expect(result, null);
           });
-
-          test('Test validateEventTime for start time greater than end time',
-              () {
-            const startTime = TimeOfDay(hour: 14, minute: 30);
-            const endTime = TimeOfDay(hour: 12, minute: 30);
-
-            final result = Validator.validateEventTime(startTime, endTime);
-
-            expect(result, 'Start time must be before or equal to end time');
-          });
         },
       );
     },
   );
+  group('EventDateTimeValidator', () {
+    test('validateEventDateTime', () {
+      final date = DateTime(2025, 10, 16);
+
+      final invalid = Validator.validateEventDateTime(
+        date,
+        const TimeOfDay(hour: 10, minute: 0),
+        date,
+        const TimeOfDay(hour: 9, minute: 0),
+      );
+      expect(invalid, 'Event end date/time cannot be before start date/time');
+
+      final valid = Validator.validateEventDateTime(
+        date,
+        const TimeOfDay(hour: 10, minute: 0),
+        date,
+        const TimeOfDay(hour: 11, minute: 0),
+      );
+      expect(valid, isNull);
+    });
+
+    test('validateEventStartDate', () {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final past = today.subtract(const Duration(days: 1));
+      final future = today.add(const Duration(days: 1));
+
+      expect(
+        Validator.validateEventStartDate(past),
+        'Cannot create events having date prior than today',
+      );
+      expect(Validator.validateEventStartDate(today), isNull);
+      expect(Validator.validateEventStartDate(future), isNull);
+    });
+  });
 }

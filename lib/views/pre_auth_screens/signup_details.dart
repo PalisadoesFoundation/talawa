@@ -12,16 +12,39 @@ import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This widget takes the user details for signup. The form includes first name, last name, email, password, and password confirmation inputs.
 class SignUpDetails extends StatefulWidget {
+<<<<<<< HEAD
   const SignUpDetails({required Key key, this.selectedOrg}) : super(key: key);
 
   /// Details of selected Organisation.
   final OrgInfo? selectedOrg;
+=======
+  const SignUpDetails({required Key key, required this.selectedOrg})
+      : super(key: key);
+
+  /// Details of selected Organisation.
+  final OrgInfo selectedOrg;
+>>>>>>> upstream/develop
   @override
   _SignUpDetailsState createState() => _SignUpDetailsState();
 }
 
 class _SignUpDetailsState extends State<SignUpDetails> {
   @override
+<<<<<<< HEAD
+=======
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    securityService.disableSecure();
+    super.dispose();
+  }
+
+  @override
+>>>>>>> upstream/develop
   Widget build(BuildContext context) {
     return BaseView<SignupDetailsViewModel>(
       onModelReady: (model) => model.initialise(widget.selectedOrg),
@@ -78,6 +101,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 height: SizeConfig.screenHeight! * 0.05,
                               ), //Input field for the first name of the user.
                               TextFormField(
+<<<<<<< HEAD
                                 key: const Key('FirstNameInputField'),
                                 controller: model.firstName,
                                 textInputAction: TextInputAction.next,
@@ -89,6 +113,18 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 validator: (value) {
                                   final String? msg =
                                       Validator.validateFirstName(
+=======
+                                key: const Key('NameInputField'),
+                                controller: model.name,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.text,
+                                autofillHints: const <String>[
+                                  AutofillHints.name,
+                                ],
+                                enableSuggestions: true,
+                                validator: (value) {
+                                  final String? msg = Validator.validateName(
+>>>>>>> upstream/develop
                                     value!,
                                   );
                                   if (msg == null) {
@@ -96,7 +132,11 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   }
                                   return AppLocalizations.of(context)!
                                       .translate(
+<<<<<<< HEAD
                                     Validator.validateFirstName(
+=======
+                                    Validator.validateName(
+>>>>>>> upstream/develop
                                       value,
                                     ),
                                   );
@@ -105,6 +145,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   hintText: AppLocalizations.of(
                                     context,
                                   )!
+<<<<<<< HEAD
                                       .translate('First Name Hint'),
                                   labelText:
                                       '${AppLocalizations.of(context)!.translate("Enter your first name")}*',
@@ -144,6 +185,11 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                       .translate('Last Name Hint'),
                                   labelText:
                                       '${AppLocalizations.of(context)!.translate("Enter your last name")}*',
+=======
+                                      .translate('Name Hint'),
+                                  labelText:
+                                      '${AppLocalizations.of(context)!.translate("Enter your name")}*',
+>>>>>>> upstream/develop
                                   labelStyle:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),

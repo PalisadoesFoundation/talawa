@@ -2,20 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
+<<<<<<< HEAD
 import 'package:talawa/widgets/custom_progress_dialog.dart';
+=======
+import 'package:talawa/services/user_config.dart';
+>>>>>>> upstream/develop
 
 /// To add options to the bottom nav bar, increase the height too.
 class PostBottomModal extends StatelessWidget {
   const PostBottomModal({
     super.key,
+<<<<<<< HEAD
     this.function,
+=======
+>>>>>>> upstream/develop
     this.deletePost,
     required this.post,
   });
 
+<<<<<<< HEAD
   /// This function is passed for the handling the action to be performed when the comment button is clicked.
   final Function(Post)? function;
 
+=======
+>>>>>>> upstream/develop
   /// To delete the post if user can (only work if the post is made by the user).
   final Function(Post)? deletePost;
 
@@ -53,8 +63,14 @@ class PostBottomModal extends StatelessWidget {
             ],
           ),
         ),
+<<<<<<< HEAD
         Center(
           child: Row(
+=======
+        if (post.creator?.id != null &&
+            post.creator?.id == locator<UserConfig>().currentUser.id)
+          Row(
+>>>>>>> upstream/develop
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
@@ -78,6 +94,7 @@ class PostBottomModal extends StatelessWidget {
                           TextButton(
                             key: const Key('alert_dialog_yes_btn'),
                             onPressed: () {
+<<<<<<< HEAD
                               navigationService.pop();
                               deletePost?.call(post);
                               navigationService.pop();
@@ -86,6 +103,11 @@ class PostBottomModal extends StatelessWidget {
                                   key: Key('deletePost'),
                                 ),
                               );
+=======
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              deletePost?.call(post);
+>>>>>>> upstream/develop
                             },
                             child: const Text("Yes"),
                           ),
@@ -102,13 +124,20 @@ class PostBottomModal extends StatelessWidget {
                   );
                 },
                 child: Text(
+<<<<<<< HEAD
                   'The post was deleted',
+=======
+                  'Delete Post',
+>>>>>>> upstream/develop
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
             ],
           ),
+<<<<<<< HEAD
         ),
+=======
+>>>>>>> upstream/develop
       ],
     );
   }

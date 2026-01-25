@@ -63,6 +63,7 @@ class CustomListTile extends StatelessWidget {
 
     switch (type) {
       case TileType.org:
+<<<<<<< HEAD
         onTap = () => onTapOrgInfo!(orgInfo!);
         break;
       case TileType.user:
@@ -74,6 +75,19 @@ class CustomListTile extends StatelessWidget {
       default:
         onTap = onTapOption;
         break;
+=======
+        onTap = () {
+          if (onTapOrgInfo != null && orgInfo != null) {
+            onTapOrgInfo!(orgInfo!);
+          }
+        };
+      case TileType.user:
+        onTap = onTapUserInfo;
+      case TileType.attendee:
+        onTap = onTapAttendeeInfo;
+      default:
+        onTap = onTapOption;
+>>>>>>> upstream/develop
     }
 
     return InkWell(
@@ -107,7 +121,11 @@ class CustomListTile extends StatelessWidget {
                       ? RichText(
                           key: const Key('OrgNamewithOrgAddress'),
                           text: TextSpan(
+<<<<<<< HEAD
                             text: orgInfo!.name,
+=======
+                            text: orgInfo?.name ?? 'Unknown Organization',
+>>>>>>> upstream/develop
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
@@ -141,10 +159,19 @@ class CustomListTile extends StatelessWidget {
                         )
                       : Text(
                           type == TileType.user
+<<<<<<< HEAD
                               ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
                               : type == TileType.attendee
                                   ? '${attendeeInfo!.firstName!} ${attendeeInfo!.lastName!}'
                                   : option!.title,
+=======
+                              ? '${userInfo?.firstName ?? ''} ${userInfo?.lastName ?? ''}'
+                                  .trim()
+                              : type == TileType.attendee
+                                  ? '${attendeeInfo?.firstName ?? ''} ${attendeeInfo?.lastName ?? ''}'
+                                      .trim()
+                                  : option?.title ?? 'Unknown Option',
+>>>>>>> upstream/develop
                           style:
                               type == TileType.user || type == TileType.attendee
                                   ? Theme.of(context)
@@ -154,7 +181,11 @@ class CustomListTile extends StatelessWidget {
                                         fontSize: 18,
                                         color: Colors.black,
                                       )
+<<<<<<< HEAD
                                   : option!.trailingIconButton == null
+=======
+                                  : option?.trailingIconButton == null
+>>>>>>> upstream/develop
                                       ? Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -172,6 +203,7 @@ class CustomListTile extends StatelessWidget {
                         ),
                 ),
               ),
+<<<<<<< HEAD
               // Expanded(
               //   flex: 1,
               //   child: type != TileType.user && type != TileType.attendee
@@ -187,6 +219,8 @@ class CustomListTile extends StatelessWidget {
               //           : option!.trailingIconButton ?? const SizedBox()
               //       : const SizedBox(),
               // ),
+=======
+>>>>>>> upstream/develop
             ],
           ),
         ),

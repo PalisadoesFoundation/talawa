@@ -39,7 +39,7 @@ class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
     WebOptions? webOptions,
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
-  }) async {
+  }) {
     if (key == "userEmail" || key == "userPassword") {
       throw Exception("Storing error");
     }
@@ -55,7 +55,7 @@ class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
     WebOptions? webOptions,
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
-  }) async {
+  }) {
     if (key == "userEmail" || key == "userPassword") {
       throw Exception("Unable to read");
     }
@@ -78,6 +78,7 @@ final data = {
 bool empty = false;
 
 Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
   // setupFirebaseMocks();
   // await Firebase.initializeApp();
   // FirebaseMessagingPlatform.instance = kMockMessagingPlatform;

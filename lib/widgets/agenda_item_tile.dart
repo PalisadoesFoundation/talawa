@@ -1,7 +1,11 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:talawa/models/events/event_agenda_item.dart';
+=======
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
+>>>>>>> upstream/develop
 
 /// A widget that displays an expandable agenda item tile.
 class ExpandableAgendaItemTile extends StatelessWidget {
@@ -29,11 +33,19 @@ class ExpandableAgendaItemTile extends StatelessWidget {
       child: ExpansionTile(
         leading: ReorderableDragStartListener(
           key: const Key('reorder_icon'),
+<<<<<<< HEAD
           index: item.sequence! - 1,
           child: const Icon(Icons.drag_handle),
         ),
         title: Text(
           item.title!,
+=======
+          index: (item.sequence ?? 1) - 1,
+          child: const Icon(Icons.drag_handle),
+        ),
+        title: Text(
+          item.name ?? 'No Name',
+>>>>>>> upstream/develop
           style: const TextStyle(
             color: Colors.green,
             fontSize: 16,
@@ -71,7 +83,11 @@ class ExpandableAgendaItemTile extends StatelessWidget {
                   children: (item.categories ?? []).map((category) {
                     return Chip(
                       label: Text(
+<<<<<<< HEAD
                         category.name!,
+=======
+                        category.name ?? 'No Category',
+>>>>>>> upstream/develop
                         style: const TextStyle(fontSize: 12),
                       ),
                       padding: const EdgeInsets.all(4),
@@ -116,6 +132,7 @@ class ExpandableAgendaItemTile extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   const SizedBox(height: 4),
+<<<<<<< HEAD
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -156,6 +173,51 @@ class ExpandableAgendaItemTile extends StatelessWidget {
                       }
                     },
                   ),
+=======
+                  item.attachments == null || item.attachments!.isEmpty
+                      ? const Text('No attachments available')
+                      : GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: item.attachments!.length,
+                          itemBuilder: (context, index) {
+                            final base64String = item.attachments![index];
+                            try {
+                              final imageData = base64Decode(base64String);
+                              return GestureDetector(
+                                onTap: () =>
+                                    _showFullScreenImage(context, imageData),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.memory(
+                                    imageData,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                  ),
+                                ),
+                              );
+                            } catch (e) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Icon(
+                                  Icons.attachment,
+                                  color: Colors.white,
+                                ),
+                              );
+                            }
+                          },
+                        ),
+>>>>>>> upstream/develop
                   const SizedBox(height: 8),
                 ],
               ],

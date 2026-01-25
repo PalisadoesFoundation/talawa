@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+<<<<<<< HEAD
 import 'package:talawa/exceptions/critical_action_exception.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -26,7 +29,11 @@ class AppConnectivity extends BaseModel {
   StreamSubscription? _subscription;
 
   /// flag to handle online status.
+<<<<<<< HEAD
   static late bool isOnline;
+=======
+  static bool isOnline = false;
+>>>>>>> upstream/develop
 
   /// Initializes the [AppConnectivity].
   ///
@@ -89,6 +96,7 @@ class AppConnectivity extends BaseModel {
     isOnline = true;
     showSnackbar(isOnline: true);
     databaseFunctions.init();
+<<<<<<< HEAD
     cacheService.offlineActionQueue.getActions().forEach((action) async {
       final result = await action.execute();
       GraphqlExceptionResolver.encounteredExceptionOrError(
@@ -96,6 +104,11 @@ class AppConnectivity extends BaseModel {
       );
       debugPrint(result.toString());
     });
+=======
+    for (final action in cacheService.offlineActionQueue.getActions()) {
+      await action.execute();
+    }
+>>>>>>> upstream/develop
   }
 
   /// This function handles the actions to be taken when the device is offline.

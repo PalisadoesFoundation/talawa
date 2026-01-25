@@ -1,8 +1,6 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -10,14 +8,14 @@ void main() {
   final comment = Comment(
     creator: User(
       id: '123',
-      firstName: 'John',
-      lastName: 'Doe',
+      name: 'John Doe',
       email: 'test@test.com',
     ),
     createdAt: '123456',
-    text: 'test text',
-    post: 'test post',
-    likeCount: 'test count',
+    body: 'test text',
+    post: null,
+    hasVoted: true,
+    voteType: VoteType.upVote,
   );
 
   final commentJson = {
@@ -28,13 +26,16 @@ void main() {
         'emailAddress': 'test@test.com',
         'avatarURL': null,
       },
-      'authenticationToken': 'authToken123',
     },
     'createdAt': '123456',
-    'text': 'test text',
-    'post': 'test post',
-    'likeCount': 'test count',
+    'body': 'test text',
+    'post': null,
+    'hasUserVoted': {
+      'hasVoted': true,
+      'voteType': 'up_vote',
+    },
   };
+
   group('Test Comment model', () {
     test('Test task json', () {
       final commentFromJson = Comment.fromJson(commentJson);
@@ -43,10 +44,58 @@ void main() {
       expect(comment.creator?.lastName, commentFromJson.creator?.lastName);
       expect(comment.creator?.email, commentFromJson.creator?.email);
       expect(comment.createdAt, commentFromJson.createdAt);
-      expect(comment.text, commentFromJson.text);
+      expect(comment.body, commentFromJson.body);
+      expect(comment.hasVoted, commentFromJson.hasVoted);
       expect(comment.post, commentFromJson.post);
-      expect(comment.likeCount, commentFromJson.likeCount);
+      expect(comment.voteType, commentFromJson.voteType);
     });
+  });
+  test('Comment.fromJson sets post when json["post"] is not null', () {
+    final commentJson = {
+      'id': 'comment1',
+      'body': 'This is a comment',
+      'post': {
+        'id': 'post1',
+        'caption': 'Test Post',
+        'createdAt': '2024-06-24T12:00:00Z',
+        'commentsCount': 2,
+        'upVotesCount': 5,
+        'downVotesCount': 1,
+        'attachments': [],
+        'isPinned': false,
+        'pinnedAt': null,
+      },
+      'creator': {
+        'id': 'user2',
+        'image': null,
+      },
+      'createdAt': '2024-06-24T12:01:00Z',
+    };
+
+    final comment = Comment.fromJson(commentJson);
+
+    expect(comment.post, isNotNull);
+    expect(comment.post!.id, 'post1');
+    expect(comment.post!.caption, 'Test Post');
+    expect(comment.body, 'This is a comment');
+  });
+
+  test('Comment.fromJson sets post to null when json["post"] is null', () {
+    final commentJson = {
+      'id': 'comment2',
+      'body': 'Another comment',
+      'post': null,
+      'creator': {
+        'id': 'user3',
+        'image': null,
+      },
+      'createdAt': '2024-06-24T12:02:00Z',
+    };
+
+    final comment = Comment.fromJson(commentJson);
+
+    expect(comment.post, isNull);
+    expect(comment.body, 'Another comment');
   });
 
   group('Test caching part of comment', () {
@@ -57,17 +106,16 @@ void main() {
     tearDownAll(() async {
       await commentBox.close();
     });
-    test('put and get', () async {
+    test('put and get', () {
       commentBox.put('key', comment);
       final Comment fetchedComment = commentBox.get('key')!;
       expect(
         fetchedComment,
         isNotNull,
       ); // Check that the fetched comment is not null
-      expect(fetchedComment.text, comment.text);
+      expect(fetchedComment.body, comment.body);
       expect(fetchedComment.createdAt, comment.createdAt);
       expect(fetchedComment.post, comment.post);
-      expect(fetchedComment.likeCount, comment.likeCount);
     });
 
     test('adapter equality', () {

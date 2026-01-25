@@ -17,8 +17,11 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return OrgInfo(
+<<<<<<< HEAD
       admins: (fields[3] as List?)?.cast<User>(),
       members: (fields[4] as List?)?.cast<User>(),
+=======
+>>>>>>> upstream/develop
       description: fields[5] as String?,
       id: fields[1] as String?,
       image: fields[0] as String?,
@@ -30,23 +33,37 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       line2: fields[10] as String?,
       postalCode: fields[11] as String?,
       state: fields[12] as String?,
+<<<<<<< HEAD
+=======
+      adminsCount: fields[13] as int?,
+      membersCount: fields[14] as int?,
+      members: (fields[15] as List?)?.cast<User>(),
+      admins: (fields[16] as List?)?.cast<User>(),
+>>>>>>> upstream/develop
     );
   }
 
   @override
   void write(BinaryWriter writer, OrgInfo obj) {
     writer
+<<<<<<< HEAD
       ..writeByte(13)
+=======
+      ..writeByte(15)
+>>>>>>> upstream/develop
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
       ..write(obj.name)
+<<<<<<< HEAD
       ..writeByte(3)
       ..write(obj.admins)
       ..writeByte(4)
       ..write(obj.members)
+=======
+>>>>>>> upstream/develop
       ..writeByte(5)
       ..write(obj.description)
       ..writeByte(6)
@@ -62,7 +79,19 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       ..writeByte(11)
       ..write(obj.postalCode)
       ..writeByte(12)
+<<<<<<< HEAD
       ..write(obj.state);
+=======
+      ..write(obj.state)
+      ..writeByte(13)
+      ..write(obj.adminsCount)
+      ..writeByte(14)
+      ..write(obj.membersCount)
+      ..writeByte(15)
+      ..write(obj.members)
+      ..writeByte(16)
+      ..write(obj.admins);
+>>>>>>> upstream/develop
   }
 
   @override

@@ -1,12 +1,25 @@
 import 'dart:io';
 
+<<<<<<< HEAD
+=======
+import 'package:flutter/foundation.dart';
+>>>>>>> upstream/develop
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
+<<<<<<< HEAD
 import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/events/event_model.dart';
+=======
+import 'package:talawa/models/attachments/attachment_model.dart';
+import 'package:talawa/models/caching/cached_user_action.dart';
+import 'package:talawa/models/comment/comment_model.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
+import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/events/recurrence_rule_model.dart';
+>>>>>>> upstream/develop
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -52,7 +65,11 @@ class HiveManager {
     try {
       Hive.registerAdapter<T>(adapter);
     } catch (e) {
+<<<<<<< HEAD
       print('Failed to register Hive adapters: $e');
+=======
+      debugPrint('Failed to register Hive adapters: $e');
+>>>>>>> upstream/develop
     }
   }
 
@@ -67,7 +84,11 @@ class HiveManager {
     try {
       await Hive.openBox<T>(boxName);
     } catch (e) {
+<<<<<<< HEAD
       print('Failed to open box $boxName');
+=======
+      debugPrint('Failed to open box $boxName');
+>>>>>>> upstream/develop
     }
   }
 
@@ -82,7 +103,11 @@ class HiveManager {
     try {
       await Hive.box<T>(boxName).close();
     } catch (e) {
+<<<<<<< HEAD
       print('Failed to close the box $boxName');
+=======
+      debugPrint('Failed to close the box $boxName');
+>>>>>>> upstream/develop
     }
   }
 
@@ -100,12 +125,23 @@ class HiveManager {
     registerAdapter<CachedUserAction>(CachedUserActionAdapter());
     registerAdapter<CachedOperationType>(CachedOperationTypeAdapter());
     registerAdapter<CachedUserActionStatus>(CachedUserActionStatusAdapter());
+<<<<<<< HEAD
     registerAdapter<Post>(PostAdapter());
     registerAdapter<Event>(EventAdapter());
     registerAdapter<LikedBy>(LikedByAdapter());
     registerAdapter<Attendee>(AttendeeAdapter());
     registerAdapter<Comment>(CommentAdapter());
     registerAdapter<Comments>(CommentsAdapter());
+=======
+    registerAdapter<VoteType>(VoteTypeAdapter());
+    registerAdapter<Post>(PostAdapter());
+    registerAdapter<Event>(EventAdapter());
+    registerAdapter<Attendee>(AttendeeAdapter());
+    registerAdapter<Comment>(CommentAdapter());
+    registerAdapter<AttachmentModel>(AttachmentModelAdapter());
+    registerAdapter<EventAgendaItem>(EventAgendaItemAdapter());
+    registerAdapter<RecurrenceRule>(RecurrenceRuleAdapter());
+>>>>>>> upstream/develop
   }
 
   /// Opens the necessary Hive boxes for storing various types of data.
@@ -118,11 +154,18 @@ class HiveManager {
   static Future<void> _openBoxes() async {
     await openBox<User>(HiveKeys.userBoxKey);
     await openBox<OrgInfo>(HiveKeys.orgBoxKey);
+<<<<<<< HEAD
     await openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+=======
+>>>>>>> upstream/develop
     await openBox(HiveKeys.urlBoxKey);
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
     await openBox<Event>(HiveKeys.eventFeedKey);
+<<<<<<< HEAD
+=======
+    await openBox<Post>(HiveKeys.pinnedPostKey);
+>>>>>>> upstream/develop
   }
 
   /// Closes all opened Hive boxes and the Hive instance itself.
@@ -150,10 +193,17 @@ class HiveManager {
   static Future<void> _closeBoxes() async {
     await closeBox<User>(HiveKeys.userBoxKey);
     await closeBox<OrgInfo>(HiveKeys.orgBoxKey);
+<<<<<<< HEAD
     await closeBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+=======
+>>>>>>> upstream/develop
     await closeBox(HiveKeys.urlBoxKey);
     await closeBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await closeBox<Post>(HiveKeys.postFeedKey);
     await closeBox<Event>(HiveKeys.eventFeedKey);
+<<<<<<< HEAD
+=======
+    await closeBox<Post>(HiveKeys.pinnedPostKey);
+>>>>>>> upstream/develop
   }
 }

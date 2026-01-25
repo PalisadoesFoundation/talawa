@@ -1,38 +1,97 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/utils/post_queries.dart';
-import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
-bool empty = true;
-bool userSaved = true;
-bool userRegistrationRequired = false;
+class MockUserConfig extends Mock implements UserConfig {
+  @override
+  User get currentUser => User(
+        id: 'xyz1',
+        authToken: 'testtoken',
+        joinedOrganizations: [
+          OrgInfo(
+            id: 'xyz1',
+            name: 'Test Org',
+          ),
+        ],
+      );
+  @override
+  OrgInfo get currentOrg => OrgInfo(
+        id: 'xyz1',
+        name: 'Test Org',
+      );
+  @override
+  Future<bool> updateUser(User updatedUserDetails) {
+    if (updatedUserDetails.id == 'xyz1') {
+      return Future.value(true);
+    }
+    return Future.value(false);
+  }
 
-final data = {
+  @override
+  void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {}
+}
+
+var mockSignUpData = {
   'signUp': {
-    'user': {
-      'id': 'xzy1',
-      'name': 'Test User',
-      'emailAddress': 'testuser@gmail.com',
-    },
     'authenticationToken': 'testtoken',
     'refreshToken': 'testtoken',
+    'user': {
+      'id': 'xyz1',
+      'name': 'Test User',
+      'avatarURL': 'https://example.com/avatar.png',
+      'emailAddress': 'testuser@gmail.com',
+      'organizationsWhereMember': {
+        'edges': [
+          {
+            'node': {
+              'id': 'xyz1',
+              'name': 'Test Org',
+              'addressLine1': '123 Main St',
+              'addressLine2': 'Suite 100',
+              'avatarMimeType': 'image/png',
+              'avatarURL': 'https://example.com/org_avatar.png',
+              'postalCode': '12345',
+              'countryCode': 'US',
+              'description': 'A test organization',
+              'members': {
+                'edges': [
+                  {
+                    'node': {
+                      'name': 'John Doe',
+                      'role': 'admin',
+                    },
+                  },
+                  {
+                    'node': {
+                      'name': 'Jane Smith',
+                      'role': 'member',
+                    },
+                  }
+                ],
+              },
+            },
+          }
+        ],
+      },
+    },
   },
 };
 
@@ -52,216 +111,249 @@ class SignUpMock extends StatelessWidget {
   }
 }
 
-OrgInfo get org => OrgInfo(
-      id: 'id',
-      name: 'test org 3',
-      userRegistrationRequired: userRegistrationRequired,
-    );
-
 void main() {
-  testSetupLocator();
-  setUp(() async {
-    registerServices();
-    locator<Queries>();
-    userSaved = true;
-    empty = true;
-    userRegistrationRequired = false;
-    await locator.unregister<UserConfig>();
-    locator.registerSingleton<UserConfig>(MockUserConfig());
-    FlutterSecureStorage.setMockInitialValues(
-      {"userEmail": "mocked_value", "userPassword": "mocked_value"},
-    );
-  });
-  // tearDown(() async {
-  //   await locator.unregister<Queries>();
-  // });
-
-  group('SignupDetailsViewModel Test -', () {
-    testWidgets(
-        'Check if signup() is working fine when credentials are invalid',
-        (tester) async {
-      final model = SignupDetailsViewModel();
-      model.selectedOrganization = OrgInfo(id: "");
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      when(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser("", "", "", "", ""),
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: null,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      await model.signUp();
-
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.mainScreen,
-          Routes.splashScreen,
-          arguments: isA<MainScreenArgs>()
-              .having(
-                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-                "main screen index",
-                0,
-              )
-              .having(
-                (mainScreenArgs) => mainScreenArgs.fromSignUp,
-                "from sign up",
-                true,
-              ),
-        ),
-      );
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() {
+    testSetupLocator();
+    getAndRegisterNavigationService();
+    getAndRegisterDatabaseMutationFunctions();
+    getAndRegisterGraphQLClient();
+    try {
+      locator.unregister<UserConfig>();
+    } catch (e) {
+      // UserConfig registered, which is expected
+    }
+    locator.registerLazySingleton<UserConfig>(() => MockUserConfig());
+    mockFlutterSecureStorage();
+    locator.unregister<GraphqlConfig>();
+    locator.registerLazySingleton<GraphqlConfig>(() {
+      final mock = MockGraphqlConfig();
+      when(mock.getToken()).thenAnswer((_) => Future.value('test_token'));
+      return mock;
     });
-    testWidgets(
-        'Check if signup() is working fine when user is not save and/or token not refreshed',
-        (tester) async {
-      userSaved = false;
-
+  });
+  group("Testing initialise()", () {
+    testWidgets('Check if initialise() is working fine', (tester) async {
       final model = SignupDetailsViewModel();
-
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      model.initialise(org);
-
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: data,
-        options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '', org.id)),
+      // Creating a test MaterialApp to provide a BuildContext
+      await tester.pumpWidget(
+        SignUpMock(
+          formKey: GlobalKey<FormState>(),
         ),
       );
-      when(graphqlConfig.getToken()).thenAnswer((_) async => false);
-      final query = queries.registerUser(
-        '',
-        '',
-        '',
-        '',
-        org.id,
-      );
-      when(
-        databaseFunctions.gqlAuthMutation(
-          queries.sendMembershipRequest(org.id!),
-        ),
-      ).thenAnswer((realInvocation) async {
-        final sendMemberReqData = {
-          "sendMembershipRequest": {
-            "organization": {
-              "id": "org123",
-              "name": "Tech Innovators",
-              "userRegistrationRequired": true,
-            },
-          },
-        };
-        return QueryResult(
-          source: QueryResultSource.network,
-          data: sendMemberReqData,
-          options: QueryOptions(document: gql(query)),
+
+      await tester.runAsync(() async {
+        model.initialise(
+          OrgInfo(
+            id: "1",
+            name: "Test Org",
+          ),
         );
       });
-      when(databaseFunctions.gqlNonAuthMutation(query))
-          .thenAnswer((_) async => result);
+      await tester.pumpAndSettle();
 
-      // Test for user not saved and user token not refreshed
-      await model.signUp();
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-
-      // Test for user saved and user token not refreshed
-      userSaved = true;
-      await model.signUp();
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.mainScreen,
-          Routes.splashScreen,
-          arguments: isA<MainScreenArgs>()
-              .having(
-                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-                "main screen index",
-                0,
-              )
-              .having(
-                (mainScreenArgs) => mainScreenArgs.fromSignUp,
-                "from sign up",
-                true,
-              ),
-        ),
-      );
-
-      // Test for user not saved and user token refreshed
-      userSaved = false;
-      when(graphqlConfig.getToken()).thenAnswer((_) async => true);
-      await model.signUp();
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.mainScreen,
-          Routes.splashScreen,
-          arguments: isA<MainScreenArgs>()
-              .having(
-                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-                "main screen index",
-                0,
-              )
-              .having(
-                (mainScreenArgs) => mainScreenArgs.fromSignUp,
-                "from sign up",
-                true,
-              ),
-        ),
-      );
+      expect(model.greeting, isNotEmpty);
+      expect(model.greeting, isNotNull);
     });
-    testWidgets(
-        'Check if signup() works fine when process of register user throws exception',
+  });
+  group('SignupDetailsViewModel Test -', () {
+    late SignupDetailsViewModel model;
+
+    setUp(() {
+      model = SignupDetailsViewModel();
+    });
+    testWidgets('Check if signup() works fine and register user successfully',
         (tester) async {
-      final model = SignupDetailsViewModel();
+      final org = OrgInfo(
+        id: "xyz1",
+        name: "Test Org",
+      );
+      final queryResult = QueryResult(
+        options: QueryOptions(
+          document: gql(
+            queries.registerUser('', '', '', org.id),
+          ),
+        ),
+        data: mockSignUpData,
+        source: QueryResultSource.network,
+      );
 
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      model.initialise(org);
-
-      when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
         ),
-      ).thenThrow(Exception());
+      ).thenAnswer((_) async => queryResult);
 
-      await model.signUp();
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
 
       expect(model.validate, AutovalidateMode.disabled);
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', org.id),
+        ),
+      );
+
+      verify(
+        navigationService.removeAllAndPush(
+          Routes.mainScreen,
+          Routes.splashScreen,
+          arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+        ),
+      ).called(1);
+    });
+
+    testWidgets('Check if signup() handling error when graphql mutation fails',
+        (tester) async {
+      final org = OrgInfo(
+        id: "xyz1",
+        name: "Test Org",
+      );
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      ).thenThrow(
+        Exception(
+          'GraphQL mutation failed',
+        ),
+      );
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
+
+      expect(model.validate, AutovalidateMode.disabled);
+
+      verify(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      );
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong',
+          MessageType.error,
+        ),
+      ).called(1);
+    });
+    testWidgets(
+        'Check if signup() is working fine when user is not save and/or token not refreshed',
+        (tester) async {
+      final org = OrgInfo(
+        id: "xyz2",
+        name: "Test Org",
+      );
+      final modifiedSignUpData =
+          jsonDecode(jsonEncode(mockSignUpData)) as Map<String, dynamic>;
+      final signUpMap = modifiedSignUpData['signUp'] as Map<String, dynamic>;
+      final userMap = signUpMap['user'] as Map<String, dynamic>;
+      userMap['id'] = 'xyz2';
+      final queryResult = QueryResult(
+        options: QueryOptions(
+          document: gql(
+            queries.registerUser('', '', '', org.id),
+          ),
+        ),
+        data: modifiedSignUpData,
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      ).thenAnswer((_) async => queryResult);
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
+
+      expect(model.validate, AutovalidateMode.disabled);
+
+      verify(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      );
+      await tester.pumpAndSettle(); // or pumpAndSettle() if needed
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          TalawaErrors.userNotFound,
+          MessageType.error,
+        ),
+      ).called(1);
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.waitingScreen,
+          Routes.splashScreen,
+        ),
+      );
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.mainScreen,
+          Routes.splashScreen,
+          arguments: isA<MainScreenArgs>()
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
+        ),
+      );
+    });
+
+    testWidgets(
+        'Check if signup() works fine when process of register user throws exception',
+        (tester) async {
+      final org = OrgInfo(
+        id: "xyz1",
+        name: "Test Org",
+      );
+
+      final queryResult = QueryResult(
+        options: QueryOptions(
+          document: gql(
+            queries.registerUser('', '', '', org.id),
+          ),
+        ),
+        data: null,
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
+        ),
+      ).thenAnswer(
+        (_) async => queryResult,
+      );
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
+
+      expect(model.validate, AutovalidateMode.disabled);
+
+      verify(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', org.id),
         ),
       );
       verifyNever(
@@ -288,23 +380,30 @@ void main() {
         ),
       );
     });
-    test('Should handle exception while storing data', () async {
+  });
+  group('Testing storingCredentialsInSecureStorage()', () {
+    test('Should handle exception while storing email and password', () async {
       final model = SignupDetailsViewModel();
-      FlutterSecureStorage.setMockInitialValues(
-        {"userEmail": "test@example.com", "userPassword": "password123"},
-      );
-      final mockSecureStorage = MockFlutterSecureStorage();
-      model.secureStorage = mockSecureStorage;
 
       String log = "";
 
+      /// Always get exception as no plugin  is registered for storing credentials using secure storage
       await runZonedGuarded(
         () async {
+          const MethodChannel channel =
+              MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+              .setMockMethodCallHandler(channel, (MethodCall methodCall) {
+            throw Exception('Mock failure');
+          });
+
+          model.email.text = "test.user@example.com";
+          model.password.text = "password123";
           await model.storingCredentialsInSecureStorage();
         },
         (error, stack) {
           expect(error, isA<Exception>());
-          expect(error.toString(), contains("Storing error"));
+          expect(error.toString(), contains("Failed to save credentials:"));
           expect(stack, isNotNull);
         },
         zoneSpecification: ZoneSpecification(
@@ -315,67 +414,12 @@ void main() {
       );
       expect(
         log,
-        contains("Storing error"),
+        contains("Failed to save credentials:"),
       );
     });
   });
-}
-
-class MockUserConfig extends Mock implements UserConfig {
-  @override
-  User get currentUser => User(
-        joinedOrganizations: empty ? [] : [org],
-      );
-
-  @override
-  Future<dynamic> updateUserJoinedOrg(List<OrgInfo> orgs) {
-    return Future.value(2);
-  }
-
-  @override
-  dynamic saveCurrentOrgInHive(OrgInfo org) {
-    return null;
-  }
-
-  @override
-  Future<bool> updateUser(User user) async => userSaved;
-
-  @override
-  Future<dynamic> updateUserMemberRequestOrg(List<OrgInfo> orgs) async => null;
-}
-
-/// Mock Class for Flutter Secure Storage for error detection.
-class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
-  @override
-  Future<void> write({
-    required String key,
-    required String? value,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (key == "userEmail" || key == "userPassword") {
-      throw Exception("Storing error");
-    }
-    return Future.value(null);
-  }
-
-  @override
-  Future<String?> read({
-    required String key,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (key == "userEmail" || key == "userPassword") {
-      throw Exception("Unable to read");
-    }
-    return Future.value(null);
-  }
+  tearDownAll(() {
+    locator.reset();
+    unregisterServices();
+  });
 }

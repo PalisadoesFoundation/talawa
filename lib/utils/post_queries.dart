@@ -3,6 +3,7 @@ class PostQueries {
   /// Getting Posts by Id.
   ///
   /// **params**:
+<<<<<<< HEAD
   /// * `orgId`: The organisation id
   /// * `after`: The cursor after which the posts are to be fetched
   /// * `before`: The cursor before which the posts are to be fetched
@@ -109,6 +110,69 @@ class PostQueries {
         }
       }
 """;
+=======
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The query related to gettingPostsbyOrgID
+  String getPostsByOrgID() {
+    return '''
+    query GetPostsByOrgID(
+      \$orgId: String!,
+      \$after: String,
+      \$before: String,
+      \$first: Int,
+      \$last: Int,
+      \$userId: ID!
+    ) {
+      organization(input: { id: \$orgId }) {
+        posts(
+          first: \$first,
+          last: \$last,
+          after: \$after,
+          before: \$before,
+        ) {
+          edges {
+            node {
+              id
+              caption
+              upVotesCount
+              downVotesCount
+              commentsCount
+              createdAt
+              hasUserVoted(userId: \$userId) {
+                hasVoted
+                voteType
+              }
+              creator {
+                id
+                name
+                avatarURL
+              }
+              organization {
+                id
+              }
+              attachments {
+                id
+                fileHash
+                mimeType
+                name
+                objectName
+              }
+            }
+            cursor
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+            hasPreviousPage
+            startCursor
+          }
+        }
+      }
+    }
+  ''';
+>>>>>>> upstream/develop
   }
 
   /// Add Like to a post.
@@ -129,12 +193,17 @@ class PostQueries {
   """;
   }
 
+<<<<<<< HEAD
   /// Remove Like from a post.
+=======
+  /// Update vote on a post (upvote or downvote, or change vote type).
+>>>>>>> upstream/develop
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
+<<<<<<< HEAD
   /// * `String`: The query related to removingLike
   String removeLike() {
     return """
@@ -145,6 +214,16 @@ class PostQueries {
         likedBy{
         _id
         }
+=======
+  /// * `String`: The mutation for updating vote on a post
+  String updateVotePost() {
+    return """
+     mutation UpdateVotePost(\$postId: ID!, \$type: PostVoteType) { 
+      updatePostVote(input: { postId: \$postId, type: \$type }) {
+        id
+        upVotesCount
+        downVotesCount
+>>>>>>> upstream/develop
       }
     }
   """;
@@ -160,6 +239,7 @@ class PostQueries {
   String uploadPost() {
     return '''
     mutation CreatePost(
+<<<<<<< HEAD
     \$text: String!
     \$title: String!
     \$imageUrl: URL
@@ -206,6 +286,51 @@ class PostQueries {
   }
 
   /// Mutation to remove the post.
+=======
+      \$caption: String!
+      \$organizationId: ID!
+      \$attachments: [AttachmentInput]
+      \$userId: ID!
+    ) {
+      createPost(
+        input: {
+          caption: \$caption
+          organizationId: \$organizationId
+          attachments: \$attachments
+        }
+      ) {
+        id
+        caption
+        upVotesCount
+        downVotesCount
+        commentsCount
+        createdAt
+        hasUserVoted(userId: \$userId) {
+          hasVoted
+          voteType
+        }
+        creator {
+          id
+          name
+          avatarURL
+        }
+        organization {
+          id
+        }
+        attachments {
+          id
+          fileHash
+          mimeType
+          name
+          objectName
+        }
+      }
+    }
+  ''';
+  }
+
+  /// Mutation to delete the post.
+>>>>>>> upstream/develop
   ///
   ///
   /// **params**:
@@ -213,11 +338,19 @@ class PostQueries {
   ///
   /// **returns**:
   /// * `String`: query is returned
+<<<<<<< HEAD
   String removePost() {
     return '''
     mutation RemovePost(\$id: ID!) {
       removePost(id: \$id) {
         _id
+=======
+  String deletePost() {
+    return '''
+    mutation DeletePost(\$id: ID!) {
+      deletePost(input: {id: \$id}) {
+        id
+>>>>>>> upstream/develop
       }
     }
     ''';

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import 'package:talawa/utils/gql_fragments.dart';
+
+>>>>>>> upstream/develop
 ///This class returns some queries for the application.
 class Queries {
   //Returns a query to register a user.
@@ -6,8 +11,12 @@ class Queries {
   ///
   ///
   /// **params**:
+<<<<<<< HEAD
   /// * `firstName`: user's data.
   /// * `lastName`: user's data.
+=======
+  /// * `name`: user's data.
+>>>>>>> upstream/develop
   /// * `email`: user's data.
   /// * `password`: user's data.
   /// * `selectedOrganization`: ID of the selected organization.
@@ -15,8 +24,12 @@ class Queries {
   /// **returns**:
   /// * `String`: Return the mutation in string type to be passed to graphql client.
   String registerUser(
+<<<<<<< HEAD
     String firstName,
     String lastName,
+=======
+    String name,
+>>>>>>> upstream/develop
     String email,
     String password,
     String? selectedOrganization,
@@ -25,12 +38,19 @@ class Queries {
             mutation {
               signUp(input: {
                 emailAddress: "$email"
+<<<<<<< HEAD
                 name: "$firstName $lastName"
                 password: "$password"
+=======
+                name: "$name"
+                password: "$password"
+                selectedOrganization: "$selectedOrganization"
+>>>>>>> upstream/develop
                 
               }) {
                 authenticationToken,
                 user{
+<<<<<<< HEAD
                   id
                   name,
                   avatarURL,
@@ -47,6 +67,13 @@ class Queries {
                         postalCode,
                         countryCode,
                         description,
+=======
+                  ...UserFields
+                  organizationsWhereMember(first:32){
+                    edges{
+                      node{
+                        ...OrganizationFields
+>>>>>>> upstream/develop
                         members(first:32){
                           edges{
                             node{
@@ -62,6 +89,11 @@ class Queries {
                 
               }
             }
+<<<<<<< HEAD
+=======
+    $userFieldsFragment
+    $organizationFieldsFragment
+>>>>>>> upstream/develop
     """;
   }
 
@@ -80,6 +112,7 @@ class Queries {
       signIn(input: { emailAddress: "$email", password: "$password" }) {
         authenticationToken,
         user {
+<<<<<<< HEAD
           id,
           name,
           emailAddress,
@@ -100,6 +133,18 @@ class Queries {
                 members(first:32){
                   edges{
                     node{
+=======
+          ...UserFields
+          orgIdWhereMembershipRequested
+          organizationsWhereMember(first:32){
+            edges{
+              node{
+                ...OrganizationFields
+                members(first:32){
+                  edges{
+                    node{
+                      id
+>>>>>>> upstream/develop
                       name
                       role
                     }
@@ -111,6 +156,11 @@ class Queries {
         }
       }
     }
+<<<<<<< HEAD
+=======
+    $userFieldsFragment
+    $organizationFieldsFragment
+>>>>>>> upstream/develop
     """;
   }
 
@@ -122,6 +172,7 @@ class Queries {
   /// **returns**:
   /// * `String`: return a mutation
   String updateUserProfile() {
+<<<<<<< HEAD
     return """
       mutation UpdateUserProfile(
         \$firstName: String
@@ -137,6 +188,28 @@ class Queries {
         }
       }
     """;
+=======
+    return '''
+      mutation UpdateCurrentUser(
+        \$emailAddress: EmailAddress,
+        \$name: String,
+        \$avatar: Upload
+      ) {
+        updateCurrentUser(
+          input: {
+            emailAddress: \$emailAddress,
+            name: \$name,
+            avatar: \$avatar
+          }
+        ) {
+          id
+          name
+          emailAddress
+          avatarURL
+        }
+      }
+    ''';
+>>>>>>> upstream/develop
   }
 
   /// logout muiation.
@@ -160,6 +233,7 @@ class Queries {
     return """
     query {
       organizations{
+<<<<<<< HEAD
         id,
         name,
         addressLine1,
@@ -170,6 +244,12 @@ class Queries {
         state,
       }
     }
+=======
+        ...OrganizationFields
+      }
+    }
+    $organizationFieldsFragment
+>>>>>>> upstream/develop
     """;
   }
 
@@ -209,6 +289,7 @@ class Queries {
   ///
   ///
   /// **params**:
+<<<<<<< HEAD
   /// * `orgId`: refer org object.
   ///
   /// **returns**:
@@ -233,6 +314,20 @@ class Queries {
           }
       }
 	}
+=======
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: returns a string for client
+  String joinOrgById() {
+    return '''
+    mutation JoinPublicOrganization(\$organizationId: ID!) {
+      joinPublicOrganization(input: {organizationId: \$organizationId}) {
+        memberId
+        organizationId
+      }
+    }
+>>>>>>> upstream/develop
   ''';
   }
 
@@ -240,6 +335,7 @@ class Queries {
   ///
   ///
   /// **params**:
+<<<<<<< HEAD
   /// * `orgId`: refer org object
   ///
   /// **returns**:
@@ -261,11 +357,26 @@ class Queries {
                 image
               }
             }
+=======
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: mutation in string form, to be passed on to graphql client.
+  String sendMembershipRequest() {
+    return '''
+      mutation SendMemberShipRequest(\$organizationId: ID!) {
+          sendMembershipRequest(input:{organizationId: \$organizationId}){
+            userId
+            membershipRequestId
+            organizationId
+            status 
+>>>>>>> upstream/develop
          }
     }
   ''';
   }
 
+<<<<<<< HEAD
   /// mutation in string form, to be passed on to graphql client..
   String fetchUserInfo = '''
        query Users(\$id: ID!){
@@ -322,11 +433,40 @@ class Queries {
                     image
                   } 
                 }
+=======
+  /// mutation in string form, to be passed on to graphql client.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: mutation in string form, to be passed on to graphql client.
+  String fetchUserInfo() {
+    return '''
+      query fetchUserInfo(
+        \$id: String!
+      ) {
+        user(input: {id: \$id}) {
+          ...UserFields
+          orgIdWhereMembershipRequested,
+          organizationsWhereMember(first: 32) {
+            edges {
+              node {
+               ...OrganizationFields
+>>>>>>> upstream/develop
               }
             }
           }
         }
+<<<<<<< HEAD
     ''';
+=======
+      }
+      $userFieldsFragment
+      $organizationFieldsFragment
+    ''';
+  }
+>>>>>>> upstream/develop
 
   /// mutation for refresh token.
   ///
@@ -346,6 +486,7 @@ class Queries {
     ''';
   }
 
+<<<<<<< HEAD
   /// lang update mutation.
   ///
   /// **params**:
@@ -365,6 +506,8 @@ class Queries {
     ''';
   }
 
+=======
+>>>>>>> upstream/develop
   /// fetching org details with the help of id.
   ///
   ///
@@ -376,6 +519,7 @@ class Queries {
   String fetchOrgById(String orgId) {
     return '''
     query{
+<<<<<<< HEAD
       organizations(id: "$orgId"){
         image
         _id
@@ -393,11 +537,23 @@ class Queries {
 
   /// query to fetch user lang.
   ///
+=======
+      organization(input:{id:"$orgId"}){
+        ...OrganizationFields
+      }
+    }
+    $organizationFieldsFragment
+    ''';
+  }
+
+  /// mutation to delete organization membership.
+>>>>>>> upstream/develop
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
+<<<<<<< HEAD
   /// * `String`: query in string form, to be passed on to graphql client.
   String userLanguage() {
     return '''
@@ -456,6 +612,25 @@ class Queries {
       }
     }
   ''';
+=======
+  /// * `String`: mutation in string form, to be passed on to graphql client.
+  String deleteOrganizationMembershipMutation() {
+    return '''
+      mutation DeleteOrganizationMembership(
+        \$memberId: ID!,
+        \$organizationId: ID!
+      ) {
+        deleteOrganizationMembership(
+          input: {
+            memberId: \$memberId,
+            organizationId: \$organizationId
+          }
+        ) {
+          id
+        }
+      }
+    ''';
+>>>>>>> upstream/develop
   }
 
   /// `createDonation` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters.
@@ -523,4 +698,25 @@ class Queries {
     }
   """;
   }
+<<<<<<< HEAD
+=======
+
+  /// Query to fetch users by organization ID using new GraphQL schema.
+  ///
+  /// **params**:
+  /// * `orgId`: Organization identifier
+  ///
+  /// **returns**:
+  /// * `String`: Query in string form, to be passed to graphql client.
+  String fetchUsersByOrganizationId(String orgId) {
+    return '''
+    query {
+      usersByOrganizationId(organizationId: "$orgId") {
+        ...UserFields
+      }
+    }
+    $userFieldsFragment
+    ''';
+  }
+>>>>>>> upstream/develop
 }

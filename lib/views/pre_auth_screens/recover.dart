@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+=======
+>>>>>>> upstream/develop
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -10,6 +13,10 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 /// This class recovers the users password.
+<<<<<<< HEAD
+=======
+///
+>>>>>>> upstream/develop
 /// The users needs to enter his/her email and press on the button at the bottom to recover his/her password.
 class Recover extends StatefulWidget {
   const Recover({required Key key}) : super(key: key);
@@ -18,11 +25,36 @@ class Recover extends StatefulWidget {
   _RecoverState createState() => _RecoverState();
 }
 
+<<<<<<< HEAD
 class _RecoverState extends State<Recover> {
   final TextEditingController email = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
+=======
+/// State class for [Recover].
+class _RecoverState extends State<Recover> {
+  /// Controller for the email input field.
+  final TextEditingController email = TextEditingController();
+
+  /// Key for the form to facilitate validation.
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    securityService.disableSecure();
+    super.dispose();
+  }
+
+  @override
+>>>>>>> upstream/develop
   Widget build(BuildContext context) {
     final text = [
       {

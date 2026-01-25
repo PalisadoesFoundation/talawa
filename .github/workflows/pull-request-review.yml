@@ -6,6 +6,7 @@ on:
 
 jobs:
   Check-CodeRabbit-Approval:
+<<<<<<< HEAD
     name: Check CodeRabbit Approval
     runs-on: ubuntu-latest
     permissions:
@@ -44,3 +45,6 @@ jobs:
             } else {
               console.log('Success: CodeRabbit has approved this PR.');
             }
+=======
+    uses: PalisadoesFoundation/.github/.github/workflows/pull-request-review.yml@main
+>>>>>>> upstream/develop

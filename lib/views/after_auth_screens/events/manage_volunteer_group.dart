@@ -32,7 +32,11 @@ class ManageGroupScreen extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Theme.of(context).primaryColor,
             title: Text(
+<<<<<<< HEAD
               group.name!,
+=======
+              group.name ?? 'N/A',
+>>>>>>> upstream/develop
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -112,11 +116,17 @@ class ManageGroupScreen extends StatelessWidget {
                               case 'YES':
                                 status = 'Accepted';
                                 statusColor = Colors.green;
+<<<<<<< HEAD
                                 break;
                               case 'NO':
                                 status = 'Rejected';
                                 statusColor = Colors.red;
                                 break;
+=======
+                              case 'NO':
+                                status = 'Rejected';
+                                statusColor = Colors.red;
+>>>>>>> upstream/develop
                               default:
                                 status = 'Pending';
                                 statusColor = Colors.grey;
@@ -125,7 +135,11 @@ class ManageGroupScreen extends StatelessWidget {
                             return ListTile(
                               key: const Key("volunteers"),
                               title: Text(
+<<<<<<< HEAD
                                 '${volunteer.user!.firstName} ${volunteer.user!.lastName}',
+=======
+                                '${volunteer.user?.firstName} ${volunteer.user?.lastName}',
+>>>>>>> upstream/develop
                                 style: const TextStyle(
                                   color: Colors.blue,
                                   fontSize: 16,
@@ -152,7 +166,11 @@ class ManageGroupScreen extends StatelessWidget {
                                     ),
                                     onPressed: () {
                                       model.removeVolunteerFromGroup(
+<<<<<<< HEAD
                                         volunteer.id!,
+=======
+                                        volunteer.id ?? '',
+>>>>>>> upstream/develop
                                       );
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -246,7 +264,11 @@ class ManageGroupScreen extends StatelessWidget {
                             },
                           );
                           if (confirm == true) {
+<<<<<<< HEAD
                             await model.deleteVolunteerGroup(group.id!);
+=======
+                            await model.deleteVolunteerGroup(group.id ?? '');
+>>>>>>> upstream/develop
                             if (context.mounted) {
                               Navigator.pop(context, true);
                             }
@@ -289,7 +311,13 @@ class ManageGroupScreen extends StatelessWidget {
     final int pending = model.volunteers
         .where((volunteer) => volunteer.response == null)
         .length;
+<<<<<<< HEAD
     final int needed = group.volunteersRequired! - accepted;
+=======
+    final int needed = group.volunteersRequired != null
+        ? (group.volunteersRequired! - accepted)
+        : 0;
+>>>>>>> upstream/develop
 
     return Container(
       padding: const EdgeInsets.all(12.0),
@@ -384,7 +412,11 @@ class ManageGroupScreen extends StatelessWidget {
                 if (newName.isNotEmpty && newVolunteersRequired > 0) {
                   await model.updateVolunteerGroup(
                     group,
+<<<<<<< HEAD
                     event.id!,
+=======
+                    event.id ?? '',
+>>>>>>> upstream/develop
                     newName,
                     newVolunteersRequired,
                   );
@@ -454,8 +486,13 @@ class ManageGroupScreen extends StatelessWidget {
                                 if (member.value) {
                                   await model.addVolunteerToGroup(
                                     member.key,
+<<<<<<< HEAD
                                     event.id!,
                                     group.id!,
+=======
+                                    event.id ?? '',
+                                    group.id ?? '',
+>>>>>>> upstream/develop
                                   );
                                 }
                               }
@@ -488,14 +525,26 @@ class ManageGroupScreen extends StatelessWidget {
                                             .colorScheme
                                             .primary,
                                         title: Text(
+<<<<<<< HEAD
                                           "${members[index].firstName!} ${members[index].lastName!}",
+=======
+                                          "${members[index].firstName} ${members[index].lastName}",
+>>>>>>> upstream/develop
                                         ),
                                         value: model.memberCheckedMap[
                                             members[index].id],
                                         onChanged: (val) {
                                           setState(() {
+<<<<<<< HEAD
                                             model.memberCheckedMap[
                                                 members[index].id!] = val!;
+=======
+                                            final memberId = members[index].id;
+                                            if (memberId != null) {
+                                              model.memberCheckedMap[memberId] =
+                                                  val ?? false;
+                                            }
+>>>>>>> upstream/develop
                                           });
                                         },
                                       );

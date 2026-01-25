@@ -17,6 +17,7 @@ class PostAdapter extends TypeAdapter<Post> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Post(
+<<<<<<< HEAD
       sId: fields[0] as String,
       description: fields[1] as String?,
       createdAt: fields[2] as DateTime?,
@@ -27,12 +28,28 @@ class PostAdapter extends TypeAdapter<Post> {
       organization: fields[7] as OrgInfo?,
       likedBy: (fields[8] as List?)?.cast<LikedBy>(),
       comments: (fields[9] as List?)?.cast<Comments>(),
+=======
+      id: fields[0] as String?,
+      caption: fields[1] as String?,
+      createdAt: fields[5] as DateTime?,
+      attachments: (fields[4] as List?)?.cast<AttachmentModel>(),
+      creator: fields[6] as User?,
+      organization: fields[9] as OrgInfo?,
+      commentsCount: fields[2] as int?,
+      upvotesCount: fields[3] as int?,
+      downvotesCount: fields[12] as int?,
+      voteType: fields[8] as VoteType?,
+      isPinned: fields[10] as bool?,
+      pinnedAt: fields[11] as DateTime?,
+      hasVoted: fields[7] as bool?,
+>>>>>>> upstream/develop
     );
   }
 
   @override
   void write(BinaryWriter writer, Post obj) {
     writer
+<<<<<<< HEAD
       ..writeByte(10)
       ..writeByte(0)
       ..write(obj.sId)
@@ -54,6 +71,35 @@ class PostAdapter extends TypeAdapter<Post> {
       ..write(obj.likedBy)
       ..writeByte(9)
       ..write(obj.comments);
+=======
+      ..writeByte(13)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.caption)
+      ..writeByte(2)
+      ..write(obj.commentsCount)
+      ..writeByte(3)
+      ..write(obj.upvotesCount)
+      ..writeByte(4)
+      ..write(obj.attachments)
+      ..writeByte(5)
+      ..write(obj.createdAt)
+      ..writeByte(6)
+      ..write(obj.creator)
+      ..writeByte(7)
+      ..write(obj.hasVoted)
+      ..writeByte(8)
+      ..write(obj.voteType)
+      ..writeByte(9)
+      ..write(obj.organization)
+      ..writeByte(10)
+      ..write(obj.isPinned)
+      ..writeByte(11)
+      ..write(obj.pinnedAt)
+      ..writeByte(12)
+      ..write(obj.downvotesCount);
+>>>>>>> upstream/develop
   }
 
   @override
@@ -66,6 +112,7 @@ class PostAdapter extends TypeAdapter<Post> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+<<<<<<< HEAD
 
 class LikedByAdapter extends TypeAdapter<LikedBy> {
   @override
@@ -134,3 +181,5 @@ class CommentsAdapter extends TypeAdapter<Comments> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+=======
+>>>>>>> upstream/develop

@@ -4,6 +4,12 @@ class Routes {
   /// static variables.
   static const String demoPageViewRoute = "/demoPageViewRoute";
 
+<<<<<<< HEAD
+=======
+  /// Demo page route.
+  static const String demoPage = "/demoPage";
+
+>>>>>>> upstream/develop
   /// static variables.
   static const String splashScreen = "/";
 
@@ -59,12 +65,22 @@ class Routes {
   static const String eventInfoPage = "/eventInfo";
 
   /// static variables.
+<<<<<<< HEAD
   static const String createEventPage = "/createEventPage";
+=======
+  static const String eventPageForm = "/eventPageForm";
+>>>>>>> upstream/develop
 
   /// static variables.
   static const String customRecurrencePage = "/customRecurrencePage";
 
   /// static variables.
+<<<<<<< HEAD
+=======
+  static const String editCustomRecurrencePage = "/editCustomRecurrencePage";
+
+  /// static variables.
+>>>>>>> upstream/develop
   static const String profilePage = "/profilePage";
 
   /// static variables.
@@ -89,6 +105,12 @@ class Routes {
   static const String chatMessageScreen = '/chatMessageScreen';
 
   /// static variables.
+<<<<<<< HEAD
+=======
+  static const String groupChatMessageScreen = '/groupChatMessageScreen';
+
+  /// static variables.
+>>>>>>> upstream/develop
   static const String calendar = '/calendar';
 
   /// static variables.
@@ -120,4 +142,10 @@ class Routes {
 
   ///static variable to access Manage volunteer group screen.
   static const String manageVolunteerGroup = '/manageVolunteerScreen';
+<<<<<<< HEAD
+=======
+
+  /// static variable to access Menu page.
+  static const String menuPage = '/menuPage';
+>>>>>>> upstream/develop
 }

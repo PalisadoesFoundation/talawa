@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ##############################################################################
 ##############################################################################
 #
@@ -9,11 +10,14 @@
 ##############################################################################
 ##############################################################################
 
+=======
+>>>>>>> upstream/develop
 name: Mark stale issues and pull requests
 
 on:
   schedule:
     - cron: "*/20 0 * * *"
+<<<<<<< HEAD
 
 permissions:
   issues: write
@@ -41,3 +45,8 @@ jobs:
           exempt-pr-labels: 'wip'
           exempt-issue-labels: 'wip'
           operations-per-run: 200
+=======
+jobs:
+  stale:
+    uses: PalisadoesFoundation/.github/.github/workflows/stale.yml@main
+>>>>>>> upstream/develop

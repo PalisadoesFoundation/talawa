@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:core';
 import 'package:intl/intl.dart';
 
@@ -29,6 +30,11 @@ class EventEndTypes {
 }
 
 /// Class containing constants for frequency options.
+=======
+// Constants for recurrence values
+
+/// Class containing constants for frequency options (matching backend schema).
+>>>>>>> upstream/develop
 class Frequency {
   /// Constant representing an event that occurs every day.
   static const daily = 'DAILY';
@@ -43,7 +49,11 @@ class Frequency {
   static const yearly = 'YEARLY';
 }
 
+<<<<<<< HEAD
 /// Class containing constants for week days.
+=======
+/// Class containing constants for week days (full names for UI).
+>>>>>>> upstream/develop
 class WeekDays {
   /// Constant representing Sunday.
   static const sunday = 'SUNDAY';
@@ -67,6 +77,7 @@ class WeekDays {
   static const saturday = 'SATURDAY';
 }
 
+<<<<<<< HEAD
 /// Class containing constants for recurrence end types.
 class RecurringEventMutationType {
   /// Constant representing mutation of current instance only.
@@ -80,6 +91,9 @@ class RecurringEventMutationType {
 }
 
 /// represents all the days in a week.
+=======
+/// List of all days in a week (for UI display).
+>>>>>>> upstream/develop
 List<String> days = [
   WeekDays.monday,
   WeekDays.tuesday,
@@ -90,6 +104,7 @@ List<String> days = [
   WeekDays.sunday,
 ];
 
+<<<<<<< HEAD
 /// conatins all neccessary utils.
 class RecurrenceUtils {
   /// represents all the months.
@@ -277,3 +292,67 @@ class RecurrenceUtils {
     return date.day == lastOccurenceInMonth.day;
   }
 }
+=======
+/// Short day codes for backend (matching schema - byDay field).
+class DayCodes {
+  /// Monday short code.
+  static const monday = 'MO';
+
+  /// Tuesday short code.
+  static const tuesday = 'TU';
+
+  /// Wednesday short code.
+  static const wednesday = 'WE';
+
+  /// Thursday short code.
+  static const thursday = 'TH';
+
+  /// Friday short code.
+  static const friday = 'FR';
+
+  /// Saturday short code.
+  static const saturday = 'SA';
+
+  /// Sunday short code.
+  static const sunday = 'SU';
+}
+
+/// Event end type constants for UI.
+class EventEndTypes {
+  /// Event never ends.
+  static const never = 'Never';
+
+  /// Event ends on a specific date.
+  static const on = 'On';
+
+  /// Event ends after a specific number of occurrences.
+  static const after = 'After';
+}
+
+/// Weekday names for display (exported for UI).
+const List<String> weekDayNames = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+];
+
+/// Month names for display (exported for UI).
+const List<String> monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+>>>>>>> upstream/develop

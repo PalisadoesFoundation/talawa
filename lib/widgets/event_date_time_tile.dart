@@ -48,7 +48,11 @@ class DateTimeTile extends StatelessWidget {
             ),
             InkWell(
               key: const Key('EventDateTimeTileDate'),
+<<<<<<< HEAD
               onTap: () async {
+=======
+              onTap: () {
+>>>>>>> upstream/develop
                 setDate();
               },
               child: Text(
@@ -68,7 +72,11 @@ class DateTimeTile extends StatelessWidget {
               ),
               InkWell(
                 key: const Key('EventDateTimeTileTime'),
+<<<<<<< HEAD
                 onTap: () async {
+=======
+                onTap: () {
+>>>>>>> upstream/develop
                   setTime();
                 },
                 child: Text(

@@ -81,6 +81,7 @@ class GraphqlExceptionResolver {
       // if the error message is "Access Token has expired. Please refresh session.: Undefined location"
       if (exception.graphqlErrors[i].message ==
           refreshAccessTokenExpiredException.message) {
+<<<<<<< HEAD
         print('token refreshed');
         databaseFunctions
             .refreshAccessToken(userConfig.currentUser.refreshToken!)
@@ -90,11 +91,21 @@ class GraphqlExceptionResolver {
                   .then((value) => databaseFunctions.init()),
             );
         print('client refreshed');
+=======
+        databaseFunctions
+            .refreshAccessToken(userConfig.currentUser.refreshToken!)
+            .then((value) {
+          graphqlConfig.getToken();
+          databaseFunctions.init();
+        });
+
+>>>>>>> upstream/develop
         return true;
       }
 
       /// If the error message is "User is not authenticated"
       if (exception.graphqlErrors[i].message == userNotAuthenticated.message) {
+<<<<<<< HEAD
         print('client refreshed');
         databaseFunctions
             .refreshAccessToken(userConfig.currentUser.refreshToken!)
@@ -103,6 +114,16 @@ class GraphqlExceptionResolver {
                   .getToken()
                   .then((value) => databaseFunctions.init()),
             );
+=======
+        databaseFunctions
+            .refreshAccessToken(userConfig.currentUser.refreshToken!)
+            .then(
+          (value) {
+            graphqlConfig.getToken();
+            databaseFunctions.init();
+          },
+        );
+>>>>>>> upstream/develop
         return true;
       }
 

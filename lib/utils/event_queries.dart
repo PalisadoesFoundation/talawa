@@ -1,15 +1,24 @@
 ///This class creates queries related to the events.
 class EventQueries {
+<<<<<<< HEAD
   /// Fetches events by organization ID.
   ///
   /// **params**:
   /// * `orgId`: The ID of the organization to fetch events for.
+=======
+  // Todo: Add agendaItem in the query once the backend is ready.
+  /// Fetches events by organization ID.
+  ///
+  /// **params**:
+  ///   None
+>>>>>>> upstream/develop
   ///
   /// **returns**:
   /// * `String`: Returns a GraphQL query string to fetch events associated with the specified organization ID.
   ///
   /// This function generates a GraphQL query string to retrieve events
   /// based on the provided organization ID.
+<<<<<<< HEAD
 
   String fetchOrgEvents(String orgId) {
     return """
@@ -56,6 +65,251 @@ class EventQueries {
     """;
   }
 
+=======
+  String fetchOrgEvents() {
+    return '''
+    query GetOrganizationEvents(
+    \$id: String!
+    \$first: Int
+    \$after: String
+    \$startDate: DateTime
+    \$endDate: DateTime
+    \$includeRecurring: Boolean
+  ) {
+    organization(input: { id: \$id }) {
+      events(
+        first: \$first
+        after: \$after
+        startDate: \$startDate
+        endDate: \$endDate
+        includeRecurring: \$includeRecurring
+      ) {
+        edges {
+          node {
+            id
+            name
+            description
+            startAt
+            endAt
+            allDay
+            location
+            isPublic
+            isRegisterable
+            isRecurringEventTemplate
+            baseEvent {
+              id
+              name
+            }
+            sequenceNumber
+            totalCount
+            hasExceptions
+            progressLabel
+            recurrenceDescription
+            recurrenceRule {
+              id
+              frequency
+              interval
+              recurrenceStartDate
+              recurrenceEndDate
+              count
+              byDay
+              byMonth
+              byMonthDay
+            }
+            attachments {
+              url
+              mimeType
+            }
+            
+            creator {
+              id
+              name
+            }
+            
+            organization {
+              id
+              name
+            }
+            
+            createdAt
+            updatedAt
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+  ''';
+  }
+
+  /// Creates a GraphQL mutation for adding an event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to create an event.
+  ///
+  /// This function generates a GraphQL mutation string for creating an event.
+  String addEvent() {
+    return '''
+      mutation CreateEvent(\$input: MutationCreateEventInput!) {
+        createEvent(input: \$input) {
+          id
+          name
+        }
+      }
+    ''';
+  }
+
+  /// Updates a standalone (non-recurring) event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to update a standalone event.
+  String updateStandaloneEvent() {
+    return """
+    mutation UpdateStandaloneEvent(\$input: MutationUpdateEventInput!) {
+      updateStandaloneEvent(input: \$input) {
+        id
+        name
+       
+      }
+    }
+    """;
+  }
+
+  /// Updates a single instance of a recurring event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to update a single instance of a recurring event.
+  String updateSingleRecurringEventInstance() {
+    return """
+    mutation UpdateSingleRecurringEventInstance(
+      \$input: MutationUpdateSingleRecurringEventInstanceInput!
+    ) {
+      updateSingleRecurringEventInstance(input: \$input) {
+        id
+        name
+
+      }
+    }
+    """;
+  }
+
+  /// Updates a specific instance and all following instances of a recurring event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to update a specific instance and all following instances.
+  String updateThisAndFollowingEvents() {
+    return """
+    mutation UpdateThisAndFollowingEvents(
+      \$input: MutationUpdateThisAndFollowingEventsInput!
+    ) {
+      updateThisAndFollowingEvents(input: \$input) {
+        id
+        name
+      }
+    }
+    """;
+  }
+
+  /// Updates an entire recurring event series.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to update an entire recurring event series.
+  String updateEntireRecurringEventSeries() {
+    return """
+    mutation UpdateEntireRecurringEventSeries(
+      \$input: MutationUpdateEntireRecurringEventSeriesInput!
+    ) {
+      updateEntireRecurringEventSeries(input: \$input) {
+        id
+        name
+      }
+    }
+    """;
+  }
+
+  /// Deletes a standalone (non-recurring) event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to delete a standalone event.
+  String deleteStandaloneEvent() {
+    return """mutation DeleteStandaloneEvent(\$input: MutationDeleteStandaloneEventInput!) {
+        deleteStandaloneEvent(input: \$input) {
+          id
+        }
+      }""";
+  }
+
+  /// Deletes a single instance of a recurring event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to delete a single instance of a recurring event.
+  String deleteSingleEventOfRecurring() {
+    return """mutation DeleteSingleEventInstance(\$input: MutationDeleteSingleEventInstanceInput!) {
+        deleteSingleEventInstance(input: \$input) {
+          id
+          name
+        }
+      }""";
+  }
+
+  /// Deletes an entire recurring event series.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to delete an entire recurring event series.
+  String deleteEntireEventSeriesOfRecurring() {
+    return """mutation DeleteEntireRecurringEventSeries(\$input: MutationDeleteEntireRecurringEventSeriesInput!) {
+        deleteEntireRecurringEventSeries(input: \$input) {
+          id
+          name
+        }
+      }""";
+  }
+
+  /// Deletes a specific instance and all following instances of a recurring event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to delete a specific instance and all following instances.
+  String deleteThisAndFollowing() {
+    return """mutation DeleteThisAndFollowingEvents(\$input: MutationDeleteThisAndFollowingEventsInput!) {
+        deleteThisAndFollowingEvents(input: \$input) {
+          id
+          name
+        }
+      }""";
+  }
+
+>>>>>>> upstream/develop
   /// Fetches attendees by event ID.
   ///
   /// **params**:
@@ -81,6 +335,7 @@ class EventQueries {
     ''';
   }
 
+<<<<<<< HEAD
   /// Creates a GraphQL mutation for adding an event.
   ///
   /// **params**:
@@ -102,6 +357,8 @@ class EventQueries {
   """;
   }
 
+=======
+>>>>>>> upstream/develop
   /// Creates a GraphQL mutation for registering for an event.
   ///
   /// **params**:
@@ -115,12 +372,17 @@ class EventQueries {
     return """
      mutation registerForEvent(\$eventId: ID!) { 
       registerForEvent(id: \$eventId) {
+<<<<<<< HEAD
         _id
+=======
+        id
+>>>>>>> upstream/develop
       }
      }
     """;
   }
 
+<<<<<<< HEAD
   /// Creates a GraphQL mutation for deleting an event.
   ///
   /// **params**:
@@ -191,6 +453,8 @@ class EventQueries {
       }""";
   }
 
+=======
+>>>>>>> upstream/develop
   /// Creates a GraphQL mutation for creating an event volunteer group.
   ///
   /// **params**:

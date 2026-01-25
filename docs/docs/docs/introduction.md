@@ -1,6 +1,10 @@
 ---
 id: introduction
+<<<<<<< HEAD
 title: Overview
+=======
+title: Introduction
+>>>>>>> upstream/develop
 slug: /
 ---
 

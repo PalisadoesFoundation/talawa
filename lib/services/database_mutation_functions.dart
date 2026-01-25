@@ -1,10 +1,17 @@
 import 'dart:async';
+<<<<<<< HEAD
+=======
+import 'package:flutter/material.dart';
+>>>>>>> upstream/develop
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
+<<<<<<< HEAD
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/utils/post_queries.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/utils/time_conversion.dart';
 
@@ -18,6 +25,10 @@ import 'package:talawa/utils/time_conversion.dart';
 /// * `gqlNonAuthQuery`
 /// * `refreshAccessToken`
 /// * `fetchOrgById`
+<<<<<<< HEAD
+=======
+/// * `gqlAuthSubscription`
+>>>>>>> upstream/develop
 class DataBaseMutationFunctions {
   /// Client Auth for handling non-authenticated request.
   late GraphQLClient clientNonAuth;
@@ -28,6 +39,24 @@ class DataBaseMutationFunctions {
   /// Query passed by fucntion calling this function.
   late Queries _query;
 
+<<<<<<< HEAD
+=======
+  /// when result has no data and null.
+  QueryResult noData = QueryResult(
+    options: QueryOptions(
+      document: gql(
+        '''
+        query {
+          __typename
+        }
+        ''',
+      ),
+    ),
+    data: null,
+    source: QueryResultSource.network,
+  );
+
+>>>>>>> upstream/develop
   /// Initialization function.
   ///
   /// **params**:
@@ -54,6 +83,7 @@ class DataBaseMutationFunctions {
     _query = Queries();
   }
 
+<<<<<<< HEAD
   /// when result has no data and null.
   QueryResult noData = QueryResult(
     options: QueryOptions(
@@ -64,6 +94,18 @@ class DataBaseMutationFunctions {
     data: null,
     source: QueryResultSource.network,
   );
+=======
+  /// This function clears the GraphQL cache to ensure fresh data fetch.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void clearGraphQLCache() {
+    clientAuth.cache.store.reset();
+  }
+>>>>>>> upstream/develop
 
   /// This function is used to run the graph-ql query for authentication.
   ///
@@ -80,7 +122,10 @@ class DataBaseMutationFunctions {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: variables ?? <String, dynamic>{},
+<<<<<<< HEAD
       fetchPolicy: FetchPolicy.networkOnly,
+=======
+>>>>>>> upstream/develop
     );
     final response = await cacheService.executeOrCacheOperation(
       operation: query,
@@ -140,7 +185,10 @@ class DataBaseMutationFunctions {
       operationType: CachedOperationType.gqlAuthMutation,
       whenOnline: () async {
         final QueryResult result = await clientAuth.mutate(options);
+<<<<<<< HEAD
         print(result);
+=======
+>>>>>>> upstream/develop
         // If there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(
@@ -283,6 +331,7 @@ class DataBaseMutationFunctions {
     return false;
   }
 
+<<<<<<< HEAD
   /// This function fetch the organization using the [id] passed.
   ///
   /// **params**:
@@ -311,5 +360,55 @@ class DataBaseMutationFunctions {
       );
     }
     return false;
+=======
+  /// This function is used to run the graph-ql subscription for authenticated user.
+  ///
+  /// **params**:
+  /// * `subscription`: subscription query string for real-time data
+  /// * `variables`: variables to be passed with subscription
+  ///
+  /// **returns**:
+  /// * `Stream<QueryResult<Object?>>`: Stream of subscription results
+  Stream<QueryResult<Object?>> gqlAuthSubscription(
+    String subscription, {
+    Map<String, dynamic>? variables,
+  }) async* {
+    final SubscriptionOptions options = SubscriptionOptions(
+      document: gql(subscription),
+      variables: variables ?? <String, dynamic>{},
+    );
+
+    try {
+      // Use the auth client with WebSocket support for subscriptions
+      final stream = clientAuth.subscribe(options);
+
+      await for (final result in stream) {
+        // Handle exceptions similar to other methods
+        if (result.hasException) {
+          final exception =
+              GraphqlExceptionResolver.encounteredExceptionOrError(
+            result.exception!,
+          );
+          if (exception != null && exception) {
+            // In case of token refresh, continue the stream
+            continue;
+          }
+        } else if (result.data != null && result.isConcrete) {
+          // Apply time conversion for subscription data
+          traverseAndConvertDates(
+            result.data ?? <String, dynamic>{},
+            convertUTCToLocal,
+            splitDateTimeLocal,
+          );
+          yield result;
+        }
+      }
+    } catch (e) {
+      // Log subscription errors but don't break the stream
+      // Note: Subscriptions are real-time streams, so we don't use caching here
+      // as caching doesn't make sense for live data
+      debugPrint('Subscription error: $e');
+    }
+>>>>>>> upstream/develop
   }
 }

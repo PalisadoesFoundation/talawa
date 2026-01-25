@@ -19,7 +19,11 @@ subprojects {
         if (project.plugins.hasPlugin("com.android.application") ||
                 project.plugins.hasPlugin("com.android.library")) {
             project.android {
+<<<<<<< HEAD
                 compileSdkVersion 35
+=======
+                compileSdkVersion 36
+>>>>>>> upstream/develop
             }
         }
     }

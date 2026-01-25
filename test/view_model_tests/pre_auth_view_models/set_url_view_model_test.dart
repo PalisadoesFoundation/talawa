@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,9 +6,12 @@ import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/router.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_action_handler.dart';
@@ -80,7 +82,7 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
           themeMode: themeMode,
           theme: TalawaTheme.darkTheme,
           home: FloatingActionButton(
-            onPressed: () async {
+            onPressed: () {
               model1.initialise();
             },
           ),
@@ -89,7 +91,7 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
         );
       },
     );
-
+//
 Future<void> main() async {
   SizeConfig().test();
 
@@ -97,12 +99,12 @@ Future<void> main() async {
 
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
-  setUp(() async {
+  setUp(() {
     registerServices();
     registerViewModels();
     model = SetUrlViewModel();
   });
-  tearDown(() async {
+  tearDown(() {
     unregisterViewModels();
   });
 
@@ -113,6 +115,9 @@ Future<void> main() async {
       locator.registerSingleton(Validator());
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+
+      // Set a non-empty URL to bypass the empty URL check
+      model.url.text = 'https://example.com/graphql';
 
       await model.checkURLandNavigate('/', 'arguments');
 
@@ -132,8 +137,9 @@ Future<void> main() async {
       verify(graphqlConfig.getOrgUrl());
 
       final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), '');
-      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+      expect(box.get(SetUrlViewModel.urlKey), 'https://example.com/graphql');
+      expect(box.get(SetUrlViewModel.imageUrlKey),
+          'https://example.com/graphql/talawa/');
     });
     testWidgets('Check if initialize is working fine ', (tester) async {
       final model = SetUrlViewModel();
@@ -161,7 +167,9 @@ Future<void> main() async {
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
-      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
+      model.url.text = 'https://invalid.com/graphql';
+      when(service.validateUrlExistence('https://invalid.com/graphql'))
+          .thenAnswer((_) async => false);
 
       await model.checkURLandNavigate('/', 'arguments');
 
@@ -175,12 +183,37 @@ Future<void> main() async {
       locator.unregister<Validator>();
     });
 
-    testWidgets(
-        'Check if checkURLandShowPopUp() is working fine when urlPresent is true',
+    testWidgets('Check if checkURLandNavigate() shows error for empty URL',
         (tester) async {
       locator.registerSingleton(Validator());
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+
+      // Leave URL empty
+      model.url.text = '';
+
+      await model.checkURLandNavigate('/', 'arguments');
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "URL cannot be empty",
+          MessageType.error,
+        ),
+      );
+      verify(navigationService.pop());
+    });
+
+    testWidgets(
+        'Check if checkURLandShowPopUp() is working fine when urlPresent is true',
+        (tester) async {
+      if (locator.isRegistered<Validator>()) {
+        await locator.unregister<Validator>();
+      }
+      locator.registerSingleton(Validator());
+
+      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+
+      model.url.text = 'https://example.com/graphql';
 
       await model.checkURLandShowPopUp('arguments');
 
@@ -200,26 +233,42 @@ Future<void> main() async {
       verify(navigationService.showSnackBar("Url is valid"));
 
       final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), '');
-      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+      expect(box.get(SetUrlViewModel.urlKey), 'https://example.com/graphql');
+      expect(box.get(SetUrlViewModel.imageUrlKey),
+          'https://example.com/graphql/talawa/');
     });
 
     testWidgets(
         'Check if checkURLandShowPopUp() is working fine when urlPresent is false',
         (tester) async {
-      //await locator.unregister<Validator>();
+      if (locator.isRegistered<Validator>()) {
+        await locator.unregister<Validator>();
+      }
       final service = MockValidator();
-      //locator.registerSingleton<Validator>(service);
+      locator.registerSingleton<Validator>(service);
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
-      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
+      model.url.text = 'https://invalid.com/graphql';
+      when(service.validateUrlExistence('https://invalid.com/graphql'))
+          .thenAnswer((_) async => false);
 
       await model.checkURLandShowPopUp('arguments');
 
+      final captured = verify(
+        (navigationService as MockNavigationService).pushDialog(captureAny),
+      ).captured;
+      expect(
+        captured[0],
+        isA<CustomProgressDialog>().having(
+          (e) => e.key,
+          'key',
+          const Key('UrlCheckProgress'),
+        ),
+      );
       verify(navigationService.pop());
-      verifyNever(
-        navigationService.showTalawaErrorSnackBar(
+      verify(
+        navigationService.showTalawaErrorDialog(
           "URL doesn't exist/no connection please check",
           MessageType.info,
         ),
@@ -254,6 +303,182 @@ Future<void> main() async {
 
       (tester.widget(find.byType(QRView)) as QRView)
           .onQRViewCreated(controller);
+    });
+
+    testWidgets(
+        'Check if _onQRViewCreated() handles QR code missing organization info - no question mark',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('invalidqrcode', BarcodeFormat.qrcode, null);
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      // Should show error for missing organization info (no ? means data.length < 2)
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "QR code missing organization information",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets('Check if _onQRViewCreated() handles QR code with empty URL',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('?orgId=1&scan', BarcodeFormat.qrcode, null);
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Invalid QR code format",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets(
+        'Check if _onQRViewCreated() handles QR code missing organization info',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          'https://example.com/graphql',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "QR code missing organization information",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets(
+        'Check if _onQRViewCreated() handles invalid organization format',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          'https://example.com/graphql?invalidformat',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Invalid QR code organization format",
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets('Check if _onQRViewCreated() handles invalid organization ID',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          'https://example.com/graphql?orgId=',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+
+      // Wait for stream to process
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Invalid organization ID in QR code",
+          MessageType.error,
+        ),
+      );
     });
 
     testWidgets(
@@ -354,5 +579,38 @@ Future<void> main() async {
       (tester.widget(find.byType(QRView)) as QRView)
           .onQRViewCreated(controller);
     });
+
+    testWidgets('Check if navigateToDemo() works correctly', (tester) async {
+      // 1. Mock AppConfigService
+      final mockAppConfigService = MockAppConfigService();
+      // Register it
+      if (locator.isRegistered<AppConfigService>()) {
+        locator.unregister<AppConfigService>();
+      }
+      locator.registerSingleton<AppConfigService>(mockAppConfigService);
+
+      // 2. Call the method
+      model.navigateToDemo();
+
+      // 3. Verify side effects
+      // Verify isDemoMode set to true
+      expect(mockAppConfigService.isDemoMode, true);
+
+      // Verify navigation
+      verify(navigationService.removeAllAndPush(
+        Routes.mainScreen,
+        Routes.splashScreen,
+        arguments: MainScreenArgs(
+          mainScreenIndex: 0,
+          fromSignUp: false,
+          toggleDemoMode: true,
+        ),
+      ));
+    });
   });
+}
+
+class MockAppConfigService extends Mock implements AppConfigService {
+  @override
+  bool isDemoMode = false;
 }

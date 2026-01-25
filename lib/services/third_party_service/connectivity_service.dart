@@ -68,7 +68,10 @@ class ConnectivityService {
   Future<void> enableSubscription() async {
     connectivityInstance.onConnectivityChanged.listen(
       (List<ConnectivityResult> result) {
+<<<<<<< HEAD
         print(result);
+=======
+>>>>>>> upstream/develop
         connectionStatusController.add(result);
       },
       onError: (error) {

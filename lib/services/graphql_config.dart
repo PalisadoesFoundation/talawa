@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+>>>>>>> upstream/develop
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -15,17 +20,34 @@ class GraphqlConfig {
   static String? orgURI = ' ';
   static String? token;
   late HttpLink httpLink;
+<<<<<<< HEAD
   late WebSocketLink webSocketLink;
+=======
+  WebSocketLink? webSocketLink;
+>>>>>>> upstream/develop
 
 //prefix route for showing images
   String? displayImgRoute;
 
   /// This function is used to get user the access token.
+<<<<<<< HEAD
   Future getToken() async {
     final authToken = userConfig.currentUser.authToken;
     token = authToken;
     getOrgUrl();
     return true;
+=======
+  void getToken() {
+    final authToken = userConfig.currentUser.authToken;
+    token = authToken;
+    getOrgUrl();
+  }
+
+  /// This function is used to initialize the GraphQL client for testing.
+  void initializeForTesting(String apiUrl) {
+    httpLink = HttpLink(apiUrl);
+    orgURI = apiUrl;
+>>>>>>> upstream/develop
   }
 
   /// This function is used to get the organization URL.
@@ -36,12 +58,62 @@ class GraphqlConfig {
     orgURI = url ?? ' ';
     displayImgRoute = imgUrl ?? ' ';
     httpLink = HttpLink(orgURI!);
+<<<<<<< HEAD
   }
 
   GraphQLClient clientToQuery() {
     //TODO: Implement websocket link from OrgUrl
     // final link = Link.split(
     //     (request) => request.isSubscription, webSocketLink, httpLink);
+=======
+    _initializeWebSocketLink();
+  }
+
+  /// Initialize WebSocket link for GraphQL subscriptions
+  void _initializeWebSocketLink() {
+    try {
+      // Derive socket URL from orgURI by replacing http with ws
+      String socketUrl;
+      final trimmedOrg = orgURI?.trim();
+      if (trimmedOrg != null && trimmedOrg.isNotEmpty) {
+        socketUrl = trimmedOrg
+            .replaceFirst('http://', 'ws://')
+            .replaceFirst('https://', 'wss://');
+      } else {
+        // Fallback to environment variable or default
+        socketUrl = dotenv.env['SOCKET_URL'] ??
+            (kReleaseMode
+                ? 'wss://api-test.talawa.io/graphql'
+                : 'ws://localhost:4000/graphql');
+      }
+
+      webSocketLink = WebSocketLink(
+        socketUrl,
+        config: SocketClientConfig(
+          autoReconnect: true,
+          inactivityTimeout: const Duration(minutes: 30),
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+          initialPayload: getInitialPayload,
+        ),
+      );
+    } catch (e, stackTrace) {
+      // Log the failure for diagnostics
+      debugPrint('WebSocket initialization failed: $e');
+      debugPrint('Stack trace:\n$stackTrace');
+    }
+  }
+
+  /// Get the initial payload for WebSocket connection
+  Future<Map<String, String>> getInitialPayload() async {
+    return {
+      'Authorization': 'Bearer $token',
+    };
+  }
+
+  GraphQLClient clientToQuery() {
+>>>>>>> upstream/develop
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
       link: httpLink,
@@ -49,6 +121,7 @@ class GraphqlConfig {
   }
 
   GraphQLClient authClient() {
+<<<<<<< HEAD
     final AuthLink authLink = AuthLink(getToken: () async => 'Bearer $token');
     final Link finalAuthLink = authLink.concat(httpLink);
     return GraphQLClient(
@@ -57,6 +130,41 @@ class GraphqlConfig {
     );
   }
 
+=======
+    final AuthLink authLink = AuthLink(getToken: () => 'Bearer $token');
+
+    // Create HTTP link with authentication for queries and mutations
+    final Link httpAuthLink = authLink.concat(httpLink);
+
+    // If WebSocket link is available, use split link for subscriptions
+    Link finalLink;
+    try {
+      if (webSocketLink != null) {
+        // Use WebSocket for subscriptions, HTTP for queries/mutations
+        finalLink = Link.split(
+          isSubscriptionRequest,
+          webSocketLink!,
+          httpAuthLink,
+        );
+      } else {
+        finalLink = httpAuthLink;
+      }
+    } catch (e) {
+      finalLink = httpAuthLink;
+    }
+
+    return GraphQLClient(
+      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+      link: finalLink,
+    );
+  }
+
+  /// Check if a request is a subscription
+  bool isSubscriptionRequest(Request request) {
+    return request.isSubscription;
+  }
+
+>>>>>>> upstream/develop
   void test() {
     httpLink = HttpLink(
       'https://talawa-graphql-api.herokuapp.com/graphql',

@@ -22,7 +22,10 @@ class EventVolunteer {
       creator: json['creator'] != null
           ? User.fromJson(
               json['creator'] as Map<String, dynamic>,
+<<<<<<< HEAD
               fromOrg: true,
+=======
+>>>>>>> upstream/develop
             )
           : null,
       event: json['event'] != null
@@ -35,7 +38,11 @@ class EventVolunteer {
       isInvited: json['isInvited'] as bool?,
       response: json['response'] as String?,
       user: json['user'] != null
+<<<<<<< HEAD
           ? User.fromJson(json['user'] as Map<String, dynamic>, fromOrg: true)
+=======
+          ? User.fromJson(json['user'] as Map<String, dynamic>)
+>>>>>>> upstream/develop
           : null,
     );
   }

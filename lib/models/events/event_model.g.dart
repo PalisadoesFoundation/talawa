@@ -18,33 +18,61 @@ class EventAdapter extends TypeAdapter<Event> {
     };
     return Event(
       id: fields[0] as String?,
+<<<<<<< HEAD
       title: fields[1] as String?,
+=======
+      name: fields[1] as String?,
+>>>>>>> upstream/develop
       description: fields[2] as String?,
       attendees: (fields[16] as List?)?.cast<Attendee>(),
       location: fields[3] as String?,
       recurring: fields[4] as bool?,
       allDay: fields[5] as bool?,
+<<<<<<< HEAD
       startDate: fields[6] as String?,
       endDate: fields[7] as String?,
       startTime: fields[8] as String?,
       endTime: fields[9] as String?,
+=======
+      startAt: fields[6] as DateTime?,
+      endAt: fields[7] as DateTime?,
+>>>>>>> upstream/develop
       isPublic: fields[10] as bool?,
       isRegistered: fields[11] as bool?,
       isRegisterable: fields[12] as bool?,
       creator: fields[13] as User?,
       organization: fields[14] as OrgInfo?,
       admins: (fields[15] as List?)?.cast<User>(),
+<<<<<<< HEAD
+=======
+      agendaItems: (fields[17] as List?)?.cast<EventAgendaItem>(),
+      progressLabel: fields[20] as String?,
+      sequenceNumber: fields[21] as int?,
+      totalCount: fields[22] as int?,
+      baseEvent: fields[19] as Event?,
+      isRecurringEventTemplate: fields[18] as bool?,
+      venues: (fields[23] as List?)?.cast<Venue>(),
+      recurrenceRule: fields[24] as RecurrenceRule?,
+>>>>>>> upstream/develop
     );
   }
 
   @override
   void write(BinaryWriter writer, Event obj) {
     writer
+<<<<<<< HEAD
       ..writeByte(17)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
+=======
+      ..writeByte(23)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+>>>>>>> upstream/develop
       ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
@@ -54,6 +82,7 @@ class EventAdapter extends TypeAdapter<Event> {
       ..writeByte(5)
       ..write(obj.allDay)
       ..writeByte(6)
+<<<<<<< HEAD
       ..write(obj.startDate)
       ..writeByte(7)
       ..write(obj.endDate)
@@ -61,6 +90,11 @@ class EventAdapter extends TypeAdapter<Event> {
       ..write(obj.startTime)
       ..writeByte(9)
       ..write(obj.endTime)
+=======
+      ..write(obj.startAt)
+      ..writeByte(7)
+      ..write(obj.endAt)
+>>>>>>> upstream/develop
       ..writeByte(10)
       ..write(obj.isPublic)
       ..writeByte(11)
@@ -74,7 +108,27 @@ class EventAdapter extends TypeAdapter<Event> {
       ..writeByte(15)
       ..write(obj.admins)
       ..writeByte(16)
+<<<<<<< HEAD
       ..write(obj.attendees);
+=======
+      ..write(obj.attendees)
+      ..writeByte(17)
+      ..write(obj.agendaItems)
+      ..writeByte(18)
+      ..write(obj.isRecurringEventTemplate)
+      ..writeByte(19)
+      ..write(obj.baseEvent)
+      ..writeByte(20)
+      ..write(obj.progressLabel)
+      ..writeByte(21)
+      ..write(obj.sequenceNumber)
+      ..writeByte(22)
+      ..write(obj.totalCount)
+      ..writeByte(23)
+      ..write(obj.venues)
+      ..writeByte(24)
+      ..write(obj.recurrenceRule);
+>>>>>>> upstream/develop
   }
 
   @override

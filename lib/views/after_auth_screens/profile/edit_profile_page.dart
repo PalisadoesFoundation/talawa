@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+<<<<<<< HEAD
+=======
+import 'package:talawa/utils/validators.dart';
+>>>>>>> upstream/develop
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
@@ -150,6 +154,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Flexible(
                             // Text field for first name with value text of user's first name.
                             child: TextFormField(
+<<<<<<< HEAD
                               key: const Key('FirstNameTextField'),
                               controller: model.firstNameTextController,
                               focusNode: model.firstNameFocus,
@@ -157,6 +162,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
                                     .strictTranslate('First Name'),
+=======
+                              key: const Key('NameTextField'),
+                              controller: model.nameTextController,
+                              focusNode: model.nameFocus,
+                              keyboardType: TextInputType.name,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!
+                                    .strictTranslate('Name'),
+>>>>>>> upstream/develop
                                 labelStyle:
                                     Theme.of(context).textTheme.titleMedium,
                                 focusedBorder: InputBorder.none,
@@ -165,7 +179,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     FocusScope.of(context).requestFocus(
+<<<<<<< HEAD
                                       model.firstNameFocus,
+=======
+                                      model.nameFocus,
+>>>>>>> upstream/develop
                                     );
                                   },
                                   icon: const Icon(Icons.edit),
@@ -180,6 +198,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Flexible(
                             // Text field for first name with value text of user's last name.
                             child: TextFormField(
+<<<<<<< HEAD
                               key: const Key('LastNameTextField'),
                               controller: model.lastNameTextController,
                               focusNode: model.lastNameFocus,
@@ -187,6 +206,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
                                     .strictTranslate('Last Name'),
+=======
+                              key: const Key('emailTextField'),
+                              controller: model.emailTextController,
+                              focusNode: model.emailFocus,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) => Validator.validateEmail(
+                                value ?? '',
+                              ),
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!
+                                    .strictTranslate('Email'),
+>>>>>>> upstream/develop
                                 labelStyle:
                                     Theme.of(context).textTheme.titleMedium,
                                 focusedBorder: InputBorder.none,
@@ -195,7 +226,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     FocusScope.of(context).requestFocus(
+<<<<<<< HEAD
                                       model.lastNameFocus,
+=======
+                                      model.emailFocus,
+>>>>>>> upstream/develop
                                     );
                                   },
                                   icon: const Icon(Icons.edit),
@@ -209,6 +244,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
                 const Divider(),
+<<<<<<< HEAD
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Row(
@@ -249,13 +285,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
                 const Divider(),
+=======
+>>>>>>> upstream/develop
                 TextButton(
                   key: const Key('updatebtn'),
                   onPressed: () {
                     model.updateUserProfile(
+<<<<<<< HEAD
                       firstName: model.firstNameTextController.text,
                       newImage: model.imageFile,
                       lastName: model.lastNameTextController.text,
+=======
+                      name: model.nameTextController.text,
+                      newImage: model.imageFile,
+                      email: model.emailTextController.text,
+>>>>>>> upstream/develop
                     );
                     FocusScope.of(context).unfocus();
                   },

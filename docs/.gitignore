@@ -3,12 +3,26 @@
 
 # Production
 /build
+<<<<<<< HEAD
+=======
+/.docusaurus-debug.log
+/build-stats.json
+docs/.docusaurus-debug.log
+docs/build-stats.json
+>>>>>>> upstream/develop
 
 # Generated files
 .docusaurus
 .cache-loader
+<<<<<<< HEAD
 .package-lock.json
 package-lock.json
+=======
+package-lock.json
+yarn.lock
+.eslintcache
+tsconfig.tsbuildinfo
+>>>>>>> upstream/develop
 
 # Misc
 .DS_Store
@@ -20,3 +34,7 @@ package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/develop

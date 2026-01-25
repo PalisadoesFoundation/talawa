@@ -61,6 +61,7 @@ class NavigationService {
         .pushReplacementNamed(routeName, arguments: arguments);
   }
 
+<<<<<<< HEAD
   // void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
   //   int i = 0;
   //   removeAllAndPush('/${routeNames[i]}', '/', arguments: arguments[i]);
@@ -69,6 +70,8 @@ class NavigationService {
   //   }
   // }
 
+=======
+>>>>>>> upstream/develop
   /// This function remove all the routes till the particular route and add new route.
   ///
   /// **params**:

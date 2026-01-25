@@ -11,6 +11,7 @@ import 'package:talawa/exceptions/critical_action_exception.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/caching/base_feed_manager.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -23,7 +24,6 @@ import 'package:talawa/utils/post_queries.dart';
 /// * `getPosts` : to get all posts of the organization.
 /// * `addLike` : to add like to the post.
 /// * `removeLike` : to remove the like from the post.
-
 class PostService extends BaseFeedManager<Post> {
   // constructor
   PostService() : super(HiveKeys.postFeedKey) {
@@ -48,13 +48,28 @@ class PostService extends BaseFeedManager<Post> {
   final _dbFunctions = locator<DataBaseMutationFunctions>();
   late OrgInfo _currentOrg;
   final Set<String> _renderedPostID = {};
-  // ignore: prefer_final_fields
   List<Post> _posts = [];
 
-  Map<String, dynamic>? postInfo;
+  bool _isRefreshing = false;
+
+  /// Object to hold pagination information for posts. It contains information like `after`, `before`, `first`, and `last`.
+  PageInfo pageInfo = PageInfo(
+    hasNextPage: false,
+    hasPreviousPage: false,
+    startCursor: null,
+    endCursor: null,
+  );
+
+  /// `after` is used to fetch posts after a certain cursor.
   String? after;
+
+  /// `before` is used to fetch posts before a certain cursor.
   String? before;
+
+  /// `first` is used to limit the number of posts fetched in a single request.
   int? first = 5;
+
+  /// `last` is used to limit the number of posts fetched in a single request from the end.
   int? last;
 
   /// Getter for Stream of posts.
@@ -63,31 +78,48 @@ class PostService extends BaseFeedManager<Post> {
   /// Getter for Stream of update in any post.
   Stream<Post> get updatedPostStream => _updatedPostStream;
 
+  /// Getter for the current organization.
+  OrgInfo get currentOrg => _currentOrg;
+
+  /// Getter for the list of posts.
+  List<Post> get posts => _posts;
+
   @override
-  Future<List<Post>> fetchDataFromApi() async {
+  Future<List<Post>> fetchDataFromApi({Map<String, dynamic>? params}) async {
     // variables
     final String currentOrgID = _currentOrg.id!;
-    final String query =
-        PostQueries().getPostsById(currentOrgID, after, before, first, last);
-    final result = await _dbFunctions.gqlAuthQuery(query);
+    final String query = PostQueries().getPostsByOrgID();
+    final variables = {
+      'orgId': currentOrgID,
+      'first': first,
+      'after': after,
+      'before': before,
+      'last': last,
+      'userId': _userConfig.currentUser.id,
+    };
+    final result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
     //Checking if the dbFunctions return the postJSON, if not return.
     if (result.data == null) {
       // Handle the case where the result or result.data is null
       throw Exception('unable to fetch data');
     }
+    final organizations = result.data!['organization'] as Map<String, dynamic>;
+    final Map<String, dynamic> posts =
+        organizations['posts'] as Map<String, dynamic>;
 
-    final organizations = result.data!['organizations'] as List;
-    final Map<String, dynamic> posts = (organizations[0]
-        as Map<String, dynamic>)['posts'] as Map<String, dynamic>;
+    pageInfo = PageInfo.fromJson(posts['pageInfo'] as Map<String, dynamic>);
+
     final List<Post> newPosts = [];
-    postInfo = posts['pageInfo'] as Map<String, dynamic>;
-    debugPrint(postInfo.toString());
-    (posts['edges'] as List).forEach((postJson) {
+    for (final postJson in posts['edges'] as List) {
       final post = Post.fromJson(
         (postJson as Map<String, dynamic>)['node'] as Map<String, dynamic>,
       );
+      pageInfo.endCursor = '${postJson['cursor']}';
+      // Fetch presigned URL for attachments if they exist
+      await post.getPresignedUrl(_userConfig.currentOrg.id);
+
       newPosts.insert(0, post);
-    });
+    }
     return newPosts;
   }
 
@@ -101,38 +133,95 @@ class PostService extends BaseFeedManager<Post> {
   void setOrgStreamSubscription() {
     _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
       if (updatedOrganization != _currentOrg) {
-        _renderedPostID.clear();
         _currentOrg = updatedOrganization;
-        getPosts();
       }
     });
   }
 
+  /// Initial fetch from cache for SWR pattern.
   Future<void> fetchPostsInitial() async {
     _posts = await loadCachedData();
-    debugPrint('fetchPostInitial');
-    debugPrint(_posts.length.toString());
     _postStreamController.add(_posts);
-    refreshFeed();
+    // Note: We don't call refreshFeed() here to avoid blocking execution.
+    // refreshFeed() should be called separately (e.g. by ViewModel) to trigger revalidation.
   }
 
-  /// Method used to fetch all posts of the current organisation.
+  ///  Method to load cached data from Hive database.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future void
-  Future<void> getPosts() async {
-    final List<Post> newPosts = await getNewFeedAndRefreshCache();
-    newPosts.forEach((post) {
-      if (!_renderedPostID.contains(post.sId)) {
-        _posts.insert(0, post);
-        _renderedPostID.add(post.sId);
-      }
-    });
-    debugPrint(_posts.length.toString());
+  ///   None
+  Future<void> fetchPostsFromCache() async {
+    _posts = await loadCachedData();
     _postStreamController.add(_posts);
+  }
+
+  /// Method to toggle upvote on a post.
+  ///
+  /// **params**:
+  /// * `post`: post for which vote needs to be updated
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> toggleUpVote(Post post) async {
+    try {
+      String mutation;
+      Map<String, dynamic> variables;
+
+      if (post.hasVoted == true && post.voteType == VoteType.upVote) {
+        // Remove upvote
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': null,
+        };
+      } else {
+        // Add Upvote
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': VoteType.upVote.toApiString(),
+        };
+      }
+
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+    } catch (e) {
+      debugPrint('Error toggling upvote: $e');
+    }
+  }
+
+  /// Method to toggle downvote on a post.
+  ///
+  /// **params**:
+  /// * `post`: post for which vote needs to be updated
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> toggleDownVote(Post post) async {
+    try {
+      String mutation;
+      Map<String, dynamic> variables;
+
+      if (post.hasVoted == true && post.voteType == VoteType.downVote) {
+        // Remove downvote
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': null,
+        };
+      } else {
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': VoteType.downVote.toApiString(),
+        };
+      }
+      await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+    } catch (e) {
+      debugPrint('Error toggling downvote: $e');
+    }
   }
 
   /// Method to refresh feed of current selected organisation.
@@ -141,16 +230,23 @@ class PostService extends BaseFeedManager<Post> {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future void
+  ///   None
   Future<void> refreshFeed() async {
-    final List<Post> newPosts = await getNewFeedAndRefreshCache();
-    _renderedPostID.clear();
-    _posts.clear();
-    _posts = newPosts;
-    GraphqlExceptionResolver.encounteredExceptionOrError(
-      CriticalActionException('Feed refreshed!!!'),
-    );
-    _postStreamController.add(_posts);
+    if (_isRefreshing) return;
+    _isRefreshing = true;
+    try {
+      after = null;
+      before = null;
+      first = 5;
+      last = null;
+      final List<Post> newPosts = await getNewFeedAndRefreshCache();
+      _renderedPostID.clear();
+      _posts.clear();
+      _posts = newPosts;
+      _postStreamController.add(_posts);
+    } finally {
+      _isRefreshing = false;
+    }
   }
 
   ///Method to add newly created post at the very top of the feed.
@@ -167,160 +263,76 @@ class PostService extends BaseFeedManager<Post> {
     _postStreamController.add(_posts);
   }
 
+  ///Method to delete a post from the feed.
+  ///
+  /// **params**:
+  /// * `post`: Post object to be deleted from the feed
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>>`: returns the result of the GraphQL mutation to delete the post.
   Future<QueryResult<Object?>> deletePost(Post post) async {
-    return await _dbFunctions.gqlAuthMutation(
-      PostQueries().removePost(),
+    final res = await _dbFunctions.gqlAuthMutation(
+      PostQueries().deletePost(),
       variables: {
-        "id": post.sId,
+        "id": post.id,
       },
     );
-  }
 
-  ///Method to add like on a Post.
-  ///
-  /// This method basically update likedBy list of a Post
-  /// in database.
-  ///
-  /// **params**:
-  /// * `postID`: ID of the post to add like in database
-  ///
-  /// **returns**:
-  /// * `Future<void>`: define_the_return
-  Future<bool> addLike(String postID) async {
-    bool isLiked = false;
-    await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
-      action: () async {
-        final String mutation = PostQueries().addLike();
-        // run the graphQl mutation.
-        return await _dbFunctions
-            .gqlAuthMutation(mutation, variables: {"postID": postID});
-        // return result
-      },
-      onValidResult: (result) async {
-        isLiked = (result.data?["_id"] != null);
-      },
-      updateUI: () {
-        _localAddLike(postID);
-      },
-    );
-    return isLiked;
-  }
-
-  /// Locally add like on a Post and updates it using updated Post Stream.
-  ///
-  /// **params**:
-  /// * `postID`: ID of the post to add like locally
-  ///
-  /// **returns**:
-  ///   None
-  void _localAddLike(String postID) {
-    _posts.forEach((post) {
-      if (post.sId == postID) {
-        post.likedBy!.add(LikedBy(sId: _userConfig.currentUser.id));
-        _updatedPostStreamController.add(post);
-      }
-    });
-  }
-
-  /// Method to remove like in a Post.
-  ///
-  /// This method basically update likedBy list of a Post
-  /// and removes the like of a user in database.
-  ///
-  /// **params**:
-  /// * `postID`: ID of the post to remove like in database.
-  ///
-  /// **returns**:
-  /// * `Future<void>`: nothing
-  Future<bool> removeLike(String postID) async {
-    bool isLiked = false;
-    await actionHandlerService.performAction(
-      actionType: ActionType.optimistic,
-      action: () async {
-        final String mutation = PostQueries().removeLike();
-        return await _dbFunctions
-            .gqlAuthMutation(mutation, variables: {"postID": postID});
-      },
-      onValidResult: (result) async {
-        isLiked = (result.data?["_id"] != null);
-      },
-      updateUI: () {
-        _removeLocal(postID);
-      },
-    );
-    return isLiked;
-  }
-
-  /// Locally removes the like of a user and update the Post UI.
-  ///
-  /// **params**:
-  /// * `postID`: ID of the post to remove like locally
-  ///
-  /// **returns**:
-  ///   None
-  void _removeLocal(String postID) {
-    _posts.forEach((post) {
-      if (post.sId == postID) {
-        post.likedBy!.removeWhere(
-          (likeUser) => likeUser.sId == _userConfig.currentUser.id,
-        );
-        _updatedPostStreamController.add(post);
-      }
-    });
+    return res;
   }
 
   ///Method to add comment of a user and update comments using updated Post Stream.
   ///
   /// **params**:
-  /// * `postID`: ID of the post to add comment locally
+  /// * `post`: ID of the post to add comment locally
   ///
   /// **returns**:
   ///   None
-  void addCommentLocally(String postID) {
+  void addCommentLocally(Post post) {
     for (int i = 0; i < _posts.length; i++) {
-      if (_posts[i].sId == postID) {
-        _posts[i].comments!.add(Comments(sId: postID));
+      if (_posts[i].id == post.id) {
+        _posts[i].commentsCount = (_posts[i].commentsCount ?? 0) + 1;
         _updatedPostStreamController.add(_posts[i]);
       }
     }
+    saveDataToCache(_posts);
   }
 
   /// Method to handle pagination by fetching next page of posts.
   ///
   /// **params**:
-  ///  None
+  ///   None
   ///
   /// **returns**:
-  /// None
+  ///   None
   Future<void> nextPage() async {
-    if (postInfo!['hasNextPage'] == true) {
-      _posts.clear();
-      _renderedPostID.clear();
-      after = postInfo!['endCursor'] as String;
-      before = null;
-      first = 5;
-      last = null;
-      await getPosts();
-    }
-  }
+    if (pageInfo.hasNextPage == true && !_isRefreshing) {
+      final nextCursor = pageInfo.endCursor;
+      if (nextCursor != null && nextCursor.isNotEmpty) {
+        _isRefreshing = true;
+        try {
+          after = nextCursor;
+          before = null;
+          first = 5;
+          last = null;
 
-  /// Method to handle pagination by fetching previous page of posts.
-  ///
-  /// **params**:
-  /// None
-  ///
-  /// **returns**:
-  /// None
-  Future<void> previousPage() async {
-    if (postInfo!['hasPreviousPage'] == true) {
-      _posts.clear();
-      _renderedPostID.clear();
-      before = postInfo!['startCursor'] as String;
-      after = null;
-      last = 5;
-      first = null;
-      await getPosts();
+          // Fetch new posts without clearing existing ones
+          final List<Post> newPosts = await fetchDataFromApi();
+
+          // Add only new posts that aren't already in the list
+          for (final post in newPosts) {
+            if (!_renderedPostID.contains(post.id)) {
+              _posts.add(post);
+              _renderedPostID.add(post.id ?? '');
+            }
+          }
+
+          _postStreamController.add(_posts);
+          saveDataToCache(_posts);
+        } finally {
+          _isRefreshing = false;
+        }
+      }
     }
   }
 }

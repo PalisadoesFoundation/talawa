@@ -1,7 +1,11 @@
 include: package:lint/analysis_options.yaml
 
 analyzer:
+<<<<<<< HEAD
   exclude: 
+=======
+  exclude:
+>>>>>>> upstream/develop
     - lib/generated_plugin_registrant.dart
     - test/helpers/test_helpers.mocks.dart
 
@@ -46,6 +50,11 @@ linter:
 
     directives_ordering: true
 
+    # To make a quick navigation to particular files
+    always_use_package_imports: true
+
+    directives_ordering: true
+
     # In case of production should be set to true
     avoid_print: false
 
@@ -60,6 +69,7 @@ linter:
     prefer_const_literals_to_create_immutables: false
 
     depend_on_referenced_packages: true
+<<<<<<< HEAD
     
     # This new lint rule advises to use methods on dynamic objects
     # only after properly type casting. It's quite good and will avoid
@@ -68,16 +78,34 @@ linter:
     # something like 
     # 
     # ``` 
+=======
+
+    # This new lint rule advises to use methods on dynamic objects
+    # only after properly type casting. It's quite good and will avoid
+    # null errors.
+    # For now, it affects the whole code base; wherever we have done
+    # something like
+    #
+    # ```
+>>>>>>> upstream/develop
     # var obj = json_data['obj'];
     # obj.fun_call(param);
     # ```
     #
+<<<<<<< HEAD
     # To fix: Turn on this lint and type cast the object of your file as 
+=======
+    # To fix: Turn on this lint and type cast the object of your file as
+>>>>>>> upstream/develop
     #
     # ```
     # MyObj obj = json_data['obj'] as MyObj;
     # ```
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> upstream/develop
     avoid_dynamic_calls: true
 
     #############################################

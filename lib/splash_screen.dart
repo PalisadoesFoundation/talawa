@@ -205,6 +205,7 @@ class _SplashScreenState extends State<SplashScreen> {
   ///
   /// **returns**:
   ///   None
+<<<<<<< HEAD
   void _handleUserLogIn(bool userLoggedIn) {
     Future.delayed(const Duration(milliseconds: 750)).then((value) async {
       final pushReplacementScreen = navigationService.pushReplacementScreen;
@@ -238,6 +239,36 @@ class _SplashScreenState extends State<SplashScreen> {
 
       pushReplacementScreen(Routes.joinOrg, arguments: '-1');
     });
+=======
+  Future<void> _handleUserLogIn(bool userLoggedIn) async {
+    final pushReplacementScreen = navigationService.pushReplacementScreen;
+    if (!userLoggedIn) {
+      pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
+      return;
+    }
+    try {
+      await userConfig.userLoggedIn();
+    } catch (e) {
+      debugPrint("Unable to update user $e");
+    }
+    final currentUser = userConfig.currentUser;
+    final hasJoinedOrgs = currentUser.joinedOrganizations?.isNotEmpty ?? false;
+
+    if (hasJoinedOrgs) {
+      final mainScreenArgs = MainScreenArgs(
+        mainScreenIndex: widget.mainScreenIndex,
+        fromSignUp: false,
+      );
+      pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
+      return;
+    } else if (currentUser.membershipRequests != null &&
+        currentUser.membershipRequests!.isNotEmpty) {
+      pushReplacementScreen(Routes.waitingScreen, arguments: '0');
+      return;
+    }
+
+    pushReplacementScreen(Routes.joinOrg, arguments: '-1');
+>>>>>>> upstream/develop
   }
 
   @override

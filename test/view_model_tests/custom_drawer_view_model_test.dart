@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
@@ -7,9 +9,10 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -178,7 +181,7 @@ void main() {
       expect(model.selectedOrg, isNot(fakeOrg));
     });
 
-    test('check if switchOrg is working with mock joined orgs', () async {
+    test('check if switchOrg is working with mock joined orgs', () {
       final model = CustomDrawerViewModel();
       final homeModel = MainScreenViewModel();
       final MockBuildContext mockContext = MockBuildContext();
@@ -270,14 +273,194 @@ void main() {
       expect(model.controller, isA<ScrollController>());
     });
 
-    test('targets should return List<TargetFocus> instance', () {
-      final model = CustomDrawerViewModel();
-      expect(model.targets, isA<List<TargetFocus>>());
-    });
-
     test('selectedOrg should be initially null', () {
       final model = CustomDrawerViewModel();
       expect(model.selectedOrg, isNull);
+    });
+
+    group('exitAlertDialog', () {
+      test('should return CustomAlertDialog', () {
+        final model = CustomDrawerViewModel();
+        final MockBuildContext mockContext = MockBuildContext();
+        final dialog = model.exitAlertDialog(mockContext);
+        expect(dialog, isA<CustomAlertDialog>());
+      });
+
+      testWidgets('should render and respond to user tap',
+          (WidgetTester tester) async {
+        final model = CustomDrawerViewModel();
+
+        reset(navigationService);
+        reset(userConfig);
+        when(userConfig.exitCurrentOrg()).thenAnswer((_) async {});
+
+        await tester.pumpWidget(
+          MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            home: Scaffold(
+              drawer: const Drawer(child: Text('Drawer')),
+              body: Builder(
+                builder: (context) {
+                  return Center(
+                    child: TextButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                        showDialog(
+                          context: context,
+                          builder: (_) => model.exitAlertDialog(context),
+                        );
+                      },
+                      child: const Text('Show Dialog'),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        // Open drawer and show dialog
+        await tester.tap(find.text('Show Dialog'));
+        await tester.pumpAndSettle();
+
+        // Verify dialog is rendered
+        expect(find.text('Are you sure you want to exit this organization?'),
+            findsOneWidget);
+        expect(find.text('Exit'), findsOneWidget);
+
+        // Tap the Exit button
+        await tester.tap(find.text('Exit'));
+        await tester.pumpAndSettle();
+
+        verify(userConfig.exitCurrentOrg()).called(1);
+        verify(navigationService.pop()).called(1);
+      });
+    });
+
+    test('initialize should update selectedOrg when stream emits new value',
+        () async {
+      final homeModel = MainScreenViewModel();
+      final MockBuildContext mockContext = MockBuildContext();
+      final model = CustomDrawerViewModel();
+      final user = User(joinedOrganizations: [OrgInfo(id: '1', name: 'Org 1')]);
+      final initialOrg = OrgInfo(id: '1', name: 'Org 1');
+      final updatedOrg = OrgInfo(id: '2', name: 'Org 2');
+
+      // Create a broadcast stream controller to simulate stream events
+      final streamController = StreamController<OrgInfo>.broadcast();
+      addTearDown(() => streamController.close());
+      when(userConfig.currentOrgInfoStream)
+          .thenAnswer((_) => streamController.stream);
+      when(userConfig.currentUser).thenReturn(user);
+      when(userConfig.currentOrg).thenReturn(initialOrg);
+      when(userConfig.currentOrgInfoController)
+          .thenReturn(StreamController<OrgInfo>());
+
+      model.initialize(homeModel, mockContext);
+
+      // Verify initial state
+      expect(model.selectedOrg, equals(initialOrg));
+
+      // Emit new value
+      streamController.add(updatedOrg);
+
+      // Wait for stream listener to process
+      await Future.delayed(Duration.zero);
+
+      expect(model.selectedOrg, equals(updatedOrg));
+      // await streamController.close(); // Handled by tearDown
+    });
+
+    group('Disposal behavior', () {
+      test('dispose should cancel currentOrganizationStream subscription', () {
+        final homeModel = MainScreenViewModel();
+        final MockBuildContext mockContext = MockBuildContext();
+        final model = CustomDrawerViewModel();
+        final user = User(joinedOrganizations: [OrgInfo(name: 'Test Org')]);
+        final streamController = StreamController<OrgInfo>.broadcast();
+        addTearDown(() => streamController.close());
+
+        when(userConfig.currentOrgInfoStream)
+            .thenAnswer((_) => streamController.stream);
+        when(userConfig.currentUser).thenReturn(user);
+        when(userConfig.currentOrg).thenReturn(OrgInfo());
+
+        model.initialize(homeModel, mockContext);
+
+        // Verify subscription is active
+        expect(streamController.hasListener, isTrue);
+
+        model.dispose();
+
+        // Verify subscription was cancelled
+        expect(streamController.hasListener, isFalse);
+      });
+
+      test('notifyListeners should not throw after dispose', () {
+        final model = CustomDrawerViewModel();
+        bool listenerCalled = false;
+
+        model.addListener(() {
+          listenerCalled = true;
+        });
+
+        model.dispose();
+
+        // Directly call notifyListeners
+        expect(() => model.notifyListeners(), returnsNormally);
+        expect(listenerCalled, isFalse);
+      });
+
+      test('setSelectedOrganizationName should return early when disposed', () {
+        final model = CustomDrawerViewModel();
+        final orgInfo = OrgInfo(name: 'Test Org');
+        bool listenerCalled = false;
+
+        when(userConfig.currentOrgInfoController)
+            .thenReturn(StreamController<OrgInfo>());
+
+        model.addListener(() {
+          listenerCalled = true;
+        });
+
+        model.dispose();
+
+        model.setSelectedOrganizationName(orgInfo);
+
+        expect(listenerCalled, isFalse);
+        expect(model.selectedOrg, isNull);
+      });
+    });
+
+    test(
+        'setSelectedOrganizationName should NOT notify listeners if org is same',
+        () {
+      final model = CustomDrawerViewModel();
+      final orgInfo = OrgInfo(id: '1', name: 'Test Org');
+
+      // Manually set internal state since we can't fully initialize without dependencies easily
+      // But we can use the method itself to set it first
+      when(userConfig.currentOrgInfoController)
+          .thenReturn(StreamController<OrgInfo>());
+
+      model.setSelectedOrganizationName(orgInfo);
+
+      bool listenerCalled = false;
+      model.addListener(() {
+        listenerCalled = true;
+      });
+
+      // Set same org again
+      model.setSelectedOrganizationName(orgInfo);
+
+      expect(listenerCalled, isFalse);
     });
   });
 }

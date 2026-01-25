@@ -1,14 +1,20 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 // import 'package:flutter_braintree/flutter_braintree.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+<<<<<<< HEAD
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_event.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/views/after_auth_screens/profile/user_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -17,12 +23,17 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 /// ProfilePage returns a widget that renders a page of user's profile.
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
+<<<<<<< HEAD
     required Key key,
     this.homeModel,
   }) : super(key: key);
 
   /// represents MainScreenViewModel.
   final MainScreenViewModel? homeModel;
+=======
+    super.key,
+  });
+>>>>>>> upstream/develop
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +49,12 @@ class ProfilePage extends StatelessWidget {
             leading: IconButton(
               color: Colors.white,
               icon: const Icon(Icons.menu),
+<<<<<<< HEAD
               onPressed: () =>
                   MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+=======
+              onPressed: () => Scaffold.maybeOf(context)?.openDrawer(),
+>>>>>>> upstream/develop
             ),
             key: const Key("ProfilePageAppBar"),
             title: Text(
@@ -84,8 +99,18 @@ class ProfilePage extends StatelessWidget {
                                 child: CustomAvatar(
                                   key: const Key('profilepic'),
                                   isImageNull: model.currentUser.image == null,
+<<<<<<< HEAD
                                   firstAlphabet: model.currentUser.firstName!
                                       .substring(0, 1),
+=======
+                                  firstAlphabet:
+                                      (model.currentUser.name?.isNotEmpty ==
+                                              true)
+                                          ? model.currentUser.name!
+                                              .substring(0, 1)
+                                              .toUpperCase()
+                                          : '?',
+>>>>>>> upstream/develop
                                   imageUrl: model.currentUser.image,
                                   fontSize: Theme.of(context)
                                       .textTheme
@@ -100,13 +125,18 @@ class ProfilePage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
+<<<<<<< HEAD
                                   '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+=======
+                                  model.currentUser.name ?? 'Unknown User',
+>>>>>>> upstream/develop
                                   style: TextStyle(
                                     fontSize: SizeConfig.screenHeight! * 0.025,
                                   ),
                                 ),
                               ),
                             ),
+<<<<<<< HEAD
                             Expanded(
                               flex: 1,
                               child: IconButton(
@@ -119,6 +149,8 @@ class ProfilePage extends StatelessWidget {
                                 onPressed: () => model.invite(context),
                               ),
                             ),
+=======
+>>>>>>> upstream/develop
                           ],
                         ),
                         SizedBox(
@@ -127,7 +159,11 @@ class ProfilePage extends StatelessWidget {
                         Column(
                           children: [
                             RaisedRoundedButton(
+<<<<<<< HEAD
                               key: homeModel!.keySPDonateUs,
+=======
+                              key: const Key('DonateButton'),
+>>>>>>> upstream/develop
                               buttonLabel:
                                   AppLocalizations.of(context)!.strictTranslate(
                                 'Donate to the Community',
@@ -155,6 +191,7 @@ class ProfilePage extends StatelessWidget {
                                 ),
                                 key: const Key('UserpostTab'),
                               ),
+<<<<<<< HEAD
                               Tab(
                                 text: AppLocalizations.of(context)!
                                     .strictTranslate(
@@ -166,6 +203,11 @@ class ProfilePage extends StatelessWidget {
                             views: [
                               const UserFeed(key: Key("UserFeed")),
                               const UserEvents(key: Key("UserEvents")),
+=======
+                            ],
+                            views: [
+                              const UserFeed(key: Key("UserFeed")),
+>>>>>>> upstream/develop
                             ],
                           ),
                         ),
@@ -208,10 +250,15 @@ class ProfilePage extends StatelessWidget {
               child: SizedBox(
                 height: model.bottomSheetHeight,
                 child: Scaffold(
+<<<<<<< HEAD
                   // background color set to Primary
                   backgroundColor:
                       Theme.of(context).colorScheme.primaryContainer,
                   // header
+=======
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
+>>>>>>> upstream/develop
                   appBar: AppBar(
                     centerTitle: true,
                     automaticallyImplyLeading: false,
@@ -220,7 +267,10 @@ class ProfilePage extends StatelessWidget {
                     toolbarHeight: SizeConfig.screenHeight! * 0.15,
                     title: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
+<<<<<<< HEAD
                       // display title
+=======
+>>>>>>> upstream/develop
                       child: Text(
                         '${AppLocalizations.of(context)!.strictTranslate('Donating to')}\n${model.currentOrg.name}',
                         style: Theme.of(context)
@@ -249,7 +299,10 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   body: SingleChildScrollView(
+<<<<<<< HEAD
                     // SingleChildScrollView is a box in which a single widget can be scrolled.
+=======
+>>>>>>> upstream/develop
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -373,7 +426,11 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ElevatedButton(
                           key: const Key('DONATE'),
+<<<<<<< HEAD
                           onPressed: () async {
+=======
+                          onPressed: () {
+>>>>>>> upstream/develop
                             ///required fields for donation transaction
                             // late final String userId;
                             // late final String orgId;

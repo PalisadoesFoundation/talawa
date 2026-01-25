@@ -43,15 +43,28 @@ class CustomDrawer extends StatelessWidget {
                           isImageNull: model.selectedOrg?.image == null,
                           imageUrl: model.selectedOrg?.image,
                           firstAlphabet:
+<<<<<<< HEAD
                               model.selectedOrg?.name!.substring(0, 1),
                         ),
                         accountName: Column(
                           key: MainScreenViewModel.keyDrawerCurOrg,
+=======
+                              model.selectedOrg?.name?.substring(0, 1),
+                        ),
+                        accountName: Column(
+                          key: homeModel.keyDrawerCurOrg,
+>>>>>>> upstream/develop
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
+<<<<<<< HEAD
                               model.selectedOrg?.name! ?? "NULL",
+=======
+                              model.selectedOrg?.name ??
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Unnamed Organization"),
+>>>>>>> upstream/develop
                             ),
                             Text(
                               AppLocalizations.of(context)!
@@ -63,7 +76,11 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       //Tile to Switch organizations
                       Column(
+<<<<<<< HEAD
                         key: MainScreenViewModel.keyDrawerSwitchableOrg,
+=======
+                        key: homeModel.keyDrawerSwitchableOrg,
+>>>>>>> upstream/develop
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(
@@ -86,7 +103,10 @@ class CustomDrawer extends StatelessWidget {
                                 controller: model.controller,
                                 padding: EdgeInsets.zero,
                                 itemCount: model.switchAbleOrg.length,
+<<<<<<< HEAD
                                 // itemCount: 3,
+=======
+>>>>>>> upstream/develop
                                 itemBuilder: (BuildContext context, int index) {
                                   return ListTile(
                                     key: const Key("Org"),
@@ -100,12 +120,21 @@ class CustomDrawer extends StatelessWidget {
                                       imageUrl:
                                           model.switchAbleOrg[index].image,
                                       firstAlphabet: model
+<<<<<<< HEAD
                                           .switchAbleOrg[index].name!
                                           .substring(0, 1),
                                       fontSize: 18,
                                     ),
                                     title: Text(
                                       model.switchAbleOrg[index].name!,
+=======
+                                          .switchAbleOrg[index].name
+                                          ?.substring(0, 1),
+                                      fontSize: 18,
+                                    ),
+                                    title: Text(
+                                      model.switchAbleOrg[index].name ?? "NULL",
+>>>>>>> upstream/develop
                                     ),
                                   );
                                 },
@@ -126,7 +155,11 @@ class CustomDrawer extends StatelessWidget {
                         children: <Widget>[
                           const Divider(),
                           ListTile(
+<<<<<<< HEAD
                             key: MainScreenViewModel.keyDrawerJoinOrg,
+=======
+                            key: homeModel.keyDrawerJoinOrg,
+>>>>>>> upstream/develop
                             onTap: () {
                               if (userConfig.loggedIn) {
                                 navigationService.popAndPushScreen(
@@ -151,10 +184,17 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           userConfig.loggedIn
                               ? ListTile(
+<<<<<<< HEAD
                                   key: MainScreenViewModel
                                       .keyDrawerLeaveCurrentOrg,
                                   onTap: () => navigationService
                                       .pushDialog(model.exitAlertDialog()),
+=======
+                                  key: homeModel.keyDrawerLeaveCurrentOrg,
+                                  onTap: () => navigationService.pushDialog(
+                                    model.exitAlertDialog(context),
+                                  ),
+>>>>>>> upstream/develop
                                   leading: const Icon(Icons.logout, size: 30),
                                   title: Text(
                                     AppLocalizations.of(context)!

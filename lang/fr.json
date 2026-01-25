@@ -26,8 +26,13 @@
   "Verify": "Vérifier",
   "Sign Up": "S'inscrire",
   "Change language": "Changer de langue",
+<<<<<<< HEAD
   "First Name Hint": "John",
   "Enter your first name": "Entrez votre prénom",
+=======
+  "Name Hint": "John",
+  "Enter your name": "Entrez votre prénom",
+>>>>>>> upstream/develop
   "Last Name Hint": "Carlos",
   "Enter your last name": "Entrez votre nom de famille",
   "Confirm your password": "Confirmer votre mot de passe",
@@ -71,6 +76,10 @@
   "Add Event Title": "Ajouter le titre de l'événement",
   "Where is the event": "Où est l'événement",
   "Add Location": "Ajouter un emplacement",
+<<<<<<< HEAD
+=======
+  "Add Venue": "Ajouter un lieu d'événement",
+>>>>>>> upstream/develop
   "Describe the event": "Décrivez l'événement",
   "Add Description": "Ajouter une description",
   "Add Event": "Ajouter un évènement",
@@ -240,7 +249,11 @@
   "You are all set to go lets get you in": "Vous êtes prêt à partir, laissez-nous vous faire entrer",
   "App Tour": "Visite guidée de l'application",
   "Start": "Démarrer",
+<<<<<<< HEAD
   "Skip": "Ignorer",
+=======
+  "SKIP": "Ignorer",
+>>>>>>> upstream/develop
   "Posts": "Publications",
   "Tasks": "Tâches",
   "Or": "Ou",
@@ -281,5 +294,57 @@
   "Members": " Membres",
   "Remember me": "Souviens-toi de moi",
   "Login directly with": "Se connecter directement avec",
+<<<<<<< HEAD
   "Continue Without Organization": "Continuer sans organisation"
+=======
+  "Continue Without Organization": "Continuer sans organisation",
+  "No admins assigned": "Aucun admin assigné",
+  "Delete Pledge": "Supprimer l'Engagement",
+  "Delete": "Supprimer",
+  "Are you sure you want to delete this pledge?": "Êtes-vous sûr de vouloir supprimer cet engagement ?",
+  "Create Pledge": "Créer un Engagement",
+  "Select Pledger:": "Sélectionner le Donateur :",
+  "No pledger selected": "Aucun donateur sélectionné",
+  "Note": "Note",
+  "Amount": "Montant",
+  "Please enter an amount": "Veuillez saisir un montant",
+  "Create": "Créer",
+  "Please fill all fields": "Veuillez remplir tous les champs",
+  "Update Pledge": "Mettre à jour l'Engagement",
+  "Pledge": "Engagement",
+  "Unknown Pledger": "Donateur Inconnu",
+  "No note provided": "Aucune note fournie",
+  "Pledged": "Engagé",
+  "Search Funds": "Rechercher des Fonds",
+  "Search Campaigns": "Rechercher des Campagnes",
+  "Unknown Name": "Nom Inconnu",
+  "Donated": "Donné",
+  "Unknown Creator": "Créateur Inconnu",
+  "Campaign ID is not available": "L'ID de la campagne n'est pas disponible",
+  "Pledges for": "Engagements pour",
+  "There are no pledges you are part of": "Il n'y a aucun engagement dont vous faites partie",
+  "Cannot add pledge after campaign end date": "Impossible d'ajouter un engagement après la date de fin de campagne",
+  "Cannot add pledge before campaign start date": "Impossible d'ajouter un engagement avant la date de début de campagne",
+  "No funds in this organization.": "Aucun fonds dans cette organisation.",
+  "Unknown Date": "Date Inconnue",
+  "Unnamed Fund": "Fonds Sans Nom",
+  "Fund ID is not available": "L'ID du fonds n'est pas disponible",
+  "Pledge ID or Campaign ID is not available": "L'ID de la promesse ou de la campagne n'est pas disponible",
+  "End Date (Latest)": "Date de Fin (Plus Récente)",
+  "End Date (Earliest)": "Date de Fin (Plus Ancienne)",
+  "Amount (Highest)": "Montant (Plus Élevé)",
+  "Amount (Lowest)": "Montant (Plus Bas)",
+  "No campaigns for this fund": "Aucune campagne pour ce fonds",
+  "Unnamed Campaign": "Campagne Sans Nom",
+  "raised": "collecté",
+  "Goal": "Objectif",
+  "Status": "Statut",
+  "Not set": "Non défini",
+  "Unknown": "Inconnu",
+  "Upcoming": "À venir",
+  "Ended": "Terminée",
+  "Active": "Active",
+  "Unnamed Organization": "Organisation Sans Nom",
+  "Try Demo": "Essayer la démo"
+>>>>>>> upstream/develop
 }

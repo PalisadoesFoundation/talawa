@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:talawa/constants/routing_constants.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/organization_list.dart';
+<<<<<<< HEAD
 import 'package:talawa/widgets/raised_round_edge_button.dart';
+=======
+>>>>>>> upstream/develop
 
 /// This widget lets the user select new organizations.
 ///
@@ -26,7 +32,10 @@ class _SelectOrganizationState extends State<SelectOrganization> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SelectOrganizationViewModel>(
+<<<<<<< HEAD
       onModelReady: (model) => model.initialise(widget.selectedOrgId),
+=======
+>>>>>>> upstream/develop
       builder: (context, model, child) {
         return Scaffold(
           extendBodyBehindAppBar: false,
@@ -39,6 +48,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+<<<<<<< HEAD
                 RaisedRoundedButton(
                   buttonLabel: AppLocalizations.of(context)!
                       .strictTranslate('Continue Without Organization'),
@@ -53,6 +63,8 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                   key: const Key('ContinueWithoutOrg'),
                   backgroundColor: Theme.of(context).colorScheme.tertiary,
                 ),
+=======
+>>>>>>> upstream/develop
                 SizedBox(height: SizeConfig.screenHeight! * 0.0215),
                 Padding(
                   padding: const EdgeInsets.symmetric(

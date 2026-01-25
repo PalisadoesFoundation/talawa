@@ -11,6 +11,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -26,11 +27,9 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: Scaffold(
-          key: MainScreenViewModel.scaffoldKey,
+        home: const Scaffold(
           body: ProfilePage(
-            key: const Key('Profile Page'),
-            homeModel: mainScreenViewModel,
+            key: Key('Profile Page'),
           ),
         ),
         navigatorKey: navigationService.navigatorKey,
@@ -41,7 +40,7 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
   );
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
@@ -64,16 +63,6 @@ void main() async {
         const Offset(0, 300),
       );
       await tester.pumpAndSettle();
-    });
-    testWidgets('check if invitebutton work', (tester) async {
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pump();
-      await tester.tap(find.byKey(const Key('inviteicon')));
-      await tester.pump();
     });
     testWidgets('check if left drawer works', (tester) async {
       await tester.pumpWidget(
@@ -118,18 +107,6 @@ void main() async {
       expect(find.byType(ContainedTabBarView), findsOneWidget);
       expect(find.byKey(const Key("UserFeed")), findsOneWidget);
     });
-    testWidgets('check if User Event is present', (tester) async {
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pump();
-
-      expect(find.byType(ContainedTabBarView), findsOneWidget);
-      await tester.tap(find.text('Events'));
-      await tester.pump();
-    });
     testWidgets('Test donate bottom sheet', (tester) async {
       await tester.pumpWidget(
         createProfilePage(
@@ -156,6 +133,51 @@ void main() async {
       final currencyBtn = find.byKey(const Key('currency_btn'));
       await tester.tap(currencyBtn);
       await tester.pumpAndSettle();
+    });
+    testWidgets('CustomAvatar displays correctly with user name',
+        (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find CustomAvatar widget by key
+      final customAvatarFinder = find.byKey(const Key('profilepic'));
+      expect(customAvatarFinder, findsOneWidget);
+
+      // Verify CustomAvatar properties
+      final customAvatarWidget =
+          tester.widget<CustomAvatar>(customAvatarFinder);
+      expect(customAvatarWidget.key, const Key('profilepic'));
+      expect(customAvatarWidget.isImageNull, isA<bool>());
+      expect(customAvatarWidget.firstAlphabet, isA<String?>());
+      expect(customAvatarWidget.imageUrl, isA<String?>());
+      expect(customAvatarWidget.fontSize, isA<double?>());
+      expect(customAvatarWidget.maxRadius, isA<double?>());
+    });
+
+    testWidgets('CustomAvatar firstAlphabet logic works correctly',
+        (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final customAvatarWidget = tester.widget<CustomAvatar>(
+        find.byKey(const Key('profilepic')),
+      );
+
+      // Test that firstAlphabet is either a valid uppercase letter or '?'
+      if (customAvatarWidget.firstAlphabet != null) {
+        expect(
+          customAvatarWidget.firstAlphabet,
+          anyOf(equals('?'), matches(r'^[A-Z]$')),
+        );
+      }
     });
   });
 }

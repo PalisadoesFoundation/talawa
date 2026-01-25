@@ -8,7 +8,10 @@ import 'package:talawa/locator.dart';
 
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
+<<<<<<< HEAD
 import 'package:talawa/utils/encryptor.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -102,11 +105,14 @@ class LoginViewModel extends BaseModel {
   /// 6. Initializing database functions.
   /// 7. Performing a GraphQL mutation to login the user by providing
   ///    the email and encrypted password.
+<<<<<<< HEAD
   /// 8. Handling the result of the login operation:
   ///    - Updating the current user with the received data.
   ///    - Redirecting the user based on their status in the application.
   ///    - Handling Firebase options for Android and iOS if available.
   ///    - Configuring Firebase and saving FCM token to the database.
+=======
+>>>>>>> upstream/develop
   ///
   /// In case of any exceptions during the login process,
   /// this function catches and prints the error.
@@ -133,6 +139,7 @@ class LoginViewModel extends BaseModel {
             ),
           );
           databaseFunctions.init();
+<<<<<<< HEAD
           // run the graph QL query to login the user,
           // passing `email` and `password`.
           final result = await databaseFunctions.gqlNonAuthMutation(
@@ -141,6 +148,12 @@ class LoginViewModel extends BaseModel {
               Encryptor.encryptString(
                 password.text,
               ),
+=======
+          final result = await databaseFunctions.gqlNonAuthMutation(
+            queries.loginUser(
+              email.text,
+              password.text,
+>>>>>>> upstream/develop
             ),
           );
           navigationService.pop();
@@ -154,10 +167,15 @@ class LoginViewModel extends BaseModel {
               result.data!['signIn'] as Map<String, dynamic>,
             );
             userConfig.updateUser(loggedInUser);
+<<<<<<< HEAD
+=======
+            graphqlConfig.getToken();
+>>>>>>> upstream/develop
           }
         },
         apiCallSuccessUpdateUI: () async {
           // if user has not already joined any organization.
+<<<<<<< HEAD
           if (userConfig.currentUser.joinedOrganizations == null) {
             navigationService.removeAllAndPush(
               Routes.mainScreen,
@@ -171,19 +189,42 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           } else {
+=======
+          if (userConfig.currentUser.joinedOrganizations != null &&
+              userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
+>>>>>>> upstream/develop
             userConfig.saveCurrentOrgInHive(
               userConfig.currentUser.joinedOrganizations![0],
             );
             navigationService.removeAllAndPush(
               Routes.mainScreen,
               Routes.splashScreen,
+<<<<<<< HEAD
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+=======
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+            );
+          } else if (userConfig.currentUser.membershipRequests != null &&
+              userConfig.currentUser.membershipRequests!.isNotEmpty) {
+            navigationService.removeAllAndPush(
+              Routes.waitingScreen,
+              Routes.splashScreen,
+              arguments: '-1',
+            );
+          } else {
+            navigationService.pushReplacementScreen(
+              Routes.joinOrg,
+              arguments: '-1',
+>>>>>>> upstream/develop
             );
           }
           await storingCredentialsInSecureStorage();
         },
         onActionException: (e) async {
+<<<<<<< HEAD
           print('here');
+=======
+>>>>>>> upstream/develop
           print(e);
         },
       );

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // ignore_for_file: talawa_api_doc, talawa_good_doc_comments
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
@@ -5,10 +6,15 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
+=======
+import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
+>>>>>>> upstream/develop
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/organization_list.dart';
+<<<<<<< HEAD
 import 'package:talawa/widgets/organization_search_list.dart';
 import 'package:vibration/vibration.dart';
 
@@ -24,13 +30,47 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SelectOrganizationViewModel>(
       onModelReady: (model) => model.initialise(orgId),
+=======
+
+/// JoinOrganisationAfterAuth returns a widget for page to join the organization just after user authentication.
+class JoinOrganisationAfterAuth extends StatefulWidget {
+  const JoinOrganisationAfterAuth({super.key, required this.orgId});
+
+  /// org identifier.
+  final String orgId;
+
+  @override
+  State<JoinOrganisationAfterAuth> createState() =>
+      _JoinOrganisationAfterAuthState();
+}
+
+class _JoinOrganisationAfterAuthState extends State<JoinOrganisationAfterAuth> {
+  @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    securityService.disableSecure();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseView<SelectOrganizationViewModel>(
+>>>>>>> upstream/develop
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('JoinOrgScreen'),
           // header for the widget
           appBar: AppBar(
             centerTitle: true,
+<<<<<<< HEAD
             // title of the header.
+=======
+>>>>>>> upstream/develop
             title: Text(
               AppLocalizations.of(context)!
                   .strictTranslate('Join Organisation'),
@@ -39,6 +79,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                     fontSize: 20,
                   ),
             ),
+<<<<<<< HEAD
             // action button for the option to join the organization using QR code.
             actions: [
               IconButton(
@@ -50,6 +91,8 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                 onPressed: () => scanQR(context, model),
               ),
             ],
+=======
+>>>>>>> upstream/develop
           ),
           body: Column(
             children: [
@@ -61,6 +104,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                 ),
               ),
               Expanded(
+<<<<<<< HEAD
                 // if model searching is under process then renders OrganizationSearchList widget
                 // else renders OrganizationList widget.
                 child: model.searching
@@ -70,12 +114,20 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.0215,
               ),
+=======
+                child: OrganizationList(model: model),
+              ),
+              // SizedBox(
+              //   height: SizeConfig.screenHeight! * 0.0215,
+              // ),
+>>>>>>> upstream/develop
             ],
           ),
         );
       },
     );
   }
+<<<<<<< HEAD
 
   /// scanQR returns a widget that is use in joining the organization via the QR code.
   ///
@@ -181,4 +233,6 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
       }
     });
   }
+=======
+>>>>>>> upstream/develop
 }

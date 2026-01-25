@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as fs;
+<<<<<<< HEAD
+=======
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+>>>>>>> upstream/develop
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
@@ -11,7 +15,10 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/hive_manager.dart';
 import 'package:talawa/utils/app_localization.dart';
+<<<<<<< HEAD
 import 'package:talawa/view_model/base_view_model.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
@@ -25,7 +32,22 @@ Future<void> main() async {
 
   await HiveManager.initializeHive(dir: dir);
 
+<<<<<<< HEAD
   setupLocator();
+=======
+  // Load environment variables from .env file
+  try {
+    await dotenv.load(fileName: ".env");
+    debugPrint("Environment variables loaded");
+  } catch (error) {
+    debugPrint("No .env file found or error loading it: $error");
+  }
+
+  await setupLocator();
+
+  final appConnectivity = locator<AppConnectivity>();
+  await appConnectivity.initialise();
+>>>>>>> upstream/develop
 
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
@@ -72,9 +94,13 @@ class _MyAppState extends State<MyApp> {
   ///
   /// **returns**:
   ///   None
+<<<<<<< HEAD
 
 // ignore: avoid_void_async
   void initQuickActions() async {
+=======
+  Future<void> initQuickActions() async {
+>>>>>>> upstream/develop
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn &&
         userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
@@ -105,6 +131,7 @@ class _MyAppState extends State<MyApp> {
               onModelReady: (connectivityModel) =>
                   connectivityModel.initialise(),
               builder: (context, connectivityModel, child) {
+<<<<<<< HEAD
                 return MaterialApp(
                   locale: langModel.appLocal,
                   supportedLocales: [
@@ -139,6 +166,47 @@ class _MyAppState extends State<MyApp> {
                         ),
                       ),
                     ];
+=======
+                return Selector<AppTheme, ThemeData>(
+                  selector: (_, appTheme) => appTheme.theme,
+                  builder: (context, themeData, child) {
+                    return MaterialApp(
+                      locale: langModel.appLocal,
+                      supportedLocales: [
+                        const Locale('en', 'US'),
+                        const Locale('es', 'ES'),
+                        const Locale('fr', 'FR'),
+                        const Locale('hi', 'IN'),
+                        const Locale('zh', 'CN'),
+                        const Locale('de', 'DE'),
+                        const Locale('ja', 'JP'),
+                        const Locale('pt', 'PT'),
+                      ],
+                      localizationsDelegates: [
+                        AppLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                      ],
+                      title: 'Talawa',
+                      theme: themeData,
+                      debugShowCheckedModeBanner: false,
+                      navigatorKey: navigationService.navigatorKey,
+                      onGenerateRoute: router.generateRoute,
+                      localeResolutionCallback: langModel.localeResoultion,
+                      initialRoute: '/',
+                      onGenerateInitialRoutes: (String initialRouteName) {
+                        return [
+                          router.generateRoute(
+                            RouteSettings(
+                              name: '/',
+                              arguments: mainScreenQuickActionindex,
+                            ),
+                          ),
+                        ];
+                      },
+                    );
+>>>>>>> upstream/develop
                   },
                 );
               },
@@ -146,6 +214,7 @@ class _MyAppState extends State<MyApp> {
           },
         );
       },
+<<<<<<< HEAD
     );
   }
 }
@@ -167,6 +236,8 @@ class DemoPageView extends StatelessWidget {
           child: Text(model.title),
         ),
       ),
+=======
+>>>>>>> upstream/develop
     );
   }
 }

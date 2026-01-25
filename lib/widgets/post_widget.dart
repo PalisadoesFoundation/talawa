@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -17,6 +18,23 @@ class NewsPost extends StatelessWidget {
     super.key,
     required this.post,
     this.function,
+=======
+import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/plugin/plugin_injector.dart';
+import 'package:talawa/plugin/types.dart';
+import 'package:talawa/widgets/caption_text_widget.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/interaction.dart';
+import 'package:talawa/widgets/post_container.dart';
+import 'package:talawa/widgets/post_modal.dart';
+
+/// Stateless class to show the fetched post.
+class PostWidget extends StatelessWidget {
+  const PostWidget({
+    super.key,
+    required this.post,
+    this.redirectToIndividualPage,
+>>>>>>> upstream/develop
     this.deletePost,
   });
 
@@ -24,7 +42,11 @@ class NewsPost extends StatelessWidget {
   final Post post;
 
   /// This function is passed for the handling the action to be performed when the comment button is clicked.
+<<<<<<< HEAD
   final Function(Post)? function;
+=======
+  final Function(Post)? redirectToIndividualPage;
+>>>>>>> upstream/develop
 
   /// To delete the post if user can (only work if the post is made by the user).
   final Function(Post)? deletePost;
@@ -45,6 +67,7 @@ class NewsPost extends StatelessWidget {
           children: [
             ListTile(
               leading: CustomAvatar(
+<<<<<<< HEAD
                 isImageNull: post.creator!.image == null,
                 firstAlphabet:
                     post.creator!.firstName!.substring(0, 1).toUpperCase(),
@@ -54,6 +77,18 @@ class NewsPost extends StatelessWidget {
               ),
               title: Text(
                 "${post.creator!.firstName} ${post.creator!.lastName}",
+=======
+                isImageNull: post.creator?.image == null,
+                firstAlphabet:
+                    post.creator?.firstName?.substring(0, 1).toUpperCase(),
+                imageUrl: post.creator?.image,
+                fontSize: 20,
+              ),
+              title: Text(
+                post.creator != null
+                    ? "${post.creator!.firstName} ${post.creator!.lastName}"
+                    : "Unknown User",
+>>>>>>> upstream/develop
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -65,7 +100,11 @@ class NewsPost extends StatelessWidget {
                 onPressed: () => showModalBottomSheet<void>(
                   context: context,
                   builder: (BuildContext context1) => Container(
+<<<<<<< HEAD
                     key: const Key('reportPost'),
+=======
+                    key: const Key('reportPostButton'),
+>>>>>>> upstream/develop
                     height: 120,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
@@ -77,7 +116,10 @@ class NewsPost extends StatelessWidget {
                     child: PostBottomModal(
                       post: post,
                       deletePost: deletePost,
+<<<<<<< HEAD
                       function: function,
+=======
+>>>>>>> upstream/develop
                     ),
                   ),
                 ),
@@ -87,6 +129,7 @@ class NewsPost extends StatelessWidget {
                 ),
               ),
             ),
+<<<<<<< HEAD
             post.imageUrl != null
                 ? Container(
                     key: const Key('postParentContainer'),
@@ -204,6 +247,59 @@ class NewsPost extends StatelessWidget {
                   ),
                 ],
               ),
+=======
+            GestureDetector(
+              key: const Key('postContainergestureDetector'),
+
+              /// showing caption if attachments are not present.
+              child: post.attachments != null && post.attachments!.isNotEmpty
+                  ? PostContainer(fileAttachmentList: post.attachments)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CaptionTextWidget(caption: post.caption ?? ''),
+                        PluginInjector(
+                          injectorType: InjectorType.g2,
+                          data: {
+                            'caption': post.caption ?? '',
+                            'postId': post.id,
+                          },
+                        ),
+                      ],
+                    ),
+              onTap: () => redirectToIndividualPage?.call(post),
+            ),
+            Column(
+              children: [
+                Interactions(
+                  post: post,
+                  redirectToIndividualPage: redirectToIndividualPage,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    /// showing caption if attachments are present.
+                    if (post.attachments != null &&
+                        post.attachments!.isNotEmpty)
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CaptionTextWidget(caption: post.caption ?? ''),
+                            PluginInjector(
+                              injectorType: InjectorType.g2,
+                              data: {
+                                'caption': post.caption ?? '',
+                                'postId': post.id,
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+>>>>>>> upstream/develop
             ),
           ],
         ),

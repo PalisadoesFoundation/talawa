@@ -18,6 +18,7 @@ class EditProfilePageViewModel extends BaseModel {
   late MultiMediaPickerService _multiMediaPickerService;
 
   /// profile image.
+<<<<<<< HEAD
   late File? imageFile;
 
   /// profile image in base64.
@@ -34,6 +35,21 @@ class EditProfilePageViewModel extends BaseModel {
 
   /// Focus node tpo control focus.
   FocusNode lastNameFocus = FocusNode();
+=======
+  File? imageFile;
+
+  /// first name controller.
+  late TextEditingController nameTextController;
+
+  /// email controller.
+  late TextEditingController emailTextController;
+
+  /// Focus node tpo control focus.
+  FocusNode nameFocus = FocusNode();
+
+  /// Focus node to control focus.
+  FocusNode emailFocus = FocusNode();
+>>>>>>> upstream/develop
 
   /// Graphql client.
   final databaseService = databaseFunctions;
@@ -51,8 +67,13 @@ class EditProfilePageViewModel extends BaseModel {
   void initialize() {
     imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
+<<<<<<< HEAD
     firstNameTextController = TextEditingController(text: user.firstName);
     lastNameTextController = TextEditingController(text: user.lastName);
+=======
+    emailTextController = TextEditingController(text: user.email);
+    nameTextController = TextEditingController(text: user.name);
+>>>>>>> upstream/develop
   }
 
   /// This function is used to get the image from gallery.
@@ -73,6 +94,7 @@ class EditProfilePageViewModel extends BaseModel {
     }
   }
 
+<<<<<<< HEAD
   /// This function is used to convert the image into Base64 format.
   ///
   /// **params**:
@@ -95,11 +117,19 @@ class EditProfilePageViewModel extends BaseModel {
   /// **params**:
   /// * `firstName`: updated first name.
   /// * `lastName`: updated last name.
+=======
+  /// Method to update user profile.
+  ///
+  /// **params**:
+  /// * `name`: updated name.
+  /// * `email`: updated email.
+>>>>>>> upstream/develop
   /// * `newImage`: New profile picture that is to be updated.
   ///
   /// **returns**:
   ///   None
   Future<void> updateUserProfile({
+<<<<<<< HEAD
     String? firstName,
     String? lastName,
     File? newImage,
@@ -107,6 +137,13 @@ class EditProfilePageViewModel extends BaseModel {
     if (firstName == user.firstName &&
         newImage == null &&
         lastName == user.lastName) {
+=======
+    String? name,
+    String? email,
+    File? newImage,
+  }) async {
+    if (name == user.name && email == user.email && newImage == null) {
+>>>>>>> upstream/develop
       return;
     }
     await actionHandlerService.performAction(
@@ -114,6 +151,7 @@ class EditProfilePageViewModel extends BaseModel {
       criticalActionFailureMessage: TalawaErrors.userProfileUpdateFailed,
       action: () async {
         final Map<String, dynamic> variables = {};
+<<<<<<< HEAD
         if (firstName != null) {
           variables["firstName"] = firstName;
         }
@@ -124,6 +162,16 @@ class EditProfilePageViewModel extends BaseModel {
           final String imageAsString = await convertToBase64(newImage);
           print('data:image/png;base64,$imageAsString');
           variables["file"] = 'data:image/png;base64,$imageAsString';
+=======
+        if (name != null && name != user.name) {
+          variables["name"] = name;
+        }
+        if (email != null && email != user.email) {
+          variables["emailAddress"] = email;
+        }
+        if (newImage != null) {
+          variables["avatar"] = newImage;
+>>>>>>> upstream/develop
         }
         if (variables.isNotEmpty) {
           await userProfileService.updateUserProfile(variables);
@@ -136,20 +184,30 @@ class EditProfilePageViewModel extends BaseModel {
         return databaseFunctions.noData;
       },
       onValidResult: (result) async {
+<<<<<<< HEAD
         final List users = result.data!['users'] as List;
 
         final User userInfo = User.fromJson(
           users[0] as Map<String, dynamic>,
           fromOrg: false,
+=======
+        final user = result.data!['user'] as Map<String, dynamic>;
+
+        final User userInfo = User.fromJson(
+          user,
+>>>>>>> upstream/develop
         );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
 
         await userConfig.updateUser(userInfo);
+<<<<<<< HEAD
         user.firstName = firstName ?? user.firstName;
         user.lastName = lastName ?? user.lastName;
         firstNameTextController.text = user.firstName!;
         lastNameTextController.text = user.lastName!;
+=======
+>>>>>>> upstream/develop
       },
       apiCallSuccessUpdateUI: () {
         notifyListeners();
@@ -157,7 +215,10 @@ class EditProfilePageViewModel extends BaseModel {
           "Profile updated successfully",
           MessageType.info,
         );
+<<<<<<< HEAD
         print('cccccccccccccccccccccccccccccccccccccccc');
+=======
+>>>>>>> upstream/develop
       },
       onActionException: (_) async {
         navigationService.showTalawaErrorSnackBar(
@@ -179,4 +240,16 @@ class EditProfilePageViewModel extends BaseModel {
     imageFile = null;
     notifyListeners();
   }
+<<<<<<< HEAD
+=======
+
+  @override
+  void dispose() {
+    nameTextController.dispose();
+    emailTextController.dispose();
+    nameFocus.dispose();
+    emailFocus.dispose();
+    super.dispose();
+  }
+>>>>>>> upstream/develop
 }

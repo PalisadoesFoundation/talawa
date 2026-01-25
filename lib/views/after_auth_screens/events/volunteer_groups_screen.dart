@@ -69,6 +69,10 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+<<<<<<< HEAD
+=======
+        heroTag: "volunteer_groups_fab",
+>>>>>>> upstream/develop
         key: const Key("add_group_btn"),
         backgroundColor: Colors.green,
         child: const Icon(
@@ -162,7 +166,11 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 8.0),
                                   child: Text(
+<<<<<<< HEAD
                                     group.name!,
+=======
+                                    group.name ?? 'N/A',
+>>>>>>> upstream/develop
                                     style: const TextStyle(
                                       color: Colors.blue,
                                       fontSize: 16,
@@ -190,7 +198,11 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
                                     Icons.edit,
                                     color: Colors.green,
                                   ),
+<<<<<<< HEAD
                                   onPressed: () async {
+=======
+                                  onPressed: () {
+>>>>>>> upstream/develop
                                     navigationService.pushScreen(
                                       "/manageVolunteerScreen",
                                       arguments: [

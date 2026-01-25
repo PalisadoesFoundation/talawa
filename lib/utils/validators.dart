@@ -25,6 +25,7 @@ class Validator {
     return null;
   }
 
+<<<<<<< HEAD
   /// Method to validate a user's first name.
   ///
   /// **params**:
@@ -35,11 +36,24 @@ class Validator {
   static String? validateFirstName(String value) {
     if (value.isEmpty) {
       return 'Firstname must not be left blank.';
+=======
+  /// Method to validate a user's name.
+  ///
+  /// **params**:
+  /// * `value`: the value of the  name
+  ///
+  /// **returns**:
+  /// * `String?`: error message if  name is invalid.
+  static String? validateName(String value) {
+    if (value.trim().isEmpty) {
+      return 'Name must not be left blank.';
+>>>>>>> upstream/develop
     }
     // ignore: unnecessary_raw_strings
     const String pattern = r'(?=.*?[A-Za-z]).+';
     final RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
+<<<<<<< HEAD
       return "Invalid Firstname";
     }
     return null;
@@ -61,6 +75,9 @@ class Validator {
     final RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
       return "Invalid Lastname";
+=======
+      return "Invalid Name";
+>>>>>>> upstream/develop
     }
     return null;
   }
@@ -176,6 +193,7 @@ class Validator {
     return null;
   }
 
+<<<<<<< HEAD
   /// Method to validate event time.
   ///
   /// **params**:
@@ -189,6 +207,62 @@ class Validator {
         (startTime.hour == endTime.hour && startTime.minute > endTime.minute)) {
       return 'Start time must be before or equal to end time';
     }
+=======
+  /// Validates that event end date/time is not before start date/time.
+  ///
+  /// **params**:
+  /// * `startDate`: start date of the event
+  /// * `startTime`: start time of the event
+  /// * `endDate`: end date of the event
+  /// * `endTime`: end time of the event
+  ///
+  /// **returns**:
+  /// * `String?`: error message if invalid, null if valid
+  static String? validateEventDateTime(
+    DateTime startDate,
+    TimeOfDay startTime,
+    DateTime endDate,
+    TimeOfDay endTime,
+  ) {
+    // Convert to comparable DateTime objects with time
+    final start = DateTime(
+      startDate.year,
+      startDate.month,
+      startDate.day,
+      startTime.hour,
+      startTime.minute,
+    );
+    final end = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+      endTime.hour,
+      endTime.minute,
+    );
+
+    if (end.isBefore(start)) {
+      return 'Event end date/time cannot be before start date/time';
+    }
+
+    return null;
+  }
+
+  /// Validates that event start date is not in the past.
+  ///
+  /// **params**:
+  /// * `startDate`: start date of the event
+  ///
+  /// **returns**:
+  /// * `String?`: error message if invalid, null if valid
+  static String? validateEventStartDate(DateTime startDate) {
+    // Check if start date is in the past
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    if (startDate.isBefore(today)) {
+      return 'Cannot create events having date prior than today';
+    }
+
+>>>>>>> upstream/develop
     return null;
   }
 }

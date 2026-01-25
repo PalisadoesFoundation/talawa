@@ -1,5 +1,8 @@
 import 'dart:async';
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/develop
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
@@ -29,11 +32,18 @@ class ActionHandlerService {
   }) async {
     try {
       final result = await action();
+<<<<<<< HEAD
       print(result);
       if (result == null || result.data == null) return null;
 
       if (result.isConcrete && result.source != QueryResultSource.cache) {
         await onValidResult!(result);
+=======
+      if (result == null || result.data == null) return null;
+
+      if (result.isConcrete && result.source != QueryResultSource.cache) {
+        await onValidResult?.call(result);
+>>>>>>> upstream/develop
       }
       return true;
     } catch (e) {
@@ -65,7 +75,11 @@ class ActionHandlerService {
     Future<void> Function(Exception e)? onActionException,
     void Function()? updateUI,
     void Function()? apiCallSuccessUpdateUI,
+<<<<<<< HEAD
     String? criticalActionFailureMessage = TalawaErrors.userActionNotSaved,
+=======
+    String criticalActionFailureMessage = TalawaErrors.userActionNotSaved,
+>>>>>>> upstream/develop
     Future<void> Function()? onActionFinally,
   }) async {
     bool? success;
@@ -95,7 +109,11 @@ class ActionHandlerService {
       } else {
         updateUI?.call();
         GraphqlExceptionResolver.encounteredExceptionOrError(
+<<<<<<< HEAD
           CriticalActionException(criticalActionFailureMessage!),
+=======
+          CriticalActionException(criticalActionFailureMessage),
+>>>>>>> upstream/develop
         );
       }
     }

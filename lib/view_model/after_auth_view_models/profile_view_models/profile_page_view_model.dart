@@ -1,13 +1,18 @@
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+<<<<<<< HEAD
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
+=======
+import 'package:talawa/constants/constants.dart';
+>>>>>>> upstream/develop
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+<<<<<<< HEAD
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -15,6 +20,12 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+=======
+import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
+import 'package:talawa/view_model/base_view_model.dart';
+>>>>>>> upstream/develop
 
 /// ProfilePageViewModel class helps to interact with model to serve data and react to user's input in Profile Page view.
 ///
@@ -24,7 +35,10 @@ class ProfilePageViewModel extends BaseModel {
   // Services
   final _userConfig = locator<UserConfig>();
   final _navigationService = locator<NavigationService>();
+<<<<<<< HEAD
   final _appLanguageService = locator<AppLanguage>();
+=======
+>>>>>>> upstream/develop
 
   /// GlobalKey for scaffoldKey.
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -100,6 +114,7 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
+<<<<<<< HEAD
   /// This Function creates a QR Code for latest release .
   ///
   /// **params**:
@@ -171,6 +186,8 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
+=======
+>>>>>>> upstream/develop
   /// This widget returns the button for social media sharing option.
   ///
   /// **params**:

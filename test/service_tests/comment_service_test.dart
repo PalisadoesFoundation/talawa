@@ -2,68 +2,49 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/comment_queries.dart';
 import '../helpers/test_helpers.dart';
+import '../helpers/test_locator.dart';
 
 void main() {
-  setUp(() {
-    registerServices();
-  });
-  group('test for comment servicce', () {
-    test('test for createComments', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+  group('CommentService', () {
+    setUpAll(registerServices);
+    tearDownAll(unregisterServices);
 
+    test('createComments returns Comment on success', () async {
+      final db = locator<DataBaseMutationFunctions>();
       final query = CommentQueries().createComment();
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          query,
-          variables: {
-            'postId': 'ayush post', //Add your variables here
-            'text': 'hey Ayush here!',
-          },
-        ),
-      ).thenAnswer(
+      final mockData = {
+        'createComment': {
+          'id': 'c1',
+          'body': 'test',
+        },
+      };
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
-          data: {
-            'text': 'hey Ayush here!',
-            'postId': 'ayush post',
-          },
+          data: mockData,
           source: QueryResultSource.network,
         ),
       );
-
       final service = CommentService();
-
-      await service.createComments(
-        'ayush post',
-        'hey Ayush here!',
-      );
+      final result = await service.createComments('pid', 'body');
+      expect(result, isNotNull);
+      expect(result!.id, 'c1');
+      expect(result.body, 'test');
     });
-    test('test for createComments when throws exception', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
+    test('createComments shows error and returns null on exception', () async {
+      final db = locator<DataBaseMutationFunctions>();
       final query = CommentQueries().createComment();
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          query,
-          variables: {
-            'postId': 'ayush post',
-            'text': 'hey Ayush here!',
-          },
-        ),
-      ).thenThrow(Exception('Your error message here'));
-
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenThrow(Exception('fail'));
       final service = CommentService();
-
-      await service.createComments(
-        'ayush post',
-        'hey Ayush here!',
-      );
-
+      final result = await service.createComments('pid', 'body');
+      expect(result, isNull);
       verify(
         navigationService.showTalawaErrorSnackBar(
           "Something went wrong",
@@ -71,305 +52,162 @@ void main() {
         ),
       ).called(1);
     });
-    test('test for getCommentsForPost', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayush s postid');
 
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(getCommmentQuery)),
-          data: {
-            'post': {
-              'comments': [
-                {
-                  'creator': {
-                    '_id': '123',
-                    'firstName': 'John',
-                    'lastName': 'Doe',
-                    'email': 'test@test.com',
-                  },
-                  'createdAt': '123456',
-                  'text': 'test text',
-                  'post': 'test post',
-                  'likeCount': 'test count',
-                },
-                {
-                  'creator': {
-                    '_id': '123',
-                    'firstName': 'Ayush',
-                    'lastName': 'Doe',
-                    'email': 'test@test.com',
-                  },
-                  'createdAt': '123456',
-                  'text': 'test text',
-                  'post': 'test post',
-                  'likeCount': 'test count',
-                },
-                {
-                  'creator': {
-                    '_id': '123',
-                    'firstName': 'john',
-                    'lastName': 'chauhdary',
-                    'email': 'test@test.com',
-                  },
-                  'createdAt': '123456',
-                  'text': 'test text',
-                  'post': 'test post',
-                  'likeCount': 'test count',
-                }
-              ],
-            },
+    test('getCommentsForPost returns comments and pageInfo', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().getPostsComments();
+      final mockData = {
+        'post': {
+          'comments': {
+            'edges': [
+              {
+                'node': {'id': '1', 'body': 'test'},
+              },
+            ],
+            'pageInfo': {'hasNextPage': false},
           },
+        },
+      };
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: mockData,
           source: QueryResultSource.network,
         ),
       );
-
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayush s postid');
-
-      if (result.toString().contains('[{creator: '
-          '{'
-          '_id: 123, '
-          'firstName: John, '
-          'lastName: Doe, '
-          'email: test@test.com},'
-          ' createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: '
-          '{_id: 123, '
-          'firstName: Ayush, '
-          'lastName: Doe, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: {_id: 123,'
-          ' firstName: john, '
-          'lastName: chauhdary, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}]')) {
-      } else {
-        fail('the result is not maatching');
-      }
-      expect(result, isNotEmpty);
-    });
-    test('test for getCommentsForPost for wrong post idd', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayushs postid');
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(getCommmentQuery)),
-          data: {
-            'post': {
-              'comments': [],
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = CommentService();
-      final result = await service.getCommentsForPost('Ayushs postid');
-
-      if (result.toString().contains('[{creator: '
-          '{'
-          '_id: 123, '
-          'firstName: John, '
-          'lastName: Doe, '
-          'email: test@test.com},'
-          ' createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: '
-          '{_id: 123, '
-          'firstName: Ayush, '
-          'lastName: Doe, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: {_id: 123,'
-          ' firstName: john, '
-          'lastName: chauhdary, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}]')) {
-        fail('the result is not maatching');
-      }
-      expect(result, isEmpty);
+      final result = await service.getCommentsForPost(postId: 'pid');
+      expect(result['comments'], isNotEmpty);
+      expect(result['pageInfo'], contains('hasNextPage'));
     });
 
-    test('test for zero comments on post', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayushs postid');
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
-      ).thenAnswer(
+    test('getCommentsForPost returns empty if post is null', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().getPostsComments();
+      final mockData = {'post': null};
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(getCommmentQuery)),
-          data: {
-            'post': {'comments': []},
-          },
+          options: QueryOptions(document: gql(query)),
+          data: mockData,
           source: QueryResultSource.network,
         ),
       );
-
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayushs postid');
-
-      if (result.toString().contains('[{creator: '
-          '{'
-          '_id: 123, '
-          'firstName: John, '
-          'lastName: Doe, '
-          'email: test@test.com},'
-          ' createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: '
-          '{_id: 123, '
-          'firstName: Ayush, '
-          'lastName: Doe, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: {_id: 123,'
-          ' firstName: john, '
-          'lastName: chauhdary, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}]')) {
-        fail('the result is not maatching');
-      }
-      expect(result, isEmpty);
+      final result = await service.getCommentsForPost(postId: 'pid');
+      expect(result['comments'], isEmpty);
+      expect(result['pageInfo'], isEmpty);
     });
 
-    test('test when post is null', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayushs postid');
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
-      ).thenAnswer(
+    test('getCommentsForPost returns empty if comments is null', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().getPostsComments();
+      final mockData = {
+        'post': {
+          'comments': null,
+        },
+      };
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(getCommmentQuery)),
-          data: {
-            'post': {
-              'comments': [],
-            },
-          },
+          options: QueryOptions(document: gql(query)),
+          data: mockData,
           source: QueryResultSource.network,
         ),
       );
-
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayushs postid');
-
-      if (result.toString().contains('[{creator: '
-          '{'
-          '_id: 123, '
-          'firstName: John, '
-          'lastName: Doe, '
-          'email: test@test.com},'
-          ' createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: '
-          '{_id: 123, '
-          'firstName: Ayush, '
-          'lastName: Doe, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: {_id: 123,'
-          ' firstName: john, '
-          'lastName: chauhdary, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}]')) {
-        fail('the result is not maatching');
-      }
-      expect(result, isEmpty);
+      final result = await service.getCommentsForPost(postId: 'pid');
+      expect(result['comments'], isEmpty);
+      expect(result['pageInfo'], isEmpty);
     });
 
-    test('test when result is null', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+    test('getCommentsForPost returns empty and shows error on exception',
+        () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().getPostsComments();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenThrow(Exception('fail'));
+      final service = CommentService();
+      final result = await service.getCommentsForPost(postId: 'pid');
+      expect(result['comments'], isEmpty);
+      expect(result['pageInfo'], isEmpty);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Something went wrong while fetching comments",
+          MessageType.error,
+        ),
+      ).called(1);
+    });
 
-      final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayushs postid');
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
-      ).thenAnswer(
+    test('toggleUpVoteComment calls gqlAuthMutation with correct variables',
+        () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().updateVoteComment();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(getCommmentQuery)),
-          data: null,
+          options: QueryOptions(document: gql(query)),
+          data: {},
           source: QueryResultSource.network,
         ),
       );
-
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayushs postid');
+      await service.toggleUpVoteComment('cid', null, false);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'commentId': 'cid',
+            'type': 'up_vote',
+          },
+        ),
+      ).called(1);
+      await service.toggleUpVoteComment('cid', VoteType.upVote, true);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'commentId': 'cid',
+            'type': null,
+          },
+        ),
+      ).called(1);
+    });
 
-      if (result.toString().contains('[{creator: '
-          '{'
-          '_id: 123, '
-          'firstName: John, '
-          'lastName: Doe, '
-          'email: test@test.com},'
-          ' createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: '
-          '{_id: 123, '
-          'firstName: Ayush, '
-          'lastName: Doe, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}, '
-          '{creator: {_id: 123,'
-          ' firstName: john, '
-          'lastName: chauhdary, '
-          'email: test@test.com}, '
-          'createdAt: 123456, '
-          'text: test text, '
-          'post: test post, '
-          'likeCount: test count}]')) {
-        fail('the result is not maatching');
-      }
-      expect(result, isEmpty);
+    test('toggleDownVoteComment calls gqlAuthMutation with correct variables',
+        () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().updateVoteComment();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {},
+          source: QueryResultSource.network,
+        ),
+      );
+      final service = CommentService();
+      await service.toggleDownVoteComment('cid', null, false);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'commentId': 'cid',
+            'type': 'down_vote',
+          },
+        ),
+      ).called(1);
+      await service.toggleDownVoteComment('cid', VoteType.downVote, true);
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'commentId': 'cid',
+            'type': null,
+          },
+        ),
+      ).called(1);
     });
   });
 }

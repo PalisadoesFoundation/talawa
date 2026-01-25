@@ -79,29 +79,42 @@ abstract class BaseFeedManager<T> {
     debugPrint(_box.values.length.toString());
   }
 
-  /// Abstract method to be implemented by subclasses to fetch data from an API.
+  /// Clear cached data.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
+  ///   None
+  Future<void> clearCache() async {
+    await _box.clear();
+  }
+
+  /// Abstract method to be implemented by subclasses to fetch data from an API.
+  ///
+  /// **params**:
+  /// * `params`: Optional parameters for the API request.
+  ///
+  /// **returns**:
   /// * `Future<List<T>>`: A Future containing a list of data fetched from the API.
-  Future<List<T>> fetchDataFromApi();
+  Future<List<T>> fetchDataFromApi({Map<String, dynamic>? params});
 
   /// Fetches new data from the API if online, updates the cache, and returns the data.
   ///
   /// If offline, loads and returns cached data.
   ///
   /// **params**:
-  ///   None
+  /// * `params`: Optional parameters for the API request.
   ///
   /// **returns**:
   /// * `Future<List<T>>`: A Future containing a list of the latest data.
-  Future<List<T>> getNewFeedAndRefreshCache() async {
+  Future<List<T>> getNewFeedAndRefreshCache({
+    Map<String, dynamic>? params,
+  }) async {
     if (AppConnectivity.isOnline) {
       try {
         return await _swrCache.revalidate<List<T>>(cacheKey, () async {
-          final data = await fetchDataFromApi();
+          final data = await fetchDataFromApi(params: params);
           await saveDataToCache(data);
           return data;
         });

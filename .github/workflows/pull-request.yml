@@ -17,6 +17,13 @@ on:
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+<<<<<<< HEAD
+=======
+  FLUTTER_VERSION: 3.32.8
+  # Test concurrency: defaults to nproc, capped at 4 (override if needed)
+  # Note: Flutter 3.32.x may have --concurrency flag behavior issues
+  FLUTTER_TEST_CONCURRENCY: 4
+>>>>>>> upstream/develop
 
 jobs:
   Flutter-Codebase-Check:
@@ -37,7 +44,11 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
+<<<<<<< HEAD
           flutter-version: "3.27.3"
+=======
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+>>>>>>> upstream/develop
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Set default branch.
         run: git remote set-head origin --auto
@@ -53,7 +64,11 @@ jobs:
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/scripts/countline.py
       - name: Running count lines
+<<<<<<< HEAD
         run: ./.github/workflows/scripts/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart lib/views/after_auth_screens/events/create_agenda_item_page.dart lib/views/after_auth_screens/events/edit_agenda_item_page.dart lib/utils/event_queries.dart
+=======
+        run: ./.github/workflows/scripts/countline.py --exclude_directories test/ --exclude_files lib/views/after_auth_screens/add_post_page.dart lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart lib/views/after_auth_screens/events/create_agenda_item_page.dart lib/views/after_auth_screens/events/edit_agenda_item_page.dart lib/utils/event_queries.dart lib/views/after_auth_screens/funds/fundraising_campaigns_screen.dart lib/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart lib/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart lib/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart lib/views/after_auth_screens/events/event_page_form.dart lib/views/after_auth_screens/events/custom_recurring_event.dart lib/view_model/pre_auth_view_models/set_url_view_model.dart
+>>>>>>> upstream/develop
       - name: Check for presence of ignore directives corresponding to custom lints
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
       - name: Run check_ignore
@@ -108,6 +123,7 @@ jobs:
           echo "Error: Close this PR and try again."          
           exit 1
 
+<<<<<<< HEAD
   Branch-check:
     if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
     name: "Base branch check"
@@ -117,11 +133,26 @@ jobs:
         if: github.event.pull_request.base.ref != 'develop'
         run: |
           echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
+=======
+  Check-Target-Branch:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Check Target Branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the target branch is develop
+        if: github.event.pull_request.base.ref != 'develop'
+        run: |
+          echo "Error: Pull request target branch must be 'develop'. Please refer PR_GUIDELINES.md"
+>>>>>>> upstream/develop
           echo "Error: Close this PR and try again."
           exit 1
 
   Check-Sensitive-Files:
+<<<<<<< HEAD
     if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
+=======
+    if: ${{ github.actor != 'dependabot[bot]' }}
+>>>>>>> upstream/develop
     name: Checks if sensitive files have been changed without authorization
     runs-on: ubuntu-latest
     steps:
@@ -129,6 +160,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags
+<<<<<<< HEAD
       - name: Get Changed Unauthorized files
         id: changed-unauth-files
         run : | 
@@ -142,6 +174,98 @@ jobs:
           CHANGED_UNAUTH_FILES=""
           for pattern in $SENSITIVE_FILES; do
             FILES=$(git diff --name-only --diff-filter=ACMRD $BASE_SHA ${{ github.event.pull_request.head.sha }} | grep -E "$pattern" || true)
+=======
+      - name: Get PR labels
+        id: check-labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -z "${{ github.event.pull_request.number }}" ]; then
+            echo "skip=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          LABELS="$(gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels --jq '.[].name' | tr '\n' ' ')"
+
+          if echo "$LABELS" | grep -qw "ignore-sensitive-files-pr"; then
+            echo "::notice::Skipping sensitive files check due to 'ignore-sensitive-files-pr' label."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Get Changed Unauthorized files
+        if: steps.check-labels.outputs.skip != 'true'
+        id: changed-unauth-files
+        run: |
+          # Skip if not in PR context
+          if [ -z "${{ github.event.pull_request.base.sha }}" ]; then
+            echo "any_changed=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Determine base and head commits for comparison
+          HEAD_SHA="${{ github.event.pull_request.head.sha || github.sha }}"
+          BASE_SHA=$(git merge-base "${{ github.event.pull_request.base.sha }}" "$HEAD_SHA")
+
+          # Define sensitive files pattern
+          SENSITIVE_FILES=(
+            '.flake8$'
+            '.pydocstyle$'
+            'pyproject.toml$'
+            '.env..*$'
+            'vitest.config.js$'
+            'src/App.tsx$'
+            '^.github/.*'
+            '^env.example$'
+            '.node-version$'
+            '.husky/.*' 'scripts/.*'
+            'src/style/.*'
+            'schema.graphql$'
+            'package.json$'
+            'package-lock.json$'
+            'tsconfig.json$'
+            '^.gitignore$'
+            '.eslintrc.json$'
+            '.eslintignore$'
+            '.prettierrc$'
+            '.prettierignore$'
+            'vite.config.ts$'
+            '^docker/docker-compose.prod.yaml$'
+            '^docker/docker-compose.dev.yaml$'
+            '^docker/Dockerfile.dev$'
+            '^docker/Dockerfile.prod$'
+            '^config/docker/setup/nginx.conf$'
+            '^config/docker/setup/nginx.prod.conf$'
+            'CODEOWNERS$'
+            'LICENSE$'
+            'setup.ts$'
+            '.coderabbit.yaml$'
+            'CODE_OF_CONDUCT.md$'
+            'CODE_STYLE.md$'
+            'CONTRIBUTING.md$'
+            'DOCUMENTATION.md$'
+            'INSTALLATION.md$'
+            'ISSUE_GUIDELINES.md$'
+            'PR_GUIDELINES.md$'
+            'README.md$'
+            '.*.pem$'
+            '.*.key$'
+            '.*.cert$'
+            '.*.password$'
+            '.*.secret$'
+            '.*.credentials$'
+            '.nojekyll$'
+            'yarn.lock$'
+            '^docs/docusaurus.config.ts$'
+            '^docs/sidebar..*'
+            'CNAME$'
+          )
+
+          # Check for changes in sensitive files
+          CHANGED_UNAUTH_FILES=""
+          for pattern in "${SENSITIVE_FILES[@]}"; do
+            FILES=$(git diff --name-only --diff-filter=ACMRD "$BASE_SHA" "$HEAD_SHA" | grep -E "$pattern" || true)
+>>>>>>> upstream/develop
 
             if [ ! -z "$FILES" ]; then
               CHANGED_UNAUTH_FILES="$CHANGED_UNAUTH_FILES $FILES"
@@ -155,6 +279,7 @@ jobs:
           # Check if any unauthorized files changed
           if [ ! -z "$CHANGED_UNAUTH_FILES" ]; then
             echo "any_changed=true" >> $GITHUB_OUTPUT
+<<<<<<< HEAD
             echo "any_deleted=true" >> $GITHUB_OUTPUT
           else
             echo "any_changed=false" >> $GITHUB_OUTPUT
@@ -170,6 +295,23 @@ jobs:
           for file in ${CHANGED_UNAUTH_FILES}; do
             echo "$file is unauthorized to change/delete"
           done
+=======
+          else
+            echo "any_changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: List all changed unauthorized files
+        if: steps.changed-unauth-files.outputs.any_changed == 'true'
+        env:
+          CHANGED_UNAUTH_FILES: ${{ steps.changed-unauth-files.outputs.all_changed_files }}
+        run: |
+          echo "::error::Unauthorized changes detected in sensitive files"
+          echo ""
+          for file in $CHANGED_UNAUTH_FILES; do
+            echo "- $file"
+          done
+          echo ""
+>>>>>>> upstream/develop
           echo "To override this, apply the 'ignore-sensitive-files-pr' label"
           exit 1
 
@@ -223,7 +365,12 @@ jobs:
   Flutter-Testing:
     name: Testing codebase
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     needs: [Flutter-Codebase-Check, Python-Compliance]
+=======
+    needs:
+      [Flutter-Codebase-Check, Python-Compliance, check-unused-dependencies]
+>>>>>>> upstream/develop
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -232,11 +379,16 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
+<<<<<<< HEAD
           flutter-version: "3.27.3"
+=======
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+>>>>>>> upstream/develop
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
+<<<<<<< HEAD
         run: flutter test --coverage
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v5
@@ -245,11 +397,39 @@ jobs:
           verbose: true
           fail_ci_if_error: false
           name: "${{env.CODECOV_UNIQUE_NAME}}"
+=======
+        run: |
+          CONCURRENCY="${FLUTTER_TEST_CONCURRENCY:-$(nproc)}"
+          if [ "$CONCURRENCY" -gt 4 ]; then CONCURRENCY=4; fi
+          flutter test --concurrency="$CONCURRENCY" --coverage
+      - name: Remove generated files from coverage
+        run: |
+          dart pub global activate remove_from_coverage
+          dart pub global run remove_from_coverage:remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$'
+
+      #######################################################################
+      # DO NOT DELETE ANY references to env.CODECOV_UNIQUE_NAME in this
+      # section. They are required for accurate calculations
+      #######################################################################
+      - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
+        uses: codecov/codecov-action@v5
+        with:
+          name: "${{env.CODECOV_UNIQUE_NAME}}"
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+          verbose: true
+          exclude: "docs/"
+
+>>>>>>> upstream/develop
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v3
         with:
           path: "./coverage/lcov.info"
+<<<<<<< HEAD
           min_coverage: 92.0
+=======
+          min_coverage: 93.0
+>>>>>>> upstream/develop
 
   Android-Build:
     name: Testing build for android
@@ -263,12 +443,17 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
+<<<<<<< HEAD
           flutter-version: "3.27.3"
+=======
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+>>>>>>> upstream/develop
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android
         run: flutter build apk
+<<<<<<< HEAD
 
   iOS-Build:
     name: Testing build for iOS
@@ -279,6 +464,25 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.27.3"
+=======
+        env:
+          GRADLE_OPTS: "-Xmx3g -XX:MaxMetaspaceSize=512m"
+
+  iOS-Build:
+    name: Testing build for iOS
+    permissions:
+      contents: write
+    runs-on: macos-14
+    needs: Flutter-Testing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.1"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+>>>>>>> upstream/develop
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios
@@ -291,6 +495,7 @@ jobs:
     # Run only if the develop branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop' }}
     steps:
+<<<<<<< HEAD
       - name: Checkout the Repository
         uses: actions/checkout@v4
       - name: Set up Node.js
@@ -303,6 +508,22 @@ jobs:
       - name: Test building the website
         working-directory: ./docs
         run: npm run build
+=======
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          cache: pnpm
+          cache-dependency-path: |
+            docs/pnpm-lock.yaml
+            docs/package.json
+      # Run Docusaurus in the ./docs directory
+      - name: Install dependencies
+        working-directory: ./docs
+        run: pnpm install --frozen-lockfile
+      - name: Test building the website
+        working-directory: ./docs
+        run: pnpm build
+>>>>>>> upstream/develop
 
   Python-Compliance:
     name: Check Python Code Style
@@ -352,3 +573,33 @@ jobs:
         run: |
           source venv/bin/activate
           python .github/workflows/scripts/check_docstrings.py --directories .github scripts
+<<<<<<< HEAD
+=======
+
+  check-unused-dependencies:
+    name: Check Unused Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-cache-
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run dependency validator
+        run: dart run dependency_validator
+>>>>>>> upstream/develop

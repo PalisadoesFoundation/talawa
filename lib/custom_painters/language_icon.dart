@@ -323,6 +323,10 @@ class LanguageIcon extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+<<<<<<< HEAD
     return true;
+=======
+    return false;
+>>>>>>> upstream/develop
   }
 }

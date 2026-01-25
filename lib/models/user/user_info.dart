@@ -1,6 +1,9 @@
 // ignore_for_file: use_setters_to_change_properties
 
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 
@@ -11,6 +14,7 @@ part 'user_info.g.dart';
 /// This class creates a User model and returns a user instance.
 class User extends HiveObject {
   User({
+<<<<<<< HEAD
     this.adminFor,
     this.createdOrganizations,
     this.email,
@@ -19,11 +23,19 @@ class User extends HiveObject {
     this.image,
     this.joinedOrganizations,
     this.lastName,
+=======
+    this.email,
+    this.name,
+    this.id,
+    this.image,
+    this.joinedOrganizations,
+>>>>>>> upstream/develop
     this.authToken,
     this.refreshToken,
     this.membershipRequests,
   });
 
+<<<<<<< HEAD
   factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
     final Map<String, dynamic> userData =
         json['user'] != null ? json['user'] as Map<String, dynamic> : {};
@@ -34,6 +46,12 @@ class User extends HiveObject {
     final String? lastName = nameParts != null && nameParts.length > 1
         ? nameParts.sublist(1).join(' ')
         : null;
+=======
+  factory User.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> userData =
+        json['user'] != null ? json['user'] as Map<String, dynamic> : json;
+
+>>>>>>> upstream/develop
     final Map<String, dynamic>? org =
         userData['organizationsWhereMember'] as Map<String, dynamic>?;
     final List<dynamic>? edges = org?['edges'] as List<dynamic>?;
@@ -43,10 +61,15 @@ class User extends HiveObject {
       authToken: json['authenticationToken'] != null
           ? json['authenticationToken'] as String?
           : null,
+<<<<<<< HEAD
       refreshToken: fromOrg ? ' ' : json['refreshToken'] as String?,
       id: userData['id'] as String?,
       firstName: firstName,
       lastName: lastName,
+=======
+      id: userData['id'] as String?,
+      name: userData['name'] != null ? userData['name'] as String? : null,
+>>>>>>> upstream/develop
       email: userData['emailAddress'] != null
           ? userData['emailAddress'] as String?
           : null,
@@ -58,6 +81,7 @@ class User extends HiveObject {
               .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
               .toList()
           : [],
+<<<<<<< HEAD
     );
   }
 
@@ -80,6 +104,29 @@ class User extends HiveObject {
     debugPrint('adminFor: ${this.adminFor}');
     debugPrint('createdOrganizations: ${this.createdOrganizations}');
     debugPrint('membershipRequests: ${this.membershipRequests}');
+=======
+      membershipRequests: userData['orgIdWhereMembershipRequested'] != null
+          ? List<String>.from(userData['orgIdWhereMembershipRequested'] as List)
+          : [],
+    );
+  }
+
+  /// First name of the user.
+  String? get firstName {
+    if (name != null) {
+      return name!.split(' ').first;
+    }
+    return null;
+  }
+
+  /// Last name of the user.
+  String? get lastName {
+    if (name != null) {
+      final parts = name!.split(' ');
+      return parts.length > 1 ? parts.sublist(1).join(' ') : '';
+    }
+    return null;
+>>>>>>> upstream/develop
   }
 
   /// HiveField for authToken.
@@ -94,6 +141,7 @@ class User extends HiveObject {
   @HiveField(2)
   String? id;
 
+<<<<<<< HEAD
   /// HiveField for user's first name.
   @HiveField(3)
   String? firstName;
@@ -125,10 +173,32 @@ class User extends HiveObject {
   /// HiveField for all organisations user has sent membership request.
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
+=======
+  /// HiveField for user's name.
+  @HiveField(3)
+  String? name;
+
+  /// HiveField for user's Email.
+  @HiveField(4)
+  String? email;
+
+  /// HiveField for user's avatar.
+  @HiveField(5)
+  String? image;
+
+  /// /// HiveField for all organisations joined by user.
+  @HiveField(6)
+  List<OrgInfo>? joinedOrganizations = [];
+
+  /// HiveField for all organisations user has sent membership request.
+  @HiveField(10)
+  List<String>? membershipRequests = [];
+>>>>>>> upstream/develop
 
   /// Method to updated joinedOrganisation list.
   ///
   /// **params**:
+<<<<<<< HEAD
   /// * `orgList`: List of organsaitions user has joined.
   ///
   /// **returns**:
@@ -146,6 +216,19 @@ class User extends HiveObject {
   ///   None
   void updateCreatedOrg(List<OrgInfo> orgList) {
     this.createdOrganizations = orgList;
+=======
+  /// * `org`: Organisation to be added to the joinedOrganizations list.
+  ///
+  /// **returns**:
+  ///   None
+  void updateJoinedOrg(OrgInfo org) {
+    final existingOrgs = joinedOrganizations ?? [];
+    // Remove any existing org with the same ID and add the new one
+    this.joinedOrganizations = [
+      org,
+      ...existingOrgs.where((existingOrg) => existingOrg.id != org.id),
+    ];
+>>>>>>> upstream/develop
   }
 
   /// Method to update membershipRequests List.
@@ -155,6 +238,7 @@ class User extends HiveObject {
   ///
   /// **returns**:
   ///   None
+<<<<<<< HEAD
   void updateMemberRequestOrg(List<OrgInfo> orgList) {
     this.membershipRequests = [...membershipRequests!, ...orgList];
   }
@@ -170,6 +254,12 @@ class User extends HiveObject {
     this.adminFor = orgList;
   }
 
+=======
+  void updateMemberRequestOrg(List<String> orgList) {
+    this.membershipRequests = [...membershipRequests!, ...orgList];
+  }
+
+>>>>>>> upstream/develop
   /// Method to update the user details.
   ///
   /// **params**:
@@ -178,6 +268,7 @@ class User extends HiveObject {
   /// **returns**:
   ///   None
   void update(User details) {
+<<<<<<< HEAD
     this.firstName = details.firstName;
     this.lastName = details.lastName;
     this.email = details.email;
@@ -189,4 +280,22 @@ class User extends HiveObject {
     // this.membershipRequests = details.membershipRequests;
     // this.adminFor = details.adminFor;
   }
+=======
+    this.name = details.name;
+    this.email = details.email;
+    this.image = details.image;
+    this.authToken = details.authToken;
+    this.refreshToken = details.refreshToken;
+    this.joinedOrganizations = details.joinedOrganizations;
+    this.membershipRequests = details.membershipRequests;
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is User && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id?.hashCode ?? 0;
+>>>>>>> upstream/develop
 }

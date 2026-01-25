@@ -44,7 +44,13 @@ class _VenueBottomSheetState extends State<VenueBottomSheet> {
     setState(() {
       filteredVenues = widget.venues
           .where(
+<<<<<<< HEAD
             (venue) => venue.name!.toLowerCase().contains(query.toLowerCase()),
+=======
+            (venue) => (venue.name ?? 'Invalid Venue')
+                .toLowerCase()
+                .contains(query.toLowerCase()),
+>>>>>>> upstream/develop
           )
           .toList();
     });

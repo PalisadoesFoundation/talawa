@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+<<<<<<< HEAD
 import 'package:graphql_flutter/graphql_flutter.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -8,7 +11,10 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+<<<<<<< HEAD
 import 'package:talawa/utils/encryptor.dart';
+=======
+>>>>>>> upstream/develop
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -24,7 +30,11 @@ class SignupDetailsViewModel extends BaseModel {
   late List<Map<String, dynamic>> greeting;
 
   /// Represents information about the selected organization.
+<<<<<<< HEAD
   late OrgInfo? selectedOrganization;
+=======
+  late OrgInfo selectedOrganization;
+>>>>>>> upstream/develop
 
   /// Secure local storage instance.
   FlutterSecureStorage secureStorage = const FlutterSecureStorage();
@@ -32,11 +42,16 @@ class SignupDetailsViewModel extends BaseModel {
   /// TextEditingController for handling confirmation password input field.
   TextEditingController confirmPassword = TextEditingController();
 
+<<<<<<< HEAD
   /// TextEditingController for handling first name input field.
   TextEditingController firstName = TextEditingController();
 
   /// TextEditingController for handling last name input field.
   TextEditingController lastName = TextEditingController();
+=======
+  /// TextEditingController for handling name input field.
+  TextEditingController name = TextEditingController();
+>>>>>>> upstream/develop
 
   /// TextEditingController for handling password input field.
   TextEditingController password = TextEditingController();
@@ -60,7 +75,11 @@ class SignupDetailsViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
+<<<<<<< HEAD
   void initialise(OrgInfo? org) {
+=======
+  void initialise(OrgInfo org) {
+>>>>>>> upstream/develop
     selectedOrganization = org;
     // greeting message
     greeting = [
@@ -138,6 +157,7 @@ class SignupDetailsViewModel extends BaseModel {
             ),
           );
           databaseFunctions.init();
+<<<<<<< HEAD
           print("heelo");
           print(selectedOrganization?.id);
           final String query;
@@ -163,6 +183,14 @@ class SignupDetailsViewModel extends BaseModel {
             );
           }
 
+=======
+          final String query = queries.registerUser(
+            name.text,
+            email.text,
+            password.text,
+            selectedOrganization.id,
+          );
+>>>>>>> upstream/develop
           final result = await databaseFunctions.gqlNonAuthMutation(query);
           navigationService.pop();
           return result;
@@ -173,6 +201,7 @@ class SignupDetailsViewModel extends BaseModel {
               result.data!['signUp'] as Map<String, dynamic>,
             );
             final bool userSaved = await userConfig.updateUser(signedInUser);
+<<<<<<< HEAD
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
             // if user successfully saved and access token is also generated.
             if (userSaved && tokenRefreshed) {
@@ -238,6 +267,38 @@ class SignupDetailsViewModel extends BaseModel {
         },
         onActionException: (e) async {
           print(e);
+=======
+            graphqlConfig.getToken();
+            // if user successfully saved and access token is also generated.
+            if (userSaved &&
+                userConfig.currentUser.joinedOrganizations != null &&
+                userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
+              userConfig.saveCurrentOrgInHive(
+                userConfig.currentUser.joinedOrganizations![0],
+              );
+              navigationService.removeAllAndPush(
+                Routes.mainScreen,
+                Routes.splashScreen,
+                arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+              );
+            } else if (userConfig.currentUser.membershipRequests != null &&
+                userConfig.currentUser.membershipRequests!.isNotEmpty) {
+              navigationService.removeAllAndPush(
+                Routes.waitingScreen,
+                Routes.splashScreen,
+                arguments: '-1',
+              );
+            } else {
+              navigationService.showTalawaErrorSnackBar(
+                TalawaErrors.userNotFound,
+                MessageType.error,
+              );
+            }
+          }
+          storingCredentialsInSecureStorage();
+        },
+        onActionException: (e) async {
+>>>>>>> upstream/develop
           navigationService.showTalawaErrorSnackBar(
             'Something went wrong',
             MessageType.error,
