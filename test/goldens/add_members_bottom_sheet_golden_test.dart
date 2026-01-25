@@ -1,4 +1,6 @@
 // ignore_for_file: talawa_api_doc
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -46,6 +48,7 @@ void main() {
     required ThemeMode themeMode,
     List<User>? users,
     Map<String, bool>? checkedMap,
+    Future<List<User>>? usersFuture,
   }) {
     final usersToUse = users ?? mockUsers;
     final checkedMapToUse = checkedMap ??
@@ -56,8 +59,13 @@ void main() {
           '4': false,
         };
 
-    when(mockModel.getCurrentOrgUsersList())
-        .thenAnswer((_) async => usersToUse);
+    // Only re-stub if usersFuture is not provided (allows loading state)
+    if (usersFuture != null) {
+      when(mockModel.getCurrentOrgUsersList()).thenAnswer((_) => usersFuture);
+    } else {
+      when(mockModel.getCurrentOrgUsersList())
+          .thenAnswer((_) async => usersToUse);
+    }
     when(mockModel.memberCheckedMap).thenReturn(checkedMapToUse);
 
     return themedWidget(
@@ -125,12 +133,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Manually check the checkboxes to update the UI
-      await tester.tap(find.byType(CheckboxListTile).at(0));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byType(CheckboxListTile).at(2));
-      await tester.pumpAndSettle();
-
       await expectLater(
         find.byType(MaterialApp),
         matchesGoldenFile(
@@ -165,12 +167,14 @@ void main() {
 
     testWidgets('add_members_bottom_sheet loading state - light theme',
         (WidgetTester tester) async {
-      // Create a completer that we won't complete to simulate loading
-      when(mockModel.getCurrentOrgUsersList())
-          .thenAnswer((_) => Future.delayed(const Duration(hours: 1)));
+      // Create a future that never completes to simulate loading
+      final loadingFuture = Completer<List<User>>().future;
 
       await tester.pumpWidget(
-        createBottomSheetForGolden(themeMode: ThemeMode.light),
+        createBottomSheetForGolden(
+          themeMode: ThemeMode.light,
+          usersFuture: loadingFuture,
+        ),
       );
       await tester.pump(); // Only pump once to show loading state
 
