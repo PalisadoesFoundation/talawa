@@ -1,8 +1,8 @@
 // ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/utils/app_localization.dart';
-
 /// Helper function to wrap widgets with MaterialApp for golden tests.
 ///
 /// **params**:
@@ -14,8 +14,8 @@ import 'package:talawa/utils/app_localization.dart';
 Widget themedWidget(Widget child, {ThemeMode themeMode = ThemeMode.light}) {
   return MaterialApp(
     themeMode: themeMode,
-    theme: ThemeData.light(),
-    darkTheme: ThemeData.dark(),
+    theme: TalawaTheme.lightTheme,
+    darkTheme: TalawaTheme.darkTheme,
     localizationsDelegates: const [
       AppLocalizationsDelegate(isTest: true),
       GlobalMaterialLocalizations.delegate,
