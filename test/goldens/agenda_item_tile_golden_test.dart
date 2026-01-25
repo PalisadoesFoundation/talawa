@@ -1,8 +1,8 @@
 // ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/widgets/agenda_item_tile.dart';
 
 import 'golden_test_helpers.dart';
@@ -13,7 +13,7 @@ void main() {
         (WidgetTester tester) async {
       final testItem = EventAgendaItem(
         id: '1',
-        title: 'Team Planning Meeting',
+        name: 'Team Planning Meeting',
         description: 'Quarterly planning session for the development team',
         duration: '01:30',
         sequence: 1,
@@ -49,7 +49,7 @@ void main() {
         (WidgetTester tester) async {
       final testItem = EventAgendaItem(
         id: '1',
-        title: 'Team Planning Meeting',
+        name: 'Team Planning Meeting',
         description: 'Quarterly planning session for the development team',
         duration: '01:30',
         sequence: 1,
@@ -85,7 +85,7 @@ void main() {
         (WidgetTester tester) async {
       final testItem = EventAgendaItem(
         id: '1',
-        title: 'Team Planning Meeting',
+        name: 'Team Planning Meeting',
         description: 'Quarterly planning session for the development team',
         duration: '01:30',
         sequence: 1,
@@ -125,7 +125,7 @@ void main() {
         (WidgetTester tester) async {
       final testItem = EventAgendaItem(
         id: '1',
-        title: 'Team Planning Meeting',
+        name: 'Team Planning Meeting',
         description: 'Quarterly planning session for the development team',
         duration: '01:30',
         sequence: 1,
@@ -165,7 +165,7 @@ void main() {
         (WidgetTester tester) async {
       final testItem = EventAgendaItem(
         id: '2',
-        title: 'Quick Standup',
+        name: 'Quick Standup',
         duration: '00:15',
         sequence: 2,
         categories: [],
@@ -197,7 +197,7 @@ void main() {
         (WidgetTester tester) async {
       final testItem = EventAgendaItem(
         id: '3',
-        title: 'Very Long Agenda Item Title That Should Wrap to Multiple Lines',
+        name: 'Very Long Agenda Item Title That Should Wrap to Multiple Lines',
         description:
             'This is a very long description that contains a lot of text to test how the widget handles long content and whether it wraps properly without breaking the layout',
         duration: '02:00',

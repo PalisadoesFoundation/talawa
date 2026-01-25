@@ -176,7 +176,8 @@ void main() {
           usersFuture: loadingFuture,
         ),
       );
-      await tester.pump(); // Only pump once to show loading state
+      // Pump with fixed duration to complete entrance animation
+      await tester.pump(const Duration(milliseconds: 500));
 
       await expectLater(
         find.byType(MaterialApp),
