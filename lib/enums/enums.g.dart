@@ -28,10 +28,10 @@ class CachedUserActionStatusAdapter
     switch (obj) {
       case CachedUserActionStatus.pending:
         writer.writeByte(0);
-        break;
+        return;
       case CachedUserActionStatus.completed:
         writer.writeByte(1);
-        break;
+        return;
     }
   }
 
@@ -48,7 +48,7 @@ class CachedUserActionStatusAdapter
 
 class CachedOperationTypeAdapter extends TypeAdapter<CachedOperationType> {
   @override
-  final int typeId = 5;
+  final int typeId = 9;
 
   @override
   CachedOperationType read(BinaryReader reader) {
@@ -71,16 +71,16 @@ class CachedOperationTypeAdapter extends TypeAdapter<CachedOperationType> {
     switch (obj) {
       case CachedOperationType.gqlAuthQuery:
         writer.writeByte(0);
-        break;
+        return;
       case CachedOperationType.gqlAuthMutation:
         writer.writeByte(1);
-        break;
+        return;
       case CachedOperationType.gqlNonAuthQuery:
         writer.writeByte(2);
-        break;
+        return;
       case CachedOperationType.gqlNonAuthMutation:
         writer.writeByte(3);
-        break;
+        return;
     }
   }
 
@@ -91,6 +91,50 @@ class CachedOperationTypeAdapter extends TypeAdapter<CachedOperationType> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CachedOperationTypeAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class VoteTypeAdapter extends TypeAdapter<VoteType> {
+  @override
+  final int typeId = 13;
+
+  @override
+  VoteType read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return VoteType.upVote;
+      case 1:
+        return VoteType.downVote;
+      case 2:
+        return VoteType.none;
+      default:
+        return VoteType.upVote;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, VoteType obj) {
+    switch (obj) {
+      case VoteType.upVote:
+        writer.writeByte(0);
+        return;
+      case VoteType.downVote:
+        writer.writeByte(1);
+        return;
+      case VoteType.none:
+        writer.writeByte(2);
+        return;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is VoteTypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -1,11 +1,11 @@
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
-import 'package:talawa/utils/post_queries.dart';
+import 'package:talawa/services/image_service.dart';
 
 part 'post_model.g.dart';
 
@@ -26,7 +26,7 @@ class Post {
     this.voteType,
     this.isPinned,
     this.pinnedAt,
-    this.hasVoted = false,
+    this.hasVoted,
   });
 
   ///Creating a new Post instance from a map structure.
@@ -36,30 +36,34 @@ class Post {
   /// None
   /// returns:
   /// * `PostObject`: Dart Object for posts
-  Post.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as String?;
-    caption = json['caption'] as String?;
-    createdAt = json["createdAt"] != null
-        ? DateTime.tryParse(json['createdAt'] as String)
-        : null;
-    creator = json['creator'] != null
-        ? User.fromJson(json['creator'] as Map<String, dynamic>)
-        : null;
-    organization = json['organization'] != null
-        ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
-        : null;
-    attachments = (json['attachments'] as List?)
-        ?.map((e) => AttachmentModel.fromJson(e as Map<String, dynamic>))
-        .toList();
-    commentsCount = json['commentsCount'] as int?;
-    upvotesCount = json['upvotesCount'] as int?;
-    downvotesCount = json['downvotesCount'] as int?;
-    hasVoted = json['hasVoted'] as bool? ?? false;
-    voteType = json['voteType'] as String?;
-    isPinned = json['isPinned'] as bool?;
-    pinnedAt = json['pinnedAt'] != null
-        ? DateTime.tryParse(json['pinnedAt'] as String)
-        : null;
+  factory Post.fromJson(Map<String, dynamic> json) {
+    final hasUserVoted = json['hasUserVoted'] as Map<String, dynamic>?;
+
+    return Post(
+      id: json['id'] as String?,
+      caption: json['caption'] as String?,
+      createdAt: json["createdAt"] != null
+          ? DateTime.tryParse(json['createdAt'] as String)?.toLocal()
+          : null,
+      creator: json['creator'] != null
+          ? User.fromJson(json['creator'] as Map<String, dynamic>)
+          : null,
+      organization: json['organization'] != null
+          ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
+          : null,
+      attachments: (json['attachments'] as List?)
+          ?.map((e) => AttachmentModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      commentsCount: json['commentsCount'] as int?,
+      upvotesCount: json['upVotesCount'] as int?,
+      downvotesCount: json['downVotesCount'] as int?,
+      isPinned: json['isPinned'] as bool?,
+      pinnedAt: json['pinnedAt'] != null
+          ? DateTime.tryParse(json['pinnedAt'] as String)?.toLocal()
+          : null,
+      hasVoted: hasUserVoted?['hasVoted'] as bool?,
+      voteType: VoteType.fromApiString(hasUserVoted?["voteType"] as String?),
+    );
   }
 
   /// unique identifier for post.
@@ -78,46 +82,44 @@ class Post {
   @HiveField(3)
   int? upvotesCount;
 
-  @HiveField(4)
-
-  /// Number of downvotes on the post.
-  int? downvotesCount;
-
   /// Attachments associated with the post.
-  @HiveField(5)
+  @HiveField(4)
   List<AttachmentModel>? attachments;
 
   /// Creation timestamp of the post.
-  @HiveField(6)
+  @HiveField(5)
   DateTime? createdAt;
 
   /// User who created the post.
-  @HiveField(7)
+  @HiveField(6)
   User? creator;
 
   /// Variable to check if post is voted by the user.
-  @HiveField(8)
-  bool hasVoted = false;
+  @HiveField(7)
+  bool? hasVoted;
 
   /// Variable to check the type of vote on the post by the user (if not voted then null).
-  @HiveField(9)
-  String? voteType;
+  @HiveField(8)
+  VoteType? voteType;
 
   /// Organization associated with the post.
-  @HiveField(10)
+  @HiveField(9)
   OrgInfo? organization;
 
   /// Variable to check if post is pinned by the user.
-  @HiveField(11)
+  @HiveField(10)
   bool? isPinned;
 
   /// Timestamp when the post was pinned.
-  @HiveField(12)
+  @HiveField(11)
   DateTime? pinnedAt;
 
-  /// Fallback URL for post attachments.
-  static const String fallbackAttachmentUrl =
-      'https://avatars.githubusercontent.com/u/24500036?s=280&v=4';
+  /// Number of downvotes on the post.
+  @HiveField(12)
+  int? downvotesCount;
+
+  /// Image service instance to handle file operations
+  static final ImageService _imageService = locator<ImageService>();
 
   /// this is to get duration of post.
   ///
@@ -174,58 +176,28 @@ class Post {
   /// Method to get the presigned URL for a file attachment.
   ///
   /// **params**:
-  /// * `id`:  The ID of the post for which to fetch the presigned URL.
+  /// * `organizationId`:  The organization ID for which to fetch the presigned URL.
   ///
   /// **returns**:
   ///   None
-  Future<void> getPresignedUrl(String? id) async {
-    if (id == null || id.isEmpty) {
+  Future<void> getPresignedUrl(String? organizationId) async {
+    if (organizationId == null || organizationId.isEmpty) {
       return;
     }
-
-    /// If the post has attachments, fetch presigned URLs for each attachment.
     if (this.attachments != null && this.attachments!.isNotEmpty) {
       for (final attachment in this.attachments!) {
         if ((attachment.url == null || attachment.url!.isEmpty) &&
             attachment.name != null) {
-          final query = PostQueries().getPresignedUrl();
-          final variables = {
-            "objectName": attachment.name,
-            "organizationId": id,
-          };
-          final QueryResult<Object?>? result;
           try {
-            result = await locator<DataBaseMutationFunctions>()
-                .gqlAuthMutation(query, variables: variables);
+            final url = await _imageService.getFileFromMinio(
+              objectName: attachment.name!,
+              organizationId: organizationId,
+            );
+            attachment.url = url;
           } catch (e) {
-            // Fallback to a placeholder image when API call fails
-            attachment.url =
-                "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
-            continue;
-          }
-
-          if (result.data != null &&
-              result.data!.containsKey('createGetfileUrl')) {
-            final containsUrl =
-                result.data?['createGetfileUrl'] as Map<String, dynamic>;
-            final url = containsUrl['presignedUrl'] as String?;
-            if (url != null && url.isNotEmpty) {
-              // Check if the URL contains 'minio' hostname which might cause DNS issues
-              if (url.contains('minio:') || url.contains('minio/')) {
-                // Use fallback image if MinIO URL is detected
-                attachment.url =
-                    "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
-              } else {
-                attachment.url = url;
-              }
-            } else {
-              attachment.url =
-                  "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
-            }
-          } else {
-            // Fallback when response doesn't contain expected data
-            attachment.url =
-                "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
+            debugPrint(
+              'Error getting presigned URL for ${attachment.name}: $e',
+            );
           }
         }
       }

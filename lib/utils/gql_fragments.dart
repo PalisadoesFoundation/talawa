@@ -1,0 +1,60 @@
+/// Fragment for User fields.
+const String userFieldsFragment = '''
+fragment UserFields on User {
+  id
+  name
+  avatarURL
+  emailAddress
+  description
+}
+''';
+
+/// Fragment for Organization fields.
+const String organizationFieldsFragment = '''
+fragment OrganizationFields on Organization {
+  id
+  name
+  addressLine1
+  addressLine2
+  avatarMimeType
+  avatarURL
+  postalCode
+  countryCode
+  description
+  isUserRegistrationRequired
+  state
+}
+''';
+
+/// Fragment for Author fields.
+const String authorFieldsFragment = '''
+fragment AuthorFields on User {
+  id
+  name
+  avatarURL
+}
+''';
+
+/// Fragment for Post fields.
+///
+/// **Important**: This fragment uses `...AuthorFields`.
+/// Any query using `$postFieldsFragment` MUST also include `$authorFieldsFragment`.
+const String postFieldsFragment = '''
+fragment PostFields on Post {
+  id
+  title
+  author {
+    ...AuthorFields
+  }
+}
+''';
+
+/// Fragment for Plugin fields.
+const String pluginFieldsFragment = '''
+fragment PluginFields on Plugin {
+  id
+  pluginId
+  isActivated
+  isInstalled
+}
+''';

@@ -61,7 +61,6 @@ class _GroupMemberSelectorState extends State<GroupMemberSelector> {
       final currentOrgId = _userConfig.currentOrg.id;
 
       if (currentOrgId == null) {
-        debugPrint('ERROR: Current organization ID is null');
         _orgMembers = [];
         return;
       }
@@ -77,12 +76,7 @@ class _GroupMemberSelectorState extends State<GroupMemberSelector> {
 
       // Add current user at the top of the list
       _orgMembers = [_userConfig.currentUser, ...otherMembers];
-
-      debugPrint(
-        'Total members count (including current user): ${_orgMembers.length}',
-      );
     } catch (e) {
-      debugPrint('Error loading organization members: $e');
       _orgMembers = [];
     } finally {
       setState(() {
