@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/services/cache/swr_cache.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 /// An abstract base class for managing a feed of type [T] with caching and online data fetching capabilities.
@@ -28,6 +29,9 @@ abstract class BaseFeedManager<T> {
   /// feed cache box.
   late Box<T> _box;
 
+  /// SWR Cache instance
+  final _swrCache = SwrCache();
+
   /// Initializes the Hive box associated with the [cacheKey].
   ///
   /// **params**:
@@ -47,6 +51,12 @@ abstract class BaseFeedManager<T> {
   /// **returns**:
   /// * `Future<List<T>>`: A Future containing a list of cached data.
   Future<List<T>> loadCachedData() async {
+    // Try memory cache first
+    final memCached = _swrCache.get<List<T>>(cacheKey);
+    if (memCached != null) {
+      return memCached;
+    }
+
     final data = _box.values.toList();
     return data;
   }
@@ -90,9 +100,11 @@ abstract class BaseFeedManager<T> {
   Future<List<T>> getNewFeedAndRefreshCache() async {
     if (AppConnectivity.isOnline) {
       try {
-        final data = await fetchDataFromApi();
-        await saveDataToCache(data);
-        return data;
+        return await _swrCache.revalidate<List<T>>(cacheKey, () async {
+          final data = await fetchDataFromApi();
+          await saveDataToCache(data);
+          return data;
+        });
       } catch (e) {
         debugPrint(e.toString());
         return loadCachedData();

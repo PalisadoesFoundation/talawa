@@ -122,9 +122,9 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void initialise({
+  Future<void> initialise({
     bool isTest = false,
-  }) {
+  }) async {
     _isFetchingPosts = true;
 
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
@@ -143,11 +143,12 @@ class OrganizationFeedViewModel extends BaseModel {
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
-    _postService.fetchPostsInitial();
+    await _postService.fetchPostsInitial();
     if (isTest) {
       istest = true;
     }
     _isFetchingPosts = false;
+    notifyListeners();
   }
 
   // /// initializing the demo data.

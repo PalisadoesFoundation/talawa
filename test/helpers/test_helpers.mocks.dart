@@ -3237,14 +3237,15 @@ class MockOrganizationFeedViewModel extends _i2.Mock
       );
 
   @override
-  void initialise({bool? isTest = false}) => super.noSuchMethod(
+  _i6.Future<void> initialise({bool? isTest = false}) => (super.noSuchMethod(
         Invocation.method(
           #initialise,
           [],
           {#isTest: isTest},
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 
   @override
   void buildNewPosts(List<_i18.Post>? newPosts) => super.noSuchMethod(
