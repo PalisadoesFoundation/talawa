@@ -36,11 +36,16 @@ class ChatMessage {
   /// Timestamp when the message was last updated.
   final DateTime? updatedAt;
 
-  // Computed properties
+  /// Display text for the message body, with empty string fallback.
   String get displayBody => body ?? '';
+
+  /// Whether the message has non-empty body text.
   bool get hasBody => body != null && body!.isNotEmpty;
+
+  /// Whether this message is a reply to another message.
   bool get isReply => parentMessage != null;
 
+  /// Human-readable time elapsed since message creation.
   String get timeAgo {
     if (createdAt == null) return '';
 

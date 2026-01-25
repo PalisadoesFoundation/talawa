@@ -18,9 +18,10 @@ class ChatUser {
   /// URL of the user's profile image.
   final String? image;
 
-  // Computed properties
+  /// Display name for the user, with fallback for unknown users.
   String get displayName => firstName ?? 'Unknown';
 
+  /// User's initials extracted from first name.
   String get initials {
     if (firstName != null && firstName!.isNotEmpty) {
       return firstName!.substring(0, 1).toUpperCase();
@@ -28,5 +29,6 @@ class ChatUser {
     return '?';
   }
 
+  /// Whether the user has a profile image.
   bool get hasImage => image != null && image!.isNotEmpty;
 }
