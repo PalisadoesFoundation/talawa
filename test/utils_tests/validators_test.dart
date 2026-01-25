@@ -203,18 +203,43 @@ void main() {
 
             expect(result, null);
           });
-
-          test('Test validateEventTime for start time greater than end time',
-              () {
-            const startTime = TimeOfDay(hour: 14, minute: 30);
-            const endTime = TimeOfDay(hour: 12, minute: 30);
-
-            final result = Validator.validateEventTime(startTime, endTime);
-
-            expect(result, 'Start time must be before or equal to end time');
-          });
         },
       );
     },
   );
+  group('EventDateTimeValidator', () {
+    test('validateEventDateTime', () {
+      final date = DateTime(2025, 10, 16);
+
+      final invalid = Validator.validateEventDateTime(
+        date,
+        const TimeOfDay(hour: 10, minute: 0),
+        date,
+        const TimeOfDay(hour: 9, minute: 0),
+      );
+      expect(invalid, 'Event end date/time cannot be before start date/time');
+
+      final valid = Validator.validateEventDateTime(
+        date,
+        const TimeOfDay(hour: 10, minute: 0),
+        date,
+        const TimeOfDay(hour: 11, minute: 0),
+      );
+      expect(valid, isNull);
+    });
+
+    test('validateEventStartDate', () {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final past = today.subtract(const Duration(days: 1));
+      final future = today.add(const Duration(days: 1));
+
+      expect(
+        Validator.validateEventStartDate(past),
+        'Cannot create events having date prior than today',
+      );
+      expect(Validator.validateEventStartDate(today), isNull);
+      expect(Validator.validateEventStartDate(future), isNull);
+    });
+  });
 }

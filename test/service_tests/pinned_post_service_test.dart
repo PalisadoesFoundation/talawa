@@ -83,7 +83,7 @@ void main() {
     when(mockDbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
         .thenAnswer(
       (_) async => QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {}, // No 'organization' key
         source: QueryResultSource.network,
       ),
@@ -256,7 +256,7 @@ void main() {
     when(mockDbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
         .thenAnswer(
       (_) async => QueryResult(
-        options: QueryOptions(document: gql('')),
+        options: QueryOptions(document: gql('query { __typename }')),
         data: {
           'organization': {
             'id': 'org1',

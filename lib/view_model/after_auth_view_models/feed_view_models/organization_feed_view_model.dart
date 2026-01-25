@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:talawa/constants/app_strings.dart';
+import 'package:flutter/widgets.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -97,7 +96,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> fetchNewPosts() async {
+  Future<void> refreshPosts() async {
     await Future.wait([
       _postService.refreshFeed(),
       _pinnedPostService.refreshPinnedPosts(),
@@ -149,8 +148,6 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   /// This function initialise `_posts` with `newPosts`.
-  ///
-  /// more_info_if_required
   ///
   /// **params**:
   /// * `newPosts`: new post
@@ -255,26 +252,17 @@ class OrganizationFeedViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> deletePost(Post post) async {
-    await actionHandlerService.performAction(
-      actionType: ActionType.critical,
-      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
-      action: () async {
-        final result = await _postService.deletePost(post);
-        return result;
-      },
-      onValidResult: (result) async {
-        _posts.remove(post);
-        _pinnedPosts.remove(post);
-      },
-      apiCallSuccessUpdateUI: () {
-        navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
-          'Post was deleted if you had the rights!',
-          MessageType.info,
-        );
-        notifyListeners();
-      },
-    );
+    try {
+      await _postService.deletePost(post);
+      _posts.removeWhere((p) => p.id == post.id);
+      _pinnedPosts.removeWhere((p) => p.id == post.id);
+      navigationService.showSnackBar(
+        "Post deleted successfully",
+      );
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error deleting post: $e');
+    }
   }
 
   /// Method to fetch next posts.
@@ -284,18 +272,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void nextPage() {
-    _postService.nextPage();
-  }
-
-  /// Method to fetch previous posts.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void previousPage() {
-    _postService.previousPage();
+  Future<void> nextPage() async {
+    await _postService.nextPage();
   }
 }

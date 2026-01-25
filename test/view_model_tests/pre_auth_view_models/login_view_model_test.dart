@@ -78,6 +78,7 @@ final data = {
 bool empty = false;
 
 Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
   // setupFirebaseMocks();
   // await Firebase.initializeApp();
   // FirebaseMessagingPlatform.instance = kMockMessagingPlatform;

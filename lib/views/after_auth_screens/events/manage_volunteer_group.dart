@@ -112,11 +112,9 @@ class ManageGroupScreen extends StatelessWidget {
                               case 'YES':
                                 status = 'Accepted';
                                 statusColor = Colors.green;
-                                break;
                               case 'NO':
                                 status = 'Rejected';
                                 statusColor = Colors.red;
-                                break;
                               default:
                                 status = 'Pending';
                                 statusColor = Colors.grey;

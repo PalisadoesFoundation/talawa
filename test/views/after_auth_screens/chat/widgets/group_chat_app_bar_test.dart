@@ -6,9 +6,11 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_user.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_app_bar.dart';
@@ -98,7 +100,7 @@ void main() {
 
         // Verify group name and member count are displayed
         expect(find.text(groupName), findsOneWidget);
-        expect(find.textContaining('$memberCount'), findsOneWidget);
+        expect(find.text('$memberCount members'), findsOneWidget);
       });
 
       testWidgets('Shows back button', (tester) async {
@@ -657,6 +659,361 @@ void main() {
         // No dialog should be shown since currentChat is null
         expect(find.byType(AlertDialog), findsNothing);
       });
+
+      testWidgets(
+          'Does not show dialogs when currentChat is null for all actions',
+          (tester) async {
+        const chatId = 'chat1';
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 3,
+            isCurrentUserAdmin: true,
+            currentChat: null, // No chat data
+          ),
+        );
+
+        await tester.pump();
+
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        // Test Group Info action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Group Info'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Edit Group action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Edit Group'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Add Members action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Add Members'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Manage Members action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Manage Members'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+
+        // Test Delete Group action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Delete Group'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+      });
+
+      testWidgets(
+          'Does not show Leave Group dialog when currentChat is null for non-admin',
+          (tester) async {
+        const chatId = 'chat1';
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 4,
+            isCurrentUserAdmin: false,
+            currentChat: null, // No chat data
+          ),
+        );
+
+        await tester.pump();
+
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        // Test Leave Group action
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Leave Group'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+      });
+
+      testWidgets(
+          'Manage Members dialog callback executes and calls getChatMessages',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          description: 'Test description',
+          members: [
+            ChatUser(id: 'user1', firstName: 'Alice'),
+            ChatUser(id: 'user2', firstName: 'Bob'),
+          ],
+        );
+
+        // Set up mocks for user config and member data
+        final userConfig = locator<UserConfig>();
+        when(userConfig.currentUser).thenReturn(
+          User(id: 'user1', name: 'Alice'),
+        );
+
+        // Mock fetchGroupMembers to return test data (members Alice and Bob)
+        when(groupChatViewModel.fetchGroupMembers(chatId: chatId))
+            .thenAnswer((_) async => [
+                  {
+                    'id': 'user1',
+                    'firstName': 'Alice',
+                    'email': 'alice@example.com'
+                  },
+                  {
+                    'id': 'user2',
+                    'firstName': 'Bob',
+                    'email': 'bob@example.com'
+                  },
+                ]);
+
+        // Mock getChatMessages - this is called by the callback
+        when(groupChatViewModel.getChatMessages(chatId))
+            .thenAnswer((_) async {});
+        // Mock member removal validation to allow Bob to be removed
+        when(groupChatViewModel.validateMemberRemoval(
+          chatId: chatId,
+          memberId: 'user2',
+        )).thenReturn({'isValid': true, 'error': null});
+        // Mock successful member removal
+        when(groupChatViewModel.removeGroupMember(
+          chatId: chatId,
+          memberId: 'user2',
+          chat: chat,
+        )).thenAnswer((_) async => true);
+
+        // Build and display the widget with the AppBar
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 2,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        // Navigate to Manage Members dialog through the AppBar menu
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Manage Members'));
+        await tester.pumpAndSettle();
+        // Verify the ManageMembersDialog opened and members loaded
+        expect(find.text('Alice'), findsOneWidget);
+        expect(find.text('Bob'), findsOneWidget);
+
+        // Simulate member removal by removing Bob
+        final removeButtons = find.byIcon(Icons.remove_circle);
+        await tester.tap(removeButtons.last);
+        await tester.pumpAndSettle();
+
+        final removeConfirmButton = find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.widgetWithText(TextButton, 'Remove'),
+        );
+        await tester.tap(removeConfirmButton);
+        await tester.pumpAndSettle();
+
+        // Verify getChatMessages was called by the callback
+        verify(groupChatViewModel.getChatMessages(chatId)).called(1);
+
+        // Verify the complete member removal flow
+        verify(groupChatViewModel.validateMemberRemoval(
+          chatId: chatId,
+          memberId: 'user2',
+        )).called(1);
+        verify(groupChatViewModel.removeGroupMember(
+          chatId: chatId,
+          memberId: 'user2',
+          chat: chat,
+        )).called(1);
+      });
+    });
+
+    group('Edge Case Tests', () {
+      testWidgets('Handles empty group name gracefully', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId)).thenReturn('');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(0);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: '',
+            memberCount: 0,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        // Verify AppBar still renders without breaking
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('0 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles zero members gracefully', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(0);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 0,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('Test Group'), findsOneWidget);
+        expect(find.text('0 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles negative member count gracefully', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(-1);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: -1,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('Test Group'), findsOneWidget);
+        expect(find.text('-1 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles very long group name', (tester) async {
+        const chatId = 'chat1';
+        const longGroupName =
+            'This is a very long group name that might cause text overflow and should be handled gracefully with ellipsis or wrapping';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn(longGroupName);
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(5);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: longGroupName,
+            memberCount: 5,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.textContaining('very long'), findsOneWidget);
+        expect(find.text('5 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles getGroupDisplayName returning empty string',
+          (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId)).thenReturn('');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(3);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: '',
+            memberCount: 3,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('3 members'), findsOneWidget);
+      });
+
+      testWidgets('Handles very large member count', (tester) async {
+        const chatId = 'chat1';
+        const largeCount = 999999;
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(largeCount);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: largeCount,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('Test Group'), findsOneWidget);
+        expect(find.text('$largeCount members'), findsOneWidget);
+      });
+
+      testWidgets('Displays member count with single member', (tester) async {
+        const chatId = 'chat1';
+
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn('Test Group');
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(1);
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 1,
+            isCurrentUserAdmin: false,
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('1 member'), findsOneWidget);
+      });
     });
 
     group('Menu Icon Tests', () {
@@ -735,6 +1092,44 @@ void main() {
         // Verify menu item icons for non-admin
         expect(find.byIcon(Icons.info), findsOneWidget);
         expect(find.byIcon(Icons.exit_to_app), findsOneWidget);
+      });
+
+      testWidgets(
+          'Admin menu contains divider between regular and delete options',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          members: [],
+        );
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 3,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        // Find and tap the more menu button
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+
+        // Verify PopupMenuDivider is present in admin menu
+        expect(find.byType(PopupMenuDivider), findsOneWidget);
+
+        // Verify it separates regular options from delete option
+        expect(find.byIcon(Icons.delete), findsOneWidget);
       });
     });
 

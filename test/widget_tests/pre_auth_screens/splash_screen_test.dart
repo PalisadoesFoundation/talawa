@@ -89,6 +89,10 @@ void main() {
 
     when(mockAppLinks.getInitialLink()).thenAnswer((_) async => null);
     when(mockAppLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
+
+    final mockUser = MockUser();
+    when(mockUser.joinedOrganizations).thenReturn([]);
+    when(mockUserConfig.currentUser).thenReturn(mockUser);
   });
 
   tearDown(() {

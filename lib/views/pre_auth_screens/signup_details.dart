@@ -23,6 +23,18 @@ class SignUpDetails extends StatefulWidget {
 
 class _SignUpDetailsState extends State<SignUpDetails> {
   @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    securityService.disableSecure();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseView<SignupDetailsViewModel>(
       onModelReady: (model) => model.initialise(widget.selectedOrg),

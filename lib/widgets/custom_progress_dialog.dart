@@ -9,7 +9,7 @@ import 'package:talawa/views/base_view.dart';
 /// spinning clockwise if there is internet connectivity.
 /// Otherwise, it shows no-internet image and text.
 class CustomProgressDialog extends StatelessWidget {
-  const CustomProgressDialog({required Key key}) : super(key: key);
+  const CustomProgressDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

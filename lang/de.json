@@ -65,6 +65,7 @@
   "Add Event Title": "Ereignistitel hinzufügen",
   "Where is the event": "Wo ist die Veranstaltung",
   "Add Location": "Ort hinzufügen",
+  "Add Venue": "Veranstaltungsort hinzufügen",
   "Describe the event": "Beschreiben Sie die Veranstaltung",
   "Add Description": "Beschreibung hinzufügen",
   "Add Event": "Ereignis hinzufügen",
@@ -240,7 +241,7 @@
   "You are all set to go lets get you in": "Sie sind bereit zu gehen, lassen Sie uns Sie hereinbringen",
   "App Tour": "App-Tour",
   "Start": "Starten",
-  "Skip": "Überspringen",
+  "SKIP": "Überspringen",
   "Posts": "Beiträge",
   "Tasks": "Aufgaben",
   "Or": "Oder",
@@ -279,7 +280,7 @@
   "Organisation on different server, logout and scan qr again": "Organisation auf einem anderen Server, ausloggen und QR-Code erneut scannen",
   "Post was deleted if you had the rights!": "Der Beitrag wurde gelöscht, wenn Sie die Berechtigungen hatten!",
   "Members": "Mitglieder",
-  "Remember me": "Erinnere dich an mich", 
+  "Remember me": "Erinnere dich an mich",
   "Login directly with": "Direkt anmelden mit",
   "Continue Without Organization": "Ohne Organisation fortfahren",
   "No admins assigned": "Keine Admins zugewiesen",
@@ -328,5 +329,6 @@
   "Upcoming": "Bevorstehend",
   "Ended": "Beendet",
   "Active": "Aktiv",
-  "Unnamed Organization": "Unbenannte Organisation"
+  "Unnamed Organization": "Unbenannte Organisation",
+  "Try Demo": "Demo ausprobieren"
 }

@@ -68,16 +68,12 @@ class CustomListTile extends StatelessWidget {
             onTapOrgInfo!(orgInfo!);
           }
         };
-        break;
       case TileType.user:
         onTap = onTapUserInfo;
-        break;
       case TileType.attendee:
         onTap = onTapAttendeeInfo;
-        break;
       default:
         onTap = onTapOption;
-        break;
     }
 
     return InkWell(
