@@ -33,9 +33,6 @@ void main() {
     when(userConfig.loggedIn).thenReturn(true);
   });
 
-  tearDown(() async {
-    // No need to unregister manually if we reset at the start of each test
-  });
 
   Widget createDrawerForGolden({
     required ThemeMode themeMode,
