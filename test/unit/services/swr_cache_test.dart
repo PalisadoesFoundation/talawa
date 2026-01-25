@@ -80,5 +80,14 @@ void main() {
       );
       expect(cache.get<String>('key'), isNull);
     });
+
+    test('get returns null on type mismatch', () {
+      const key = 'test_key';
+      cache.set<String>(key, 'string_data');
+
+      // Attempt to get as int should return null, not throw
+      expect(cache.get<int>(key), isNull);
+      expect(cache.get<String>(key), equals('string_data'));
+    });
   });
 }
