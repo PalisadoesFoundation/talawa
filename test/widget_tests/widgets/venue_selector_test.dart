@@ -1,10 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-
 import 'package:talawa/models/events/event_venue.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -279,7 +278,15 @@ void main() {
         // Valid -> AppCachedImage. Empty -> Image.asset.
         // Wait, venue 2 has empty imageUrl. So 1 AppCachedImage, 1 Image.
         expect(find.byType(AppCachedImage), findsOneWidget);
-        expect(find.byType(Image), findsNWidgets(2));
+        expect(find.byType(CachedNetworkImage), findsOneWidget);
+        expect(
+          find.byWidgetPredicate((widget) =>
+              widget is Image &&
+              widget.image is AssetImage &&
+              (widget.image as AssetImage).assetName ==
+                  'assets/images/defaultImg.png'),
+          findsOneWidget,
+        );
       });
     });
 
