@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/utils/app_localization.dart';
+
 /// Helper function to wrap widgets with MaterialApp for golden tests.
 ///
 /// **params**:
