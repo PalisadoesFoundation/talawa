@@ -49,7 +49,7 @@ dependencies:
   flutter_image_compress: ^2.4.0
   flutter_localizations:
     sdk: flutter
-  flutter_secure_storage: ^9.2.4
+  flutter_secure_storage: ^10.0.0
   flutter_svg: ^2.2.3
   flutter_windowmanager_plus: ^1.0.1
   get_it: ^9.2.0
