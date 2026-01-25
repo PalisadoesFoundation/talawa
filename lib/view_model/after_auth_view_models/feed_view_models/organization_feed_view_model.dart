@@ -14,7 +14,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 ///
 /// Methods include:
 /// * `setCurrentOrganizationName` : to set current organization name.
-/// * `fetchNewPosts` : to fetch new posts in the organization.
+/// * `refreshPosts` : to fetch new posts in the organization.
 /// * `navigateToIndividualPage` : to navigate to individual page.
 /// * `navigateToPinnedPostPage` : to navigate to pinned post page.
 /// * `addNewPost` : to add new post in the organization.
@@ -27,6 +27,9 @@ class OrganizationFeedViewModel extends BaseModel {
   List<Post> _pinnedPosts = [];
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
+  
+  /// flag for the test.
+  bool istest = false;
 
   // Importing services.
   final NavigationService _navigationService = locator<NavigationService>();
@@ -42,9 +45,7 @@ class OrganizationFeedViewModel extends BaseModel {
 
   // Getters
   /// getter for the posts.
-  List<Post> get posts {
-    return _posts;
-  }
+  List<Post> get posts => _posts;
 
   /// Getter for User Posts.
   List<Post> get userPosts => _userPosts;
@@ -112,7 +113,9 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> initialise() async {
+  Future<void> initialise({
+    bool isTest = false,
+  }) async {
     _isFetchingPosts = true;
     notifyListeners();
 
@@ -138,16 +141,39 @@ class OrganizationFeedViewModel extends BaseModel {
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
+    if (isTest) {
+      istest = true;
+      // In test mode, we might want to skip SWR or mocking handles it.
+    }
+
+    // SWR Pattern: Load from cache first
+    await _postService.fetchPostsInitial();
+    // Do not set isFetchingPosts = false here yet if we want to show loading spinner.
+    // However, if we found data in cache, we might want to stop spinner?
+    // But typically we want to trigger network refresh too.
+    
+    // Trigger network refresh (SWR)
+    // We don't await this if we want to show cached data immediately?
+    // But if we return from `initialise`, the Future completes.
+    // If we want to show Spinner UNTIL data is available:
+    if (_posts.isNotEmpty) {
+      _isFetchingPosts = false;
+      notifyListeners();
+    }
+    
+    // Background refresh
     await Future.wait([
       _postService.refreshFeed(),
       _pinnedPostService.refreshPinnedPosts(),
     ]);
-
+    
     _isFetchingPosts = false;
     notifyListeners();
   }
 
   /// This function initialise `_posts` with `newPosts`.
+  ///
+  /// more_info_if_required
   ///
   /// **params**:
   /// * `newPosts`: new post
@@ -244,13 +270,13 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 
-  /// function to remove the post.
+  ///Method to delete a post from the feed.
   ///
   /// **params**:
-  /// * `post`: post object
+  /// * `post`: Post object to be deleted from the feed
   ///
   /// **returns**:
-  ///   None
+  /// * `Future<QueryResult<Object?>>`: returns the result of the GraphQL mutation to delete the post.
   Future<void> deletePost(Post post) async {
     try {
       await _postService.deletePost(post);
