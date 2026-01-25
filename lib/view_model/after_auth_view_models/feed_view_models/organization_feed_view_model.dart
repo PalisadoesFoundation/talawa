@@ -28,9 +28,6 @@ class OrganizationFeedViewModel extends BaseModel {
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
 
-  /// flag for the test.
-  bool istest = false;
-
   // Importing services.
   final NavigationService _navigationService = locator<NavigationService>();
   final UserConfig _userConfig = locator<UserConfig>();
@@ -106,16 +103,12 @@ class OrganizationFeedViewModel extends BaseModel {
 
   /// To initialize the view model.
   ///
-  /// more_info_if_required
-  ///
   /// **params**:
-  /// * `isTest`: Optional boolean to indicate if running in test mode.
+  ///   None
   ///
   /// **returns**:
   ///   None
-  Future<void> initialise({
-    bool isTest = false,
-  }) async {
+  Future<void> initialise() async {
     _isFetchingPosts = true;
     notifyListeners();
 
@@ -141,11 +134,6 @@ class OrganizationFeedViewModel extends BaseModel {
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
-    if (isTest) {
-      istest = true;
-      // In test mode, we might want to skip SWR or mocking handles it.
-    }
-
     // SWR Pattern: Load from cache first
     await _postService.fetchPostsInitial();
     // Synchronously update the local state with cached data to avoid loading flicker
@@ -168,10 +156,8 @@ class OrganizationFeedViewModel extends BaseModel {
 
   /// This function initialise `_posts` with `newPosts`.
   ///
-  /// more_info_if_required
-  ///
   /// **params**:
-  /// * `newPosts`: new post
+  /// * `newPosts`: new post list
   ///
   /// **returns**:
   ///   None
@@ -265,7 +251,7 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 
-  ///Method to delete a post from the feed.
+  /// Method to delete a post from the feed.
   ///
   /// **params**:
   /// * `post`: Post object to be deleted from the feed

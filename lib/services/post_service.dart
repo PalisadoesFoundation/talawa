@@ -1,9 +1,7 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -137,21 +135,16 @@ class PostService extends BaseFeedManager<Post> {
   }
 
   /// Initial fetch from cache for SWR pattern.
-  Future<void> fetchPostsInitial() async {
-    _posts = await loadCachedData();
-    _postStreamController.add(_posts);
-    // Note: We don't call refreshFeed() here to avoid blocking execution.
-    // refreshFeed() should be called separately (e.g. by ViewModel) to trigger revalidation.
-  }
-
-  ///  Method to load cached data from Hive database.
+  ///
+  /// This method loads cached data without triggering a refresh.
+  /// The refresh should be called separately by the ViewModel to trigger revalidation.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
   ///   None
-  Future<void> fetchPostsFromCache() async {
+  Future<void> fetchPostsInitial() async {
     _posts = await loadCachedData();
     _postStreamController.add(_posts);
   }
