@@ -7,6 +7,7 @@ class CacheEntry<T> {
   final T value;
 
   /// The timestamp when this entry was created or updated.
+  /// TODO: Implement TTL logic using this timestamp.
   final DateTime ts;
 }
 
@@ -23,7 +24,11 @@ class SwrCache {
   ///
   /// **returns**:
   /// * `T?`: The cached value if found, null otherwise.
-  T? get<T>(String key) => _mem[key]?.value as T?;
+  T? get<T>(String key) {
+    final entry = _mem[key];
+    if (entry == null) return null;
+    return entry.value is T ? entry.value as T : null;
+  }
 
   /// Manually sets a [value] in the cache for the given [key].
   ///

@@ -71,5 +71,13 @@ void main() {
       expect(cache.get('key1'), isNull);
       expect(cache.get('key2'), isNull);
     });
+
+    test('revalidate propagates fetcher exceptions', () async {
+      expect(
+        () => cache.revalidate<String>('key', () async => throw Exception('fetch failed')),
+        throwsException,
+      );
+      expect(cache.get<String>('key'), isNull);
+    });
   });
 }

@@ -69,15 +69,9 @@ abstract class BaseFeedManager<T> {
   /// **returns**:
   ///   None
   Future<void> saveDataToCache(List<T> data) async {
-    debugPrint('saveToCache1');
     await _box.clear();
-    debugPrint(_box.values.length.toString());
-    debugPrint('saveToCache2');
     await _box.addAll(data);
     _swrCache.set(cacheKey, data);
-    debugPrint('saveToCache');
-    debugPrint(_box.values.length.toString());
-    debugPrint(_box.values.length.toString());
   }
 
   /// Clear cached data.
