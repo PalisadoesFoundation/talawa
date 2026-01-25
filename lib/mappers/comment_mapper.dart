@@ -22,7 +22,8 @@ class CommentMapper {
       creator: dtoComment.creator != null
           ? UserMapper.fromDto(dtoComment.creator!)
           : null,
-      post: dtoComment.post != null ? PostMapper.fromDto(dtoComment.post!) : null,
+      post:
+          dtoComment.post != null ? PostMapper.fromDto(dtoComment.post!) : null,
       hasVoted: dtoComment.hasVoted,
       upvotesCount: dtoComment.upvotesCount,
       downvotesCount: dtoComment.downvotesCount,
