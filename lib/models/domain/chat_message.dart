@@ -1,7 +1,10 @@
 import 'package:talawa/models/domain/chat_user.dart';
 
-/// Clean domain model for chat messages
+/// Clean domain model for chat messages.
+///
+/// Represents a message in a chat with support for replies and timestamps.
 class ChatMessage {
+  /// Creates a ChatMessage instance.
   const ChatMessage({
     required this.id,
     this.body,
@@ -12,12 +15,25 @@ class ChatMessage {
     this.updatedAt,
   });
 
+  /// Unique identifier for the message.
   final String id;
+
+  /// The text content of the message.
   final String? body;
+
+  /// User who created the message.
   final ChatUser? creator;
+
+  /// ID of the chat this message belongs to.
   final String? chatId;
+
+  /// Parent message if this is a reply.
   final ChatMessage? parentMessage;
+
+  /// Timestamp when the message was created.
   final DateTime? createdAt;
+
+  /// Timestamp when the message was last updated.
   final DateTime? updatedAt;
 
   // Computed properties

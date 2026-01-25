@@ -6,14 +6,20 @@ enum ChatMemberRole {
   regular,
 }
 
-/// Clean domain model for chat members
+/// Clean domain model for chat members.
+///
+/// Represents a user's membership in a chat with their role.
 class ChatMember {
+  /// Creates a ChatMember instance.
   const ChatMember({
     required this.user,
     this.role,
   });
 
+  /// The user who is a member of the chat.
   final ChatUser user;
+
+  /// The role of the user in the chat (administrator or regular).
   final ChatMemberRole? role;
 
   // Computed properties
