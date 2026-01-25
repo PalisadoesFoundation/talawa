@@ -1,8 +1,11 @@
 import 'package:talawa/models/domain/chat_user.dart';
 
-/// Enum for chat member roles
+/// Enum for chat member roles.
 enum ChatMemberRole {
+  /// Administrator role with elevated permissions.
   administrator,
+
+  /// Regular member role with standard permissions.
   regular,
 }
 
@@ -22,8 +25,12 @@ class ChatMember {
   /// The role of the user in the chat (administrator or regular).
   final ChatMemberRole? role;
 
-  // Computed properties
+  /// Whether this member is an administrator.
   bool get isAdmin => role == ChatMemberRole.administrator;
+
+  /// Whether this member is a regular member.
   bool get isRegular => role == ChatMemberRole.regular;
+
+  /// Display name for the member's role.
   String get displayRole => role?.name ?? 'member';
 }

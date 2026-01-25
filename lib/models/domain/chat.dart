@@ -41,10 +41,16 @@ class Chat {
   /// List of messages in this chat.
   final List<ChatMessage>? messages;
 
+  /// Number of members in the chat.
   int get memberCount => members?.length ?? 0;
+
+  /// Display name for the chat, with fallback for unnamed chats.
   String get displayName => name ?? 'Unnamed Chat';
+
+  /// Whether the chat has any messages.
   bool get hasMessages => messages?.isNotEmpty ?? false;
 
+  /// The most recent message in the chat, if any.
   ChatMessage? get lastMessage {
     if (messages == null || messages!.isEmpty) return null;
     return messages!.last;

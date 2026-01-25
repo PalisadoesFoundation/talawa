@@ -2,8 +2,15 @@ import 'package:talawa/mappers/chat_user_mapper.dart';
 import 'package:talawa/models/chats/chat_message.dart' as dto;
 import 'package:talawa/models/domain/chat_message.dart';
 
-/// Mapper for converting between ChatMessage DTO and Domain models
+/// Mapper for converting between ChatMessage DTO and Domain models.
 class ChatMessageMapper {
+  /// Converts DTO to Domain model.
+  ///
+  /// **params**:
+  /// * `dtoMessage`: The ChatMessage DTO to convert
+  ///
+  /// **returns**:
+  /// * `ChatMessage`: The converted domain model
   static ChatMessage fromDto(dto.ChatMessage dtoMessage) {
     return ChatMessage(
       id: dtoMessage.id ?? '',
@@ -24,6 +31,13 @@ class ChatMessageMapper {
     );
   }
 
+  /// Converts list of DTOs to list of Domain models.
+  ///
+  /// **params**:
+  /// * `dtos`: List of ChatMessage DTOs to convert
+  ///
+  /// **returns**:
+  /// * `List<ChatMessage>`: List of converted domain models
   static List<ChatMessage> fromDtoList(List<dto.ChatMessage>? dtos) {
     return dtos?.map((dto) => fromDto(dto)).toList() ?? [];
   }

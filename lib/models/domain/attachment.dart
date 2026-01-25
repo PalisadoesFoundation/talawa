@@ -26,12 +26,19 @@ class Attachment {
   /// Optional object name in storage.
   final String? objectName;
 
-  // Computed properties
+  /// Whether this attachment is an image file.
   bool get isImage => mimetype?.startsWith('image/') ?? false;
+
+  /// Whether this attachment is a PDF file.
   bool get isPdf => mimetype == 'application/pdf';
+
+  /// Whether this attachment is a video file.
   bool get isVideo => mimetype?.startsWith('video/') ?? false;
+
+  /// Display name for the attachment, with fallback for unnamed files.
   String get displayName => name.isNotEmpty ? name : 'Unnamed file';
 
+  /// File extension extracted from the filename.
   String get fileExtension {
     if (name.isEmpty) return '';
     final parts = name.split('.');
