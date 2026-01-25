@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/utils/app_localization.dart';
 
@@ -30,6 +31,56 @@ Widget themedWidget(Widget child, {ThemeMode themeMode = ThemeMode.light}) {
   );
 }
 
+/// Module-level variables to store original rendering settings.
+late Size _originalSize;
+late double _originalDpr;
+
+/// Sets up deterministic rendering for golden tests.
+///
+/// Locks the physical size and device pixel ratio to ensure consistent
+/// rendering across different platforms and devices.
+///
+/// **Usage**:
+/// ```dart
+/// setUpAll(() => setUpGoldenTests());
+/// ```
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
+void setUpGoldenTests() {
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
+  final view = binding.platformDispatcher.views.first;
+
+  _originalSize = view.physicalSize;
+  _originalDpr = view.devicePixelRatio;
+  view.physicalSize = const Size(1080, 1920);
+  view.devicePixelRatio = 1.0;
+}
+
+/// Tears down golden test setup and restores original rendering settings.
+///
+/// **Usage**:
+/// ```dart
+/// tearDownAll(() => tearDownGoldenTests());
+/// ```
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
+void tearDownGoldenTests() {
+  final view = TestWidgetsFlutterBinding.ensureInitialized()
+      .platformDispatcher
+      .views
+      .first;
+  view.physicalSize = _originalSize;
+  view.devicePixelRatio = _originalDpr;
+}
+
 /// Generates a consistent golden file name.
 ///
 /// **params**:
@@ -40,5 +91,17 @@ Widget themedWidget(Widget child, {ThemeMode themeMode = ThemeMode.light}) {
 /// **returns**:
 /// * `String`: The golden file name
 String goldenFileName(String widgetName, String variant, String theme) {
+  assert(
+    widgetName.isNotEmpty,
+    'widgetName must not be empty',
+  );
+  assert(
+    variant.isNotEmpty,
+    'variant must not be empty',
+  );
+  assert(
+    theme.isNotEmpty,
+    'theme must not be empty',
+  );
   return 'goldens/${widgetName}_${variant}_$theme.png';
 }

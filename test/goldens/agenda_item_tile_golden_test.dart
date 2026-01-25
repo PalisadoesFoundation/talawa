@@ -11,28 +11,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('ExpandableAgendaItemTile Golden Tests', () {
-    late Size originalSize;
-    late double originalDpr;
+    setUpAll(() => setUpGoldenTests());
 
-    setUpAll(() {
-      // Lock surface size and pixel ratio for consistent rendering across platforms
-      final binding = TestWidgetsFlutterBinding.ensureInitialized();
-      final view = binding.platformDispatcher.views.first;
-
-      originalSize = view.physicalSize;
-      originalDpr = view.devicePixelRatio;
-      view.physicalSize = const Size(1080, 1920);
-      view.devicePixelRatio = 1.0;
-    });
-
-    tearDownAll(() {
-      final view = TestWidgetsFlutterBinding.ensureInitialized()
-          .platformDispatcher
-          .views
-          .first;
-      view.physicalSize = originalSize;
-      view.devicePixelRatio = originalDpr;
-    });
+    tearDownAll(() => tearDownGoldenTests());
 
     testWidgets('agenda_item_tile with full data - light theme',
         (WidgetTester tester) async {

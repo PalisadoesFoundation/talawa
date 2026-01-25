@@ -15,28 +15,10 @@ void main() {
 
   late MockCreateEventViewModel mockModel;
   late List<User> mockUsers;
-  late Size originalSize;
-  late double originalDpr;
 
-  setUpAll(() {
-    // Lock surface size and pixel ratio for consistent rendering across platforms
-    final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    final view = binding.platformDispatcher.views.first;
+  setUpAll(() => setUpGoldenTests());
 
-    originalSize = view.physicalSize;
-    originalDpr = view.devicePixelRatio;
-    view.physicalSize = const Size(1080, 1920);
-    view.devicePixelRatio = 1.0;
-  });
-
-  tearDownAll(() {
-    final view = TestWidgetsFlutterBinding.ensureInitialized()
-        .platformDispatcher
-        .views
-        .first;
-    view.physicalSize = originalSize;
-    view.devicePixelRatio = originalDpr;
-  });
+  tearDownAll(() => tearDownGoldenTests());
 
   setUp(() {
     mockModel = MockCreateEventViewModel();
