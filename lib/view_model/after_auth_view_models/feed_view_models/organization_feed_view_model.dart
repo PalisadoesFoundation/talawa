@@ -27,7 +27,7 @@ class OrganizationFeedViewModel extends BaseModel {
   List<Post> _pinnedPosts = [];
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
-  
+
   /// flag for the test.
   bool istest = false;
 
@@ -151,7 +151,7 @@ class OrganizationFeedViewModel extends BaseModel {
     // Do not set isFetchingPosts = false here yet if we want to show loading spinner.
     // However, if we found data in cache, we might want to stop spinner?
     // But typically we want to trigger network refresh too.
-    
+
     // Trigger network refresh (SWR)
     // We don't await this if we want to show cached data immediately?
     // But if we return from `initialise`, the Future completes.
@@ -160,13 +160,13 @@ class OrganizationFeedViewModel extends BaseModel {
       _isFetchingPosts = false;
       notifyListeners();
     }
-    
+
     // Background refresh
     await Future.wait([
       _postService.refreshFeed(),
       _pinnedPostService.refreshPinnedPosts(),
     ]);
-    
+
     _isFetchingPosts = false;
     notifyListeners();
   }
