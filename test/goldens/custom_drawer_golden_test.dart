@@ -33,7 +33,6 @@ void main() {
     when(userConfig.loggedIn).thenReturn(true);
   });
 
-
   Widget createDrawerForGolden({
     required ThemeMode themeMode,
     required MainScreenViewModel homeModel,
