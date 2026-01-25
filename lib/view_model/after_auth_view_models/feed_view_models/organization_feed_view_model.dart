@@ -109,7 +109,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// more_info_if_required
   ///
   /// **params**:
-  ///   None
+  /// * `isTest`: Optional boolean to indicate if running in test mode.
   ///
   /// **returns**:
   ///   None
