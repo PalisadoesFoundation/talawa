@@ -40,6 +40,7 @@ void main() {
   Widget createDrawerForGolden({
     required ThemeMode themeMode,
     required MainScreenViewModel homeModel,
+    bool openDrawer = true,
   }) {
     return themedWidget(
       Builder(
@@ -49,9 +50,11 @@ void main() {
             body: Builder(
               builder: (innerContext) {
                 // Auto-open drawer for golden test
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Scaffold.of(innerContext).openDrawer();
-                });
+                if (openDrawer) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Scaffold.of(innerContext).openDrawer();
+                  });
+                }
                 return Container();
               },
             ),
