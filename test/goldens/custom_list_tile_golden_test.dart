@@ -13,28 +13,8 @@ import 'golden_test_helpers.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late Size originalSize;
-  late double originalDpr;
-
-  setUpAll(() {
-    // Lock surface size and pixel ratio for consistent rendering across platforms
-    final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    final view = binding.platformDispatcher.views.first;
-
-    originalSize = view.physicalSize;
-    originalDpr = view.devicePixelRatio;
-    view.physicalSize = const Size(1080, 1920);
-    view.devicePixelRatio = 1.0;
-  });
-
-  tearDownAll(() {
-    final view = TestWidgetsFlutterBinding.ensureInitialized()
-        .platformDispatcher
-        .views
-        .first;
-    view.physicalSize = originalSize;
-    view.devicePixelRatio = originalDpr;
-  });
+  setUpAll(() => setUpGoldenTests());
+  tearDownAll(() => tearDownGoldenTests());
 
   Widget createListTileForGolden({
     required ThemeMode themeMode,
@@ -135,6 +115,30 @@ void main() {
       );
     });
 
+    testWidgets('custom_list_tile org without location - dark theme',
+        (WidgetTester tester) async {
+      final orgInfo = OrgInfo(
+        id: '1',
+        name: 'Organization Without Location',
+      );
+
+      await tester.pumpWidget(
+        createListTileForGolden(
+          themeMode: ThemeMode.dark,
+          type: TileType.org,
+          orgInfo: orgInfo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile(
+          goldenFileName('custom_list_tile', 'org_no_location', 'dark'),
+        ),
+      );
+    });
+
     testWidgets('custom_list_tile user type - light theme',
         (WidgetTester tester) async {
       final userInfo = User(
@@ -208,6 +212,31 @@ void main() {
       );
     });
 
+    testWidgets('custom_list_tile attendee type - dark theme',
+        (WidgetTester tester) async {
+      final attendeeInfo = Attendee(
+        id: '1',
+        firstName: 'Jane',
+        lastName: 'Smith',
+      );
+
+      await tester.pumpWidget(
+        createListTileForGolden(
+          themeMode: ThemeMode.dark,
+          type: TileType.attendee,
+          attendeeInfo: attendeeInfo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile(
+          goldenFileName('custom_list_tile', 'attendee_type', 'dark'),
+        ),
+      );
+    });
+
     testWidgets('custom_list_tile option type - light theme',
         (WidgetTester tester) async {
       final option = Options(
@@ -229,6 +258,31 @@ void main() {
         find.byType(MaterialApp),
         matchesGoldenFile(
           goldenFileName('custom_list_tile', 'option_type', 'light'),
+        ),
+      );
+    });
+
+    testWidgets('custom_list_tile option type - dark theme',
+        (WidgetTester tester) async {
+      final option = Options(
+        icon: const Icon(Icons.settings),
+        title: 'Settings',
+        subtitle: 'Configure app settings',
+      );
+
+      await tester.pumpWidget(
+        createListTileForGolden(
+          themeMode: ThemeMode.dark,
+          type: TileType.option,
+          option: option,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile(
+          goldenFileName('custom_list_tile', 'option_type', 'dark'),
         ),
       );
     });
