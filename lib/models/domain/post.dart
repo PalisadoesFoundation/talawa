@@ -6,6 +6,9 @@ class Post {
     this.caption,
   });
 
+  /// Unique identifier for the post.
   final String id;
+
+  /// Optional caption describing the post.
   final String? caption;
 }
