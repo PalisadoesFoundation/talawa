@@ -135,6 +135,7 @@ void main() {
 
     test('getNewFeedAndRefreshCache returns cached data when API call fails',
         () async {
+      final originalConnectivity = AppConnectivity.isOnline;
       AppConnectivity.isOnline = true;
       final postService = PostService();
       await postService.saveDataToCache([
@@ -150,9 +151,15 @@ void main() {
         ),
       ).thenThrow(Exception('API Error'));
 
-      final result = await postService.getNewFeedAndRefreshCache();
-      expect(result.length, 1);
-      expect(result.first.caption, 'Cached Post');
+      try {
+        final result = await postService.getNewFeedAndRefreshCache();
+        expect(result.length, 1);
+        expect(result.first.caption, 'Cached Post');
+      } finally {
+        // Restore original connectivity state and reset mock
+        AppConnectivity.isOnline = originalConnectivity;
+        reset(locator<DataBaseMutationFunctions>());
+      }
     });
 
     test('saveDataToCache and loadCachedData work', () async {
