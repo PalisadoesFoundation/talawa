@@ -88,7 +88,6 @@ void tearDownGoldenTests() {
   }
 }
 
-
 /// Generates a consistent golden file name.
 ///
 /// **params**:
