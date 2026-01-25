@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
@@ -14,7 +16,7 @@ import '../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  TestWidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.setMockInitialValues({});
 
   testSetupLocator();
@@ -91,6 +93,44 @@ void main() {
       await model.changeLanguage(const Locale('en'));
       changedLocale = model.appLocal;
       expect(changedLocale, const Locale('en'));
+    });
+
+    test('selectLanguagePress navigates authenticated user to app settings',
+        () async {
+      final model = AppLanguage(isTest: true);
+      await model.initialize();
+
+      // Setup authenticated user
+      when(userConfig.currentUser).thenReturn(User(id: 'validUserId'));
+
+      await model.selectLanguagePress();
+
+      // Verify navigation to app settings
+      verify(navigationService.popAndPushScreen('/appSettingsPage',
+              arguments: ''))
+          .called(1);
+    });
+
+    test('selectLanguagePress navigates unauthenticated user to setUrlScreen',
+        () async {
+      final model = AppLanguage(isTest: true);
+      await model.initialize();
+
+      // Setup unauthenticated user
+      reset(userConfig);
+      when(userConfig.currentUser).thenReturn(User(id: 'null'));
+
+      await model.selectLanguagePress();
+
+      // Verify navigation to login/signup screen (not demo mode)
+      verify(navigationService.pushScreen(Routes.setUrlScreen, arguments: ''))
+          .called(1);
+
+      // Verify it does NOT navigate to mainScreen with demo mode
+      verifyNever(navigationService.pushScreen(
+        Routes.mainScreen,
+        arguments: anyNamed('arguments'),
+      ));
     });
   });
 

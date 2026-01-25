@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -149,10 +148,10 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
-  /// Navigates the user after choosing lthe anguage.
+  /// Navigates the user after choosing the language.
   ///
-  /// This function navigate user to `/appSettingsPage` route if the user
-  /// is authenticated else navigate to `demoMode - /MainScreenPage` route.
+  /// This function navigates the user to `/appSettingsPage` when authenticated,
+  /// otherwise to `Routes.setUrlScreen` (Join and Collaborate / login-signup screen).
   ///
   /// **params**:
   ///   None
@@ -164,12 +163,8 @@ class AppLanguage extends BaseModel {
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
       navigationService.pushScreen(
-        Routes.mainScreen,
-        arguments: MainScreenArgs(
-          mainScreenIndex: 0,
-          fromSignUp: false,
-          toggleDemoMode: true,
-        ),
+        Routes.setUrlScreen,
+        arguments: '',
       );
     }
   }

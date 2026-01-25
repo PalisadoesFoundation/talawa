@@ -25,6 +25,8 @@ class OrganizationService {
   /// with the list of organization members.
   Future<List<User>> getOrgMembersList(String orgId) async {
     try {
+      if (appConfig.isDemoMode) return [];
+
       final String query = Queries().fetchUsersByOrganizationId(orgId);
       // fetching from database using graphQL query.
       final result = await _dbFunctions.gqlAuthQuery(query);

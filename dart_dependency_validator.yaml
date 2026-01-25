@@ -1,0 +1,16 @@
+# Configures packages to be excluded from the Dart dependency validator.
+# These packages are used only at build/test time, for code generation,
+# as platform interface shims, or are intentionally unused.
+# Related to Issue #3231.
+
+ignore:
+  - build_runner # Code generation
+  - custom_lint # Lints only
+  - dependency_validator # Self-reference
+  - hive_generator # Build-time generation
+  - json_serializable # Code generation
+  - mocktail_image_network # Test utilities
+  - talawa_lint # Lints only
+  - permission_handler # Platform-interface or plugin internals
+  - image_cropper_platform_interface # Transitive dependency used in mocks
+  - url_launcher_platform_interface # Platform-interface or plugin internals

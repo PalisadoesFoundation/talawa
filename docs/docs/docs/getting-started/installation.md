@@ -83,30 +83,21 @@ We have tried to make the process simple. Here's what you need to do.
        $ git clone https://github.com/PalisadoesFoundation/talawa.git
        $ cd talawa
        ```
-   1. The `.env` file contains the URL of the Talawa API instance that the app will use. There is a `.env.example` file that you can use as a starter. 
-      1. Copy `.env.example` to become `.env`
-            ```bash
-            $ cp .env.example .env
-            ```       
-      2. Edit the `.env` file and update the URL with that of the API. The default value will not work.
-         1. If you are running the Talawa mobile app in an emulator mode on your local system, then the IPv4 address to `127.0.0.1` will be the required value.
-            ```
-            `API_URL=http://<IPv4>:4000/graphql`
-            ```
-         2. If you are running the app on a tethered device on the same network as your development system running the API, then the IP address will need to be that of the network interface of your development system.
-   2. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
+   1. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
       1. Install FVM using the instructions on the FVM website
         - https://fvm.app
-      2. Ensure you are using Flutter version `3.32.8` 
-        - `fvm use 3.32.8`
-   3. Install packages.
+      2. Ensure you are using Flutter version `3.35.0` 
+        - `fvm use 3.35.0`
+   2. Install packages.
       ```bash
       $ cd talawa_lint
       $ fvm flutter pub get
       $ cd ..
       $ fvm flutter pub get
       ```
-   4. Run the `flutter doctor` command to determine whether everything is OK. 
+   
+   3. **Troubleshooting**: If you encounter dependency version conflicts during installation, please refer to our [Handling Upgrades](../developer-resources/general/handling-upgrades.md) guide for checking and updating local package dependencies.
+   3. Run the `flutter doctor` command to determine whether everything is OK. 
       1. Here is the specific command.
          ```bash
          $ fvm flutter doctor
@@ -128,11 +119,11 @@ We have tried to make the process simple. Here's what you need to do.
                ```
                $ fvm flutter config --android-sdk /PATH/TO/Android/Sdk/  
                ```
-   5. For a first time installation, you will need to accept the Flutter licences agreements.
+   4. For a first time installation, you will need to accept the Flutter licences agreements.
       ```
       $ fvm flutter doctor --android-licenses
       ```
-   6. Run the application
+   5. Run the application
       1. Using a virtual device
          1. Create and launch an Android Virtual Device
          2. Run the application
@@ -143,4 +134,8 @@ We have tried to make the process simple. Here's what you need to do.
       2. Using your phone
          1. Enable USB debugging
          2. Connect your phone
+   6. **Set the API URL**: When you first launch the app, you will be prompted to enter the Talawa API URL. 
+      1. If you are running the API locally on your development machine and testing on an emulator, use `http://10.0.2.2:4000/graphql` (Android emulator special address that maps to localhost).
+      2. If you are running the API on your local network and testing on a physical device, use `http://<YOUR_LOCAL_IP>:4000/graphql` where `<YOUR_LOCAL_IP>` is the IP address of your development machine on your local network.
+      3. Alternatively, you can scan a QR code if your organization provides one with the API URL pre-configured.
    7. Start developing!

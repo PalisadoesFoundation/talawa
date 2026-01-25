@@ -84,19 +84,25 @@ void main() {
       const data = """
     query {
       organizations{
-        id,
-        name,
-        addressLine1,
-        addressLine2,
-        description,
-        avatarURL,
-        countryCode,
-        state,
-        isUserRegistrationRequired,
+        ...OrganizationFields
       }
     }
-    """;
-      expect(data, ff);
+    fragment OrganizationFields on Organization {
+  id
+  name
+  addressLine1
+  addressLine2
+  avatarMimeType
+  avatarURL
+  postalCode
+  countryCode
+  description
+  isUserRegistrationRequired
+  state
+}
+""";
+      expect(ff.replaceAll(RegExp(r'\s+'), ' ').trim(),
+          data.replaceAll(RegExp(r'\s+'), ' ').trim());
     });
     test("Check if fetchJoinInOrgByName works correctly", () {
       var mutation = false;
@@ -230,6 +236,14 @@ void main() {
       // Verify proper GraphQL structure
       expect(query.contains('organizationId:'), true);
       expect(query.contains('{') && query.contains('}'), true);
+    });
+
+    test("Check if fetchUsersByOrganizationId includes emailAddress field", () {
+      const orgId = 'testOrgId123';
+      final query = Queries().fetchUsersByOrganizationId(orgId);
+
+      // Verify emailAddress is included
+      expect(RegExp(r'\bemailAddress\b').hasMatch(query), true);
     });
   });
 }

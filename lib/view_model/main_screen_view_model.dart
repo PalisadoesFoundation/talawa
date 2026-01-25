@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
-import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
+import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/funds/funds_screen.dart';
 import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
@@ -147,10 +148,9 @@ class MainScreenViewModel extends BaseModel {
   /// array of target.
   final List<FocusTarget> targets = [];
 
-  /// flag to represent if app is in demoMode.
-  static bool demoMode = false;
-
-  /// Initalizing function.
+  /// Initializing function.
+  ///
+  /// This function initializes the view model.
   ///
   /// **params**:
   /// * `ctx`: BuildContext, contain parent info
@@ -166,7 +166,8 @@ class MainScreenViewModel extends BaseModel {
     required int mainScreenIndex,
     bool demoMode = false,
   }) {
-    MainScreenViewModel.demoMode = demoMode;
+    // MainScreenViewModel.demoMode = demoMode;
+    appConfig.isDemoMode = demoMode;
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
     context = ctx;
@@ -184,6 +185,22 @@ class MainScreenViewModel extends BaseModel {
         ),
       );
     }
+  }
+
+  /// Exits demo mode and navigates to the splash screen.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void exitDemoMode() {
+    appConfig.isDemoMode = false;
+    navigationService.removeAllAndPush(
+      Routes.setUrlScreen,
+      Routes.splashScreen,
+      arguments: '',
+    );
   }
 
   /// Contains the Widgets to be rendered for corresponding navbar items.
@@ -248,15 +265,14 @@ class MainScreenViewModel extends BaseModel {
       ),
     ];
 
-    if (!demoMode) {
+    if (!appConfig.isDemoMode) {
       pages = [
         OrganizationFeed(
           key: const Key("HomeView"),
           homeModel: this,
         ),
-        ExploreEvents(
-          key: const Key('ExploreEvents'),
-          homeModel: this,
+        const EventCalendar(
+          key: Key('ExploreEvents'),
         ),
         const ChatPage(
           key: Key('Chats'),
@@ -277,9 +293,8 @@ class MainScreenViewModel extends BaseModel {
           key: const Key("DemoHomeView"),
           homeModel: this,
         ),
-        DemoExploreEvents(
-          key: const Key('DemoExploreEvents'),
-          homeModel: this,
+        const DemoExploreEvents(
+          key: Key('DemoExploreEvents'),
         ),
         const ChatPage(
           key: Key('DemoChats'),
@@ -476,10 +491,10 @@ class MainScreenViewModel extends BaseModel {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
         scaffoldKey.currentState!.openDrawer();
-        break;
+        return;
       case "keyDrawerLeaveCurrentOrg":
         navigationService.pop();
-        break;
+        return;
       case "keyBNHome":
         // Close drawer when moving to bottom navigation tour
         if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
@@ -487,7 +502,7 @@ class MainScreenViewModel extends BaseModel {
           // Add a small delay to let the drawer close animation complete
           await Future.delayed(const Duration(milliseconds: 300));
         }
-        break;
+        return;
     }
   }
 

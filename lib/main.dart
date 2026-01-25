@@ -26,13 +26,12 @@ Future<void> main() async {
   await HiveManager.initializeHive(dir: dir);
 
   // Load environment variables from .env file
-  await dotenv.load(fileName: ".env").then((value) {
+  try {
+    await dotenv.load(fileName: ".env");
     debugPrint("Environment variables loaded");
-    debugPrint(dotenv.get('API_URL'));
-  }).catchError((error) {
-    debugPrint("Error loading environment variables: $error");
-    throw Exception("Failed to load environment variables: $error");
-  });
+  } catch (error) {
+    debugPrint("No .env file found or error loading it: $error");
+  }
 
   await setupLocator();
 
@@ -115,40 +114,45 @@ class _MyAppState extends State<MyApp> {
               onModelReady: (connectivityModel) =>
                   connectivityModel.initialise(),
               builder: (context, connectivityModel, child) {
-                return MaterialApp(
-                  locale: langModel.appLocal,
-                  supportedLocales: [
-                    const Locale('en', 'US'),
-                    const Locale('es', 'ES'),
-                    const Locale('fr', 'FR'),
-                    const Locale('hi', 'IN'),
-                    const Locale('zh', 'CN'),
-                    const Locale('de', 'DE'),
-                    const Locale('ja', 'JP'),
-                    const Locale('pt', 'PT'),
-                  ],
-                  localizationsDelegates: [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  title: 'Talawa',
-                  theme: Provider.of<AppTheme>(context).theme,
-                  debugShowCheckedModeBanner: false,
-                  navigatorKey: navigationService.navigatorKey,
-                  onGenerateRoute: router.generateRoute,
-                  localeResolutionCallback: langModel.localeResoultion,
-                  initialRoute: '/',
-                  onGenerateInitialRoutes: (String initialRouteName) {
-                    return [
-                      router.generateRoute(
-                        RouteSettings(
-                          name: '/',
-                          arguments: mainScreenQuickActionindex,
-                        ),
-                      ),
-                    ];
+                return Selector<AppTheme, ThemeData>(
+                  selector: (_, appTheme) => appTheme.theme,
+                  builder: (context, themeData, child) {
+                    return MaterialApp(
+                      locale: langModel.appLocal,
+                      supportedLocales: [
+                        const Locale('en', 'US'),
+                        const Locale('es', 'ES'),
+                        const Locale('fr', 'FR'),
+                        const Locale('hi', 'IN'),
+                        const Locale('zh', 'CN'),
+                        const Locale('de', 'DE'),
+                        const Locale('ja', 'JP'),
+                        const Locale('pt', 'PT'),
+                      ],
+                      localizationsDelegates: [
+                        AppLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                      ],
+                      title: 'Talawa',
+                      theme: themeData,
+                      debugShowCheckedModeBanner: false,
+                      navigatorKey: navigationService.navigatorKey,
+                      onGenerateRoute: router.generateRoute,
+                      localeResolutionCallback: langModel.localeResoultion,
+                      initialRoute: '/',
+                      onGenerateInitialRoutes: (String initialRouteName) {
+                        return [
+                          router.generateRoute(
+                            RouteSettings(
+                              name: '/',
+                              arguments: mainScreenQuickActionindex,
+                            ),
+                          ),
+                        ];
+                      },
+                    );
                   },
                 );
               },

@@ -1,3 +1,5 @@
+import 'package:talawa/utils/gql_fragments.dart';
+
 ///This class returns some queries for the application.
 class Queries {
   //Returns a query to register a user.
@@ -30,23 +32,11 @@ class Queries {
               }) {
                 authenticationToken,
                 user{
-                  id
-                  name,
-                  avatarURL,
-                  emailAddress,
+                  ...UserFields
                   organizationsWhereMember(first:32){
                     edges{
                       node{
-                        id,
-                        name,
-                        addressLine1,
-                        addressLine2,
-                        avatarMimeType,
-                        avatarURL,
-                        postalCode,
-                        countryCode,
-                        description,
-                        isUserRegistrationRequired,
+                        ...OrganizationFields
                         members(first:32){
                           edges{
                             node{
@@ -62,6 +52,8 @@ class Queries {
                 
               }
             }
+    $userFieldsFragment
+    $organizationFieldsFragment
     """;
   }
 
@@ -80,25 +72,12 @@ class Queries {
       signIn(input: { emailAddress: "$email", password: "$password" }) {
         authenticationToken,
         user {
-          id,
-          name,
-          emailAddress,
-          name,
-          avatarURL,
-          orgIdWhereMembershipRequested,
+          ...UserFields
+          orgIdWhereMembershipRequested
           organizationsWhereMember(first:32){
             edges{
               node{
-                id,
-                name,
-                addressLine1,
-                addressLine2,
-                avatarMimeType,
-                avatarURL,
-                postalCode,
-                countryCode,
-                description,
-                isUserRegistrationRequired
+                ...OrganizationFields
                 members(first:32){
                   edges{
                     node{
@@ -114,6 +93,8 @@ class Queries {
         }
       }
     }
+    $userFieldsFragment
+    $organizationFieldsFragment
     """;
   }
 
@@ -168,17 +149,10 @@ class Queries {
     return """
     query {
       organizations{
-        id,
-        name,
-        addressLine1,
-        addressLine2,
-        description,
-        avatarURL,
-        countryCode,
-        state,
-        isUserRegistrationRequired,
+        ...OrganizationFields
       }
     }
+    $organizationFieldsFragment
     """;
   }
 
@@ -267,29 +241,19 @@ class Queries {
         \$id: String!
       ) {
         user(input: {id: \$id}) {
-          id
-          name
-          avatarURL
-          emailAddress
+          ...UserFields
           orgIdWhereMembershipRequested,
           organizationsWhereMember(first: 32) {
             edges {
               node {
-                id
-                name
-                addressLine1
-                addressLine2
-                avatarMimeType
-                avatarURL
-                postalCode
-                countryCode
-                description
-                isUserRegistrationRequired
+               ...OrganizationFields
               }
             }
           }
         }
       }
+      $userFieldsFragment
+      $organizationFieldsFragment
     ''';
   }
 
@@ -323,18 +287,10 @@ class Queries {
     return '''
     query{
       organization(input:{id:"$orgId"}){
-        id,
-        name,
-        addressLine1,
-        addressLine2,
-        avatarMimeType,
-        avatarURL,
-        postalCode,
-        countryCode,
-        description,
-        isUserRegistrationRequired,
+        ...OrganizationFields
       }
     }
+    $organizationFieldsFragment
     ''';
   }
 
@@ -440,13 +396,10 @@ class Queries {
     return '''
     query {
       usersByOrganizationId(organizationId: "$orgId") {
-        id
-        name
-        avatarURL
-        description
-        emailAddress
+        ...UserFields
       }
     }
+    $userFieldsFragment
     ''';
   }
 }

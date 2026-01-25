@@ -13,6 +13,16 @@ class CommentQueries {
         createComment(input: { postId: \$postId, body: \$body }) {
           body
           id
+          upVotesCount
+          downVotesCount
+          post {
+            id
+          }
+          createdAt
+          creator {
+            name
+            avatarURL
+          }
         }
       }
     ''';
@@ -27,15 +37,21 @@ class CommentQueries {
   /// * `String`: The query for getting all comments for a post.
   String getPostsComments() {
     return '''
-    query GetPostComments(\$postId: String!, \$first: Int, \$after: String, \$before: String, \$last: Int) {
+    query GetPostComments(\$postId: String!, \$first: Int, \$after: String, \$before: String, \$last: Int, \$userId: ID!) {
       post(input: { id: \$postId }) {
         comments(first: \$first, after: \$after, before: \$before, last: \$last) {
           edges {
             node {
               body
               id
+              upVotesCount
+              downVotesCount
               post {
                 id
+              }
+              hasUserVoted(userId: \$userId) {
+                hasVoted
+                voteType
               }
               createdAt
               creator {
@@ -54,5 +70,24 @@ class CommentQueries {
       }
     }
   ''';
+  }
+
+  /// Update vote on a comment (upvote or downvote, or change vote type).
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The mutation for updating vote on a comment
+  String updateVoteComment() {
+    return '''
+      mutation UpdateVoteComment(\$commentId: ID!, \$type: CommentVoteType) {
+        updateCommentVote(input: { commentId: \$commentId, type: \$type  }) {
+          id
+          upVotesCount
+          downVotesCount
+        }
+      }
+    ''';
   }
 }
