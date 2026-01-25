@@ -148,14 +148,9 @@ class OrganizationFeedViewModel extends BaseModel {
 
     // SWR Pattern: Load from cache first
     await _postService.fetchPostsInitial();
-    // Do not set isFetchingPosts = false here yet if we want to show loading spinner.
-    // However, if we found data in cache, we might want to stop spinner?
-    // But typically we want to trigger network refresh too.
+    // Synchronously update the local state with cached data to avoid loading flicker
+    setPosts(_postService.posts);
 
-    // Trigger network refresh (SWR)
-    // We don't await this if we want to show cached data immediately?
-    // But if we return from `initialise`, the Future completes.
-    // If we want to show Spinner UNTIL data is available:
     if (_posts.isNotEmpty) {
       _isFetchingPosts = false;
       notifyListeners();
@@ -276,7 +271,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// * `post`: Post object to be deleted from the feed
   ///
   /// **returns**:
-  /// * `Future<QueryResult<Object?>>`: returns the result of the GraphQL mutation to delete the post.
+  ///   None
   Future<void> deletePost(Post post) async {
     try {
       await _postService.deletePost(post);

@@ -43,5 +43,33 @@ void main() {
       await cache.revalidate<String>(key, () async => newData);
       expect(cache.get<String>(key), equals(newData));
     });
+
+    test('set manually updates the cache', () {
+      const key = 'test_key';
+      const data = 'manual_data';
+
+      cache.set<String>(key, data);
+      expect(cache.get<String>(key), equals(data));
+    });
+
+    test('remove deletes specific key from cache', () {
+      const key = 'test_key';
+      cache.set<String>(key, 'data');
+      expect(cache.get<String>(key), isNotNull);
+
+      cache.remove(key);
+      expect(cache.get<String>(key), isNull);
+    });
+
+    test('clear wipes the entire cache', () {
+      cache.set('key1', 'val1');
+      cache.set('key2', 'val2');
+      expect(cache.get('key1'), isNotNull);
+      expect(cache.get('key2'), isNotNull);
+
+      cache.clear();
+      expect(cache.get('key1'), isNull);
+      expect(cache.get('key2'), isNull);
+    });
   });
 }

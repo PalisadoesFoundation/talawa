@@ -74,6 +74,7 @@ abstract class BaseFeedManager<T> {
     debugPrint(_box.values.length.toString());
     debugPrint('saveToCache2');
     await _box.addAll(data);
+    _swrCache.set(cacheKey, data);
     debugPrint('saveToCache');
     debugPrint(_box.values.length.toString());
     debugPrint(_box.values.length.toString());
@@ -88,6 +89,7 @@ abstract class BaseFeedManager<T> {
   ///   None
   Future<void> clearCache() async {
     await _box.clear();
+    _swrCache.remove(cacheKey);
   }
 
   /// Abstract method to be implemented by subclasses to fetch data from an API.
