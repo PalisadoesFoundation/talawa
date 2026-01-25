@@ -8,7 +8,18 @@ import 'package:talawa/widgets/agenda_item_tile.dart';
 import 'golden_test_helpers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('ExpandableAgendaItemTile Golden Tests', () {
+    setUpAll(() {
+      // Lock surface size and pixel ratio for consistent rendering across platforms
+      final binding = TestWidgetsFlutterBinding.ensureInitialized();
+      final view = binding.platformDispatcher.views.first;
+
+      view.physicalSize = const Size(1080, 1920);
+      view.devicePixelRatio = 1.0;
+    });
+
     testWidgets('agenda_item_tile with full data - light theme',
         (WidgetTester tester) async {
       final testItem = EventAgendaItem(

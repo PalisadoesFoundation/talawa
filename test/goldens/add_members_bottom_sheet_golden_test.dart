@@ -11,8 +11,19 @@ import '../helpers/test_helpers.mocks.dart';
 import 'golden_test_helpers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late MockCreateEventViewModel mockModel;
   late List<User> mockUsers;
+
+  setUpAll(() {
+    // Lock surface size and pixel ratio for consistent rendering across platforms
+    final binding = TestWidgetsFlutterBinding.ensureInitialized();
+    final view = binding.platformDispatcher.views.first;
+
+    view.physicalSize = const Size(1080, 1920);
+    view.devicePixelRatio = 1.0;
+  });
 
   setUp(() {
     mockModel = MockCreateEventViewModel();
