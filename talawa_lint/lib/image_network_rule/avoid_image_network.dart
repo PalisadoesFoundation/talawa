@@ -2,6 +2,10 @@ import 'package:analyzer/error/error.dart' as analyzer;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 
+/// A lint rule that discourages the direct use of [Image.network].
+///
+/// It recommends using `AppCachedImage` instead to ensure consistent caching,
+/// error handling, and placeholder behavior across the application.
 class AvoidImageNetworkLintRule extends DartLintRule {
   const AvoidImageNetworkLintRule() : super(code: _code);
 
@@ -20,8 +24,9 @@ class AvoidImageNetworkLintRule extends DartLintRule {
     CustomLintContext context,
   ) {
     // Exclude the cached_image.dart file itself to allow the underlying implementation
+    // Matches both forward slash (POSIX) and backslash (Windows) separators.
     if (reporter.source.fullName
-        .contains(RegExp(r'widgets/common/cached_image\.dart$'))) {
+        .contains(RegExp(r'widgets[/\\]common[/\\]cached_image\.dart$'))) {
       return;
     }
 
