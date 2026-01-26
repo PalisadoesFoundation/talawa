@@ -25,8 +25,7 @@ class AvoidImageNetworkLintRule extends DartLintRule {
   ) {
     // Exclude the cached_image.dart file itself to allow the underlying implementation
     // Matches both forward slash (POSIX) and backslash (Windows) separators.
-    if (reporter.source.fullName
-        .contains(RegExp(r'widgets[/\\]common[/\\]cached_image\.dart$'))) {
+    if (shouldExcludeFile(reporter.source.fullName)) {
       return;
     }
 
@@ -53,5 +52,13 @@ class AvoidImageNetworkLintRule extends DartLintRule {
         constructorName == 'network' &&
         libraryUri != null &&
         libraryUri.startsWith('package:flutter/');
+  }
+
+  /// Checks if the given file path should be excluded from linting.
+  /// Returns true for files matching `widgets/common/cached_image.dart`
+  /// with both POSIX (`/`) and Windows (`\`) separators.
+  static bool shouldExcludeFile(String filePath) {
+    return filePath
+        .contains(RegExp(r'widgets[/\\]common[/\\]cached_image\.dart$'));
   }
 }
