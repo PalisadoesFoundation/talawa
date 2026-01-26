@@ -81,5 +81,30 @@ void main() {
 
       expect(find.byIcon(Icons.broken_image), findsOneWidget);
     });
+    testWidgets('uses default height 120 for placeholder when height is null',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: AppCachedImage(url: 'https://example.com/image.png'),
+          ),
+        ),
+      );
+
+      final CachedNetworkImage cachedImage =
+          tester.widget(find.byType(CachedNetworkImage)) as CachedNetworkImage;
+
+      // Invoke placeholder and verify SizedBox height
+      final Widget placeholder = cachedImage.placeholder!(
+        tester.element(find.byType(CachedNetworkImage)),
+        'https://example.com/image.png',
+      );
+
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: placeholder)));
+
+      final SizedBox sizedBox =
+          tester.widget(find.byType(SizedBox)) as SizedBox;
+      expect(sizedBox.height, 120);
+    });
   });
 }
