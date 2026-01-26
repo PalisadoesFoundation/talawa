@@ -65,11 +65,17 @@ class OrganisationInfoScreen extends StatelessWidget {
                 Stack(
                   children: [
                     orgInfo.image != null
-                        ? AppCachedImage(
-                            url: orgInfo.image!,
-                            height: imageHeight,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
+                        ? ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(20.0),
+                              bottomRight: Radius.circular(20.0),
+                            ),
+                            child: AppCachedImage(
+                              url: orgInfo.image!,
+                              height: imageHeight,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
                           )
                         : ClipRRect(
                             borderRadius: const BorderRadius.only(
