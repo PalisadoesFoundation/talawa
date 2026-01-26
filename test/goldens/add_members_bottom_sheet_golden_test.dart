@@ -153,7 +153,6 @@ void main() {
 
     testWidgets('add_members_bottom_sheet empty state - light theme',
         (WidgetTester tester) async {
-
       await tester.pumpWidget(
         createBottomSheetForGolden(
           themeMode: ThemeMode.light,
