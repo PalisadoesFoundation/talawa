@@ -1,40 +1,77 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/mappers/chat_message_mapper.dart';
+import 'package:talawa/mappers/chat_user_mapper.dart';
 import 'package:talawa/models/chats/chat_message.dart' as dto;
-import 'package:talawa/models/chats/chat_user.dart' as dto_user;
+import 'package:talawa/models/chats/chat_user.dart' as dto;
 
 void main() {
   group('ChatMessageMapper', () {
-    test('fromDto converts message with all fields', () {
-      final dtoMessage = dto.ChatMessage(
-        id: 'msg123',
-        body: 'Hello world',
-        creator: dto_user.ChatUser(id: 'user1', firstName: 'John'),
-        chatId: 'chat1',
-        createdAt: '2026-01-25T10:00:00Z',
-      );
+    group('fromDto', () {
+      test('converts all fields correctly', () {
+        final dtoMessage = dto.ChatMessage(
+          id: 'msg123',
+          body: 'Hello world',
+          creator: dto.ChatUser(id: 'user1', firstName: 'John'),
+          chatId: 'chat1',
+          createdAt: '2024-01-01T10:00:00Z',
+          updatedAt: '2024-01-01T10:05:00Z',
+        );
 
-      final domain = ChatMessageMapper.fromDto(dtoMessage);
+        final domain = ChatMessageMapper.fromDto(dtoMessage);
 
-      expect(domain.id, 'msg123');
-      expect(domain.body, 'Hello world');
-      expect(domain.creator?.id, 'user1');
-      expect(domain.chatId, 'chat1');
-      expect(domain.hasBody, true);
+        expect(domain.id, 'msg123');
+        expect(domain.body, 'Hello world');
+        expect(domain.creator?.id, 'user1');
+        expect(domain.chatId, 'chat1');
+        expect(domain.displayBody, 'Hello world');
+        expect(domain.hasBody, true);
+        expect(domain.isReply, false);
+      });
+
+      test('handles reply messages', () {
+        final parentDto = dto.ChatMessage(id: 'parent1', body: 'Original');
+        final replyDto = dto.ChatMessage(
+          id: 'reply1',
+          body: 'Reply',
+          parentMessage: parentDto,
+        );
+
+        final domain = ChatMessageMapper.fromDto(replyDto);
+
+        expect(domain.isReply, true);
+        expect(domain.parentMessage?.id, 'parent1');
+      });
+
+      test('computes timeAgo correctly', () {
+        final now = DateTime.now();
+        final dtoMessage = dto.ChatMessage(
+          id: 'msg456',
+          createdAt: now.subtract(const Duration(hours: 2)).toIso8601String(),
+        );
+
+        final domain = ChatMessageMapper.fromDto(dtoMessage);
+        expect(domain.timeAgo, contains('h ago'));
+      });
     });
 
-    test('fromDto handles reply messages', () {
-      final parentDto = dto.ChatMessage(id: 'parent', body: 'Original');
-      final replyDto = dto.ChatMessage(
-        id: 'reply',
-        body: 'Reply',
-        parentMessage: parentDto,
-      );
+    group('fromDtoList', () {
+      test('converts list of DTOs', () {
+        final dtos = [
+          dto.ChatMessage(id: 'm1', body: 'Message 1'),
+          dto.ChatMessage(id: 'm2', body: 'Message 2'),
+        ];
 
-      final domain = ChatMessageMapper.fromDto(replyDto);
+        final domains = ChatMessageMapper.fromDtoList(dtos);
 
-      expect(domain.isReply, true);
-      expect(domain.parentMessage?.id, 'parent');
+        expect(domains.length, 2);
+        expect(domains[0].id, 'm1');
+        expect(domains[1].id, 'm2');
+      });
+
+      test('handles null list', () {
+        final domains = ChatMessageMapper.fromDtoList(null);
+        expect(domains, isEmpty);
+      });
     });
   });
 }
