@@ -64,16 +64,36 @@ void main() {
   });
 
   group('OrganizationFeedViewModel Tests:', () {
-    test('Test initialise function', () {
+    test('Test initialise function', () async {
       expect(model.currentOrgName, '');
-      model.initialise();
+      expect(model.isFetchingPosts, true);
+
+      await model.initialise();
+
       expect(model.currentOrgName, 'Organization Name');
+      expect(model.isFetchingPosts, false);
 
       locator<UserConfig>()
           .currentOrgInfoController
           .add(OrgInfo(name: 'Updated Organization Name'));
 
       expect(model.posts.length, 0);
+    });
+
+    test('Test initialise function with cached posts', () async {
+      // Setup cached posts
+      final cachedPosts = [Post(id: 'cached1', caption: 'Cached Post')];
+      when(postService.posts).thenReturn(cachedPosts);
+      when(postService.fetchPostsInitial()).thenAnswer((_) async {});
+
+      expect(model.isFetchingPosts, true);
+      expect(model.posts.isEmpty, true);
+
+      await model.initialise();
+
+      // Verify that cached posts are loaded and fetching is set to false
+      verify(postService.fetchPostsInitial()).called(1);
+      expect(model.isFetchingPosts, false);
     });
 
     test('Test pinnedPosts getter when  is true', () {
