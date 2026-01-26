@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/constants.dart';
@@ -17,6 +18,8 @@ import 'package:talawa/utils/post_queries.dart';
 ///
 /// Services include:
 /// * `getPosts` : to get all posts of the organization.
+/// * `addLike` : to add like to the post.
+/// * `removeLike` : to remove the like from the post.
 class PostService extends BaseFeedManager<Post> {
   // constructor
   PostService() : super(HiveKeys.postFeedKey) {
@@ -109,7 +112,7 @@ class PostService extends BaseFeedManager<Post> {
       );
       pageInfo.endCursor = '${postJson['cursor']}';
       // Fetch presigned URL for attachments if they exist
-      await post.getPresignedUrl(userConfig.currentOrg.id);
+      await post.getPresignedUrl(_userConfig.currentOrg.id);
 
       newPosts.insert(0, post);
     }
@@ -131,7 +134,10 @@ class PostService extends BaseFeedManager<Post> {
     });
   }
 
-  ///  Method to load cached data from Hive database.
+  /// Initial fetch from cache for SWR pattern.
+  ///
+  /// This method loads cached data without triggering a refresh.
+  /// The refresh should be called separately by the ViewModel to trigger revalidation.
   ///
   /// **params**:
   ///   None
@@ -141,7 +147,6 @@ class PostService extends BaseFeedManager<Post> {
   Future<void> fetchPostsInitial() async {
     _posts = await loadCachedData();
     _postStreamController.add(_posts);
-    refreshFeed();
   }
 
   /// Method to toggle upvote on a post.
