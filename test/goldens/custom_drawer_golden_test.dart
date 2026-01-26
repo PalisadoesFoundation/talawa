@@ -51,7 +51,7 @@ void main() {
                     Scaffold.of(innerContext).openDrawer();
                   });
                 }
-                return Container();
+                return const SizedBox.expand();
               },
             ),
           );
@@ -255,6 +255,78 @@ void main() {
           find.byType(MaterialApp),
           matchesGoldenFile(
             goldenFileName('custom_drawer', 'logged_out', 'dark'),
+          ),
+        );
+      });
+    });
+
+    // NEW: CLOSED STATE TESTS
+
+    testWidgets('custom_drawer closed state - light theme',
+        (WidgetTester tester) async {
+      await mockNetworkImages(() async {
+        final homeModel = locator<MainScreenViewModel>();
+
+        userConfig.currentOrg = OrgInfo(
+          id: '1',
+          name: 'Test Organization',
+        );
+        userConfig.currentUser = User(
+          id: '1',
+          name: 'John Doe',
+          joinedOrganizations: [
+            OrgInfo(id: '1', name: 'Test Organization'),
+          ],
+        );
+
+        await tester.pumpWidget(
+          createDrawerForGolden(
+            themeMode: ThemeMode.light,
+            homeModel: homeModel,
+            openDrawer: false, // ← CLOSED STATE
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await expectLater(
+          find.byType(MaterialApp),
+          matchesGoldenFile(
+            goldenFileName('custom_drawer', 'closed', 'light'),
+          ),
+        );
+      });
+    });
+
+    testWidgets('custom_drawer closed state - dark theme',
+        (WidgetTester tester) async {
+      await mockNetworkImages(() async {
+        final homeModel = locator<MainScreenViewModel>();
+
+        userConfig.currentOrg = OrgInfo(
+          id: '1',
+          name: 'Test Organization',
+        );
+        userConfig.currentUser = User(
+          id: '1',
+          name: 'John Doe',
+          joinedOrganizations: [
+            OrgInfo(id: '1', name: 'Test Organization'),
+          ],
+        );
+
+        await tester.pumpWidget(
+          createDrawerForGolden(
+            themeMode: ThemeMode.dark,
+            homeModel: homeModel,
+            openDrawer: false, // ← CLOSED STATE
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await expectLater(
+          find.byType(MaterialApp),
+          matchesGoldenFile(
+            goldenFileName('custom_drawer', 'closed', 'dark'),
           ),
         );
       });
