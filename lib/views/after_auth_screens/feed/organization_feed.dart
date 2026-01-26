@@ -116,11 +116,11 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                     controller: _scrollController,
                     key: const Key('listView'),
                     itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) +
-                      (model.posts.isNotEmpty ? 1 : 0) +
-                      (model.posts.isEmpty && model.pinnedPosts.isEmpty
-                        ? 1
-                        : 0) +
-                      ((_isLoadingMore && model.hasMore) ? 1 : 0),
+                        (model.posts.isNotEmpty ? 1 : 0) +
+                        (model.posts.isEmpty && model.pinnedPosts.isEmpty
+                            ? 1
+                            : 0) +
+                        ((_isLoadingMore && model.hasMore) ? 1 : 0),
                     itemBuilder: (context, index) {
                       int currentIndex = 0;
                       // Show pinned posts if available

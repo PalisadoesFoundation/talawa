@@ -63,27 +63,26 @@ Widget createOrganizationFeedScreen2({
   required MainScreenViewModel homeModel,
 }) {
   return BaseView<AppLanguage>(
-    onModelReady: (model) => model.initialize(),
-    builder: (context, model, child) {
-      return MaterialApp(
-        locale: const Locale('en'),
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        home: Scaffold(
-          key: homeModel.scaffoldKey,
-          body: OrganizationFeed(
-            homeModel: homeModel,
-            key: const Key('test_key'),
+      onModelReady: (model) => model.initialize(),
+      builder: (context, model, child) {
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: Scaffold(
+            key: homeModel.scaffoldKey,
+            body: OrganizationFeed(
+              homeModel: homeModel,
+              key: const Key('test_key'),
+            ),
           ),
-        ),
-        navigatorKey: locator<NavigationService>().navigatorKey,
-        onGenerateRoute: generateRoute,
-      );
-    }
-  );
+          navigatorKey: locator<NavigationService>().navigatorKey,
+          onGenerateRoute: generateRoute,
+        );
+      });
 }
 
 final post = Post(
@@ -127,7 +126,8 @@ void main() {
     });
     testWidgets('check if side drawer shows up', (tester) async {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
-      when(mockViewModel.isFetchingPosts).thenReturn(false); // Ensure not fetching
+      when(mockViewModel.isFetchingPosts)
+          .thenReturn(false); // Ensure not fetching
       when(mockViewModel.isBusy).thenReturn(false); // Ensure not busy
       when(mockViewModel.posts).thenReturn([]); // No posts
       when(mockViewModel.pinnedPosts).thenReturn([]); // No pinned posts
