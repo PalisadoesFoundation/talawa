@@ -24,6 +24,36 @@ void main() {
         expect(domain.objectName, 'obj_12345');
         expect(domain.isPdf, true);
         expect(domain.isImage, false);
+        expect(domain.fileExtension, 'pdf');
+        expect(domain.isVideo, false);
+      });
+
+      test('converts video attachment correctly', () {
+        final dto = AttachmentModel(
+          name: 'video.mp4',
+          url: 'https://example.com/video.mp4',
+          mimetype: 'video/mp4',
+        );
+
+        final domain = AttachmentMapper.fromDto(dto);
+
+        expect(domain.name, 'video.mp4');
+        expect(domain.isVideo, true);
+        expect(domain.isImage, false);
+        expect(domain.isPdf, false);
+        expect(domain.fileExtension, 'mp4');
+      });
+
+      test('handles file without extension', () {
+        final dto = AttachmentModel(
+          name: 'README',
+          url: 'https://example.com/README',
+        );
+
+        final domain = AttachmentMapper.fromDto(dto);
+
+        expect(domain.name, 'README');
+        expect(domain.fileExtension, '');
       });
 
       test('handles null values', () {
@@ -33,6 +63,8 @@ void main() {
         expect(domain.name, '');
         expect(domain.url, '');
         expect(domain.displayName, 'Unnamed file');
+        expect(domain.fileExtension, '');
+        expect(domain.isVideo, false);
       });
     });
 

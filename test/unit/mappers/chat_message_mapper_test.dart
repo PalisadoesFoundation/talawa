@@ -41,7 +41,7 @@ void main() {
         expect(domain.parentMessage?.id, 'parent1');
       });
 
-      test('computes timeAgo correctly', () {
+      test('computes timeAgo for hours', () {
         final now = DateTime.now();
         final dtoMessage = dto.ChatMessage(
           id: 'msg456',
@@ -49,7 +49,29 @@ void main() {
         );
 
         final domain = ChatMessageMapper.fromDto(dtoMessage);
-        expect(domain.timeAgo, contains('h ago'));
+        expect(domain.timeAgo, '2h ago');
+      });
+
+      test('computes timeAgo for days', () {
+        final now = DateTime.now();
+        final dtoMessage = dto.ChatMessage(
+          id: 'msg_days',
+          createdAt: now.subtract(const Duration(days: 3)).toIso8601String(),
+        );
+
+        final domain = ChatMessageMapper.fromDto(dtoMessage);
+        expect(domain.timeAgo, '3d ago');
+      });
+
+      test('computes timeAgo for weeks', () {
+        final now = DateTime.now();
+        final dtoMessage = dto.ChatMessage(
+          id: 'msg_weeks',
+          createdAt: now.subtract(const Duration(days: 21)).toIso8601String(),
+        );
+
+        final domain = ChatMessageMapper.fromDto(dtoMessage);
+        expect(domain.timeAgo, '3w ago');
       });
     });
 

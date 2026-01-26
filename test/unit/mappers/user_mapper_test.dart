@@ -41,6 +41,18 @@ void main() {
 
         expect(domain.displayName, 'test@example.com');
       });
+
+      test('handles null id by defaulting to empty string', () {
+        final dtoUser = dto.User(
+          id: null,
+          name: 'Jane Doe',
+        );
+
+        final domain = UserMapper.fromDto(dtoUser);
+
+        expect(domain.id, '');
+        expect(domain.name, 'Jane Doe');
+      });
     });
   });
 }

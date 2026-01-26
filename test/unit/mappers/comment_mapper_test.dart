@@ -50,7 +50,7 @@ void main() {
         expect(domain.post, isNull);
       });
 
-      test('computes timeAgo correctly', () {
+      test('computes timeAgo for minutes', () {
         final now = DateTime.now();
         final dtoComment = dto.Comment(
           id: 'comment789',
@@ -58,7 +58,40 @@ void main() {
         );
 
         final domain = CommentMapper.fromDto(dtoComment);
-        expect(domain.timeAgo, contains('m'));
+        expect(domain.timeAgo, '5m');
+      });
+
+      test('computes timeAgo for hours', () {
+        final now = DateTime.now();
+        final dtoComment = dto.Comment(
+          id: 'comment_hours',
+          createdAt: now.subtract(const Duration(hours: 3)).toIso8601String(),
+        );
+
+        final domain = CommentMapper.fromDto(dtoComment);
+        expect(domain.timeAgo, '3h');
+      });
+
+      test('computes timeAgo for days', () {
+        final now = DateTime.now();
+        final dtoComment = dto.Comment(
+          id: 'comment_days',
+          createdAt: now.subtract(const Duration(days: 4)).toIso8601String(),
+        );
+
+        final domain = CommentMapper.fromDto(dtoComment);
+        expect(domain.timeAgo, '4d');
+      });
+
+      test('computes timeAgo for weeks', () {
+        final now = DateTime.now();
+        final dtoComment = dto.Comment(
+          id: 'comment_weeks',
+          createdAt: now.subtract(const Duration(days: 14)).toIso8601String(),
+        );
+
+        final domain = CommentMapper.fromDto(dtoComment);
+        expect(domain.timeAgo, '2w');
       });
     });
 
