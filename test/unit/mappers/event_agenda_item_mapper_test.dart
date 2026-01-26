@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/mappers/event_agenda_item_mapper.dart';
-import 'package:talawa/models/domain/event_agenda_category.dart';
 import 'package:talawa/models/events/agendaItems/event_agenda_item.dart' as dto;
 import 'package:talawa/models/events/event_agenda_category.dart' as dto;
 

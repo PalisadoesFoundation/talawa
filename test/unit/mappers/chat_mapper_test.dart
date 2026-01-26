@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/mappers/chat_mapper.dart';
-import 'package:talawa/mappers/chat_message_mapper.dart';
-import 'package:talawa/mappers/chat_user_mapper.dart';
 import 'package:talawa/models/chats/chat.dart' as dto;
 import 'package:talawa/models/chats/chat_message.dart' as dto;
 import 'package:talawa/models/chats/chat_user.dart' as dto;

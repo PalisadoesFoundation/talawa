@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/mappers/comment_mapper.dart';
-import 'package:talawa/mappers/post_mapper.dart';
-import 'package:talawa/mappers/user_mapper.dart';
 import 'package:talawa/models/comment/comment_model.dart' as dto;
 import 'package:talawa/models/post/post_model.dart' as dto;
 import 'package:talawa/models/user/user_info.dart' as dto;
