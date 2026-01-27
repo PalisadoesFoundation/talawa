@@ -33,6 +33,10 @@ void main() {
         () => MockCommentInteractionsViewModel());
   });
 
+  tearDown(() async {
+    await locator.reset();
+  });
+
   Widget createInteractionsForGolden({
     required ThemeMode themeMode,
     required Comment comment,
