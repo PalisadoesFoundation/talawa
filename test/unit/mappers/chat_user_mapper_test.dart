@@ -29,7 +29,17 @@ void main() {
         final domain = ChatUserMapper.fromDto(dtoUser);
 
         expect(domain.displayName, 'Unknown');
+        expect(domain.displayName, 'Unknown');
         expect(domain.initials, '?');
+      });
+
+      test('handles null id', () {
+        final dtoUser = dto.ChatUser(firstName: 'Test');
+
+        final domain = ChatUserMapper.fromDto(dtoUser);
+
+        expect(domain.id, '');
+        expect(domain.firstName, 'Test');
       });
     });
 

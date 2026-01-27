@@ -44,6 +44,22 @@ void main() {
         expect(domain.fileExtension, 'mp4');
       });
 
+      test('converts image attachment correctly', () {
+        final dto = AttachmentModel(
+          name: 'photo.jpg',
+          url: 'https://example.com/photo.jpg',
+          mimetype: 'image/jpeg',
+        );
+
+        final domain = AttachmentMapper.fromDto(dto);
+
+        expect(domain.name, 'photo.jpg');
+        expect(domain.isImage, true);
+        expect(domain.isVideo, false);
+        expect(domain.isPdf, false);
+        expect(domain.fileExtension, 'jpg');
+      });
+
       test('handles file without extension', () {
         final dto = AttachmentModel(
           name: 'README',

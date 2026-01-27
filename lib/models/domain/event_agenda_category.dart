@@ -19,7 +19,8 @@ class EventAgendaCategory {
   final String? description;
 
   /// Display name for the category, with fallback for unnamed categories.
-  String get displayName => name ?? 'Unnamed Category';
+  String get displayName =>
+      (name != null && name!.trim().isNotEmpty) ? name! : 'Unnamed Category';
 
   /// Whether the category has a non-empty description.
   bool get hasDescription => description != null && description!.isNotEmpty;
