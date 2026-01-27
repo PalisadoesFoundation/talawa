@@ -21,12 +21,45 @@ void main() {
         expect(domain.hasDescription, true);
       });
 
+      test('handles null id', () {
+        final dtoCategory = dto.AgendaCategory(name: 'Category without ID');
+
+        final domain = EventAgendaCategoryMapper.fromDto(dtoCategory);
+
+        expect(domain.id, '');
+        expect(domain.name, 'Category without ID');
+      });
+
       test('handles null name', () {
         final dtoCategory = dto.AgendaCategory(id: 'cat456');
 
         final domain = EventAgendaCategoryMapper.fromDto(dtoCategory);
 
         expect(domain.displayName, 'Unnamed Category');
+      });
+
+      test('handles null description', () {
+        final dtoCategory = dto.AgendaCategory(
+          id: 'cat789',
+          name: 'Category without desc',
+          description: null,
+        );
+
+        final domain = EventAgendaCategoryMapper.fromDto(dtoCategory);
+
+        expect(domain.hasDescription, false);
+      });
+
+      test('handles empty description', () {
+        final dtoCategory = dto.AgendaCategory(
+          id: 'cat101',
+          name: 'Category empty desc',
+          description: '',
+        );
+
+        final domain = EventAgendaCategoryMapper.fromDto(dtoCategory);
+
+        expect(domain.hasDescription, false);
       });
     });
 

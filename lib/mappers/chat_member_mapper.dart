@@ -33,6 +33,6 @@ class ChatMemberMapper {
   /// **returns**:
   /// * `List<ChatMember>`: List of converted domain models
   static List<ChatMember> fromDtoList(List<dto.ChatMember>? dtos) {
-    return dtos?.map((dto) => fromDto(dto)).toList() ?? [];
+    return dtos?.map(fromDto).toList() ?? [];
   }
 }

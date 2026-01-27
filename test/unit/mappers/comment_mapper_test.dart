@@ -50,6 +50,20 @@ void main() {
         expect(domain.post, isNull);
       });
 
+      test('handles null id and empty votes', () {
+        final dtoComment = dto.Comment(
+          id: null,
+          body: 'Comment without id',
+          upvotesCount: 0,
+          downvotesCount: 0,
+        );
+
+        final domain = CommentMapper.fromDto(dtoComment);
+
+        expect(domain.id, '');
+        expect(domain.hasVotes, false);
+      });
+
       test('computes timeAgo for minutes', () {
         final now = DateTime.now();
         final dtoComment = dto.Comment(
@@ -59,6 +73,28 @@ void main() {
 
         final domain = CommentMapper.fromDto(dtoComment);
         expect(domain.timeAgo, '5m');
+      });
+
+      test('computes timeAgo for Just now', () {
+        final now = DateTime.now();
+        final dtoComment = dto.Comment(
+          id: 'comment_now',
+          createdAt:
+              now.subtract(const Duration(seconds: 30)).toIso8601String(),
+        );
+
+        final domain = CommentMapper.fromDto(dtoComment);
+        expect(domain.timeAgo, 'Just now');
+      });
+
+      test('computes timeAgo for null createdAt', () {
+        final dtoComment = dto.Comment(
+          id: 'comment_null_time',
+          createdAt: null,
+        );
+
+        final domain = CommentMapper.fromDto(dtoComment);
+        expect(domain.timeAgo, '');
       });
 
       test('computes timeAgo for hours', () {

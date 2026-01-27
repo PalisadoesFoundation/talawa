@@ -34,6 +34,10 @@ void main() {
         expect(domain.hasDescription, true);
         expect(domain.hasAttachments, true);
         expect(domain.attachmentCount, 2);
+        expect(domain.categories, isNotNull);
+        expect(domain.categories!.length, 1);
+        expect(domain.categories![0].id, 'cat1');
+        expect(domain.categories![0].name, 'Category 1');
       });
 
       test('handles null name', () {
@@ -44,6 +48,15 @@ void main() {
         expect(domain.displayName, 'Unnamed Item');
         expect(domain.hasDescription, false);
         expect(domain.hasAttachments, false);
+      });
+
+      test('handles null id', () {
+        final dtoItem = dto.EventAgendaItem(name: 'Item without ID');
+
+        final domain = EventAgendaItemMapper.fromDto(dtoItem);
+
+        expect(domain.id, '');
+        expect(domain.name, 'Item without ID');
       });
     });
 
