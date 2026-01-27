@@ -23,5 +23,6 @@ class EventAgendaCategory {
       (name != null && name!.trim().isNotEmpty) ? name! : 'Unnamed Category';
 
   /// Whether the category has a non-empty description.
-  bool get hasDescription => description != null && description!.isNotEmpty;
+  bool get hasDescription =>
+      description != null && description!.trim().isNotEmpty;
 }

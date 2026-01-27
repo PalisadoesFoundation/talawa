@@ -29,7 +29,7 @@ void main() {
         final domain = ChatUserMapper.fromDto(dtoUser);
 
         expect(domain.displayName, 'Unknown');
-        expect(domain.displayName, 'Unknown');
+        expect(domain.hasImage, false);
         expect(domain.initials, '?');
       });
 
