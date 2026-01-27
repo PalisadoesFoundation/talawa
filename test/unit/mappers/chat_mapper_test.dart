@@ -41,7 +41,7 @@ void main() {
 
         final domain = ChatMapper.fromDto(dtoChat);
 
-        expect(domain.displayName, 'Unnamed Chat');
+        expect(domain.displayName, '');
       });
 
       test('handles empty messages', () {

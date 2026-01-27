@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/mappers/chat_message_mapper.dart';
-import 'package:talawa/models/chats/chat_message.dart' as dto;
-import 'package:talawa/models/chats/chat_user.dart' as dto;
+import 'package:talawa/models/chats/chat_message.dart' as chatdto;
+import 'package:talawa/models/chats/chat_user.dart' as userdto;
 
 void main() {
   group('ChatMessageMapper', () {
     group('fromDto', () {
       test('converts all fields correctly', () {
-        final dtoMessage = dto.ChatMessage(
+        final dtoMessage = chatdto.ChatMessage(
           id: 'msg123',
           body: 'Hello world',
-          creator: dto.ChatUser(id: 'user1', firstName: 'John'),
+          creator: userdto.ChatUser(id: 'user1', firstName: 'John'),
           chatId: 'chat1',
           createdAt: '2024-01-01T10:00:00Z',
           updatedAt: '2024-01-01T10:05:00Z',
@@ -28,8 +28,8 @@ void main() {
       });
 
       test('handles reply messages', () {
-        final parentDto = dto.ChatMessage(id: 'parent1', body: 'Original');
-        final replyDto = dto.ChatMessage(
+        final parentDto = chatdto.ChatMessage(id: 'parent1', body: 'Original');
+        final replyDto = chatdto.ChatMessage(
           id: 'reply1',
           body: 'Reply',
           parentMessage: parentDto,
@@ -43,7 +43,7 @@ void main() {
 
       test('computes timeAgo for hours', () {
         final now = DateTime.now();
-        final dtoMessage = dto.ChatMessage(
+        final dtoMessage = chatdto.ChatMessage(
           id: 'msg456',
           createdAt: now.subtract(const Duration(hours: 2)).toIso8601String(),
         );
@@ -54,7 +54,7 @@ void main() {
 
       test('computes timeAgo for days', () {
         final now = DateTime.now();
-        final dtoMessage = dto.ChatMessage(
+        final dtoMessage = chatdto.ChatMessage(
           id: 'msg_days',
           createdAt: now.subtract(const Duration(days: 3)).toIso8601String(),
         );
@@ -65,7 +65,7 @@ void main() {
 
       test('computes timeAgo for weeks', () {
         final now = DateTime.now();
-        final dtoMessage = dto.ChatMessage(
+        final dtoMessage = chatdto.ChatMessage(
           id: 'msg_weeks',
           createdAt: now.subtract(const Duration(days: 21)).toIso8601String(),
         );
@@ -78,8 +78,8 @@ void main() {
     group('fromDtoList', () {
       test('converts list of DTOs', () {
         final dtos = [
-          dto.ChatMessage(id: 'm1', body: 'Message 1'),
-          dto.ChatMessage(id: 'm2', body: 'Message 2'),
+          chatdto.ChatMessage(id: 'm1', body: 'Message 1'),
+          chatdto.ChatMessage(id: 'm2', body: 'Message 2'),
         ];
 
         final domains = ChatMessageMapper.fromDtoList(dtos);

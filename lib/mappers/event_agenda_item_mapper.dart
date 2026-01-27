@@ -38,6 +38,6 @@ class EventAgendaItemMapper {
   /// **returns**:
   /// * `List<EventAgendaItem>`: List of converted domain models
   static List<EventAgendaItem> fromDtoList(List<dto.EventAgendaItem>? dtos) {
-    return dtos?.map((dto) => fromDto(dto)).toList() ?? [];
+    return dtos?.map(fromDto).toList() ?? [];
   }
 }

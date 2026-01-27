@@ -45,7 +45,7 @@ class Chat {
   int get memberCount => members?.length ?? 0;
 
   /// Display name for the chat, with fallback for unnamed chats.
-  String get displayName => name ?? 'Unnamed Chat';
+  String get displayName => name ?? '';
 
   /// Whether the chat has any messages.
   bool get hasMessages => messages?.isNotEmpty ?? false;
