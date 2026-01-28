@@ -22,6 +22,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_action_handler.dart';
+import 'package:talawa/services/secure_storage_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/queries.dart';
@@ -129,6 +130,9 @@ final actionHandlerService = locator<ActionHandlerService>();
 ///GetIt for SecurityService.
 final securityService = locator<SecurityService>();
 
+///GetIt for SecureStorageService.
+final secureStorage = locator<SecureStorageService>();
+
 /// GetIt for AppConfigService.
 ///
 /// **params**:
@@ -164,6 +168,9 @@ Future<void> setupLocator() async {
 
   //sessionManager
   locator.registerSingleton(SessionManager());
+
+  //secureStorageService
+  locator.registerSingleton(SecureStorageService());
 
   locator.registerSingleton(CacheService());
 

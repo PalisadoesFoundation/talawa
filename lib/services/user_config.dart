@@ -87,8 +87,27 @@ class UserConfig {
 
     _currentUser = boxUser.get('user');
 
+    final String? secureAuthToken = await secureStorage.readToken('authToken');
+    final String? secureRefreshToken =
+        await secureStorage.readToken('refreshToken');
+
+    if (secureAuthToken == null && _currentUser?.authToken != null) {
+      await secureStorage.writeToken('authToken', _currentUser!.authToken!);
+      if (_currentUser!.refreshToken != null) {
+        await secureStorage.writeToken(
+            'refreshToken', _currentUser!.refreshToken!);
+      }
+    } else {
+      if (secureAuthToken != null) {
+        _currentUser?.authToken = secureAuthToken;
+      }
+      if (secureRefreshToken != null) {
+        _currentUser?.refreshToken = secureRefreshToken;
+      }
+    }
+
     // if there is not currentUser then returns false.
-    if (_currentUser == null) {
+    if (_currentUser == null || _currentUser?.authToken == null) {
       _currentUser = User(id: 'null', authToken: 'null');
       return false;
     }
@@ -167,7 +186,10 @@ class UserConfig {
           final organisation = Hive.box<OrgInfo>('currentOrg');
           await user.clear();
           await url.clear();
+          await user.clear();
+          await url.clear();
           await organisation.clear();
+          await secureStorage.deleteAll();
           _currentUser = User(id: 'null', authToken: 'null');
         }
       },
@@ -254,6 +276,10 @@ class UserConfig {
   }) async {
     _currentUser?.refreshToken = refreshToken;
     _currentUser?.authToken = accessToken;
+    await secureStorage.writeToken('authToken', accessToken);
+    if (refreshToken.isNotEmpty) {
+      await secureStorage.writeToken('refreshToken', refreshToken);
+    }
     saveUserInHive();
   }
 
@@ -370,6 +396,12 @@ class UserConfig {
       box.put('user', _currentUser!);
     } else {
       box.put('user', _currentUser!);
+    }
+    if (_currentUser?.authToken != null) {
+      secureStorage.writeToken('authToken', _currentUser!.authToken!);
+    }
+    if (_currentUser?.refreshToken != null) {
+      secureStorage.writeToken('refreshToken', _currentUser!.refreshToken!);
     }
   }
 

@@ -84,7 +84,7 @@ dev_dependencies:
   analyzer: any
   analyzer_plugin: ">=0.11.3 <0.14.0"
   args: ^2.7.0
-  build_runner: ^2.4.13
+  build_runner: ^2.5.4
   clock: ^1.1.2
   custom_lint: 0.6.4
   custom_lint_builder: 0.6.4
