@@ -4,12 +4,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:talawa/locator.dart' as app_locator;
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
+import 'package:talawa/widgets/common/cached_image.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
@@ -18,16 +20,16 @@ void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
-    registerServices();
-  });
-
-  tearDownAll(() {
-    unregisterServices();
   });
 
   setUp(() {
+    registerServices();
     // Ensure SizeConfig has non-null static values in tests
     SizeConfig().test();
+  });
+
+  tearDown(() {
+    unregisterServices();
   });
 
   group('OrganisationInfoScreen - UI rendering', () {
@@ -45,6 +47,24 @@ void main() {
       expect(find.byKey(const Key('image_container')), findsOneWidget);
       // Expect at least one Image widget (the asset fallback)
       expect(find.byType(Image), findsWidgets);
+    });
+
+    testWidgets('shows AppCachedImage when image is provided', (tester) async {
+      final org = OrgInfo(
+          id: 'o2',
+          name: 'OrgWithImage',
+          image: 'https://example.com/image.jpg',
+          userRegistrationRequired: false);
+
+      await mockNetworkImages(() async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: OrganisationInfoScreen(orgInfo: org),
+          ),
+        );
+        // Should find AppCachedImage
+        expect(find.byType(AppCachedImage), findsOneWidget);
+      });
     });
 
     // Skip network image loading in tests to avoid HttpClient errors
