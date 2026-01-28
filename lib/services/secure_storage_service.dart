@@ -2,10 +2,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// Service handling secure storage operations using flutter_secure_storage.
 class SecureStorageService {
-  final FlutterSecureStorage _storage;
-
   SecureStorageService({FlutterSecureStorage? storage})
       : _storage = storage ?? const FlutterSecureStorage();
+
+  final FlutterSecureStorage _storage;
 
   /// Writes a value to secure storage.
   ///

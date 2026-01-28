@@ -34,7 +34,7 @@ void main() {
     late MockDataBaseMutationFunctions mockDatabaseFunctions;
     late MockQueryResult mockQueryResult;
 
-    setUp(() async {
+    setUp(() {
       testSetupLocator();
 
       fakeSecureStorage =
@@ -46,7 +46,9 @@ void main() {
 
       try {
         Hive.init('test/hive_storage');
-      } catch (e) {}
+      } catch (e) {
+        // Ignore initialization error if Hive is already initialized
+      }
     });
 
     tearDown(() async {
