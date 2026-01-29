@@ -279,6 +279,7 @@ class UserConfig {
       await secureStorage.writeToken('refreshToken', refreshToken);
     } else {
       _currentUser?.refreshToken = null;
+      await secureStorage.deleteToken('refreshToken');
     }
     await secureStorage.writeToken('authToken', accessToken);
 
