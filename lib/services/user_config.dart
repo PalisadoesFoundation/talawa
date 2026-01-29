@@ -404,7 +404,7 @@ class UserConfig {
         refreshToken: null, // Do not persist in Hive
       );
 
-      box.put('user', sanitizedUser);
+      await box.put('user', sanitizedUser);
     }
 
     // Persist tokens securely
