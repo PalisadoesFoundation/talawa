@@ -46,7 +46,7 @@ class MockUserConfig extends Mock implements UserConfig {
   }
 
   @override
-  void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {}
+  Future<void> saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) async {}
 }
 
 var mockSignUpData = {
