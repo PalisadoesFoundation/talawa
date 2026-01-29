@@ -272,12 +272,15 @@ class UserConfig {
     required String accessToken,
     required String refreshToken,
   }) async {
-    _currentUser?.refreshToken = refreshToken;
     _currentUser?.authToken = accessToken;
-    await secureStorage.writeToken('authToken', accessToken);
     if (refreshToken.isNotEmpty) {
+      _currentUser?.refreshToken = refreshToken;
       await secureStorage.writeToken('refreshToken', refreshToken);
+    } else {
+      _currentUser?.refreshToken = null;
     }
+    await secureStorage.writeToken('authToken', accessToken);
+
     await saveUserInHive();
   }
 
@@ -411,7 +414,8 @@ class UserConfig {
     if (_currentUser?.authToken != null) {
       await secureStorage.writeToken('authToken', _currentUser!.authToken!);
     }
-    if (_currentUser?.refreshToken != null) {
+    if (_currentUser?.refreshToken != null &&
+        _currentUser!.refreshToken!.isNotEmpty) {
       await secureStorage.writeToken(
           'refreshToken', _currentUser!.refreshToken!);
     }
