@@ -72,9 +72,7 @@ class Encryptor {
   /// * `FlutterSecureStorage`: Configured storage instance.
   FlutterSecureStorage _getConfiguredStorage() {
     return const FlutterSecureStorage(
-      aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-      ),
+      aOptions: AndroidOptions.defaultOptions,
       iOptions: IOSOptions(
         accessibility: KeychainAccessibility.first_unlock_this_device,
       ),

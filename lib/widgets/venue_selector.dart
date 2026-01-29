@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/models/events/event_venue.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/widgets/common/cached_image.dart';
 
 /// VenueSelectionWidget provides UI for selecting a venue for an event.
 class VenueSelectionWidget extends StatefulWidget {
@@ -143,19 +144,11 @@ class _VenueSelectionWidgetState extends State<VenueSelectionWidget> {
                           selectedVenue!.imageUrl!.isNotEmpty)
                         ClipRRect(
                           borderRadius: BorderRadius.circular(6.0),
-                          child: Image.network(
-                            selectedVenue!.imageUrl!,
+                          child: AppCachedImage(
+                            url: selectedVenue!.imageUrl!,
                             width: 50,
                             height: 50,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset(
-                                'assets/images/defaultImg.png',
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.cover,
-                              );
-                            },
                           ),
                         ),
                       const SizedBox(width: 10.0),
@@ -262,19 +255,11 @@ class VenueBottomSheet extends StatelessWidget {
                       return ListTile(
                         leading:
                             venue.imageUrl != null && venue.imageUrl!.isNotEmpty
-                                ? Image.network(
-                                    venue.imageUrl!,
+                                ? AppCachedImage(
+                                    url: venue.imageUrl!,
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image.asset(
-                                        'assets/images/defaultImg.png',
-                                        width: 50,
-                                        height: 50,
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
                                   )
                                 : Image.asset(
                                     'assets/images/defaultImg.png',
