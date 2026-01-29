@@ -97,6 +97,7 @@ class UserConfig {
         await secureStorage.writeToken(
             'refreshToken', _currentUser!.refreshToken!);
       }
+      await saveUserInHive();
     } else {
       if (secureAuthToken != null) {
         _currentUser?.authToken = secureAuthToken;
