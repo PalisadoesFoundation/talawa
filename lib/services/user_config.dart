@@ -97,7 +97,21 @@ class UserConfig {
         await secureStorage.writeToken(
             'refreshToken', _currentUser!.refreshToken!);
       }
+
+      // Capture tokens to be restored
+      final tempAuth = _currentUser!.authToken;
+      final tempRefresh = _currentUser!.refreshToken;
+
+      // Sanitise local user object to remove legacy tokens
+      _currentUser?.authToken = null;
+      _currentUser?.refreshToken = null;
+
+      // Update Hive to remove unencrypted tokens
       await saveUserInHive();
+
+      // Restore tokens for the session
+      _currentUser?.authToken = tempAuth;
+      _currentUser?.refreshToken = tempRefresh;
     } else {
       if (secureAuthToken != null) {
         _currentUser?.authToken = secureAuthToken;
@@ -273,7 +287,14 @@ class UserConfig {
     required String accessToken,
     required String refreshToken,
   }) async {
-    _currentUser?.authToken = accessToken;
+    if (accessToken.isNotEmpty) {
+      _currentUser?.authToken = accessToken;
+      await secureStorage.writeToken('authToken', accessToken);
+    } else {
+      _currentUser?.authToken = null;
+      await secureStorage.deleteToken('authToken');
+    }
+
     if (refreshToken.isNotEmpty) {
       _currentUser?.refreshToken = refreshToken;
       await secureStorage.writeToken('refreshToken', refreshToken);
@@ -281,7 +302,6 @@ class UserConfig {
       _currentUser?.refreshToken = null;
       await secureStorage.deleteToken('refreshToken');
     }
-    await secureStorage.writeToken('authToken', accessToken);
 
     await saveUserInHive();
   }
