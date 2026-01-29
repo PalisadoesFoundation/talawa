@@ -392,11 +392,24 @@ class UserConfig {
   ///   None
   void saveUserInHive() {
     final box = Hive.box<User>('currentUser');
-    if (box.get('user') == null) {
-      box.put('user', _currentUser!);
-    } else {
-      box.put('user', _currentUser!);
+
+    // Create a sanitized copy of the user without tokens
+    if (_currentUser != null) {
+      final sanitizedUser = User(
+        id: _currentUser!.id,
+        name: _currentUser!.name,
+        email: _currentUser!.email,
+        image: _currentUser!.image,
+        joinedOrganizations: _currentUser!.joinedOrganizations,
+        membershipRequests: _currentUser!.membershipRequests,
+        authToken: null, // Do not persist in Hive
+        refreshToken: null, // Do not persist in Hive
+      );
+
+      box.put('user', sanitizedUser);
     }
+
+    // Persist tokens securely
     if (_currentUser?.authToken != null) {
       secureStorage.writeToken('authToken', _currentUser!.authToken!);
     }
