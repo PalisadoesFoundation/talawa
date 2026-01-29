@@ -186,8 +186,6 @@ class UserConfig {
           final organisation = Hive.box<OrgInfo>('currentOrg');
           await user.clear();
           await url.clear();
-          await user.clear();
-          await url.clear();
           await organisation.clear();
           await secureStorage.deleteAll();
           _currentUser = User(id: 'null', authToken: 'null');
@@ -247,7 +245,7 @@ class UserConfig {
 
     _currentOrg = orgDetails;
     saveCurrentOrgInHive(orgDetails);
-    saveUserInHive();
+    await saveUserInHive();
   }
 
   /// Updates the user request to join the organization.
@@ -259,7 +257,7 @@ class UserConfig {
   ///   None
   Future<void> updateUserMemberRequestOrg(List<String> orgDetails) async {
     _currentUser?.updateMemberRequestOrg(orgDetails);
-    saveUserInHive();
+    await saveUserInHive();
   }
 
   /// Updates the access token of the user.
@@ -280,7 +278,7 @@ class UserConfig {
     if (refreshToken.isNotEmpty) {
       await secureStorage.writeToken('refreshToken', refreshToken);
     }
-    saveUserInHive();
+    await saveUserInHive();
   }
 
   /// Updates the user details.
@@ -294,7 +292,7 @@ class UserConfig {
   Future<bool> updateUser(User updatedUserDetails) async {
     try {
       _currentUser = updatedUserDetails;
-      saveUserInHive();
+      await saveUserInHive();
       graphqlConfig.getToken();
       databaseFunctions.init();
       return true;
@@ -373,7 +371,7 @@ class UserConfig {
         saveCurrentOrgInHive(_currentOrg!);
       }
 
-      saveUserInHive();
+      await saveUserInHive();
     } catch (e) {
       debugPrint(e.toString());
       navigationService.showTalawaErrorSnackBar(
@@ -390,7 +388,7 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-  void saveUserInHive() {
+  Future<void> saveUserInHive() async {
     final box = Hive.box<User>('currentUser');
 
     // Create a sanitized copy of the user without tokens
@@ -411,10 +409,11 @@ class UserConfig {
 
     // Persist tokens securely
     if (_currentUser?.authToken != null) {
-      secureStorage.writeToken('authToken', _currentUser!.authToken!);
+      await secureStorage.writeToken('authToken', _currentUser!.authToken!);
     }
     if (_currentUser?.refreshToken != null) {
-      secureStorage.writeToken('refreshToken', _currentUser!.refreshToken!);
+      await secureStorage.writeToken(
+          'refreshToken', _currentUser!.refreshToken!);
     }
   }
 

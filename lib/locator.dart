@@ -131,7 +131,7 @@ final actionHandlerService = locator<ActionHandlerService>();
 final securityService = locator<SecurityService>();
 
 ///GetIt for SecureStorageService.
-final secureStorage = locator<SecureStorageService>();
+SecureStorageService get secureStorage => locator<SecureStorageService>();
 
 /// GetIt for AppConfigService.
 ///

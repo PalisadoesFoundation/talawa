@@ -133,6 +133,15 @@ void main() {
       verify(mockStorage.read(key: 'key')).called(1);
     });
 
+    test('readToken returns null when storage has no value', () async {
+      when(mockStorage.read(key: 'key')).thenAnswer((_) async => null);
+
+      final result = await secureStorageService.readToken('key');
+
+      expect(result, isNull);
+      verify(mockStorage.read(key: 'key')).called(1);
+    });
+
     test('deleteToken deletes from storage', () async {
       when(mockStorage.delete(key: 'key')).thenAnswer((_) async {});
 

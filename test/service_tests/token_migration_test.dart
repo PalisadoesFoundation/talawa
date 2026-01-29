@@ -2,6 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/constants.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/secure_storage_service.dart';
@@ -34,7 +37,34 @@ void main() {
     late MockDataBaseMutationFunctions mockDatabaseFunctions;
     late MockQueryResult mockQueryResult;
 
-    setUp(() {
+    setUp(() async {
+      try {
+        Hive.init('test/hive_storage');
+      } catch (e) {
+        // Ignore initialization error if Hive is already initialized
+      }
+
+      if (!Hive.isAdapterRegistered(1)) {
+        Hive.registerAdapter(UserAdapter());
+      }
+      if (!Hive.isAdapterRegistered(2)) {
+        Hive.registerAdapter(OrgInfoAdapter());
+      }
+      if (!Hive.isAdapterRegistered(3)) {
+        Hive.registerAdapter(CachedUserActionAdapter());
+      }
+      if (!Hive.isAdapterRegistered(4)) {
+        Hive.registerAdapter(CachedUserActionStatusAdapter());
+      }
+      if (!Hive.isAdapterRegistered(9)) {
+        Hive.registerAdapter(CachedOperationTypeAdapter());
+      }
+
+      // CacheService needs this box open
+      if (!Hive.isBoxOpen(HiveKeys.offlineActionQueueKey)) {
+        await Hive.openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
+      }
+
       testSetupLocator();
 
       fakeSecureStorage =
@@ -43,12 +73,6 @@ void main() {
       mockDatabaseFunctions = getAndRegisterDatabaseMutationFunctions()
           as MockDataBaseMutationFunctions;
       mockQueryResult = MockQueryResult();
-
-      try {
-        Hive.init('test/hive_storage');
-      } catch (e) {
-        // Ignore initialization error if Hive is already initialized
-      }
     });
 
     tearDown(() async {
@@ -102,6 +126,61 @@ void main() {
           await fakeSecureStorage.readToken('authToken'), 'hive_access_token');
       expect(await fakeSecureStorage.readToken('refreshToken'),
           'hive_refresh_token');
+
+      await userBox.deleteFromDisk();
+      await orgBox.deleteFromDisk();
+      await urlBox.deleteFromDisk();
+    });
+
+    test('SecureStorage overrides Hive when both contain tokens', () async {
+      final hiveUser = User(
+        id: 'legacy_user',
+        authToken: 'hive_access_token',
+        refreshToken: 'hive_refresh_token',
+        joinedOrganizations: [],
+      );
+
+      final userBox = await Hive.openBox<User>('currentUser');
+      final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+      final urlBox = await Hive.openBox('url');
+
+      await userBox.put('user', hiveUser);
+      await orgBox.put('org', OrgInfo(id: 'org1', name: 'Test Org'));
+      await urlBox.put('url', 'http://test.com');
+
+      // Setup Secure Storage with DIFFERENT tokens
+      await fakeSecureStorage.writeToken('authToken', 'secure_access_token');
+      await fakeSecureStorage.writeToken(
+          'refreshToken', 'secure_refresh_token');
+
+      when(mockGraphqlConfig.getToken()).thenReturn(null);
+      when(mockDatabaseFunctions.init()).thenReturn(null);
+      when(mockDatabaseFunctions.gqlAuthQuery(any,
+              variables: anyNamed('variables')))
+          .thenAnswer((_) async => mockQueryResult);
+
+      final mockData = {
+        'user': {
+          'id': 'legacy_user',
+          'firstName': 'Test',
+          'lastName': 'User',
+          'email': 'test@example.com',
+        }
+      };
+      when(mockQueryResult.hasException).thenReturn(false);
+      when(mockQueryResult.data).thenReturn(mockData);
+
+      await userConfig.userLoggedIn();
+
+      // Assert that Secure Storage values took precedence
+      expect(userConfig.currentUser.authToken, 'secure_access_token');
+      expect(userConfig.currentUser.refreshToken, 'secure_refresh_token');
+
+      // Assert Secure Storage still has the correct values
+      expect(await fakeSecureStorage.readToken('authToken'),
+          'secure_access_token');
+      expect(await fakeSecureStorage.readToken('refreshToken'),
+          'secure_refresh_token');
 
       await userBox.deleteFromDisk();
       await orgBox.deleteFromDisk();
