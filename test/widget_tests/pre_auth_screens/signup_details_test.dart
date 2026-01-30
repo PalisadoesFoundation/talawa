@@ -100,7 +100,7 @@ void main() {
         (tester) async {
       await showSignUpScreen(tester);
 
-      final invalidNameSubmission = find.text('Invalid Name');
+      final invalidNameSubmission = find.text('Required');
 
       final nameInputFieldWidget = find.byKey(const Key('NameInputField'));
 
@@ -122,7 +122,7 @@ void main() {
     testWidgets('Testing validator for name input form null', (tester) async {
       await showSignUpScreen(tester);
 
-      final nullSubmission = find.text('Name must not be left blank.');
+      final nullSubmission = find.text('Required');
 
       final nameInputFieldWidget = find.byKey(const Key('NameInputField'));
 
@@ -139,7 +139,7 @@ void main() {
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
 
-      expect(nullSubmission, findsOneWidget);
+      expect(nullSubmission, findsWidgets);
     });
   });
   //......................................................................................

@@ -266,8 +266,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.name,
                   maxLength: 20,
                   focusNode: titleFocus,
-                  validator: (value) =>
-                      Validator.validateEventForm(value!, 'Title'),
+                  validator: (value) => Validators.eventField(value, 'Title'),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!
                         .strictTranslate('Add Agenda Item Title'),
@@ -296,7 +295,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   controller: descController,
                   focusNode: descFocus,
                   validator: (value) =>
-                      Validator.validateEventForm(value!, 'Description'),
+                      Validators.eventField(value, 'Description'),
                   maxLines: 10,
                   minLines: 1,
                   decoration: InputDecoration(
@@ -346,7 +345,8 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    final String? err = Validators.required(value);
+                    if (err != null) {
                       return AppLocalizations.of(context)!
                           .strictTranslate('Please enter a duration');
                     }

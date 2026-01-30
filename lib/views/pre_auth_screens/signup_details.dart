@@ -100,18 +100,13 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
-                                  final String? msg = Validator.validateName(
-                                    value!,
-                                  );
+                                  final String? msg =
+                                      Validators.required(value);
                                   if (msg == null) {
                                     return null;
                                   }
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validateName(
-                                      value,
-                                    ),
-                                  );
+                                      .translate(msg);
                                 },
                                 decoration: InputDecoration(
                                   hintText: AppLocalizations.of(
@@ -138,16 +133,13 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
-                                  final String? msg =
-                                      Validator.validateEmail(value!);
+                                  final String? msg = Validators.email(value);
                                   if (msg == null) {
                                     return null;
                                   }
 
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validateEmail(value),
-                                  );
+                                      .translate(msg);
                                 },
                                 decoration: InputDecoration(
                                   hintText: 'test@test.org',
@@ -172,17 +164,13 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 enableSuggestions: true,
                                 validator: (value) {
                                   final String? msg =
-                                      Validator.validatePassword(
-                                    value!,
-                                  );
+                                      Validators.password(value);
                                   if (msg == null) {
                                     return null;
                                   }
 
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validatePassword(value),
-                                  );
+                                      .translate(msg);
                                 },
                                 onFieldSubmitted: (done) {
                                   FocusScope.of(context).requestFocus(
@@ -226,20 +214,15 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 obscureText: model.hidePassword,
                                 validator: (value) {
                                   final String? msg =
-                                      Validator.validatePasswordConfirm(
+                                      Validators.passwordConfirm(
                                     model.password.text,
-                                    value!,
+                                    value,
                                   );
                                   if (msg == null) {
                                     return null;
                                   }
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validatePasswordConfirm(
-                                      model.password.text,
-                                      value,
-                                    ),
-                                  );
+                                      .translate(msg);
                                 },
                                 decoration: InputDecoration(
                                   hintText: AppLocalizations.of(context)!

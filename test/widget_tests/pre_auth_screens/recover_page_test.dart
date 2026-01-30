@@ -159,10 +159,9 @@ void main() {
       //initializing the text field suffix button widget Finder
       final findRecoverButton = find.byKey(const Key('RecoverButton'));
       //initializing the nullUrlSubmission widget Finder
-      final nullEmailSubmission = find.text('Email must not be left blank');
+      final nullEmailSubmission = find.text('Required');
       //initializing the invalidUrlSubmission widget Finder
-      final invalidEmailSubmission =
-          find.text('Please enter a valid Email Address');
+      final invalidEmailSubmission = find.text('Invalid email');
 
       //finding the url input text field
       expect(emailInputFieldWidget, findsOneWidget);

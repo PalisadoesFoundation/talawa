@@ -162,7 +162,7 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                       keyboardType: TextInputType.name,
                       maxLength: 20,
                       validator: (value) =>
-                          Validator.validateEventForm(value!, 'Title'),
+                          Validators.eventField(value, 'Title'),
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!
                             .strictTranslate('Agenda Item Title'),
@@ -190,7 +190,7 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                       keyboardType: TextInputType.multiline,
                       controller: model.descriptionController,
                       validator: (value) =>
-                          Validator.validateEventForm(value!, 'Description'),
+                          Validators.eventField(value, 'Description'),
                       maxLines: 10,
                       minLines: 1,
                       decoration: InputDecoration(
@@ -239,7 +239,8 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                         ),
                       ),
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        final String? err = Validators.required(value);
+                        if (err != null) {
                           return AppLocalizations.of(context)!
                               .strictTranslate('Please enter a duration');
                         }
