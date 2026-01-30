@@ -372,7 +372,8 @@ class UserConfig {
       );
       await box.put('user', sanitizedUser);
     }
-    if (_currentUser?.authToken != null) {
+    if (_currentUser?.authToken != null &&
+        _currentUser!.authToken!.isNotEmpty) {
       await secureStorage.writeToken('authToken', _currentUser!.authToken!);
     }
     if (_currentUser?.refreshToken != null &&
