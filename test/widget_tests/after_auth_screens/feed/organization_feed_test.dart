@@ -12,7 +12,6 @@ import 'package:talawa/router.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
-import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -251,7 +250,8 @@ void main() {
       expect(finder, findsOneWidget);
       await tester.tap(finder);
       await tester.pumpAndSettle();
-      // Navigation assertion removed due to test environment limitations
+      // Verify the /addpostscreen is pushed
+      verify(locator<NavigationService>().pushScreen('/addpostscreen'));
     });
     testWidgets(
         'check if nextPage function is called when scrolled to the bottom edge',
@@ -347,8 +347,3 @@ void main() {
   });
 }
 
-class TestConnectivityService extends ConnectivityService {
-  TestConnectivityService() : super(MockConnectivity());
-  @override
-  Stream<List<ConnectivityResult>> get connectionStream => Stream.value([]);
-}

@@ -24,11 +24,9 @@ class ConnectivityService {
   /// Stream controller for network status changes.
   late StreamController<List<ConnectivityResult>> connectionStatusController;
 
-  /// Getter for the stream of connection status changes.
-  Stream<List<ConnectivityResult>> get connectionStream =>
-      (connectionStatusController != null)
-          ? connectionStatusController.stream
-          : Stream.value([]);
+    /// Getter for the stream of connection status changes.
+    Stream<List<ConnectivityResult>> get connectionStream =>
+      connectionStatusController.stream;
 
   /// Checks the current internet connectivity status of the device.
   ///
