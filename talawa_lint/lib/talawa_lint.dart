@@ -4,6 +4,7 @@
 
 // This is the entrypoint of our custom linter
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:talawa_lint/image_network_rule/avoid_image_network.dart';
 import 'package:talawa_lint/talawa_api_doc/talawa_api_doc.dart';
 import 'package:talawa_lint/talawa_good_doc/talawa_good_doc.dart';
 
@@ -16,5 +17,6 @@ class _ExampleLinter extends PluginBase {
   List<LintRule> getLintRules(CustomLintConfigs configs) => [
         const TalawaApiDocLintRule(),
         const TalawaGoodDocComments(),
+        const AvoidImageNetworkLintRule(),
       ];
 }

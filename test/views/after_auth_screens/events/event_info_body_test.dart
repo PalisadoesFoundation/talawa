@@ -232,6 +232,24 @@ void main() {
       expect(find.text("No attendees yet"), findsOneWidget);
     });
 
+    testWidgets("Shows attendee list when attendees exist", (tester) async {
+      final attendees = [
+        Attendee(id: "1", firstName: "John", lastName: "Doe"),
+        Attendee(id: "2", firstName: "Jane", lastName: "Smith"),
+      ];
+
+      await tester.pumpWidget(
+        createEventInfoBody(attendees: attendees),
+      );
+      await tester.pumpAndSettle();
+
+      // Should show attendee names
+      expect(find.textContaining("John Doe"), findsOneWidget);
+      expect(find.textContaining("Jane Smith"), findsOneWidget);
+      // Should not show "No attendees yet"
+      expect(find.text("No attendees yet"), findsNothing);
+    });
+
     testWidgets("Shows 'All day' chip when event is all day", (tester) async {
       await tester.pumpWidget(createEventInfoBody(isAllDay: true));
       await tester.pumpAndSettle();
@@ -476,7 +494,99 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.textContaining("Repeats custom"), findsOneWidget);
+      expect(find.textContaining("custom"), findsOneWidget);
+    });
+
+    testWidgets("Formats unknown frequency with interval 1 correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'UNKNOWN_FREQ',
+        interval: 1,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("unknown_freq"), findsOneWidget);
+    });
+
+    testWidgets("Formats unknown frequency with interval > 1 correctly",
+        (tester) async {
+      final rule = RecurrenceRule(
+        frequency: 'CUSTOM_TYPE',
+        interval: 3,
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(
+          customRecurrenceRule: rule,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Repeats every 3"), findsOneWidget);
+      expect(find.textContaining("custom_types"), findsOneWidget);
+    });
+  });
+
+  group('Venue and Edit Button Tests', () {
+    testWidgets("Shows divider between multiple venues", (tester) async {
+      // Create event with multiple venues directly
+      final multiVenueEvent = Event(
+        id: "1",
+        name: "test_event",
+        creator: User(id: "acb1", name: "ravidi shaikh"),
+        isPublic: true,
+        location: "iitbhu, varanasi",
+        description: "test_event_description",
+        startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
+        endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
+        isRegisterable: true,
+        venues: [
+          Venue(id: 'venue1', name: 'Main Hall'),
+          Venue(id: 'venue2', name: 'Conference Room'),
+          Venue(id: 'venue3', name: 'Auditorium'),
+        ],
+      );
+
+      await tester.pumpWidget(
+        createEventInfoBody(hasVenues: false),
+      );
+
+      // Update the event to have multiple venues
+      _eventInfoViewModel.initialize(multiVenueEvent);
+      await tester.pumpAndSettle();
+
+      // Should show all venue names
+      expect(find.text('Main Hall'), findsOneWidget);
+      expect(find.text('Conference Room'), findsOneWidget);
+      expect(find.text('Auditorium'), findsOneWidget);
+
+      // Should show dividers between venues (2 dividers for 3 venues)
+      expect(find.byType(Divider), findsNWidgets(2));
+    });
+
+    testWidgets("Edit button appears for event creator", (tester) async {
+      await tester.pumpWidget(
+        createEventInfoBody(asAdmin: true),
+      );
+      await tester.pumpAndSettle();
+
+      // Edit button should be visible for creator
+      final editButton = find.byIcon(Icons.edit);
+      expect(editButton, findsOneWidget);
+
+      // Tap the edit button
+      await tester.tap(editButton);
+      await tester.pumpAndSettle();
+
+      // Navigation should have been triggered
+      // (We can't fully verify navigation in widget tests without complex mocking,
+      // but tapping the button covers lines 43-44)
     });
   });
 }

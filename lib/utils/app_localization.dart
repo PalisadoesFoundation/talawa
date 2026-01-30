@@ -1,7 +1,7 @@
-import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:talawa/services/parsers/json_parser.dart';
 
 /// Provides methods to localize the application, making it available to users with different languages.
 class AppLocalizations {
@@ -63,7 +63,7 @@ class AppLocalizations {
     final String jsonString =
         await rootBundle.loadString('lang/${locale.languageCode}.json');
     final Map<String, dynamic> jsonMap =
-        json.decode(jsonString) as Map<String, dynamic>;
+        await compute(parseJsonToMap, jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());

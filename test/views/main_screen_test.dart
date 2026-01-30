@@ -28,30 +28,35 @@ Widget createMainScreen({bool demoMode = true}) {
       return BaseView<AppTheme>(
         onModelReady: (model) => model.initialize(),
         builder: (context, themeModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: const [
-              AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [Locale('en', '')],
-            key: const Key('Root'),
-            theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
-                ? TalawaTheme.darkTheme
-                : TalawaTheme.lightTheme,
-            home: Scaffold(
-              body: MainScreen(
-                mainScreenArgs: MainScreenArgs(
-                  fromSignUp: false,
-                  mainScreenIndex: 0,
-                  toggleDemoMode: demoMode,
+          return Selector<AppTheme, bool>(
+            selector: (_, appTheme) => appTheme.isdarkTheme,
+            builder: (context, isDarkTheme, child) {
+              return MaterialApp(
+                locale: const Locale('en'),
+                localizationsDelegates: const [
+                  AppLocalizationsDelegate(isTest: true),
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [Locale('en', '')],
+                key: const Key('Root'),
+                theme: isDarkTheme
+                    ? TalawaTheme.darkTheme
+                    : TalawaTheme.lightTheme,
+                home: Scaffold(
+                  body: MainScreen(
+                    mainScreenArgs: MainScreenArgs(
+                      fromSignUp: false,
+                      mainScreenIndex: 0,
+                      toggleDemoMode: demoMode,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            navigatorKey: locator<NavigationService>().navigatorKey,
-            onGenerateRoute: router.generateRoute,
+                navigatorKey: locator<NavigationService>().navigatorKey,
+                onGenerateRoute: router.generateRoute,
+              );
+            },
           );
         },
       );

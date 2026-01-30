@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/organization_list.dart';
 
 /// JoinOrganisationAfterAuth returns a widget for page to join the organization just after user authentication.
-class JoinOrganisationAfterAuth extends StatelessWidget {
+class JoinOrganisationAfterAuth extends StatefulWidget {
   const JoinOrganisationAfterAuth({super.key, required this.orgId});
 
   /// org identifier.
   final String orgId;
+
+  @override
+  State<JoinOrganisationAfterAuth> createState() =>
+      _JoinOrganisationAfterAuthState();
+}
+
+class _JoinOrganisationAfterAuthState extends State<JoinOrganisationAfterAuth> {
+  @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    securityService.disableSecure();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

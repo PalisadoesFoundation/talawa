@@ -173,7 +173,6 @@ class RecurrenceUtils {
     switch (frequency) {
       case Frequency.daily:
         text = interval > 1 ? 'Every $interval days' : 'Daily';
-        break;
 
       case Frequency.weekly:
         text = interval > 1 ? 'Every $interval weeks' : 'Weekly';
@@ -182,7 +181,6 @@ class RecurrenceUtils {
         if (weekDays.isNotEmpty) {
           text += ' on ${_formatWeekDays(weekDays)}';
         }
-        break;
 
       case Frequency.monthly:
         text = interval > 1 ? 'Every $interval months' : 'Monthly';
@@ -198,7 +196,6 @@ class RecurrenceUtils {
         else if (byMonthDay != null && byMonthDay.isNotEmpty) {
           text += ' on day ${byMonthDay.first}';
         }
-        break;
 
       case Frequency.yearly:
         text = interval > 1 ? 'Every $interval years' : 'Yearly';
@@ -226,7 +223,11 @@ class RecurrenceUtils {
         else if (byMonthDay != null && byMonthDay.isNotEmpty) {
           text += ' on day ${byMonthDay.first}';
         }
-        break;
+      default:
+        // Handle unknown frequency types
+        text = interval > 1
+            ? 'Every $interval ${frequency.toLowerCase()}s'
+            : frequency.toLowerCase();
     }
 
     // Add end condition
@@ -325,7 +326,6 @@ class RecurrenceUtils {
           final String dayCode = weekdayToShortCode(dayOfWeek);
           recurrenceData['byDay'] = [dayCode];
         }
-        break;
 
       case Frequency.monthly:
         if (useDayOfWeekMonthly) {
@@ -354,7 +354,6 @@ class RecurrenceUtils {
             recurrenceData['byMonthDay'] = [eventStartDate.day];
           }
         }
-        break;
 
       case Frequency.yearly:
         // Add month selection
@@ -390,7 +389,6 @@ class RecurrenceUtils {
             recurrenceData['byMonthDay'] = [eventStartDate.day];
           }
         }
-        break;
     }
 
     // Handle different end types based on user selection

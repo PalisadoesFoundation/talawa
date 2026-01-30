@@ -15,7 +15,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 ///
 /// Methods include:
 /// * `setCurrentOrganizationName` : to set current organization name.
-/// * `fetchNewPosts` : to fetch new posts in the organization.
+/// * `refreshPosts` : to fetch new posts in the organization.
 /// * `navigateToIndividualPage` : to navigate to individual page.
 /// * `navigateToPinnedPostPage` : to navigate to pinned post page.
 /// * `addNewPost` : to add new post in the organization.
@@ -119,8 +119,6 @@ class OrganizationFeedViewModel extends BaseModel {
 
   /// To initialize the view model.
   ///
-  /// more_info_if_required
-  ///
   /// **params**:
   /// * `isTest`: for test
   ///
@@ -181,7 +179,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// more_info_if_required
   ///
   /// **params**:
-  /// * `newPosts`: new post
+  /// * `newPosts`: new post list
   ///
   /// **returns**:
   ///   None
@@ -264,10 +262,10 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 
-  /// function to remove the post.
+  /// Method to delete a post from the feed.
   ///
   /// **params**:
-  /// * `post`: post object
+  /// * `post`: Post object to be deleted from the feed
   ///
   /// **returns**:
   ///   None

@@ -10,7 +10,7 @@ homepage: https://github.com/PalisadoesFoundation/talawa
 
 repository: https://github.com/PalisadoesFoundation/talawa
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ">=3.5.0 <4.0.0"
 
 dependency_overrides:
   # Intentional override to resolve diamond dependency conflict between:
@@ -49,8 +49,9 @@ dependencies:
   flutter_image_compress: ^2.4.0
   flutter_localizations:
     sdk: flutter
-  flutter_secure_storage: ^9.2.4
+  flutter_secure_storage: ^10.0.0
   flutter_svg: ^2.2.3
+  flutter_windowmanager_plus: ^1.0.1
   get_it: ^9.2.0
   graphql_flutter: ^5.2.1
   hive: ^2.2.3
@@ -101,6 +102,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   lint: ^2.7.0
 
+
   mocktail_image_network: ^1.2.0
   network_image_mock: ^2.1.1
   normalize: ^0.9.1
@@ -108,6 +110,8 @@ dev_dependencies:
 
   talawa_lint:
     path: talawa_lint/
+  
+  test: ^1.24.4
 
   url_launcher_platform_interface: 2.3.2
 flutter:

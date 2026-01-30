@@ -28,27 +28,32 @@ Widget createMainScreen({bool demoMode = true, bool? isOnline}) {
           return BaseView<AppConnectivity>(
             onModelReady: (connectivityModel) => connectivityModel.initialise(),
             builder: (context, connectivityModel, child) {
-              return MaterialApp(
-                locale: const Locale('en'),
-                localizationsDelegates: [
-                  const AppLocalizationsDelegate(isTest: true),
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                key: const Key('Root'),
-                theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
-                    ? TalawaTheme.darkTheme
-                    : TalawaTheme.lightTheme,
-                home: Scaffold(
-                  body: TextButton(
-                    child: const Text('click me'),
-                    onPressed: () {
-                      AppConnectivity.showSnackbar(isOnline: isOnline!);
-                    },
-                  ),
-                ),
-                navigatorKey: locator<NavigationService>().navigatorKey,
-                onGenerateRoute: router.generateRoute,
+              return Selector<AppTheme, bool>(
+                selector: (_, appTheme) => appTheme.isdarkTheme,
+                builder: (context, isDarkTheme, child) {
+                  return MaterialApp(
+                    locale: const Locale('en'),
+                    localizationsDelegates: [
+                      const AppLocalizationsDelegate(isTest: true),
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    key: const Key('Root'),
+                    theme: isDarkTheme
+                        ? TalawaTheme.darkTheme
+                        : TalawaTheme.lightTheme,
+                    home: Scaffold(
+                      body: TextButton(
+                        child: const Text('click me'),
+                        onPressed: () {
+                          AppConnectivity.showSnackbar(isOnline: isOnline!);
+                        },
+                      ),
+                    ),
+                    navigatorKey: locator<NavigationService>().navigatorKey,
+                    onGenerateRoute: router.generateRoute,
+                  );
+                },
               );
             },
           );

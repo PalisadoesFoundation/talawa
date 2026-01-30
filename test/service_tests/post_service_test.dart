@@ -133,6 +133,35 @@ void main() {
       expect(result.first.caption, 'Offline Post');
     });
 
+    test('getNewFeedAndRefreshCache returns cached data when API call fails',
+        () async {
+      final originalConnectivity = AppConnectivity.isOnline;
+      AppConnectivity.isOnline = true;
+      final postService = PostService();
+      await postService.saveDataToCache([
+        Post(id: 'cached1', caption: 'Cached Post'),
+      ]);
+
+      // Mock the posts query to throw an exception
+      final postsQuery = PostQueries().getPostsByOrgID();
+      when(
+        locator<DataBaseMutationFunctions>().gqlAuthQuery(
+          postsQuery,
+          variables: anyNamed('variables'),
+        ),
+      ).thenThrow(Exception('API Error'));
+
+      try {
+        final result = await postService.getNewFeedAndRefreshCache();
+        expect(result.length, 1);
+        expect(result.first.caption, 'Cached Post');
+      } finally {
+        // Restore original connectivity state and reset mock
+        AppConnectivity.isOnline = originalConnectivity;
+        reset(locator<DataBaseMutationFunctions>());
+      }
+    });
+
     test('saveDataToCache and loadCachedData work', () async {
       final postService = PostService();
       final post = Post(id: 'cache1', caption: 'Cache Test');
