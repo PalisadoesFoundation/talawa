@@ -186,5 +186,192 @@ void main() {
       await orgBox.deleteFromDisk();
       await urlBox.deleteFromDisk();
     });
+    test('SecureStorage has ONLY authToken (Hive has both)', () async {
+      final hiveUser = User(
+        id: 'legacy_user',
+        authToken: 'hive_access_token',
+        refreshToken: 'hive_refresh_token',
+        joinedOrganizations: [],
+      );
+
+      final userBox = await Hive.openBox<User>('currentUser');
+      final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+      final urlBox = await Hive.openBox('url');
+
+      await userBox.put('user', hiveUser);
+      await orgBox.put('org', OrgInfo(id: 'org1', name: 'Test Org'));
+      await urlBox.put('url', 'http://test.com');
+
+      // SecureStorage has only authToken
+      await fakeSecureStorage.writeToken('authToken', 'secure_access_token');
+      await fakeSecureStorage.deleteToken('refreshToken');
+
+      when(mockGraphqlConfig.getToken()).thenReturn(null);
+      when(mockDatabaseFunctions.init()).thenReturn(null);
+      when(mockDatabaseFunctions.gqlAuthQuery(any,
+              variables: anyNamed('variables')))
+          .thenAnswer((_) async => mockQueryResult);
+
+      final mockData = {
+        'user': {
+          'id': 'legacy_user',
+          'firstName': 'Test',
+          'lastName': 'User',
+          'email': 'test@example.com',
+        }
+      };
+      when(mockQueryResult.hasException).thenReturn(false);
+      when(mockQueryResult.data).thenReturn(mockData);
+
+      await userConfig.userLoggedIn();
+
+      // Expectation: SecureStorage authToken takes precedence.
+      // RefreshToken from Hive is retained in memory because it wasn't overwritten by logic (secureRefreshToken was null).
+      expect(userConfig.currentUser.authToken, 'secure_access_token');
+      expect(userConfig.currentUser.refreshToken, 'hive_refresh_token');
+
+      // Verify SecureStorage wasn't unexpectedly modified (no migration should happen if secureAuthToken exists)
+      expect(await fakeSecureStorage.readToken('authToken'),
+          'secure_access_token');
+      expect(await fakeSecureStorage.readToken('refreshToken'), null);
+
+      await userBox.deleteFromDisk();
+      await orgBox.deleteFromDisk();
+      await urlBox.deleteFromDisk();
+    });
+
+    test('SecureStorage has ONLY refreshToken (Hive has both)', () async {
+      final hiveUser = User(
+        id: 'legacy_user',
+        authToken: 'hive_access_token',
+        refreshToken: 'hive_refresh_token',
+        joinedOrganizations: [],
+      );
+
+      final userBox = await Hive.openBox<User>('currentUser');
+      final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+      final urlBox = await Hive.openBox('url');
+
+      await userBox.put('user', hiveUser);
+      await orgBox.put('org', OrgInfo(id: 'org1', name: 'Test Org'));
+      await urlBox.put('url', 'http://test.com');
+
+      // SecureStorage has only refreshToken
+      await fakeSecureStorage.deleteToken('authToken');
+      await fakeSecureStorage.writeToken(
+          'refreshToken', 'secure_refresh_token');
+
+      when(mockGraphqlConfig.getToken()).thenReturn(null);
+      when(mockDatabaseFunctions.init()).thenReturn(null);
+      when(mockDatabaseFunctions.gqlAuthQuery(any,
+              variables: anyNamed('variables')))
+          .thenAnswer((_) async => mockQueryResult);
+
+      final mockData = {
+        'user': {
+          'id': 'legacy_user',
+          'firstName': 'Test',
+          'lastName': 'User',
+          'email': 'test@example.com',
+        }
+      };
+      when(mockQueryResult.hasException).thenReturn(false);
+      when(mockQueryResult.data).thenReturn(mockData);
+
+      await userConfig.userLoggedIn();
+
+      // Logic: secureAuthToken is null -> Migration triggers.
+      // Hive tokens overwrite SecureStorage.
+      expect(userConfig.currentUser.authToken, 'hive_access_token');
+      expect(userConfig.currentUser.refreshToken, 'hive_refresh_token');
+
+      expect(
+          await fakeSecureStorage.readToken('authToken'), 'hive_access_token');
+      expect(await fakeSecureStorage.readToken('refreshToken'),
+          'hive_refresh_token');
+
+      await userBox.deleteFromDisk();
+      await orgBox.deleteFromDisk();
+      await urlBox.deleteFromDisk();
+    });
+
+    test('Hive contains empty-string tokens', () async {
+      final hiveUser = User(
+        id: 'legacy_user',
+        authToken: '',
+        refreshToken: '',
+        joinedOrganizations: [],
+      );
+
+      final userBox = await Hive.openBox<User>('currentUser');
+      await userBox.put('user', hiveUser);
+
+      await fakeSecureStorage.deleteAll();
+
+      when(mockGraphqlConfig.getToken()).thenReturn(null);
+      // We don't expect it to reach gqlAuthQuery successfully if token is empty,
+      // but if it does, mock it to avoid crash.
+      when(mockDatabaseFunctions.init()).thenReturn(null);
+      when(mockDatabaseFunctions.gqlAuthQuery(any,
+              variables: anyNamed('variables')))
+          .thenAnswer((_) async => mockQueryResult);
+      when(mockQueryResult.hasException).thenReturn(true); // Fail if called
+
+      try {
+        await userConfig.userLoggedIn();
+      } catch (e) {
+        // Ignore downstream errors
+      }
+
+      // Verify NO migration occurred
+      expect(await fakeSecureStorage.readToken('authToken'), null);
+      expect(await fakeSecureStorage.readToken('refreshToken'), null);
+
+      await userBox.deleteFromDisk();
+    });
+
+    test('Hive has authToken but NO refreshToken (Migration)', () async {
+      final hiveUser = User(
+        id: 'legacy_user',
+        authToken: 'hive_access_token',
+        refreshToken: null,
+        joinedOrganizations: [],
+      );
+
+      final userBox = await Hive.openBox<User>('currentUser');
+      final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+      await userBox.put('user', hiveUser);
+      await orgBox.put('org', OrgInfo(id: 'org1', name: 'Test Org'));
+
+      await fakeSecureStorage.deleteAll();
+
+      when(mockGraphqlConfig.getToken()).thenReturn(null);
+      when(mockDatabaseFunctions.init()).thenReturn(null);
+      when(mockDatabaseFunctions.gqlAuthQuery(any,
+              variables: anyNamed('variables')))
+          .thenAnswer((_) async => mockQueryResult);
+
+      final mockData = {
+        'user': {
+          'id': 'legacy_user',
+          'firstName': 'Test',
+          'lastName': 'User',
+          'email': 'test@example.com',
+        }
+      };
+      when(mockQueryResult.hasException).thenReturn(false);
+      when(mockQueryResult.data).thenReturn(mockData);
+
+      await userConfig.userLoggedIn();
+
+      // Auth token migrated
+      expect(
+          await fakeSecureStorage.readToken('authToken'), 'hive_access_token');
+      // Refresh token NOT migrated (null)
+      expect(await fakeSecureStorage.readToken('refreshToken'), null);
+
+      await userBox.deleteFromDisk();
+      await orgBox.deleteFromDisk();
+    });
   });
 }
