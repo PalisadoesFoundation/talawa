@@ -15,11 +15,12 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
-class MainScreenMockNavigationService extends Mock implements NavigationService {
+class MainScreenMockNavigationService extends Mock
+    implements NavigationService {
   int pushDialogCallCount = 0;
   int popCallCount = 0;
   int removeAllAndPushCallCount = 0;
-  
+
   Widget? lastDialogPushed;
 
   @override
@@ -46,15 +47,15 @@ class MainScreenMockNavigationService extends Mock implements NavigationService 
   @override
   GlobalKey<NavigatorState> get navigatorKey =>
       super.noSuchMethod(Invocation.getter(#navigatorKey),
-          returnValue: GlobalKey<NavigatorState>(),
-          returnValueForMissingStub: GlobalKey<NavigatorState>()) as GlobalKey<NavigatorState>;
-          
+              returnValue: GlobalKey<NavigatorState>(),
+              returnValueForMissingStub: GlobalKey<NavigatorState>())
+          as GlobalKey<NavigatorState>;
+
   @override
   void showTalawaErrorSnackBar(
     String? errorMessage,
     dynamic messageType,
-  ) {
-  }
+  ) {}
 }
 
 class MockAppTour extends Mock implements AppTour {
@@ -104,11 +105,11 @@ void main() {
     mockNavigationService = MainScreenMockNavigationService();
     final key = GlobalKey<NavigatorState>();
     when(mockNavigationService.navigatorKey).thenReturn(key);
-    
+
     locator.registerSingleton<NavigationService>(mockNavigationService);
 
     mockUserConfig = getAndRegisterUserConfig();
-    
+
     viewModel = MainScreenViewModel();
     mockAppTour = MockAppTour();
     viewModel.appTour = mockAppTour;
@@ -205,17 +206,21 @@ void main() {
       expect(notified, true);
     });
 
-     testWidgets('setupNavigationItems sets navBarItems and pages for normal mode',
+    testWidgets(
+        'setupNavigationItems sets navBarItems and pages for normal mode',
         (tester) async {
       appConfig.isDemoMode = false;
       await tester.pumpWidget(createTestWidget(const SizedBox()));
       await tester.pumpAndSettle();
 
-      viewModel.setupNavigationItems(tester.elementList(find.byType(SizedBox)).first);
+      viewModel.setupNavigationItems(
+          tester.elementList(find.byType(SizedBox)).first);
       expect(viewModel.navBarItems.length, 6);
       expect(viewModel.pages.length, 6);
-      expect(viewModel.navBarItems[0].label,
-          AppLocalizations.of(tester.elementList(find.byType(SizedBox)).first)!.strictTranslate('Home'));
+      expect(
+          viewModel.navBarItems[0].label,
+          AppLocalizations.of(tester.elementList(find.byType(SizedBox)).first)!
+              .strictTranslate('Home'));
     });
 
     testWidgets('setupNavigationItems sets navBarItems and pages for demo mode',
@@ -224,7 +229,8 @@ void main() {
       await tester.pumpWidget(createTestWidget(const SizedBox()));
       await tester.pumpAndSettle();
 
-      viewModel.setupNavigationItems(tester.elementList(find.byType(SizedBox)).first);
+      viewModel.setupNavigationItems(
+          tester.elementList(find.byType(SizedBox)).first);
       expect(viewModel.navBarItems.length, 6);
       expect(viewModel.pages.length, 6);
     });
@@ -233,7 +239,7 @@ void main() {
       appConfig.isDemoMode = true;
       viewModel.exitDemoMode();
       expect(appConfig.isDemoMode, false);
-      
+
       expect(mockNavigationService.removeAllAndPushCallCount, 1);
     });
 
@@ -247,8 +253,9 @@ void main() {
         ),
       ));
       await tester.pumpAndSettle();
-      
-      final dialogWidget = viewModel.appTourDialog(tester.elementList(find.byType(SizedBox)).first);
+
+      final dialogWidget = viewModel
+          .appTourDialog(tester.elementList(find.byType(SizedBox)).first);
       final dialog = dialogWidget as CustomAlertDialog;
 
       dialog.secondaryButtonTap!();
@@ -264,10 +271,10 @@ void main() {
 
       dialog.success!();
       expect(mockNavigationService.popCallCount, 1);
-      
-      await tester.pumpAndSettle(); 
-      await tester.pump(const Duration(milliseconds: 500)); 
-      
+
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
+
       expect(viewModel.scaffoldKey.currentState!.isDrawerOpen, false);
       expect(viewModel.targets.isNotEmpty, true);
     });
@@ -308,8 +315,8 @@ void main() {
       viewModel.context = tester.elementList(find.byType(SizedBox)).first;
 
       viewModel.tourHomeTargets(mockUserConfig);
-      final target = viewModel.targets
-          .firstWhere((t) => t.keyName == 'keyDrawerJoinOrg');
+      final target =
+          viewModel.targets.firstWhere((t) => t.keyName == 'keyDrawerJoinOrg');
 
       mockNavigationService.popCallCount = 0;
       target.next!();
@@ -324,13 +331,13 @@ void main() {
 
       mockNavigationService.popCallCount = 0;
       viewModel.tourHomeTargets(mockUserConfig);
-      final target = viewModel.targets
-          .firstWhere((t) => t.keyName == 'keyDrawerJoinOrg');
+      final target =
+          viewModel.targets.firstWhere((t) => t.keyName == 'keyDrawerJoinOrg');
 
       target.next!();
       expect(mockNavigationService.popCallCount, 0);
     });
-    
+
     testWidgets('showHome handles keySHMenuIcon (opens drawer)',
         (tester) async {
       await tester.pumpWidget(createTestWidget(
@@ -392,12 +399,12 @@ void main() {
       // Don't await showHome immediately because it contains a Future.delayed
       // which requires the tester.pump to advance the fake async clock.
       final future = viewModel.showHome(target);
-      
+
       // Pump frames which covers the 300ms delay and animation
       await tester.pump(const Duration(milliseconds: 1000));
-      
+
       await future;
-      
+
       expect(viewModel.scaffoldKey.currentState!.isDrawerOpen, false);
     });
 
@@ -412,7 +419,7 @@ void main() {
 
       await viewModel.showHome(target);
     });
-    
+
     testWidgets('tourEventTargets flow', (tester) async {
       await tester.pumpWidget(createTestWidget(const SizedBox()));
       viewModel.context = tester.elementList(find.byType(SizedBox)).first;
@@ -421,7 +428,7 @@ void main() {
       viewModel.tourEventTargets();
 
       expect(viewModel.targets.any((t) => t.keyName == 'keyBNEvents'), true);
-      
+
       expect(mockAppTour.capturedOnClickTarget, isNotNull);
       mockAppTour.capturedOnClickTarget!(TargetFocus(keyTarget: GlobalKey()));
 
@@ -439,7 +446,7 @@ void main() {
       viewModel.currentPageIndex = 2;
 
       viewModel.tourAddPost();
-      
+
       mockAppTour.capturedOnClickTarget!(TargetFocus(keyTarget: GlobalKey()));
 
       final onFinish = mockAppTour.capturedOnFinish!;
@@ -473,17 +480,17 @@ void main() {
       viewModel.currentPageIndex = 4;
 
       viewModel.tourProfile();
-      
+
       mockAppTour.capturedOnClickTarget!(TargetFocus(keyTarget: GlobalKey()));
 
       final onFinish = mockAppTour.capturedOnFinish!;
-      
+
       onFinish();
 
       expect(viewModel.tourComplete, true);
       expect(viewModel.currentPageIndex, 0);
     });
-    
+
     testWidgets('onFinish skipped logic', (tester) async {
       await tester.pumpWidget(createTestWidget(const SizedBox()));
       viewModel.context = tester.elementList(find.byType(SizedBox)).first;
@@ -493,15 +500,15 @@ void main() {
       // Force logic verification
       expect(viewModel.tourComplete, false);
       expect(viewModel.tourSkipped, true);
-      
+
       viewModel.tourEventTargets();
       mockAppTour.capturedOnFinish!();
       expect(mockAppTour.callCount, 1);
-      
+
       mockAppTour.clear();
       viewModel.tourProfile();
       mockAppTour.capturedOnFinish!();
-      
+
       // Should NOT change tourComplete to true because tourSkipped is true
       expect(viewModel.tourComplete, false);
     });
