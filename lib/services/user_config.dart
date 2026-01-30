@@ -88,9 +88,12 @@ class UserConfig {
     final String? secureRefreshToken =
         await secureStorage.readToken('refreshToken');
 
-    if (secureAuthToken == null && _currentUser?.authToken != null) {
+    if (secureAuthToken == null &&
+        _currentUser?.authToken != null &&
+        _currentUser!.authToken!.isNotEmpty) {
       await secureStorage.writeToken('authToken', _currentUser!.authToken!);
-      if (_currentUser!.refreshToken != null) {
+      if (_currentUser!.refreshToken != null &&
+          _currentUser!.refreshToken!.isNotEmpty) {
         await secureStorage.writeToken(
             'refreshToken', _currentUser!.refreshToken!);
       }
