@@ -1,6 +1,8 @@
+import '../../../helpers/test_helpers.mocks.dart';
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,6 +11,8 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/connectivity_service.dart';
+import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -18,7 +22,6 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createOrganizationFeedScreen({
@@ -102,6 +105,9 @@ void main() {
     SizeConfig().test();
     testSetupLocator();
     registerServices();
+    // Use custom test connectivity service to guarantee non-null stream
+    locator.unregister<ConnectivityService>();
+    locator.registerSingleton<ConnectivityService>(TestConnectivityService());
     mockViewModel = MockOrganizationFeedViewModel();
     locator.unregister<OrganizationFeedViewModel>();
     locator.registerSingleton<OrganizationFeedViewModel>(mockViewModel);
@@ -338,4 +344,10 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
   });
+}
+
+class TestConnectivityService extends ConnectivityService {
+  TestConnectivityService() : super(MockConnectivity());
+  @override
+  Stream<List<ConnectivityResult>> get connectionStream => Stream.value([]);
 }
