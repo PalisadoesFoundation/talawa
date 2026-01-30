@@ -29,8 +29,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// flag for the test.
   ///
   bool istest = false;
-  List<Post> _pinnedPosts =
-      pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
+  List<Post> _pinnedPosts = [];
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
 
@@ -64,9 +63,11 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   List<Post> get pinnedPosts {
     if (istest) {
-      _pinnedPosts = [];
+      // Only use demo data in test mode
+      _pinnedPosts = pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
       return _pinnedPosts;
     }
+    // In production, return real pinned posts (empty by default, or load from service)
     return _pinnedPosts;
   }
 
@@ -79,7 +80,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// getter for isFetchingPosts to show loading indicator.
   bool get isFetchingPosts => _isFetchingPosts;
 
-  bool get hasMore => false;
+  bool get hasMore => _postService.pageInfo.hasNextPage == true;
 
   /// This function sets the organization name after update.
   ///
@@ -100,8 +101,9 @@ class OrganizationFeedViewModel extends BaseModel {
       _renderedPostID.clear();
       _currentOrgName = updatedOrganization;
       notifyListeners();
+      // Auto-fetch posts for the new organization
+      _postService.refreshFeed();
     }
-    // _postService.getPosts();
   }
 
   /// This function fetches new posts in the organization.
@@ -270,25 +272,6 @@ class OrganizationFeedViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> removePost(Post post) async {
-    await actionHandlerService.performAction(
-      actionType: ActionType.critical,
-      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
-      action: () async {
-        final result = await _postService.deletePost(post);
-        return result;
-      },
-      onValidResult: (result) async {
-        _posts.remove(post);
-      },
-      apiCallSuccessUpdateUI: () {
-        navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
-          'Post was deleted if you had the rights!',
-          MessageType.info,
-        );
-        notifyListeners();
-      },
-    );
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.postDeletionFailed,

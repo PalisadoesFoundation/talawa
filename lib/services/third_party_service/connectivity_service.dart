@@ -37,9 +37,10 @@ class ConnectivityService {
   ///
   /// **returns**:
   /// * `Future<List<ConnectivityResult>>`: indicates if the url is reachable.
-  Future<List<dynamic>> getConnectionType() async {
-    // Stubbed for test unblock
-    return [];
+  Future<List<ConnectivityResult>> getConnectionType() async {
+    final result = await connectivityInstance.checkConnectivity();
+    // connectivity_plus 6.1.5 returns a single ConnectivityResult, wrap in a list for compatibility
+    return [result];
   }
 
   /// Client to access internet.
@@ -54,8 +55,8 @@ class ConnectivityService {
   ///   None
   Future<void> initConnectivity({required http.Client client}) async {
     _client = client;
-    // connectionStatusController = StreamController<List<ConnectivityResult>>();
-    // enableSubscription();
+    connectionStatusController = StreamController<List<ConnectivityResult>>.broadcast();
+    await enableSubscription();
   }
 
   /// This function enables the subscription to connectivity changes.
@@ -66,7 +67,10 @@ class ConnectivityService {
   /// **returns**:
   ///   None
   Future<void> enableSubscription() async {
-    // Stubbed for test unblock
+    connectivityInstance.onConnectivityChanged.listen((ConnectivityResult result) {
+      // Wrap in a list for compatibility with the rest of the app
+      connectionStatusController.add([result]);
+    });
   }
 
   /// This function checks if a given URI is reachable within a specified timeout period.
@@ -104,7 +108,7 @@ class ConnectivityService {
   /// **returns**:
   /// * `Future<bool>`: indicating whether the device has a network connection.
   Future<bool> hasConnection() async {
-    // Stubbed for test unblock
-    return true;
+    final results = await getConnectionType();
+    return results.any((r) => r != ConnectivityResult.none);
   }
 }

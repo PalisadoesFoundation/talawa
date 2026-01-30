@@ -6788,14 +6788,15 @@ class MockConnectivityService extends _i2.Mock
       );
 
   @override
-  _i9.Future<List<dynamic>> getConnectionType() => (super.noSuchMethod(
+  @override
+  _i9.Future<List<_i18.ConnectivityResult>> getConnectionType() => (super.noSuchMethod(
         Invocation.method(
           #getConnectionType,
           [],
         ),
-        returnValue: _i9.Future<List<dynamic>>.value(<dynamic>[]),
-        returnValueForMissingStub: _i9.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i9.Future<List<dynamic>>);
+        returnValue: _i9.Future<List<_i18.ConnectivityResult>>.value(<_i18.ConnectivityResult>[]),
+        returnValueForMissingStub: _i9.Future<List<_i18.ConnectivityResult>>.value(<_i18.ConnectivityResult>[]),
+      ) as _i9.Future<List<_i18.ConnectivityResult>>);
 
   @override
   _i9.Future<void> initConnectivity({required _i61.Client? client}) =>

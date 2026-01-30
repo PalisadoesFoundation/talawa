@@ -129,6 +129,11 @@ class TestConnectivityService extends ConnectivityService {
   TestConnectivityService() : super(MockConnectivity());
   @override
   Stream<List<ConnectivityResult>> get connectionStream => Stream.value([]);
+
+  @override
+  Future<List<ConnectivityResult>> getConnectionType() async {
+    return [ConnectivityResult.wifi];
+  }
 }
 
 /// member1 represents a member of the organization.

@@ -121,7 +121,7 @@ void main() {
     testWidgets('check if orgname is displayed shows up', (tester) async {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(true);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
       final model = locator<MainScreenViewModel>();
       await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
@@ -137,7 +137,7 @@ void main() {
       when(mockViewModel.isBusy).thenReturn(false); // Ensure not busy
       when(mockViewModel.posts).thenReturn([]); // No posts
       when(mockViewModel.pinnedPosts).thenReturn([]); // No pinned posts
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
       final model = locator<MainScreenViewModel>();
       await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
@@ -153,7 +153,7 @@ void main() {
         (tester) async {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(true);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
       final model = locator<MainScreenViewModel>();
       await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
@@ -166,7 +166,7 @@ void main() {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.posts)
           .thenReturn([post, post, post, post, post, post]);
       when(mockViewModel.pinnedPosts).thenReturn([]);
@@ -191,7 +191,7 @@ void main() {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.posts).thenReturn([post]);
       when(mockViewModel.pinnedPosts).thenReturn([post]);
 
@@ -206,7 +206,7 @@ void main() {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.posts).thenReturn([post]);
       when(mockViewModel.pinnedPosts).thenReturn([post]);
 
@@ -222,7 +222,7 @@ void main() {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.posts).thenReturn([]);
       when(mockViewModel.pinnedPosts).thenReturn([]);
 
@@ -239,7 +239,7 @@ void main() {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.posts).thenReturn([]);
       when(mockViewModel.pinnedPosts).thenReturn([]);
 
@@ -259,14 +259,15 @@ void main() {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.posts)
           .thenReturn([post, post, post, post, post, post]);
       when(mockViewModel.pinnedPosts).thenReturn([post]);
       when(mockViewModel.hasMore).thenReturn(true);
       bool nextPageCalled = false;
-      when(mockViewModel.nextPage()).thenAnswer((_) async {
+      when(mockViewModel.nextPage()).thenAnswer((_) {
         nextPageCalled = true;
+        return null;
       });
 
       final model = locator<MainScreenViewModel>();
@@ -311,7 +312,7 @@ void main() {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
       when(mockViewModel.pinnedPosts).thenReturn([]);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.posts)
           .thenReturn([post, post, post, post, post, post]);
@@ -334,7 +335,7 @@ void main() {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(true);
-      when(mockViewModel.initialise()).thenAnswer((_) async => Future.value());
+      when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.posts).thenReturn([]);
       when(mockViewModel.pinnedPosts).thenReturn([]);
       when(mockViewModel.hasMore).thenReturn(false);
