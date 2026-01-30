@@ -19,6 +19,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/secure_storage_service.dart';
 import 'package:talawa/services/security_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
@@ -61,6 +62,8 @@ import 'package:talawa/view_model/widgets_view_models/interactions_view_model.da
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'package:talawa/views/demo_page_view.dart';
 import '../services/mock_security_service.dart';
+
+import 'fake_secure_storage_service.dart';
 
 GetIt locator = GetIt.instance;
 UserConfig get userConfig => locator<UserConfig>();
@@ -114,6 +117,7 @@ void testSetupLocator() {
   locator.registerSingleton(UserConfig());
 
   locator.registerSingleton(SessionManager());
+  locator.registerSingleton<SecureStorageService>(FakeSecureStorageService());
 
   //Services
   locator.registerLazySingleton(() => OrganizationService());

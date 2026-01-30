@@ -362,7 +362,8 @@ void main() {
       final model = UserConfig();
       model.currentUser.id = 'fake_id';
 
-      userBox.put('user', User(id: 'fake', name: 'first'));
+      userBox.put(
+          'user', User(id: 'fake', name: 'first', authToken: 'fake_token'));
 
       final Map<String, dynamic> data = {
         "user": {
@@ -514,17 +515,17 @@ void main() {
       expect(mockUser.refreshToken, newRefreshToken);
     });
 
-    test('Test for saveCurrentOrgInHive method.', () {
+    test('Test for saveCurrentOrgInHive method.', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
 
       // To test the box.get('org') != null condition.
       orgBox.put('org', OrgInfo(id: 'fakeId', name: 'org'));
-      model.saveCurrentOrgInHive(mockOrgDetails[0]);
+      await model.saveCurrentOrgInHive(mockOrgDetails[0]);
 
       // To test the box.get('org') == null condition.
       orgBox.delete('org');
-      model.saveCurrentOrgInHive(mockOrgDetails[0]);
+      await model.saveCurrentOrgInHive(mockOrgDetails[0]);
     });
 
     test('Test for updateUser method.', () async {

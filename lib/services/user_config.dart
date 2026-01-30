@@ -24,7 +24,6 @@ import 'package:talawa/widgets/talawa_error_dialog.dart';
 /// * `updateAccessToken` : helps to update the access token of an user.
 /// * `updateUser` : helps to update the user.
 class UserConfig {
-  // variables
   User? _currentUser = User(id: 'null', authToken: 'null');
   OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
   late Stream<OrgInfo> _currentOrgInfoStream;
@@ -54,9 +53,7 @@ class UserConfig {
   User get currentUser => _currentUser!;
 
   /// Updates the current user.
-  set currentUser(User user) {
-    _currentUser = user;
-  }
+  set currentUser(User user) => _currentUser = user;
 
   /// initialise.
   ///
@@ -87,30 +84,53 @@ class UserConfig {
 
     _currentUser = boxUser.get('user');
 
-    // if there is not currentUser then returns false.
-    if (_currentUser == null) {
+    final String? secureAuthToken = await secureStorage.readToken('authToken');
+    final String? secureRefreshToken =
+        await secureStorage.readToken('refreshToken');
+
+    if (secureAuthToken == null &&
+        _currentUser?.authToken != null &&
+        _currentUser!.authToken!.isNotEmpty) {
+      await secureStorage.writeToken('authToken', _currentUser!.authToken!);
+      if (_currentUser!.refreshToken != null &&
+          _currentUser!.refreshToken!.isNotEmpty) {
+        await secureStorage.writeToken(
+            'refreshToken', _currentUser!.refreshToken!);
+      }
+      final tempAuth = _currentUser!.authToken;
+      final tempRefresh = _currentUser!.refreshToken;
+      _currentUser?.authToken = null;
+      _currentUser?.refreshToken = null;
+      await saveUserInHive();
+      _currentUser?.authToken = tempAuth;
+      _currentUser?.refreshToken = tempRefresh;
+    } else {
+      if (secureAuthToken != null) {
+        _currentUser?.authToken = secureAuthToken;
+      }
+      if (secureRefreshToken != null) {
+        _currentUser?.refreshToken = secureRefreshToken;
+      }
+    }
+
+    if (_currentUser == null || _currentUser?.authToken == null) {
       _currentUser = User(id: 'null', authToken: 'null');
       return false;
     }
-    // generate access token
     graphqlConfig.getToken();
 
     try {
       databaseFunctions.init();
-
       final QueryResult result = await databaseFunctions.gqlAuthQuery(
-        queries.fetchUserInfo(),
-        variables: {'id': currentUser.id},
-      );
+          queries.fetchUserInfo(),
+          variables: {'id': currentUser.id});
       if (result.hasException ||
           result.data == null ||
           result.data!['user'] == null) {
         throw Exception('Unable to fetch user details');
       }
-      final user = result.data!['user'] as Map<String, dynamic>;
-      final User userInfo = User.fromJson(
-        user,
-      );
+      final User userInfo =
+          User.fromJson(result.data!['user'] as Map<String, dynamic>);
       userInfo.authToken = userConfig.currentUser.authToken;
       userInfo.refreshToken = userConfig.currentUser.refreshToken;
       userConfig.updateUser(userInfo);
@@ -124,14 +144,11 @@ class UserConfig {
           userConfig.updateUserJoinedOrg(_currentOrg!);
         }
       }
-
       return true;
     } on Exception catch (e) {
       print(e);
       navigationService.showTalawaErrorSnackBar(
-        "Couldn't update User details",
-        MessageType.error,
-      );
+          "Couldn't update User details", MessageType.error);
       return false;
     }
   }
@@ -143,53 +160,35 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-
   Future<void> userLogOut() async {
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogout,
       action: () async {
         navigationService.pop();
-        navigationService.pushDialog(
-          const CustomProgressDialog(
-            key: Key('LogoutProgress'),
-          ),
-        );
-        //return await databaseFunctions.gqlAuthMutation(queries.logout());
+        navigationService
+            .pushDialog(const CustomProgressDialog(key: Key('LogoutProgress')));
         return await performLogout();
       },
       onValidResult: (result) async {
-        // The result could contain either our server response or the fallback response
-        // In either case, we should clear local data
         if (result.data != null && result.data!['logout'] == true) {
-          final user = Hive.box<User>('currentUser');
-          final url = Hive.box('url');
-          final organisation = Hive.box<OrgInfo>('currentOrg');
-          await user.clear();
-          await url.clear();
-          await organisation.clear();
+          await Hive.box<User>('currentUser').clear();
+          await Hive.box('url').clear();
+          await Hive.box<OrgInfo>('currentOrg').clear();
+          await secureStorage.deleteAll();
           _currentUser = User(id: 'null', authToken: 'null');
         }
       },
       onActionException: (e) async {
-        navigationService.pushDialog(
-          const TalawaErrorDialog(
+        navigationService.pushDialog(const TalawaErrorDialog(
             'Unable to logout, please try again.',
             key: Key('TalawaError'),
-            messageType: MessageType.error,
-          ),
-        );
+            messageType: MessageType.error));
       },
-      updateUI: () {
-        navigationService.pop();
-      },
-      apiCallSuccessUpdateUI: () {
-        navigationService.removeAllAndPush(
-          Routes.setUrlScreen,
-          Routes.splashScreen,
-          arguments: '',
-        );
-      },
+      updateUI: () => navigationService.pop(),
+      apiCallSuccessUpdateUI: () => navigationService.removeAllAndPush(
+          Routes.setUrlScreen, Routes.splashScreen,
+          arguments: ''),
     );
   }
 
@@ -204,10 +203,9 @@ class UserConfig {
   /// * `Future<QueryResult>`: returns future of QueryResult type.
   Future<QueryResult> performLogout() async {
     return QueryResult(
-      data: {'logout': true},
-      source: QueryResultSource.network,
-      options: QueryOptions(document: gql('{ __typename }')),
-    );
+        data: {'logout': true},
+        source: QueryResultSource.network,
+        options: QueryOptions(document: gql('{ __typename }')));
   }
 
   /// Updates the user joined organization.
@@ -222,10 +220,9 @@ class UserConfig {
       return;
     }
     _currentUser?.updateJoinedOrg(orgDetails);
-
     _currentOrg = orgDetails;
-    saveCurrentOrgInHive(orgDetails);
-    saveUserInHive();
+    await saveCurrentOrgInHive(orgDetails);
+    await saveUserInHive();
   }
 
   /// Updates the user request to join the organization.
@@ -237,7 +234,7 @@ class UserConfig {
   ///   None
   Future<void> updateUserMemberRequestOrg(List<String> orgDetails) async {
     _currentUser?.updateMemberRequestOrg(orgDetails);
-    saveUserInHive();
+    await saveUserInHive();
   }
 
   /// Updates the access token of the user.
@@ -248,13 +245,24 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-  Future<void> updateAccessToken({
-    required String accessToken,
-    required String refreshToken,
-  }) async {
-    _currentUser?.refreshToken = refreshToken;
-    _currentUser?.authToken = accessToken;
-    saveUserInHive();
+  Future<void> updateAccessToken(
+      {required String accessToken, required String refreshToken}) async {
+    if (accessToken.isNotEmpty) {
+      _currentUser?.authToken = accessToken;
+      await secureStorage.writeToken('authToken', accessToken);
+    } else {
+      _currentUser?.authToken = null;
+      await secureStorage.deleteToken('authToken');
+    }
+
+    if (refreshToken.isNotEmpty) {
+      _currentUser?.refreshToken = refreshToken;
+      await secureStorage.writeToken('refreshToken', refreshToken);
+    } else {
+      _currentUser?.refreshToken = null;
+      await secureStorage.deleteToken('refreshToken');
+    }
+    await saveUserInHive();
   }
 
   /// Updates the user details.
@@ -268,7 +276,7 @@ class UserConfig {
   Future<bool> updateUser(User updatedUserDetails) async {
     try {
       _currentUser = updatedUserDetails;
-      saveUserInHive();
+      await saveUserInHive();
       graphqlConfig.getToken();
       databaseFunctions.init();
       return true;
@@ -300,17 +308,14 @@ class UserConfig {
 
     try {
       final result = await databaseFunctions.gqlAuthMutation(
-        Queries().deleteOrganizationMembershipMutation(),
-        variables: {
-          'organizationId': _currentOrg!.id,
-          'memberId': _currentUser!.id,
-        },
-      );
-
+          Queries().deleteOrganizationMembershipMutation(),
+          variables: {
+            'organizationId': _currentOrg!.id,
+            'memberId': _currentUser!.id
+          });
       if (result.data == null || result.hasException) {
         throw Exception('Unable to exit organization, please try again.');
       }
-
       final orgMembership =
           result.data!['deleteOrganizationMembership'] as Map<String, dynamic>?;
       if (orgMembership == null || orgMembership['id'] == null) {
@@ -319,10 +324,9 @@ class UserConfig {
 
       _currentUser?.joinedOrganizations!
           .removeWhere((org) => org.id == _currentOrg!.id);
-      navigationService.showSnackBar(
-        'Exited ${_currentOrg?.name} successfully',
-        duration: const Duration(seconds: 2),
-      );
+      navigationService.showSnackBar('Exited ${_currentOrg?.name} successfully',
+          duration: const Duration(seconds: 2));
+
       if (_currentUser?.joinedOrganizations?.isNotEmpty == true) {
         _currentOrg = _currentUser?.joinedOrganizations?.first;
       } else {
@@ -330,30 +334,19 @@ class UserConfig {
         if (userConfig.currentUser.membershipRequests != null &&
             userConfig.currentUser.membershipRequests!.isNotEmpty) {
           navigationService.removeAllAndPush(
-            Routes.waitingScreen,
-            Routes.mainScreen,
-            arguments: '0',
-          );
+              Routes.waitingScreen, Routes.mainScreen,
+              arguments: '0');
         } else {
-          navigationService.removeAllAndPush(
-            Routes.joinOrg,
-            Routes.mainScreen,
-            arguments: '-1',
-          );
+          navigationService.removeAllAndPush(Routes.joinOrg, Routes.mainScreen,
+              arguments: '-1');
         }
       }
-
-      if (_currentOrg != null) {
-        saveCurrentOrgInHive(_currentOrg!);
-      }
-
-      saveUserInHive();
+      if (_currentOrg != null) await saveCurrentOrgInHive(_currentOrg!);
+      await saveUserInHive();
     } catch (e) {
       debugPrint(e.toString());
       navigationService.showTalawaErrorSnackBar(
-        'Unable to exit organization, please try again.',
-        MessageType.error,
-      );
+          'Unable to exit organization, please try again.', MessageType.error);
     }
   }
 
@@ -364,12 +357,29 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-  void saveUserInHive() {
+  Future<void> saveUserInHive() async {
     final box = Hive.box<User>('currentUser');
-    if (box.get('user') == null) {
-      box.put('user', _currentUser!);
-    } else {
-      box.put('user', _currentUser!);
+    if (_currentUser != null) {
+      final sanitizedUser = User(
+        id: _currentUser!.id,
+        name: _currentUser!.name,
+        email: _currentUser!.email,
+        image: _currentUser!.image,
+        joinedOrganizations: _currentUser!.joinedOrganizations,
+        membershipRequests: _currentUser!.membershipRequests,
+        authToken: null,
+        refreshToken: null,
+      );
+      await box.put('user', sanitizedUser);
+    }
+    if (_currentUser?.authToken != null &&
+        _currentUser!.authToken!.isNotEmpty) {
+      await secureStorage.writeToken('authToken', _currentUser!.authToken!);
+    }
+    if (_currentUser?.refreshToken != null &&
+        _currentUser!.refreshToken!.isNotEmpty) {
+      await secureStorage.writeToken(
+          'refreshToken', _currentUser!.refreshToken!);
     }
   }
 
@@ -380,14 +390,10 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-  void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
+  Future<void> saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) async {
     _currentOrg = saveOrgAsCurrent;
     _currentOrgInfoController.add(_currentOrg!);
     final box = Hive.box<OrgInfo>('currentOrg');
-    if (box.get('org') == null) {
-      box.put('org', _currentOrg!);
-    } else {
-      box.put('org', _currentOrg!);
-    }
+    await box.put('org', _currentOrg!);
   }
 }
