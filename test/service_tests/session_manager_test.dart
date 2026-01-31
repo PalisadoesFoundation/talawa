@@ -77,7 +77,6 @@ void main() {
 
         // Fast forward time to cover backoff delays
         async.elapse(const Duration(seconds: 10));
-        async.flushMicrotasks();
 
         // Assert
         future.then((result) {
@@ -85,6 +84,8 @@ void main() {
           // Should still retry 3 times because false triggers exception
           verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
         });
+
+        async.flushMicrotasks();
       });
     });
 
@@ -104,8 +105,6 @@ void main() {
 
         // Fast forward time to cover backoff delays (100ms, 200ms, 400ms)
         async.elapse(const Duration(seconds: 10));
-        async.flushMicrotasks();
-
         // Assert
         future.then((result) {
           expect(result, false);
@@ -122,6 +121,8 @@ void main() {
               .called(1);
           // OrgInfo verification omitted due to lack of value equality, but execution is covered by the above check.
         });
+
+        async.flushMicrotasks();
       });
     });
 
