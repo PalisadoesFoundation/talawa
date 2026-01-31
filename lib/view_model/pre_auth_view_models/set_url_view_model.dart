@@ -151,9 +151,9 @@ class SetUrlViewModel extends BaseModel {
             );
             return null;
           }
-          final bool? urlPresent =
+          final bool urlPresent =
               await locator<Validator>().validateUrlExistence(uri);
-          if (urlPresent == true) {
+          if (urlPresent) {
             final box = Hive.box('url');
             box.put(urlKey, uri);
             box.put(imageUrlKey, "$uri/talawa/");
@@ -194,9 +194,9 @@ class SetUrlViewModel extends BaseModel {
       );
       validate = AutovalidateMode.disabled;
       final String uri = url.text.trim();
-      final bool? urlPresent =
+      final bool urlPresent =
           await locator<Validator>().validateUrlExistence(uri);
-      if (urlPresent == true) {
+      if (urlPresent) {
         final box = Hive.box('url');
         box.put(urlKey, uri);
         box.put(imageUrlKey, "$uri/talawa/");

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,11 +13,16 @@ class Validator {
   /// * `url`: the entered URL
   ///
   /// **returns**:
-  /// * `Future<bool?>`: true if URL exists, false otherwise.
-  Future<bool?> validateUrlExistence(String url) async {
+  /// * `Future<bool>`: true if URL exists, false otherwise.
+  Future<bool> validateUrlExistence(String url) async {
     try {
-      await http.get(Uri.parse(url));
-      return true;
+      final response =
+          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 5));
+      // Return true only for success status codes (200-399)
+      return response.statusCode >= 200 && response.statusCode < 400;
+    } on TimeoutException catch (e) {
+      debugPrint('Timeout: $e');
+      return false;
     } on Exception catch (e) {
       debugPrint(e.toString());
       return false;
@@ -118,8 +125,10 @@ class Validators {
   static String? url(String? v) {
     if (v == null || v.isEmpty) return 'Please verify URL first';
     final uri = Uri.tryParse(v);
-    final bool validURL =
-        uri != null && (uri.scheme == 'http' || uri.scheme == 'https');
+    // Require valid scheme AND non-empty host
+    final bool validURL = uri != null &&
+        (uri.scheme == 'http' || uri.scheme == 'https') &&
+        uri.host.isNotEmpty;
     return validURL ? null : 'Enter a valid URL';
   }
 

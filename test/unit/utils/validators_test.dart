@@ -153,8 +153,12 @@ void main() {
         expect(Validators.passwordConfirm('same', 'same'), null);
       });
 
-      test('returns null when both are null (edge case)', () {
-        expect(Validators.passwordConfirm(null, null), null);
+      test('returns error when values are null or empty', () {
+        expect(
+            Validators.passwordConfirm(null, null), 'Password cannot be empty');
+        expect(Validators.passwordConfirm('', ''), 'Password cannot be empty');
+        expect(Validators.passwordConfirm('pass', null),
+            'Password cannot be empty');
       });
     });
 
@@ -203,20 +207,87 @@ void main() {
 
     group('eventStartDate', () {
       test('returns error for past date', () {
-        final pastDate = DateTime.now().subtract(const Duration(days: 1));
+        final now = DateTime.now();
+        // Normalize 'today' to start of day to match implementation
+        final today = DateTime(now.year, now.month, now.day);
+        final pastDate = today.subtract(const Duration(days: 1));
         expect(Validators.eventStartDate(pastDate),
             'Cannot create events having date prior than today');
       });
 
       test('returns null for today', () {
-        final today = DateTime.now();
+        final now = DateTime.now();
+        final today = DateTime(now.year, now.month, now.day);
         expect(Validators.eventStartDate(today), null);
       });
 
       test('returns null for future date', () {
-        final futureDate = DateTime.now().add(const Duration(days: 1));
+        final now = DateTime.now();
+        final today = DateTime(now.year, now.month, now.day);
+        final futureDate = today.add(const Duration(days: 1));
         expect(Validators.eventStartDate(futureDate), null);
       });
+    });
+
+    group('url (scheme-only rejection)', () {
+      test('returns error for scheme-only URL (http:)', () {
+        expect(Validators.url('http:'), 'Enter a valid URL');
+      });
+
+      test('returns error for scheme-only URL (https:)', () {
+        expect(Validators.url('https:'), 'Enter a valid URL');
+      });
+
+      test('returns error for URL without host', () {
+        expect(Validators.url('http://'), 'Enter a valid URL');
+        expect(Validators.url('https://'), 'Enter a valid URL');
+      });
+
+      test('returns null for valid URL with host', () {
+        expect(Validators.url('http://example.com'), null);
+        expect(Validators.url('https://example.com/path'), null);
+      });
+    });
+  });
+
+  group('Validator (Legacy)', () {
+    test('validateUrlExistence returns false when http get throws', () async {
+      final validator = Validator();
+      // Using a specialized domain that is guaranteed to be invalid/unreachable
+      // to trigger the exception handling block in the method.
+      final result =
+          await validator.validateUrlExistence('http://example.invalid');
+      expect(result, false);
+    });
+
+    test('validateUrlExistence returns true for 200 OK', () async {
+      final validator = Validator();
+      // Using httpbin.org which returns 200 status
+      final result = await validator
+          .validateUrlExistence('https://httpbin.org/status/200');
+      expect(result, true);
+    });
+
+    test('validateUrlExistence returns false for 404 status', () async {
+      final validator = Validator();
+      final result = await validator
+          .validateUrlExistence('https://httpbin.org/status/404');
+      expect(result, false);
+    });
+
+    test('validateUrlExistence returns false for 500 status', () async {
+      final validator = Validator();
+      final result = await validator
+          .validateUrlExistence('https://httpbin.org/status/500');
+      expect(result, false);
+    });
+
+    test('validateUrlExistence returns true for redirect (301)', () async {
+      // 301 is in 200-399 range so should return true
+      final validator = Validator();
+      final result = await validator
+          .validateUrlExistence('https://httpbin.org/status/301');
+      expect(result, true);
     });
   });
 }

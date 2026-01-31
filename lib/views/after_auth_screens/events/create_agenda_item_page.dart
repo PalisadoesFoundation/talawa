@@ -266,7 +266,15 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.name,
                   maxLength: 20,
                   focusNode: titleFocus,
-                  validator: (value) => Validators.eventField(value, 'Title'),
+                  validator: (value) {
+                    final String? err = Validators.eventField(
+                      value,
+                      'Title',
+                    );
+                    return err == null
+                        ? null
+                        : AppLocalizations.of(context)!.translate(err);
+                  },
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!
                         .strictTranslate('Add Agenda Item Title'),
@@ -294,8 +302,15 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.multiline,
                   controller: descController,
                   focusNode: descFocus,
-                  validator: (value) =>
-                      Validators.eventField(value, 'Description'),
+                  validator: (value) {
+                    final String? err = Validators.eventField(
+                      value,
+                      'Description',
+                    );
+                    return err == null
+                        ? null
+                        : AppLocalizations.of(context)!.translate(err);
+                  },
                   maxLines: 10,
                   minLines: 1,
                   decoration: InputDecoration(
