@@ -55,6 +55,22 @@ void main() {
     });
   });
 
+  group('OrgInfo Equality', () {
+    test('equality and hashCode', () {
+      final org1 = OrgInfo(id: '1', name: 'Org 1');
+      final org2 = OrgInfo(id: '1', name: 'Org 1');
+      final org3 = OrgInfo(id: '2', name: 'Org 2');
+
+      // Test equality
+      expect(org1 == org2, isTrue);
+      expect(org1 == org3, isFalse);
+
+      // Test hashCode
+      expect(org1.hashCode == org2.hashCode, isTrue);
+      expect(org1.hashCode == org3.hashCode, isFalse);
+    });
+  });
+
   group('fromJsonToList', () {
     test('returns empty list when json is null', () {
       final result = instance.fromJsonToList(null);

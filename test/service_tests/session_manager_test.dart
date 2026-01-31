@@ -247,5 +247,41 @@ void main() {
       // Verify url box cleared
       expect(Hive.box('url').isEmpty, true);
     });
+
+    test('refreshSession handles Hive box failure during cleanup', () async {
+      // Setup failure condition for refresh
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+      when(databaseFunctions.refreshAccessToken('bad_token'))
+          .thenThrow(Exception('Network Error'));
+
+      // Stub updateAccessToken to succeed
+      when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+          .thenAnswer((_) => Future.value());
+
+      // Force Hive failure by closing boxes
+      await Hive.box<User>('currentUser').close();
+      await Hive.box<OrgInfo>('currentOrg').close();
+      await Hive.box('url').close();
+
+      // Act
+      final result = await sessionManager.refreshSession();
+
+      // Assert
+      expect(result, false);
+
+      // Verify currentUser and currentOrg were reset in finally block
+      verify(userConfig.currentUser = User(id: 'null', authToken: 'null'))
+          .called(1);
+
+      verify(userConfig.currentOrg =
+              OrgInfo(name: 'Organization Name', id: 'null'))
+          .called(1);
+
+      // Attempting to access closed box throws, so we can't check isEmpty.
+      // But passing the assertion above confirms code execution reached finally block
+      // without crashing on Hive error.
+    });
   });
 }
