@@ -8,39 +8,100 @@ import 'package:talawa/services/session_manager.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  late SessionManager sessionManager;
 
-  setUpAll(() {
+  setUp(() {
+    locator.allowReassignment = true;
     setupLocator();
+    registerServices();
+    // Register mocks
+    getAndRegisterDatabaseMutationFunctions();
+    getAndRegisterUserConfig();
+
+    // We create a fresh SessionManager for each test
+    sessionManager = SessionManager();
   });
 
-  group('Test Session Manger', () {
-    setUpAll(() {
-      getAndRegisterDatabaseMutationFunctions();
-    });
-    test('Test Session Manager Constructor', () {
-      SessionManager();
+  tearDown(() {
+    locator.reset();
+  });
+
+  group('SessionManager Refresh Tests', () {
+    test('refreshSession returns true when succesful', () async {
+      // Setup
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'valid_token'));
+      when(databaseFunctions.refreshAccessToken('valid_token'))
+          .thenAnswer((_) async => true);
+
+      // Act
+      final result = await sessionManager.refreshSession();
+
+      // Assert
+      expect(result, true);
+      verify(databaseFunctions.refreshAccessToken('valid_token')).called(1);
     });
 
-    test('initialize refresh interval', () {
-      userConfig.currentUser = User(
-        id: "99",
-        name: 'Azad',
-        refreshToken: 'refreshToken',
-      );
+    test('refreshSession retries 3 times on failure then clears tokens', () {
       fakeAsync((async) {
-        sessionManager.initializeSessionRefresher();
-        async.elapse(const Duration(seconds: 600));
+        // Setup
+        when(userConfig.loggedIn).thenReturn(true);
+        when(userConfig.currentUser)
+            .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+
+        // Mock failure (throws exception as per our implementation)
+        when(databaseFunctions.refreshAccessToken('bad_token'))
+            .thenThrow(Exception('Network Error'));
+
+        // Act
+        final future = sessionManager.refreshSession();
+
+        // Fast forward time to cover backoff delays (100ms, 200ms, 400ms)
+        async.elapse(const Duration(seconds: 10));
+
+        // Assert
+        future.then((result) {
+          expect(result, false);
+          // Should call refresh 3 times (initial + 2 retries? No, loop runs 3 times)
+          verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
+
+          // Should call clearTokens (which calls updateAccessToken)
+          verify(userConfig.updateAccessToken(
+                  accessToken: '', refreshToken: ''))
+              .called(1);
+        });
       });
     });
 
-    test('Refresh Interval is set.', () {
-      expect(sessionManager.refreshInterval, 600);
-    });
+    test('refreshSession guards against concurrent calls', () async {
+      // Setup
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'any_token'));
 
-    test('Refresh Token Method', () {
-      sessionManager.refreshSession();
-      verify(databaseFunctions.refreshAccessToken("refreshToken"));
+      // Make the first call execute slowly
+
+      when(databaseFunctions.refreshAccessToken('any_token'))
+          .thenAnswer((_) async {
+        await Future.delayed(const Duration(milliseconds: 50));
+        return true;
+      });
+
+      // Act
+      final future1 = sessionManager.refreshSession();
+      final future2 =
+          sessionManager.refreshSession(); // Should return false immediately
+
+      // Assert
+      final result2 = await future2;
+      expect(result2, false); // Rejected due to guard
+
+      final result1 = await future1;
+      expect(result1, true); // First one succeeds
+
+      // Only 1 call to database
+      verify(databaseFunctions.refreshAccessToken('any_token')).called(1);
     });
   });
 }
