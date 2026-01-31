@@ -1,15 +1,16 @@
 import 'dart:io';
+
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/models/caching/cached_user_action.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/caching/offline_action_queue.dart';
 import 'package:talawa/services/session_manager.dart';
-import 'package:hive/hive.dart';
 
 import '../helpers/test_helpers.dart';
 
@@ -21,14 +22,21 @@ void main() {
     Hive.init(tempDir.path);
 
     // Register Adapters
-    if (!Hive.isAdapterRegistered(1)) Hive.registerAdapter(UserAdapter());
-    if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(OrgInfoAdapter());
-    if (!Hive.isAdapterRegistered(3))
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(UserAdapter());
+    }
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter(OrgInfoAdapter());
+    }
+    if (!Hive.isAdapterRegistered(3)) {
       Hive.registerAdapter(CachedUserActionAdapter());
-    if (!Hive.isAdapterRegistered(4))
+    }
+    if (!Hive.isAdapterRegistered(4)) {
       Hive.registerAdapter(CachedUserActionStatusAdapter());
-    if (!Hive.isAdapterRegistered(9))
+    }
+    if (!Hive.isAdapterRegistered(9)) {
       Hive.registerAdapter(CachedOperationTypeAdapter());
+    }
 
     await Hive.openBox<User>('currentUser');
     await Hive.openBox<OrgInfo>('currentOrg');
