@@ -56,7 +56,7 @@ void main() {
       // Assert
       expect(result, false);
       // Should verify that refreshAccessToken was NEVER called
-      verifyNever(databaseFunctions.refreshAccessToken('any'));
+      verifyZeroInteractions(databaseFunctions);
     });
 
     test(
