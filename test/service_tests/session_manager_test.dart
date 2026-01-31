@@ -65,20 +65,23 @@ void main() {
       expect(sessionManager.refreshInterval, 600);
     });
 
-    test('initializeSessionRefresher creates periodic timer', () async {
+    test('initializeSessionRefresher timer callback executes', () async {
       when(userConfig.loggedIn).thenReturn(true);
       when(userConfig.currentUser)
           .thenReturn(User(id: '1', refreshToken: 'token'));
       when(databaseFunctions.refreshAccessToken('token'))
           .thenAnswer((_) async => true);
 
-      final timer = sessionManager.initializeSessionRefresher();
+      final testSessionManager = SessionManager(testInterval: 1);
 
-      expect(timer.isActive, true);
+      await Future.delayed(const Duration(seconds: 2));
 
-      await Future.delayed(const Duration(milliseconds: 100));
+      verify(databaseFunctions.refreshAccessToken('token'))
+          .called(greaterThan(0));
 
-      timer.cancel();
+      testSessionManager.dispose();
+
+      expect(testSessionManager.refreshInterval, 600);
     });
   });
 

@@ -7,9 +7,12 @@ import 'package:talawa/models/user/user_info.dart';
 
 /// Manages user sessions and periodically refreshes access tokens.
 class SessionManager {
-  SessionManager() {
+  SessionManager({int? testInterval}) : _testInterval = testInterval {
     initializeSessionRefresher();
   }
+
+  final int? _testInterval;
+  Timer? _refreshTimer;
 
   /// returns refresh interval of Session Manager.
   int get refreshInterval => _refreshInterval;
@@ -25,12 +28,18 @@ class SessionManager {
   /// **returns**:
   /// * `Timer`: refresh timer.
   Timer initializeSessionRefresher() {
-    return Timer.periodic(
-      const Duration(seconds: _refreshInterval),
+    _refreshTimer = Timer.periodic(
+      Duration(seconds: _testInterval ?? _refreshInterval),
       (Timer timer) {
         refreshSession();
       },
     );
+    return _refreshTimer!;
+  }
+
+  /// Cancels the refresh timer.
+  void dispose() {
+    _refreshTimer?.cancel();
   }
 
   // Guard to prevent concurrent refresh attempts.
