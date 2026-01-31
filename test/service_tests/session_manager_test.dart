@@ -61,7 +61,7 @@ void main() {
 
     test(
         'refreshSession throws exception and retries when refreshAccessToken returns false',
-        () {
+        () async {
       fakeAsync((async) {
         // Setup
         when(userConfig.loggedIn).thenReturn(true);
@@ -77,6 +77,7 @@ void main() {
 
         // Fast forward time to cover backoff delays
         async.elapse(const Duration(seconds: 10));
+        async.flushMicrotasks();
 
         // Assert
         future.then((result) {
@@ -103,6 +104,7 @@ void main() {
 
         // Fast forward time to cover backoff delays (100ms, 200ms, 400ms)
         async.elapse(const Duration(seconds: 10));
+        async.flushMicrotasks();
 
         // Assert
         future.then((result) {
@@ -170,6 +172,7 @@ void main() {
         // Act
         sessionManager.refreshSession();
         async.elapse(const Duration(seconds: 10)); // Allow retries to complete
+        async.flushMicrotasks();
 
         // Assert
         // Verify currentUser was reset despite storage error
