@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
@@ -131,36 +130,27 @@ void main() {
 
     test(
         'refreshSession throws exception and retries when refreshAccessToken returns false',
-        () {
-      fakeAsync((async) {
-        // Setup
-        when(userConfig.loggedIn).thenReturn(true);
-        when(userConfig.currentUser)
-            .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+        () async {
+      // Setup
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'bad_token'));
 
-        // Mock failure: returning false instead of throwing explicitly
-        when(databaseFunctions.refreshAccessToken('bad_token'))
-            .thenAnswer((_) async => false);
+      // Mock failure: returning false instead of throwing explicitly
+      when(databaseFunctions.refreshAccessToken('bad_token'))
+          .thenAnswer((_) async => false);
 
-        // Stub updateAccessToken to throw exception (bypass Hive hang)
-        when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
-            .thenThrow(Exception('Skip Hive'));
+      // Stub updateAccessToken to throw exception (simulates skipped or failed storage update)
+      when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+          .thenThrow(Exception('Storage Error'));
 
-        // Act
-        final future = sessionManager.refreshSession();
+      // Act
+      final result = await sessionManager.refreshSession();
 
-        // Fast forward time to cover backoff delays
-        async.elapse(const Duration(seconds: 10));
-
-        bool? result;
-        future.then((value) => result = value);
-        async.flushMicrotasks();
-
-        // Assert
-        expect(result, false);
-        // Should still retry 3 times because false triggers exception
-        verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
-      });
+      // Assert
+      expect(result, false);
+      // Should still retry 3 times because false triggers exception
+      verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
     });
 
     test('refreshSession retries 3 times on failure then clears tokens',
@@ -224,34 +214,38 @@ void main() {
     });
 
     test('refreshSession clears in-memory state even if token storage fails',
-        () {
-      fakeAsync((async) {
-        // Setup failure condition for refresh
-        when(userConfig.loggedIn).thenReturn(true);
-        when(userConfig.currentUser)
-            .thenReturn(User(id: '1', refreshToken: 'bad_token'));
-        when(databaseFunctions.refreshAccessToken('bad_token'))
-            .thenThrow(Exception('Network Error'));
+        () async {
+      // Setup failure condition for refresh
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+      when(databaseFunctions.refreshAccessToken('bad_token'))
+          .thenThrow(Exception('Network Error'));
 
-        // Mock failure for updateAccessToken (simulating secure storage error)
-        when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
-            .thenThrow(Exception('Storage Error'));
+      // Mock failure for updateAccessToken (simulating secure storage error)
+      when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+          .thenThrow(Exception('Storage Error'));
 
-        // Act
-        sessionManager.refreshSession();
-        async.elapse(const Duration(seconds: 10)); // Allow retries to complete
-        async.flushMicrotasks();
+      // Populate URL box to verify it gets cleared
+      Hive.box('url').put('key', 'http://example.com');
 
-        // Assert
-        // Verify currentUser was reset despite storage error
-        verify(userConfig.currentUser = User(id: 'null', authToken: 'null'))
-            .called(1);
+      // Act
+      final result = await sessionManager.refreshSession();
 
-        // Verify currentOrg was reset
-        verify(userConfig.currentOrg =
-                OrgInfo(name: 'Organization Name', id: 'null'))
-            .called(1);
-      });
+      // Assert
+      expect(result, false);
+
+      // Verify currentUser was reset despite storage error
+      verify(userConfig.currentUser = User(id: 'null', authToken: 'null'))
+          .called(1);
+
+      // Verify currentOrg was reset
+      verify(userConfig.currentOrg =
+              OrgInfo(name: 'Organization Name', id: 'null'))
+          .called(1);
+
+      // Verify url box cleared
+      expect(Hive.box('url').isEmpty, true);
     });
   });
 }
