@@ -64,6 +64,22 @@ void main() {
     test('refreshInterval returns correct value', () {
       expect(sessionManager.refreshInterval, 600);
     });
+
+    test('initializeSessionRefresher creates periodic timer', () async {
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'token'));
+      when(databaseFunctions.refreshAccessToken('token'))
+          .thenAnswer((_) async => true);
+
+      final timer = sessionManager.initializeSessionRefresher();
+
+      expect(timer.isActive, true);
+
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      timer.cancel();
+    });
   });
 
   group('SessionManager Refresh Tests', () {
@@ -98,18 +114,32 @@ void main() {
     });
 
     test('refreshSession returns true when successful', () async {
-      // Setup
       when(userConfig.loggedIn).thenReturn(true);
       when(userConfig.currentUser)
           .thenReturn(User(id: '1', refreshToken: 'valid_token'));
       when(databaseFunctions.refreshAccessToken('valid_token'))
           .thenAnswer((_) async => true);
 
-      // Act
       final result = await sessionManager.refreshSession();
 
       expect(result, true);
       verify(databaseFunctions.refreshAccessToken('valid_token')).called(1);
+    });
+
+    test('refreshSession resets refreshing flag after success', () async {
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'token'));
+      when(databaseFunctions.refreshAccessToken('token'))
+          .thenAnswer((_) async => true);
+
+      final result1 = await sessionManager.refreshSession();
+      expect(result1, true);
+
+      final result2 = await sessionManager.refreshSession();
+      expect(result2, true);
+
+      verify(databaseFunctions.refreshAccessToken('token')).called(2);
     });
 
     test('refreshSession returns false immediately if refreshToken is empty',
