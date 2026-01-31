@@ -53,7 +53,7 @@ void main() {
 
   tearDown(() async {
     await Hive.deleteFromDisk();
-    locator.reset();
+    await locator.reset();
   });
 
   group('SessionManager Initialization Tests', () {
@@ -158,7 +158,7 @@ void main() {
     });
 
     test(
-        'refreshSession throws exception and retries when refreshAccessToken returns false',
+        'refreshSession returns false and retries when refreshAccessToken returns false',
         () async {
       when(userConfig.loggedIn).thenReturn(true);
       when(userConfig.currentUser)
