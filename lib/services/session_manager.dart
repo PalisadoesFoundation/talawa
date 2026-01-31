@@ -38,6 +38,12 @@ class SessionManager {
   }
 
   /// Cancels the refresh timer.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void dispose() {
     _refreshTimer?.cancel();
   }

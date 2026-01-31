@@ -52,6 +52,7 @@ void main() {
   });
 
   tearDown(() async {
+    sessionManager.dispose();
     await Hive.deleteFromDisk();
     await locator.reset();
   });
