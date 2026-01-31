@@ -46,7 +46,9 @@ class SessionManager {
   Future<bool> refreshSession() async {
     if (_isRefreshing) return false;
 
-    if (userConfig.loggedIn && userConfig.currentUser.refreshToken != null) {
+    if (userConfig.loggedIn &&
+        userConfig.currentUser.refreshToken != null &&
+        userConfig.currentUser.refreshToken!.isNotEmpty) {
       _isRefreshing = true;
       try {
         for (var attempt = 0; attempt < 3; attempt++) {

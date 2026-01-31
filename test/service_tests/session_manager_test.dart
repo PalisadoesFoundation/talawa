@@ -43,6 +43,22 @@ void main() {
       verify(databaseFunctions.refreshAccessToken('valid_token')).called(1);
     });
 
+    test('refreshSession returns false immediately if refreshToken is empty',
+        () async {
+      // Setup
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: '')); // Empty token
+
+      // Act
+      final result = await sessionManager.refreshSession();
+
+      // Assert
+      expect(result, false);
+      // Should verify that refreshAccessToken was NEVER called
+      verifyNever(databaseFunctions.refreshAccessToken('any'));
+    });
+
     test(
         'refreshSession throws exception and retries when refreshAccessToken returns false',
         () {
