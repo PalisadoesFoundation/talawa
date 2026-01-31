@@ -137,10 +137,16 @@ class _ChangePassState extends State<ChangePass> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  validator: (pass) => Validators.passwordConfirm(
-                    pass,
-                    newPassword.text,
-                  ),
+                  validator: (pass) {
+                    final String? err = Validators.passwordConfirm(
+                      pass,
+                      newPassword.text,
+                    );
+                    if (err != null) {
+                      return AppLocalizations.of(context)!.translate(err);
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText:
                         AppLocalizations.of(context)!.translate('password'),

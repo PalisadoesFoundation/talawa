@@ -19,7 +19,6 @@ class MockCallbackFunction extends Mock {
 class TestCreateEventViewModel extends CreateEventViewModel {
   DateTime? mockDate;
 
-  @override
   Future<DateTime?> showDatePickerInternal(
       {required DateTime initialDate}) async {
     return mockDate;
