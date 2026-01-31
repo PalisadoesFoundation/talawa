@@ -61,7 +61,7 @@ void main() {
 
     test(
         'refreshSession throws exception and retries when refreshAccessToken returns false',
-        () async {
+        () {
       fakeAsync((async) {
         // Setup
         when(userConfig.loggedIn).thenReturn(true);
