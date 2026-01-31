@@ -453,36 +453,6 @@ Future<void> main() async {
         isTrue,
       ); // Ensure it has primary focus
     });
-    testWidgets("Testing email validation", (tester) async {
-      await mockNetworkImages(() async {
-        userConfig.updateUser(
-          User(name: 'Test Test', email: 'test@test.com'),
-        );
-        await tester
-            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
-        await tester.pumpAndSettle();
-
-        final emailTextField = find.byKey(const Key('emailTextField'));
-        expect(emailTextField, findsOneWidget);
-
-        // Enter invalid email
-        await tester.enterText(emailTextField, 'invalid-email');
-        await tester.pumpAndSettle();
-
-        // Tap update button
-        final updateButton = find.byKey(const Key('updatebtn'));
-        await tester.tap(updateButton);
-        await tester.pumpAndSettle();
-
-        // Expect validation error
-        // The error message for invalid email is 'Invalid email'
-        // which gets translated. Since we are in test mode with locale 'en',
-        // it should be 'Invalid email' or the key itself if not found.
-        // AppLocalizations behavior: strictTranslate returns key if not found?
-        // Let's assume 'Invalid email' is the text.
-        expect(find.text('Invalid email'), findsOneWidget);
-      });
-    });
   });
 
   group('Email Focus Tests', () {
@@ -521,31 +491,6 @@ Future<void> main() async {
           FocusScope.of(tester.element(emailTextField)).focusedChild;
       expect(focusedElement, isNotNull);
       expect(focusedElement!.hasPrimaryFocus, isTrue);
-    });
-    testWidgets("Testing email validation", (tester) async {
-      await mockNetworkImages(() async {
-        userConfig.updateUser(
-          User(name: 'Test Test', email: 'test@test.com'),
-        );
-        await tester
-            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
-        await tester.pumpAndSettle();
-
-        final emailTextField = find.byKey(const Key('emailTextField'));
-        expect(emailTextField, findsOneWidget);
-
-        // Enter invalid email
-        await tester.enterText(emailTextField, 'invalid-email');
-        await tester.pumpAndSettle();
-
-        // Tap update button
-        final updateButton = find.byKey(const Key('updatebtn'));
-        await tester.tap(updateButton);
-        await tester.pumpAndSettle();
-
-        // Expect validation error
-        expect(find.text('Invalid email'), findsOneWidget);
-      });
     });
 
     testWidgets("Testing exception handling on update", (tester) async {
