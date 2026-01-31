@@ -4327,10 +4327,15 @@ class MockFundViewModel extends _i2.Mock implements _i44.FundViewModel {
 /// See the documentation for Mockito's code generation for more information.
 class MockValidator extends _i2.Mock implements _i45.Validator {
   @override
-  _i9.Future<bool> validateUrlExistence(String? url) => (super.noSuchMethod(
+  _i9.Future<bool> validateUrlExistence(
+    String? url, {
+    _i25.Client? client,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #validateUrlExistence,
           [url],
+          {#client: client},
         ),
         returnValue: _i9.Future<bool>.value(false),
         returnValueForMissingStub: _i9.Future<bool>.value(false),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:talawa/utils/validators.dart';
 
 void main() {
@@ -251,43 +253,65 @@ void main() {
   });
 
   group('Validator (Legacy)', () {
-    test('validateUrlExistence returns false when http get throws', () async {
+    test('validateUrlExistence returns true for 200 OK', () async {
+      final mockClient = MockClient(
+        (request) async => http.Response('OK', 200),
+      );
       final validator = Validator();
-      // Using a specialized domain that is guaranteed to be invalid/unreachable
-      // to trigger the exception handling block in the method.
-      final result =
-          await validator.validateUrlExistence('http://example.invalid');
-      expect(result, false);
+      final result = await validator.validateUrlExistence(
+        'https://example.com',
+        client: mockClient,
+      );
+      expect(result, true);
     });
 
-    test('validateUrlExistence returns true for 200 OK', () async {
+    test('validateUrlExistence returns true for redirect (301)', () async {
+      final mockClient = MockClient(
+        (request) async => http.Response('', 301),
+      );
       final validator = Validator();
-      // Using httpbin.org which returns 200 status
-      final result = await validator
-          .validateUrlExistence('https://httpbin.org/status/200');
+      final result = await validator.validateUrlExistence(
+        'https://example.com',
+        client: mockClient,
+      );
       expect(result, true);
     });
 
     test('validateUrlExistence returns false for 404 status', () async {
+      final mockClient = MockClient(
+        (request) async => http.Response('Not Found', 404),
+      );
       final validator = Validator();
-      final result = await validator
-          .validateUrlExistence('https://httpbin.org/status/404');
+      final result = await validator.validateUrlExistence(
+        'https://example.com',
+        client: mockClient,
+      );
       expect(result, false);
     });
 
     test('validateUrlExistence returns false for 500 status', () async {
+      final mockClient = MockClient(
+        (request) async => http.Response('Server Error', 500),
+      );
       final validator = Validator();
-      final result = await validator
-          .validateUrlExistence('https://httpbin.org/status/500');
+      final result = await validator.validateUrlExistence(
+        'https://example.com',
+        client: mockClient,
+      );
       expect(result, false);
     });
 
-    test('validateUrlExistence returns true for redirect (301)', () async {
-      // 301 is in 200-399 range so should return true
+    test('validateUrlExistence returns false when exception is thrown',
+        () async {
+      final mockClient = MockClient(
+        (request) => throw Exception('Network error'),
+      );
       final validator = Validator();
-      final result = await validator
-          .validateUrlExistence('https://httpbin.org/status/301');
-      expect(result, true);
+      final result = await validator.validateUrlExistence(
+        'https://example.com',
+        client: mockClient,
+      );
+      expect(result, false);
     });
   });
 }

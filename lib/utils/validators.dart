@@ -11,13 +11,16 @@ class Validator {
   ///
   /// **params**:
   /// * `url`: the entered URL
+  /// * `client`: optional HTTP client for testing (defaults to new http.Client)
   ///
   /// **returns**:
   /// * `Future<bool>`: true if URL exists, false otherwise.
-  Future<bool> validateUrlExistence(String url) async {
+  Future<bool> validateUrlExistence(String url, {http.Client? client}) async {
+    final httpClient = client ?? http.Client();
     try {
-      final response =
-          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 5));
+      final response = await httpClient
+          .get(Uri.parse(url))
+          .timeout(const Duration(seconds: 5));
       // Return true only for success status codes (200-399)
       return response.statusCode >= 200 && response.statusCode < 400;
     } on TimeoutException catch (e) {
@@ -26,6 +29,11 @@ class Validator {
     } on Exception catch (e) {
       debugPrint(e.toString());
       return false;
+    } finally {
+      // Only close the client if we created it
+      if (client == null) {
+        httpClient.close();
+      }
     }
   }
 }

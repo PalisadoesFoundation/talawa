@@ -438,8 +438,8 @@ void main() {
 
     test('execute runs successfully', () async {
       final model = CreateEventViewModel();
-      await model.execute();
-      expect(true, true);
+      // Verify execute() completes without throwing
+      await expectLater(model.execute(), completes);
     });
   });
 }

@@ -15,8 +15,8 @@ class ChangePass extends StatefulWidget {
   /// Creates [ChangePass] widget.
   ///
   /// **params**:
-  /// * `key`: Widget key for identification.
-  const ChangePass({required Key key}) : super(key: key);
+  /// * `key`: Optional widget key for identification.
+  const ChangePass({super.key});
 
   @override
   _ChangePassState createState() => _ChangePassState();
@@ -37,6 +37,15 @@ class _ChangePassState extends State<ChangePass> {
 
   /// Focus node for the re-enter password input field.
   final FocusNode reNewPasswordFocus = FocusNode();
+
+  @override
+  void dispose() {
+    newPassword.dispose();
+    reNewPassword.dispose();
+    newPasswordFocus.dispose();
+    reNewPasswordFocus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
