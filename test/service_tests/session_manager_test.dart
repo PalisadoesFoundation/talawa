@@ -1,16 +1,40 @@
+import 'dart:io';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/caching/cached_user_action.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/services/caching/offline_action_queue.dart';
 import 'package:talawa/services/session_manager.dart';
+import 'package:hive/hive.dart';
 
 import '../helpers/test_helpers.dart';
 
 void main() {
   late SessionManager sessionManager;
 
-  setUp(() {
+  setUp(() async {
+    final tempDir = Directory.systemTemp.createTempSync();
+    Hive.init(tempDir.path);
+
+    // Register Adapters
+    if (!Hive.isAdapterRegistered(1)) Hive.registerAdapter(UserAdapter());
+    if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(OrgInfoAdapter());
+    if (!Hive.isAdapterRegistered(3))
+      Hive.registerAdapter(CachedUserActionAdapter());
+    if (!Hive.isAdapterRegistered(4))
+      Hive.registerAdapter(CachedUserActionStatusAdapter());
+    if (!Hive.isAdapterRegistered(9))
+      Hive.registerAdapter(CachedOperationTypeAdapter());
+
+    await Hive.openBox<User>('currentUser');
+    await Hive.openBox<OrgInfo>('currentOrg');
+    await Hive.openBox('url');
+    await Hive.openBox<CachedUserAction>(OfflineActionQueue.boxName);
+
     locator.allowReassignment = true;
     setupLocator();
     registerServices();
@@ -22,11 +46,49 @@ void main() {
     sessionManager = SessionManager();
   });
 
-  tearDown(() {
+  tearDown(() async {
+    await Hive.deleteFromDisk();
     locator.reset();
   });
 
   group('SessionManager Refresh Tests', () {
+    test('refreshSession clears Hive boxes on failure', () async {
+      // Setup: Populate boxes
+      final userBox = Hive.box<User>('currentUser');
+      final orgBox = Hive.box<OrgInfo>('currentOrg');
+      final urlBox = Hive.box('url');
+
+      await userBox.put('key', User(id: '1'));
+      await orgBox.put('key', OrgInfo(id: '1'));
+      await urlBox.put('key', 'some_url');
+
+      // Verify populated
+      expect(userBox.isNotEmpty, true);
+      expect(orgBox.isNotEmpty, true);
+      expect(urlBox.isNotEmpty, true);
+
+      // Setup Mocks
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+
+      // Mock failure
+      when(databaseFunctions.refreshAccessToken('bad_token'))
+          .thenThrow(Exception('Network Error'));
+
+      // Stub updateAccessToken to SUCCEED (allow execution to proceed to Hive logic)
+      when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+          .thenAnswer((_) => Future.value());
+
+      // Act
+      await sessionManager.refreshSession();
+
+      // Assert: Verify boxes are cleared
+      expect(userBox.isEmpty, true);
+      expect(orgBox.isEmpty, true);
+      expect(urlBox.isEmpty, true);
+    });
+
     test('refreshSession returns true when succesful', () async {
       // Setup
       when(userConfig.loggedIn).thenReturn(true);
