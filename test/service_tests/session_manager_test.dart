@@ -97,7 +97,7 @@ void main() {
       expect(urlBox.isEmpty, true);
     });
 
-    test('refreshSession returns true when succesful', () async {
+    test('refreshSession returns true when successful', () async {
       // Setup
       when(userConfig.loggedIn).thenReturn(true);
       when(userConfig.currentUser)
