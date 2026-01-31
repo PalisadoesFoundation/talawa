@@ -93,11 +93,10 @@ class SessionManager {
       await userBox.clear();
       await orgBox.clear();
       await urlBox.clear();
-
-      userConfig.currentUser = User(id: 'null', authToken: 'null');
-      userConfig.currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
     } catch (_) {
       // Ignore errors during cleanup
     }
+    userConfig.currentUser = User(id: 'null', authToken: 'null');
+    userConfig.currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
   }
 }

@@ -43,6 +43,34 @@ void main() {
       verify(databaseFunctions.refreshAccessToken('valid_token')).called(1);
     });
 
+    test(
+        'refreshSession throws exception and retries when refreshAccessToken returns false',
+        () {
+      fakeAsync((async) {
+        // Setup
+        when(userConfig.loggedIn).thenReturn(true);
+        when(userConfig.currentUser)
+            .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+
+        // Mock failure: returning false instead of throwing explicitly
+        when(databaseFunctions.refreshAccessToken('bad_token'))
+            .thenAnswer((_) async => false);
+
+        // Act
+        final future = sessionManager.refreshSession();
+
+        // Fast forward time to cover backoff delays
+        async.elapse(const Duration(seconds: 10));
+
+        // Assert
+        future.then((result) {
+          expect(result, false);
+          // Should still retry 3 times because false triggers exception
+          verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
+        });
+      });
+    });
+
     test('refreshSession retries 3 times on failure then clears tokens', () {
       fakeAsync((async) {
         // Setup
@@ -70,6 +98,11 @@ void main() {
           verify(userConfig.updateAccessToken(
                   accessToken: '', refreshToken: ''))
               .called(1);
+
+          // Verify that userConfig properties were reset
+          verify(userConfig.currentUser = User(id: 'null', authToken: 'null'))
+              .called(1);
+          // OrgInfo verification omitted due to lack of value equality, but execution is covered by the above check.
         });
       });
     });
