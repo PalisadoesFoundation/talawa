@@ -58,6 +58,18 @@ void main() {
     locator.reset();
   });
 
+  group('SessionManager Initialization Tests', () {
+    test('constructor initializes session refresher', () {
+      // The SessionManager is already created in setUp
+      // Verify it was constructed successfully
+      expect(sessionManager, isNotNull);
+    });
+
+    test('refreshInterval returns correct value', () {
+      expect(sessionManager.refreshInterval, 600);
+    });
+  });
+
   group('SessionManager Refresh Tests', () {
     test('refreshSession clears Hive boxes on failure', () async {
       // Setup: Populate boxes
