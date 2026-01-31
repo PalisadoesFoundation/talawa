@@ -4329,7 +4329,7 @@ class MockValidator extends _i2.Mock implements _i45.Validator {
   @override
   _i9.Future<bool> validateUrlExistence(
     String? url, {
-    _i25.Client? client,
+    _i66.Client? client,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
