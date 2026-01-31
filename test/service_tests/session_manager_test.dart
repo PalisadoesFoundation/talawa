@@ -93,42 +93,34 @@ void main() {
       });
     });
 
-    test('refreshSession retries 3 times on failure then clears tokens', () {
-      fakeAsync((async) {
-        // Setup
-        when(userConfig.loggedIn).thenReturn(true);
-        when(userConfig.currentUser)
-            .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+    test('refreshSession retries 3 times on failure then clears tokens',
+        () async {
+      // Setup
+      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser)
+          .thenReturn(User(id: '1', refreshToken: 'bad_token'));
 
-        // Mock failure (throws exception as per our implementation)
-        when(databaseFunctions.refreshAccessToken('bad_token'))
-            .thenThrow(Exception('Network Error'));
+      // Mock failure (throws exception as per our implementation)
+      when(databaseFunctions.refreshAccessToken('bad_token'))
+          .thenThrow(Exception('Network Error'));
 
-        // Stub updateAccessToken to throw exception (skips Hive logic which hangs in test, but verifies flow)
-        when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
-            .thenThrow(Exception('Skip Hive'));
+      // Stub updateAccessToken to throw exception (skips Hive logic which hangs in test, but verifies flow)
+      when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+          .thenThrow(Exception('Skip Hive'));
 
-        // Act
-        final future = sessionManager.refreshSession();
+      // Act
+      final result = await sessionManager.refreshSession();
 
-        // Fast forward time to cover backoff delays
-        async.elapse(const Duration(seconds: 30));
-        bool? result;
-        future.then((value) => result = value);
+      // Assert
+      // Should call refresh 3 times (initial + 2 retries)
+      verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
 
-        async.flushMicrotasks();
+      // Should call clearTokens (which calls updateAccessToken)
+      verify(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+          .called(1);
 
-        // Assert
-        // Should call refresh 3 times (initial + 2 retries)
-        verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
-
-        // Should call clearTokens (which calls updateAccessToken)
-        verify(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
-            .called(1);
-
-        // Verify result
-        expect(result, false);
-      });
+      // Verify result
+      expect(result, false);
     });
 
     test('refreshSession guards against concurrent calls', () async {
