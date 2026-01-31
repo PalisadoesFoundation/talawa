@@ -238,6 +238,11 @@ void main() {
         // Verify currentUser was reset despite storage error
         verify(userConfig.currentUser = User(id: 'null', authToken: 'null'))
             .called(1);
+
+        // Verify currentOrg was reset
+        verify(userConfig.currentOrg =
+                OrgInfo(name: 'Organization Name', id: 'null'))
+            .called(1);
       });
     });
   });
