@@ -72,20 +72,24 @@ void main() {
         when(databaseFunctions.refreshAccessToken('bad_token'))
             .thenAnswer((_) async => false);
 
+        // Stub updateAccessToken to throw exception (bypass Hive hang)
+        when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+            .thenThrow(Exception('Skip Hive'));
+
         // Act
         final future = sessionManager.refreshSession();
 
         // Fast forward time to cover backoff delays
         async.elapse(const Duration(seconds: 10));
 
-        // Assert
-        future.then((result) {
-          expect(result, false);
-          // Should still retry 3 times because false triggers exception
-          verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
-        });
-
+        bool? result;
+        future.then((value) => result = value);
         async.flushMicrotasks();
+
+        // Assert
+        expect(result, false);
+        // Should still retry 3 times because false triggers exception
+        verify(databaseFunctions.refreshAccessToken('bad_token')).called(3);
       });
     });
 
