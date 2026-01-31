@@ -202,7 +202,7 @@ void main() {
       when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
           .thenThrow(Exception('Storage Error'));
 
-      Hive.box('url').put('key', 'http://example.com');
+      await Hive.box('url').put('key', 'http://example.com');
 
       final result = await sessionManager.refreshSession();
 
