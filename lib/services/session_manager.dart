@@ -85,9 +85,10 @@ class SessionManager {
   /// **returns**:
   ///   None
   Future<void> _clearTokens() async {
-    // Clear tokens in secure storage and update user config
-    await userConfig.updateAccessToken(accessToken: '', refreshToken: '');
     try {
+      // Clear tokens in secure storage and update user config
+      await userConfig.updateAccessToken(accessToken: '', refreshToken: '');
+
       final userBox = Hive.box<User>('currentUser');
       final orgBox = Hive.box<OrgInfo>('currentOrg');
       final urlBox = Hive.box('url');
@@ -97,8 +98,9 @@ class SessionManager {
       await urlBox.clear();
     } catch (_) {
       // Ignore errors during cleanup
+    } finally {
+      userConfig.currentUser = User(id: 'null', authToken: 'null');
+      userConfig.currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
     }
-    userConfig.currentUser = User(id: 'null', authToken: 'null');
-    userConfig.currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
   }
 }

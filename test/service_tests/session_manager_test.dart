@@ -152,5 +152,30 @@ void main() {
       // Only 1 call to database
       verify(databaseFunctions.refreshAccessToken('any_token')).called(1);
     });
+
+    test('refreshSession clears in-memory state even if token storage fails',
+        () {
+      fakeAsync((async) {
+        // Setup failure condition for refresh
+        when(userConfig.loggedIn).thenReturn(true);
+        when(userConfig.currentUser)
+            .thenReturn(User(id: '1', refreshToken: 'bad_token'));
+        when(databaseFunctions.refreshAccessToken('bad_token'))
+            .thenThrow(Exception('Network Error'));
+
+        // Mock failure for updateAccessToken (simulating secure storage error)
+        when(userConfig.updateAccessToken(accessToken: '', refreshToken: ''))
+            .thenThrow(Exception('Storage Error'));
+
+        // Act
+        sessionManager.refreshSession();
+        async.elapse(const Duration(seconds: 10)); // Allow retries to complete
+
+        // Assert
+        // Verify currentUser was reset despite storage error
+        verify(userConfig.currentUser = User(id: 'null', authToken: 'null'))
+            .called(1);
+      });
+    });
   });
 }
