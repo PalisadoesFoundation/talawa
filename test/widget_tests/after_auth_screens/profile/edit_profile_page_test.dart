@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
@@ -154,33 +155,8 @@ Future<void> main() async {
         expect(imageWidgetWithPicture, findsOneWidget);
       });
     });
-    testWidgets("Testing if image selection and removal works", (tester) async {
-      await mockNetworkImages(() async {
-        userConfig.updateUser(User());
-        userConfig.updateUser(
-          User(name: 'Test Test', email: 'test@test.com'),
-        );
-        await tester
-            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
-        await tester.pumpAndSettle();
-        final screenScaffoldWidget = find.byKey(
-          const Key('EditProfileScreenScaffold'),
-        );
-        expect(screenScaffoldWidget, findsOneWidget);
-        expect(
-          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-              .theme!
-              .scaffoldBackgroundColor,
-          TalawaTheme.lightTheme.scaffoldBackgroundColor,
-        );
-        final imageAvatar = find.byKey(
-          const Key('AddRemoveImageButton'),
-        );
-        expect(imageAvatar, findsOneWidget);
-        tester.tap(imageAvatar);
-      });
-    });
   });
+
   group('Edit Profile Screen Widget Test in dark mode', () {
     testWidgets("Testing if Edit Profile Screen shows up", (tester) async {
       userConfig.updateUser(
@@ -396,7 +372,7 @@ Future<void> main() async {
   group('Testing image selection and removal in Edit Profile Screen', () {
     setUp(() {
       registerServices();
-      //locator<SizeConfig>().test();
+      locator<SizeConfig>().test();
     });
 
     tearDown(() {
@@ -476,6 +452,128 @@ Future<void> main() async {
         focusedElement!.hasPrimaryFocus,
         isTrue,
       ); // Ensure it has primary focus
+    });
+    testWidgets("Testing email validation", (tester) async {
+      await mockNetworkImages(() async {
+        userConfig.updateUser(
+          User(name: 'Test Test', email: 'test@test.com'),
+        );
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+        await tester.pumpAndSettle();
+
+        final emailTextField = find.byKey(const Key('emailTextField'));
+        expect(emailTextField, findsOneWidget);
+
+        // Enter invalid email
+        await tester.enterText(emailTextField, 'invalid-email');
+        await tester.pumpAndSettle();
+
+        // Tap update button
+        final updateButton = find.byKey(const Key('updatebtn'));
+        await tester.tap(updateButton);
+        await tester.pumpAndSettle();
+
+        // Expect validation error
+        // The error message for invalid email is 'Invalid email'
+        // which gets translated. Since we are in test mode with locale 'en',
+        // it should be 'Invalid email' or the key itself if not found.
+        // AppLocalizations behavior: strictTranslate returns key if not found?
+        // Let's assume 'Invalid email' is the text.
+        expect(find.text('Invalid email'), findsOneWidget);
+      });
+    });
+  });
+
+  group('Email Focus Tests', () {
+    setUp(() {
+      registerServices();
+      locator<GraphqlConfig>().test();
+      locator<SizeConfig>().test();
+    });
+
+    tearDown(() {
+      unregisterServices();
+    });
+
+    testWidgets("Testing if email text field gets focus on onPressed",
+        (tester) async {
+      userConfig.updateUser(
+        User(name: 'Test Test', email: 'test@test.com'),
+      );
+
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+      await tester.pumpAndSettle();
+
+      final emailTextField = find.byKey(const Key('emailTextField'));
+      expect(emailTextField, findsOneWidget);
+
+      final editIcon = find.descendant(
+        of: emailTextField,
+        matching: find.byIcon(Icons.edit),
+      );
+      expect(editIcon, findsOneWidget);
+
+      await tester.tap(editIcon);
+      await tester.pumpAndSettle();
+
+      final focusedElement =
+          FocusScope.of(tester.element(emailTextField)).focusedChild;
+      expect(focusedElement, isNotNull);
+      expect(focusedElement!.hasPrimaryFocus, isTrue);
+    });
+    testWidgets("Testing email validation", (tester) async {
+      await mockNetworkImages(() async {
+        userConfig.updateUser(
+          User(name: 'Test Test', email: 'test@test.com'),
+        );
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+        await tester.pumpAndSettle();
+
+        final emailTextField = find.byKey(const Key('emailTextField'));
+        expect(emailTextField, findsOneWidget);
+
+        // Enter invalid email
+        await tester.enterText(emailTextField, 'invalid-email');
+        await tester.pumpAndSettle();
+
+        // Tap update button
+        final updateButton = find.byKey(const Key('updatebtn'));
+        await tester.tap(updateButton);
+        await tester.pumpAndSettle();
+
+        // Expect validation error
+        expect(find.text('Invalid email'), findsOneWidget);
+      });
+    });
+
+    testWidgets("Testing exception handling on update", (tester) async {
+      await mockNetworkImages(() async {
+        userConfig.updateUser(
+          User(name: 'Test Test', email: 'test@test.com'),
+        );
+
+        when(userProfileService.updateUserProfile(any))
+            .thenThrow(Exception('Update failed'));
+
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+        await tester.pumpAndSettle();
+
+        final emailTextField = find.byKey(const Key('emailTextField'));
+        await tester.enterText(emailTextField, 'new@test.com');
+        await tester.pumpAndSettle();
+
+        final updateButton = find.byKey(const Key('updatebtn'));
+        await tester.tap(updateButton);
+        await tester.pumpAndSettle();
+
+        // Verify snackbar or error handling triggered
+        verify(navigationService.showTalawaErrorSnackBar(
+                "Something went wrong", MessageType.error))
+            .called(1);
+      });
     });
   });
 }

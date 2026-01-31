@@ -26,6 +26,7 @@ class Validator {
 /// A generic validators class that provides common validation methods.
 class Validators {
   /// Private constructor to prevent instantiation.
+  // coverage:ignore-line
   const Validators._();
 
   /// Validates that the string is not null or empty.
@@ -131,6 +132,9 @@ class Validators {
   /// **returns**:
   /// * `String?`: Error message if passwords do not match, null otherwise.
   static String? passwordConfirm(String? v, String? comparator) {
+    if (v == null || v.isEmpty || comparator == null || comparator.isEmpty) {
+      return 'Password cannot be empty';
+    }
     if (v != comparator) {
       return 'Password does not match original';
     }

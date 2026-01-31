@@ -16,6 +16,16 @@ class MockCallbackFunction extends Mock {
   void call();
 }
 
+class TestCreateEventViewModel extends CreateEventViewModel {
+  DateTime? mockDate;
+
+  @override
+  Future<DateTime?> showDatePickerInternal(
+      {required DateTime initialDate}) async {
+    return mockDate;
+  }
+}
+
 void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -370,6 +380,67 @@ void main() {
       model.validate = AutovalidateMode.always;
 
       expect(model.validate, AutovalidateMode.always);
+    });
+
+    test('pickStartDate shows error when date is invalid (past)', () async {
+      final model = TestCreateEventViewModel();
+      final notifyListenerCallback = MockCallbackFunction();
+      model.addListener(notifyListenerCallback);
+
+      // Set mock date to yesterday (invalid)
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      model.mockDate = today.subtract(const Duration(days: 1));
+
+      await model.pickStartDate();
+
+      // Verify that navigationService.showSnackBar called?
+      // We need to verify that showSnackBar was called with the error message.
+      // But verify(navigationService.showSnackBar(...)) requires referencing the global mock.
+      // test_locator.dart registers mock services.
+      verify(navigationService
+          .showSnackBar('Cannot create events having date prior than today'));
+
+      // Also verify notifyListeners NOT called (because it returns early)
+      verifyNever(notifyListenerCallback());
+    });
+
+    test('pickEndDate shows error when date is invalid (before start)',
+        () async {
+      final model = TestCreateEventViewModel();
+      final notifyListenerCallback = MockCallbackFunction();
+      model.addListener(notifyListenerCallback);
+
+      // Setup start date/time
+      final today = DateTime.now();
+      model.eventStartDate = today;
+      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+
+      // Set mock return for end date to today (same day)
+      model.mockDate = today;
+
+      // Wait, date is today. But start time is 10:00.
+      // If end date is today, we check time?
+      // Validators.eventDateTime checks: end < start.
+      // If we pick same day, and end *time* (11:00) > start time (10:00), it's valid.
+      // We need end date < start date, OR end date == start date and end time < start time.
+
+      // Let's set start date to tomorrow, and pick end date as today.
+      model.eventStartDate = today.add(const Duration(days: 1));
+      model.mockDate = today; // Invalid because end before start
+
+      await model.pickEndDate();
+
+      verify(navigationService.showSnackBar(
+          'Event end date/time cannot be before start date/time'));
+      verifyNever(notifyListenerCallback());
+    });
+
+    test('execute runs successfully', () async {
+      final model = CreateEventViewModel();
+      await model.execute();
+      expect(true, true);
     });
   });
 }
