@@ -42,7 +42,7 @@ class MainScreenKeys {
 
   /// Key for leave current organization button in drawer.
   final GlobalKey keyDrawerLeaveCurrentOrg =
-      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
+      GlobalKey(debugLabel: "DrawerLeaveCurrentOrg");
 
   // Events Tab Keys
   /// Key for events bottom navigation button.
