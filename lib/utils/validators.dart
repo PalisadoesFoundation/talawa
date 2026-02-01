@@ -64,7 +64,7 @@ class Validators {
   /// **returns**:
   /// * `String?`: Error message if invalid, null otherwise.
   static String? eventField(String? v, String label) {
-    if (v == null || v.isEmpty) return '$label must not be left blank.';
+    if (v == null || v.trim().isEmpty) return '$label must not be left blank.';
     // Requires at least one letter
     final regex = RegExp('(?=.*?[A-Za-z]).+');
     if (!regex.hasMatch(v)) return 'Invalid $label';

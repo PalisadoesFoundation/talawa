@@ -215,8 +215,8 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 validator: (value) {
                                   final String? msg =
                                       Validators.passwordConfirm(
-                                    model.password.text,
                                     value,
+                                    model.password.text,
                                   );
                                   if (msg == null) {
                                     return null;

@@ -34,6 +34,11 @@ void main() {
             'Title must not be left blank.');
       });
 
+      test('returns error for whitespace-only string', () {
+        expect(Validators.eventField('   ', 'Title'),
+            'Title must not be left blank.');
+      });
+
       test('returns error for value without letters', () {
         expect(Validators.eventField('123', 'Title'), 'Invalid Title');
         expect(

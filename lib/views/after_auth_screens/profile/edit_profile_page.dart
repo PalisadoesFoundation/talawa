@@ -185,7 +185,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               controller: model.emailTextController,
                               focusNode: model.emailFocus,
                               keyboardType: TextInputType.emailAddress,
-                              // coverage:ignore-start
+                              // coverage:ignore-start - Update button doesn't call form.validate()
                               validator: (value) {
                                 final String? err = Validators.email(value);
                                 if (err != null) {
