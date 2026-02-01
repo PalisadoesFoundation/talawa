@@ -202,10 +202,10 @@ void main() {
 
     group('performAction', () {
       group('optimistic actions', () {
-        test('should call updateUI immediately for optimistic actions',
+        test('should call updateUI before action for optimistic actions',
             () async {
           // Arrange
-          bool updateUICalled = false;
+          final callOrder = <String>[];
           final mockResult = QueryResult(
             options: QueryOptions(document: gql('query { test }')),
             data: {'test': 'data'},
@@ -215,15 +215,24 @@ void main() {
           // Act
           await actionHandlerService.performAction(
             actionType: ActionType.optimistic,
-            action: () async => mockResult,
+            action: () async {
+              callOrder.add('action');
+              return mockResult;
+            },
             updateUI: () {
-              updateUICalled = true;
+              callOrder.add('updateUI');
             },
           );
 
           // Assert
-          expect(updateUICalled, isTrue);
+          expect(callOrder, equals(['updateUI', 'action']));
+          expect(
+            callOrder.indexOf('updateUI') < callOrder.indexOf('action'),
+            isTrue,
+            reason: 'updateUI should be called before action for optimistic actions',
+          );
         });
+
 
         test('should execute API call for optimistic actions', () async {
           // Arrange
