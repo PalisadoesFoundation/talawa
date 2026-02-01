@@ -189,7 +189,7 @@ Future<void> main() async {
       );
 
       if (locator.isRegistered<Validator>()) {
-        locator.unregister<Validator>();
+        await locator.unregister<Validator>();
       }
     });
 
