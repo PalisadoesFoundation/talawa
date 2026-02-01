@@ -71,11 +71,17 @@ class MainScreenViewModel extends BaseModel {
           keys: resolvedKeys,
           onTabTapped: resolvedNav.onTabTapped,
         );
-    return MainScreenViewModel._internal(
+    final model = MainScreenViewModel._internal(
       keys: resolvedKeys,
       navViewModel: resolvedNav,
       tourViewModel: resolvedTour,
     );
+
+    // Forward notifications from sub-models to parent
+    resolvedNav.addListener(model.notifyListeners);
+    resolvedTour.addListener(model.notifyListeners);
+
+    return model;
   }
 
   /// Instance of MainScreenKeys for GlobalKey access.
@@ -180,7 +186,6 @@ class MainScreenViewModel extends BaseModel {
   ///   None
   void onTabTapped(int index) {
     navViewModel.onTabTapped(index);
-    notifyListeners();
   }
 
   /// Exits demo mode.
