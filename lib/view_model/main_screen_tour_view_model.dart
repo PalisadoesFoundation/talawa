@@ -14,17 +14,9 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// ViewModel managing app tour flow, tutorial targets, and dialogs.
 ///
-/// Responsibilities:
-/// - Build and display app tour dialog
-/// - Manage tour flow progression
-/// - Track tour completion state
-/// - Coordinate with tour target builders
+/// Handles tour initialization, progression, and completion tracking.
 class MainScreenTourViewModel extends BaseModel {
-  /// Constructs MainScreenTourViewModel with required dependencies.
-  ///
-  /// **params**:
-  /// * `keys`: MainScreenKeys instance for accessing GlobalKeys
-  /// * `onTabTapped`: Callback to switch tabs during tour
+  /// Constructs MainScreenTourViewModel.
   MainScreenTourViewModel({
     required this.keys,
     required this.onTabTapped,
@@ -90,6 +82,13 @@ class MainScreenTourViewModel extends BaseModel {
   }
 
   /// Shows tour dialog after a delay with mounted check.
+  ///
+  /// **params**:
+  /// * `ctx`: BuildContext for dialog
+  /// * `scaffoldKey`: Scaffold key for drawer operations
+  ///
+  /// **returns**:
+  ///   None
   Future<void> _showTourDialogAfterDelay(
     BuildContext ctx,
     GlobalKey<ScaffoldState> scaffoldKey,
@@ -107,11 +106,11 @@ class MainScreenTourViewModel extends BaseModel {
   /// Builds and returns an AppTourDialog.
   ///
   /// **params**:
-  /// * `ctx`: The build context to work with
-  /// * `scaffoldKey`: Scaffold key for drawer operations
+  /// * `ctx`: BuildContext
+  /// * `scaffoldKey`: Scaffold key
   ///
   /// **returns**:
-  /// * `Widget`: The built [Dialog]
+  /// * `Widget`: CustomAlertDialog widget
   Widget appTourDialog(BuildContext ctx, GlobalKey<ScaffoldState> scaffoldKey) {
     return CustomAlertDialog(
       dialogTitle: 'App Tour',

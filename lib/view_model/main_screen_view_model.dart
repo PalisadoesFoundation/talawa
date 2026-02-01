@@ -55,6 +55,7 @@ class MainScreenViewModel extends BaseModel {
   });
 
   /// Test constructor that allows dependency injection without listener wiring.
+  ///
   /// Use this for testing to avoid automatic listener forwarding.
   MainScreenViewModel.test({
     MainScreenKeys? keysInstance,
