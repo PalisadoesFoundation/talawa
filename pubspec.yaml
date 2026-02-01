@@ -49,7 +49,7 @@ dependencies:
   flutter_image_compress: ^2.4.0
   flutter_localizations:
     sdk: flutter
-  flutter_secure_storage: ^9.2.4
+  flutter_secure_storage: ^10.0.0
   flutter_svg: ^2.2.3
   flutter_windowmanager_plus: ^1.0.1
   get_it: ^9.2.0
@@ -89,7 +89,7 @@ dev_dependencies:
   custom_lint: 0.6.4
   custom_lint_builder: 0.6.4
   dependency_validator: ^5.0.0
-  fake_async: ^1.3.1
+
   file: ^7.0.1
   flutter_test:
     sdk: flutter
@@ -102,6 +102,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   lint: ^2.7.0
 
+
   mocktail_image_network: ^1.2.0
   network_image_mock: ^2.1.1
   normalize: ^0.9.1
@@ -109,6 +110,8 @@ dev_dependencies:
 
   talawa_lint:
     path: talawa_lint/
+  
+  test: ^1.24.4
 
   url_launcher_platform_interface: 2.3.2
 flutter:

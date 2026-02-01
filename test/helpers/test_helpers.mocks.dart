@@ -2705,23 +2705,25 @@ class MockUserConfig extends _i2.Mock implements _i17.UserConfig {
       ) as _i9.Future<void>);
 
   @override
-  void saveUserInHive() => super.noSuchMethod(
+  _i9.Future<void> saveUserInHive() => (super.noSuchMethod(
         Invocation.method(
           #saveUserInHive,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 
   @override
-  void saveCurrentOrgInHive(_i5.OrgInfo? saveOrgAsCurrent) =>
-      super.noSuchMethod(
+  _i9.Future<void> saveCurrentOrgInHive(_i5.OrgInfo? saveOrgAsCurrent) =>
+      (super.noSuchMethod(
         Invocation.method(
           #saveCurrentOrgInHive,
           [saveOrgAsCurrent],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 }
 
 /// A class which mocks [AppLanguage].

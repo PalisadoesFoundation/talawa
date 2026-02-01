@@ -16,6 +16,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/secure_storage_service.dart';
 import 'package:talawa/services/security_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
@@ -129,6 +130,15 @@ final actionHandlerService = locator<ActionHandlerService>();
 ///GetIt for SecurityService.
 final securityService = locator<SecurityService>();
 
+///GetIt for SecureStorageService.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `SecureStorageService`: The SecureStorageService instance.
+SecureStorageService get secureStorage => locator<SecureStorageService>();
+
 /// GetIt for AppConfigService.
 ///
 /// **params**:
@@ -164,6 +174,9 @@ Future<void> setupLocator() async {
 
   //sessionManager
   locator.registerSingleton(SessionManager());
+
+  //secureStorageService
+  locator.registerSingleton(SecureStorageService());
 
   locator.registerSingleton(CacheService());
 
