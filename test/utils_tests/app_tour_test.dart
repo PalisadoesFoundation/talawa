@@ -74,7 +74,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Create app tour and some test targets
-        final appTour = AppTour(model: viewModel);
+        final appTour = AppTour(model: viewModel.model);
         final FocusTarget primaryTarget = FocusTarget(
           key: primaryTargetKey,
           keyName: 'org-name',
@@ -185,7 +185,7 @@ void main() {
 
       // Use mock tutorial for this test
       final mockTutorial = MockTutorialCoachMark();
-      final appTour = AppTour(model: viewModel)
+      final appTour = AppTour(model: viewModel.model)
         ..tutorialCoachMark = mockTutorial;
 
       bool nextCallbackTriggered = false;
@@ -318,7 +318,7 @@ void main() {
 
       // Use mock tutorial for this test
       final mockTutorial = MockTutorialCoachMark();
-      final appTour = AppTour(model: viewModel)
+      final appTour = AppTour(model: viewModel.model)
         ..tutorialCoachMark = mockTutorial;
 
       // Create a focus target with isEnd=false to test Skip button

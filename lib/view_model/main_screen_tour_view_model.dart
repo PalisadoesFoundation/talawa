@@ -16,33 +16,29 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 ///
 /// Handles tour initialization, progression, and completion tracking.
 class MainScreenTourViewModel extends BaseModel {
-  /// Constructs MainScreenTourViewModel.
-  MainScreenTourViewModel({
-    required this.keys,
-    required this.onTabTapped,
-  });
+  MainScreenTourViewModel({required this.keys, required this.onTabTapped});
 
-  /// Reference to MainScreenKeys for accessing GlobalKeys.
+  /// Reference to MainScreenKeys.
   final MainScreenKeys keys;
 
-  /// Callback to switch tabs during tour.
+  /// Callback to switch tabs.
   final void Function(int) onTabTapped;
 
-  /// Whether to show the app tour.
+  /// Show tour flag.
   late bool showAppTour;
 
-  /// Whether the tour is complete.
+  /// Tour complete flag.
   bool tourComplete = false;
 
-  /// Whether the tour was skipped.
+  /// Tour skipped flag.
   bool tourSkipped = false;
 
-  /// Current build context for tour operations.
-  ///
-  /// **Lifecycle**: Set during `initializeTour()` by MainScreenViewModel and
-  /// valid only while the associated MainScreen widget is mounted. Should not
-  /// be used after widget disposal. Callers must check `context.mounted` before
-  /// use in async operations to prevent use-after-dispose errors.
+  @visibleForTesting
+
+  /// Transition delay for testing.
+  static Duration transitionDelay = const Duration(milliseconds: 500);
+
+  /// Context set in initializeTour. Check mounted before use.
   late BuildContext context;
 
   /// App tour instance.
@@ -51,14 +47,14 @@ class MainScreenTourViewModel extends BaseModel {
   /// List of focus targets for the current tour step.
   final List<FocusTarget> targets = [];
 
-  /// Initializes the tour based on user state.
+  /// Initializes tour based on user state.
   ///
   /// **params**:
   /// * `ctx`: BuildContext
-  /// * `fromSignUp`: Whether user just signed up
-  /// * `demoMode`: Whether app is in demo mode
-  /// * `scaffoldKey`: Scaffold key for drawer operations
-  /// * `mainScreenModel`: MainScreenViewModel instance for AppTour
+  /// * `fromSignUp`: User just signed up
+  /// * `demoMode`: App in demo mode
+  /// * `scaffoldKey`: Scaffold key
+  /// * `mainScreenModel`: MainScreenViewModel instance
   ///
   /// **returns**:
   ///   None
@@ -69,6 +65,9 @@ class MainScreenTourViewModel extends BaseModel {
     required GlobalKey<ScaffoldState> scaffoldKey,
     required MainScreenViewModel mainScreenModel,
   }) {
+    // Reset tour state to allow re-initialization
+    tourComplete = false;
+    tourSkipped = false;
     showAppTour = fromSignUp || demoMode;
     context = ctx;
     appTour = AppTour(model: mainScreenModel);
@@ -81,11 +80,11 @@ class MainScreenTourViewModel extends BaseModel {
     }
   }
 
-  /// Shows tour dialog after a delay with mounted check.
+  /// Shows tour dialog after delay with mounted check.
   ///
   /// **params**:
-  /// * `ctx`: BuildContext for dialog
-  /// * `scaffoldKey`: Scaffold key for drawer operations
+  /// * `ctx`: BuildContext
+  /// * `scaffoldKey`: Scaffold key
   ///
   /// **returns**:
   ///   None
@@ -94,13 +93,8 @@ class MainScreenTourViewModel extends BaseModel {
     GlobalKey<ScaffoldState> scaffoldKey,
   ) async {
     await Future.delayed(const Duration(seconds: 1));
-
-    // Check if context is still valid
-    if (ctx.mounted) {
-      navigationService.pushDialog(
-        appTourDialog(ctx, scaffoldKey),
-      );
-    }
+    if (ctx.mounted)
+      navigationService.pushDialog(appTourDialog(ctx, scaffoldKey));
   }
 
   /// Builds and returns an AppTourDialog.
@@ -133,11 +127,11 @@ class MainScreenTourViewModel extends BaseModel {
     );
   }
 
-  /// Starts the home tour with focus targets.
+  /// Starts home tour.
   ///
   /// **params**:
-  /// * `scaffoldKey`: Scaffold key for drawer operations
-  /// * `givenUserConfig`: Mock user config for testing
+  /// * `scaffoldKey`: Scaffold key
+  /// * `givenUserConfig`: Mock config for testing
   ///
   /// **returns**:
   ///   None
@@ -158,8 +152,9 @@ class MainScreenTourViewModel extends BaseModel {
     appTour.showTutorial(
       onClickTarget: (target) =>
           HomeTourTargets.handleClick(target, scaffoldKey),
-      onFinish: () {
-        onTabTapped(1); // Move to events tab
+      onFinish: () async {
+        onTabTapped(1);
+        await Future.delayed(transitionDelay);
         if (!tourComplete && !tourSkipped) {
           tourEventTargets();
         }
@@ -168,7 +163,7 @@ class MainScreenTourViewModel extends BaseModel {
     );
   }
 
-  /// Shows the events tour.
+  /// Shows events tour.
   ///
   /// **params**:
   ///   None
@@ -178,15 +173,13 @@ class MainScreenTourViewModel extends BaseModel {
   void tourEventTargets() {
     targets.clear();
     targets.addAll(
-      OtherTourTargets.buildEventTargets(
-        keys: keys,
-        appTour: appTour,
-      ),
+      OtherTourTargets.buildEventTargets(keys: keys, appTour: appTour),
     );
 
     appTour.showTutorial(
-      onFinish: () {
-        onTabTapped(2); // Move to chat tab
+      onFinish: () async {
+        onTabTapped(2);
+        await Future.delayed(transitionDelay);
         if (!tourComplete && !tourSkipped) {
           tourChat();
         }
@@ -196,7 +189,7 @@ class MainScreenTourViewModel extends BaseModel {
     );
   }
 
-  /// Shows the chat tour.
+  /// Shows chat tour.
   ///
   /// **params**:
   ///   None
@@ -206,15 +199,13 @@ class MainScreenTourViewModel extends BaseModel {
   void tourChat() {
     targets.clear();
     targets.addAll(
-      OtherTourTargets.buildChatTargets(
-        keys: keys,
-        appTour: appTour,
-      ),
+      OtherTourTargets.buildChatTargets(keys: keys, appTour: appTour),
     );
 
     appTour.showTutorial(
-      onFinish: () {
-        onTabTapped(4); // Move to profile tab
+      onFinish: () async {
+        onTabTapped(4);
+        await Future.delayed(transitionDelay);
         if (!tourComplete && !tourSkipped) {
           tourProfile();
         }
@@ -224,7 +215,7 @@ class MainScreenTourViewModel extends BaseModel {
     );
   }
 
-  /// Shows the profile tour.
+  /// Shows profile tour.
   ///
   /// **params**:
   ///   None
@@ -234,17 +225,15 @@ class MainScreenTourViewModel extends BaseModel {
   void tourProfile() {
     targets.clear();
     targets.addAll(
-      OtherTourTargets.buildProfileTargets(
-        keys: keys,
-        appTour: appTour,
-      ),
+      OtherTourTargets.buildProfileTargets(keys: keys, appTour: appTour),
     );
 
     appTour.showTutorial(
-      onFinish: () {
+      onFinish: () async {
         if (!tourComplete && !tourSkipped) {
           tourComplete = true;
-          onTabTapped(0); // Return to home tab
+          onTabTapped(0);
+          await Future.delayed(transitionDelay);
         }
       },
       onClickTarget: (TargetFocus a) {},
@@ -252,7 +241,7 @@ class MainScreenTourViewModel extends BaseModel {
     );
   }
 
-  /// Shows the add post tour (kept for compatibility).
+  /// Shows add post tour.
   ///
   /// **params**:
   ///   None
@@ -262,15 +251,13 @@ class MainScreenTourViewModel extends BaseModel {
   void tourAddPost() {
     targets.clear();
     targets.addAll(
-      OtherTourTargets.buildAddPostTargets(
-        keys: keys,
-        appTour: appTour,
-      ),
+      OtherTourTargets.buildAddPostTargets(keys: keys, appTour: appTour),
     );
 
     appTour.showTutorial(
-      onFinish: () {
-        onTabTapped(2); // Move to chat
+      onFinish: () async {
+        onTabTapped(2);
+        await Future.delayed(transitionDelay);
         if (!tourComplete && !tourSkipped) {
           tourChat();
         }
@@ -280,11 +267,11 @@ class MainScreenTourViewModel extends BaseModel {
     );
   }
 
-  /// Handles clicks during home tour (delegated to helper).
+  /// Handles home tour clicks.
   ///
   /// **params**:
-  /// * `clickedTarget`: The clicked target
-  /// * `scaffoldKey`: Scaffold key for drawer operations
+  /// * `clickedTarget`: Clicked target
+  /// * `scaffoldKey`: Scaffold key
   ///
   /// **returns**:
   ///   None

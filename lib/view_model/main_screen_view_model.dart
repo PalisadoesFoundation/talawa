@@ -22,11 +22,6 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// - [MainScreenTourViewModel]: App tour, targets, dialogs, tutorial flows
 class MainScreenViewModel extends BaseModel {
   /// Constructs MainScreenViewModel with optional dependencies for testing.
-  ///
-  /// **params**:
-  /// * `keysInstance`: Optional MainScreenKeys instance (for testing)
-  /// * `navInstance`: Optional MainScreenNavViewModel instance (for testing)
-  /// * `tourInstance`: Optional MainScreenTourViewModel instance (for testing)
   factory MainScreenViewModel() {
     final keys = MainScreenKeys();
     final navViewModel = MainScreenNavViewModel(keys: keys);
@@ -54,24 +49,34 @@ class MainScreenViewModel extends BaseModel {
     required this.tourViewModel,
   });
 
-  /// Test constructor that allows dependency injection without listener wiring.
+  /// Creates test instance with consistent dependency injection.
   ///
-  /// Use this for testing to avoid automatic listener forwarding.
-  MainScreenViewModel.test({
+  /// **params**:
+  /// * `keysInstance`: Optional MainScreenKeys
+  /// * `navInstance`: Optional MainScreenNavViewModel
+  /// * `tourInstance`: Optional MainScreenTourViewModel
+  ///
+  /// **returns**:
+  /// * `MainScreenViewModel`: Test instance
+  static MainScreenViewModel createForTest({
     MainScreenKeys? keysInstance,
     MainScreenNavViewModel? navInstance,
     MainScreenTourViewModel? tourInstance,
-  })  : keys = keysInstance ?? MainScreenKeys(),
-        navViewModel = navInstance ??
-            MainScreenNavViewModel(keys: keysInstance ?? MainScreenKeys()),
-        tourViewModel = tourInstance ??
-            MainScreenTourViewModel(
-              keys: keysInstance ?? MainScreenKeys(),
-              onTabTapped: (navInstance ??
-                      MainScreenNavViewModel(
-                          keys: keysInstance ?? MainScreenKeys()))
-                  .onTabTapped,
-            );
+  }) {
+    final resolvedKeys = keysInstance ?? MainScreenKeys();
+    final resolvedNav =
+        navInstance ?? MainScreenNavViewModel(keys: resolvedKeys);
+    final resolvedTour = tourInstance ??
+        MainScreenTourViewModel(
+          keys: resolvedKeys,
+          onTabTapped: resolvedNav.onTabTapped,
+        );
+    return MainScreenViewModel._internal(
+      keys: resolvedKeys,
+      navViewModel: resolvedNav,
+      tourViewModel: resolvedTour,
+    );
+  }
 
   /// Instance of MainScreenKeys for GlobalKey access.
   late final MainScreenKeys keys;
@@ -82,23 +87,17 @@ class MainScreenViewModel extends BaseModel {
   /// Instance of MainScreenTourViewModel for tour logic.
   late final MainScreenTourViewModel tourViewModel;
 
-  // ==========================================================================
   // Delegated Properties - Navigation
-  // ==========================================================================
-
   /// Contains the Widgets to be rendered for corresponding navbar items.
   List<Widget> get pages => navViewModel.pages;
 
-  /// Actual [BottomNavigationBarItem]s that show up on the screen.
+  /// Actual navbar items.
   List<BottomNavigationBarItem> get navBarItems => navViewModel.navBarItems;
 
-  /// Current page index in the bottom navigation.
+  /// Current page index.
   int get currentPageIndex => navViewModel.currentPageIndex;
 
-  // ==========================================================================
   // Delegated Properties - Tour
-  // ==========================================================================
-
   /// Whether to show the app tour.
   bool get showAppTour => tourViewModel.showAppTour;
 
@@ -118,20 +117,17 @@ class MainScreenViewModel extends BaseModel {
   /// App tour instance.
   AppTour get appTour => tourViewModel.appTour;
 
-  /// List of focus targets for the current tour step.
+  /// Focus targets for current tour step.
   List<FocusTarget> get targets => tourViewModel.targets;
 
-  // ==========================================================================
   // Delegated Methods - Initialization & Setup
-  // ==========================================================================
-
   /// Initializes the view model.
   ///
   /// **params**:
   /// * `ctx`: BuildContext
-  /// * `fromSignUp`: Bool to find user entry
-  /// * `mainScreenIndex`: Index to find tab on mainScreen
-  /// * `demoMode`: Whether the app is in demo mode
+  /// * `fromSignUp`: User entry point
+  /// * `mainScreenIndex`: Tab index
+  /// * `demoMode`: Demo mode flag
   ///
   /// **returns**:
   ///   None
@@ -159,10 +155,10 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`.
+  /// Sets up navigation items.
   ///
   /// **params**:
-  /// * `context`: BuildContext for localization
+  /// * `context`: BuildContext
   ///
   /// **returns**:
   ///   None
@@ -174,14 +170,11 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
-  // ==========================================================================
   // Delegated Methods - Navigation
-  // ==========================================================================
-
-  /// Handles click on [BottomNavigationBarItem].
+  /// Handles click on tab.
   ///
   /// **params**:
-  /// * `index`: Index of the tapped tab
+  /// * `index`: Tab index
   ///
   /// **returns**:
   ///   None
@@ -190,7 +183,7 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// Exits demo mode and navigates to the splash screen.
+  /// Exits demo mode.
   ///
   /// **params**:
   ///   None
@@ -201,25 +194,22 @@ class MainScreenViewModel extends BaseModel {
     navViewModel.exitDemoMode();
   }
 
-  // ==========================================================================
   // Delegated Methods - Tour
-  // ==========================================================================
-
-  /// Builds and returns an AppTourDialog.
+  /// Builds AppTourDialog.
   ///
   /// **params**:
-  /// * `ctx`: The build context to work with
+  /// * `ctx`: BuildContext
   ///
   /// **returns**:
-  /// * `Widget`: The built [Dialog]
+  /// * `Widget`: Dialog widget
   Widget appTourDialog(BuildContext ctx) {
     return tourViewModel.appTourDialog(ctx, keys.scaffoldKey);
   }
 
-  /// Starts the home tour with focus targets.
+  /// Starts home tour.
   ///
   /// **params**:
-  /// * `givenUserConfig`: Mock user config for testing
+  /// * `givenUserConfig`: Mock config for testing
   ///
   /// **returns**:
   ///   None
@@ -227,10 +217,10 @@ class MainScreenViewModel extends BaseModel {
     tourViewModel.tourHomeTargets(keys.scaffoldKey, givenUserConfig);
   }
 
-  /// Handles clicks during home tour.
+  /// Handles home tour clicks.
   ///
   /// **params**:
-  /// * `clickedTarget`: The clicked target
+  /// * `clickedTarget`: Clicked target
   ///
   /// **returns**:
   ///   None
@@ -238,7 +228,7 @@ class MainScreenViewModel extends BaseModel {
     return tourViewModel.showHome(clickedTarget, keys.scaffoldKey);
   }
 
-  /// Shows the events tour.
+  /// Shows events tour.
   ///
   /// **params**:
   ///   None
@@ -249,7 +239,7 @@ class MainScreenViewModel extends BaseModel {
     tourViewModel.tourEventTargets();
   }
 
-  /// Shows the add post tour.
+  /// Shows add post tour.
   ///
   /// **params**:
   ///   None
@@ -260,7 +250,7 @@ class MainScreenViewModel extends BaseModel {
     tourViewModel.tourAddPost();
   }
 
-  /// Shows the chat tour.
+  /// Shows chat tour.
   ///
   /// **params**:
   ///   None
@@ -271,7 +261,7 @@ class MainScreenViewModel extends BaseModel {
     tourViewModel.tourChat();
   }
 
-  /// Shows the profile tour.
+  /// Shows profile tour.
   ///
   /// **params**:
   ///   None

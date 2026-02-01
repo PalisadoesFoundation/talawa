@@ -8,6 +8,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_tour_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -58,6 +59,7 @@ void main() {
     viewModel = MainScreenViewModel();
     mockAppTour = MockAppTour();
     viewModel.tourViewModel.appTour = mockAppTour;
+    MainScreenTourViewModel.transitionDelay = Duration.zero;
   });
 
   tearDownAll(() {
@@ -679,6 +681,7 @@ void main() {
 
       mockAppTour.clear();
       onFinish();
+      await tester.pump(const Duration(milliseconds: 100));
 
       expect(viewModel.currentPageIndex, 1);
       expect(mockAppTour.callCount, 1);
@@ -700,6 +703,7 @@ void main() {
 
       mockAppTour.clear();
       onFinish();
+      await tester.pump(const Duration(milliseconds: 100));
 
       expect(viewModel.currentPageIndex, 2);
       expect(mockAppTour.callCount, 1);
@@ -721,6 +725,7 @@ void main() {
 
       mockAppTour.clear();
       onFinish();
+      await tester.pump(const Duration(milliseconds: 100));
 
       expect(viewModel.currentPageIndex, 2);
       expect(mockAppTour.callCount, 1);
@@ -742,6 +747,7 @@ void main() {
 
       mockAppTour.clear();
       onFinish();
+      await tester.pump(const Duration(milliseconds: 100));
 
       expect(viewModel.currentPageIndex, 4);
       expect(mockAppTour.callCount, 1);
@@ -762,6 +768,7 @@ void main() {
       final onFinish = mockAppTour.capturedOnFinish!;
 
       onFinish();
+      await tester.pump(const Duration(milliseconds: 100));
 
       expect(viewModel.tourComplete, true);
       expect(viewModel.currentPageIndex, 0);

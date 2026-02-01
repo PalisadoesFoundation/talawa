@@ -42,7 +42,7 @@ class HomeTourTargets {
         description:
             'Click this button to see options related to switching, joining and leaving organization(s)',
         isCircle: true,
-        next: () => scaffoldKey.currentState!.openDrawer(),
+        next: () => scaffoldKey.currentState?.openDrawer(),
         appTour: appTour,
       ),
     );
@@ -146,7 +146,7 @@ class HomeTourTargets {
   ) async {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
-        scaffoldKey.currentState!.openDrawer();
+        scaffoldKey.currentState?.openDrawer();
         return;
       case "keyDrawerLeaveCurrentOrg":
         navigationService.pop();
