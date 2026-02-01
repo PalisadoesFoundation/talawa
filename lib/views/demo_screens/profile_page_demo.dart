@@ -111,7 +111,7 @@ class DemoProfilePage extends StatelessWidget {
                 height: 20,
               ),
               RaisedRoundedButton(
-                key: homeModel?.keySPDonateUs ?? const Key('DonateButton'),
+                key: homeModel?.keys.keySPDonateUs ?? const Key('DonateButton'),
                 buttonLabel: AppLocalizations.of(context)!.strictTranslate(
                   'Donate to the Community',
                 ),
@@ -172,7 +172,8 @@ class DemoProfilePage extends StatelessWidget {
                 height: SizeConfig.screenHeight! * 0.05,
               ),
               FromPalisadoes(
-                key: homeModel?.keySPPalisadoes ?? const Key('PalisadoesLogo'),
+                key: homeModel?.keys.keySPPalisadoes ??
+                    const Key('PalisadoesLogo'),
               ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.02,
