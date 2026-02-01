@@ -6,6 +6,7 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_keys.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -16,10 +17,7 @@ import '../../helpers/test_locator.dart';
 
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
   @override
-  final GlobalKey keySPPalisadoes = GlobalKey(debugLabel: 'PalisadoesLogo');
-
-  @override
-  final GlobalKey keySPDonateUs = GlobalKey(debugLabel: 'DonateUsButton');
+  final MainScreenKeys keys = MainScreenKeys();
 }
 
 Widget createDemoProfileScreen({MainScreenViewModel? homeModel}) {
@@ -89,7 +87,7 @@ void main() {
       expect(find.text('User'), findsOneWidget);
 
       // Check if donate button is present
-      expect(find.byKey(mockHomeModel.keySPDonateUs), findsOneWidget);
+      expect(find.byKey(mockHomeModel.keys.keySPDonateUs), findsOneWidget);
       expect(find.textContaining('Donate to the Community'), findsOneWidget);
     });
 
@@ -98,7 +96,7 @@ void main() {
           .pumpWidget(createDemoProfileScreen(homeModel: mockHomeModel));
       await tester.pumpAndSettle();
 
-      final donateButton = find.byKey(mockHomeModel.keySPDonateUs);
+      final donateButton = find.byKey(mockHomeModel.keys.keySPDonateUs);
       expect(donateButton, findsOneWidget);
 
       await tester.tap(donateButton);

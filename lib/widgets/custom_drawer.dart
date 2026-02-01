@@ -46,7 +46,7 @@ class CustomDrawer extends StatelessWidget {
                               model.selectedOrg?.name?.substring(0, 1),
                         ),
                         accountName: Column(
-                          key: homeModel.keyDrawerCurOrg,
+                          key: homeModel.keys.keyDrawerCurOrg,
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -65,7 +65,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       //Tile to Switch organizations
                       Column(
-                        key: homeModel.keyDrawerSwitchableOrg,
+                        key: homeModel.keys.keyDrawerSwitchableOrg,
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(
@@ -127,7 +127,7 @@ class CustomDrawer extends StatelessWidget {
                         children: <Widget>[
                           const Divider(),
                           ListTile(
-                            key: homeModel.keyDrawerJoinOrg,
+                            key: homeModel.keys.keyDrawerJoinOrg,
                             onTap: () {
                               if (userConfig.loggedIn) {
                                 navigationService.popAndPushScreen(
@@ -152,7 +152,7 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           userConfig.loggedIn
                               ? ListTile(
-                                  key: homeModel.keyDrawerLeaveCurrentOrg,
+                                  key: homeModel.keys.keyDrawerLeaveCurrentOrg,
                                   onTap: () => navigationService.pushDialog(
                                     model.exitAlertDialog(context),
                                   ),

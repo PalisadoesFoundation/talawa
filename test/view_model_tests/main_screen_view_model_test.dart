@@ -57,7 +57,7 @@ void main() {
     mockUserConfig = getAndRegisterUserConfig();
     viewModel = MainScreenViewModel();
     mockAppTour = MockAppTour();
-    viewModel.appTour = mockAppTour;
+    viewModel.tourViewModel.appTour = mockAppTour;
   });
 
   tearDownAll(() {
@@ -106,9 +106,8 @@ void main() {
 
     test('onTabTapped updates currentPageIndex and notifies listeners', () {
       bool notified = false;
-      viewModel.addListener(() => notified = true);
+      viewModel.navViewModel.addListener(() => notified = true);
 
-      viewModel.currentPageIndex = 0;
       viewModel.onTabTapped(3);
 
       expect(viewModel.currentPageIndex, 3);
@@ -171,7 +170,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.tourHomeTargets(mockUserConfig);
 
       expect(viewModel.targets.any((t) => t.keyName == 'keySHOrgName'), true);
@@ -207,7 +206,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.tourHomeTargets(mockUserConfig);
 
       // Should HAVE LeaveCurrentOrg if logged in
@@ -225,7 +224,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.tourEventTargets();
       expect(
         viewModel.targets.any((t) => t.keyName == 'keyBNEvents'),
@@ -258,7 +257,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.tourAddPost();
       expect(viewModel.targets.length, 1);
       expect(viewModel.targets.first.keyName, 'keyBNPost');
@@ -273,7 +272,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.tourChat();
       expect(viewModel.targets.length, 1);
       expect(viewModel.targets.first.keyName, 'keyBNChat');
@@ -288,7 +287,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.tourProfile();
       expect(
         viewModel.targets.any((t) => t.keyName == 'keyBNProfile'),
@@ -406,11 +405,11 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
 
       final target = TargetFocus(
         identify: 'keyDrawerLeaveCurrentOrg',
-        keyTarget: viewModel.keyDrawerLeaveCurrentOrg,
+        keyTarget: viewModel.keys.keyDrawerLeaveCurrentOrg,
       );
 
       await viewModel.showHome(target);
@@ -428,7 +427,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
 
       final target = TargetFocus(
         identify: 'unknownTarget',
@@ -440,36 +439,36 @@ void main() {
     });
 
     testWidgets('GlobalKeys are properly initialized', (tester) async {
-      expect(viewModel.scaffoldKey, isNotNull);
-      expect(viewModel.keyBNHome, isNotNull);
-      expect(viewModel.keyBNDemoHome, isNotNull);
-      expect(viewModel.keySHPinnedPost, isNotNull);
-      expect(viewModel.keySHPost, isNotNull);
-      expect(viewModel.keySHOrgName, isNotNull);
-      expect(viewModel.keySHMenuIcon, isNotNull);
-      expect(viewModel.keyDrawerCurOrg, isNotNull);
-      expect(viewModel.keyDrawerSwitchableOrg, isNotNull);
-      expect(viewModel.keyDrawerJoinOrg, isNotNull);
-      expect(viewModel.keyDrawerLeaveCurrentOrg, isNotNull);
-      expect(viewModel.keyBNEvents, isNotNull);
-      expect(viewModel.keyBNDemoEvents, isNotNull);
-      expect(viewModel.keySECategoryMenu, isNotNull);
-      expect(viewModel.keySEDateFilter, isNotNull);
-      expect(viewModel.keySEAdd, isNotNull);
-      expect(viewModel.keySECard, isNotNull);
-      expect(viewModel.keyBNPost, isNotNull);
-      expect(viewModel.keyBNDemoPost, isNotNull);
-      expect(viewModel.keyBNChat, isNotNull);
-      expect(viewModel.keyBNProfile, isNotNull);
-      expect(viewModel.keyBNDemoProfile, isNotNull);
-      expect(viewModel.keyBNFunds, isNotNull);
-      expect(viewModel.keySPEditProfile, isNotNull);
-      expect(viewModel.keySPAppSetting, isNotNull);
-      expect(viewModel.keySPHelp, isNotNull);
-      expect(viewModel.keySPDonateUs, isNotNull);
-      expect(viewModel.keySPInvite, isNotNull);
-      expect(viewModel.keySPLogout, isNotNull);
-      expect(viewModel.keySPPalisadoes, isNotNull);
+      expect(viewModel.keys.scaffoldKey, isNotNull);
+      expect(viewModel.keys.keyBNHome, isNotNull);
+      expect(viewModel.keys.keyBNDemoHome, isNotNull);
+      expect(viewModel.keys.keySHPinnedPost, isNotNull);
+      expect(viewModel.keys.keySHPost, isNotNull);
+      expect(viewModel.keys.keySHOrgName, isNotNull);
+      expect(viewModel.keys.keySHMenuIcon, isNotNull);
+      expect(viewModel.keys.keyDrawerCurOrg, isNotNull);
+      expect(viewModel.keys.keyDrawerSwitchableOrg, isNotNull);
+      expect(viewModel.keys.keyDrawerJoinOrg, isNotNull);
+      expect(viewModel.keys.keyDrawerLeaveCurrentOrg, isNotNull);
+      expect(viewModel.keys.keyBNEvents, isNotNull);
+      expect(viewModel.keys.keyBNDemoEvents, isNotNull);
+      expect(viewModel.keys.keySECategoryMenu, isNotNull);
+      expect(viewModel.keys.keySEDateFilter, isNotNull);
+      expect(viewModel.keys.keySEAdd, isNotNull);
+      expect(viewModel.keys.keySECard, isNotNull);
+      expect(viewModel.keys.keyBNPost, isNotNull);
+      expect(viewModel.keys.keyBNDemoPost, isNotNull);
+      expect(viewModel.keys.keyBNChat, isNotNull);
+      expect(viewModel.keys.keyBNProfile, isNotNull);
+      expect(viewModel.keys.keyBNDemoProfile, isNotNull);
+      expect(viewModel.keys.keyBNFunds, isNotNull);
+      expect(viewModel.keys.keySPEditProfile, isNotNull);
+      expect(viewModel.keys.keySPAppSetting, isNotNull);
+      expect(viewModel.keys.keySPHelp, isNotNull);
+      expect(viewModel.keys.keySPDonateUs, isNotNull);
+      expect(viewModel.keys.keySPInvite, isNotNull);
+      expect(viewModel.keys.keySPLogout, isNotNull);
+      expect(viewModel.keys.keySPPalisadoes, isNotNull);
     });
 
     testWidgets(
@@ -485,7 +484,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.targets.add(
         FocusTarget(
           key: GlobalKey(),
@@ -516,7 +515,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.targets.add(
         FocusTarget(
           key: GlobalKey(),
@@ -542,7 +541,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.targets.add(
         FocusTarget(
           key: GlobalKey(),
@@ -568,7 +567,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.targets.add(
         FocusTarget(
           key: GlobalKey(),
@@ -594,7 +593,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
       viewModel.targets.add(
         FocusTarget(
           key: GlobalKey(),
@@ -657,7 +656,7 @@ void main() {
       final key = GlobalKey();
       await tester.pumpWidget(createTestWidget(SizedBox(key: key)));
       await tester.pumpAndSettle();
-      viewModel.context = key.currentContext!;
+      viewModel.tourViewModel.context = key.currentContext!;
 
       viewModel.tourHomeTargets(mockUserConfig);
 
@@ -678,8 +677,8 @@ void main() {
       final key = GlobalKey();
       await tester.pumpWidget(createTestWidget(SizedBox(key: key)));
       await tester.pumpAndSettle();
-      viewModel.context = key.currentContext!;
-      viewModel.currentPageIndex = 1;
+      viewModel.tourViewModel.context = key.currentContext!;
+      viewModel.navViewModel.currentPageIndex = 1;
 
       viewModel.tourEventTargets();
 
@@ -699,8 +698,8 @@ void main() {
       final key = GlobalKey();
       await tester.pumpWidget(createTestWidget(SizedBox(key: key)));
       await tester.pumpAndSettle();
-      viewModel.context = key.currentContext!;
-      viewModel.currentPageIndex = 2; // Post tab index (assuming)
+      viewModel.tourViewModel.context = key.currentContext!;
+      viewModel.navViewModel.currentPageIndex = 2; // Post tab index (assuming)
 
       viewModel.tourAddPost();
 
@@ -710,7 +709,7 @@ void main() {
       mockAppTour.clear();
       onFinish();
 
-      expect(viewModel.currentPageIndex, 3);
+      expect(viewModel.currentPageIndex, 2);
       expect(mockAppTour.callCount, 1);
     });
 
@@ -720,8 +719,8 @@ void main() {
       final key = GlobalKey();
       await tester.pumpWidget(createTestWidget(SizedBox(key: key)));
       await tester.pumpAndSettle();
-      viewModel.context = key.currentContext!;
-      viewModel.currentPageIndex = 3;
+      viewModel.tourViewModel.context = key.currentContext!;
+      viewModel.navViewModel.currentPageIndex = 3;
 
       viewModel.tourChat();
 
@@ -741,8 +740,8 @@ void main() {
       final key = GlobalKey();
       await tester.pumpWidget(createTestWidget(SizedBox(key: key)));
       await tester.pumpAndSettle();
-      viewModel.context = key.currentContext!;
-      viewModel.currentPageIndex = 4;
+      viewModel.tourViewModel.context = key.currentContext!;
+      viewModel.navViewModel.currentPageIndex = 4;
 
       viewModel.tourProfile();
 

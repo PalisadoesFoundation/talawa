@@ -56,9 +56,10 @@ void main() {
                 // Initialize size config and capture context for later use
                 SizeConfig().init(context);
                 capturedContext = context;
-                viewModel = FakeMainScreenViewModel()..context = context;
+                viewModel = FakeMainScreenViewModel()
+                  ..tourViewModel.context = context;
                 return Scaffold(
-                  key: viewModel.scaffoldKey,
+                  key: viewModel.keys.scaffoldKey,
                   drawer: const Drawer(child: Center(child: Text('drawer'))),
                   body: Container(
                     key: primaryTargetKey,
@@ -125,7 +126,7 @@ void main() {
         expect(overlayTarget, same(tappedFocus));
 
         // Test skip flow
-        viewModel.scaffoldKey.currentState!.openDrawer();
+        viewModel.keys.scaffoldKey.currentState!.openDrawer();
         await tester.pump();
 
         final bool skipResult = appTour.tutorialCoachMark.onSkip!.call();
@@ -169,9 +170,10 @@ void main() {
             builder: (context) {
               SizeConfig().init(context);
               capturedContext = context;
-              viewModel = FakeMainScreenViewModel()..context = context;
+              viewModel = FakeMainScreenViewModel()
+                ..tourViewModel.context = context;
               return Scaffold(
-                key: viewModel.scaffoldKey,
+                key: viewModel.keys.scaffoldKey,
                 body: const SizedBox.shrink(),
               );
             },
@@ -301,9 +303,10 @@ void main() {
             builder: (context) {
               SizeConfig().init(context);
               capturedContext = context;
-              viewModel = FakeMainScreenViewModel()..context = context;
+              viewModel = FakeMainScreenViewModel()
+                ..tourViewModel.context = context;
               return Scaffold(
-                key: viewModel.scaffoldKey,
+                key: viewModel.keys.scaffoldKey,
                 body: const SizedBox.shrink(),
               );
             },
