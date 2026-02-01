@@ -26,6 +26,7 @@ class MainScreenTourViewModel extends BaseModel {
 
   /// Show tour flag.
   bool showAppTour = false;
+
   /// Tour complete flag.
   bool tourComplete = false;
 
