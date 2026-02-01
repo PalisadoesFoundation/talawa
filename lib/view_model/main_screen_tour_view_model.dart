@@ -25,8 +25,7 @@ class MainScreenTourViewModel extends BaseModel {
   final void Function(int) onTabTapped;
 
   /// Show tour flag.
-  late bool showAppTour;
-
+  bool showAppTour = false;
   /// Tour complete flag.
   bool tourComplete = false;
 
