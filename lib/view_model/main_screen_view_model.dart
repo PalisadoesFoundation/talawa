@@ -58,7 +58,7 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `MainScreenViewModel`: Test instance
-  static MainScreenViewModel createForTest({
+  factory MainScreenViewModel.createForTest({
     MainScreenKeys? keysInstance,
     MainScreenNavViewModel? navInstance,
     MainScreenTourViewModel? tourInstance,

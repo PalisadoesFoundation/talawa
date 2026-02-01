@@ -93,8 +93,9 @@ class MainScreenTourViewModel extends BaseModel {
     GlobalKey<ScaffoldState> scaffoldKey,
   ) async {
     await Future.delayed(const Duration(seconds: 1));
-    if (ctx.mounted)
+    if (ctx.mounted) {
       navigationService.pushDialog(appTourDialog(ctx, scaffoldKey));
+    }
   }
 
   /// Builds and returns an AppTourDialog.
