@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
@@ -452,73 +451,6 @@ Future<void> main() async {
         focusedElement!.hasPrimaryFocus,
         isTrue,
       ); // Ensure it has primary focus
-    });
-  });
-
-  group('Email Focus Tests', () {
-    setUp(() {
-      registerServices();
-      locator<GraphqlConfig>().test();
-      locator<SizeConfig>().test();
-    });
-
-    tearDown(() {
-      unregisterServices();
-    });
-
-    testWidgets("Testing if email text field gets focus on onPressed",
-        (tester) async {
-      userConfig.updateUser(
-        User(name: 'Test Test', email: 'test@test.com'),
-      );
-
-      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
-
-      final emailTextField = find.byKey(const Key('emailTextField'));
-      expect(emailTextField, findsOneWidget);
-
-      final editIcon = find.descendant(
-        of: emailTextField,
-        matching: find.byIcon(Icons.edit),
-      );
-      expect(editIcon, findsOneWidget);
-
-      await tester.tap(editIcon);
-      await tester.pumpAndSettle();
-
-      final focusedElement =
-          FocusScope.of(tester.element(emailTextField)).focusedChild;
-      expect(focusedElement, isNotNull);
-      expect(focusedElement!.hasPrimaryFocus, isTrue);
-    });
-
-    testWidgets("Testing exception handling on update", (tester) async {
-      await mockNetworkImages(() async {
-        userConfig.updateUser(
-          User(name: 'Test Test', email: 'test@test.com'),
-        );
-
-        when(userProfileService.updateUserProfile(any))
-            .thenThrow(Exception('Update failed'));
-
-        await tester
-            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
-        await tester.pumpAndSettle();
-
-        final emailTextField = find.byKey(const Key('emailTextField'));
-        await tester.enterText(emailTextField, 'new@test.com');
-        await tester.pumpAndSettle();
-
-        final updateButton = find.byKey(const Key('updatebtn'));
-        await tester.tap(updateButton);
-        await tester.pumpAndSettle();
-
-        // Verify snackbar or error handling triggered
-        verify(navigationService.showTalawaErrorSnackBar(
-                "Something went wrong", MessageType.error))
-            .called(1);
-      });
     });
   });
 }

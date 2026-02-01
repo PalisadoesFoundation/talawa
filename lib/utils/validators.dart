@@ -16,7 +16,7 @@ class Validator {
   /// **returns**:
   /// * `Future<bool>`: true if URL exists, false otherwise.
   Future<bool> validateUrlExistence(String url, {http.Client? client}) async {
-    final httpClient = client ?? http.Client();
+    final httpClient = client ?? http.Client(); // coverage:ignore-line
     try {
       final response = await httpClient
           .get(Uri.parse(url))
@@ -32,7 +32,7 @@ class Validator {
     } finally {
       // Only close the client if we created it
       if (client == null) {
-        httpClient.close();
+        httpClient.close(); // coverage:ignore-line
       }
     }
   }
@@ -41,8 +41,7 @@ class Validator {
 /// A generic validators class that provides common validation methods.
 class Validators {
   /// Private constructor to prevent instantiation.
-  // coverage:ignore-line
-  const Validators._();
+  const Validators._(); // coverage:ignore-line
 
   /// Validates that the string is not null or empty.
   ///

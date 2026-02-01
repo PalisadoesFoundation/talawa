@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -305,6 +307,18 @@ void main() {
         () async {
       final mockClient = MockClient(
         (request) => throw Exception('Network error'),
+      );
+      final validator = Validator();
+      final result = await validator.validateUrlExistence(
+        'https://example.com',
+        client: mockClient,
+      );
+      expect(result, false);
+    });
+
+    test('validateUrlExistence returns false on timeout', () async {
+      final mockClient = MockClient(
+        (request) => throw TimeoutException('Timeout'),
       );
       final validator = Validator();
       final result = await validator.validateUrlExistence(
