@@ -85,13 +85,13 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// Instance of MainScreenKeys for GlobalKey access.
-  late final MainScreenKeys keys;
+  final MainScreenKeys keys;
 
   /// Instance of MainScreenNavViewModel for navigation logic.
-  late final MainScreenNavViewModel navViewModel;
+  final MainScreenNavViewModel navViewModel;
 
   /// Instance of MainScreenTourViewModel for tour logic.
-  late final MainScreenTourViewModel tourViewModel;
+  final MainScreenTourViewModel tourViewModel;
 
   // Delegated Properties - Navigation
   /// Contains the Widgets to be rendered for corresponding navbar items.

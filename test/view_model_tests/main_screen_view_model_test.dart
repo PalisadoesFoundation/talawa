@@ -897,7 +897,6 @@ void main() {
 
       // Check if targets were added - this confirms tourHomeTargets was called
       expect(viewModel.targets, isNotEmpty);
-      expect(viewModel.targets, isNotEmpty);
     });
 
     testWidgets('tourHomeTargets sets up onClickTarget correctly',
