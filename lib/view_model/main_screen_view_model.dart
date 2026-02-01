@@ -21,7 +21,6 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// - [MainScreenNavViewModel]: Navigation, pages, tabs, demo mode
 /// - [MainScreenTourViewModel]: App tour, targets, dialogs, tutorial flows
 class MainScreenViewModel extends BaseModel {
-
   /// Constructs MainScreenViewModel with optional dependencies for testing.
   ///
   /// **params**:
@@ -41,6 +40,7 @@ class MainScreenViewModel extends BaseModel {
           onTabTapped: navViewModel.onTabTapped,
         );
   }
+
   /// Instance of MainScreenKeys for GlobalKey access.
   late final MainScreenKeys keys;
 
