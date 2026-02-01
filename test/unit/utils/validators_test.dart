@@ -89,6 +89,18 @@ void main() {
       test('returns null for string length greater than n', () {
         expect(Validators.minLen('123456', 5), null);
       });
+
+      test('with trim=true, trims whitespace before checking length', () {
+        // Whitespace-only string (5 spaces) should fail min length 3 when trimmed
+        expect(Validators.minLen('     ', 3, trim: true), 'Min length 3');
+        // String with spaces around valid content should pass when trimmed
+        expect(Validators.minLen('  abc  ', 3, trim: true), null);
+      });
+
+      test('with trim=false (default), whitespace counts towards length', () {
+        // Whitespace-only string (5 spaces) should pass min length 3
+        expect(Validators.minLen('     ', 3), null);
+      });
     });
 
     group('password', () {

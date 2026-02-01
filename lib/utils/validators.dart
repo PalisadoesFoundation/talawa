@@ -89,14 +89,21 @@ class Validators {
 
   /// Validates that the string has a minimum length.
   ///
+  /// By default, whitespace is counted. Set [trim] to `true` to trim leading/
+  /// trailing whitespace before checking length (useful for names but NOT for
+  /// passwords where spaces may be valid characters).
+  ///
   /// **params**:
   /// * `v`: The string to validate.
   /// * `n`: The minimum length.
+  /// * `trim`: Whether to trim whitespace before checking. Default: `false`.
   ///
   /// **returns**:
   /// * `String?`: Error message if invalid, null otherwise.
-  static String? minLen(String? v, int n) =>
-      (v == null || v.length < n) ? 'Min length $n' : null;
+  static String? minLen(String? v, int n, {bool trim = false}) {
+    final value = trim ? v?.trim() : v;
+    return (value == null || value.length < n) ? 'Min length $n' : null;
+  }
 
   /// Validates the password strength.
   ///
