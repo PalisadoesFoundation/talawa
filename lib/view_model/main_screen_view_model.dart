@@ -27,19 +27,50 @@ class MainScreenViewModel extends BaseModel {
   /// * `keysInstance`: Optional MainScreenKeys instance (for testing)
   /// * `navInstance`: Optional MainScreenNavViewModel instance (for testing)
   /// * `tourInstance`: Optional MainScreenTourViewModel instance (for testing)
-  MainScreenViewModel({
+  factory MainScreenViewModel() {
+    final keys = MainScreenKeys();
+    final navViewModel = MainScreenNavViewModel(keys: keys);
+    final tourViewModel = MainScreenTourViewModel(
+      keys: keys,
+      onTabTapped: navViewModel.onTabTapped,
+    );
+    final model = MainScreenViewModel._internal(
+      keys: keys,
+      navViewModel: navViewModel,
+      tourViewModel: tourViewModel,
+    );
+
+    // Forward notifications from sub-models to parent
+    navViewModel.addListener(model.notifyListeners);
+    tourViewModel.addListener(model.notifyListeners);
+
+    return model;
+  }
+
+  /// Internal constructor for dependency injection (primarily for testing).
+  MainScreenViewModel._internal({
+    required this.keys,
+    required this.navViewModel,
+    required this.tourViewModel,
+  });
+
+  /// Test constructor that allows dependency injection without listener wiring.
+  /// Use this for testing to avoid automatic listener forwarding.
+  MainScreenViewModel.test({
     MainScreenKeys? keysInstance,
     MainScreenNavViewModel? navInstance,
     MainScreenTourViewModel? tourInstance,
-  }) {
-    keys = keysInstance ?? MainScreenKeys();
-    navViewModel = navInstance ?? MainScreenNavViewModel(keys: keys);
-    tourViewModel = tourInstance ??
-        MainScreenTourViewModel(
-          keys: keys,
-          onTabTapped: navViewModel.onTabTapped,
-        );
-  }
+  })  : keys = keysInstance ?? MainScreenKeys(),
+        navViewModel = navInstance ??
+            MainScreenNavViewModel(keys: keysInstance ?? MainScreenKeys()),
+        tourViewModel = tourInstance ??
+            MainScreenTourViewModel(
+              keys: keysInstance ?? MainScreenKeys(),
+              onTabTapped: (navInstance ??
+                      MainScreenNavViewModel(
+                          keys: keysInstance ?? MainScreenKeys()))
+                  .onTabTapped,
+            );
 
   /// Instance of MainScreenKeys for GlobalKey access.
   late final MainScreenKeys keys;
@@ -75,7 +106,10 @@ class MainScreenViewModel extends BaseModel {
 
   /// Whether the tour was skipped.
   bool get tourSkipped => tourViewModel.tourSkipped;
-  set tourSkipped(bool value) => tourViewModel.tourSkipped = value;
+  set tourSkipped(bool value) {
+    tourViewModel.tourSkipped = value;
+    notifyListeners();
+  }
 
   /// Current build context.
   BuildContext get context => tourViewModel.context;
@@ -118,7 +152,7 @@ class MainScreenViewModel extends BaseModel {
       fromSignUp: fromSignUp,
       demoMode: demoMode,
       scaffoldKey: keys.scaffoldKey,
-      parentModel: this,
+      mainScreenModel: this,
     );
 
     notifyListeners();
@@ -245,5 +279,18 @@ class MainScreenViewModel extends BaseModel {
   ///   None
   void tourProfile() {
     tourViewModel.tourProfile();
+  }
+
+  @override
+  void dispose() {
+    // Remove listeners before disposing sub-models
+    navViewModel.removeListener(notifyListeners);
+    tourViewModel.removeListener(notifyListeners);
+
+    // Dispose sub-models
+    navViewModel.dispose();
+    tourViewModel.dispose();
+
+    super.dispose();
   }
 }

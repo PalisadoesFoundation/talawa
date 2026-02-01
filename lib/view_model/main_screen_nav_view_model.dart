@@ -4,6 +4,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_keys.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
@@ -54,7 +55,7 @@ class MainScreenNavViewModel extends BaseModel {
   void setupNavigationItems(
     BuildContext context, {
     required bool isDemoMode,
-    required dynamic homeModel,
+    required MainScreenViewModel homeModel,
   }) {
     navBarItems = [
       BottomNavigationBarItem(
@@ -104,7 +105,6 @@ class MainScreenNavViewModel extends BaseModel {
       pages = [
         OrganizationFeed(
           key: const Key("HomeView"),
-          // ignore: argument_type_not_assignable
           homeModel: homeModel,
         ),
         const EventCalendar(
@@ -127,7 +127,6 @@ class MainScreenNavViewModel extends BaseModel {
       pages = [
         DemoOrganizationFeed(
           key: const Key("DemoHomeView"),
-          // ignore: argument_type_not_assignable
           homeModel: homeModel,
         ),
         const DemoExploreEvents(
@@ -141,7 +140,6 @@ class MainScreenNavViewModel extends BaseModel {
         ),
         DemoProfilePage(
           key: const Key('DemoProfile'),
-          // ignore: argument_type_not_assignable
           homeModel: homeModel,
         ),
         const MenuPage(

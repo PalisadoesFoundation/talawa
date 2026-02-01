@@ -369,6 +369,19 @@ void main() {
       expect(viewModel.tourSkipped, false);
     });
 
+    test('tourSkipped setter notifies listeners', () {
+      var notified = false;
+      viewModel.addListener(() {
+        notified = true;
+      });
+
+      viewModel.tourSkipped = true;
+
+      expect(viewModel.tourSkipped, true);
+      expect(notified, true,
+          reason: 'Setting tourSkipped should notify listeners');
+    });
+
     test('targets list is initially empty', () {
       expect(viewModel.targets, isEmpty);
     });

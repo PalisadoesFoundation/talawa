@@ -5,7 +5,7 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// Test double for MainScreenViewModel used by AppTour tests to track tab taps.
 class FakeMainScreenViewModel extends MainScreenViewModel {
-  FakeMainScreenViewModel() : super();
+  FakeMainScreenViewModel() : super.test();
 
   /// Records last tapped tab index for verification.
   int? lastTappedIndex;
