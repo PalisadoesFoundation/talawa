@@ -166,7 +166,9 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandNavigate() is working fine when urlPresent is false',
         (tester) async {
-      await locator.unregister<Validator>();
+      if (locator.isRegistered<Validator>()) {
+        await locator.unregister<Validator>();
+      }
       final service = MockValidator();
 
       locator.registerSingleton<Validator>(service);
@@ -186,7 +188,9 @@ Future<void> main() async {
         ),
       );
 
-      locator.unregister<Validator>();
+      if (locator.isRegistered<Validator>()) {
+        locator.unregister<Validator>();
+      }
     });
 
     testWidgets('Check if checkURLandNavigate() shows error for empty URL',
