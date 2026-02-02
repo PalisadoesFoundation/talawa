@@ -37,6 +37,8 @@ void main() {
     }
 
     setUp(() {
+      FlutterSecureStorage.setMockInitialValues({});
+
       encryptor = Encryptor();
 
       keyPair = encryptor.generateRSAKeyPair();
@@ -504,8 +506,6 @@ void main() {
     });
 
     test('loadKeyPair should use default storage when receiving null', () {
-      FlutterSecureStorage.setMockInitialValues({});
-
       // Create a specific mock box for this test to ensure cleanliness
       final testMockBox = MockBox<AsymetricKeys>();
 
@@ -529,7 +529,6 @@ void main() {
 
     test('saveKeyPair should use default storage when receiving null',
         () async {
-      FlutterSecureStorage.setMockInitialValues({});
       final keyPair = encryptor.generateRSAKeyPair();
       final mockBox = MockBox<AsymetricKeys>();
 
@@ -550,8 +549,6 @@ void main() {
 
     test('deleteKeyPair should use default storage when receiving null',
         () async {
-      FlutterSecureStorage.setMockInitialValues({});
-
       // Use the global Hive instance which we setup in setUp
       await Hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
 
