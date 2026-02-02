@@ -520,7 +520,6 @@ void main() {
       expect(
         () async => await encryptor.loadKeyPair(
           mockHiveInterface,
-          // secureStorage: null,
         ),
         throwsA(predicate(
             (e) => e.toString().contains('No key pair found in secure store'))),
@@ -558,7 +557,6 @@ void main() {
       // Act: Call with explicit null for secureStorage or omit it
       await encryptor.deleteKeyPair(
         hive: null, // Uses default Hive
-        // secureStorage: null, // Uses default storage
       );
 
       // Verify Hive box is closed (proving method ran)
