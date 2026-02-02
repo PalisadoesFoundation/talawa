@@ -21,6 +21,11 @@ void main() {
     AppConnectivity.isOnline = true;
   });
 
+  tearDown(() {
+    // Reset to default state after each test
+    AppConnectivity.isOnline = true;
+  });
+
   tearDownAll(() {
     unregisterServices();
   });
@@ -297,6 +302,10 @@ void main() {
           AppConnectivity.isOnline = true;
         });
 
+        tearDown(() {
+          AppConnectivity.isOnline = true;
+        });
+
         test('should call API before updateUI for critical actions when online',
             () async {
           // Arrange
@@ -389,6 +398,10 @@ void main() {
       group('critical actions - offline', () {
         setUp(() {
           AppConnectivity.isOnline = false;
+        });
+
+        tearDown(() {
+          AppConnectivity.isOnline = true;
         });
 
         test('should call updateUI when offline for critical actions',
