@@ -416,9 +416,18 @@ void main() {
         throw Exception('Simulated Exception.');
       });
 
+      // Stub snackbar to avoid missing stub error if strict mock
+      when(navigationService.showTalawaErrorSnackBar(
+              "Couldn't update User details", MessageType.error))
+          .thenAnswer((_) {});
+
       // show couldn't update errorsnackbar.
       final loggedIn = await model.userLoggedIn();
       expect(loggedIn, false);
+
+      verify(navigationService.showTalawaErrorSnackBar(
+              "Couldn't update User details", MessageType.error))
+          .called(1);
     });
 
     test('Test for updateUserJoinedOrg method', () async {
