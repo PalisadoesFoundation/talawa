@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:talawa/services/secure_storage_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
@@ -339,10 +339,9 @@ Future<void> main() async {
       (tester) async {
         when(userConfig.loggedIn).thenReturn(true);
 
-        FlutterSecureStorage.setMockInitialValues({
-          "userEmail": "test@example.com",
-          "userPassword": "password123",
-        });
+        final secureStorage = locator<SecureStorageService>();
+        await secureStorage.writeToken("userEmail", "test@example.com");
+        await secureStorage.writeToken("userPassword", "password123");
 
         await tester.pumpWidget(
           createAppSettingScreen(themeMode: ThemeMode.dark),
@@ -384,15 +383,11 @@ Future<void> main() async {
         await tester.pumpAndSettle();
 
         // Verify secure storage was cleared
-        const secureStorage = FlutterSecureStorage();
-        final userEmail = await secureStorage.read(key: "userEmail");
-        final userPassword = await secureStorage.read(key: "userPassword");
+        final userEmail = await secureStorage.readToken("userEmail");
+        final userPassword = await secureStorage.readToken("userPassword");
 
         expect(userEmail, isNull);
         expect(userPassword, isNull);
-
-        // Reset mock storage to avoid test interference
-        FlutterSecureStorage.setMockInitialValues({});
       },
     );
   });
