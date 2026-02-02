@@ -9,12 +9,12 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('SecureStorageService Test -', () {
-    test('Constructs with default storage when no argument provided', () async {
+    test('writeToken and readToken work correctly', () async {
       // Use instance-based fake to avoid global state pollution
       final fakeStorage = FakeFlutterSecureStorage();
       final service = SecureStorageService(storage: fakeStorage);
 
-      // Verify basic functionality works with the default instance
+      // Verify basic functionality works with the fake instance
       await service.writeToken('test_key', 'test_value');
       final value = await service.readToken('test_key');
 
