@@ -502,14 +502,68 @@ void main() {
       expect(Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey), isFalse);
     });
 
-    test('loadKeyPair should use default storage when receiving null', () {
+    test('loadKeyPair should use default storage when receiving null',
+        () async {
+      FlutterSecureStorage.setMockInitialValues({});
+
+      // Create a specific mock box for this test to ensure cleanliness
+      final testMockBox = MockBox<AsymetricKeys>();
+
+      // Stub openBox to return our testMockBox
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        any,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((_) async => testMockBox);
+
+      // Explicitly stub get() to return null, simulating "key not found"
+      when(testMockBox.get('key_pair')).thenReturn(null);
+
       expect(
-        () => encryptor.loadKeyPair(
+        () async => await encryptor.loadKeyPair(
           mockHiveInterface,
-          secureStorage: null,
+          // secureStorage: null,
         ),
-        throwsException,
+        throwsA(predicate(
+            (e) => e.toString().contains('No key pair found in secure store'))),
       );
+    });
+
+    test('saveKeyPair should use default storage when receiving null',
+        () async {
+      FlutterSecureStorage.setMockInitialValues({});
+      final keyPair = encryptor.generateRSAKeyPair();
+      final mockBox = MockBox<AsymetricKeys>();
+
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        any,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((_) async => mockBox);
+
+      // Call without secureStorage parameter
+      await encryptor.saveKeyPair(keyPair, mockHiveInterface);
+
+      // Verify openBox was called with an encryption cipher, implying storage was accessed
+      verify(mockHiveInterface.openBox<AsymetricKeys>(
+        any,
+        encryptionCipher: argThat(isNotNull, named: 'encryptionCipher'),
+      )).called(1);
+    });
+
+    test('deleteKeyPair should use default storage when receiving null',
+        () async {
+      FlutterSecureStorage.setMockInitialValues({});
+
+      // Use the global Hive instance which we setup in setUp
+      await Hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+
+      // Act: Call with explicit null for secureStorage or omit it
+      await encryptor.deleteKeyPair(
+        hive: null, // Uses default Hive
+        // secureStorage: null, // Uses default storage
+      );
+
+      // Verify Hive box is closed (proving method ran)
+      expect(Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey), isFalse);
     });
   });
 }
