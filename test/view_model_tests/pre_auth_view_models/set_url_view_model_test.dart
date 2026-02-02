@@ -99,12 +99,25 @@ Future<void> main() async {
 
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
+  late MockValidator mockValidator;
+
   setUp(() {
     registerServices();
     registerViewModels();
+    // Clean up any existing Validator mock
+    if (locator.isRegistered<Validator>()) {
+      locator.unregister<Validator>();
+    }
+    mockValidator = MockValidator();
+    locator.registerSingleton<Validator>(mockValidator);
     model = SetUrlViewModel();
   });
+
   tearDown(() {
+    // Clean up Validator mock if present
+    if (locator.isRegistered<Validator>()) {
+      locator.unregister<Validator>();
+    }
     unregisterViewModels();
   });
 
@@ -112,17 +125,11 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandNavigate() is working fine when urlPresent is true',
         (tester) async {
-      if (locator.isRegistered<Validator>()) {
-        await locator.unregister<Validator>();
-      }
-      final service = MockValidator();
-      locator.registerSingleton<Validator>(service);
-
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
       // Set a non-empty URL to bypass the empty URL check
       model.url.text = 'https://example.com/graphql';
-      when(service.validateUrlExistence('https://example.com/graphql'))
+      when(mockValidator.validateUrlExistence('https://example.com/graphql'))
           .thenAnswer((_) async => true);
 
       await model.checkURLandNavigate('/', 'arguments');
@@ -166,17 +173,10 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandNavigate() is working fine when urlPresent is false',
         (tester) async {
-      if (locator.isRegistered<Validator>()) {
-        await locator.unregister<Validator>();
-      }
-      final service = MockValidator();
-
-      locator.registerSingleton<Validator>(service);
-
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
       model.url.text = 'https://invalid.com/graphql';
-      when(service.validateUrlExistence('https://invalid.com/graphql'))
+      when(mockValidator.validateUrlExistence('https://invalid.com/graphql'))
           .thenAnswer((_) async => false);
 
       await model.checkURLandNavigate('/', 'arguments');
@@ -187,20 +187,10 @@ Future<void> main() async {
           MessageType.error,
         ),
       );
-
-      if (locator.isRegistered<Validator>()) {
-        await locator.unregister<Validator>();
-      }
     });
 
     testWidgets('Check if checkURLandNavigate() shows error for empty URL',
         (tester) async {
-      if (locator.isRegistered<Validator>()) {
-        await locator.unregister<Validator>();
-      }
-      final service = MockValidator();
-      locator.registerSingleton<Validator>(service);
-
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
       // Leave URL empty
@@ -220,16 +210,10 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandShowPopUp() is working fine when urlPresent is true',
         (tester) async {
-      if (locator.isRegistered<Validator>()) {
-        await locator.unregister<Validator>();
-      }
-      final service = MockValidator();
-      locator.registerSingleton<Validator>(service);
-
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
       model.url.text = 'https://example.com/graphql';
-      when(service.validateUrlExistence('https://example.com/graphql'))
+      when(mockValidator.validateUrlExistence('https://example.com/graphql'))
           .thenAnswer((_) async => true);
 
       await model.checkURLandShowPopUp('arguments');
@@ -258,16 +242,10 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandShowPopUp() is working fine when urlPresent is false',
         (tester) async {
-      if (locator.isRegistered<Validator>()) {
-        await locator.unregister<Validator>();
-      }
-      final service = MockValidator();
-      locator.registerSingleton<Validator>(service);
-
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
       model.url.text = 'https://invalid.com/graphql';
-      when(service.validateUrlExistence('https://invalid.com/graphql'))
+      when(mockValidator.validateUrlExistence('https://invalid.com/graphql'))
           .thenAnswer((_) async => false);
 
       await model.checkURLandShowPopUp('arguments');
