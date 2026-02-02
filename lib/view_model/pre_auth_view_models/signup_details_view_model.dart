@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -23,9 +23,6 @@ class SignupDetailsViewModel extends BaseModel {
 
   /// Represents information about the selected organization.
   late OrgInfo selectedOrganization;
-
-  /// Secure local storage instance.
-  FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// TextEditingController for handling confirmation password input field.
   TextEditingController confirmPassword = TextEditingController();
@@ -197,13 +194,13 @@ class SignupDetailsViewModel extends BaseModel {
   ///   None
   Future<void> storingCredentialsInSecureStorage() async {
     try {
-      await secureStorage.write(
-        key: "userEmail",
-        value: this.email.text,
+      await secureStorage.writeToken(
+        "userEmail",
+        this.email.text,
       );
-      await secureStorage.write(
-        key: "userPassword",
-        value: this.password.text,
+      await secureStorage.writeToken(
+        "userPassword",
+        this.password.text,
       );
     } catch (e) {
       // Handle secure storage write failure

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -17,21 +16,10 @@ import 'package:talawa/utils/encryptor.dart';
 
 import '../helpers/setup_hive.mocks.dart';
 
-// This test is being written believing that in future when Encryptor class will get rid of shouldEncrypt variable then all the tests using that variable can be removed
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  group('When shouldEncrypt is true', () {
-    test('encryptString method should return the encrypted string', () {
-      Encryptor.shouldEncrypt = true;
-      const String inputString = 'password123';
-      final String outputString =
-          sha256.convert(utf8.encode(inputString)).toString();
-      expect(Encryptor.encryptString(inputString), outputString);
-    });
-  });
-// As the bool variable is not used anywhere except in this method so moving ahead with making this variable as false
-// On getting rid of this variable the above test can be removed
-  group('When shouldEncrypt is false', () {
+
+  group('Encryptor Tests', () {
     late Encryptor encryptor;
     late AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
     late pointy.PublicKey publicKey;
@@ -49,17 +37,14 @@ void main() {
 
     setUp(() {
       encryptor = Encryptor();
-      Encryptor.shouldEncrypt = false;
+
       keyPair = encryptor.generateRSAKeyPair();
       publicKey = keyPair.publicKey;
       mockHiveInterface = MockHiveInterface();
       mockHiveBox = MockBox();
       fakeSecureStorage = FakeFlutterSecureStorage();
     });
-    test('encryptString method should return the same string', () {
-      const String inputString = 'password123';
-      expect(Encryptor.encryptString(inputString), inputString);
-    });
+
     test(
         'Correct security options are added while generating keys from generateRSAKeyPair method',
         () {

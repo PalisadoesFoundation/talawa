@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -24,9 +24,6 @@ class AppSettingsPage extends StatefulWidget {
 }
 
 class _AppSettingsPageState extends State<AppSettingsPage> {
-  /// Secure local storage instance.
-  final secureStorage = const FlutterSecureStorage();
-
   @override
   Widget build(BuildContext context) {
     const String talawaDocs = 'https://docs.talawa.io';
@@ -300,11 +297,11 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
                           await model.logout();
                           if (checkBoxVal != null && checkBoxVal == false) {
                             try {
-                              await secureStorage.delete(
-                                key: "userEmail",
+                              await secureStorage.deleteToken(
+                                "userEmail",
                               );
-                              await secureStorage.delete(
-                                key: "userPassword",
+                              await secureStorage.deleteToken(
+                                "userPassword",
                               );
                             } catch (e) {
                               print("Unable to delete stored value : $e");
