@@ -4,7 +4,7 @@ import '../helpers/fake_flutter_secure_storage.dart';
 
 /// Test suite for [SecureStorageService].
 ///
-/// verifying default configuration and storage operations.
+/// Verifies storage operations using injected test instances.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
