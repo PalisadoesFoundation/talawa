@@ -14,6 +14,7 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 import 'package:talawa/utils/encryptor.dart';
 
+import '../helpers/fake_flutter_secure_storage.dart';
 import '../helpers/setup_hive.mocks.dart';
 
 void main() {
@@ -563,66 +564,6 @@ void main() {
       expect(Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey), isFalse);
     });
   });
-}
-
-class FakeFlutterSecureStorage extends Fake implements FlutterSecureStorage {
-  final Map<String, String> _storage = {};
-
-  @override
-  Future<String?> read({
-    required String key,
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    return _storage[key];
-  }
-
-  @override
-  Future<void> write({
-    required String key,
-    required String? value,
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (value == null) {
-      _storage.remove(key);
-    } else {
-      _storage[key] = value;
-    }
-  }
-
-  @override
-  Future<void> delete({
-    required String key,
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    _storage.remove(key);
-  }
-
-  @override
-  Future<void> deleteAll({
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    _storage.clear();
-  }
 }
 
 class ThrowingFlutterSecureStorage extends FakeFlutterSecureStorage {

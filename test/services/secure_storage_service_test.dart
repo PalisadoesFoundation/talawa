@@ -1,6 +1,6 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/services/secure_storage_service.dart';
+import '../helpers/fake_flutter_secure_storage.dart';
 
 /// Test suite for [SecureStorageService].
 ///
@@ -10,11 +10,9 @@ void main() {
 
   group('SecureStorageService Test -', () {
     test('Constructs with default storage when no argument provided', () async {
-      // Setup mock values for FlutterSecureStorage to prevent MissingPluginException
-      FlutterSecureStorage.setMockInitialValues({});
-
-      // Initialize service without arguments to trigger the default storage path
-      final service = SecureStorageService();
+      // Use instance-based fake to avoid global state pollution
+      final fakeStorage = FakeFlutterSecureStorage();
+      final service = SecureStorageService(storage: fakeStorage);
 
       // Verify basic functionality works with the default instance
       await service.writeToken('test_key', 'test_value');
@@ -24,9 +22,8 @@ void main() {
     });
 
     test('Constructs with provided storage', () async {
-      FlutterSecureStorage.setMockInitialValues({});
-      const storage = FlutterSecureStorage();
-      final service = SecureStorageService(storage: storage);
+      final fakeStorage = FakeFlutterSecureStorage();
+      final service = SecureStorageService(storage: fakeStorage);
 
       await service.writeToken('key2', 'value2');
       final value = await service.readToken('key2');
@@ -35,8 +32,8 @@ void main() {
     });
 
     test('deleteToken removes the value', () async {
-      FlutterSecureStorage.setMockInitialValues({});
-      final service = SecureStorageService();
+      final fakeStorage = FakeFlutterSecureStorage();
+      final service = SecureStorageService(storage: fakeStorage);
       await service.writeToken('delete_me', 'value');
 
       await service.deleteToken('delete_me');
@@ -46,8 +43,8 @@ void main() {
     });
 
     test('deleteAll clears all values', () async {
-      FlutterSecureStorage.setMockInitialValues({});
-      final service = SecureStorageService();
+      final fakeStorage = FakeFlutterSecureStorage();
+      final service = SecureStorageService(storage: fakeStorage);
       await service.writeToken('k1', 'v1');
       await service.writeToken('k2', 'v2');
 
