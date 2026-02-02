@@ -405,16 +405,15 @@ void main() {
     test('test user loggedin when result throws an exception', () async {
       final model = UserConfig();
 
-      userBox.put('user', User(id: 'fake', name: 'first'));
+      userBox.put(
+          'user', User(id: 'fake', name: 'first', authToken: 'fake_token'));
 
       when(
         databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo(),
           variables: anyNamed('variables'),
         ),
-      ).thenAnswer((_) {
-        throw Exception('Simulated Exception.');
-      });
+      ).thenAnswer((_) => Future.error(Exception('Simulated Exception.')));
 
       // Stub snackbar to avoid missing stub error if strict mock
       when(navigationService.showTalawaErrorSnackBar(
