@@ -66,6 +66,7 @@ import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_vi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/main_screen_keys.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
@@ -1392,39 +1393,7 @@ void setupMockGraphQLClient(Map<String, dynamic> data) {
 
 /// MockMainScreenViewModel class.
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey _keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
-  final GlobalKey _keyDrawerSwitchableOrg =
-      GlobalKey(debugLabel: "DrawerSwitchableOrg");
-  final GlobalKey _keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
-  final GlobalKey _keyDrawerLeaveCurrentOrg =
-      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
-
-  final GlobalKey _keyBNHome = GlobalKey();
-  final GlobalKey _keyBNDemoHome = GlobalKey();
-  final GlobalKey _keySHPinnedPost = GlobalKey();
-  final GlobalKey _keySHPost = GlobalKey();
-  final GlobalKey _keySHOrgName = GlobalKey();
-  final GlobalKey _keySHMenuIcon = GlobalKey();
-  final GlobalKey _keyBNEvents = GlobalKey();
-  final GlobalKey _keyBNDemoEvents = GlobalKey();
-  final GlobalKey _keySECategoryMenu = GlobalKey();
-  final GlobalKey _keySEDateFilter = GlobalKey();
-  final GlobalKey _keySEAdd = GlobalKey();
-  final GlobalKey _keySECard = GlobalKey();
-  final GlobalKey _keyBNPost = GlobalKey();
-  final GlobalKey _keyBNDemoPost = GlobalKey();
-  final GlobalKey _keyBNChat = GlobalKey();
-  final GlobalKey _keyBNProfile = GlobalKey();
-  final GlobalKey _keyBNDemoProfile = GlobalKey();
-  final GlobalKey _keyBNFunds = GlobalKey();
-  final GlobalKey _keySPEditProfile = GlobalKey();
-  final GlobalKey _keySPAppSetting = GlobalKey();
-  final GlobalKey _keySPHelp = GlobalKey();
-  final GlobalKey _keySPDonateUs = GlobalKey();
-  final GlobalKey _keySPInvite = GlobalKey();
-  final GlobalKey _keySPLogout = GlobalKey();
-  final GlobalKey _keySPPalisadoes = GlobalKey();
+  final _keys = MainScreenKeys();
 
   @override
   List<Widget> get pages => super.noSuchMethod(
@@ -1448,70 +1417,7 @@ class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
       ) as int;
 
   @override
-  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
-
-  @override
-  GlobalKey get keyDrawerCurOrg => _keyDrawerCurOrg;
-
-  @override
-  GlobalKey get keyDrawerSwitchableOrg => _keyDrawerSwitchableOrg;
-
-  @override
-  GlobalKey get keyDrawerJoinOrg => _keyDrawerJoinOrg;
-
-  @override
-  GlobalKey get keyDrawerLeaveCurrentOrg => _keyDrawerLeaveCurrentOrg;
-
-  @override
-  GlobalKey get keyBNHome => _keyBNHome;
-  @override
-  GlobalKey get keyBNDemoHome => _keyBNDemoHome;
-  @override
-  GlobalKey get keySHPinnedPost => _keySHPinnedPost;
-  @override
-  GlobalKey get keySHPost => _keySHPost;
-  @override
-  GlobalKey get keySHOrgName => _keySHOrgName;
-  @override
-  GlobalKey get keySHMenuIcon => _keySHMenuIcon;
-  @override
-  GlobalKey get keyBNEvents => _keyBNEvents;
-  @override
-  GlobalKey get keyBNDemoEvents => _keyBNDemoEvents;
-  @override
-  GlobalKey get keySECategoryMenu => _keySECategoryMenu;
-  @override
-  GlobalKey get keySEDateFilter => _keySEDateFilter;
-  @override
-  GlobalKey get keySEAdd => _keySEAdd;
-  @override
-  GlobalKey get keySECard => _keySECard;
-  @override
-  GlobalKey get keyBNPost => _keyBNPost;
-  @override
-  GlobalKey get keyBNDemoPost => _keyBNDemoPost;
-  @override
-  GlobalKey get keyBNChat => _keyBNChat;
-  @override
-  GlobalKey get keyBNProfile => _keyBNProfile;
-  @override
-  GlobalKey get keyBNDemoProfile => _keyBNDemoProfile;
-  @override
-  GlobalKey get keyBNFunds => _keyBNFunds;
-  @override
-  GlobalKey get keySPEditProfile => _keySPEditProfile;
-  @override
-  GlobalKey get keySPAppSetting => _keySPAppSetting;
-  @override
-  GlobalKey get keySPHelp => _keySPHelp;
-  @override
-  GlobalKey get keySPDonateUs => _keySPDonateUs;
-  @override
-  GlobalKey get keySPInvite => _keySPInvite;
-  @override
-  GlobalKey get keySPLogout => _keySPLogout;
-  @override
-  GlobalKey get keySPPalisadoes => _keySPPalisadoes;
+  MainScreenKeys get keys => _keys;
 
   @override
   bool get showAppTour => false;

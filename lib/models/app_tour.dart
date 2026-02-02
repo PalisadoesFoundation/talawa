@@ -44,7 +44,7 @@ class AppTour {
       onClickTarget: onClickTarget,
       onSkip: () {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (model.scaffoldKey.currentState?.isDrawerOpen ?? false) {
+          if (model.keys.scaffoldKey.currentState?.isDrawerOpen ?? false) {
             navigationService.pop();
           }
           model.tourSkipped = true;
