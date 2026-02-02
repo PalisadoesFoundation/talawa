@@ -101,22 +101,22 @@ Future<void> main() async {
 
   late MockValidator mockValidator;
 
-  setUp(() {
+  setUp(() async {
     registerServices();
     registerViewModels();
     // Clean up any existing Validator mock
     if (locator.isRegistered<Validator>()) {
-      locator.unregister<Validator>();
+      await locator.unregister<Validator>();
     }
     mockValidator = MockValidator();
     locator.registerSingleton<Validator>(mockValidator);
     model = SetUrlViewModel();
   });
 
-  tearDown(() {
+  tearDown(() async {
     // Clean up Validator mock if present
     if (locator.isRegistered<Validator>()) {
-      locator.unregister<Validator>();
+      await locator.unregister<Validator>();
     }
     unregisterViewModels();
   });
