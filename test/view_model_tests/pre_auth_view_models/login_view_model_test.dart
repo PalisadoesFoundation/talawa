@@ -64,7 +64,7 @@ Future<void> main() async {
 
   testSetupLocator();
   registerServices();
-  registerServices();
+
   await locator<SecureStorageService>().writeToken("userEmail", "mocked_value");
   await locator<SecureStorageService>()
       .writeToken("userPassword", "mocked_value");
