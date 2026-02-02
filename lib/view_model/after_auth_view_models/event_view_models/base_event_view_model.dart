@@ -269,7 +269,8 @@ abstract class BaseEventViewModel extends BaseModel {
     final date = await customDatePicker(
       initialDate: eventStartDate,
     );
-    // coverage:ignore-start - Validator functions tested in unit tests
+    // Validator functions tested in unit tests
+    // coverage:ignore-start
     final errorMessage = Validators.eventStartDate(date);
     // coverage:ignore-end
     if (errorMessage != null) {
@@ -333,7 +334,8 @@ abstract class BaseEventViewModel extends BaseModel {
     final date = await customDatePicker(
       initialDate: eventEndDate,
     );
-    // coverage:ignore-start - Validator functions tested in unit tests
+    // Validator functions tested in unit tests
+    // coverage:ignore-start
     final errorMessage = Validators.eventDateTime(
       eventStartDate,
       eventStartTime,
@@ -368,7 +370,8 @@ abstract class BaseEventViewModel extends BaseModel {
     if (eventStartDate.year == eventEndDate.year &&
         eventStartDate.month == eventEndDate.month &&
         eventStartDate.day == eventEndDate.day) {
-      // coverage:ignore-start - Validator functions tested in unit tests
+      // Validator functions tested in unit tests
+      // coverage:ignore-start
       final errorMessage = Validators.eventDateTime(
         eventStartDate,
         eventStartTime,
