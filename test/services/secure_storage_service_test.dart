@@ -2,6 +2,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/services/secure_storage_service.dart';
 
+/// Test suite for [SecureStorageService].
+///
+/// verifying default configuration and storage operations.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 

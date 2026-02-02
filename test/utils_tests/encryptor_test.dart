@@ -502,8 +502,7 @@ void main() {
       expect(Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey), isFalse);
     });
 
-    test('loadKeyPair should use default storage when receiving null',
-        () async {
+    test('loadKeyPair should use default storage when receiving null', () {
       FlutterSecureStorage.setMockInitialValues({});
 
       // Create a specific mock box for this test to ensure cleanliness
