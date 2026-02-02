@@ -226,13 +226,7 @@ void main() {
 
           // Assert
           expect(callOrder, equals(['updateUI', 'action']));
-          expect(
-            callOrder.indexOf('updateUI') < callOrder.indexOf('action'),
-            isTrue,
-            reason: 'updateUI should be called before action for optimistic actions',
-          );
         });
-
 
         test('should execute API call for optimistic actions', () async {
           // Arrange
