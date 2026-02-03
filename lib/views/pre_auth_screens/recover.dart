@@ -102,7 +102,13 @@ class _RecoverState extends State<Recover> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const <String>[AutofillHints.email],
                   enableSuggestions: true,
-                  validator: (email) => Validator.validateEmail(email!),
+                  validator: (email) {
+                    final String? err = Validators.email(email);
+                    if (err != null) {
+                      return AppLocalizations.of(context)!.translate(err);
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText:
                         AppLocalizations.of(context)!.translate("Email Hint"),

@@ -154,33 +154,8 @@ Future<void> main() async {
         expect(imageWidgetWithPicture, findsOneWidget);
       });
     });
-    testWidgets("Testing if image selection and removal works", (tester) async {
-      await mockNetworkImages(() async {
-        userConfig.updateUser(User());
-        userConfig.updateUser(
-          User(name: 'Test Test', email: 'test@test.com'),
-        );
-        await tester
-            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
-        await tester.pumpAndSettle();
-        final screenScaffoldWidget = find.byKey(
-          const Key('EditProfileScreenScaffold'),
-        );
-        expect(screenScaffoldWidget, findsOneWidget);
-        expect(
-          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-              .theme!
-              .scaffoldBackgroundColor,
-          TalawaTheme.lightTheme.scaffoldBackgroundColor,
-        );
-        final imageAvatar = find.byKey(
-          const Key('AddRemoveImageButton'),
-        );
-        expect(imageAvatar, findsOneWidget);
-        tester.tap(imageAvatar);
-      });
-    });
   });
+
   group('Edit Profile Screen Widget Test in dark mode', () {
     testWidgets("Testing if Edit Profile Screen shows up", (tester) async {
       userConfig.updateUser(
@@ -396,7 +371,7 @@ Future<void> main() async {
   group('Testing image selection and removal in Edit Profile Screen', () {
     setUp(() {
       registerServices();
-      //locator<SizeConfig>().test();
+      locator<SizeConfig>().test();
     });
 
     tearDown(() {

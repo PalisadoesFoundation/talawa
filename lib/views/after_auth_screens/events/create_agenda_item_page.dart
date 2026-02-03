@@ -266,8 +266,15 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.name,
                   maxLength: 20,
                   focusNode: titleFocus,
-                  validator: (value) =>
-                      Validator.validateEventForm(value!, 'Title'),
+                  validator: (value) {
+                    final String? err = Validators.eventField(
+                      value,
+                      'Title',
+                    );
+                    return err == null
+                        ? null
+                        : AppLocalizations.of(context)!.translate(err);
+                  },
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!
                         .strictTranslate('Add Agenda Item Title'),
@@ -295,8 +302,15 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.multiline,
                   controller: descController,
                   focusNode: descFocus,
-                  validator: (value) =>
-                      Validator.validateEventForm(value!, 'Description'),
+                  validator: (value) {
+                    final String? err = Validators.eventField(
+                      value,
+                      'Description',
+                    );
+                    return err == null
+                        ? null
+                        : AppLocalizations.of(context)!.translate(err);
+                  },
                   maxLines: 10,
                   minLines: 1,
                   decoration: InputDecoration(
@@ -346,7 +360,8 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    final String? err = Validators.required(value);
+                    if (err != null) {
                       return AppLocalizations.of(context)!
                           .strictTranslate('Please enter a duration');
                     }

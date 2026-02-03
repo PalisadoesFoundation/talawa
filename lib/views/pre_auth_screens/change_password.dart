@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -10,22 +7,45 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 /// This widget lets the user change his/her password.
-/// There are two input fields. The first one is for entering the new password, and the
-/// second one is for re-entering the password for verification.
+///
+/// There are two input fields. The first one is for entering the new password,
+/// and the second one is for re-entering the password for verification.
 /// There is a raised button which finally updates the password when pressed.
 class ChangePass extends StatefulWidget {
-  const ChangePass({required Key key}) : super(key: key);
+  /// Creates [ChangePass] widget.
+  ///
+  /// **params**:
+  /// * `key`: Optional widget key for identification.
+  const ChangePass({super.key});
 
   @override
   _ChangePassState createState() => _ChangePassState();
 }
 
 class _ChangePassState extends State<ChangePass> {
+  /// Form key for form validation.
   final formKey = GlobalKey<FormState>();
+
+  /// Controller for the new password input field.
   final TextEditingController newPassword = TextEditingController();
+
+  /// Controller for the re-enter password input field.
   final TextEditingController reNewPassword = TextEditingController();
+
+  /// Focus node for the new password input field.
   final FocusNode newPasswordFocus = FocusNode();
+
+  /// Focus node for the re-enter password input field.
   final FocusNode reNewPasswordFocus = FocusNode();
+
+  @override
+  void dispose() {
+    newPassword.dispose();
+    reNewPassword.dispose();
+    newPasswordFocus.dispose();
+    reNewPasswordFocus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +119,13 @@ class _ChangePassState extends State<ChangePass> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  validator: (pass) => Validator.validatePassword(pass!),
+                  validator: (pass) {
+                    final String? err = Validators.password(pass);
+                    if (err != null) {
+                      return AppLocalizations.of(context)!.translate(err);
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText:
                         AppLocalizations.of(context)!.translate('password'),
@@ -120,10 +146,16 @@ class _ChangePassState extends State<ChangePass> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  validator: (pass) => Validator.validatePasswordConfirm(
-                    pass!,
-                    newPassword.text,
-                  ),
+                  validator: (pass) {
+                    final String? err = Validators.passwordConfirm(
+                      pass,
+                      newPassword.text,
+                    );
+                    if (err != null) {
+                      return AppLocalizations.of(context)!.translate(err);
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText:
                         AppLocalizations.of(context)!.translate('password'),
