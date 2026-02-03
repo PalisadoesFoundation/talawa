@@ -212,7 +212,6 @@ Future<void> main() async {
       });
 
       final model = LoginViewModel();
-      // model.secureStorage = mockSecureStorage; // Removed assignment
 
       String log = "";
 
@@ -245,7 +244,6 @@ Future<void> main() async {
       });
 
       final model = LoginViewModel();
-      // model.secureStorage = mockSecureStorage; // Removed assignment
 
       String log = "";
 
