@@ -67,10 +67,10 @@ Future<void> main() async {
 
   group('LoginViewModel Test -', () {
     setUp(() async {
-      await locator<SecureStorageService>()
-          .writeToken("userEmail", "mocked_value");
-      await locator<SecureStorageService>()
-          .writeToken("userPassword", "mocked_value");
+      final storage = locator<SecureStorageService>();
+      await storage.deleteAll(); // Ensure clean state across tests
+      await storage.writeToken("userEmail", "mocked_value");
+      await storage.writeToken("userPassword", "mocked_value");
     });
     testWidgets(
         'Check if login() is working fine when organisation is not empty',
