@@ -37,8 +37,9 @@ void main() {
     }
 
     setUp(() {
+      // Global mock needed for 'Default Parameter Coverage' tests which use the default FlutterSecureStorage
+      // that relies on platform channels.
       FlutterSecureStorage.setMockInitialValues({});
-
       encryptor = Encryptor();
 
       keyPair = encryptor.generateRSAKeyPair();

@@ -65,11 +65,13 @@ Future<void> main() async {
   testSetupLocator();
   registerServices();
 
-  await locator<SecureStorageService>().writeToken("userEmail", "mocked_value");
-  await locator<SecureStorageService>()
-      .writeToken("userPassword", "mocked_value");
-
   group('LoginViewModel Test -', () {
+    setUp(() async {
+      await locator<SecureStorageService>()
+          .writeToken("userEmail", "mocked_value");
+      await locator<SecureStorageService>()
+          .writeToken("userPassword", "mocked_value");
+    });
     testWidgets(
         'Check if login() is working fine when organisation is not empty',
         (tester) async {
