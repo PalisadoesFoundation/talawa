@@ -35,75 +35,65 @@ void main() {
     // final model = MockSignupDetailsViewModel();
 
     test('Test validation for name', () {
-      final String? blankName = Validator.validateName("");
-      expect(blankName, "Name must not be left blank.");
+      final String? blankName = Validators.required("");
+      expect(blankName, "Required");
 
-      final String? validName = Validator.validateName("testName");
+      final String? validName = Validators.required("testName");
       expect(validName, null);
     });
 
     test('Test validation for Email', () {
-      final String? blankEmail = Validator.validateEmail("");
-      expect(blankEmail, "Email must not be left blank");
+      final String? blankEmail = Validators.email("");
+      expect(blankEmail, "Required");
 
-      final String? invalidEmail1 = Validator.validateEmail("testInvalidEmail");
-      expect(invalidEmail1, "Please enter a valid Email Address");
+      final String? invalidEmail1 = Validators.email("testInvalidEmail");
+      expect(invalidEmail1, "Invalid email");
 
-      final String? invalidEmail2 = Validator.validateEmail("test@.com");
-      expect(invalidEmail2, "Please enter a valid Email Address");
+      final String? invalidEmail2 = Validators.email("test@.com");
+      expect(invalidEmail2, "Invalid email");
 
-      final String? invalidEmail3 = Validator.validateEmail("@test.com");
-      expect(invalidEmail3, "Please enter a valid Email Address");
+      final String? invalidEmail3 = Validators.email("@test.com");
+      expect(invalidEmail3, "Invalid email");
 
-      final String? validEmail =
-          Validator.validateEmail("testName@testOrg.com");
+      final String? validEmail = Validators.email("testName@testOrg.com");
       expect(validEmail, null);
     });
 
     test('Test validation for password', () {
-      final String? blankPassword = Validator.validatePassword("");
+      final String? blankPassword = Validators.password("");
       expect(blankPassword, "Password must not be left blank");
 
-      final String? invalidPassword1 = Validator.validatePassword("test");
-      expect(
-        invalidPassword1,
-        "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)",
-      );
+      // Validators.password does not check min length implicitly for "test" -> it checks regex
+      // The regex requires 8 chars, 1 numeric, 1 upper, 1 lower, 1 special.
 
-      final String? invalidPassword2 = Validator.validatePassword("123");
-      expect(
-        invalidPassword2,
-        "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)",
-      );
+      const String complexMsg =
+          "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)";
 
-      final String? invalidPassword3 = Validator.validatePassword("TEST");
-      expect(
-        invalidPassword3,
-        "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)",
-      );
+      final String? invalidPassword1 = Validators.password("test");
+      expect(invalidPassword1, complexMsg);
 
-      final String? invalidPassword4 = Validator.validatePassword("test123");
-      expect(
-        invalidPassword4,
-        "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)",
-      );
+      final String? invalidPassword2 = Validators.password("123");
+      expect(invalidPassword2, complexMsg);
 
-      final String? invalidPassword5 = Validator.validatePassword("test123!");
-      expect(
-        invalidPassword5,
-        "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)",
-      );
+      final String? invalidPassword3 = Validators.password("TEST");
+      expect(invalidPassword3, complexMsg);
 
-      final String? validPassword = Validator.validatePassword("tesT123!");
+      final String? invalidPassword4 = Validators.password("test123");
+      expect(invalidPassword4, complexMsg);
+
+      final String? invalidPassword5 = Validators.password("test123!");
+      expect(invalidPassword5, complexMsg);
+
+      final String? validPassword = Validators.password("tesT123!");
       expect(validPassword, null);
 
       // test for confirm password
       final String? differentPassword =
-          Validator.validatePasswordConfirm("tesT123", "test1234");
+          Validators.passwordConfirm("tesT123", "test1234");
       expect(differentPassword, "Password does not match original");
 
       final String? matchingPassword =
-          Validator.validatePasswordConfirm("tesT123", "tesT123");
+          Validators.passwordConfirm("tesT123", "tesT123");
       expect(matchingPassword, null);
     });
 

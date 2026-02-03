@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
                       autofillHints: const <String>[AutofillHints.email],
                       enableSuggestions: true,
                       validator: (value) {
-                        final String? err = Validator.validateEmail(value!);
+                        final String? err = Validators.email(value);
                         if (err != null) {
                           return AppLocalizations.of(context)!.translate(err);
                         }
@@ -123,7 +123,7 @@ class _LoginState extends State<Login> {
                       autofillHints: const <String>[AutofillHints.password],
                       obscureText: model.hidePassword,
                       validator: (value) {
-                        final String? err = Validator.validatePassword(value!);
+                        final String? err = Validators.password(value);
                         if (err != null) {
                           return AppLocalizations.of(context)!.translate(err);
                         }
