@@ -109,7 +109,7 @@ class EditProfilePageViewModel extends BaseModel {
 
           return result;
         }
-        return databaseFunctions.noData;
+        return null;
       },
       onValidResult: (result) async {
         final user = result.data!['user'] as Map<String, dynamic>;
