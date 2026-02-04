@@ -27,6 +27,12 @@ class EventInfoViewModel extends BaseModel {
   /// Instance  of calendar view model to manage calendar related operations.
   final calendarViewModel = locator<EventCalendarViewModel>();
 
+  /// Instance of MultiMediaPickerService to manage media picking operations.
+  final _multiMediaPickerService = locator<MultiMediaPickerService>();
+
+  /// Instance of ImageService to manage image operations.
+  final _imageService = locator<ImageService>();
+
   /// String type variable to store the FAB title.
   late String fabTitle;
 
@@ -580,8 +586,7 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<File?>`: The picked file, or null if cancelled
   Future<File?> pickAttachment({bool fromCamera = false}) async {
-    final multiMediaPickerService = locator<MultiMediaPickerService>();
-    return await multiMediaPickerService.getPhotoFromGallery(
+    return await _multiMediaPickerService.getPhotoFromGallery(
         camera: fromCamera);
   }
 
@@ -595,7 +600,6 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<String>`: Base64 encoded string
   Future<String> convertToBase64(File file) async {
-    final imageService = locator<ImageService>();
-    return await imageService.convertToBase64(file);
+    return await _imageService.convertToBase64(file);
   }
 }

@@ -41,15 +41,16 @@ class AvoidImageNetworkLintRule extends DartLintRule {
     });
   }
 
-  /// isFlutterImageNetwork checks if the given type, constructor name, and library URI.
+  /// isFlutterImageNetwork checks whether the provided typeName, constructorName,
+  /// and libraryUri correspond to Flutter's Image.network constructor.
   ///
   /// **params**:
-  /// * `typeName`: Name of the type.
-  /// * `constructorName`: Name of the constructor.
-  /// * `libraryUri`: URI of the library.
+  /// * `typeName`: The name of the type to check against 'Image'.
+  /// * `constructorName`: The name of the constructor to check against 'network'.
+  /// * `libraryUri`: The URI of the library to verify it starts with 'package:flutter/'.
   ///
   /// **returns**:
-  /// * `bool`: Returns true if it corresponds to `Image.network` from the Flutter package.
+  /// * `bool`: Returns true if isFlutterImageNetwork determines the parameters match Flutter's Image.network constructor.
   static bool isFlutterImageNetwork(
     String? typeName,
     String? constructorName,

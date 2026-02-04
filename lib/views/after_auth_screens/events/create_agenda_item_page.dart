@@ -136,8 +136,14 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
   Future<void> _pickAttachment({bool fromCamera = false}) async {
     final File? pickedFile =
         await widget.model.pickAttachment(fromCamera: fromCamera);
+
+    if (!mounted) return;
+
     if (pickedFile != null) {
       final base64PickedFile = await widget.model.convertToBase64(pickedFile);
+
+      if (!mounted) return;
+
       setState(() {
         attachments.add(base64PickedFile);
       });
@@ -477,5 +483,16 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _durationController.dispose();
+    _titleFocusNode.dispose();
+    _descriptionFocusNode.dispose();
+    _durationFocusNode.dispose();
+    super.dispose();
   }
 }
