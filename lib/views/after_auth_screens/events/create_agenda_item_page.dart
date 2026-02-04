@@ -137,8 +137,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
     final File? pickedFile =
         await widget.model.pickAttachment(fromCamera: fromCamera);
     if (pickedFile != null) {
-      final base64PickedFile =
-          await widget.model.convertToBase64(pickedFile);
+      final base64PickedFile = await widget.model.convertToBase64(pickedFile);
       setState(() {
         attachments.add(base64PickedFile);
       });
