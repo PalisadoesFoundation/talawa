@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/constants/recurrence_values.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
@@ -101,7 +100,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
     // Ensure isRecurring is set to true
     viewModel.isRecurring = true;
 
-    navigationService.pop();
+    viewModel.navigateBack();
   }
 
   /// Utility to build recurrence options widgets.

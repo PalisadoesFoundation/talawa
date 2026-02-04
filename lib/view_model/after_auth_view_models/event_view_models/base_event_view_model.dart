@@ -144,6 +144,21 @@ abstract class BaseEventViewModel extends BaseModel {
   ///   None
   Future<void> execute() async {}
 
+  /// Execute the main action if the user is logged in.
+  ///
+  /// This method checks if the user is logged in before executing the main action.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> executeIfLoggedIn() async {
+    if (userConfig.loggedIn) {
+      await execute();
+    }
+  }
+
   /// Reset recurrence to default values.
   ///
   /// This method resets all recurrence-related properties to their default values,
@@ -421,6 +436,20 @@ abstract class BaseEventViewModel extends BaseModel {
       useDayOfWeekYearly: useDayOfWeekYearly,
     );
     notifyListeners();
+  }
+
+  /// Navigate back to the previous screen.
+  ///
+  /// This method provides a clean interface for the View to navigate back
+  /// without directly accessing the NavigationService.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateBack() {
+    navigationService.pop();
   }
 
   /// Dispose controllers and focus nodes by calling cleanUp.

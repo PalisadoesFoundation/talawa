@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -55,7 +54,7 @@ class EventPageFormState extends State<EventPageForm> {
         elevation: 1,
         centerTitle: true,
         leading: GestureDetector(
-          onTap: navigationService.pop,
+          onTap: model.navigateBack,
           child: const Icon(Icons.close),
         ),
         title: Text(
@@ -69,11 +68,7 @@ class EventPageFormState extends State<EventPageForm> {
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              if (userConfig.loggedIn) {
-                model.execute();
-              }
-            },
+            onPressed: model.executeIfLoggedIn,
             child: Text(
               model is CreateEventViewModel
                   ? AppLocalizations.of(context)!.strictTranslate('Add')
