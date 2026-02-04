@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/recurrence_values.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
@@ -673,6 +674,19 @@ void main() {
       model.clearFormState();
 
       expect(model.imageFile, null);
+    });
+  });
+  group('navigateBack', () {
+    test('should call navigationService.pop when navigateBack is called', () {
+      // Arrange
+      final model = CreateEventViewModel();
+      reset(navigationService);
+
+      // Act
+      model.navigateBack();
+
+      // Assert
+      verify(navigationService.pop()).called(1);
     });
   });
 }

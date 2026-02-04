@@ -200,4 +200,21 @@ class CreateEventViewModel extends BaseEventViewModel {
     _memberCheckedMap.clear();
     notifyListeners();
   }
+
+  /// Execute event creation if user is logged in.
+  ///
+  /// This method checks if the user is logged in before executing
+  /// the event creation logic, providing a clean interface for the View.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  @override
+  Future<void> executeIfLoggedIn() async {
+    if (userConfig.loggedIn) {
+      await execute();
+    }
+  }
 }

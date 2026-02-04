@@ -41,8 +41,15 @@ class AvoidImageNetworkLintRule extends DartLintRule {
     });
   }
 
-  /// Checks if the given type, constructor name, and library URI correspond to
-  /// `Image.network` from the Flutter package.
+  /// isFlutterImageNetwork checks if the given type, constructor name, and library URI.
+  ///
+  /// **params**:
+  /// * `typeName`: Name of the type.
+  /// * `constructorName`: Name of the constructor.
+  /// * `libraryUri`: URI of the library.
+  ///
+  /// **returns**:
+  /// * `bool`: Returns true if it corresponds to `Image.network` from the Flutter package.
   static bool isFlutterImageNetwork(
     String? typeName,
     String? constructorName,
@@ -55,8 +62,12 @@ class AvoidImageNetworkLintRule extends DartLintRule {
   }
 
   /// Checks if the given file path should be excluded from linting.
-  /// Returns true for files matching `widgets/common/cached_image.dart`
-  /// with both POSIX (`/`) and Windows (`\`) separators.
+  ///
+  /// **params**:
+  /// * `filePath`: Path of the file to check.
+  ///
+  /// **returns**:
+  /// * `bool`: Returns true for files matching `widgets/common/cached_image.dart` with both POSIX (`/`) and Windows (`\`) separators.
   static bool shouldExcludeFile(String filePath) {
     return filePath
         .contains(RegExp(r'widgets[/\\]common[/\\]cached_image\.dart$'));
