@@ -487,12 +487,14 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
 
   @override
   void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    _durationController.dispose();
-    _titleFocusNode.dispose();
-    _descriptionFocusNode.dispose();
-    _durationFocusNode.dispose();
+    titleController.dispose();
+    descController.dispose();
+    urlController.dispose();
+    durationController.dispose();
+    titleFocus.dispose();
+    descFocus.dispose();
+    urlFocus.dispose();
+    durationFocus.dispose();
     super.dispose();
   }
 }
