@@ -177,7 +177,8 @@ Future<void> main() async {
           const Key('AddRemoveImageButton'),
         );
         expect(imageAvatar, findsOneWidget);
-        tester.tap(imageAvatar);
+        await tester.tap(imageAvatar);
+        await tester.pumpAndSettle();
       });
     });
     testWidgets("Testing user initials display when no image exists",
@@ -542,7 +543,7 @@ Future<void> main() async {
     });
 
     testWidgets(
-        "Testing image removal via UI when imageFile exists on AddRemoveImageButton tap",
+        "Testing EditProfilePageViewModel.removeImage clears imageFile and notifies listeners",
         (tester) async {
       final notifyListenerCallback = MockCallbackFunction();
       final model = EditProfilePageViewModel()
@@ -588,10 +589,7 @@ Future<void> main() async {
         expect(find.byIcon(Icons.camera_alt), findsOneWidget);
         await tester.tap(find.byIcon(Icons.camera_alt));
 
-        // Use runAsync to let the async selectImage complete
-        await tester.runAsync(() async {
-          await Future.delayed(const Duration(milliseconds: 500));
-        });
+        // Wait for the async image selection to complete and UI to settle
         await tester.pumpAndSettle();
 
         // Step 3: Tap AddRemoveImageButton again - this should call removeImage (line 118)
