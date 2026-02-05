@@ -233,7 +233,7 @@ Future<void> main() async {
       );
       expect(appBarText, findsOneWidget);
     });
-    const Key('profilepic');
+
     testWidgets(
         "Testing if Edit Screen shows image when already exist in database",
         (tester) async {
@@ -394,7 +394,8 @@ Future<void> main() async {
           const Key('AddRemoveImageButton'),
         );
         expect(imageAvatar, findsOneWidget);
-        tester.tap(imageAvatar);
+        await tester.tap(imageAvatar);
+        await tester.pumpAndSettle();
       });
     });
     testWidgets("Testing Update butoon", (tester) async {
@@ -563,25 +564,36 @@ Future<void> main() async {
       // Verify notifyListeners was called for removeImage
       verify(notifyListenerCallback()).called(greaterThanOrEqualTo(1));
     });
+  });
+
+  group('Edit Profile Integration Check', () {
+    late MockMultiMediaPickerService mockService;
+
+    setUp(() {
+      registerServices();
+      locator<SizeConfig>().test();
+
+      if (locator.isRegistered<MultiMediaPickerService>()) {
+        locator.unregister<MultiMediaPickerService>();
+      }
+      mockService = MockMultiMediaPickerService();
+      locator.registerSingleton<MultiMediaPickerService>(mockService);
+    });
+
+    tearDown(() {
+      unregisterServices();
+    });
 
     testWidgets(
         "Testing removeImage via widget UI after selecting image from camera",
         (tester) async {
-      // Forcefully replace the service with a fresh mock for this test
-      // This solves the suite isolation issue where the global mock becomes stale
-      if (locator.isRegistered<MultiMediaPickerService>()) {
-        locator.unregister<MultiMediaPickerService>();
-      }
-      final localMockService = MockMultiMediaPickerService();
-      locator.registerSingleton<MultiMediaPickerService>(localMockService);
-
       // Create a temporary file to avoid FileImage failures
       final file = File('${Directory.systemTemp.path}/test_image.png');
       if (!file.existsSync()) {
         file.createSync();
       }
 
-      when(localMockService.getPhotoFromGallery(camera: true))
+      when(mockService.getPhotoFromGallery(camera: true))
           .thenAnswer((_) async => file);
 
       userConfig.updateUser(
@@ -602,10 +614,10 @@ Future<void> main() async {
       await tester.pumpAndSettle();
       expect(find.text('Camera'), findsOneWidget);
 
-      // Step 2: Tap camera TEXT to select image (more robust than icon)
+      // Step 2: Tap camera TEXT to select image
       await tester.tap(find.text('Camera'));
 
-      // Wait for the unawaited selectImage future
+      // Replaced fixed delay with pumpAndSettle for stability, but added small pump for unawaited future start
       await tester.pump(const Duration(milliseconds: 100));
       await tester.pumpAndSettle();
 
@@ -613,8 +625,8 @@ Future<void> main() async {
       // 1. Modal closed
       expect(find.text('Camera'), findsNothing);
 
-      // callback should have been called on LOCAL mock
-      verify(localMockService.getPhotoFromGallery(camera: true)).called(1);
+      // callback should have been called on local mock
+      verify(mockService.getPhotoFromGallery(camera: true)).called(1);
 
       // Step 3: Tap AddRemoveImageButton again - this should call removeImage
       await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
