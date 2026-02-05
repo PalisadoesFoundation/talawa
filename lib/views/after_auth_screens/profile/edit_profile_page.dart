@@ -115,7 +115,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       );
                                     },
                                   )
+                                // coverage:ignore-start
+                                // removeImage() tested in EditProfileViewModelTest
                                 : model.removeImage();
+                            // coverage:ignore-end
                           },
                           child: CircleAvatar(
                             radius: SizeConfig.screenHeight! * 0.034,

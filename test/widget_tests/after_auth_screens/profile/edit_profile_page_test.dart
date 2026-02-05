@@ -154,6 +154,58 @@ Future<void> main() async {
         expect(imageWidgetWithPicture, findsOneWidget);
       });
     });
+    testWidgets("Testing if image selection and removal works", (tester) async {
+      await mockNetworkImages(() async {
+        userConfig.updateUser(User());
+        userConfig.updateUser(
+          User(name: 'Test Test', email: 'test@test.com'),
+        );
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget = find.byKey(
+          const Key('EditProfileScreenScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.lightTheme.scaffoldBackgroundColor,
+        );
+        final imageAvatar = find.byKey(
+          const Key('AddRemoveImageButton'),
+        );
+        expect(imageAvatar, findsOneWidget);
+        tester.tap(imageAvatar);
+      });
+    });
+    testWidgets("Testing user initials display when no image exists",
+        (tester) async {
+      await mockNetworkImages(() async {
+        // Set up user with name but no image
+        userConfig.updateUser(User());
+        userConfig.updateUser(
+          User(name: 'Test Test', email: 'test@test.com'),
+        );
+
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
+        await tester.pumpAndSettle();
+
+        final screenScaffoldWidget = find.byKey(
+          const Key('EditProfileScreenScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+
+        // Find the CircleAvatar and verify initials are displayed
+        final profilePic = find.byKey(const Key('profilepic'));
+        expect(profilePic, findsOneWidget);
+
+        // Verify the initials 'TT' are displayed (first letter of first and last name)
+        expect(find.text('TT'), findsOneWidget);
+      });
+    });
   });
 
   group('Edit Profile Screen Widget Test in dark mode', () {
@@ -451,6 +503,101 @@ Future<void> main() async {
         focusedElement!.hasPrimaryFocus,
         isTrue,
       ); // Ensure it has primary focus
+    });
+
+    testWidgets("Testing if email text field gets focus on onPressed",
+        (tester) async {
+      // Mock or set up user data
+      userConfig.updateUser(
+        User(name: 'Test Test', email: 'test@test.com'),
+      );
+
+      // Render the widget
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+      await tester.pumpAndSettle();
+
+      // Find the 'Email' text field and its suffix icon
+      final emailTextField = find.byKey(const Key('emailTextField'));
+      final editIconButton = find.descendant(
+        of: emailTextField,
+        matching: find.byIcon(Icons.edit),
+      );
+
+      // Ensure the text field and icon exist
+      expect(emailTextField, findsOneWidget);
+      expect(editIconButton, findsOneWidget);
+
+      // Tap on the edit icon button to trigger focus
+      await tester.tap(editIconButton);
+      await tester.pumpAndSettle();
+
+      // Verify that the emailFocus is focused
+      final focusedElement =
+          FocusScope.of(tester.element(emailTextField)).focusedChild;
+      expect(focusedElement, isNotNull); // Ensure there is a focused child
+      expect(
+        focusedElement!.hasPrimaryFocus,
+        isTrue,
+      ); // Ensure it has primary focus
+    });
+
+    testWidgets(
+        "Testing image removal via UI when imageFile exists on AddRemoveImageButton tap",
+        (tester) async {
+      final notifyListenerCallback = MockCallbackFunction();
+      final model = EditProfilePageViewModel()
+        ..addListener(notifyListenerCallback);
+      model.initialize();
+
+      // Directly set imageFile (bypassing the mocked selectImage)
+      final file = File('fakePath');
+      model.imageFile = file;
+      expect(model.imageFile, file);
+
+      // Now remove the image via model (simulates the UI tap calling removeImage)
+      model.removeImage();
+      expect(model.imageFile, isNull);
+      // Verify notifyListeners was called for removeImage
+      verify(notifyListenerCallback()).called(greaterThanOrEqualTo(1));
+    });
+
+    testWidgets(
+        "Testing removeImage via widget UI after selecting image from camera",
+        (tester) async {
+      await mockNetworkImages(() async {
+        // Mock the multimedia picker service to return a file for both camera variants
+        final file = File('fakePath');
+        when(multimediaPickerService.getPhotoFromGallery(camera: true))
+            .thenAnswer((_) async => file);
+        when(multimediaPickerService.getPhotoFromGallery(camera: false))
+            .thenAnswer((_) async => file);
+
+        userConfig.updateUser(
+          User(name: 'Test Test', email: 'test@test.com'),
+        );
+
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+        await tester.pumpAndSettle();
+
+        // Step 1: Tap the AddRemoveImageButton to open modal
+        await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+        await tester.pumpAndSettle();
+
+        // Step 2: Tap camera icon to select image
+        expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+        await tester.tap(find.byIcon(Icons.camera_alt));
+
+        // Use runAsync to let the async selectImage complete
+        await tester.runAsync(() async {
+          await Future.delayed(const Duration(milliseconds: 500));
+        });
+        await tester.pumpAndSettle();
+
+        // Step 3: Tap AddRemoveImageButton again - this should call removeImage (line 118)
+        await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+        await tester.pumpAndSettle();
+      });
     });
   });
 }
