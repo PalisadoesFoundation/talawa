@@ -10,6 +10,7 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -17,6 +18,7 @@ import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 /// MockBuildContext class helps to mock the BuildContext class.
@@ -565,37 +567,64 @@ Future<void> main() async {
     testWidgets(
         "Testing removeImage via widget UI after selecting image from camera",
         (tester) async {
-      await mockNetworkImages(() async {
-        // Mock the multimedia picker service to return a file for both camera variants
-        final file = File('fakePath');
-        when(multimediaPickerService.getPhotoFromGallery(camera: true))
-            .thenAnswer((_) async => file);
-        when(multimediaPickerService.getPhotoFromGallery(camera: false))
-            .thenAnswer((_) async => file);
+      // Forcefully replace the service with a fresh mock for this test
+      // This solves the suite isolation issue where the global mock becomes stale
+      if (locator.isRegistered<MultiMediaPickerService>()) {
+        locator.unregister<MultiMediaPickerService>();
+      }
+      final localMockService = MockMultiMediaPickerService();
+      locator.registerSingleton<MultiMediaPickerService>(localMockService);
 
-        userConfig.updateUser(
-          User(name: 'Test Test', email: 'test@test.com'),
-        );
+      // Create a temporary file to avoid FileImage failures
+      final file = File('${Directory.systemTemp.path}/test_image.png');
+      if (!file.existsSync()) {
+        file.createSync();
+      }
 
-        await tester
-            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
-        await tester.pumpAndSettle();
+      when(localMockService.getPhotoFromGallery(camera: true))
+          .thenAnswer((_) async => file);
 
-        // Step 1: Tap the AddRemoveImageButton to open modal
-        await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
-        await tester.pumpAndSettle();
+      userConfig.updateUser(
+        User(name: 'Test Test', email: 'test@test.com'),
+      );
+      when(userConfig.currentUser).thenReturn(
+        User(name: 'Test Test', email: 'test@test.com'),
+      );
 
-        // Step 2: Tap camera icon to select image
-        expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-        await tester.tap(find.byIcon(Icons.camera_alt));
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+      await tester.pumpAndSettle();
 
-        // Wait for the async image selection to complete and UI to settle
-        await tester.pumpAndSettle();
+      // Check Initials are present initially
+      expect(find.text('TT'), findsOneWidget);
 
-        // Step 3: Tap AddRemoveImageButton again - this should call removeImage (line 118)
-        await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
-        await tester.pumpAndSettle();
-      });
+      // Step 1: Tap the AddRemoveImageButton to open modal
+      await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+      await tester.pumpAndSettle();
+      expect(find.text('Camera'), findsOneWidget);
+
+      // Step 2: Tap camera TEXT to select image (more robust than icon)
+      await tester.tap(find.text('Camera'));
+
+      // Wait for the unawaited selectImage future
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      // Verify image was selected:
+      // 1. Modal closed
+      expect(find.text('Camera'), findsNothing);
+
+      // callback should have been called on LOCAL mock
+      verify(localMockService.getPhotoFromGallery(camera: true)).called(1);
+
+      // Step 3: Tap AddRemoveImageButton again - this should call removeImage
+      await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+      await tester.pumpAndSettle();
+
+      // Step 4: Verify image is removed.
+      // If we tap the button again now, it should OPEN the modal
+      await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+      await tester.pumpAndSettle();
+      expect(find.text('Camera'), findsOneWidget);
     });
   });
 }
