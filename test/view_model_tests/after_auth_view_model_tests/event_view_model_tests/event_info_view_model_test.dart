@@ -1,6 +1,8 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -306,6 +308,72 @@ void main() {
       expect(model.categories.length, 2);
       expect(model.categories[0].name, 'Category 1');
       expect(model.categories[1].name, 'Category 2');
+    });
+
+    test('navigateBack calls navigationService.pop', () {
+      final model = EventInfoViewModel();
+
+      model.navigateBack();
+
+      verify(navigationService.pop()).called(1);
+    });
+
+    test('pickAttachment success returns File when user selects from gallery',
+        () async {
+      final model = EventInfoViewModel();
+      final mockFile = File('path/to/file.jpg');
+
+      when(multimediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((_) async => mockFile);
+
+      final result = await model.pickAttachment(fromCamera: false);
+
+      verify(multimediaPickerService.getPhotoFromGallery(camera: false))
+          .called(1);
+      expect(result, mockFile);
+    });
+
+    test('pickAttachment success returns File when user selects from camera',
+        () async {
+      final model = EventInfoViewModel();
+      final mockFile = File('path/to/photo.jpg');
+
+      when(multimediaPickerService.getPhotoFromGallery(camera: true))
+          .thenAnswer((_) async => mockFile);
+
+      final result = await model.pickAttachment(fromCamera: true);
+
+      verify(multimediaPickerService.getPhotoFromGallery(camera: true))
+          .called(1);
+      expect(result, mockFile);
+    });
+
+    test('pickAttachment returns null when user cancels selection', () async {
+      final model = EventInfoViewModel();
+
+      when(multimediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((_) async => null);
+
+      final result = await model.pickAttachment(fromCamera: false);
+
+      verify(multimediaPickerService.getPhotoFromGallery(camera: false))
+          .called(1);
+      expect(result, isNull);
+    });
+
+    test('convertToBase64 calls imageService and returns base64 string',
+        () async {
+      final model = EventInfoViewModel();
+      final mockFile = File('path/to/image.png');
+      const expectedBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAUA';
+
+      when(imageService.convertToBase64(mockFile))
+          .thenAnswer((_) async => expectedBase64);
+
+      final result = await model.convertToBase64(mockFile);
+
+      verify(imageService.convertToBase64(mockFile)).called(1);
+      expect(result, expectedBase64);
     });
   });
 }

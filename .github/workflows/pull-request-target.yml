@@ -5,6 +5,6 @@ on:
 
 jobs:
   PR-Greeting:
-    uses: PalisadoesFoundation/.github/.github/workflows/pr-target-policy.yml@main
+    uses: PalisadoesFoundation/.github/.github/workflows/pull-request-target.yml@main
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

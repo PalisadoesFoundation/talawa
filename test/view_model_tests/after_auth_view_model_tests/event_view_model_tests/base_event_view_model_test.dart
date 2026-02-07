@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/recurrence_values.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -14,6 +15,15 @@ import '../../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
   void call();
+}
+
+class TestEventViewModel extends BaseEventViewModel {
+  bool executeWasCalled = false;
+
+  @override
+  Future<void> execute() async {
+    executeWasCalled = true;
+  }
 }
 
 void main() {
@@ -31,6 +41,25 @@ void main() {
   });
 
   group('BaseEventViewModel Tests', () {
+    test('executeIfLoggedIn calls execute when user is logged in', () async {
+      final model = TestEventViewModel();
+      when(userConfig.loggedIn).thenReturn(true);
+
+      await model.executeIfLoggedIn();
+
+      expect(model.executeWasCalled, true);
+    });
+
+    test('executeIfLoggedIn does not call execute when user is not logged in',
+        () async {
+      final model = TestEventViewModel();
+      when(userConfig.loggedIn).thenReturn(false);
+
+      await model.executeIfLoggedIn();
+
+      expect(model.executeWasCalled, false);
+    });
+
     test('initializes with default values', () {
       final model = CreateEventViewModel();
 

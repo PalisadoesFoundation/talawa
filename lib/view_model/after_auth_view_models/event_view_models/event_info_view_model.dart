@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
@@ -7,6 +9,8 @@ import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/image_service.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -22,6 +26,12 @@ class EventInfoViewModel extends BaseModel {
 
   /// Instance  of calendar view model to manage calendar related operations.
   final calendarViewModel = locator<EventCalendarViewModel>();
+
+  /// Instance of MultiMediaPickerService to manage media picking operations.
+  final _multiMediaPickerService = locator<MultiMediaPickerService>();
+
+  /// Instance of ImageService to manage image operations.
+  final _imageService = locator<ImageService>();
 
   /// String type variable to store the FAB title.
   late String fabTitle;
@@ -549,5 +559,47 @@ class EventInfoViewModel extends BaseModel {
         child: Text(text),
       ),
     );
+  }
+
+  /// Navigate back to the previous screen.
+  ///
+  /// This method provides a clean interface for the View to navigate back
+  /// without directly accessing the NavigationService.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateBack() {
+    navigationService.pop();
+  }
+
+  /// Pick an attachment from gallery or camera.
+  ///
+  /// This method provides a clean interface for the View to pick attachments
+  /// without directly accessing the MultiMediaPickerService.
+  ///
+  /// **params**:
+  /// * `fromCamera`: If true, opens camera; if false, opens gallery
+  ///
+  /// **returns**:
+  /// * `Future<File?>`: The picked file, or null if cancelled
+  Future<File?> pickAttachment({bool fromCamera = false}) async {
+    return await _multiMediaPickerService.getPhotoFromGallery(
+        camera: fromCamera);
+  }
+
+  /// Convert file to base64.
+  ///
+  /// This method uses the ImageService to convert a file to a base64 string.
+  ///
+  /// **params**:
+  /// * `file`: File to convert
+  ///
+  /// **returns**:
+  /// * `Future<String>`: Base64 encoded string
+  Future<String> convertToBase64(File file) async {
+    return await _imageService.convertToBase64(file);
   }
 }

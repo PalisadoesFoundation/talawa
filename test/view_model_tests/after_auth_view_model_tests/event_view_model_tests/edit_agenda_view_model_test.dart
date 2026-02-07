@@ -114,5 +114,11 @@ void main() {
         }),
       ).called(1);
     });
+
+    test('navigateBack calls navigationService.pop', () {
+      model.navigateBack();
+
+      verify(navigationService.pop()).called(1);
+    });
   });
 }

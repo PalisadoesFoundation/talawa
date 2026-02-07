@@ -3,10 +3,8 @@ import 'dart:convert';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
@@ -44,7 +42,7 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
             elevation: 1,
             centerTitle: true,
             leading: GestureDetector(
-              onTap: () => locator<NavigationService>().pop(),
+              onTap: model.navigateBack,
               child: const Icon(Icons.close),
             ),
             title: Text(

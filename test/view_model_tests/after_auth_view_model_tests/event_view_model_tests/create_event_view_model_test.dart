@@ -675,4 +675,17 @@ void main() {
       expect(model.imageFile, null);
     });
   });
+  group('navigateBack', () {
+    test('should call navigationService.pop when navigateBack is called', () {
+      // Arrange
+      final model = CreateEventViewModel();
+      reset(navigationService);
+
+      // Act
+      model.navigateBack();
+
+      // Assert
+      verify(navigationService.pop()).called(1);
+    });
+  });
 }
