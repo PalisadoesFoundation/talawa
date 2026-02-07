@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:math';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
@@ -16,26 +15,6 @@ import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 
 /// Handles all of the encryption tasks in the codebase.
 class Encryptor {
-  /// A global switch to flag the encryption.
-  ///
-  /// Since adding encryption invalidates all of the previous
-  /// data, disabling it by default will help in keeping
-  /// other contributors working without any issue.
-  /// TODO: Remove this and make encryption default.
-  static bool shouldEncrypt = false;
-
-  /// Encrypts a given string with SHA256 Encryption.
-  ///
-  /// **params**:
-  /// * `data`: The string data to encrypt
-  ///
-  /// **returns**:
-  /// * `String`: SHA256 encrypted data
-  static String encryptString(String data) {
-    if (!shouldEncrypt) return data;
-    return sha256.convert(utf8.encode(data)).toString();
-  }
-
   /// Generates RSA Key Pairs (Public/Private).
   ///
   /// Should be called only during app's first initialization,
@@ -70,7 +49,7 @@ class Encryptor {
   ///
   /// **returns**:
   /// * `FlutterSecureStorage`: Configured storage instance.
-  FlutterSecureStorage _getConfiguredStorage() {
+  static FlutterSecureStorage getConfiguredStorage() {
     return const FlutterSecureStorage(
       aOptions: AndroidOptions.defaultOptions,
       iOptions: IOSOptions(
@@ -89,7 +68,7 @@ class Encryptor {
   Future<List<int>> _getHiveEncryptionKey({
     FlutterSecureStorage? secureStorage,
   }) async {
-    final storage = secureStorage ?? _getConfiguredStorage();
+    final storage = secureStorage ?? getConfiguredStorage();
     final keyString = await storage.read(key: HiveKeys.encryptionKey);
 
     if (keyString != null) {
@@ -234,7 +213,7 @@ class Encryptor {
     HiveInterface? hive,
     FlutterSecureStorage? secureStorage,
   }) async {
-    final storage = secureStorage ?? _getConfiguredStorage();
+    final storage = secureStorage ?? getConfiguredStorage();
     final hiveInstance = hive ?? Hive;
 
     if (hiveInstance.isBoxOpen(HiveKeys.asymetricKeyBoxKey)) {

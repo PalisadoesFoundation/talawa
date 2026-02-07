@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -15,23 +14,13 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 import 'package:talawa/utils/encryptor.dart';
 
+import '../helpers/fake_flutter_secure_storage.dart';
 import '../helpers/setup_hive.mocks.dart';
 
-// This test is being written believing that in future when Encryptor class will get rid of shouldEncrypt variable then all the tests using that variable can be removed
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  group('When shouldEncrypt is true', () {
-    test('encryptString method should return the encrypted string', () {
-      Encryptor.shouldEncrypt = true;
-      const String inputString = 'password123';
-      final String outputString =
-          sha256.convert(utf8.encode(inputString)).toString();
-      expect(Encryptor.encryptString(inputString), outputString);
-    });
-  });
-// As the bool variable is not used anywhere except in this method so moving ahead with making this variable as false
-// On getting rid of this variable the above test can be removed
-  group('When shouldEncrypt is false', () {
+
+  group('Encryptor Tests', () {
     late Encryptor encryptor;
     late AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
     late pointy.PublicKey publicKey;
@@ -48,18 +37,18 @@ void main() {
     }
 
     setUp(() {
+      // Global mock needed for 'Default Parameter Coverage' tests which use the default FlutterSecureStorage
+      // that relies on platform channels.
+      FlutterSecureStorage.setMockInitialValues({});
       encryptor = Encryptor();
-      Encryptor.shouldEncrypt = false;
+
       keyPair = encryptor.generateRSAKeyPair();
       publicKey = keyPair.publicKey;
       mockHiveInterface = MockHiveInterface();
       mockHiveBox = MockBox();
       fakeSecureStorage = FakeFlutterSecureStorage();
     });
-    test('encryptString method should return the same string', () {
-      const String inputString = 'password123';
-      expect(Encryptor.encryptString(inputString), inputString);
-    });
+
     test(
         'Correct security options are added while generating keys from generateRSAKeyPair method',
         () {
@@ -518,75 +507,61 @@ void main() {
     });
 
     test('loadKeyPair should use default storage when receiving null', () {
+      // Create a specific mock box for this test to ensure cleanliness
+      final testMockBox = MockBox<AsymetricKeys>();
+
+      // Stub openBox to return our testMockBox
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        any,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((_) async => testMockBox);
+
+      // Explicitly stub get() to return null, simulating "key not found"
+      when(testMockBox.get('key_pair')).thenReturn(null);
+
       expect(
-        () => encryptor.loadKeyPair(
+        () async => await encryptor.loadKeyPair(
           mockHiveInterface,
-          secureStorage: null,
         ),
-        throwsException,
+        throwsA(predicate(
+            (e) => e.toString().contains('No key pair found in secure store'))),
       );
     });
+
+    test('saveKeyPair should use default storage when receiving null',
+        () async {
+      final keyPair = encryptor.generateRSAKeyPair();
+      final mockBox = MockBox<AsymetricKeys>();
+
+      when(mockHiveInterface.openBox<AsymetricKeys>(
+        any,
+        encryptionCipher: anyNamed('encryptionCipher'),
+      )).thenAnswer((_) async => mockBox);
+
+      // Call without secureStorage parameter
+      await encryptor.saveKeyPair(keyPair, mockHiveInterface);
+
+      // Verify openBox was called with an encryption cipher, implying storage was accessed
+      verify(mockHiveInterface.openBox<AsymetricKeys>(
+        any,
+        encryptionCipher: argThat(isNotNull, named: 'encryptionCipher'),
+      )).called(1);
+    });
+
+    test('deleteKeyPair should use default storage when receiving null',
+        () async {
+      // Use the global Hive instance which we setup in setUp
+      await Hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+
+      // Act: Call with explicit null for secureStorage or omit it
+      await encryptor.deleteKeyPair(
+        hive: null, // Uses default Hive
+      );
+
+      // Verify Hive box is closed (proving method ran)
+      expect(Hive.isBoxOpen(HiveKeys.asymetricKeyBoxKey), isFalse);
+    });
   });
-}
-
-class FakeFlutterSecureStorage extends Fake implements FlutterSecureStorage {
-  final Map<String, String> _storage = {};
-
-  @override
-  Future<String?> read({
-    required String key,
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    return _storage[key];
-  }
-
-  @override
-  Future<void> write({
-    required String key,
-    required String? value,
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (value == null) {
-      _storage.remove(key);
-    } else {
-      _storage[key] = value;
-    }
-  }
-
-  @override
-  Future<void> delete({
-    required String key,
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    _storage.remove(key);
-  }
-
-  @override
-  Future<void> deleteAll({
-    AppleOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    AppleOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    _storage.clear();
-  }
 }
 
 class ThrowingFlutterSecureStorage extends FakeFlutterSecureStorage {

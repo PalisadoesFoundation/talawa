@@ -1,9 +1,11 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import 'package:talawa/utils/encryptor.dart';
+
 /// Service handling secure storage operations using flutter_secure_storage.
 class SecureStorageService {
   SecureStorageService({FlutterSecureStorage? storage})
-      : _storage = storage ?? const FlutterSecureStorage();
+      : _storage = storage ?? Encryptor.getConfiguredStorage();
 
   final FlutterSecureStorage _storage;
 

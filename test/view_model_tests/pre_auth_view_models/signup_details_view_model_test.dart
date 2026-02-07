@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -13,8 +13,10 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/secure_storage_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
+import '../../helpers/fake_secure_storage_service.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
@@ -383,27 +385,25 @@ void main() {
   });
   group('Testing storingCredentialsInSecureStorage()', () {
     test('Should handle exception while storing email and password', () async {
-      final model = SignupDetailsViewModel();
+      final throwingStorage = ThrowingSecureStorageService();
+      locator.registerSingleton<SecureStorageService>(throwingStorage);
+      addTearDown(() {
+        locator.registerSingleton<SecureStorageService>(
+            FakeSecureStorageService());
+      });
 
+      final model = SignupDetailsViewModel();
       String log = "";
 
-      /// Always get exception as no plugin  is registered for storing credentials using secure storage
       await runZonedGuarded(
         () async {
-          const MethodChannel channel =
-              MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
-          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-              .setMockMethodCallHandler(channel, (MethodCall methodCall) {
-            throw Exception('Mock failure');
-          });
-
           model.email.text = "test.user@example.com";
           model.password.text = "password123";
           await model.storingCredentialsInSecureStorage();
         },
         (error, stack) {
           expect(error, isA<Exception>());
-          expect(error.toString(), contains("Failed to save credentials:"));
+          expect(error.toString(), contains("Storing error"));
           expect(stack, isNotNull);
         },
         zoneSpecification: ZoneSpecification(
@@ -422,4 +422,12 @@ void main() {
     locator.reset();
     unregisterServices();
   });
+}
+
+/// Fake implementation that throws exceptions
+class ThrowingSecureStorageService extends FakeSecureStorageService {
+  @override
+  Future<void> writeToken(String key, String value) {
+    return Future.error(Exception("Storing error"));
+  }
 }

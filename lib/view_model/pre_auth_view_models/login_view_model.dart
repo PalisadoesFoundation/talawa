@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:talawa/constants/app_strings.dart';
 
 import 'package:talawa/constants/routing_constants.dart';
@@ -26,9 +26,6 @@ class LoginViewModel extends BaseModel {
 
   /// This field store previous user Password.
   String? prevUserPassword;
-
-  /// Secure local storage instance.
-  FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// List of maps to store greetings..
   late List<Map<String, dynamic>> greeting;
@@ -190,13 +187,13 @@ class LoginViewModel extends BaseModel {
   ///   None
   Future<void> storingCredentialsInSecureStorage() async {
     try {
-      await secureStorage.write(
-        key: "userEmail",
-        value: this.email.text,
+      await secureStorage.writeToken(
+        "userEmail",
+        this.email.text,
       );
-      await secureStorage.write(
-        key: "userPassword",
-        value: this.password.text,
+      await secureStorage.writeToken(
+        "userPassword",
+        this.password.text,
       );
     } catch (e) {
       // Handle secure storage write failure
@@ -213,8 +210,8 @@ class LoginViewModel extends BaseModel {
   ///   None
   Future<void> fetchPrevUser() async {
     try {
-      prevUserEmail = await secureStorage.read(key: "userEmail");
-      prevUserPassword = await secureStorage.read(key: "userPassword");
+      prevUserEmail = await secureStorage.readToken("userEmail");
+      prevUserPassword = await secureStorage.readToken("userPassword");
     } catch (e) {
       print("Error decrypting previous values $e");
     }
