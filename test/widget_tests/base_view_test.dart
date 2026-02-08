@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/views/base_view.dart';
 
@@ -19,24 +20,26 @@ class FakeViewModel extends ChangeNotifier {
 
 /// Main test suite for BaseView widget
 void main() {
-  // Setup locator before running tests
-  setUpAll(() async {
-    await setupLocator();
-  });
-
   group('BaseView Widget Tests', () {
+    setUp(() {
+      if (locator.isRegistered<FakeViewModel>()) {
+        locator.unregister<FakeViewModel>();
+      }
+      locator.registerFactory<FakeViewModel>(() => FakeViewModel());
+    });
+
+    tearDown(() {
+      if (locator.isRegistered<FakeViewModel>()) {
+        locator.unregister<FakeViewModel>();
+      }
+    });
+
     /// Test 1: Verify onModelReady is called when BaseView is initialized
     testWidgets('BaseView calls onModelReady when initialized',
         (WidgetTester tester) async {
       // Arrange: Set up test data
       bool onModelReadyCalled = false;
       FakeViewModel? receivedModel;
-
-      // Register FakeViewModel in the locator so BaseView can find it
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
-      locator.registerFactory<FakeViewModel>(() => FakeViewModel());
 
       // Act: Build the BaseView widget
       await tester.pumpWidget(
@@ -60,11 +63,6 @@ void main() {
           reason: 'onModelReady should receive the ViewModel instance');
       expect(receivedModel, isA<FakeViewModel>(),
           reason: 'onModelReady should receive the correct ViewModel type');
-
-      // Cleanup
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
     });
 
     /// Test 2: Verify builder is called with correct parameters
@@ -73,12 +71,6 @@ void main() {
       // Arrange: Set up test data
       BuildContext? receivedContext;
       FakeViewModel? receivedModel;
-
-      // Register FakeViewModel in the locator
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
-      locator.registerFactory<FakeViewModel>(() => FakeViewModel());
 
       // Act: Build the BaseView widget
       await tester.pumpWidget(
@@ -104,11 +96,6 @@ void main() {
       // Verify the widget built by builder is displayed
       expect(find.text('Test Widget'), findsOneWidget,
           reason: 'Builder should render the returned widget');
-
-      // Cleanup
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
     });
 
     /// Test 3: Verify dispose is called when BaseView is disposed
@@ -116,12 +103,6 @@ void main() {
         (WidgetTester tester) async {
       // Arrange: Set up test data
       FakeViewModel? testModel;
-
-      // Register FakeViewModel in the locator
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
-      locator.registerFactory<FakeViewModel>(() => FakeViewModel());
 
       // Act: Build the BaseView widget
       await tester.pumpWidget(
@@ -148,22 +129,11 @@ void main() {
       // Assert: Verify dispose was called
       expect(testModel!.isDisposed, isTrue,
           reason: 'Model should be disposed when BaseView is removed');
-
-      // Cleanup
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
     });
 
     /// Test 4: Verify BaseView works without onModelReady callback
     testWidgets('BaseView works when onModelReady is null',
         (WidgetTester tester) async {
-      // Arrange: Register FakeViewModel
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
-      locator.registerFactory<FakeViewModel>(() => FakeViewModel());
-
       // Act: Build BaseView without onModelReady
       await tester.pumpWidget(
         MaterialApp(
@@ -178,22 +148,11 @@ void main() {
       // Assert: Widget should build successfully
       expect(find.text('No onModelReady'), findsOneWidget,
           reason: 'BaseView should work without onModelReady callback');
-
-      // Cleanup
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
     });
 
     /// Test 5: Verify BaseView provides model through Provider
     testWidgets('BaseView provides model through Provider',
         (WidgetTester tester) async {
-      // Arrange: Register FakeViewModel
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
-      locator.registerFactory<FakeViewModel>(() => FakeViewModel());
-
       FakeViewModel? modelFromProvider;
 
       // Act: Build BaseView and access model through Provider
@@ -201,8 +160,12 @@ void main() {
         MaterialApp(
           home: BaseView<FakeViewModel>(
             builder: (context, model, child) {
-              modelFromProvider = model;
-              return const SizedBox();
+              return Builder(builder: (innerContext) {
+                // Use Provider.of / context.read to access the model
+                modelFromProvider =
+                    Provider.of<FakeViewModel>(innerContext, listen: false);
+                return const SizedBox();
+              });
             },
           ),
         ),
@@ -213,11 +176,25 @@ void main() {
           reason: 'Model should be provided through Provider');
       expect(modelFromProvider, isA<FakeViewModel>(),
           reason: 'Provided model should be of correct type');
+    });
 
-      // Cleanup
-      if (locator.isRegistered<FakeViewModel>()) {
-        locator.unregister<FakeViewModel>();
-      }
+    /// Test 6: Verify child parameter is passed to builder
+    /// Note: BaseView currently does not accept a child parameter in its constructor,
+    /// so the child passed to the builder is always null.
+    testWidgets('BaseView builder receives correct child',
+        (WidgetTester tester) async {
+      // Act: Build BaseView
+      await tester.pumpWidget(
+        MaterialApp(
+          home: BaseView<FakeViewModel>(
+            builder: (context, model, child) {
+              // As BaseView doesn't support child injection yet, expect null
+              expect(child, isNull);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
     });
   });
 }
