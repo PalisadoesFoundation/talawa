@@ -195,6 +195,9 @@ void main() {
           ),
         ),
       );
+
+      // Verify the builder was actually executed by checking for the widget it returned
+      expect(find.byType(SizedBox), findsOneWidget);
     });
   });
 }
