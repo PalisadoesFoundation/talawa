@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/cache/swr_cache.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 /// An abstract base class for managing a feed of type [T] with caching and online data fetching capabilities.
@@ -121,5 +123,41 @@ abstract class BaseFeedManager<T> {
     } else {
       return loadCachedData();
     }
+  }
+
+  /// Fetch data with retry support.
+  ///
+  /// This method fetches data from the API with automatic retry using
+  /// exponential backoff on failure. If all retries fail, it falls back
+  /// to cached data.
+  ///
+  /// **params**:
+  /// * `retryKey`: Optional unique key for the retry operation. If not
+  ///   provided, a key is generated based on the cache key and timestamp.
+  ///
+  /// **returns**:
+  /// * `Future<List<T>>`: A Future containing a list of data.
+  Future<List<T>> fetchWithRetry({String? retryKey}) async {
+    final key =
+        retryKey ?? 'feed-$cacheKey-${DateTime.now().millisecondsSinceEpoch}';
+    final queue = locator<RetryQueue>();
+
+    final result = await queue.execute(
+      () => fetchDataFromApi(),
+      key: key,
+      onRetry: (attempt, error) {
+        debugPrint(
+          'BaseFeedManager: Retry attempt $attempt for $cacheKey: $error',
+        );
+      },
+    );
+
+    if (result.succeeded && result.data != null) {
+      await saveDataToCache(result.data!);
+      return result.data!;
+    }
+
+    debugPrint('BaseFeedManager: All retries failed, loading cached data');
+    return loadCachedData();
   }
 }

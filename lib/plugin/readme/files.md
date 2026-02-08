@@ -294,3 +294,45 @@ PluginManager.instance.initialize(
 ```
 
 ---
+
+### 5. Retry Queue Integration
+
+**Purpose**: Plugins can access the app's `RetryQueue` service for resilient network operations with exponential backoff.
+
+**Access Pattern**:
+```dart
+// Via the plugin registry
+final services = registry.getAvailableServices();
+final retryQueue = services['RetryQueue'] as RetryQueue;
+```
+
+**Usage Example**:
+```dart
+final result = await retryQueue.execute(
+  () => myNetworkCall(),
+  key: 'my-plugin-operation',
+  customConfig: const RetryConfig(
+    maxAttempts: 5,
+    initialDelay: Duration(milliseconds: 500),
+    maxDelay: Duration(seconds: 30),
+  ),
+  onRetry: (attempt, error) {
+    debugPrint('Retry attempt $attempt: $error');
+  },
+  shouldRetry: (error) => !error.toString().contains('auth'),
+);
+
+if (result.succeeded) {
+  // Use result.data
+} else {
+  // Handle result.error
+}
+```
+
+**RetryConfig Options**:
+- `maxAttempts` — Maximum number of retry attempts (default: 3)
+- `initialDelay` — Initial delay before first retry (default: 300ms)
+- `maxDelay` — Maximum delay between retries (default: 30s)
+- `backoffMultiplier` — Multiplier for exponential backoff (default: 2.0)
+
+---

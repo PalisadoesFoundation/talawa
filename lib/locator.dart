@@ -16,6 +16,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/services/secure_storage_service.dart';
 import 'package:talawa/services/security_service.dart';
 import 'package:talawa/services/session_manager.dart';
@@ -148,6 +149,9 @@ SecureStorageService get secureStorage => locator<SecureStorageService>();
 /// * `AppConfigService`: The AppConfigService instance.
 AppConfigService get appConfig => locator<AppConfigService>();
 
+/// GetIt for RetryQueue.
+RetryQueue get retryQueue => locator<RetryQueue>();
+
 /// This function registers the widgets/objects in "GetIt".
 ///
 /// **params**:
@@ -179,6 +183,8 @@ Future<void> setupLocator() async {
   locator.registerSingleton(SecureStorageService());
 
   locator.registerSingleton(CacheService());
+
+  locator.registerSingleton(RetryQueue());
 
   //Services
   locator.registerLazySingleton(() => PostService());

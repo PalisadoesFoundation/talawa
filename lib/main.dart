@@ -11,6 +11,7 @@ import 'package:talawa/constants/quick_actions.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/hive_manager.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatefulWidget {
 /// The _MyAppState class extends the State.
 ///
 /// All the coding related to state updation is inside this class.
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   /// Initializing the Quickactions to enable them on long press of app icon in device.
   final quickActions = const QuickActions();
 
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
     // we need to do some sort of initialization work like
     // registering a listener because, unlike build(), this method is called once.
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     initQuickActions();
 
@@ -74,6 +76,20 @@ class _MyAppState extends State<MyApp> {
         fs.DeviceOrientation.portraitDown,
       ],
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      locator<RetryQueue>().cancelAll();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    locator<RetryQueue>().cancelAll();
+    super.dispose();
   }
 
   /// It allows to manage and interact with the application’s home screen quick actions.

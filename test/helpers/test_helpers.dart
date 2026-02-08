@@ -43,6 +43,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
@@ -252,6 +253,20 @@ AppTheme getAndRegisterAppTheme() {
   return service;
 }
 
+/// `getAndRegisterRetryQueue` registers a real RetryQueue instance.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `RetryQueue`: A real RetryQueue instance.
+RetryQueue getAndRegisterRetryQueue() {
+  _removeRegistrationIfExists<RetryQueue>();
+  final service = RetryQueue();
+  locator.registerSingleton<RetryQueue>(service);
+  return service;
+}
+
 /// `getAndRegisterCommentService` returns a mock instance of the `CommentService` class.
 ///
 /// **params**:
@@ -301,7 +316,7 @@ ChatService getAndRegisterChatService() {
       chatMessageController.stream.asBroadcastStream();
 
   // Mock the updated service methods
-  when(service.chatListStream).thenAnswer((invocation) => chatStream);
+  when(service.chatListStream).thenAnswer((_) => chatStream);
   when(service.chatMessagesStream).thenAnswer((invocation) => messageStream);
 
   // Mock createChat method
@@ -470,14 +485,10 @@ ChatService getAndRegisterChatService() {
   });
 
   // Mock subscribeToChatMessages method
-  when(service.subscribeToChatMessages(any))
+  when(service.subscribeToChatMessages('test-chat-id'))
       .thenAnswer((invocation) => messageStream);
 
-  // Mock new pagination methods
-  when(service.loadMoreMessages(any)).thenAnswer((invocation) async => []);
-  when(service.hasMoreMessages(any)).thenReturn(false);
-
-  // Mock specific test cases
+  // Mock pagination methods
   when(service.loadMoreMessages('test-chat-id'))
       .thenAnswer((invocation) async => []);
   when(service.hasMoreMessages('test-chat-id')).thenReturn(false);
@@ -574,7 +585,7 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
     return locator<GraphQLClient>();
   });
 
-  when(service.getToken()).thenAnswer((_) => "sample_token");
+  // getToken() returns void; OnMissingStub.returnDefault handles it
 
   locator.registerSingleton<GraphqlConfig>(service);
   return service;
@@ -1226,6 +1237,7 @@ void registerServices() {
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
   getAndRegisterOrganizationService();
+  getAndRegisterRetryQueue();
   getAndRegisterCommentService();
   getAndRegisterChatService();
   getAndRegisterImageCropper();
@@ -1259,6 +1271,7 @@ void unregisterServices() {
   _removeRegistrationIfExists<DataBaseMutationFunctions>();
   _removeRegistrationIfExists<OrganizationService>();
   _removeRegistrationIfExists<CommentService>();
+  _removeRegistrationIfExists<RetryQueue>();
   _removeRegistrationIfExists<ImageCropper>();
   _removeRegistrationIfExists<ImagePicker>();
   _removeRegistrationIfExists<ImageService>();

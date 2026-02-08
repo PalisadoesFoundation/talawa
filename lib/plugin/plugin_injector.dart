@@ -83,7 +83,7 @@ class PluginInjector extends StatelessWidget {
     try {
       return injector.builder(context, data: data);
     } catch (e) {
-      print('Error rendering plugin injector "${injector.name}": $e');
+      debugPrint('Error rendering plugin injector "${injector.name}": $e');
       return const SizedBox.shrink();
     }
   }

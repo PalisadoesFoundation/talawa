@@ -5,56 +5,79 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/comment_queries.dart';
 
 /// CommentService class have different member functions which provides service in the context of commenting.
 ///
 /// Services include:
-/// * `createComments` - used to add comment on the post.
+/// * `createComments` - used to add comment on the post with retry support.
 /// * `getCommentsForPost` - used to get all comments on the post.
 class CommentService {
+  /// Creates a CommentService instance.
+  ///
+  /// **params**:
+  ///   None
   CommentService() {
     _dbFunctions = locator<DataBaseMutationFunctions>();
     _navigationService = locator<NavigationService>();
   }
+
   late DataBaseMutationFunctions _dbFunctions;
   late NavigationService _navigationService;
 
-  /// This function is used to add comment on the post.
+  /// This function is used to add comment on the post with retry support.
   ///
-  /// To verify things are working, check out the native platform logs.
+  /// The function uses the retry queue to automatically retry the operation
+  /// with exponential backoff if it fails due to network issues.
+  ///
   /// **params**:
   /// * `postId`: The post id on which comment is to be added.
   /// * `body`: The comment text.
   ///
   /// **returns**:
-  /// * `Future<Comment?>`: The created comment.
+  /// * `Future<Comment?>`: The created comment, or null if all retries failed.
   Future<Comment?> createComments(String postId, String body) async {
     final String createCommentQuery = CommentQueries().createComment();
+    final queue = locator<RetryQueue>();
 
-    try {
-      final result = await _dbFunctions.gqlAuthMutation(
-        createCommentQuery,
-        variables: {
-          'postId': postId,
-          'body': body,
-        },
-      );
+    final result = await queue.execute(
+      () async {
+        final queryResult = await _dbFunctions.gqlAuthMutation(
+          createCommentQuery,
+          variables: {
+            'postId': postId,
+            'body': body,
+          },
+        );
+        if (queryResult.data == null) {
+          throw Exception('Failed to create comment: No data returned');
+        }
+        return queryResult;
+      },
+      key: 'create-comment-$postId-${DateTime.now().millisecondsSinceEpoch}',
+      onRetry: (attempt, error) {
+        debugPrint(
+          'CommentService: Retry attempt $attempt for comment on post $postId: $error',
+        );
+      },
+    );
 
-      _navigationService.showSnackBar(
-        "Comment sent",
-      );
-      print("Comment created: ${result.data!}");
-      return Comment.fromJson(
-        result.data!['createComment'] as Map<String, dynamic>,
-      );
-    } on Exception catch (_) {
+    if (result.succeeded) {
       _navigationService.showTalawaErrorSnackBar(
-        "Something went wrong",
+        "Comment sent",
+        MessageType.info,
+      );
+      return Comment.fromJson(
+        result.data!.data!['createComment'] as Map<String, dynamic>,
+      );
+    } else {
+      _navigationService.showTalawaErrorSnackBar(
+        "Failed to send comment after retries",
         MessageType.error,
       );
+      return null;
     }
-    return null;
   }
 
   /// This function is used to get comments on the post.

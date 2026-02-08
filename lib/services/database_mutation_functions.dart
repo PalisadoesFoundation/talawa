@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/utils/time_conversion.dart';
 
@@ -253,6 +254,34 @@ class DataBaseMutationFunctions {
       },
     );
     return response;
+  }
+
+  /// Execute authenticated mutation with retry support.
+  ///
+  /// This function wraps [gqlAuthMutation] with retry logic using exponential backoff.
+  ///
+  /// **params**:
+  /// * `mutation`: mutation is used to change/add/delete data in graphql
+  /// * `variables`: variables to be passed with mutation
+  /// * `retryKey`: unique key for tracking the retry operation
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>>`: it returns Future of QueryResult
+  Future<QueryResult<Object?>> gqlAuthMutationWithRetry(
+    String mutation, {
+    Map<String, dynamic>? variables,
+    String? retryKey,
+  }) async {
+    final key =
+        retryKey ?? 'mutation-${DateTime.now().millisecondsSinceEpoch}';
+    final queue = locator<RetryQueue>();
+
+    final result = await queue.execute(
+      () => gqlAuthMutation(mutation, variables: variables),
+      key: key,
+    );
+
+    return result.succeeded ? result.data! : noData;
   }
 
   /// This function is used to refresh the Authenication token to access the application.

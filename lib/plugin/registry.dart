@@ -1,5 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/plugin/types.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/retry_queue.dart';
 
 /// A very small in-memory registry for activated plugins.
 ///
@@ -73,6 +77,21 @@ class PluginRegistry {
   /// * `List<PluginMenuItem>`: Menu items for UI.
   List<PluginMenuItem> collectMenuItems(BuildContext context) {
     return all.expand((p) => p.getMenuItems(context)).toList(growable: false);
+  }
+
+  /// Returns core services available for plugin use.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Map<String, dynamic>`: Map of service name to service instance.
+  Map<String, dynamic> getAvailableServices() {
+    return {
+      'RetryQueue': locator<RetryQueue>(),
+      'NavigationService': locator<NavigationService>(),
+      'DatabaseMutationFunctions': locator<DataBaseMutationFunctions>(),
+    };
   }
 
   /// Collects injectors for a specific type.

@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 
 /// OfflineActionQueue class manages a queue for offline actions.
@@ -151,8 +153,92 @@ class OfflineActionQueue {
       return true;
     } catch (e) {
       // Handle or log the exception
-      print('Failed to remove expired actions: $e');
+      debugPrint('Failed to remove expired actions: $e');
       return false;
+    }
+  }
+
+  /// Updates an existing action in the queue.
+  ///
+  /// **params**:
+  /// * `action`: the action to be updated.
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: returns true if the action was updated successfully, otherwise false.
+  Future<bool> updateAction(CachedUserAction action) async {
+    try {
+      await _actionsBox.put(action.id, action);
+      return true;
+    } catch (e) {
+      debugPrint('Failed to update action: $e');
+      return false;
+    }
+  }
+
+  /// Gets pending actions sorted by timestamp.
+  ///
+  /// Returns all non-expired actions with pending status, sorted by
+  /// timestamp in ascending order (oldest first - FIFO).
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `List<CachedUserAction>`: a list of pending actions sorted by timestamp.
+  List<CachedUserAction> getPendingActions() {
+    try {
+      final now = DateTime.now();
+      return _actionsBox.values
+          .where(
+            (action) =>
+                action.expiry.isAfter(now) &&
+                action.status == CachedUserActionStatus.pending,
+          )
+          .toList()
+        ..sort((a, b) => a.timeStamp.compareTo(b.timeStamp));
+    } catch (e) {
+      debugPrint('Failed to get pending actions: $e');
+      return [];
+    }
+  }
+
+  /// Marks an action as completed and removes it from the queue.
+  ///
+  /// **params**:
+  /// * `actionId`: the ID of the action to mark as completed.
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: returns true if the action was marked completed successfully, otherwise false.
+  Future<bool> markCompleted(String actionId) async {
+    try {
+      await _actionsBox.delete(actionId);
+      return true;
+    } catch (e) {
+      debugPrint('Failed to mark action completed: $e');
+      return false;
+    }
+  }
+
+  /// Gets the count of pending actions.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `int`: the number of pending actions.
+  int getPendingCount() {
+    try {
+      final now = DateTime.now();
+      return _actionsBox.values
+          .where(
+            (action) =>
+                action.expiry.isAfter(now) &&
+                action.status == CachedUserActionStatus.pending,
+          )
+          .length;
+    } catch (e) {
+      debugPrint('Failed to get pending count: $e');
+      return 0;
     }
   }
 }

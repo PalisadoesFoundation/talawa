@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/chat_queries.dart';
 
 /// Provides real-time subscription services for chat messages.
@@ -14,11 +15,15 @@ import 'package:talawa/utils/chat_queries.dart';
 class ChatSubscriptionService {
   ChatSubscriptionService() {
     _dbFunctions = locator<DataBaseMutationFunctions>();
+    _retryQueue = locator<RetryQueue>();
     _chatMessagesStream = _chatMessageController.stream.asBroadcastStream();
   }
 
   /// Database mutation functions.
   late DataBaseMutationFunctions _dbFunctions;
+
+  /// Retry queue for resilient reconnection.
+  late RetryQueue _retryQueue;
 
   /// Stream for chat messages.
   late Stream<ChatMessage> _chatMessagesStream;
@@ -62,46 +67,61 @@ class ChatSubscriptionService {
     _subscriptionCompleter?.complete();
     _subscriptionCompleter = Completer<void>();
 
-    try {
-      // Use the new gqlAuthSubscription method for consistent handling
-      final stream = _dbFunctions.gqlAuthSubscription(
-        ChatQueries().chatMessageCreate,
-        variables: {
-          "input": {
-            "id": chatId,
+    await _retryQueue.execute(
+      () async {
+        final stream = _dbFunctions.gqlAuthSubscription(
+          ChatQueries().chatMessageCreate,
+          variables: {
+            "input": {
+              "id": chatId,
+            },
           },
-        },
-      );
+        );
 
-      // Listen to the stream using for-loop approach
-      await for (final result in stream) {
-        // Check if subscription should be cancelled
-        if (_subscriptionCompleter?.isCompleted == true) {
-          break;
+        // Listen to the stream using for-loop approach
+        await for (final result in stream) {
+          // Check if subscription should be cancelled
+          if (_subscriptionCompleter?.isCompleted == true) {
+            break;
+          }
+
+          if (result.hasException) {
+            debugPrint(
+              'Subscription error for chat $chatId: ${result.exception}',
+            );
+            // Continue listening instead of breaking
+            continue;
+          }
+
+          // Parse the received message
+          if (result.data != null &&
+              result.data!['chatMessageCreate'] != null) {
+            final messageData =
+                result.data!['chatMessageCreate'] as Map<String, dynamic>;
+
+            // Create and emit the message - add to the chat message controller
+            final message = ChatMessage.fromJson(messageData);
+            _chatMessageController.add(message);
+          }
         }
-
-        if (result.hasException) {
-          debugPrint(
-            'Subscription error for chat $chatId: ${result.exception}',
-          );
-          // Continue listening instead of breaking
-          continue;
-        }
-
-        // Parse the received message
-        if (result.data != null && result.data!['chatMessageCreate'] != null) {
-          final messageData =
-              result.data!['chatMessageCreate'] as Map<String, dynamic>;
-
-          // Create and emit the message - add to the chat message controller
-          final message = ChatMessage.fromJson(messageData);
-          _chatMessageController.add(message);
-        }
-      }
-    } catch (e) {
-      // Error in subscription
-      debugPrint('Failed to start subscription: $e');
-    }
+      },
+      key: 'chat-subscription-$chatId',
+      customConfig: const RetryConfig(
+        maxAttempts: 5,
+        initialDelay: Duration(milliseconds: 500),
+        maxDelay: Duration(seconds: 30),
+      ),
+      onRetry: (attempt, error) {
+        debugPrint(
+          'Retrying chat subscription for $chatId '
+          '(attempt $attempt): $error',
+        );
+      },
+      shouldRetry: (error) {
+        // Do not retry on auth errors
+        return !error.toString().contains('auth');
+      },
+    );
   }
 
   /// Stops the current chat subscription.

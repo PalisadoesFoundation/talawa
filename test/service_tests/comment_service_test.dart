@@ -4,13 +4,29 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/comment_queries.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 void main() {
   group('CommentService', () {
-    setUpAll(registerServices);
+    setUpAll(() {
+      registerServices();
+      // Replace the default RetryQueue with a fast one for tests
+      if (locator.isRegistered<RetryQueue>()) {
+        locator.unregister<RetryQueue>();
+      }
+      locator.registerSingleton(
+        RetryQueue(
+          config: const RetryConfig(
+            maxAttempts: 2,
+            initialDelay: Duration(milliseconds: 1),
+            maxDelay: Duration(milliseconds: 5),
+          ),
+        ),
+      );
+    });
     tearDownAll(unregisterServices);
 
     test('createComments returns Comment on success', () async {
@@ -47,10 +63,26 @@ void main() {
       expect(result, isNull);
       verify(
         navigationService.showTalawaErrorSnackBar(
-          "Something went wrong",
+          "Failed to send comment after retries",
           MessageType.error,
         ),
       ).called(1);
+    });
+
+    test('createComments returns null when mutation returns no data', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().createComment();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+      final service = CommentService();
+      final result = await service.createComments('pid', 'body');
+      expect(result, isNull);
     });
 
     test('getCommentsForPost returns comments and pageInfo', () async {

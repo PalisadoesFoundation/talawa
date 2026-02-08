@@ -19,6 +19,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/services/secure_storage_service.dart';
 import 'package:talawa/services/security_service.dart';
 import 'package:talawa/services/session_manager.dart';
@@ -99,6 +100,8 @@ AppConfigService get appConfig => locator<AppConfigService>();
 void testSetupLocator() {
   locator.allowReassignment = true;
   locator.registerSingleton(CacheService());
+
+  locator.registerSingleton(RetryQueue());
 
   locator.registerSingleton(DataBaseMutationFunctions());
 
