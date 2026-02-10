@@ -150,6 +150,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                   onRefresh: () async => await model.refreshPosts(),
                   child: model.posts.isEmpty && model.pinnedPosts.isEmpty
                       ? ListView(
+                          controller: _scrollController,
                           key: const Key('listView'),
                           children: [
                             _buildEmptyState(context),
