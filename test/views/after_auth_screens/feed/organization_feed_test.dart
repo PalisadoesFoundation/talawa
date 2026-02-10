@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -390,6 +391,64 @@ void main() {
       await tester.pumpAndSettle();
 
       verify(locator<NavigationService>().pushScreen('/addpostscreen'));
+    });
+    testWidgets('check if loading indicator shows up during pagination',
+        (tester) async {
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      // Create enough posts to ensure scrolling is possible
+      when(mockViewModel.posts).thenReturn(List.generate(
+          20,
+          (index) => Post(
+                id: "test_post_id_$index",
+                creator: userConfig.currentUser,
+                caption: 'Testing',
+                createdAt: DateTime.now(),
+                organization: userConfig.currentOrg,
+              )));
+      when(mockViewModel.pinnedPosts).thenReturn([]);
+
+      // Use a Completer to manually control when nextPage completes.
+      // This allows us to hold the UI in the "loading more" state.
+      final completer = Completer<void>();
+      when(mockViewModel.nextPage()).thenAnswer((_) => completer.future);
+
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pumpAndSettle();
+
+      // Scroll to the bottom to trigger the pagination logic.
+      // We drag by a large amount to ensure we hit the bottom threshold.
+      await tester.drag(
+        find.byKey(const Key('listView')),
+        const Offset(0, -5000),
+      );
+
+      // Pump to process the scroll event and trigger the listener.
+      // We do NOT use pumpAndSettle here because the nextPage future is still pending (the completer),
+      // so the widget is technically unstable (waiting for future).
+      await tester.pump();
+
+      // Verify that the scroll listener triggered nextPage
+      verify(mockViewModel.nextPage()).called(1);
+
+      // At this point, _isLoadingMore is true, so the list has grown by 1 item (the loader).
+      // However, the loader might be just off-screen below the current scroll position.
+      // We drag a bit more to bring it into view.
+      await tester.drag(
+        find.byKey(const Key('listView')),
+        const Offset(0, -100),
+      );
+      await tester.pump();
+
+      // Now the loading indicator should be built and visible.
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      // Finish the loading operation
+      completer.complete();
+      await tester.pumpAndSettle();
     });
   });
 }

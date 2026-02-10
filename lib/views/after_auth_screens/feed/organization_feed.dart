@@ -55,6 +55,44 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
     super.dispose();
   }
 
+  /// This function is used to build the empty state widget when there are no posts.
+  ///
+  /// **params**:
+  /// * `context`: The build context.
+  ///
+  /// **returns**:
+  /// * `Widget`: The empty state widget.
+  Widget _buildEmptyState(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            top: SizeConfig.screenHeight! * 0.21,
+          ),
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate(
+              'There are no posts in this organization',
+            ),
+            style: TextStyle(
+              fontSize: SizeConfig.screenHeight! * 0.026,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            navigationService.pushScreen('/addpostscreen');
+          },
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate(
+              'Create your first post',
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
@@ -114,45 +152,16 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                       ? ListView(
                           key: const Key('listView'),
                           children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: SizeConfig.screenHeight! * 0.21,
-                                  ),
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .strictTranslate(
-                                      'There are no posts in this organization',
-                                    ),
-                                    style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.screenHeight! * 0.026,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    navigationService
-                                        .pushScreen('/addpostscreen');
-                                  },
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .strictTranslate(
-                                      'Create your first post',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            _buildEmptyState(context),
                           ],
                         )
                       : ListView.builder(
                           controller: _scrollController,
                           key: const Key('listView'),
                           itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) +
-                              1 + // For SizedBox
+                              (model.pinnedPosts.isNotEmpty
+                                  ? 1
+                                  : 0) + // For SizedBox (only if pinned posts exist)
                               (model.posts.isEmpty ? 1 : model.posts.length) +
                               (_isLoadingMore ? 1 : 0),
                           itemBuilder: (context, index) {
@@ -169,49 +178,20 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                               currentIndex--;
                             }
 
-                            // 2. SizedBox (Spacer)
-                            if (currentIndex == 0) {
-                              return SizedBox(
-                                height: SizeConfig.screenHeight! * 0.01,
-                              );
+                            // 2. SizedBox (Spacer) - Only if pinned posts exist
+                            if (model.pinnedPosts.isNotEmpty) {
+                              if (currentIndex == 0) {
+                                return SizedBox(
+                                  height: SizeConfig.screenHeight! * 0.01,
+                                );
+                              }
+                              currentIndex--;
                             }
-                            currentIndex--;
 
                             // 3. Empty State
                             if (model.posts.isEmpty) {
                               if (currentIndex == 0) {
-                                return Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        top: SizeConfig.screenHeight! * 0.21,
-                                      ),
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .strictTranslate(
-                                          'There are no posts in this organization',
-                                        ),
-                                        style: TextStyle(
-                                          fontSize:
-                                              SizeConfig.screenHeight! * 0.026,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        navigationService
-                                            .pushScreen('/addpostscreen');
-                                      },
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .strictTranslate(
-                                          'Create your first post',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
+                                return _buildEmptyState(context);
                               }
                             }
 
