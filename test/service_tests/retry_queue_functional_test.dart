@@ -136,7 +136,7 @@ void main() {
       'retry queue wraps a mutation call and recovers from transient failure',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 3,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -167,7 +167,7 @@ void main() {
       'retry returns noData equivalent when all attempts fail',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 2,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -196,7 +196,7 @@ void main() {
       'delays increase exponentially between retries',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 4,
             initialDelay: Duration(milliseconds: 50),
             maxDelay: Duration(seconds: 10),
@@ -240,7 +240,7 @@ void main() {
       'backoff delay is capped at maxDelay',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 5,
             initialDelay: Duration(milliseconds: 50),
             maxDelay: Duration(milliseconds: 80),
@@ -275,7 +275,7 @@ void main() {
       'multiple independent retry operations run without interfering',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 3,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 100),
@@ -333,7 +333,7 @@ void main() {
       'one failing task does not block others from succeeding',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 2,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -364,7 +364,7 @@ void main() {
       'cancelAll stops tracking for all in-flight tasks',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 10,
             initialDelay: Duration(milliseconds: 50),
             maxDelay: Duration(seconds: 5),
@@ -404,7 +404,7 @@ void main() {
       'after cancelAll, same key can be re-used for new execution',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 3,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -445,7 +445,7 @@ void main() {
       'auth errors bypass retry entirely',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 5,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -472,7 +472,7 @@ void main() {
       'network errors are retried while auth errors are not',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 5,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -504,7 +504,7 @@ void main() {
       'shouldRetry receives the actual error for inspection',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 3,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -538,7 +538,7 @@ void main() {
       'onRetry receives correct attempt number and error for each retry',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 4,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -578,7 +578,7 @@ void main() {
       'second execute with same key returns failure while first is running',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 3,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -617,7 +617,7 @@ void main() {
       'same key can be used again after first task completes',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 2,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -647,7 +647,7 @@ void main() {
       'enqueue throws on exhaustion while execute returns failure',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 2,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 50),
@@ -682,7 +682,7 @@ void main() {
       'subscription connection retries on failure then succeeds',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 5,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 100),
@@ -721,7 +721,7 @@ void main() {
       'subscription does not retry auth errors',
       () async {
         final queue = RetryQueue(
-          config: const RetryConfig(
+          config: RetryConfig(
             maxAttempts: 5,
             initialDelay: Duration(milliseconds: 10),
             maxDelay: Duration(milliseconds: 100),

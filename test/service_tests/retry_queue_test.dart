@@ -6,7 +6,7 @@ import 'package:talawa/services/retry_queue.dart';
 void main() {
   group('RetryConfig', () {
     test('should have correct default values', () {
-      const config = RetryConfig();
+      final config = RetryConfig();
 
       expect(config.maxAttempts, 3);
       expect(config.initialDelay, const Duration(milliseconds: 300));
@@ -15,7 +15,7 @@ void main() {
     });
 
     test('should accept custom values', () {
-      const config = RetryConfig(
+      final config = RetryConfig(
         maxAttempts: 5,
         initialDelay: Duration(milliseconds: 100),
         maxDelay: Duration(seconds: 60),
@@ -53,7 +53,7 @@ void main() {
 
     setUp(() {
       retryQueue = RetryQueue(
-        config: const RetryConfig(
+        config: RetryConfig(
           maxAttempts: 3,
           initialDelay: Duration(milliseconds: 10),
           maxDelay: Duration(milliseconds: 100),
@@ -301,7 +301,7 @@ void main() {
           throw Exception('Error');
         },
         key: 'custom-config',
-        customConfig: const RetryConfig(
+        customConfig: RetryConfig(
           maxAttempts: 5,
           initialDelay: Duration(milliseconds: 5),
         ),
@@ -327,7 +327,7 @@ void main() {
       // This test verifies the delay capping logic works
       // We use a short config to speed up the test
       final fastQueue = RetryQueue(
-        config: const RetryConfig(
+        config: RetryConfig(
           maxAttempts: 5,
           initialDelay: Duration(milliseconds: 50),
           maxDelay: Duration(milliseconds: 100),
@@ -361,7 +361,7 @@ void main() {
 
     setUp(() {
       retryQueue = RetryQueue(
-        config: const RetryConfig(
+        config: RetryConfig(
           maxAttempts: 3,
           initialDelay: Duration(milliseconds: 10),
           maxDelay: Duration(milliseconds: 100),

@@ -20,7 +20,7 @@ void main() {
         locator.unregister<RetryQueue>();
       }
       retryQueue = RetryQueue(
-        config: const RetryConfig(
+        config: RetryConfig(
           maxAttempts: 2,
           initialDelay: Duration(milliseconds: 1),
           maxDelay: Duration(milliseconds: 5),

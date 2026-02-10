@@ -19,12 +19,16 @@ class RetryConfig {
   /// * `initialDelay`: Initial delay before first retry (default: 300ms).
   /// * `maxDelay`: Maximum delay between retries (default: 30s).
   /// * `backoffMultiplier`: Multiplier for exponential backoff (default: 2.0).
-  const RetryConfig({
+  RetryConfig({
     this.maxAttempts = 3,
     this.initialDelay = const Duration(milliseconds: 300),
     this.maxDelay = const Duration(seconds: 30),
     this.backoffMultiplier = 2.0,
-  });
+  })  : assert(maxAttempts >= 1, 'maxAttempts must be at least 1'),
+        assert(initialDelay.inMicroseconds >= 0, 'initialDelay cannot be negative'),
+        assert(maxDelay.inMicroseconds >= 0, 'maxDelay cannot be negative'),
+        assert(maxDelay.inMicroseconds >= initialDelay.inMicroseconds, 'maxDelay must be >= initialDelay'),
+        assert(backoffMultiplier > 0.0, 'backoffMultiplier must be positive');
 
   /// Maximum number of retry attempts.
   final int maxAttempts;
@@ -94,8 +98,8 @@ final class RetryResultFailure<T> extends RetryResult<T> {
 /// Service for handling retries with exponential backoff.
 ///
 /// This class provides the following functionalities:
-/// * `enqueue` : Static method to enqueue and execute task with retry logic.
-/// * `execute` : Instance method to execute task with full result wrapper.
+/// * `enqueue` : Method to enqueue and execute task with retry logic.
+/// * `execute` : Method to execute task with full result wrapper.
 /// * `isRetrying` : Check if a task is currently being retried.
 /// * `getAttemptCount` : Get current attempt count for a task.
 /// * `cancel` : Cancel a pending retry operation.
@@ -105,7 +109,7 @@ class RetryQueue {
   ///
   /// **params**:
   /// * `config`: The retry configuration (default: RetryConfig()).
-  RetryQueue({this.config = const RetryConfig()});
+  RetryQueue({RetryConfig? config}) : config = config ?? RetryConfig();
 
   /// The retry configuration.
   final RetryConfig config;
@@ -153,10 +157,15 @@ class RetryQueue {
     int maxAttempts = 3,
   }) async {
     // Create custom config from parameters
+    // Ensure maxDelay is at least as large as initialDelay
+    final effectiveMaxDelay = config.maxDelay.inMicroseconds >= initial.inMicroseconds
+        ? config.maxDelay
+        : initial;
+
     final customConfig = RetryConfig(
       maxAttempts: maxAttempts,
       initialDelay: initial,
-      maxDelay: config.maxDelay,
+      maxDelay: effectiveMaxDelay,
       backoffMultiplier: config.backoffMultiplier,
     );
 
@@ -167,12 +176,11 @@ class RetryQueue {
       customConfig: customConfig,
     );
 
-    // Unwrap RetryResult: return data on success, throw error on failure
-    if (result.succeeded && result.data != null) {
-      return result.data!;
-    } else {
-      throw result.error ?? Exception('Unknown error for task: $key');
-    }
+    // Unwrap RetryResult using pattern matching: return data on success, throw error on failure
+    return switch (result) {
+      RetryResultSuccess<T>(data: final data) => data,
+      RetryResultFailure<T>(error: final error) => throw error,
+    };
   }
 
   /// Execute task with full result wrapper.
