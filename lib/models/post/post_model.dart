@@ -121,52 +121,6 @@ class Post {
   /// Image service instance to handle file operations
   static final ImageService _imageService = locator<ImageService>();
 
-  /// Retry count for failed post operations.
-  ///
-  /// This field tracks the number of retry attempts for operations
-  /// like creating, updating, or deleting the post. It is not persisted
-  /// in Hive as it's only relevant during runtime retry logic.
-  int retryCount = 0;
-
-  /// Last retry timestamp.
-  ///
-  /// Records when the last retry attempt was made for this post's
-  /// operations. Used for debugging and retry delay calculations.
-  DateTime? lastRetryAt;
-
-  /// Increment retry count.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void incrementRetry() {
-    retryCount++;
-    lastRetryAt = DateTime.now();
-  }
-
-  /// Check if max retries exceeded.
-  ///
-  /// **params**:
-  /// * `max`: Maximum number of retries allowed (default: 3).
-  ///
-  /// **returns**:
-  /// * `bool`: True if retry count has reached or exceeded the maximum.
-  bool hasExceededMaxRetries({int max = 3}) => retryCount >= max;
-
-  /// Reset retry state.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void resetRetryState() {
-    retryCount = 0;
-    lastRetryAt = null;
-  }
-
   /// this is to get duration of post.
   ///
   /// **params**:

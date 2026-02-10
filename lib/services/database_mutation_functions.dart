@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
@@ -272,8 +275,14 @@ class DataBaseMutationFunctions {
     Map<String, dynamic>? variables,
     String? retryKey,
   }) async {
-    final key =
-        retryKey ?? 'mutation-${DateTime.now().millisecondsSinceEpoch}';
+    // Create deterministic key if not provided
+    final key = retryKey ??
+        () {
+          final mutationHash = sha1.convert(utf8.encode(mutation)).toString();
+          final variablesStr = variables != null ? jsonEncode(variables) : '';
+          final variablesHash = sha1.convert(utf8.encode(variablesStr)).toString();
+          return 'mutation-$mutationHash-$variablesHash';
+        }();
     final queue = locator<RetryQueue>();
 
     final result = await queue.execute(
@@ -281,7 +290,11 @@ class DataBaseMutationFunctions {
       key: key,
     );
 
-    return result.succeeded ? result.data! : noData;
+    // Guard against null data
+    if (result.succeeded && result.data != null) {
+      return result.data!;
+    }
+    return noData;
   }
 
   /// This function is used to refresh the Authenication token to access the application.

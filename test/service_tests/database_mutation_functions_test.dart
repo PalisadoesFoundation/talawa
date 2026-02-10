@@ -820,5 +820,128 @@ void main() {
       final res = await functionsClass.gqlNonAuthQuery(query);
       expect(res.data, null);
     });
+
+    test('Test for gqlAuthMutationWithRetry - success on first attempt',
+        () async {
+      final String mutation = Queries().fetchOrgById('XYZ');
+
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(mutation))),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: MutationOptions(document: gql(mutation)),
+          data: {
+            'createPost': {
+              'id': 'post123',
+              'text': 'Test post',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final res = await functionsClass.gqlAuthMutationWithRetry(
+        mutation,
+        retryKey: 'test-mutation-success',
+      );
+
+      expect(res.data, isNotNull);
+      expect(res.data!['createPost']['id'], 'post123');
+    });
+
+    test('Test for gqlAuthMutationWithRetry - retry then succeed', () async {
+      final String mutation = Queries().fetchOrgById('XYZ');
+      int callCount = 0;
+
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(mutation))),
+      ).thenAnswer((_) async {
+        callCount++;
+        if (callCount < 2) {
+          // First call fails with exception that should trigger retry
+          throw Exception('Network error - simulated failure');
+        } else {
+          // Subsequent calls succeed
+          return QueryResult(
+            options: MutationOptions(document: gql(mutation)),
+            data: {
+              'createPost': {
+                'id': 'post456',
+                'text': 'Retried post',
+              },
+            },
+            source: QueryResultSource.network,
+          );
+        }
+      });
+
+      final res = await functionsClass.gqlAuthMutationWithRetry(
+        mutation,
+        retryKey: 'test-mutation-retry',
+      );
+
+      expect(res.data, isNotNull);
+      expect(res.data!['createPost']['id'], 'post456');
+      expect(callCount, greaterThan(1)); // Should have retried
+    });
+
+    test('Test for gqlAuthMutationWithRetry - all retries fail', () async {
+      final String mutation = Queries().fetchOrgById('XYZ');
+
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(mutation))),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: MutationOptions(document: gql(mutation)),
+          exception: OperationException(
+            graphqlErrors: [
+              const GraphQLError(message: 'Persistent error'),
+            ],
+          ),
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final res = await functionsClass.gqlAuthMutationWithRetry(
+        mutation,
+        retryKey: 'test-mutation-fail',
+      );
+
+      expect(res.data, isNull); // Should return noData
+    });
+
+    test('Test for gqlAuthMutationWithRetry - with variables', () async {
+      final String mutation = Queries().fetchOrgById('XYZ');
+      final variables = {'postId': 'post123', 'text': 'Updated text'};
+
+      when(
+        locator<GraphQLClient>().mutate(
+          MutationOptions(document: gql(mutation), variables: variables),
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: MutationOptions(
+            document: gql(mutation),
+            variables: variables,
+          ),
+          data: {
+            'updatePost': {
+              'id': 'post123',
+              'text': 'Updated text',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final res = await functionsClass.gqlAuthMutationWithRetry(
+        mutation,
+        variables: variables,
+        retryKey: 'test-mutation-variables',
+      );
+
+      expect(res.data, isNotNull);
+      expect(res.data!['updatePost']['id'], 'post123');
+    });
   });
 }

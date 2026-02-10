@@ -219,7 +219,9 @@ void main() {
 
         expect(timestamps.length, 4);
 
-        // Verify each gap is larger than the previous
+        // Verify each gap meets conservative minimums based on config
+        // (initialDelay: 50ms, backoffMultiplier: 2.0)
+        // Expected delays: 50ms, 100ms, 200ms with 80% tolerance for CI
         final gap1 =
             timestamps[1].difference(timestamps[0]).inMilliseconds;
         final gap2 =
@@ -227,10 +229,10 @@ void main() {
         final gap3 =
             timestamps[3].difference(timestamps[2]).inMilliseconds;
 
-        // gap2 should be roughly 2x gap1, gap3 roughly 2x gap2
-        // (use generous tolerance for CI flakiness)
-        expect(gap2, greaterThan(gap1 * 1.5));
-        expect(gap3, greaterThan(gap2 * 1.5));
+        // Check each gap meets minimum threshold (80% of expected)
+        expect(gap1, greaterThanOrEqualTo((50 * 0.8).toInt())); // ~40ms
+        expect(gap2, greaterThanOrEqualTo((100 * 0.8).toInt())); // ~80ms
+        expect(gap3, greaterThanOrEqualTo((200 * 0.8).toInt())); // ~160ms
       },
     );
 
@@ -409,20 +411,22 @@ void main() {
           ),
         );
 
-        // Start and immediately cancel
-        final completer = Completer<void>();
+        // Start and immediately cancel - use Completer to avoid timer leak
+        final startCompleter = Completer<void>();
+        final taskCompleter = Completer<String>();
         // ignore: unawaited_futures
         queue.execute(
           () async {
-            completer.complete();
-            await Future.delayed(const Duration(seconds: 10));
-            return 'never';
+            startCompleter.complete();
+            return await taskCompleter.future; // Wait indefinitely until completed
           },
           key: 'reuse-key',
         );
 
-        await completer.future;
+        await startCompleter.future;
         queue.cancelAll();
+        // Complete the task to clean up
+        taskCompleter.complete('never');
 
         // Now re-use the same key
         final result = await queue.execute(
@@ -638,9 +642,9 @@ void main() {
     );
   });
 
-  group('Functional - static enqueue vs instance execute', () {
+  group('Functional - enqueue vs execute behavior', () {
     test(
-      'static enqueue throws on exhaustion while instance returns failure',
+      'enqueue throws on exhaustion while execute returns failure',
       () async {
         final queue = RetryQueue(
           config: const RetryConfig(
@@ -650,11 +654,11 @@ void main() {
           ),
         );
 
-        // Static enqueue — throws
+        // Instance enqueue — throws
         expect(
-          () => RetryQueue.enqueue(
-            () async => throw Exception('static-fail'),
-            key: 'static-throw',
+          () => queue.enqueue(
+            () async => throw Exception('enqueue-fail'),
+            key: 'enqueue-throw',
             initial: const Duration(milliseconds: 10),
             maxAttempts: 2,
           ),

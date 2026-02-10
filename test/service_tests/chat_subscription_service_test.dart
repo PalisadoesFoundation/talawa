@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -237,58 +238,62 @@ void main() {
     });
 
     group('retry behavior', () {
-      test('retries subscription when initial connection fails', () async {
-        const chatId = 'chat-retry-test';
-        var callCount = 0;
-        final controller = StreamController<QueryResult>();
+      test('retries subscription when initial connection fails', () {
+        fakeAsync((async) {
+          const chatId = 'chat-retry-test';
+          var callCount = 0;
+          final controller = StreamController<QueryResult>();
 
-        when(
-          mockDbFunctions.gqlAuthSubscription(
-            any,
-            variables: anyNamed('variables'),
-          ),
-        ).thenAnswer((_) {
-          callCount++;
-          if (callCount < 3) {
-            throw Exception('Connection failed');
-          }
-          return controller.stream;
+          when(
+            mockDbFunctions.gqlAuthSubscription(
+              any,
+              variables: anyNamed('variables'),
+            ),
+          ).thenAnswer((_) {
+            callCount++;
+            if (callCount < 3) {
+              throw Exception('Connection failed');
+            }
+            return controller.stream;
+          });
+
+          // Start subscription - retry queue will retry on failure
+          chatSubscriptionService.subscribeToChatMessages(chatId);
+
+          // Advance time for retry attempts (initial: 500ms, backoff: 1s, 2s...)
+          async.elapse(const Duration(seconds: 3));
+
+          // The subscription should have retried exactly 3 times
+          expect(callCount, equals(3));
+
+          controller.close();
         });
-
-        // Start subscription - retry queue will retry on failure
-        chatSubscriptionService.subscribeToChatMessages(chatId);
-
-        // Allow time for retry attempts
-        await Future.delayed(const Duration(seconds: 3));
-
-        // The subscription should have retried multiple times
-        expect(callCount, greaterThanOrEqualTo(2));
-
-        controller.close();
       });
 
-      test('does not retry on auth errors', () async {
-        const chatId = 'chat-auth-error';
-        var callCount = 0;
+      test('does not retry on auth errors', () {
+        fakeAsync((async) {
+          const chatId = 'chat-auth-error';
+          var callCount = 0;
 
-        when(
-          mockDbFunctions.gqlAuthSubscription(
-            any,
-            variables: anyNamed('variables'),
-          ),
-        ).thenAnswer((_) {
-          callCount++;
-          throw Exception('auth token expired');
+          when(
+            mockDbFunctions.gqlAuthSubscription(
+              any,
+              variables: anyNamed('variables'),
+            ),
+          ).thenAnswer((_) {
+            callCount++;
+            throw Exception('auth token expired');
+          });
+
+          // Start subscription - should not retry because of auth error
+          chatSubscriptionService.subscribeToChatMessages(chatId);
+
+          // Advance time for potential retries
+          async.elapse(const Duration(seconds: 2));
+
+          // Should only have been called once due to auth error
+          expect(callCount, 1);
         });
-
-        // Start subscription - should not retry because of auth error
-        chatSubscriptionService.subscribeToChatMessages(chatId);
-
-        // Allow time for potential retries
-        await Future.delayed(const Duration(seconds: 2));
-
-        // Should only have been called once due to auth error
-        expect(callCount, 1);
       });
     });
 

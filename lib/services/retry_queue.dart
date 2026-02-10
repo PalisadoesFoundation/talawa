@@ -41,35 +41,54 @@ class RetryConfig {
 
 /// Result wrapper for retry operations.
 ///
-/// This class wraps the result of a retry operation, providing:
-/// * `data` : The result data if successful.
-/// * `error` : The error if failed.
-/// * `succeeded` : Boolean indicating success or failure.
-class RetryResult<T> {
+/// This is a discriminated union with two variants:
+/// * `RetryResultSuccess<T>` : Successful result with guaranteed non-null data.
+/// * `RetryResultFailure<T>` : Failed result with error information.
+sealed class RetryResult<T> {
+  const RetryResult();
+
   /// Creates a successful result with data.
   ///
   /// **params**:
-  /// * `data`: The result data.
-  RetryResult.success(this.data)
-      : error = null,
-        succeeded = true;
+  /// * `data`: The result data (non-null).
+  factory RetryResult.success(T data) = RetryResultSuccess<T>;
 
   /// Creates a failure result with error.
   ///
   /// **params**:
   /// * `error`: The error that occurred.
-  RetryResult.failure(this.error)
-      : data = null,
-        succeeded = false;
-
-  /// The result data if successful.
-  final T? data;
-
-  /// The error if failed.
-  final Exception? error;
+  factory RetryResult.failure(Exception error) = RetryResultFailure<T>;
 
   /// Boolean indicating success or failure.
-  final bool succeeded;
+  bool get succeeded => this is RetryResultSuccess<T>;
+
+  /// Get data if successful (null if failed).
+  T? get data => switch (this) {
+        RetryResultSuccess<T>(data: final d) => d,
+        RetryResultFailure<T>() => null,
+      };
+
+  /// Get error if failed (null if successful).
+  Exception? get error => switch (this) {
+        RetryResultSuccess<T>() => null,
+        RetryResultFailure<T>(error: final e) => e,
+      };
+}
+
+/// Successful retry result with guaranteed non-null data.
+final class RetryResultSuccess<T> extends RetryResult<T> {
+  const RetryResultSuccess(this.data);
+
+  /// The result data (guaranteed non-null).
+  final T data;
+}
+
+/// Failed retry result with error information.
+final class RetryResultFailure<T> extends RetryResult<T> {
+  const RetryResultFailure(this.error);
+
+  /// The error that occurred.
+  final Exception error;
 }
 
 /// Service for handling retries with exponential backoff.
@@ -92,7 +111,7 @@ class RetryQueue {
   final RetryConfig config;
 
   /// Map of pending tasks.
-  static final Map<String, Task<dynamic>> _q = {};
+  final Map<String, Task<dynamic>> _q = {};
 
   /// Map of attempt counts.
   final Map<String, int> _attemptCounts = {};
@@ -115,7 +134,7 @@ class RetryQueue {
   /// * `int`: The current attempt count.
   int getAttemptCount(String key) => _attemptCounts[key] ?? 0;
 
-  /// Enqueue and execute task with retry logic (static method).
+  /// Enqueue and execute task with retry logic (instance method).
   ///
   /// This method matches the starter code signature from the issue.
   ///
@@ -127,27 +146,54 @@ class RetryQueue {
   ///
   /// **returns**:
   /// * `Future<T>`: The result of the task.
-  static Future<T> enqueue<T>(
+  Future<T> enqueue<T>(
     Task<T> task, {
     required String key,
     Duration initial = const Duration(milliseconds: 300),
     int maxAttempts = 3,
   }) async {
+    // Guard against duplicate tasks
+    if (_q.containsKey(key)) {
+      throw Exception('Task $key already executing');
+    }
+
     _q[key] = task;
+    _attemptCounts[key] = 0;
     var delay = initial;
-    for (var i = 0; i < maxAttempts; i++) {
-      try {
-        final r = await task();
-        _q.remove(key);
-        return r;
-      } catch (_) {
-        if (i < maxAttempts - 1) {
-          await Future.delayed(delay);
-          delay *= 2;
+
+    try {
+      for (var i = 0; i < maxAttempts; i++) {
+        _attemptCounts[key] = i + 1;
+
+        // Check for cancellation before each attempt
+        if (!_q.containsKey(key)) {
+          throw Exception('Task $key was cancelled');
+        }
+
+        try {
+          final r = await task();
+          _cleanup(key);
+          return r;
+        } catch (_) {
+          if (i < maxAttempts - 1) {
+            await Future.delayed(delay);
+
+            // Check for cancellation after delay
+            if (!_q.containsKey(key)) {
+              throw Exception('Task $key was cancelled');
+            }
+
+            delay *= 2;
+          }
         }
       }
+    } finally {
+      // Ensure cleanup happens even if cancelled
+      if (_q.containsKey(key)) {
+        _cleanup(key);
+      }
     }
-    _q.remove(key);
+
     throw Exception('Max retries exceeded for task: $key');
   }
 
@@ -182,6 +228,12 @@ class RetryQueue {
     try {
       for (int attempt = 1; attempt <= cfg.maxAttempts; attempt++) {
         _attemptCounts[key] = attempt;
+
+        // Check for cancellation before each attempt
+        if (!_q.containsKey(key)) {
+          return RetryResult.failure(Exception('Task $key was cancelled'));
+        }
+
         try {
           final result = await task();
           _cleanup(key);
@@ -198,6 +250,11 @@ class RetryQueue {
           );
           await Future.delayed(currentDelay);
 
+          // Check for cancellation after delay
+          if (!_q.containsKey(key)) {
+            return RetryResult.failure(Exception('Task $key was cancelled'));
+          }
+
           currentDelay = Duration(
             milliseconds:
                 (currentDelay.inMilliseconds * cfg.backoffMultiplier).toInt(),
@@ -206,7 +263,10 @@ class RetryQueue {
         }
       }
     } finally {
-      _cleanup(key);
+      // Ensure cleanup only if task is still registered
+      if (_q.containsKey(key)) {
+        _cleanup(key);
+      }
     }
     return RetryResult.failure(lastError ?? Exception('Unknown error'));
   }

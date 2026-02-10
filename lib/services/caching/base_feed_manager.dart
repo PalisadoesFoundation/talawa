@@ -134,16 +134,20 @@ abstract class BaseFeedManager<T> {
   /// **params**:
   /// * `retryKey`: Optional unique key for the retry operation. If not
   ///   provided, a key is generated based on the cache key and timestamp.
+  /// * `params`: Optional parameters for the API request.
   ///
   /// **returns**:
   /// * `Future<List<T>>`: A Future containing a list of data.
-  Future<List<T>> fetchWithRetry({String? retryKey}) async {
+  Future<List<T>> fetchWithRetry({
+    String? retryKey,
+    Map<String, dynamic>? params,
+  }) async {
     final key =
         retryKey ?? 'feed-$cacheKey-${DateTime.now().millisecondsSinceEpoch}';
     final queue = locator<RetryQueue>();
 
     final result = await queue.execute(
-      () => fetchDataFromApi(),
+      () => fetchDataFromApi(params: params),
       key: key,
       onRetry: (attempt, error) {
         debugPrint(

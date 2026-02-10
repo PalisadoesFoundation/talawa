@@ -85,12 +85,19 @@ class PluginRegistry {
   ///   None
   ///
   /// **returns**:
-  /// * `Map<String, dynamic>`: Map of service name to service instance.
-  Map<String, dynamic> getAvailableServices() {
+  /// * `Map<String, Object?>`: Map of service name to service instance (null if not registered).
+  Map<String, Object?> getAvailableServices() {
     return {
-      'RetryQueue': locator<RetryQueue>(),
-      'NavigationService': locator<NavigationService>(),
-      'DatabaseMutationFunctions': locator<DataBaseMutationFunctions>(),
+      'RetryQueue': locator.isRegistered<RetryQueue>()
+          ? locator<RetryQueue>()
+          : null,
+      'NavigationService': locator.isRegistered<NavigationService>()
+          ? locator<NavigationService>()
+          : null,
+      'DatabaseMutationFunctions':
+          locator.isRegistered<DataBaseMutationFunctions>()
+              ? locator<DataBaseMutationFunctions>()
+              : null,
     };
   }
 

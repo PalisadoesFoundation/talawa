@@ -262,6 +262,7 @@ void main() {
       final completer1 = Completer<void>();
       final completer2 = Completer<void>();
 
+      // ignore: unawaited_futures
       retryQueue.execute(
         () async {
           await completer1.future;
@@ -270,6 +271,7 @@ void main() {
         key: 'cancel-all-1',
       );
 
+      // ignore: unawaited_futures
       retryQueue.execute(
         () async {
           await completer2.future;
@@ -348,35 +350,48 @@ void main() {
 
       // With 5 attempts, delays would be: 50, 150 (capped to 100), 300 (capped to 100), 900 (capped to 100)
       // Total delay should be around 350ms (50 + 100 + 100 + 100)
-      // But accounting for execution time, we just verify it completed
       expect(callCount, 5);
+      // Verify minimum elapsed time to ensure backoff occurred (with margin)
+      expect(stopwatch.elapsed, greaterThanOrEqualTo(const Duration(milliseconds: 300)));
     });
   });
 
-  group('RetryQueue.enqueue (static method)', () {
+  group('RetryQueue.enqueue (instance method)', () {
+    late RetryQueue retryQueue;
+
+    setUp(() {
+      retryQueue = RetryQueue(
+        config: const RetryConfig(
+          maxAttempts: 3,
+          initialDelay: Duration(milliseconds: 10),
+          maxDelay: Duration(milliseconds: 100),
+        ),
+      );
+    });
+
     test('successful execution returns result', () async {
       int count = 0;
-      final result = await RetryQueue.enqueue(
+      final result = await retryQueue.enqueue(
         () async {
           count++;
-          return 'static-success';
+          return 'enqueue-success';
         },
-        key: 'static-test-1',
+        key: 'enqueue-test-1',
       );
 
-      expect(result, 'static-success');
+      expect(result, 'enqueue-success');
       expect(count, 1);
     });
 
     test('retries and succeeds', () async {
       int count = 0;
-      final result = await RetryQueue.enqueue(
+      final result = await retryQueue.enqueue(
         () async {
           count++;
           if (count < 2) throw Exception('Temp');
           return 'success';
         },
-        key: 'static-test-2',
+        key: 'enqueue-test-2',
         initial: const Duration(milliseconds: 10),
       );
 
@@ -386,11 +401,11 @@ void main() {
 
     test('throws after max retries', () async {
       expect(
-        () async => RetryQueue.enqueue(
+        () async => retryQueue.enqueue(
           () async {
             throw Exception('Always fail');
           },
-          key: 'static-test-3',
+          key: 'enqueue-test-3',
           initial: const Duration(milliseconds: 10),
           maxAttempts: 3,
         ),
@@ -402,12 +417,12 @@ void main() {
       int count = 0;
 
       try {
-        await RetryQueue.enqueue(
+        await retryQueue.enqueue(
           () async {
             count++;
             throw Exception('Fail');
           },
-          key: 'static-test-4',
+          key: 'enqueue-test-4',
           initial: const Duration(milliseconds: 5),
           maxAttempts: 5,
         );

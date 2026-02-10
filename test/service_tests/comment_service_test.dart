@@ -11,23 +11,31 @@ import '../helpers/test_locator.dart';
 
 void main() {
   group('CommentService', () {
-    setUpAll(() {
+    late RetryQueue retryQueue;
+
+    setUp(() {
       registerServices();
       // Replace the default RetryQueue with a fast one for tests
       if (locator.isRegistered<RetryQueue>()) {
         locator.unregister<RetryQueue>();
       }
-      locator.registerSingleton(
-        RetryQueue(
-          config: const RetryConfig(
-            maxAttempts: 2,
-            initialDelay: Duration(milliseconds: 1),
-            maxDelay: Duration(milliseconds: 5),
-          ),
+      retryQueue = RetryQueue(
+        config: const RetryConfig(
+          maxAttempts: 2,
+          initialDelay: Duration(milliseconds: 1),
+          maxDelay: Duration(milliseconds: 5),
         ),
       );
+      locator.registerSingleton(retryQueue);
     });
-    tearDownAll(unregisterServices);
+
+    tearDown(() {
+      retryQueue.cancelAll();
+      if (locator.isRegistered<RetryQueue>()) {
+        locator.unregister<RetryQueue>();
+      }
+      unregisterServices();
+    });
 
     test('createComments returns Comment on success', () async {
       final db = locator<DataBaseMutationFunctions>();
@@ -83,6 +91,12 @@ void main() {
       final service = CommentService();
       final result = await service.createComments('pid', 'body');
       expect(result, isNull);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Failed to send comment after retries",
+          MessageType.error,
+        ),
+      ).called(1);
     });
 
     test('getCommentsForPost returns comments and pageInfo', () async {

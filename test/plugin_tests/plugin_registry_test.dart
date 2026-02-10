@@ -231,6 +231,25 @@ void main() {
         throwsUnsupportedError,
       );
     });
+
+    test('getAvailableServices should return core services', () {
+      final services = registry.getAvailableServices();
+
+      expect(services, isNotNull);
+      expect(services, isA<Map<String, dynamic>>());
+      expect(services.containsKey('RetryQueue'), isTrue);
+      expect(services.containsKey('NavigationService'), isTrue);
+      expect(services.containsKey('DatabaseMutationFunctions'), isTrue);
+    });
+
+    test('getAvailableServices should return correct service types', () {
+      final services = registry.getAvailableServices();
+
+      // Verify services are of correct types
+      expect(services['RetryQueue'], isNotNull);
+      expect(services['NavigationService'], isNotNull);
+      expect(services['DatabaseMutationFunctions'], isNotNull);
+    });
   });
 }
 

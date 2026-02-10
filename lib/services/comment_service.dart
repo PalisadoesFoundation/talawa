@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
@@ -41,6 +44,11 @@ class CommentService {
     final String createCommentQuery = CommentQueries().createComment();
     final queue = locator<RetryQueue>();
 
+    // Create deterministic key based on postId and normalized body
+    final normalizedBody = body.trim();
+    final bodyHash = sha1.convert(utf8.encode(normalizedBody)).toString();
+    final retryKey = 'create-comment-$postId-$bodyHash';
+
     final result = await queue.execute(
       () async {
         final queryResult = await _dbFunctions.gqlAuthMutation(
@@ -55,7 +63,7 @@ class CommentService {
         }
         return queryResult;
       },
-      key: 'create-comment-$postId-${DateTime.now().millisecondsSinceEpoch}',
+      key: retryKey,
       onRetry: (attempt, error) {
         debugPrint(
           'CommentService: Retry attempt $attempt for comment on post $postId: $error',
@@ -64,13 +72,29 @@ class CommentService {
     );
 
     if (result.succeeded) {
+      // Guard against null data
+      if (result.data == null || result.data!.data == null) {
+        _navigationService.showTalawaErrorSnackBar(
+          "Failed to send comment after retries",
+          MessageType.error,
+        );
+        return null;
+      }
+
+      final commentData = result.data!.data!['createComment'];
+      if (commentData == null) {
+        _navigationService.showTalawaErrorSnackBar(
+          "Failed to send comment after retries",
+          MessageType.error,
+        );
+        return null;
+      }
+
       _navigationService.showTalawaErrorSnackBar(
         "Comment sent",
         MessageType.info,
       );
-      return Comment.fromJson(
-        result.data!.data!['createComment'] as Map<String, dynamic>,
-      );
+      return Comment.fromJson(commentData as Map<String, dynamic>);
     } else {
       _navigationService.showTalawaErrorSnackBar(
         "Failed to send comment after retries",

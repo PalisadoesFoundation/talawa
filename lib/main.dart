@@ -81,14 +81,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.detached) {
-      locator<RetryQueue>().cancelAll();
+      if (locator.isRegistered<RetryQueue>()) {
+        locator<RetryQueue>().cancelAll();
+      }
     }
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    locator<RetryQueue>().cancelAll();
+    if (locator.isRegistered<RetryQueue>()) {
+      locator<RetryQueue>().cancelAll();
+    }
     super.dispose();
   }
 

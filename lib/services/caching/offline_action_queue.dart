@@ -70,7 +70,7 @@ class OfflineActionQueue {
       return true;
     } catch (e) {
       // Handle or log the exception
-      print('Failed to add action: $e');
+      debugPrint('Failed to add action: $e');
       return false;
     }
   }
@@ -92,7 +92,7 @@ class OfflineActionQueue {
       return validActions;
     } catch (e) {
       // Handle or log the exception
-      print('Failed to get actions: $e');
+      debugPrint('Failed to get actions: $e');
       return [];
     }
   }
@@ -110,7 +110,7 @@ class OfflineActionQueue {
       return true;
     } catch (e) {
       // Handle or log the exception
-      print('Failed to remove action: $e');
+      debugPrint('Failed to remove action: $e');
       return false;
     }
   }
@@ -128,7 +128,7 @@ class OfflineActionQueue {
       return true;
     } catch (e) {
       // Handle or log the exception
-      print('Failed to clear actions: $e');
+      debugPrint('Failed to clear actions: $e');
       return false;
     }
   }
@@ -160,19 +160,28 @@ class OfflineActionQueue {
 
   /// Updates an existing action in the queue.
   ///
+  /// Note: This delegates to addAction since Hive's put() is an upsert operation.
+  ///
   /// **params**:
   /// * `action`: the action to be updated.
   ///
   /// **returns**:
   /// * `Future<bool>`: returns true if the action was updated successfully, otherwise false.
   Future<bool> updateAction(CachedUserAction action) async {
-    try {
-      await _actionsBox.put(action.id, action);
-      return true;
-    } catch (e) {
-      debugPrint('Failed to update action: $e');
-      return false;
-    }
+    return await addAction(action);
+  }
+
+  /// Helper to check if an action is pending (not expired and has pending status).
+  ///
+  /// **params**:
+  /// * `action`: the action to check.
+  ///
+  /// **returns**:
+  /// * `bool`: true if the action is pending.
+  bool _isPendingAction(CachedUserAction action) {
+    final now = DateTime.now();
+    return action.expiry.isAfter(now) &&
+        action.status == CachedUserActionStatus.pending;
   }
 
   /// Gets pending actions sorted by timestamp.
@@ -187,14 +196,7 @@ class OfflineActionQueue {
   /// * `List<CachedUserAction>`: a list of pending actions sorted by timestamp.
   List<CachedUserAction> getPendingActions() {
     try {
-      final now = DateTime.now();
-      return _actionsBox.values
-          .where(
-            (action) =>
-                action.expiry.isAfter(now) &&
-                action.status == CachedUserActionStatus.pending,
-          )
-          .toList()
+      return _actionsBox.values.where(_isPendingAction).toList()
         ..sort((a, b) => a.timeStamp.compareTo(b.timeStamp));
     } catch (e) {
       debugPrint('Failed to get pending actions: $e');
@@ -210,13 +212,7 @@ class OfflineActionQueue {
   /// **returns**:
   /// * `Future<bool>`: returns true if the action was marked completed successfully, otherwise false.
   Future<bool> markCompleted(String actionId) async {
-    try {
-      await _actionsBox.delete(actionId);
-      return true;
-    } catch (e) {
-      debugPrint('Failed to mark action completed: $e');
-      return false;
-    }
+    return await removeAction(actionId);
   }
 
   /// Gets the count of pending actions.
@@ -228,14 +224,7 @@ class OfflineActionQueue {
   /// * `int`: the number of pending actions.
   int getPendingCount() {
     try {
-      final now = DateTime.now();
-      return _actionsBox.values
-          .where(
-            (action) =>
-                action.expiry.isAfter(now) &&
-                action.status == CachedUserActionStatus.pending,
-          )
-          .length;
+      return _actionsBox.values.where(_isPendingAction).length;
     } catch (e) {
       debugPrint('Failed to get pending count: $e');
       return 0;

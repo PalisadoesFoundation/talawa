@@ -46,8 +46,11 @@ class ChatSubscriptionService {
   /// **returns**:
   /// * `Stream<ChatMessage>`: Stream of incoming messages for the specified chat
   Stream<ChatMessage> subscribeToChatMessages(String chatId) {
-    // Start the subscription
-    _startSubscription(chatId);
+    // Start the subscription (fire-and-forget with error logging)
+    _startSubscription(chatId).catchError((error) {
+      debugPrint('Chat subscription for $chatId failed permanently: $error');
+      _chatMessageController.addError(error);
+    });
 
     // Return the existing chat messages stream
     return _chatMessagesStream;
@@ -118,8 +121,11 @@ class ChatSubscriptionService {
         );
       },
       shouldRetry: (error) {
-        // Do not retry on auth errors
-        return !error.toString().contains('auth');
+        // Do not retry on auth errors - check for specific auth error patterns
+        final errorStr = error.toString().toLowerCase();
+        // Match whole words to avoid false positives like "author"
+        final authErrorPattern = RegExp(r'\b(auth|authentication|unauthorized)\b');
+        return !authErrorPattern.hasMatch(errorStr);
       },
     );
   }

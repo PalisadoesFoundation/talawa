@@ -1458,12 +1458,18 @@ class MockPostService extends _i2.Mock implements _i25.PostService {
       ) as _i9.Future<List<_i26.Post>>);
 
   @override
-  _i9.Future<List<_i26.Post>> fetchWithRetry({String? retryKey}) =>
+  _i9.Future<List<_i26.Post>> fetchWithRetry({
+    String? retryKey,
+    Map<String, dynamic>? params,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchWithRetry,
           [],
-          {#retryKey: retryKey},
+          {
+            #retryKey: retryKey,
+            #params: params,
+          },
         ),
         returnValue: _i9.Future<List<_i26.Post>>.value(<_i26.Post>[]),
         returnValueForMissingStub:
@@ -2079,12 +2085,18 @@ class MockEventService extends _i2.Mock implements _i16.EventService {
       ) as _i9.Future<List<_i30.Event>>);
 
   @override
-  _i9.Future<List<_i30.Event>> fetchWithRetry({String? retryKey}) =>
+  _i9.Future<List<_i30.Event>> fetchWithRetry({
+    String? retryKey,
+    Map<String, dynamic>? params,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchWithRetry,
           [],
-          {#retryKey: retryKey},
+          {
+            #retryKey: retryKey,
+            #params: params,
+          },
         ),
         returnValue: _i9.Future<List<_i30.Event>>.value(<_i30.Event>[]),
         returnValueForMissingStub:
@@ -8236,12 +8248,18 @@ class MockPinnedPostService extends _i2.Mock implements _i75.PinnedPostService {
       ) as _i9.Future<List<_i26.Post>>);
 
   @override
-  _i9.Future<List<_i26.Post>> fetchWithRetry({String? retryKey}) =>
+  _i9.Future<List<_i26.Post>> fetchWithRetry({
+    String? retryKey,
+    Map<String, dynamic>? params,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchWithRetry,
           [],
-          {#retryKey: retryKey},
+          {
+            #retryKey: retryKey,
+            #params: params,
+          },
         ),
         returnValue: _i9.Future<List<_i26.Post>>.value(<_i26.Post>[]),
         returnValueForMissingStub:
