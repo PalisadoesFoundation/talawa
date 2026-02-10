@@ -15,7 +15,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/post_list_widget.dart';
+import 'package:talawa/widgets/post_widget.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
@@ -209,7 +209,7 @@ void main() {
       await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
       await tester.pumpAndSettle();
 
-      final finder = find.byType(PostListWidget);
+      final finder = find.byType(PostWidget);
       expect(finder, findsOneWidget);
     });
     testWidgets('check if no posts shows up then No posts text is there',
@@ -368,6 +368,28 @@ void main() {
         find.text('There are no posts in this organization'),
         findsOneWidget,
       );
+    });
+
+    testWidgets(
+        'check if create post button works when no posts and no pinned posts',
+        (tester) async {
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.posts).thenReturn([]);
+      when(mockViewModel.pinnedPosts).thenReturn([]);
+
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
+      await tester.pumpAndSettle();
+
+      final finder = find.text('Create your first post');
+      expect(finder, findsOneWidget);
+      await tester.tap(finder);
+      await tester.pumpAndSettle();
+
+      verify(locator<NavigationService>().pushScreen('/addpostscreen'));
     });
   });
 }

@@ -6,7 +6,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_post.dart';
-import 'package:talawa/widgets/post_list_widget.dart';
+import 'package:talawa/widgets/post_widget.dart';
 
 /// OrganizationFeed returns a widget that shows the feed of the organization.
 class OrganizationFeed extends StatefulWidget {
@@ -110,68 +110,138 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
                   onRefresh: () async => await model.refreshPosts(),
-                  child: ListView(
-                    controller: _scrollController,
-                    key: const Key('listView'),
-                    shrinkWrap: true,
-                    children: [
-                      // Always show PinnedPost if available
-                      if (model.pinnedPosts.isNotEmpty)
-                        PinnedPost(
-                          key: const Key('pinnedPosts'),
-                          pinnedPost: model.pinnedPosts,
-                        ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.01,
-                      ),
-                      if (model.posts.isNotEmpty)
-                        PostListWidget(
-                          key: widget.homeModel?.keys.keySHPost,
-                          posts: model.posts,
-                          redirectToIndividualPage:
-                              model.navigateToIndividualPage,
-                          deletePost: model.deletePost,
-                        )
-                      else // if there is no post in an organisation then show text button to create a post.
-                        Column(
+                  child: model.posts.isEmpty && model.pinnedPosts.isEmpty
+                      ? ListView(
+                          key: const Key('listView'),
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: SizeConfig.screenHeight! * 0.21,
-                              ),
-                              child: Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  'There are no posts in this organization',
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: SizeConfig.screenHeight! * 0.21,
+                                  ),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                      'There are no posts in this organization',
+                                    ),
+                                    style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.screenHeight! * 0.026,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                                style: TextStyle(
-                                  fontSize: SizeConfig.screenHeight! * 0.026,
+                                TextButton(
+                                  onPressed: () {
+                                    navigationService
+                                        .pushScreen('/addpostscreen');
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                      'Create your first post',
+                                    ),
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                navigationService.pushScreen('/addpostscreen');
-                              },
-                              child: Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  'Create your first post',
-                                ),
-                              ),
+                              ],
                             ),
                           ],
+                        )
+                      : ListView.builder(
+                          controller: _scrollController,
+                          key: const Key('listView'),
+                          itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) +
+                              1 + // For SizedBox
+                              (model.posts.isEmpty ? 1 : model.posts.length) +
+                              (_isLoadingMore ? 1 : 0),
+                          itemBuilder: (context, index) {
+                            int currentIndex = index;
+
+                            // 1. Pinned Post
+                            if (model.pinnedPosts.isNotEmpty) {
+                              if (currentIndex == 0) {
+                                return PinnedPost(
+                                  key: const Key('pinnedPosts'),
+                                  pinnedPost: model.pinnedPosts,
+                                );
+                              }
+                              currentIndex--;
+                            }
+
+                            // 2. SizedBox (Spacer)
+                            if (currentIndex == 0) {
+                              return SizedBox(
+                                height: SizeConfig.screenHeight! * 0.01,
+                              );
+                            }
+                            currentIndex--;
+
+                            // 3. Empty State
+                            if (model.posts.isEmpty) {
+                              if (currentIndex == 0) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        top: SizeConfig.screenHeight! * 0.21,
+                                      ),
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .strictTranslate(
+                                          'There are no posts in this organization',
+                                        ),
+                                        style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.screenHeight! * 0.026,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        navigationService
+                                            .pushScreen('/addpostscreen');
+                                      },
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .strictTranslate(
+                                          'Create your first post',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                            }
+
+                            // 4. Posts
+                            if (currentIndex < model.posts.length) {
+                              final post = model.posts[currentIndex];
+                              return PostWidget(
+                                key: ValueKey(post.id),
+                                post: post,
+                                redirectToIndividualPage:
+                                    model.navigateToIndividualPage,
+                                deletePost: model.deletePost,
+                              );
+                            }
+
+                            // 5. Loading Indicator
+                            if (_isLoadingMore) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.screenHeight! * 0.02,
+                                ),
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+
+                            return const SizedBox.shrink();
+                          },
                         ),
-                      if (_isLoadingMore)
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: SizeConfig.screenHeight! * 0.02,
-                          ),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
-                    ],
-                  ),
                 ),
         );
       },
