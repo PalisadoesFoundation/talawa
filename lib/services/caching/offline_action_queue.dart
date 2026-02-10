@@ -167,19 +167,19 @@ class OfflineActionQueue {
   ///
   /// **returns**:
   /// * `Future<bool>`: returns true if the action was updated successfully, otherwise false.
-  Future<bool> updateAction(CachedUserAction action) async {
-    return await addAction(action);
+  Future<bool> updateAction(CachedUserAction action) {
+    return addAction(action);
   }
 
   /// Helper to check if an action is pending (not expired and has pending status).
   ///
   /// **params**:
   /// * `action`: the action to check.
+  /// * `now`: the timestamp to compare against.
   ///
   /// **returns**:
   /// * `bool`: true if the action is pending.
-  bool _isPendingAction(CachedUserAction action) {
-    final now = DateTime.now();
+  bool _isPendingAction(CachedUserAction action, DateTime now) {
     return action.expiry.isAfter(now) &&
         action.status == CachedUserActionStatus.pending;
   }
@@ -196,7 +196,8 @@ class OfflineActionQueue {
   /// * `List<CachedUserAction>`: a list of pending actions sorted by timestamp.
   List<CachedUserAction> getPendingActions() {
     try {
-      return _actionsBox.values.where(_isPendingAction).toList()
+      final now = DateTime.now();
+      return _actionsBox.values.where((a) => _isPendingAction(a, now)).toList()
         ..sort((a, b) => a.timeStamp.compareTo(b.timeStamp));
     } catch (e) {
       debugPrint('Failed to get pending actions: $e');
@@ -211,8 +212,8 @@ class OfflineActionQueue {
   ///
   /// **returns**:
   /// * `Future<bool>`: returns true if the action was marked completed successfully, otherwise false.
-  Future<bool> markCompleted(String actionId) async {
-    return await removeAction(actionId);
+  Future<bool> markCompleted(String actionId) {
+    return removeAction(actionId);
   }
 
   /// Gets the count of pending actions.
@@ -224,7 +225,8 @@ class OfflineActionQueue {
   /// * `int`: the number of pending actions.
   int getPendingCount() {
     try {
-      return _actionsBox.values.where(_isPendingAction).length;
+      final now = DateTime.now();
+      return _actionsBox.values.where((a) => _isPendingAction(a, now)).length;
     } catch (e) {
       debugPrint('Failed to get pending count: $e');
       return 0;

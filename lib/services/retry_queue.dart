@@ -136,7 +136,7 @@ class RetryQueue {
 
   /// Enqueue and execute task with retry logic (instance method).
   ///
-  /// This method matches the starter code signature from the issue.
+  /// This is a thin wrapper around execute() that unwraps the RetryResult.
   ///
   /// **params**:
   /// * `task`: The task to execute.
@@ -152,59 +152,27 @@ class RetryQueue {
     Duration initial = const Duration(milliseconds: 300),
     int maxAttempts = 3,
   }) async {
-    // Guard against duplicate tasks
-    if (_q.containsKey(key)) {
-      throw Exception('Task $key already executing');
+    // Create custom config from parameters
+    final customConfig = RetryConfig(
+      maxAttempts: maxAttempts,
+      initialDelay: initial,
+      maxDelay: config.maxDelay,
+      backoffMultiplier: config.backoffMultiplier,
+    );
+
+    // Call execute and unwrap the result
+    final result = await execute<T>(
+      task,
+      key: key,
+      customConfig: customConfig,
+    );
+
+    // Unwrap RetryResult: return data on success, throw error on failure
+    if (result.succeeded && result.data != null) {
+      return result.data!;
+    } else {
+      throw result.error ?? Exception('Unknown error for task: $key');
     }
-
-    _q[key] = task;
-    _attemptCounts[key] = 0;
-    var delay = initial;
-    Exception? lastException;
-
-    try {
-      for (var i = 0; i < maxAttempts; i++) {
-        _attemptCounts[key] = i + 1;
-
-        // Check for cancellation before each attempt
-        if (!_q.containsKey(key)) {
-          throw Exception('Task $key was cancelled');
-        }
-
-        try {
-          final r = await task();
-          _cleanup(key);
-          return r;
-        } on Exception catch (e, st) {
-          // Capture the original exception and stack trace
-          lastException = e;
-          debugPrint('RetryQueue: Attempt ${i + 1} failed for $key: $e\n$st');
-
-          if (i < maxAttempts - 1) {
-            await Future.delayed(delay);
-
-            // Check for cancellation after delay
-            if (!_q.containsKey(key)) {
-              throw Exception('Task $key was cancelled');
-            }
-
-            delay *= 2;
-          }
-        } catch (e) {
-          // Rethrow non-Exception throwables (Errors) immediately
-          _cleanup(key);
-          rethrow;
-        }
-      }
-    } finally {
-      // Ensure cleanup happens even if cancelled
-      if (_q.containsKey(key)) {
-        _cleanup(key);
-      }
-    }
-
-    // Preserve the original exception information when retries are exhausted
-    throw Exception('Max retries exceeded for task: $key. Last error: $lastException');
   }
 
   /// Execute task with full result wrapper.
