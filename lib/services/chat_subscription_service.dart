@@ -47,10 +47,7 @@ class ChatSubscriptionService {
   /// * `Stream<ChatMessage>`: Stream of incoming messages for the specified chat
   Stream<ChatMessage> subscribeToChatMessages(String chatId) {
     // Start the subscription (fire-and-forget with error logging)
-    _startSubscription(chatId).catchError((error) {
-      debugPrint('Chat subscription for $chatId failed permanently: $error');
-      _chatMessageController.addError(error);
-    });
+    _startSubscription(chatId);
 
     // Return the existing chat messages stream
     return _chatMessagesStream;
@@ -70,7 +67,7 @@ class ChatSubscriptionService {
     _subscriptionCompleter?.complete();
     _subscriptionCompleter = Completer<void>();
 
-    await _retryQueue.execute(
+    final result = await _retryQueue.execute(
       () async {
         final stream = _dbFunctions.gqlAuthSubscription(
           ChatQueries().chatMessageCreate,
@@ -128,6 +125,12 @@ class ChatSubscriptionService {
         return !authErrorPattern.hasMatch(errorStr);
       },
     );
+
+    // Handle failure result
+    if (!result.succeeded && result.error != null) {
+      debugPrint('Chat subscription for $chatId failed permanently: ${result.error}');
+      _chatMessageController.addError(result.error!);
+    }
   }
 
   /// Stops the current chat subscription.

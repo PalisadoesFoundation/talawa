@@ -69,6 +69,13 @@ class CommentService {
           'CommentService: Retry attempt $attempt for comment on post $postId: $error',
         );
       },
+      shouldRetry: (error) {
+        // Do not retry on auth/authz errors
+        final errorStr = error.toString().toLowerCase();
+        // Check for authentication/authorization error patterns
+        final authErrorPattern = RegExp(r'\b(auth|authentication|authorization|unauthorized|unauthenticated|forbidden)\b');
+        return !authErrorPattern.hasMatch(errorStr);
+      },
     );
 
     if (result.succeeded) {

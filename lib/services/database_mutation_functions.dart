@@ -259,6 +259,21 @@ class DataBaseMutationFunctions {
     return response;
   }
 
+  /// Builds a deterministic retry key for mutation operations.
+  ///
+  /// **params**:
+  /// * `mutation`: The mutation query string
+  /// * `variables`: Optional variables for the mutation
+  ///
+  /// **returns**:
+  /// * `String`: A deterministic key based on mutation and variables hashes
+  String _buildRetryKey(String mutation, Map<String, dynamic>? variables) {
+    final mutationHash = sha1.convert(utf8.encode(mutation)).toString();
+    final variablesStr = variables != null ? jsonEncode(variables) : '';
+    final variablesHash = sha1.convert(utf8.encode(variablesStr)).toString();
+    return 'mutation-$mutationHash-$variablesHash';
+  }
+
   /// Execute authenticated mutation with retry support.
   ///
   /// This function wraps [gqlAuthMutation] with retry logic using exponential backoff.
@@ -276,13 +291,7 @@ class DataBaseMutationFunctions {
     String? retryKey,
   }) async {
     // Create deterministic key if not provided
-    final key = retryKey ??
-        () {
-          final mutationHash = sha1.convert(utf8.encode(mutation)).toString();
-          final variablesStr = variables != null ? jsonEncode(variables) : '';
-          final variablesHash = sha1.convert(utf8.encode(variablesStr)).toString();
-          return 'mutation-$mutationHash-$variablesHash';
-        }();
+    final key = retryKey ?? _buildRetryKey(mutation, variables);
     final queue = locator<RetryQueue>();
 
     final result = await queue.execute(

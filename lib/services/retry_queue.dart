@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 /// Type definition for retry tasks.
 typedef Task<T> = Future<T> Function();
@@ -160,6 +160,7 @@ class RetryQueue {
     _q[key] = task;
     _attemptCounts[key] = 0;
     var delay = initial;
+    Exception? lastException;
 
     try {
       for (var i = 0; i < maxAttempts; i++) {
@@ -174,7 +175,11 @@ class RetryQueue {
           final r = await task();
           _cleanup(key);
           return r;
-        } catch (_) {
+        } on Exception catch (e, st) {
+          // Capture the original exception and stack trace
+          lastException = e;
+          debugPrint('RetryQueue: Attempt ${i + 1} failed for $key: $e\n$st');
+
           if (i < maxAttempts - 1) {
             await Future.delayed(delay);
 
@@ -185,6 +190,10 @@ class RetryQueue {
 
             delay *= 2;
           }
+        } catch (e) {
+          // Rethrow non-Exception throwables (Errors) immediately
+          _cleanup(key);
+          rethrow;
         }
       }
     } finally {
@@ -194,7 +203,8 @@ class RetryQueue {
       }
     }
 
-    throw Exception('Max retries exceeded for task: $key');
+    // Preserve the original exception information when retries are exhausted
+    throw Exception('Max retries exceeded for task: $key. Last error: $lastException');
   }
 
   /// Execute task with full result wrapper.
