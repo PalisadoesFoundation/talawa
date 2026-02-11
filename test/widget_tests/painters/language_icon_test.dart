@@ -1,34 +1,46 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
+
+/// Helper function to build a test widget with a CustomPaint painter
+Widget buildPainterTestWidget({
+  required CustomPainter painter,
+  required Key key,
+  double width = 200,
+  double height = 200,
+}) {
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: SizedBox(
+          width: width,
+          height: height,
+          child: CustomPaint(
+            key: key,
+            painter: painter,
+          ),
+        ),
+      ),
+    ),
+  );
+}
 
 void main() {
   group('LanguageIcon Painter Tests', () {
     testWidgets('should render LanguageIcon correctly (golden test)',
         (WidgetTester tester) async {
-      // Build a CustomPaint widget with LanguageIcon painter
       const key = ValueKey('language_icon_painter');
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: SizedBox(
-                width: 200,
-                height: 200,
-                child: CustomPaint(
-                  key: key,
-                  painter: LanguageIcon(),
-                ),
-              ),
-            ),
-          ),
+        buildPainterTestWidget(
+          painter: LanguageIcon(),
+          key: key,
         ),
       );
 
-      // Wait for the widget to settle
       await tester.pumpAndSettle();
 
-      // Compare with golden file
       await expectLater(
         find.byKey(key),
         matchesGoldenFile('goldens/language_icon.png'),
@@ -36,20 +48,57 @@ void main() {
     });
 
     test('LanguageIcon shouldRepaint returns false', () {
-      // Create two instances of LanguageIcon
       final painter1 = LanguageIcon();
       final painter2 = LanguageIcon();
 
-      // LanguageIcon should return false (never repaints)
       expect(painter1.shouldRepaint(painter2), isFalse);
     });
 
-    test('LanguageIcon shouldRepaint with same instance returns false', () {
-      // Create one instance
-      final painter = LanguageIcon();
+    group('LanguageIcon paint() method tests', () {
+      test('paint() completes without throwing on normal size canvas', () {
+        final painter = LanguageIcon();
+        final recorder = ui.PictureRecorder();
+        final canvas = Canvas(recorder);
+        const size = Size(200, 200);
 
-      // Even with the same instance, should return false
-      expect(painter.shouldRepaint(painter), isFalse);
+        expect(() => painter.paint(canvas, size), returnsNormally);
+      });
+
+      test('paint() completes without throwing on zero size canvas', () {
+        final painter = LanguageIcon();
+        final recorder = ui.PictureRecorder();
+        final canvas = Canvas(recorder);
+        const size = Size(0, 0);
+
+        expect(() => painter.paint(canvas, size), returnsNormally);
+      });
+
+      test('paint() completes without throwing on 1x1 canvas', () {
+        final painter = LanguageIcon();
+        final recorder = ui.PictureRecorder();
+        final canvas = Canvas(recorder);
+        const size = Size(1, 1);
+
+        expect(() => painter.paint(canvas, size), returnsNormally);
+      });
+
+      test('paint() completes without throwing on oversized canvas', () {
+        final painter = LanguageIcon();
+        final recorder = ui.PictureRecorder();
+        final canvas = Canvas(recorder);
+        const size = Size(1000, 1000);
+
+        expect(() => painter.paint(canvas, size), returnsNormally);
+      });
+
+      test('paint() completes without throwing on non-square canvas', () {
+        final painter = LanguageIcon();
+        final recorder = ui.PictureRecorder();
+        final canvas = Canvas(recorder);
+        const size = Size(300, 150);
+
+        expect(() => painter.paint(canvas, size), returnsNormally);
+      });
     });
   });
 }
