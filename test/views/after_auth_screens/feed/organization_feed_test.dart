@@ -92,16 +92,9 @@ Widget createOrganizationFeedScreen2({
   );
 }
 
-final post = Post(
-  id: "test_post_id",
-  creator: userConfig.currentUser,
-  caption: 'Testing',
-  createdAt: DateTime.now(),
-  organization: userConfig.currentOrg,
-);
-
 void main() {
   late MockOrganizationFeedViewModel mockViewModel;
+  late Post post;
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -111,6 +104,18 @@ void main() {
     mockViewModel = MockOrganizationFeedViewModel();
     locator.unregister<OrganizationFeedViewModel>();
     locator.registerSingleton<OrganizationFeedViewModel>(mockViewModel);
+  });
+
+  setUp(() {
+    reset(mockViewModel);
+    // Initialize post here so locator is ready
+    post = Post(
+      id: "test_post_id",
+      creator: userConfig.currentUser,
+      caption: 'Testing',
+      createdAt: DateTime.now(),
+      organization: userConfig.currentOrg,
+    );
   });
 
   tearDownAll(() {

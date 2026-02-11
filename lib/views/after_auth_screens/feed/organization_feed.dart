@@ -42,9 +42,11 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           _isLoadingMore = true;
         });
         await model.nextPage();
-        setState(() {
-          _isLoadingMore = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoadingMore = false;
+          });
+        }
       }
     }
   }
