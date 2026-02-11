@@ -229,11 +229,13 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                               );
                             }
 
+                            // coverage:ignore-start
                             assert(false,
                                 'Unexpected index $index in OrganizationFeed builder');
                             debugPrint(
                                 'Unexpected index $index in OrganizationFeed builder');
                             return const SizedBox.shrink();
+                            // coverage:ignore-end
                           },
                         ),
                 ),
