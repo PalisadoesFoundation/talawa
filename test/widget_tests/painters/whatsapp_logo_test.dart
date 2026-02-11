@@ -68,7 +68,7 @@ void main() {
         final painter = WhatsappLogo();
         final recorder = ui.PictureRecorder();
         final canvas = Canvas(recorder);
-        const size = Size(0, 0);
+        const size = Size.zero;
 
         expect(() => painter.paint(canvas, size), returnsNormally);
       });
