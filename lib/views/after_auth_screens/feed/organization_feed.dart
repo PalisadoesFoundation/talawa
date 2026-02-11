@@ -64,10 +64,12 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
   /// * `Widget`: The empty state widget.
   Widget _buildEmptyState(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.only(
-            top: SizeConfig.screenHeight! * 0.21,
+            // Reduced top padding as alignment is handled by MainAxisAlignment
+            top: SizeConfig.screenHeight! * 0.05,
           ),
           child: Text(
             AppLocalizations.of(context)!.strictTranslate(
@@ -225,6 +227,10 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                               );
                             }
 
+                            assert(false,
+                                'Unexpected index $index in OrganizationFeed builder');
+                            debugPrint(
+                                'Unexpected index $index in OrganizationFeed builder');
                             return const SizedBox.shrink();
                           },
                         ),
