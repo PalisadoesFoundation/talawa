@@ -33,11 +33,12 @@ void main() {
 
   setUpAll(() {
     testSetupLocator();
-    registerServices();
     Hive.init('./test/fixtures/core');
   });
 
   setUp(() async {
+    registerServices();
+
     // Register the box adapter and open the box
     if (!Hive.isBoxOpen('test_feed_cache')) {
       mockBox = await Hive.openBox<String>('test_feed_cache');
@@ -53,11 +54,12 @@ void main() {
 
   tearDown(() async {
     await feedManager.clearCache();
+    locator<RetryQueue>().cancelAll();
+    unregisterServices();
   });
 
   tearDownAll(() async {
     await Hive.close();
-    unregisterServices();
   });
 
   group('BaseFeedManager - fetchWithRetry Tests', () {
@@ -89,6 +91,10 @@ void main() {
       );
 
       expect(result, isNotEmpty);
+      expect(result.length, 3);
+      expect(result[0], 'item1');
+      expect(result[1], 'item2');
+      expect(result[2], 'item3');
       expect(feedManager.fetchCallCount, greaterThan(1));
     });
 

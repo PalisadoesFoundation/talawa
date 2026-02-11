@@ -311,7 +311,7 @@ final retryQueue = services['RetryQueue'] as RetryQueue;
 final result = await retryQueue.execute(
   () => myNetworkCall(),
   key: 'my-plugin-operation',
-  customConfig: const RetryConfig(
+  customConfig: RetryConfig(
     maxAttempts: 5,
     initialDelay: Duration(milliseconds: 500),
     maxDelay: Duration(seconds: 30),

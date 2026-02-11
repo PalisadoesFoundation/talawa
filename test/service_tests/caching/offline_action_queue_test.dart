@@ -28,7 +28,7 @@ void main() {
         expect(result, true);
       });
 
-      test('getActions success', () {
+      test('getActions success', () async {
         final now = DateTime.now();
         final CachedUserAction validAction = CachedUserAction(
           id: '123',
@@ -47,8 +47,8 @@ void main() {
           operationType: CachedOperationType.gqlAuthQuery,
         );
 
-        queue.addAction(validAction);
-        queue.addAction(expiredAction);
+        await queue.addAction(validAction);
+        await queue.addAction(expiredAction);
 
         final actions = queue.getActions();
 
@@ -289,6 +289,34 @@ void main() {
       test('_removeExpiredActions failure', () async {
         final result = await queue.removeExpiredActions();
 
+        expect(result, false);
+      });
+
+      test('getPendingActions failure', () {
+        final actions = queue.getPendingActions();
+        expect(actions, isEmpty);
+      });
+
+      test('getPendingCount failure', () {
+        final count = queue.getPendingCount();
+        expect(count, 0);
+      });
+
+      test('markCompleted failure', () async {
+        final result = await queue.markCompleted('any-id');
+        expect(result, false);
+      });
+
+      test('updateAction failure', () async {
+        final action = CachedUserAction(
+          id: 'fail-test',
+          operation: 'op',
+          timeStamp: DateTime.now(),
+          expiry: DateTime.now().add(const Duration(days: 1)),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthMutation,
+        );
+        final result = await queue.updateAction(action);
         expect(result, false);
       });
     });

@@ -66,6 +66,11 @@ class ChatSubscriptionService {
   Future<void> _startSubscription(
     String chatId,
   ) async {
+    // Cancel any existing retry task for the previous chat
+    if (_activeChatId != null) {
+      _retryQueue.cancel('chat-subscription-$_activeChatId');
+    }
+
     // Cancel any existing subscription
     _subscriptionCompleter?.complete();
     _subscriptionCompleter = Completer<void>();
@@ -107,7 +112,9 @@ class ChatSubscriptionService {
 
             // Create and emit the message - add to the chat message controller
             final message = ChatMessage.fromJson(messageData);
-            _chatMessageController.add(message);
+            if (!_chatMessageController.isClosed) {
+              _chatMessageController.add(message);
+            }
           }
         }
       },
@@ -135,7 +142,9 @@ class ChatSubscriptionService {
     // Handle failure result
     if (!result.succeeded && result.error != null) {
       debugPrint('Chat subscription for $chatId failed permanently: ${result.error}');
-      _chatMessageController.addError(result.error!);
+      if (!_chatMessageController.isClosed) {
+        _chatMessageController.addError(result.error!);
+      }
     }
   }
 
