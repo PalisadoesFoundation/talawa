@@ -35,6 +35,9 @@ class ChatSubscriptionService {
   /// Completer to control subscription cancellation.
   Completer<void>? _subscriptionCompleter;
 
+  /// Active chat ID for tracking the current subscription.
+  String? _activeChatId;
+
   /// Getter for chat messages stream.
   Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
 
@@ -66,6 +69,9 @@ class ChatSubscriptionService {
     // Cancel any existing subscription
     _subscriptionCompleter?.complete();
     _subscriptionCompleter = Completer<void>();
+
+    // Track the active chat ID for cleanup
+    _activeChatId = chatId;
 
     final result = await _retryQueue.execute(
       () async {
@@ -141,6 +147,12 @@ class ChatSubscriptionService {
   /// **returns**:
   ///   None
   void stopSubscription() {
+    // Cancel the retry task if active
+    if (_activeChatId != null) {
+      _retryQueue.cancel('chat-subscription-$_activeChatId');
+      _activeChatId = null;
+    }
+
     if (_subscriptionCompleter != null &&
         !_subscriptionCompleter!.isCompleted) {
       _subscriptionCompleter!.complete();
