@@ -194,6 +194,11 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                               if (currentIndex == 0) {
                                 return _buildEmptyState(context);
                               }
+                              // If currentIndex != 0 (which happens if _isLoadingMore is true),
+                              // we implicitly fall through. logic:
+                              // - currentIndex is NOT decremented here.
+                              // - It fails the next check (currentIndex < model.posts.length) because length is 0.
+                              // - It correctly lands on the Loading Indicator check.
                             }
 
                             // 4. Posts
