@@ -255,5 +255,104 @@ void main() {
         ),
       ).called(1);
     });
+
+    test('toggleUpVoteComment handles errors gracefully', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().updateVoteComment();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenThrow(Exception('Network error'));
+      final service = CommentService();
+
+      // Should not throw, error is caught and logged
+      await service.toggleUpVoteComment('cid', null, false);
+
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'commentId': 'cid',
+            'type': 'up_vote',
+          },
+        ),
+      ).called(1);
+    });
+
+    test('toggleDownVoteComment handles errors gracefully', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().updateVoteComment();
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenThrow(Exception('Network error'));
+      final service = CommentService();
+
+      // Should not throw, error is caught and logged
+      await service.toggleDownVoteComment('cid', null, false);
+
+      verify(
+        db.gqlAuthMutation(
+          query,
+          variables: {
+            'commentId': 'cid',
+            'type': 'down_vote',
+          },
+        ),
+      ).called(1);
+    });
+
+    test('createComments respects shouldRetry callback for auth errors', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().createComment();
+
+      // First call throws auth error, second succeeds
+      var callCount = 0;
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer((_) async {
+        callCount++;
+        if (callCount == 1) {
+          throw Exception('Authentication failed');
+        }
+        return QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: null,
+          source: QueryResultSource.network,
+        );
+      });
+
+      final service = CommentService();
+      final result = await service.createComments('pid', 'body');
+
+      // Should not retry auth errors, so only 1 call
+      expect(callCount, 1);
+      expect(result, isNull);
+    });
+
+    test('createComments shows success message on successful creation', () async {
+      final db = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().createComment();
+      final mockData = {
+        'createComment': {
+          'id': 'c1',
+          'body': 'test',
+        },
+      };
+      when(db.gqlAuthMutation(query, variables: anyNamed('variables')))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: mockData,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = CommentService();
+      final result = await service.createComments('pid', 'body');
+
+      expect(result, isNotNull);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Comment sent",
+          MessageType.info,
+        ),
+      ).called(1);
+    });
   });
 }
