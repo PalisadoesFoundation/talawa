@@ -4,28 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/custom_painters/whatsapp_logo.dart';
 
-/// Helper function to build a test widget with a CustomPaint painter
-Widget buildPainterTestWidget({
-  required CustomPainter painter,
-  required Key key,
-  double width = 200,
-  double height = 200,
-}) {
-  return MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: width,
-          height: height,
-          child: CustomPaint(
-            key: key,
-            painter: painter,
-          ),
-        ),
-      ),
-    ),
-  );
-}
+import 'painter_test_helpers.dart';
 
 void main() {
   group('WhatsappLogo Painter Tests', () {
