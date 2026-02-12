@@ -24,11 +24,11 @@ void main() {
       );
     });
 
-    test('WhatsappLogo shouldRepaint returns true', () {
+    test('WhatsappLogo shouldRepaint returns false', () {
       final painter1 = WhatsappLogo();
       final painter2 = WhatsappLogo();
 
-      expect(painter1.shouldRepaint(painter2), isTrue);
+      expect(painter1.shouldRepaint(painter2), isFalse);
     });
 
     runPaintSmokeTests(() => WhatsappLogo());

@@ -24,11 +24,11 @@ void main() {
       );
     });
 
-    test('AppLogo shouldRepaint returns true', () {
+    test('AppLogo shouldRepaint returns false', () {
       final painter1 = AppLogo();
       final painter2 = AppLogo();
 
-      expect(painter1.shouldRepaint(painter2), isTrue);
+      expect(painter1.shouldRepaint(painter2), isFalse);
     });
 
     runPaintSmokeTests(() => AppLogo());

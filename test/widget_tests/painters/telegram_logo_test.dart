@@ -24,11 +24,11 @@ void main() {
       );
     });
 
-    test('TelegramLogo shouldRepaint returns true', () {
+    test('TelegramLogo shouldRepaint returns false', () {
       final painter1 = TelegramLogo();
       final painter2 = TelegramLogo();
 
-      expect(painter1.shouldRepaint(painter2), isTrue);
+      expect(painter1.shouldRepaint(painter2), isFalse);
     });
 
     runPaintSmokeTests(() => TelegramLogo());

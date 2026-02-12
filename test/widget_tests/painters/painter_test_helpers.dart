@@ -66,6 +66,9 @@ void runPaintSmokeTests(CustomPainter Function() createPainter) {
         final size = entry.value;
 
         expect(() => painter.paint(canvas, size), returnsNormally);
+
+        // Cleanup to prevent memory leaks
+        recorder.endRecording().dispose();
       });
     }
   });
