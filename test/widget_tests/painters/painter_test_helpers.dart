@@ -1,4 +1,7 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// Helper function to build a test widget with a CustomPaint painter
 ///
@@ -31,3 +34,34 @@ Widget buildPainterTestWidget({
     ),
   );
 }
+
+/// Runs smoke tests for the [paint] method of a [CustomPainter].
+///
+/// Verifies that the [paint] method completes without throwing exceptions
+/// for various standard and edge-case canvas sizes.
+///
+/// Parameters:
+/// - [createPainter]: A factory function that returns a new instance of the [CustomPainter] to test.
+void runPaintSmokeTests(CustomPainter Function() createPainter) {
+  group('paint() method smoke tests', () {
+    final sizes = [
+      MapEntry('normal size', const Size(200, 200)),
+      MapEntry('zero size', Size.zero),
+      MapEntry('minimal size', const Size(1, 1)),
+      MapEntry('oversized', const Size(1000, 1000)),
+      MapEntry('non-square', const Size(300, 150)),
+    ];
+
+    for (final entry in sizes) {
+      test('paint() completes without throwing on ${entry.key} canvas', () {
+        final painter = createPainter();
+        final recorder = ui.PictureRecorder();
+        final canvas = Canvas(recorder);
+        final size = entry.value;
+
+        expect(() => painter.paint(canvas, size), returnsNormally);
+      });
+    }
+  });
+}
+
