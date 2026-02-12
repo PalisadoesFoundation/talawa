@@ -9,13 +9,13 @@ import 'package:flutter_test/flutter_test.dart';
 /// testing custom painters in a consistent way across all tests.
 ///
 /// **params**:
-///   * `painter`: The CustomPainter instance to test.
-///   * `key`: A unique key to identify the CustomPaint widget in tests.
-///   * `width`: The width of the canvas (default: 200).
-///   * `height`: The height of the canvas (default: 200).
+/// * `painter`: The CustomPainter instance to test.
+/// * `key`: A unique key to identify the CustomPaint widget in tests.
+/// * `width`: The width of the canvas (default: 200).
+/// * `height`: The height of the canvas (default: 200).
 ///
 /// **returns**:
-///   * `Widget`: A MaterialApp containing the CustomPaint widget for testing.
+/// * `Widget`: A MaterialApp containing the CustomPaint widget for testing.
 Widget buildPainterTestWidget({
   required CustomPainter painter,
   required Key key,
@@ -44,7 +44,7 @@ Widget buildPainterTestWidget({
 /// for various standard and edge-case canvas sizes.
 ///
 /// **params**:
-///   * `createPainter`: A factory function that returns a new instance of the [CustomPainter] to test.
+/// * `createPainter`: A factory function that returns a new instance of the [CustomPainter] to test.
 ///
 /// **returns**:
 ///   None
