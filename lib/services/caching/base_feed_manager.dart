@@ -156,12 +156,13 @@ abstract class BaseFeedManager<T> {
       },
     );
 
-    if (result.succeeded && result.data != null) {
-      await saveDataToCache(result.data!);
-      return result.data!;
+    switch (result) {
+      case RetryResultSuccess(:final data):
+        await saveDataToCache(data);
+        return data;
+      case RetryResultFailure():
+        debugPrint('BaseFeedManager: All retries failed, loading cached data');
+        return loadCachedData();
     }
-
-    debugPrint('BaseFeedManager: All retries failed, loading cached data');
-    return loadCachedData();
   }
 }

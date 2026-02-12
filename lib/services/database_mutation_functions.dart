@@ -297,9 +297,13 @@ class DataBaseMutationFunctions {
     final result = await queue.execute(
       () async {
         final queryResult = await gqlAuthMutation(mutation, variables: variables);
-        // Throw on null data so RetryQueue can trigger retries
-        if (queryResult.data == null || queryResult.hasException) {
-          throw Exception('Mutation failed: ${queryResult.exception?.toString() ?? "No data returned"}');
+        // Re-throw the original OperationException so RetryQueue can trigger
+        // retries while preserving the full GraphQL error context.
+        if (queryResult.hasException && queryResult.exception != null) {
+          throw queryResult.exception!;
+        }
+        if (queryResult.data == null) {
+          throw Exception('Mutation failed: No data returned');
         }
         return queryResult;
       },

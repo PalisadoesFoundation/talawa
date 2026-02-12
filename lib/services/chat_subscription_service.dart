@@ -7,6 +7,10 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/chat_queries.dart';
 
+/// Pattern for detecting authentication errors that should not be retried.
+final RegExp _authErrorPattern =
+    RegExp(r'\b(auth|authentication|authorization|unauthorized|unauthenticated|forbidden)\b');
+
 /// Provides real-time subscription services for chat messages.
 ///
 /// Services include:
@@ -131,11 +135,9 @@ class ChatSubscriptionService {
         );
       },
       shouldRetry: (error) {
-        // Do not retry on auth errors - check for specific auth error patterns
+        // Do not retry on auth errors
         final errorStr = error.toString().toLowerCase();
-        // Match whole words to avoid false positives like "author"
-        final authErrorPattern = RegExp(r'\b(auth|authentication|unauthorized)\b');
-        return !authErrorPattern.hasMatch(errorStr);
+        return !_authErrorPattern.hasMatch(errorStr);
       },
     );
 

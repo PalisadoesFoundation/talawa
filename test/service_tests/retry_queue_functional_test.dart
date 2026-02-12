@@ -372,24 +372,28 @@ void main() {
         );
 
         var callCount = 0;
-        final completer = Completer<void>();
+        final signalCompleter = Completer<void>();
+        final blockerCompleter = Completer<void>();
 
-        // Launch a task that will keep retrying
+        // Launch a task that fails once (triggering a retry) then blocks
+        // on the second call so no Future.delayed timer is left pending.
         // ignore: unawaited_futures
         queue.execute(
           () async {
             callCount++;
-            if (callCount == 2) {
-              // Signal the main test to cancel after 2nd attempt
-              completer.complete();
+            if (callCount >= 2) {
+              // Signal the main test, then suspend until released
+              if (!signalCompleter.isCompleted) signalCompleter.complete();
+              await blockerCompleter.future;
+              return 'done';
             }
             throw Exception('keep failing');
           },
           key: 'cancel-during-retry',
         );
 
-        // Wait for 2nd attempt
-        await completer.future;
+        // Wait until the task is blocked on attempt 2
+        await signalCompleter.future;
 
         expect(queue.isRetrying('cancel-during-retry'), true);
 
@@ -397,6 +401,9 @@ void main() {
 
         expect(queue.isRetrying('cancel-during-retry'), false);
         expect(queue.getAttemptCount('cancel-during-retry'), 0);
+
+        // Release the blocked task to clean up
+        blockerCompleter.complete();
       },
     );
 
@@ -655,8 +662,8 @@ void main() {
         );
 
         // Instance enqueue — throws
-        expect(
-          () => queue.enqueue(
+        await expectLater(
+          queue.enqueue(
             () async => throw Exception('enqueue-fail'),
             key: 'enqueue-throw',
             initial: const Duration(milliseconds: 10),

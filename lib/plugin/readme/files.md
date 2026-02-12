@@ -322,10 +322,13 @@ final result = await retryQueue.execute(
   shouldRetry: (error) => !error.toString().contains('auth'),
 );
 
-if (result.succeeded) {
-  // Use result.data
-} else {
-  // Handle result.error
+switch (result) {
+  case RetryResultSuccess(:final data):
+    // Use data (non-nullable)
+    break;
+  case RetryResultFailure(:final error):
+    // Handle error (non-nullable)
+    break;
 }
 ```
 

@@ -150,6 +150,12 @@ SecureStorageService get secureStorage => locator<SecureStorageService>();
 AppConfigService get appConfig => locator<AppConfigService>();
 
 /// GetIt for RetryQueue.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `RetryQueue`: The RetryQueue service instance.
 RetryQueue get retryQueue => locator<RetryQueue>();
 
 /// This function registers the widgets/objects in "GetIt".

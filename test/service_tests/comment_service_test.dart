@@ -347,6 +347,8 @@ void main() {
       final result = await service.createComments('pid', 'body');
 
       expect(result, isNotNull);
+      // Note: showTalawaErrorSnackBar is the app's general-purpose snackbar
+      // method used for all message types (info, error, etc.), not just errors.
       verify(
         navigationService.showTalawaErrorSnackBar(
           "Comment sent",

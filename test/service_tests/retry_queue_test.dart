@@ -400,8 +400,8 @@ void main() {
     });
 
     test('throws after max retries', () async {
-      expect(
-        () async => retryQueue.enqueue(
+      await expectLater(
+        retryQueue.enqueue(
           () async {
             throw Exception('Always fail');
           },
