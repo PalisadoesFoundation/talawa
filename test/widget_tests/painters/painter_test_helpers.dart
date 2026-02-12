@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -72,7 +71,6 @@ void setupPainterGoldenComparator() {
 void tearDownPainterGoldenComparator() {
   goldenFileComparator = LocalFileComparator(Uri.parse('test/'));
 }
-
 
 /// Helper function to build a test widget with a CustomPaint painter.
 ///
