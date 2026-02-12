@@ -296,7 +296,8 @@ class DataBaseMutationFunctions {
 
     final result = await queue.execute(
       () async {
-        final queryResult = await gqlAuthMutation(mutation, variables: variables);
+        final queryResult =
+            await gqlAuthMutation(mutation, variables: variables);
         // Re-throw the original OperationException so RetryQueue can trigger
         // retries while preserving the full GraphQL error context.
         if (queryResult.hasException && queryResult.exception != null) {

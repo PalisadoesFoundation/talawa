@@ -88,9 +88,8 @@ class PluginRegistry {
   /// * `Map<String, Object?>`: Map of service name to service instance (null if not registered).
   Map<String, Object?> getAvailableServices() {
     return {
-      'RetryQueue': locator.isRegistered<RetryQueue>()
-          ? locator<RetryQueue>()
-          : null,
+      'RetryQueue':
+          locator.isRegistered<RetryQueue>() ? locator<RetryQueue>() : null,
       'NavigationService': locator.isRegistered<NavigationService>()
           ? locator<NavigationService>()
           : null,

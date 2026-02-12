@@ -352,7 +352,8 @@ void main() {
       // Total delay should be around 350ms (50 + 100 + 100 + 100)
       expect(callCount, 5);
       // Verify minimum elapsed time to ensure backoff occurred (with margin)
-      expect(stopwatch.elapsed, greaterThanOrEqualTo(const Duration(milliseconds: 300)));
+      expect(stopwatch.elapsed,
+          greaterThanOrEqualTo(const Duration(milliseconds: 300)));
     });
   });
 

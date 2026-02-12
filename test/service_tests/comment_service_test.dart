@@ -298,7 +298,8 @@ void main() {
       ).called(1);
     });
 
-    test('createComments respects shouldRetry callback for auth errors', () async {
+    test('createComments respects shouldRetry callback for auth errors',
+        () async {
       final db = locator<DataBaseMutationFunctions>();
       final query = CommentQueries().createComment();
 
@@ -325,7 +326,8 @@ void main() {
       expect(result, isNull);
     });
 
-    test('createComments shows success message on successful creation', () async {
+    test('createComments shows success message on successful creation',
+        () async {
       final db = locator<DataBaseMutationFunctions>();
       final query = CommentQueries().createComment();
       final mockData = {

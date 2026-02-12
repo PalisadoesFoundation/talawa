@@ -55,7 +55,8 @@ void main() {
         );
 
         when(
-          mockDbFunctions.gqlAuthMutation(any, variables: anyNamed('variables')),
+          mockDbFunctions.gqlAuthMutation(any,
+              variables: anyNamed('variables')),
         ).thenAnswer((_) async {
           callCount++;
           if (callCount < 3) {
@@ -83,7 +84,8 @@ void main() {
         var callCount = 0;
 
         when(
-          mockDbFunctions.gqlAuthMutation(any, variables: anyNamed('variables')),
+          mockDbFunctions.gqlAuthMutation(any,
+              variables: anyNamed('variables')),
         ).thenAnswer((_) async {
           callCount++;
           throw Exception('Server down');
@@ -115,7 +117,8 @@ void main() {
         );
 
         when(
-          mockDbFunctions.gqlAuthMutation(any, variables: anyNamed('variables')),
+          mockDbFunctions.gqlAuthMutation(any,
+              variables: anyNamed('variables')),
         ).thenAnswer((_) async {
           callCount++;
           return noDataResult;
@@ -222,12 +225,9 @@ void main() {
         // Verify each gap meets conservative minimums based on config
         // (initialDelay: 50ms, backoffMultiplier: 2.0)
         // Expected delays: 50ms, 100ms, 200ms with 80% tolerance for CI
-        final gap1 =
-            timestamps[1].difference(timestamps[0]).inMilliseconds;
-        final gap2 =
-            timestamps[2].difference(timestamps[1]).inMilliseconds;
-        final gap3 =
-            timestamps[3].difference(timestamps[2]).inMilliseconds;
+        final gap1 = timestamps[1].difference(timestamps[0]).inMilliseconds;
+        final gap2 = timestamps[2].difference(timestamps[1]).inMilliseconds;
+        final gap3 = timestamps[3].difference(timestamps[2]).inMilliseconds;
 
         // Check each gap meets minimum threshold (80% of expected)
         expect(gap1, greaterThanOrEqualTo((50 * 0.8).toInt())); // ~40ms
@@ -425,7 +425,8 @@ void main() {
         queue.execute(
           () async {
             startCompleter.complete();
-            return await taskCompleter.future; // Wait indefinitely until completed
+            return await taskCompleter
+                .future; // Wait indefinitely until completed
           },
           key: 'reuse-key',
         );

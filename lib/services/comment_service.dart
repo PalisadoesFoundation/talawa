@@ -12,7 +12,8 @@ import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/comment_queries.dart';
 
 /// Pattern for detecting authentication/authorization errors that should not be retried.
-final RegExp _authErrorPattern = RegExp(r'\b(auth|authentication|authorization|unauthorized|unauthenticated|forbidden)\b');
+final RegExp _authErrorPattern = RegExp(
+    r'\b(auth|authentication|authorization|unauthorized|unauthenticated|forbidden)\b');
 
 /// CommentService class have different member functions which provides service in the context of commenting.
 ///

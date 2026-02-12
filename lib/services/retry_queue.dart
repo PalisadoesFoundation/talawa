@@ -25,9 +25,11 @@ class RetryConfig {
     this.maxDelay = const Duration(seconds: 30),
     this.backoffMultiplier = 2.0,
   })  : assert(maxAttempts >= 1, 'maxAttempts must be at least 1'),
-        assert(initialDelay.inMicroseconds >= 0, 'initialDelay cannot be negative'),
+        assert(initialDelay.inMicroseconds >= 0,
+            'initialDelay cannot be negative'),
         assert(maxDelay.inMicroseconds >= 0, 'maxDelay cannot be negative'),
-        assert(maxDelay.inMicroseconds >= initialDelay.inMicroseconds, 'maxDelay must be >= initialDelay'),
+        assert(maxDelay.inMicroseconds >= initialDelay.inMicroseconds,
+            'maxDelay must be >= initialDelay'),
         assert(backoffMultiplier > 0.0, 'backoffMultiplier must be positive');
 
   /// Maximum number of retry attempts.
@@ -158,9 +160,10 @@ class RetryQueue {
   }) async {
     // Create custom config from parameters
     // Ensure maxDelay is at least as large as initialDelay
-    final effectiveMaxDelay = config.maxDelay.inMicroseconds >= initial.inMicroseconds
-        ? config.maxDelay
-        : initial;
+    final effectiveMaxDelay =
+        config.maxDelay.inMicroseconds >= initial.inMicroseconds
+            ? config.maxDelay
+            : initial;
 
     final customConfig = RetryConfig(
       maxAttempts: maxAttempts,

@@ -826,7 +826,8 @@ void main() {
       final String mutation = Queries().fetchOrgById('XYZ');
 
       when(
-        locator<GraphQLClient>().mutate(MutationOptions(document: gql(mutation))),
+        locator<GraphQLClient>()
+            .mutate(MutationOptions(document: gql(mutation))),
       ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(mutation)),
@@ -854,7 +855,8 @@ void main() {
       int callCount = 0;
 
       when(
-        locator<GraphQLClient>().mutate(MutationOptions(document: gql(mutation))),
+        locator<GraphQLClient>()
+            .mutate(MutationOptions(document: gql(mutation))),
       ).thenAnswer((_) async {
         callCount++;
         if (callCount < 2) {
@@ -889,7 +891,8 @@ void main() {
       final String mutation = Queries().fetchOrgById('XYZ');
 
       when(
-        locator<GraphQLClient>().mutate(MutationOptions(document: gql(mutation))),
+        locator<GraphQLClient>()
+            .mutate(MutationOptions(document: gql(mutation))),
       ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(mutation)),

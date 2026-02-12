@@ -173,7 +173,8 @@ void main() {
       expect(cached.length, 3);
     });
 
-    test('getNewFeedAndRefreshCache returns cached data when offline', () async {
+    test('getNewFeedAndRefreshCache returns cached data when offline',
+        () async {
       // Pre-populate cache
       await feedManager.saveDataToCache(['offline1', 'offline2']);
 

@@ -8,8 +8,8 @@ import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/utils/chat_queries.dart';
 
 /// Pattern for detecting authentication errors that should not be retried.
-final RegExp _authErrorPattern =
-    RegExp(r'\b(auth|authentication|authorization|unauthorized|unauthenticated|forbidden)\b');
+final RegExp _authErrorPattern = RegExp(
+    r'\b(auth|authentication|authorization|unauthorized|unauthenticated|forbidden)\b');
 
 /// Provides real-time subscription services for chat messages.
 ///
@@ -143,7 +143,8 @@ class ChatSubscriptionService {
 
     // Handle failure result
     if (!result.succeeded && result.error != null) {
-      debugPrint('Chat subscription for $chatId failed permanently: ${result.error}');
+      debugPrint(
+          'Chat subscription for $chatId failed permanently: ${result.error}');
       if (!_chatMessageController.isClosed) {
         _chatMessageController.addError(result.error!);
       }

@@ -73,7 +73,8 @@ void main() {
         expect(result, true);
       });
 
-      test('getPendingActions filters by status and expiry, returns FIFO', () async {
+      test('getPendingActions filters by status and expiry, returns FIFO',
+          () async {
         // Clear any existing actions
         await queue.clearActions();
 
