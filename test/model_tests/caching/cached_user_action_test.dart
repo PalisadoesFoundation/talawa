@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/services/caching/offline_action_queue.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
@@ -13,10 +14,16 @@ class MockBinaryReader extends Mock implements BinaryReader {}
 
 void main() {
   late final Box<CachedUserAction> cacheBox;
+  late DataBaseMutationFunctions mockDatabaseFunctions;
+
   setUpAll(() {
     testSetupLocator();
-    getAndRegisterDatabaseMutationFunctions();
+    mockDatabaseFunctions = getAndRegisterDatabaseMutationFunctions();
     cacheBox = Hive.box<CachedUserAction>(OfflineActionQueue.boxName);
+  });
+
+  tearDown(() {
+    reset(mockDatabaseFunctions);
   });
 
   group('CachedUserAction', () {
@@ -38,86 +45,180 @@ void main() {
       expect(action.operationType, CachedOperationType.gqlAuthQuery);
     });
 
-    test('should execute gqlAuthQuery operation', () {
-      final action = CachedUserAction(
-        id: '123',
-        operation: 'testQuery',
-        timeStamp: DateTime.now(),
-        expiry: DateTime.now().add(const Duration(days: 1)),
-        status: CachedUserActionStatus.pending,
-        operationType: CachedOperationType.gqlAuthQuery,
-      );
+    group('fromJson', () {
+      test('should create instance from valid JSON with all fields', () {
+        final Map<String, dynamic> json = {
+          'id': '123',
+          'operation': 'testOperation',
+          'variables': {'key': 'value'},
+          'timeStamp': '2024-07-12T12:34:56.000Z',
+          'expiry': '2024-07-13T12:34:56.000Z',
+          'status': CachedUserActionStatus.pending,
+          'metaData': {'info': 'metadata'},
+          'operationType': CachedOperationType.gqlAuthQuery,
+        };
 
-      action.execute();
+        final action = CachedUserAction.fromJson(json);
 
-      verify(databaseFunctions.gqlAuthQuery('testQuery', variables: null))
-          .called(1);
+        expect(action.id, '123');
+        expect(action.operation, 'testOperation');
+        expect(action.variables, {'key': 'value'});
+        expect(action.timeStamp, DateTime.parse('2024-07-12T12:34:56Z'));
+        expect(action.expiry, DateTime.parse('2024-07-13T12:34:56Z'));
+        expect(action.status, CachedUserActionStatus.pending);
+        expect(action.metaData, {'info': 'metadata'});
+        expect(action.operationType, CachedOperationType.gqlAuthQuery);
+      });
+
+      test('should create instance from JSON with nullable fields as null', () {
+        final Map<String, dynamic> json = {
+          'id': '123',
+          'operation': 'testOperation',
+          'variables': null,
+          'timeStamp': '2024-07-12T12:34:56.000Z',
+          'expiry': '2024-07-13T12:34:56.000Z',
+          'status': CachedUserActionStatus.pending,
+          'metaData': null,
+          'operationType': CachedOperationType.gqlAuthQuery,
+        };
+
+        final action = CachedUserAction.fromJson(json);
+
+        expect(action.variables, null);
+        expect(action.metaData, null);
+      });
     });
 
-    test('should execute gqlAuthMutation operation', () {
-      final action = CachedUserAction(
-        id: '123',
-        operation: 'testMutation',
-        timeStamp: DateTime.now(),
-        expiry: DateTime.now().add(const Duration(days: 1)),
-        status: CachedUserActionStatus.pending,
-        operationType: CachedOperationType.gqlAuthMutation,
-      );
+    group('toJson', () {
+      test('should convert instance to JSON map', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testOperation',
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthQuery,
+          variables: {'key': 'value'},
+          metaData: {'info': 'metadata'},
+        );
 
-      action.execute();
+        final json = action.toJson();
 
-      verify(databaseFunctions.gqlAuthMutation('testMutation', variables: null))
-          .called(1);
-    });
+        expect(json['id'], '123');
+        expect(json['operation'], 'testOperation');
+        expect(json['variables'], {'key': 'value'});
+        expect(json['timeStamp'], '2024-07-12T12:34:56.000Z');
+        expect(json['expiry'], '2024-07-13T12:34:56.000Z');
+        expect(json['status'], CachedUserActionStatus.pending);
+        expect(json['metaData'], {'info': 'metadata'});
+        expect(json['operationType'], CachedOperationType.gqlAuthQuery);
+      });
 
-    test('should execute gqlNonAuthQuery operation', () {
-      final action = CachedUserAction(
-        id: '123',
-        operation: 'testQuery',
-        timeStamp: DateTime.now(),
-        expiry: DateTime.now().add(const Duration(days: 1)),
-        status: CachedUserActionStatus.pending,
-        operationType: CachedOperationType.gqlNonAuthQuery,
-      );
-
-      action.execute();
-
-      verify(databaseFunctions.gqlNonAuthQuery('testQuery', variables: null))
-          .called(1);
-    });
-
-    test('should execute gqlNonAuthMutation operation', () {
-      final action = CachedUserAction(
-        id: '123',
-        operation: 'testMutation',
-        timeStamp: DateTime.now(),
-        expiry: DateTime.now().add(const Duration(days: 1)),
-        status: CachedUserActionStatus.pending,
-        operationType: CachedOperationType.gqlNonAuthMutation,
-      );
-
-      action.execute();
-
-      verify(
-        databaseFunctions.gqlNonAuthMutation(
-          'testMutation',
+      test('should convert instance with null fields to JSON map', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testOperation',
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthQuery,
           variables: null,
-        ),
-      ).called(1);
+          metaData: null,
+        );
+
+        final json = action.toJson();
+
+        expect(json['variables'], null);
+        expect(json['metaData'], null);
+      });
     });
 
-    test('should handle unsupported operation type in execute', () {
-      final action = CachedUserAction(
-        id: '123',
-        operation: 'testOperation',
-        timeStamp: DateTime.now(),
-        expiry: DateTime.now().add(const Duration(days: 1)),
-        status: CachedUserActionStatus.pending,
-        operationType:
-            CachedOperationType.gqlAuthQuery, // Unsupported operation type
-      );
+    group('execute', () {
+      test('should execute gqlAuthQuery operation with variables', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testQuery',
+          timeStamp: DateTime.now(),
+          expiry: DateTime.now().add(const Duration(days: 1)),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthQuery,
+          variables: {'var': 'val'},
+        );
 
-      expect(() => action.execute(), returnsNormally);
+        action.execute();
+
+        verify(databaseFunctions
+            .gqlAuthQuery('testQuery', variables: {'var': 'val'})).called(1);
+      });
+
+      test('should execute gqlAuthQuery operation', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testQuery',
+          timeStamp: DateTime.now(),
+          expiry: DateTime.now().add(const Duration(days: 1)),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthQuery,
+        );
+
+        action.execute();
+
+        verify(databaseFunctions.gqlAuthQuery('testQuery', variables: null))
+            .called(1);
+      });
+
+      test('should execute gqlAuthMutation operation', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testMutation',
+          timeStamp: DateTime.now(),
+          expiry: DateTime.now().add(const Duration(days: 1)),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthMutation,
+        );
+
+        action.execute();
+
+        verify(databaseFunctions.gqlAuthMutation('testMutation',
+                variables: null))
+            .called(1);
+      });
+
+      test('should execute gqlNonAuthQuery operation', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testQuery',
+          timeStamp: DateTime.now(),
+          expiry: DateTime.now().add(const Duration(days: 1)),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlNonAuthQuery,
+        );
+
+        action.execute();
+
+        verify(databaseFunctions.gqlNonAuthQuery('testQuery', variables: null))
+            .called(1);
+      });
+
+      test('should execute gqlNonAuthMutation operation', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testMutation',
+          timeStamp: DateTime.now(),
+          expiry: DateTime.now().add(const Duration(days: 1)),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlNonAuthMutation,
+        );
+
+        action.execute();
+
+        verify(
+          databaseFunctions.gqlNonAuthMutation(
+            'testMutation',
+            variables: null,
+          ),
+        ).called(1);
+      });
     });
 
     test('should provide correct string representation', () {
@@ -131,9 +232,6 @@ void main() {
         variables: {'key': 'value'},
         metaData: {'info': 'metadata'},
       );
-
-      final json = action.toJson();
-      CachedUserAction.fromJson(json);
 
       final stringRepresentation = action.toString();
 
