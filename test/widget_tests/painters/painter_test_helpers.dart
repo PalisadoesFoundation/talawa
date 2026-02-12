@@ -8,11 +8,10 @@ import 'package:flutter_test/flutter_test.dart';
 /// This helper creates a standard MaterialApp scaffold with a CustomPaint
 /// widget for testing custom painters in a consistent way across all tests.
 ///
-/// @params
-/// - painter: The CustomPainter instance to test.
-/// - key: A unique key to identify the CustomPaint widget in tests.
-/// - width: The width of the canvas (default: 200).
-/// - height: The height of the canvas (default: 200).
+/// @param painter The CustomPainter instance to test.
+/// @param key A unique key to identify the CustomPaint widget in tests.
+/// @param width The width of the canvas (default: 200).
+/// @param height The height of the canvas (default: 200).
 Widget buildPainterTestWidget({
   required CustomPainter painter,
   required Key key,
@@ -41,8 +40,7 @@ Widget buildPainterTestWidget({
 /// for various standard and edge-case canvas sizes.
 ///
 /// @params
-/// - createPainter: A factory function that returns a new instance of the [CustomPainter] to test.
-void runPaintSmokeTests(CustomPainter Function() createPainter) {
+/// @param createPainter A factory function that returns a new instance of the [CustomPainter] to test.void runPaintSmokeTests(CustomPainter Function() createPainter) {
   group('paint() method smoke tests', () {
     final sizes = [
       const MapEntry('normal size', Size(200, 200)),
