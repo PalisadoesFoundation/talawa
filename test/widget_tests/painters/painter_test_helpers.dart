@@ -13,6 +13,9 @@ import 'package:flutter_test/flutter_test.dart';
 ///   * `key`: A unique key to identify the CustomPaint widget in tests.
 ///   * `width`: The width of the canvas (default: 200).
 ///   * `height`: The height of the canvas (default: 200).
+///
+/// **returns**:
+///   * `Widget`: A MaterialApp containing the CustomPaint widget for testing.
 Widget buildPainterTestWidget({
   required CustomPainter painter,
   required Key key,
@@ -42,6 +45,9 @@ Widget buildPainterTestWidget({
 ///
 /// **params**:
 ///   * `createPainter`: A factory function that returns a new instance of the [CustomPainter] to test.
+///
+/// **returns**:
+///   None
 void runPaintSmokeTests(CustomPainter Function() createPainter) {
   group('paint() method smoke tests', () {
     final sizes = [
