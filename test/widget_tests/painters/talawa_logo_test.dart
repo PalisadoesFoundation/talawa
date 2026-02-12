@@ -6,6 +6,14 @@ import 'painter_test_helpers.dart';
 
 void main() {
   group('AppLogo Painter Tests', () {
+    setUp(() {
+      setupPainterGoldenComparator();
+    });
+
+    tearDown(() {
+      tearDownPainterGoldenComparator();
+    });
+
     testWidgets('should render AppLogo correctly (golden test)',
         (WidgetTester tester) async {
       const key = ValueKey('app_logo_painter');

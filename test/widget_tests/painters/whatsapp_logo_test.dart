@@ -6,6 +6,14 @@ import 'painter_test_helpers.dart';
 
 void main() {
   group('WhatsappLogo Painter Tests', () {
+    setUp(() {
+      setupPainterGoldenComparator();
+    });
+
+    tearDown(() {
+      tearDownPainterGoldenComparator();
+    });
+
     testWidgets('should render WhatsappLogo correctly (golden test)',
         (WidgetTester tester) async {
       const key = ValueKey('whatsapp_logo_painter');

@@ -6,6 +6,14 @@ import 'painter_test_helpers.dart';
 
 void main() {
   group('LanguageIcon Painter Tests', () {
+    setUp(() {
+      setupPainterGoldenComparator();
+    });
+
+    tearDown(() {
+      tearDownPainterGoldenComparator();
+    });
+
     testWidgets('should render LanguageIcon correctly (golden test)',
         (WidgetTester tester) async {
       const key = ValueKey('language_icon_painter');

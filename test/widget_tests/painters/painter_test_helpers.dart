@@ -1,7 +1,78 @@
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+/// Tolerant golden file comparator for painter tests only.
+///
+/// This comparator handles cross-platform rendering differences
+/// (e.g., macOS dev vs Linux CI) by allowing up to 0.5% pixel difference.
+/// Only used for painter tests to preserve strict comparison for other tests.
+class _TolerantComparator extends LocalFileComparator {
+  /// Creates a tolerant comparator.
+  ///
+  /// **params**:
+  /// * `testUri`: The URI of the test directory.
+  _TolerantComparator(super.testUri);
+
+  @override
+  Future<bool> compare(Uint8List imageBytes, Uri golden) async {
+    final ComparisonResult result = await GoldenFileComparator.compareLists(
+      imageBytes,
+      await getGoldenBytes(golden),
+    );
+
+    if (result.passed) {
+      return true;
+    }
+
+    // Allow up to 0.5% difference to handle cross-platform rendering variations
+    if (result.diffPercent <= 0.5) {
+      debugPrint(
+        'Golden file comparison passed with ${result.diffPercent.toStringAsFixed(2)}% difference (within 0.5% tolerance)',
+      );
+      return true;
+    }
+
+    // If difference is too large, call super.compare to generate failure artifacts
+    debugPrint(
+      'Golden file comparison failed: ${result.diffPercent.toStringAsFixed(2)}% difference (tolerance: 0.5%)',
+    );
+    return super.compare(imageBytes, golden);
+  }
+}
+
+/// Sets up tolerant golden file comparator for painter tests.
+///
+/// Call this in setUp() for painter tests to enable cross-platform tolerance.
+/// The original comparator is restored in tearDown().
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
+void setupPainterGoldenComparator() {
+  goldenFileComparator = _TolerantComparator(
+    Uri.parse('test/'),
+  );
+}
+
+/// Restores the default golden file comparator.
+///
+/// Call this in tearDown() to restore strict comparison after painter tests.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
+void tearDownPainterGoldenComparator() {
+  goldenFileComparator = LocalFileComparator(Uri.parse('test/'));
+}
+
 
 /// Helper function to build a test widget with a CustomPaint painter.
 ///
