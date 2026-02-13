@@ -7,7 +7,6 @@ import 'package:talawa/view_model/connectivity_view_model.dart';
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   WidgetController.hitTestWarningShouldBeFatal = true;
-
   final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
   // Hive.init(dir.path);
   await HiveManager.initializeHive(dir: dir);
