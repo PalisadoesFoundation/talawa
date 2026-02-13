@@ -28,7 +28,8 @@ void main() {
 
       await expectLater(
         find.byKey(key),
-        matchesGoldenFile('goldens/whatsapp_logo.png'),
+        matchesGoldenFile(
+            'test/widget_tests/painters/goldens/whatsapp_logo.png'),
       );
     });
 
