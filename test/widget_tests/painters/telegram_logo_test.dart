@@ -6,14 +6,6 @@ import 'painter_test_helpers.dart';
 
 void main() {
   group('TelegramLogo Painter Tests', () {
-    setUp(() {
-      setupPainterGoldenComparator();
-    });
-
-    tearDown(() {
-      tearDownPainterGoldenComparator();
-    });
-
     testWidgets('should render TelegramLogo correctly (golden test)',
         (WidgetTester tester) async {
       const key = ValueKey('telegram_logo_painter');
@@ -28,7 +20,7 @@ void main() {
 
       await expectLater(
         find.byKey(key),
-        matchesGoldenFile('goldens/goldens/telegram_logo.png'),
+        matchesGoldenFile('../../goldens/goldens/telegram_logo.png'),
       );
     });
 
