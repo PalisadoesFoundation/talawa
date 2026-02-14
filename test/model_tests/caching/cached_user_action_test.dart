@@ -22,8 +22,9 @@ void main() {
     cacheBox = Hive.box<CachedUserAction>(OfflineActionQueue.boxName);
   });
 
-  tearDown(() {
+  tearDown(() async {
     reset(mockDatabaseFunctions);
+    await cacheBox.clear();
   });
 
   group('CachedUserAction', () {
@@ -147,8 +148,25 @@ void main() {
 
         action.execute();
 
-        verify(databaseFunctions
+        verify(mockDatabaseFunctions
             .gqlAuthQuery('testQuery', variables: {'var': 'val'})).called(1);
+      });
+
+      test('should execute gqlAuthMutation operation with variables', () {
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testMutation',
+          timeStamp: DateTime.now(),
+          expiry: DateTime.now().add(const Duration(days: 1)),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthMutation,
+          variables: {'var': 'val'},
+        );
+
+        action.execute();
+
+        verify(mockDatabaseFunctions.gqlAuthMutation('testMutation',
+            variables: {'var': 'val'})).called(1);
       });
 
       test('should execute gqlAuthQuery operation', () {
@@ -163,7 +181,7 @@ void main() {
 
         action.execute();
 
-        verify(databaseFunctions.gqlAuthQuery('testQuery', variables: null))
+        verify(mockDatabaseFunctions.gqlAuthQuery('testQuery', variables: null))
             .called(1);
       });
 
@@ -179,7 +197,7 @@ void main() {
 
         action.execute();
 
-        verify(databaseFunctions.gqlAuthMutation('testMutation',
+        verify(mockDatabaseFunctions.gqlAuthMutation('testMutation',
                 variables: null))
             .called(1);
       });
@@ -196,7 +214,8 @@ void main() {
 
         action.execute();
 
-        verify(databaseFunctions.gqlNonAuthQuery('testQuery', variables: null))
+        verify(mockDatabaseFunctions.gqlNonAuthQuery('testQuery',
+                variables: null))
             .called(1);
       });
 
@@ -213,7 +232,7 @@ void main() {
         action.execute();
 
         verify(
-          databaseFunctions.gqlNonAuthMutation(
+          mockDatabaseFunctions.gqlNonAuthMutation(
             'testMutation',
             variables: null,
           ),
