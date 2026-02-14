@@ -28,8 +28,7 @@ void main() {
 
       await expectLater(
         find.byKey(key),
-        matchesGoldenFile(
-            'test/widget_tests/painters/goldens/language_icon.png'),
+        matchesGoldenFile('goldens/goldens/language_icon.png'),
       );
     });
 

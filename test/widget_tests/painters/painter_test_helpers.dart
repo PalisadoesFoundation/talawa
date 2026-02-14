@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -54,8 +56,9 @@ class _TolerantComparator extends LocalFileComparator {
 /// **returns**:
 ///   None
 void setupPainterGoldenComparator() {
+  final testDir = Directory(path.join(Directory.current.path, 'test'));
   goldenFileComparator = _TolerantComparator(
-    Uri.parse('test/'),
+    testDir.uri,
   );
 }
 
