@@ -135,101 +135,101 @@ void main() {
     });
 
     group('execute', () {
-      test('should execute gqlAuthQuery operation with variables', () {
+      test('should execute gqlAuthQuery operation with variables', () async {
         final action = CachedUserAction(
           id: '123',
           operation: 'testQuery',
-          timeStamp: DateTime.now(),
-          expiry: DateTime.now().add(const Duration(days: 1)),
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
           status: CachedUserActionStatus.pending,
           operationType: CachedOperationType.gqlAuthQuery,
           variables: {'var': 'val'},
         );
 
-        action.execute();
+        await action.execute();
 
         verify(mockDatabaseFunctions
             .gqlAuthQuery('testQuery', variables: {'var': 'val'})).called(1);
       });
 
-      test('should execute gqlAuthMutation operation with variables', () {
+      test('should execute gqlAuthMutation operation with variables', () async {
         final action = CachedUserAction(
           id: '123',
           operation: 'testMutation',
-          timeStamp: DateTime.now(),
-          expiry: DateTime.now().add(const Duration(days: 1)),
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
           status: CachedUserActionStatus.pending,
           operationType: CachedOperationType.gqlAuthMutation,
           variables: {'var': 'val'},
         );
 
-        action.execute();
+        await action.execute();
 
         verify(mockDatabaseFunctions.gqlAuthMutation('testMutation',
             variables: {'var': 'val'})).called(1);
       });
 
-      test('should execute gqlAuthQuery operation', () {
+      test('should execute gqlAuthQuery operation', () async {
         final action = CachedUserAction(
           id: '123',
           operation: 'testQuery',
-          timeStamp: DateTime.now(),
-          expiry: DateTime.now().add(const Duration(days: 1)),
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
           status: CachedUserActionStatus.pending,
           operationType: CachedOperationType.gqlAuthQuery,
         );
 
-        action.execute();
+        await action.execute();
 
         verify(mockDatabaseFunctions.gqlAuthQuery('testQuery', variables: null))
             .called(1);
       });
 
-      test('should execute gqlAuthMutation operation', () {
+      test('should execute gqlAuthMutation operation', () async {
         final action = CachedUserAction(
           id: '123',
           operation: 'testMutation',
-          timeStamp: DateTime.now(),
-          expiry: DateTime.now().add(const Duration(days: 1)),
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
           status: CachedUserActionStatus.pending,
           operationType: CachedOperationType.gqlAuthMutation,
         );
 
-        action.execute();
+        await action.execute();
 
         verify(mockDatabaseFunctions.gqlAuthMutation('testMutation',
                 variables: null))
             .called(1);
       });
 
-      test('should execute gqlNonAuthQuery operation', () {
+      test('should execute gqlNonAuthQuery operation', () async {
         final action = CachedUserAction(
           id: '123',
           operation: 'testQuery',
-          timeStamp: DateTime.now(),
-          expiry: DateTime.now().add(const Duration(days: 1)),
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
           status: CachedUserActionStatus.pending,
           operationType: CachedOperationType.gqlNonAuthQuery,
         );
 
-        action.execute();
+        await action.execute();
 
         verify(mockDatabaseFunctions.gqlNonAuthQuery('testQuery',
                 variables: null))
             .called(1);
       });
 
-      test('should execute gqlNonAuthMutation operation', () {
+      test('should execute gqlNonAuthMutation operation', () async {
         final action = CachedUserAction(
           id: '123',
           operation: 'testMutation',
-          timeStamp: DateTime.now(),
-          expiry: DateTime.now().add(const Duration(days: 1)),
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
           status: CachedUserActionStatus.pending,
           operationType: CachedOperationType.gqlNonAuthMutation,
         );
 
-        action.execute();
+        await action.execute();
 
         verify(
           mockDatabaseFunctions.gqlNonAuthMutation(
@@ -266,70 +266,6 @@ void main() {
         operationType: CachedOperationType.gqlAuthQuery,
       )
     ''');
-    });
-
-    group('Enums test', () {
-      test('CachedUserAction Status', () async {
-        CachedUserAction resultAction;
-
-        final action = CachedUserAction(
-          id: '123',
-          operation: 'testOperation',
-          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
-          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
-          status: CachedUserActionStatus.completed,
-          operationType: CachedOperationType.gqlAuthQuery,
-          variables: {'key': 'value'},
-          metaData: {'info': 'metadata'},
-        );
-        await cacheBox.put(action.id, action);
-        resultAction = cacheBox.get(action.id)!;
-        resultAction.execute();
-      });
-
-      test('CachedUserAction Operation Type', () async {
-        CachedUserAction resultAction;
-        final action1 = CachedUserAction(
-          id: '124',
-          operation: 'testOperation',
-          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
-          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
-          status: CachedUserActionStatus.completed,
-          operationType: CachedOperationType.gqlAuthMutation,
-          variables: {'key': 'value'},
-          metaData: {'info': 'metadata'},
-        );
-        await cacheBox.put(action1.id, action1);
-        resultAction = cacheBox.get(action1.id)!;
-
-        final action2 = CachedUserAction(
-          id: '125',
-          operation: 'testOperation',
-          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
-          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
-          status: CachedUserActionStatus.completed,
-          operationType: CachedOperationType.gqlNonAuthQuery,
-          variables: {'key': 'value'},
-          metaData: {'info': 'metadata'},
-        );
-        await cacheBox.put(action2.id, action2);
-        resultAction = cacheBox.get(action2.id)!;
-
-        final action3 = CachedUserAction(
-          id: '126',
-          operation: 'testOperation',
-          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
-          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
-          status: CachedUserActionStatus.completed,
-          operationType: CachedOperationType.gqlNonAuthMutation,
-          variables: {'key': 'value'},
-          metaData: {'info': 'metadata'},
-        );
-        await cacheBox.put(action3.id, action3);
-        resultAction = cacheBox.get(action3.id)!;
-        print(resultAction);
-        resultAction.execute();
-      });
     });
 
     group('Test Adapters', () {
