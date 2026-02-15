@@ -86,6 +86,7 @@ final class RetryResultSuccess<T> extends RetryResult<T> {
   const RetryResultSuccess(this.data);
 
   /// The result data (guaranteed non-null).
+  @override
   final T data;
 }
 
@@ -94,6 +95,7 @@ final class RetryResultFailure<T> extends RetryResult<T> {
   const RetryResultFailure(this.error);
 
   /// The error that occurred.
+  @override
   final Exception error;
 }
 

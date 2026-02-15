@@ -125,8 +125,8 @@ class ChatSubscriptionService {
       key: 'chat-subscription-$chatId',
       customConfig: RetryConfig(
         maxAttempts: 5,
-        initialDelay: Duration(milliseconds: 500),
-        maxDelay: Duration(seconds: 30),
+        initialDelay: const Duration(milliseconds: 500),
+        maxDelay: const Duration(seconds: 30),
       ),
       onRetry: (attempt, error) {
         debugPrint(

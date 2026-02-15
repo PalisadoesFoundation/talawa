@@ -22,8 +22,8 @@ void main() {
       retryQueue = RetryQueue(
         config: RetryConfig(
           maxAttempts: 2,
-          initialDelay: Duration(milliseconds: 1),
-          maxDelay: Duration(milliseconds: 5),
+          initialDelay: const Duration(milliseconds: 1),
+          maxDelay: const Duration(milliseconds: 5),
         ),
       );
       locator.registerSingleton(retryQueue);

@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/services/caching/base_feed_manager.dart';
 import 'package:talawa/services/retry_queue.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
@@ -29,6 +28,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late TestFeedManager feedManager;
+  // ignore: unused_local_variable
   late Box<String> mockBox;
 
   setUpAll(() {

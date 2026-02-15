@@ -17,8 +17,8 @@ void main() {
     test('should accept custom values', () {
       final config = RetryConfig(
         maxAttempts: 5,
-        initialDelay: Duration(milliseconds: 100),
-        maxDelay: Duration(seconds: 60),
+        initialDelay: const Duration(milliseconds: 100),
+        maxDelay: const Duration(seconds: 60),
         backoffMultiplier: 3.0,
       );
 
@@ -55,8 +55,8 @@ void main() {
       retryQueue = RetryQueue(
         config: RetryConfig(
           maxAttempts: 3,
-          initialDelay: Duration(milliseconds: 10),
-          maxDelay: Duration(milliseconds: 100),
+          initialDelay: const Duration(milliseconds: 10),
+          maxDelay: const Duration(milliseconds: 100),
         ),
       );
     });
@@ -97,7 +97,7 @@ void main() {
     test('fails after max attempts exceeded', () async {
       int callCount = 0;
       final result = await retryQueue.execute(
-        () async {
+        () {
           callCount++;
           throw Exception('Permanent error');
         },
@@ -112,7 +112,7 @@ void main() {
     test('respects shouldRetry callback returning false', () async {
       int callCount = 0;
       final result = await retryQueue.execute(
-        () async {
+        () {
           callCount++;
           throw Exception('No retry error');
         },
@@ -235,7 +235,7 @@ void main() {
       expect(retryQueue.getAttemptCount('non-existent'), 0);
     });
 
-    test('cancel removes task from queue', () async {
+    test('cancel removes task from queue', () {
       final completer = Completer<void>();
 
       // ignore: unawaited_futures
@@ -258,7 +258,7 @@ void main() {
       // Note: The task may still complete since cancel only clears tracking
     });
 
-    test('cancelAll removes all tasks', () async {
+    test('cancelAll removes all tasks', () {
       final completer1 = Completer<void>();
       final completer2 = Completer<void>();
 
@@ -296,14 +296,14 @@ void main() {
     test('respects custom config override', () async {
       int callCount = 0;
       final result = await retryQueue.execute(
-        () async {
+        () {
           callCount++;
           throw Exception('Error');
         },
         key: 'custom-config',
         customConfig: RetryConfig(
           maxAttempts: 5,
-          initialDelay: Duration(milliseconds: 5),
+          initialDelay: const Duration(milliseconds: 5),
         ),
       );
 
@@ -313,7 +313,7 @@ void main() {
 
     test('handles non-Exception errors gracefully', () async {
       final result = await retryQueue.execute(
-        () async {
+        () {
           throw 'String error'; // Not an Exception
         },
         key: 'string-error',
@@ -329,8 +329,8 @@ void main() {
       final fastQueue = RetryQueue(
         config: RetryConfig(
           maxAttempts: 5,
-          initialDelay: Duration(milliseconds: 50),
-          maxDelay: Duration(milliseconds: 100),
+          initialDelay: const Duration(milliseconds: 50),
+          maxDelay: const Duration(milliseconds: 100),
           backoffMultiplier: 3.0,
         ),
       );
@@ -339,7 +339,7 @@ void main() {
       int callCount = 0;
 
       await fastQueue.execute(
-        () async {
+        () {
           callCount++;
           throw Exception('Error');
         },
@@ -364,8 +364,8 @@ void main() {
       retryQueue = RetryQueue(
         config: RetryConfig(
           maxAttempts: 3,
-          initialDelay: Duration(milliseconds: 10),
-          maxDelay: Duration(milliseconds: 100),
+          initialDelay: const Duration(milliseconds: 10),
+          maxDelay: const Duration(milliseconds: 100),
         ),
       );
     });
@@ -403,7 +403,7 @@ void main() {
     test('throws after max retries', () async {
       await expectLater(
         retryQueue.enqueue(
-          () async {
+          () {
             throw Exception('Always fail');
           },
           key: 'enqueue-test-3',
@@ -419,7 +419,7 @@ void main() {
 
       try {
         await retryQueue.enqueue(
-          () async {
+          () {
             count++;
             throw Exception('Fail');
           },

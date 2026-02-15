@@ -86,7 +86,7 @@ void main() {
         when(
           mockDbFunctions.gqlAuthMutation(any,
               variables: anyNamed('variables')),
-        ).thenAnswer((_) async {
+        ).thenAnswer((_) {
           callCount++;
           throw Exception('Server down');
         });
@@ -141,8 +141,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 3,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -172,15 +172,15 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 2,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
         var callCount = 0;
 
         final result = await queue.execute(
-          () async {
+          () {
             callCount++;
             throw Exception('Server unreachable');
           },
@@ -201,8 +201,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 4,
-            initialDelay: Duration(milliseconds: 50),
-            maxDelay: Duration(seconds: 10),
+            initialDelay: const Duration(milliseconds: 50),
+            maxDelay: const Duration(seconds: 10),
             backoffMultiplier: 2.0,
           ),
         );
@@ -242,8 +242,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 5,
-            initialDelay: Duration(milliseconds: 50),
-            maxDelay: Duration(milliseconds: 80),
+            initialDelay: const Duration(milliseconds: 50),
+            maxDelay: const Duration(milliseconds: 80),
             backoffMultiplier: 3.0,
           ),
         );
@@ -251,7 +251,7 @@ void main() {
         final timestamps = <DateTime>[];
 
         await queue.execute(
-          () async {
+          () {
             timestamps.add(DateTime.now());
             throw Exception('always fail');
           },
@@ -277,8 +277,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 3,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 100),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 100),
           ),
         );
 
@@ -335,8 +335,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 2,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -366,8 +366,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 10,
-            initialDelay: Duration(milliseconds: 50),
-            maxDelay: Duration(seconds: 5),
+            initialDelay: const Duration(milliseconds: 50),
+            maxDelay: const Duration(seconds: 5),
           ),
         );
 
@@ -413,8 +413,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 3,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -455,15 +455,15 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 5,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
         var callCount = 0;
 
         final result = await queue.execute(
-          () async {
+          () {
             callCount++;
             throw Exception('authentication token expired');
           },
@@ -482,8 +482,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 5,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -514,15 +514,15 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 3,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
         final capturedErrors = <Exception>[];
 
         await queue.execute(
-          () async {
+          () {
             throw Exception('error-${capturedErrors.length}');
           },
           key: 'error-inspect',
@@ -548,8 +548,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 4,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -588,8 +588,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 3,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -627,8 +627,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 2,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -657,8 +657,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 2,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 50),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 50),
           ),
         );
 
@@ -692,8 +692,8 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 5,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 100),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 100),
           ),
         );
 
@@ -731,15 +731,15 @@ void main() {
         final queue = RetryQueue(
           config: RetryConfig(
             maxAttempts: 5,
-            initialDelay: Duration(milliseconds: 10),
-            maxDelay: Duration(milliseconds: 100),
+            initialDelay: const Duration(milliseconds: 10),
+            maxDelay: const Duration(milliseconds: 100),
           ),
         );
 
         var connectionAttempts = 0;
 
         final result = await queue.execute(
-          () async {
+          () {
             connectionAttempts++;
             throw Exception('auth token invalid');
           },
