@@ -152,6 +152,56 @@ class NavigationService {
     );
   }
 
+  /// Triggers the snackbar UI to show online status.
+  ///
+  /// **params**:
+  /// * `isOnline`: online status of the device.
+  ///
+  /// **returns**:
+  ///   None
+  void showConnectivitySnackBar({required bool isOnline}) {
+    final context = navigatorKey.currentContext;
+    if (context != null) {
+      final TextStyle customStyle = Theme.of(context).textTheme.bodyMedium!;
+      if (isOnline) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            content: Text(
+              'You are back online!',
+              style: customStyle,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: const Duration(seconds: 5),
+            backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
+            content: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'You are ',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.white),
+                  ),
+                  TextSpan(
+                    text: 'Offline!',
+                    style: customStyle.copyWith(color: Colors.green),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    }
+  }
+
   /// Shows an Error Dialog Box.
   ///
   /// **params**:

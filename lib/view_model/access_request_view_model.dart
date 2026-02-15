@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -14,7 +14,7 @@ class AccessScreenViewModel extends BaseModel {
   late List<OrgInfo> organizations = [];
 
   /// text controller for optional message during the request.
-  final optionalMessageController = TextEditingController();
+
 
   /// Initialization function.
   ///
@@ -78,7 +78,7 @@ class AccessScreenViewModel extends BaseModel {
 
   @override
   void dispose() {
-    optionalMessageController.dispose();
+
     super.dispose();
   }
 }

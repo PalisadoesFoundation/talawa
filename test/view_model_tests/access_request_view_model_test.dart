@@ -230,11 +230,7 @@ void main() {
         verifyNever(locator<NavigationService>().pop());
       });
 
-      test("Check optionalMessageController initialization", () {
-        final model = AccessScreenViewModel();
-        expect(model.optionalMessageController, isNotNull);
-        expect(model.optionalMessageController.text, isEmpty);
-      });
+
     },
   );
 }

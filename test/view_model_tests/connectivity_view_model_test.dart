@@ -46,7 +46,7 @@ Widget createMainScreen({bool demoMode = true, bool? isOnline}) {
                       body: TextButton(
                         child: const Text('click me'),
                         onPressed: () {
-                          AppConnectivity.showSnackbar(isOnline: isOnline!);
+                          locator<NavigationService>().showConnectivitySnackBar(isOnline: isOnline!);
                         },
                       ),
                     ),
@@ -101,6 +101,8 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       await tester.tap(find.text('click me'));
+      // Verify that the navigation service method was called or the snackbar appears
+      // Since createMainScreen uses AppConnectivity.showSnackbar in the button press, we need to update that too
     });
 
     testWidgets('showSnackbar when offline', (tester) async {

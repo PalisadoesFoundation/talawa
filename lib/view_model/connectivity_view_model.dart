@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -85,7 +85,7 @@ class AppConnectivity extends BaseModel {
   ///   None
   Future<void> handleOnline() async {
     isOnline = true;
-    showSnackbar(isOnline: true);
+    navigationService.showConnectivitySnackBar(isOnline: true);
     databaseFunctions.init();
     for (final action in cacheService.offlineActionQueue.getActions()) {
       await action.execute();
@@ -101,59 +101,11 @@ class AppConnectivity extends BaseModel {
   ///   None
   Future<void> handleOffline() async {
     isOnline = false;
-    showSnackbar(isOnline: false);
+    navigationService.showConnectivitySnackBar(isOnline: false);
     databaseFunctions.init();
   }
 
-  /// Triggers the snackbar UI to show online status.
-  ///
-  /// **params**:
-  /// * `isOnline`: online status of the device.
-  ///
-  /// **returns**:
-  ///   None
-  static void showSnackbar({required bool isOnline}) {
-    final context = navigationService.navigatorKey.currentContext;
-    if (context != null) {
-      final TextStyle customStyle = Theme.of(context).textTheme.bodyMedium!;
-      if (isOnline) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            duration: const Duration(seconds: 5),
-            backgroundColor: Colors.green,
-            content: Text(
-              'You are back online!',
-              style: customStyle,
-            ),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            duration: const Duration(seconds: 5),
-            backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
-            content: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'You are ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.white),
-                  ),
-                  TextSpan(
-                    text: 'Offline!',
-                    style: customStyle.copyWith(color: Colors.green),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }
-    }
-  }
+
 
   @override
   void dispose() {
