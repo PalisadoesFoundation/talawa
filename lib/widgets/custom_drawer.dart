@@ -11,16 +11,25 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 
 /// Creates a custom drawer for switching organizations.
 ///
-/// joining new organizations, or leaving an organization.
+/// This widget enables users to view the selected organization,
+/// switch between organizations, join new organizations,
+/// and leave the current organization.
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
     super.key,
     required this.homeModel,
   });
 
-  /// home model.
+  /// The main screen view model associated with the drawer.
   final MainScreenViewModel homeModel;
 
+  /// Builds the custom drawer widget tree.
+  ///
+  /// **params**:
+  /// * `context`: The build context of the widget.
+  ///
+  /// **returns**:
+  /// * `Widget`: The constructed drawer widget.
   @override
   Widget build(BuildContext context) {
     return BaseView<CustomDrawerViewModel>(
@@ -61,16 +70,29 @@ class CustomDrawer extends StatelessWidget {
   }
 }
 
-/// Displays the current organization info in the drawer header.
+/// Displays the current organization information in the drawer header.
+///
+/// This widget renders the selected organization's avatar
+/// and basic identification details.
 class _DrawerHeader extends StatelessWidget {
   const _DrawerHeader({
     required this.model,
     required this.homeModel,
   });
 
+  /// The view model managing drawer state.
   final CustomDrawerViewModel model;
+
+  /// The main screen view model associated with the drawer.
   final MainScreenViewModel homeModel;
 
+  /// Builds the drawer header widget.
+  ///
+  /// **params**:
+  /// * `context`: The build context of the widget.
+  ///
+  /// **returns**:
+  /// * `Widget`: The constructed drawer header widget.
   @override
   Widget build(BuildContext context) {
     return UserAccountsDrawerHeader(
@@ -101,15 +123,28 @@ class _DrawerHeader extends StatelessWidget {
 }
 
 /// Displays the list of switchable organizations.
+///
+/// This widget shows all organizations the user can switch to
+/// inside a scrollable list.
 class _SwitchOrganizationSection extends StatelessWidget {
   const _SwitchOrganizationSection({
     required this.model,
     required this.homeModel,
   });
 
+  /// The view model managing organization switching logic.
   final CustomDrawerViewModel model;
+
+  /// The main screen view model associated with the drawer.
   final MainScreenViewModel homeModel;
 
+  /// Builds the organization switching section.
+  ///
+  /// **params**:
+  /// * `context`: The build context of the widget.
+  ///
+  /// **returns**:
+  /// * `Widget`: The constructed organization list section.
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -162,16 +197,30 @@ class _SwitchOrganizationSection extends StatelessWidget {
   }
 }
 
-/// Displays bottom actions: Join, Leave, and branding.
+/// Displays bottom drawer actions.
+///
+/// This section contains options to join a new organization,
+/// leave the current organization, and shows branding information.
+
 class _DrawerActions extends StatelessWidget {
   const _DrawerActions({
     required this.model,
     required this.homeModel,
   });
 
+  /// The view model managing drawer logic.
   final CustomDrawerViewModel model;
+
+  /// The main screen view model associated with the drawer.
   final MainScreenViewModel homeModel;
 
+  /// Builds the bottom drawer actions section.
+  ///
+  /// **params**:
+  /// * `context`: The build context of the widget.
+  ///
+  /// **returns**:
+  /// * `Widget`: The constructed bottom action section.
   @override
   Widget build(BuildContext context) {
     return Align(
