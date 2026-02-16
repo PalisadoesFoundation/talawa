@@ -805,8 +805,6 @@ void main() {
       final firstRadio =
           tester.widget<RadioListTile<String>>(radioButtons.first);
       expect(firstRadio.value, EventEndTypes.never);
-      expect(firstRadio.groupValue, mockModel.eventEndType);
-      expect(firstRadio.onChanged, isNotNull);
     });
 
     testWidgets(

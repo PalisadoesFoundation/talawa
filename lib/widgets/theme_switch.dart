@@ -22,7 +22,7 @@ class ChangeThemeTile extends StatelessWidget {
           return Switch(
             key: const Key('ToggleTheme'),
             autofocus: true,
-            activeColor: Theme.of(context).colorScheme.primary,
+            activeThumbColor: Theme.of(context).colorScheme.primary,
             value: isDarkTheme,
             onChanged: (value) {
               context.read<AppTheme>().switchTheme(isOn: value);

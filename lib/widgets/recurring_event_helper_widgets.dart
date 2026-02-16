@@ -187,115 +187,112 @@ class _EventEndOptionsState extends State<EventEndOptions> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        radioButton(
-          key: const Key('neverRadioButton'),
-          child: const Text(EventEndTypes.never),
-          index: 0,
-          inputAction: () {
-            setState(() {
-              widget.model.count = null;
-              widget.model.recurrenceEndDate = null;
-              widget.model.eventEndType = EventEndTypes.never;
-            });
-          },
-        ),
-        radioButton(
-          key: const Key('onRadioButton'),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(EventEndTypes.on),
-              inlineWidth,
-              CustomRectangle(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: IconButton(
-                    key: const Key('dateSelectorCalendar'),
-                    // button to select the date and time of an event.
-                    onPressed: () async {
-                      // initially pickedDate is initialised with current end time.
-                      final pickedDate = await customDatePicker(
-                        initialDate: DateTime.now(),
-                      );
-                      setState(() {
-                        widget.model.recurrenceEndDate = pickedDate;
-                        widget.model.eventEndType = EventEndTypes.on;
-                      });
-                    },
-                    icon: Text(
-                      DateFormat("MMM d, yyyy").format(
-                        widget.model.recurrenceEndDate ?? DateTime.now(),
+    return RadioGroup<String>(
+      groupValue: widget.model.eventEndType,
+      onChanged: (value) {
+        setState(() {
+          widget.model.eventEndType = value!;
+          if (value == EventEndTypes.never) {
+            widget.model.count = null;
+            widget.model.recurrenceEndDate = null;
+          } else if (value == EventEndTypes.on) {
+            widget.model.recurrenceEndDate = DateTime.now();
+            widget.model.count = null;
+          } else if (value == EventEndTypes.after) {
+            widget.model.recurrenceEndDate = null;
+          }
+        });
+      },
+      child: Column(
+        children: [
+          radioButton(
+            key: const Key('neverRadioButton'),
+            child: const Text(EventEndTypes.never),
+            index: 0,
+          ),
+          radioButton(
+            key: const Key('onRadioButton'),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(EventEndTypes.on),
+                inlineWidth,
+                CustomRectangle(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: IconButton(
+                      key: const Key('dateSelectorCalendar'),
+                      // button to select the date and time of an event.
+                      onPressed: () async {
+                        // initially pickedDate is initialised with current end time.
+                        final pickedDate = await customDatePicker(
+                          initialDate: DateTime.now(),
+                        );
+                        setState(() {
+                          widget.model.recurrenceEndDate = pickedDate;
+                          widget.model.eventEndType = EventEndTypes.on;
+                        });
+                      },
+                      icon: Text(
+                        DateFormat("MMM d, yyyy").format(
+                          widget.model.recurrenceEndDate ?? DateTime.now(),
+                        ),
+                        style: widget.model.eventEndType == EventEndTypes.on
+                            ? TextStyle(color: Theme.of(context).dividerColor)
+                            : TextStyle(
+                                color: Theme.of(context)
+                                    .dividerColor
+                                    .withAlpha((0.4 * 255).toInt()),
+                              ),
                       ),
-                      style: widget.model.eventEndType == EventEndTypes.on
-                          ? TextStyle(color: Theme.of(context).dividerColor)
-                          : TextStyle(
-                              color: Theme.of(context)
-                                  .dividerColor
-                                  .withAlpha((0.4 * 255).toInt()),
-                            ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
+            index: 1,
           ),
-          index: 1,
-          inputAction: () {
-            setState(() {
-              widget.model.recurrenceEndDate = DateTime.now();
-              widget.model.eventEndType = EventEndTypes.on;
-              widget.model.count = null;
-            });
-          },
-        ),
-        radioButton(
-          key: const Key('afterRadioButton'),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(EventEndTypes.after),
-              inlineWidth,
-              CustomRectangle(
-                child: SizedBox(
-                  width: 60,
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    decoration: const InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                      border: InputBorder.none,
-                      hintText: '1',
+          radioButton(
+            key: const Key('afterRadioButton'),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(EventEndTypes.after),
+                inlineWidth,
+                CustomRectangle(
+                  child: SizedBox(
+                    width: 60,
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                        border: InputBorder.none,
+                        hintText: '1',
+                      ),
+                      enabled: widget.model.eventEndType == EventEndTypes.after,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          widget.model.count = int.parse(value);
+                        } else {
+                          widget.model.count = 1;
+                        }
+                      },
                     ),
-                    enabled: widget.model.eventEndType == EventEndTypes.after,
-                    onChanged: (value) {
-                      if (value.isNotEmpty) {
-                        widget.model.count = int.parse(value);
-                      } else {
-                        widget.model.count = 1;
-                      }
-                    },
                   ),
                 ),
-              ),
-              inlineWidth,
-              const Text('occurrence(s)'),
-            ],
+                inlineWidth,
+                const Text('occurrence(s)'),
+              ],
+            ),
+            index: 2,
           ),
-          index: 2,
-          inputAction: () {
-            setState(() {
-              widget.model.recurrenceEndDate = null;
-              widget.model.eventEndType = EventEndTypes.after;
-            });
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -313,7 +310,6 @@ class _EventEndOptionsState extends State<EventEndOptions> {
     required Key key,
     required Widget child,
     required int index,
-    Function()? inputAction,
   }) {
     return Theme(
       key: key,
@@ -321,13 +317,6 @@ class _EventEndOptionsState extends State<EventEndOptions> {
       child: RadioListTile<String>(
         title: child,
         value: eventEndTypes[index],
-        groupValue: widget.model.eventEndType,
-        onChanged: (value) {
-          setState(() {
-            widget.model.eventEndType = value!;
-            inputAction?.call();
-          });
-        },
       ),
     );
   }

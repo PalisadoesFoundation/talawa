@@ -100,7 +100,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   json_serializable: ^6.8.0
-  lint: ^2.7.0
+  lint: ^2.8.0
 
 
   mocktail_image_network: ^1.2.0
