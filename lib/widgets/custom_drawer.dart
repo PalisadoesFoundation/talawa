@@ -99,7 +99,9 @@ class _DrawerHeader extends StatelessWidget {
       currentAccountPicture: CustomAvatar(
         isImageNull: model.selectedOrg?.image == null,
         imageUrl: model.selectedOrg?.image,
-        firstAlphabet: model.selectedOrg?.name?.substring(0, 1),
+        firstAlphabet: (model.selectedOrg?.name?.isNotEmpty ?? false)
+            ? model.selectedOrg!.name!.substring(0, 1)
+            : null,
       ),
       accountName: Column(
         key: homeModel.keys.keyDrawerCurOrg,
@@ -185,7 +187,7 @@ class _SwitchOrganizationSection extends StatelessWidget {
                     fontSize: 18,
                   ),
                   title: Text(
-                    model.switchAbleOrg[index].name ?? "NULL",
+                     model.switchAbleOrg[index].name ?? AppLocalizations.of(context)!.strictTranslate("Unnamed Organization"),
                   ),
                 );
               },
@@ -201,7 +203,6 @@ class _SwitchOrganizationSection extends StatelessWidget {
 ///
 /// This section contains options to join a new organization,
 /// leave the current organization, and shows branding information.
-
 class _DrawerActions extends StatelessWidget {
   const _DrawerActions({
     required this.model,
