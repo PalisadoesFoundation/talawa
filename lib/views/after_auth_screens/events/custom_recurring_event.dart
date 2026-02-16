@@ -480,49 +480,47 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
 
     return Container(
       padding: EdgeInsets.all(_sectionPadding),
-      child: RadioGroup<bool>(
-        groupValue: viewModel.useDayOfWeekMonthly,
-        onChanged: (value) {
-          if (value == false) {
-            setState(() {
-              viewModel.useDayOfWeekMonthly = false;
-              viewModel.byMonthDay = [dayOfMonth];
-              viewModel.weekDays = {};
-              viewModel.weekDayOccurrenceInMonth = null;
-              viewModel.byPosition = null;
-            });
-          } else {
-            setState(() {
-              viewModel.useDayOfWeekMonthly = true;
-              viewModel.byMonthDay = null;
-              viewModel.weekDays = {weekdayToCode[dayOfWeek]!};
-              viewModel.weekDayOccurrenceInMonth =
-                  isLastOccurrence ? -1 : weekPosition;
-              viewModel.byPosition = isLastOccurrence ? -1 : weekPosition;
-            });
-          }
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            inputFieldHeading('Monthly options'),
-            const SizedBox(height: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          inputFieldHeading('Monthly options'),
+          const SizedBox(height: 8),
 
-            // Day of month option
-            RadioListTile<bool>(
-              title: Text('On day $dayOfMonth of the month'),
-              value: false,
-            ),
+          // Day of month option
+          RadioListTile<bool>(
+            title: Text('On day $dayOfMonth of the month'),
+            value: false,
+            groupValue: viewModel.useDayOfWeekMonthly,
+            onChanged: (value) {
+              setState(() {
+                viewModel.useDayOfWeekMonthly = false;
+                viewModel.byMonthDay = [dayOfMonth];
+                viewModel.weekDays = {};
+                viewModel.weekDayOccurrenceInMonth = null;
+                viewModel.byPosition = null;
+              });
+            },
+          ),
 
-            // Day of week option
-            RadioListTile<bool>(
-              title: Text(
-                'On the ${isLastOccurrence ? 'last' : ordinal(weekPosition)} ${weekdayToCode[dayOfWeek]} of the month',
-              ),
-              value: true,
+          // Day of week option
+          RadioListTile<bool>(
+            title: Text(
+              'On the ${isLastOccurrence ? 'last' : ordinal(weekPosition)} ${weekdayToCode[dayOfWeek]} of the month',
             ),
-          ],
-        ),
+            value: true,
+            groupValue: viewModel.useDayOfWeekMonthly,
+            onChanged: (value) {
+              setState(() {
+                viewModel.useDayOfWeekMonthly = true;
+                viewModel.byMonthDay = null;
+                viewModel.weekDays = {weekdayToCode[dayOfWeek]!};
+                viewModel.weekDayOccurrenceInMonth =
+                    isLastOccurrence ? -1 : weekPosition;
+                viewModel.byPosition = isLastOccurrence ? -1 : weekPosition;
+              });
+            },
+          ),
+        ],
       ),
     );
   }
@@ -563,51 +561,49 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
 
     return Container(
       padding: EdgeInsets.all(_sectionPadding),
-      child: RadioGroup<bool>(
-        groupValue: viewModel.useDayOfWeekYearly,
-        onChanged: (value) {
-          if (value == false) {
-            setState(() {
-              viewModel.useDayOfWeekYearly = false;
-              viewModel.byMonthDay = [dayOfMonth];
-              viewModel.byMonth = [viewModel.eventStartDate.month];
-              viewModel.weekDays = {};
-              viewModel.weekDayOccurrenceInMonth = null;
-              viewModel.byPosition = null;
-            });
-          } else {
-            setState(() {
-              viewModel.useDayOfWeekYearly = true;
-              viewModel.byMonthDay = null;
-              viewModel.byMonth = [viewModel.eventStartDate.month];
-              viewModel.weekDays = {weekdayToCode[dayOfWeek]!};
-              viewModel.weekDayOccurrenceInMonth =
-                  isLastOccurrence ? -1 : weekPosition;
-              viewModel.byPosition = isLastOccurrence ? -1 : weekPosition;
-            });
-          }
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            inputFieldHeading('Yearly options'),
-            const SizedBox(height: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          inputFieldHeading('Yearly options'),
+          const SizedBox(height: 8),
 
-            // Month and day option
-            RadioListTile<bool>(
-              title: Text('On $monthName $dayOfMonth'),
-              value: false,
-            ),
+          // Month and day option
+          RadioListTile<bool>(
+            title: Text('On $monthName $dayOfMonth'),
+            value: false,
+            groupValue: viewModel.useDayOfWeekYearly,
+            onChanged: (value) {
+              setState(() {
+                viewModel.useDayOfWeekYearly = false;
+                viewModel.byMonthDay = [dayOfMonth];
+                viewModel.byMonth = [viewModel.eventStartDate.month];
+                viewModel.weekDays = {};
+                viewModel.weekDayOccurrenceInMonth = null;
+                viewModel.byPosition = null;
+              });
+            },
+          ),
 
-            // Month, position and day of week option
-            RadioListTile<bool>(
-              title: Text(
-                'On the ${isLastOccurrence ? 'last' : ordinal(weekPosition)} ${weekdayToCode[dayOfWeek]} of $monthName',
-              ),
-              value: true,
+          // Month, position and day of week option
+          RadioListTile<bool>(
+            title: Text(
+              'On the ${isLastOccurrence ? 'last' : ordinal(weekPosition)} ${weekdayToCode[dayOfWeek]} of $monthName',
             ),
-          ],
-        ),
+            value: true,
+            groupValue: viewModel.useDayOfWeekYearly,
+            onChanged: (value) {
+              setState(() {
+                viewModel.useDayOfWeekYearly = true;
+                viewModel.byMonthDay = null;
+                viewModel.byMonth = [viewModel.eventStartDate.month];
+                viewModel.weekDays = {weekdayToCode[dayOfWeek]!};
+                viewModel.weekDayOccurrenceInMonth =
+                    isLastOccurrence ? -1 : weekPosition;
+                viewModel.byPosition = isLastOccurrence ? -1 : weekPosition;
+              });
+            },
+          ),
+        ],
       ),
     );
   }

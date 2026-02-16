@@ -300,6 +300,21 @@ class _EventEndOptionsState extends State<EventEndOptions> {
       child: RadioListTile<String>(
         title: child,
         value: eventEndTypes[index],
+        groupValue: widget.model.eventEndType,
+        onChanged: (value) {
+          setState(() {
+            widget.model.eventEndType = value!;
+            if (value == EventEndTypes.never) {
+              widget.model.count = null;
+              widget.model.recurrenceEndDate = null;
+            } else if (value == EventEndTypes.on) {
+              widget.model.recurrenceEndDate = DateTime.now();
+              widget.model.count = null;
+            } else if (value == EventEndTypes.after) {
+              widget.model.recurrenceEndDate = null;
+            }
+          });
+        },
       ),
     );
   }
