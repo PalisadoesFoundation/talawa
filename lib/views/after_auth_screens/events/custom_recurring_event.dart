@@ -194,116 +194,118 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
   /// **returns**:
   /// * `Widget`: Widget containing the custom weekday selector.
   Widget _buildEventEndOptions() {
-    return RadioGroup<String>(
-      groupValue: viewModel.eventEndType,
-      onChanged: (value) {
-        if (value == EventEndTypes.never) {
-          setState(() {
-            viewModel.count = null;
-            viewModel.recurrenceEndDate = null;
-            viewModel.eventEndType = EventEndTypes.never;
-            viewModel.never = true;
-          });
-        } else if (value == EventEndTypes.on) {
-          setState(() {
-            viewModel.eventEndType = EventEndTypes.on;
-            viewModel.count = null; // Clear count when using end date
-            viewModel.recurrenceEndDate ??=
-                DateTime.now().add(const Duration(days: 30));
-            viewModel.never = false; // Not a never-ending event
-          });
-        } else if (value == EventEndTypes.after) {
-          setState(() {
-            viewModel.eventEndType = EventEndTypes.after;
-            viewModel.recurrenceEndDate = null;
-            viewModel.count = viewModel.count ?? 10;
-            viewModel.never = false;
-          });
-        }
-      },
-      child: Column(
-        children: [
-          const RadioListTile<String>(
-            title: Text(EventEndTypes.never),
-            value: EventEndTypes.never,
-          ),
-          // "After" option has been moved below
-          RadioListTile<String>(
-            title: Row(
-              children: [
-                const Text(EventEndTypes.on),
-                const SizedBox(width: 8),
-                InkWell(
-                  onTap: viewModel.eventEndType == EventEndTypes.on
-                      ? () async {
-                          final date = await showDatePicker(
-                            context: context,
-                            initialDate: viewModel.recurrenceEndDate ??
-                                DateTime.now().add(const Duration(days: 30)),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime.now()
-                                .add(const Duration(days: 365 * 5)),
-                          );
-                          if (date != null) {
-                            setState(() {
-                              viewModel.recurrenceEndDate = date;
-                            });
-                          }
+    return Column(
+      children: [
+        RadioListTile<String>(
+          title: const Text(EventEndTypes.never),
+          value: EventEndTypes.never,
+          groupValue: viewModel.eventEndType,
+          onChanged: (value) {
+            setState(() {
+              viewModel.count = null;
+              viewModel.recurrenceEndDate = null;
+              viewModel.eventEndType = EventEndTypes.never;
+              viewModel.never = true;
+              viewModel.updateRecurrenceLabel();
+            });
+          },
+        ),
+        RadioListTile<String>(
+          title: Row(
+            children: [
+              const Text(EventEndTypes.on),
+              const SizedBox(width: 8),
+              InkWell(
+                onTap: viewModel.eventEndType == EventEndTypes.on
+                    ? () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: viewModel.recurrenceEndDate ??
+                              DateTime.now().add(const Duration(days: 30)),
+                          firstDate: DateTime.now(),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365 * 5)),
+                        );
+                        if (date != null) {
+                          setState(() {
+                            viewModel.recurrenceEndDate = date;
+                          });
                         }
-                      : null,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      viewModel.recurrenceEndDate != null
-                          ? '${viewModel.recurrenceEndDate!.year}-${viewModel.recurrenceEndDate!.month.toString().padLeft(2, '0')}-${viewModel.recurrenceEndDate!.day.toString().padLeft(2, '0')}'
-                          : 'Select Date',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            value: EventEndTypes.on,
-          ),
-          RadioListTile<String>(
-            title: Row(
-              children: [
-                const Text(EventEndTypes.after),
-                const SizedBox(width: 8),
-                SizedBox(
-                  width: 60,
-                  child: TextField(
-                    enabled: viewModel.eventEndType == EventEndTypes.after,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                    ),
-                    controller: TextEditingController(
-                      text: viewModel.count?.toString() ?? "10",
-                    ),
-                    onChanged: (value) {
-                      final int? parsed = int.tryParse(value);
-                      if (parsed != null && parsed > 0) {
-                        setState(() {
-                          viewModel.count = parsed;
-                        });
                       }
-                    },
+                    : null,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    viewModel.recurrenceEndDate != null
+                        ? '${viewModel.recurrenceEndDate!.year}-${viewModel.recurrenceEndDate!.month.toString().padLeft(2, '0')}-${viewModel.recurrenceEndDate!.day.toString().padLeft(2, '0')}'
+                        : 'Select Date',
                   ),
                 ),
-                const SizedBox(width: 8),
-                const Text('occurrences'),
-              ],
-            ),
-            value: EventEndTypes.after,
+              ),
+            ],
           ),
-        ],
-      ),
+          value: EventEndTypes.on,
+          groupValue: viewModel.eventEndType,
+          onChanged: (value) {
+            setState(() {
+              viewModel.eventEndType = EventEndTypes.on;
+              viewModel.count = null;
+              viewModel.recurrenceEndDate ??=
+                  DateTime.now().add(const Duration(days: 30));
+              viewModel.never = false;
+              viewModel.updateRecurrenceLabel();
+            });
+          },
+        ),
+        RadioListTile<String>(
+          title: Row(
+            children: [
+              const Text(EventEndTypes.after),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 60,
+                child: TextField(
+                  enabled: viewModel.eventEndType == EventEndTypes.after,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                  ),
+                  controller: TextEditingController(
+                    text: viewModel.count?.toString() ?? "10",
+                  ),
+                  onChanged: (value) {
+                    final int? parsed = int.tryParse(value);
+                    if (parsed != null && parsed > 0) {
+                      setState(() {
+                        viewModel.count = parsed;
+                      });
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Text('occurrences'),
+            ],
+          ),
+          value: EventEndTypes.after,
+          groupValue: viewModel.eventEndType,
+          onChanged: (value) {
+            setState(() {
+              viewModel.eventEndType = EventEndTypes.after;
+              viewModel.recurrenceEndDate = null;
+              viewModel.count = viewModel.count ?? 10;
+              viewModel.never = false;
+              viewModel.updateRecurrenceLabel();
+            });
+          },
+        ),
+      ],
     );
   }
 

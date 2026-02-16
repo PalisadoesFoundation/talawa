@@ -18,54 +18,45 @@ class ShowRecurrenceDialog extends StatefulWidget {
 }
 
 class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
-  final Map<String, VoidCallback> _handlers = {};
-
   @override
   Widget build(BuildContext context) {
-    _handlers.clear();
     return Dialog(
       child: SizedBox(
         height: SizeConfig.screenHeight! * 0.6,
-        child: RadioGroup<String>(
-          groupValue: widget.model.recurrenceLabel,
-          onChanged: (value) {
-            _handlers[value]?.call();
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              radioButtonFixText(
-                "Does not repeat",
-                (value) => updateModel(value!, false, null, null),
-              ),
-              radioButtonFixText(
-                "Every day",
-                (value) => updateModel(value!, true, Frequency.daily, null),
-              ),
-              radioButton(Frequency.weekly, 1, [
-                days[widget.model.eventStartDate.weekday - 1],
-              ]),
-              radioButton(Frequency.monthly, 1, null),
-              radioButton(Frequency.yearly, 1, null),
-              radioButtonFixText(
-                'Monday to Friday',
-                (value) => updateModel(value!, true, Frequency.weekly, {
-                  WeekDays.monday,
-                  WeekDays.tuesday,
-                  WeekDays.wednesday,
-                  WeekDays.thursday,
-                  WeekDays.friday,
-                }),
-              ),
-              radioButtonFixText("Custom...", (value) async {
-                widget.model.isRecurring = true;
-                await navigationService.pushScreen(
-                  Routes.customRecurrencePage,
-                  arguments: widget.model,
-                );
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            radioButtonFixText(
+              "Does not repeat",
+              (value) => updateModel(value!, false, null, null),
+            ),
+            radioButtonFixText(
+              "Every day",
+              (value) => updateModel(value!, true, Frequency.daily, null),
+            ),
+            radioButton(Frequency.weekly, 1, [
+              days[widget.model.eventStartDate.weekday - 1],
+            ]),
+            radioButton(Frequency.monthly, 1, null),
+            radioButton(Frequency.yearly, 1, null),
+            radioButtonFixText(
+              'Monday to Friday',
+              (value) => updateModel(value!, true, Frequency.weekly, {
+                WeekDays.monday,
+                WeekDays.tuesday,
+                WeekDays.wednesday,
+                WeekDays.thursday,
+                WeekDays.friday,
               }),
-            ],
-          ),
+            ),
+            radioButtonFixText("Custom...", (value) async {
+              widget.model.isRecurring = true;
+              await navigationService.pushScreen(
+                Routes.customRecurrencePage,
+                arguments: widget.model,
+              );
+            }),
+          ],
         ),
       ),
     );
@@ -89,53 +80,57 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
       final String daysText =
           weekDays.map((day) => day.substring(0, 3)).join(', ');
       final String text = 'Every $daysText';
-      _handlers[text] = () => updateModel(
-            text,
-            true,
-            frequency,
-            weekDays.toSet(),
-          );
       return RadioListTile<String>(
         title: Text(text),
         value: text,
+        groupValue: widget.model.recurrenceLabel,
+        onChanged: (value) => updateModel(
+          value!,
+          true,
+          frequency,
+          weekDays.toSet(),
+        ),
       );
     } else if (Frequency.monthly == frequency) {
       final String text =
           'Every month on day ${widget.model.eventStartDate.day}';
-      _handlers[text] = () => updateModel(
-            text,
-            true,
-            frequency,
-            null,
-          );
       return RadioListTile<String>(
         title: Text(text),
         value: text,
+        groupValue: widget.model.recurrenceLabel,
+        onChanged: (value) => updateModel(
+          value!,
+          true,
+          frequency,
+          null,
+        ),
       );
     } else if (Frequency.yearly == frequency) {
       final String text =
           'Every year on ${widget.model.eventStartDate.day} ${monthNames[widget.model.eventStartDate.month - 1]}';
-      _handlers[text] = () => updateModel(
-            text,
-            true,
-            frequency,
-            null,
-          );
       return RadioListTile<String>(
         title: Text(text),
         value: text,
+        groupValue: widget.model.recurrenceLabel,
+        onChanged: (value) => updateModel(
+          value!,
+          true,
+          frequency,
+          null,
+        ),
       );
     } else {
       final String text = 'Every $frequency';
-      _handlers[text] = () => updateModel(
-            text,
-            true,
-            frequency,
-            null,
-          );
       return RadioListTile<String>(
         title: Text(text),
         value: text,
+        groupValue: widget.model.recurrenceLabel,
+        onChanged: (value) => updateModel(
+          value!,
+          true,
+          frequency,
+          null,
+        ),
       );
     }
   }
@@ -152,10 +147,11 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
     String text,
     Function(String?)? onChanged,
   ) {
-    _handlers[text] = () => onChanged?.call(text);
     return RadioListTile<String>(
       title: Text(text),
       value: text,
+      groupValue: widget.model.recurrenceLabel,
+      onChanged: (value) => onChanged?.call(value),
     );
   }
 

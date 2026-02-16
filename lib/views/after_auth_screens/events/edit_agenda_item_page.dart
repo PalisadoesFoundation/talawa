@@ -103,7 +103,7 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                   children: [
                     DropdownButtonFormField<AgendaCategory>(
                       key: const Key('edit_agenda_item_category_dropdown'),
-                      initialValue: model.selectedCategories.isNotEmpty
+                      value: model.selectedCategories.isNotEmpty
                           ? model.selectedCategories.first
                           : null,
                       onChanged: (AgendaCategory? category) {
