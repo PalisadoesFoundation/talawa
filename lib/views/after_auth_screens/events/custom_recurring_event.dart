@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/services/size_config.dart';
@@ -251,7 +252,8 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
                   ),
                   child: Text(
                     viewModel.recurrenceEndDate != null
-                        ? '${viewModel.recurrenceEndDate!.year}-${viewModel.recurrenceEndDate!.month.toString().padLeft(2, '0')}-${viewModel.recurrenceEndDate!.day.toString().padLeft(2, '0')}'
+                        ? DateFormat("MMM d, yyyy")
+                            .format(viewModel.recurrenceEndDate!)
                         : 'Select Date',
                   ),
                 ),

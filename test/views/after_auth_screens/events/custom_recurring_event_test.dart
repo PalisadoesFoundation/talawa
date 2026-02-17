@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/constants/recurrence_values.dart';
@@ -826,8 +827,7 @@ void main() {
       // Verify that the container shows a formatted date (YYYY-MM-DD format)
       // The date should be auto-set to 30 days from now
       final expectedDate = model.recurrenceEndDate!;
-      final formattedDate =
-          '${expectedDate.year}-${expectedDate.month.toString().padLeft(2, '0')}-${expectedDate.day.toString().padLeft(2, '0')}';
+      final formattedDate = DateFormat("MMM d, yyyy").format(expectedDate);
       expect(find.text(formattedDate), findsOne);
     });
 
@@ -1053,8 +1053,9 @@ void main() {
       expect(model.recurrenceEndDate, isNotNull);
       final expectedDate = model.recurrenceEndDate;
 
-      // The date is formatted as yyyy-MM-dd in the Container child Text widget
-      final dateFinder = find.textContaining(RegExp(r'\d{4}-\d{2}-\d{2}'));
+      // The date is formatted as MMM d, yyyy in the Container child Text widget
+      final dateFinder =
+          find.textContaining(RegExp(r'[A-Za-z]{3} \d{1,2}, \d{4}'));
       expect(dateFinder, findsOneWidget);
 
       // Tap the date text to trigger the InkWell onTap -> showDatePicker
