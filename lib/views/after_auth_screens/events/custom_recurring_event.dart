@@ -202,10 +202,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           groupValue: viewModel.eventEndType,
           onChanged: (value) {
             setState(() {
-              viewModel.count = null;
-              viewModel.recurrenceEndDate = null;
-              viewModel.eventEndType = EventEndTypes.never;
-              viewModel.never = true;
+              viewModel.setEventEndType(EventEndTypes.never);
               viewModel.updateRecurrenceLabel();
             });
           },
@@ -253,11 +250,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           groupValue: viewModel.eventEndType,
           onChanged: (value) {
             setState(() {
-              viewModel.eventEndType = EventEndTypes.on;
-              viewModel.count = null;
-              viewModel.recurrenceEndDate ??= DateTime.now()
-                  .add(const Duration(days: kDefaultRecurrenceEndDays));
-              viewModel.never = false;
+              viewModel.setEventEndType(EventEndTypes.on);
               viewModel.updateRecurrenceLabel();
             });
           },
@@ -297,10 +290,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           groupValue: viewModel.eventEndType,
           onChanged: (value) {
             setState(() {
-              viewModel.eventEndType = EventEndTypes.after;
-              viewModel.recurrenceEndDate = null;
-              viewModel.count = viewModel.count ?? 10;
-              viewModel.never = false;
+              viewModel.setEventEndType(EventEndTypes.after);
               viewModel.updateRecurrenceLabel();
             });
           },
