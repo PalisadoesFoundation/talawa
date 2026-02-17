@@ -132,7 +132,7 @@ abstract class BaseEventViewModel extends BaseModel {
   /// Sets the event end type and updates dependent fields accordingly.
   ///
   /// **params**:
-  ///   * `type`: The event end type to set.
+  /// * `type`: The event end type to set.
   ///
   /// **returns**:
   ///   None

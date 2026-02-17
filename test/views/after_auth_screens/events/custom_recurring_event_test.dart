@@ -63,14 +63,6 @@ void main() {
     getAndRegisterNavigationService();
   });
 
-  // setUp(() {
-  //   registerServices();
-  // });
-
-  // tearDown(() {
-  //   unregisterServices();
-  // });
-
   group("RecurrenceUtils Tests", () {
     test("getRecurrenceRuleText for all frequency types with intervals", () {
       // Daily

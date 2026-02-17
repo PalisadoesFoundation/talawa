@@ -212,6 +212,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                       final pickedDate = await customDatePicker(
                         initialDate: DateTime.now(),
                       );
+                      if (!mounted) return;
                       setState(() {
                         widget.model.recurrenceEndDate = pickedDate;
                         widget.model.eventEndType = EventEndTypes.on;
@@ -285,7 +286,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
   /// * `key`: Uniquely identifies the radioButton.
   /// * `child`: RadioListTile widget.
   /// * `index`: index of [eventEndType].
-  /// * `inputAction`: Call back to be executed when clicked on radio button.
+
   ///
   /// **returns**:
   /// * `Theme`: custom theme.
