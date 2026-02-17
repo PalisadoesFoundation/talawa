@@ -313,6 +313,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
               widget.model.count = null;
             } else if (value == EventEndTypes.after) {
               widget.model.recurrenceEndDate = null;
+              widget.model.count ??= 10;
             }
           });
         },

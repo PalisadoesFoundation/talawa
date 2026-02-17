@@ -1059,6 +1059,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(model.eventEndType, EventEndTypes.on);
       expect(model.recurrenceEndDate, isNotNull);
+      final expectedDate = model.recurrenceEndDate;
 
       // The date is formatted as yyyy-MM-dd in the Container child Text widget
       final dateFinder = find.textContaining(RegExp(r'\d{4}-\d{2}-\d{2}'));
@@ -1074,8 +1075,10 @@ void main() {
       await tester.tap(okButton);
       await tester.pumpAndSettle();
 
-      // After tapping OK, the recurrenceEndDate should be set
-      expect(model.recurrenceEndDate, isNotNull);
+      // After tapping OK, the recurrenceEndDate should be equal to the initial date (ignoring time)
+      expect(model.recurrenceEndDate?.year, expectedDate?.year);
+      expect(model.recurrenceEndDate?.month, expectedDate?.month);
+      expect(model.recurrenceEndDate?.day, expectedDate?.day);
     });
   });
 }
