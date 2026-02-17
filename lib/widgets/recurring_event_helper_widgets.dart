@@ -315,6 +315,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
               widget.model.recurrenceEndDate = null;
               widget.model.count ??= 10;
             }
+            widget.model.updateRecurrenceLabel();
           });
         },
       ),
