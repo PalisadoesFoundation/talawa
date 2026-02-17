@@ -183,7 +183,9 @@ class _SwitchOrganizationSection extends StatelessWidget {
                     isImageNull: model.switchAbleOrg[index].image == null,
                     imageUrl: model.switchAbleOrg[index].image,
                     firstAlphabet:
-                        model.switchAbleOrg[index].name?.substring(0, 1),
+                        (model.switchAbleOrg[index].name?.isNotEmpty ?? false)
+                            ? model.switchAbleOrg[index].name!.substring(0, 1)
+                            : null,
                     fontSize: 18,
                   ),
                   title: Text(
