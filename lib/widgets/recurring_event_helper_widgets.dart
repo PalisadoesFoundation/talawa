@@ -256,7 +256,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                       border: InputBorder.none,
-                      hintText: '1',
+                      hintText: '10',
                     ),
                     enabled: widget.model.eventEndType == EventEndTypes.after,
                     onChanged: (value) {
