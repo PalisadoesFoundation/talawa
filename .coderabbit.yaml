@@ -11,11 +11,11 @@ issue_enrichment:
 reviews:
   profile: "assertive"
   poem: false
-  request_changes_workflow: true
+  request_changes_workflow: false
   high_level_summary: true
+  assess_linked_issues: true
   review_status: true
   review_details: false
-  assess_linked_issues: true
   auto_apply_labels: false
   suggested_labels: false
   collapse_walkthrough: false
@@ -23,7 +23,6 @@ reviews:
     enabled: true
     drafts: false
     base_branches:
-      - develop
       - develop
       - main
   path_filters:
