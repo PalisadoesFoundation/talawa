@@ -151,7 +151,7 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
       title: Text(text),
       value: text,
       groupValue: widget.model.recurrenceLabel,
-      onChanged: (value) => onChanged?.call(value),
+      onChanged: onChanged,
     );
   }
 

@@ -255,8 +255,8 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
             setState(() {
               viewModel.eventEndType = EventEndTypes.on;
               viewModel.count = null;
-              viewModel.recurrenceEndDate ??=
-                  DateTime.now().add(const Duration(days: 30));
+              viewModel.recurrenceEndDate ??= DateTime.now()
+                  .add(const Duration(days: kDefaultRecurrenceEndDays));
               viewModel.never = false;
               viewModel.updateRecurrenceLabel();
             });

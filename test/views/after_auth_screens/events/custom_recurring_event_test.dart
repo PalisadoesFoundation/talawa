@@ -1013,5 +1013,69 @@ void main() {
         expect(find.byType(FilterChip), findsAtLeast(7));
       }
     });
+
+    testWidgets('Switching from On to Never triggers Never onChanged callback',
+        (tester) async {
+      final model = CreateEventViewModel();
+      await tester.pumpWidget(
+        createCustomRecurrenceScreen(
+          theme: TalawaTheme.darkTheme,
+          model: model,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // First select 'On' to change away from default 'Never'
+      await tester.tap(find.text('On'));
+      await tester.pumpAndSettle();
+      expect(model.eventEndType, EventEndTypes.on);
+      expect(model.never, false);
+      expect(model.recurrenceEndDate, isNotNull);
+
+      // Now switch back to 'Never' - this triggers the onChanged callback
+      await tester.tap(find.text('Never'));
+      await tester.pumpAndSettle();
+
+      // Verify the Never onChanged callback executed
+      expect(model.eventEndType, EventEndTypes.never);
+      expect(model.never, true);
+      expect(model.recurrenceEndDate, isNull);
+      expect(model.count, isNull);
+    });
+
+    testWidgets('Tapping date container when On is selected opens date picker',
+        (tester) async {
+      final model = CreateEventViewModel();
+      await tester.pumpWidget(
+        createCustomRecurrenceScreen(
+          theme: TalawaTheme.darkTheme,
+          model: model,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Select 'On' to enable the date picker InkWell and set recurrenceEndDate
+      await tester.tap(find.text('On'));
+      await tester.pumpAndSettle();
+      expect(model.eventEndType, EventEndTypes.on);
+      expect(model.recurrenceEndDate, isNotNull);
+
+      // The date is formatted as yyyy-MM-dd in the Container child Text widget
+      final dateFinder = find.textContaining(RegExp(r'\d{4}-\d{2}-\d{2}'));
+      expect(dateFinder, findsOneWidget);
+
+      // Tap the date text to trigger the InkWell onTap -> showDatePicker
+      await tester.tap(dateFinder);
+      await tester.pumpAndSettle();
+
+      // Date picker dialog should be open - tap OK to select the initial date
+      final okButton = find.text('OK');
+      expect(okButton, findsOneWidget);
+      await tester.tap(okButton);
+      await tester.pumpAndSettle();
+
+      // After tapping OK, the recurrenceEndDate should be set
+      expect(model.recurrenceEndDate, isNotNull);
+    });
   });
 }

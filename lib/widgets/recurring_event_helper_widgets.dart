@@ -308,7 +308,8 @@ class _EventEndOptionsState extends State<EventEndOptions> {
               widget.model.count = null;
               widget.model.recurrenceEndDate = null;
             } else if (value == EventEndTypes.on) {
-              widget.model.recurrenceEndDate = DateTime.now();
+              widget.model.recurrenceEndDate = DateTime.now()
+                  .add(const Duration(days: kDefaultRecurrenceEndDays));
               widget.model.count = null;
             } else if (value == EventEndTypes.after) {
               widget.model.recurrenceEndDate = null;
