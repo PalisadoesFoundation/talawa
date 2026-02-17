@@ -193,13 +193,6 @@ class _EventEndOptionsState extends State<EventEndOptions> {
           key: const Key('neverRadioButton'),
           child: const Text(EventEndTypes.never),
           index: 0,
-          inputAction: () {
-            setState(() {
-              widget.model.count = null;
-              widget.model.recurrenceEndDate = null;
-              widget.model.eventEndType = EventEndTypes.never;
-            });
-          },
         ),
         radioButton(
           key: const Key('onRadioButton'),
@@ -219,6 +212,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                       final pickedDate = await customDatePicker(
                         initialDate: DateTime.now(),
                       );
+                      if (!mounted) return;
                       setState(() {
                         widget.model.recurrenceEndDate = pickedDate;
                         widget.model.eventEndType = EventEndTypes.on;
@@ -242,13 +236,6 @@ class _EventEndOptionsState extends State<EventEndOptions> {
             ],
           ),
           index: 1,
-          inputAction: () {
-            setState(() {
-              widget.model.recurrenceEndDate = DateTime.now();
-              widget.model.eventEndType = EventEndTypes.on;
-              widget.model.count = null;
-            });
-          },
         ),
         radioButton(
           key: const Key('afterRadioButton'),
@@ -270,7 +257,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                       border: InputBorder.none,
-                      hintText: '1',
+                      hintText: '10',
                     ),
                     enabled: widget.model.eventEndType == EventEndTypes.after,
                     onChanged: (value) {
@@ -288,12 +275,6 @@ class _EventEndOptionsState extends State<EventEndOptions> {
             ],
           ),
           index: 2,
-          inputAction: () {
-            setState(() {
-              widget.model.recurrenceEndDate = null;
-              widget.model.eventEndType = EventEndTypes.after;
-            });
-          },
         ),
       ],
     );
@@ -305,7 +286,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
   /// * `key`: Uniquely identifies the radioButton.
   /// * `child`: RadioListTile widget.
   /// * `index`: index of [eventEndType].
-  /// * `inputAction`: Call back to be executed when clicked on radio button.
+
   ///
   /// **returns**:
   /// * `Theme`: custom theme.
@@ -313,7 +294,6 @@ class _EventEndOptionsState extends State<EventEndOptions> {
     required Key key,
     required Widget child,
     required int index,
-    Function()? inputAction,
   }) {
     return Theme(
       key: key,
@@ -324,8 +304,8 @@ class _EventEndOptionsState extends State<EventEndOptions> {
         groupValue: widget.model.eventEndType,
         onChanged: (value) {
           setState(() {
-            widget.model.eventEndType = value!;
-            inputAction?.call();
+            widget.model.setEventEndType(value!);
+            widget.model.updateRecurrenceLabel();
           });
         },
       ),

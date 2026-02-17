@@ -112,3 +112,6 @@ const List<String> monthNames = [
   'November',
   'December',
 ];
+
+/// Default number of days for recurrence end date.
+const int kDefaultRecurrenceEndDays = 30;

@@ -129,6 +129,31 @@ abstract class BaseEventViewModel extends BaseModel {
   /// Event end type.
   String eventEndType = EventEndTypes.never;
 
+  /// Sets the event end type and updates dependent fields accordingly.
+  ///
+  /// **params**:
+  /// * `type`: The event end type to set.
+  ///
+  /// **returns**:
+  ///   None
+  void setEventEndType(String type) {
+    eventEndType = type;
+    if (type == EventEndTypes.never) {
+      count = null;
+      recurrenceEndDate = null;
+      never = true;
+    } else if (type == EventEndTypes.on) {
+      recurrenceEndDate ??=
+          DateTime.now().add(const Duration(days: kDefaultRecurrenceEndDays));
+      count = null;
+      never = false;
+    } else if (type == EventEndTypes.after) {
+      recurrenceEndDate = null;
+      count ??= 10;
+      never = false;
+    }
+  }
+
   /// Whether to use day of week for monthly recurrence (vs. day of month).
   bool useDayOfWeekMonthly = false;
 
