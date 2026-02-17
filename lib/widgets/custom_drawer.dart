@@ -187,7 +187,9 @@ class _SwitchOrganizationSection extends StatelessWidget {
                     fontSize: 18,
                   ),
                   title: Text(
-                     model.switchAbleOrg[index].name ?? AppLocalizations.of(context)!.strictTranslate("Unnamed Organization"),
+                    model.switchAbleOrg[index].name ??
+                        AppLocalizations.of(context)!
+                            .strictTranslate("Unnamed Organization"),
                   ),
                 );
               },
