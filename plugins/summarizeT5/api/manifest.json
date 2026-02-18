@@ -1,0 +1,38 @@
+{
+  "name": "SummarizeT5 AI Summarizer",
+  "pluginId": "summarize_t5",
+  "version": "1.0.0",
+  "description": "API endpoints for SummarizeT5 AI summarization service",
+  "author": "Palisadoes Foundation",
+  "main": "index.ts",
+  "docker": {
+    "enabled": true,
+    "composeFile": "container/docker-compose.yml",
+    "service": "t5-summarizer",
+    "buildOnInstall": true,
+    "upOnActivate": true,
+    "downOnDeactivate": true,
+    "removeOnUninstall": true,
+    "env": {
+      "T5_SERVICE_URL": "http://localhost:8000/summarize"
+    }
+  },
+  "extensionPoints": {
+    "graphql": [
+      {
+        "type": "query",
+        "name": "summarizeT5Queries",
+        "file": "graphql/queries.ts",
+        "builderDefinition": "registerSummarizeQueries",
+        "description": "Register all SummarizeT5 query fields"
+      },
+      {
+        "type": "mutation",
+        "name": "summarizeT5Mutations",
+        "file": "graphql/mutations.ts",
+        "builderDefinition": "registerSummarizeMutations",
+        "description": "Register all SummarizeT5 mutation fields"
+      }
+    ]
+  }
+}

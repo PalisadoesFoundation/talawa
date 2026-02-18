@@ -1,0 +1,50 @@
+{
+  "name": "Plugin Map",
+  "pluginId": "plugin_map",
+  "version": "1.0.0",
+  "description": "A plugin map that provides an overview of extension points and logs requests from different admin and user contexts (admin global, admin org, user global, user org).",
+  "author": "Palisadoes Foundation",
+  "main": "index.ts",
+  "extensionPoints": {
+    "graphql": [
+      {
+        "type": "query",
+        "name": "pluginMapQueries",
+        "file": "graphql/queries.ts",
+        "builderDefinition": "registerPluginMapQueries",
+        "description": "Register all Plugin Map query fields"
+      },
+      {
+        "type": "mutation",
+        "name": "pluginMapMutations",
+        "file": "graphql/mutations.ts",
+        "builderDefinition": "registerPluginMapMutations",
+        "description": "Register all Plugin Map mutation fields"
+      }
+    ],
+    "database": [
+      {
+        "type": "table",
+        "name": "pollsTable",
+        "file": "database/tables.ts",
+        "description": "Plugin map polls and requests"
+      }
+    ],
+    "hooks": [
+      {
+        "name": "pluginMapActivatedHook",
+        "type": "post",
+        "event": "plugin:activated",
+        "handler": "onPluginActivated",
+        "description": "Handle plugin activation events"
+      },
+      {
+        "name": "pluginMapDeactivatedHook",
+        "type": "post",
+        "event": "plugin:deactivated",
+        "handler": "onPluginDeactivated",
+        "description": "Handle plugin deactivation events"
+      }
+    ]
+  }
+}

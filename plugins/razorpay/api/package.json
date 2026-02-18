@@ -1,0 +1,44 @@
+{
+  "name": "razorpay-plugin",
+  "version": "1.0.0",
+  "description": "A payment gateway plugin that integrates Razorpay for donations and payments within organizations",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch index.ts",
+    "test": "vitest",
+    "lint": "biome check --error-on-warnings",
+    "lint:fix": "biome check --error-on-warnings --write",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "razorpay",
+    "payment",
+    "gateway",
+    "donations",
+    "talawa",
+    "plugin"
+  ],
+  "author": "Palisadoes Foundation",
+  "license": "GNU General Public License v3.0",
+  "packageManager": "pnpm@10.4.1",
+  "dependencies": {
+    "razorpay": "^2.9.2",
+    "drizzle-orm": "^0.44.1",
+    "zod": "^3.24.2",
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.17",
+    "typescript": "^5.7.3",
+    "tsx": "^4.20.3",
+    "vitest": "^3.1.1",
+    "@biomejs/biome": "^1.9.4"
+  },
+  "peerDependencies": {
+    "@pothos/core": "^4.5.0",
+    "fastify": "^5.4.0",
+    "graphql": "^16.10.0"
+  }
+}

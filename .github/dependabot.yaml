@@ -2,18 +2,18 @@
 version: 2
 updates:
   # Define the target package ecosystem
-  - package-ecosystem: "pub"
+  - package-ecosystem: 'npm'
     # Specify the root directory
-    directory: "/"
+    directory: '/'
     # Schedule automated updates
     schedule:
-      interval: "cron"
-      cronjob: "0 0 1 * *"
+      interval: 'cron'
+      cronjob: '0 0 1 * *'
     # Labels to apply to Dependabot PRs
     labels:
-      - "dependencies"
+      - 'dependencies'
     # Specify the target branch for PRs
-    target-branch: "develop"
+    target-branch: 'develop'
     # Customize commit message prefix
     commit-message:
-      prefix: "chore(deps):"
+      prefix: 'chore(deps):'

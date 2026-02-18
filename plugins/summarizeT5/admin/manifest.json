@@ -1,0 +1,25 @@
+{
+  "name": "SummarizeT5 AI Summarizer",
+  "pluginId": "summarize_t5",
+  "version": "1.0.0",
+  "description": "AI-powered text summarization plugin using T5 model. Provides summarize buttons for posts in both organization and user portal contexts.",
+  "author": "Palisadoes Foundation",
+  "main": "index.tsx",
+  "icon": "/src/plugin/available/summarize_t5/assets/summarize-icon.svg",
+  "extensionPoints": {
+    "G3": [
+      {
+        "name": "summarizeT5ButtonG3Widget",
+        "injector": "SummarizeButton",
+        "description": "AI Summarize button for organization posts"
+      }
+    ],
+    "G4": [
+      {
+        "name": "summarizeT5ButtonG4Widget",
+        "injector": "SummarizeButton",
+        "description": "AI Summarize button for user portal posts"
+      }
+    ]
+  }
+}

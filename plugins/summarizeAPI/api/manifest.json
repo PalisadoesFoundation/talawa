@@ -1,0 +1,34 @@
+{
+  "name": "SummarizeAPI AI Summarizer",
+  "pluginId": "summarize_api",
+  "version": "1.0.0",
+  "description": "API endpoints for SummarizeAPI summarization service using external API",
+  "author": "Palisadoes Foundation",
+  "main": "index.ts",
+  "extensionPoints": {
+    "graphql": [
+      {
+        "type": "query",
+        "name": "summarizeAPIQueries",
+        "file": "graphql/queries.ts",
+        "builderDefinition": "registerSummarizeAPIQueries",
+        "description": "Register all SummarizeAPI query fields"
+      },
+      {
+        "type": "mutation",
+        "name": "summarizeAPIMutations",
+        "file": "graphql/mutations.ts",
+        "builderDefinition": "registerSummarizeAPIMutations",
+        "description": "Register all SummarizeAPI mutation fields"
+      }
+    ],
+    "database": [
+      {
+        "type": "table",
+        "name": "configTable",
+        "file": "database/tables.ts",
+        "description": "SummarizeAPI configuration settings"
+      }
+    ]
+  }
+}

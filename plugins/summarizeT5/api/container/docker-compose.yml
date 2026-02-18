@@ -1,0 +1,41 @@
+services:
+  t5-summarizer:
+    build: .
+    container_name: t5-summarizer
+    ports:
+      - '8000:8000'
+    volumes:
+      - cache:/app/cache
+      - input:/app/input
+      - output:/app/output
+    environment:
+      - PYTHONPATH=/app
+      - TRANSFORMERS_CACHE=/app/cache
+    command: python api_server.py
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+
+  # Alternative service for command-line usage
+  t5-cli:
+    build: .
+    container_name: t5-cli
+    volumes:
+      - cache:/app/cache
+      - input:/app/input
+      - output:/app/output
+    environment:
+      - PYTHONPATH=/app
+      - TRANSFORMERS_CACHE=/app/cache
+    command: python summarize.py --help
+    profiles:
+      - cli
+
+volumes:
+  cache:
+  input:
+  output:

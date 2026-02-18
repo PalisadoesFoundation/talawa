@@ -1,16 +1,18 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
-# More information at this link: https://docs.coderabbit.ai/configure-coderabbit
 
-language: "en-US"
+language: 'en-US'
 early_access: false
 chat:
   auto_reply: true
 reviews:
-  profile: "assertive"
+  profile: 'assertive'
   poem: false
   request_changes_workflow: true
   high_level_summary: true
   review_status: true
+  review_details: false
+  auto_apply_labels: false
+  suggested_labels: false
   collapse_walkthrough: false
   auto_review:
     enabled: true
@@ -19,8 +21,8 @@ reviews:
       - develop
       - develop
       - main
-  path_filters: 
-    - '!**/docs/docs/**'
-    - "!*.html"
-    - "!*.md"
-    - "!*.svg"
+  path_filters:
+    - '!**/docs/**'
+    - '!*.html'
+    - '!*.md'
+    - '!*.svg'

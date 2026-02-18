@@ -6,41 +6,4 @@ on:
 
 jobs:
   Check-CodeRabbit-Approval:
-    name: Check CodeRabbit Approval
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-    steps:
-      - name: Check CodeRabbit approval using GitHub Script
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // List all reviews for the PR
-            const { data: reviews } = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number
-            });
-
-            // Filter reviews that have a user login containing "coderabbit" (case-insensitive)
-            const codeRabbitReviews = reviews.filter(review => 
-              review.user.login.toLowerCase().includes('coderabbit') || review.user.login.toLowerCase().includes('coderabbitai')
-            );
-
-            // Fail if no CodeRabbit reviews are found
-            if (codeRabbitReviews.length === 0) {
-              core.setFailed('ERROR: CodeRabbit has not reviewed this PR.');
-              return;
-            }
-
-            // Sort reviews by submitted_at date in descending order
-            codeRabbitReviews.sort((a, b) => new Date(b.submitted_at) - new Date(a.submitted_at));
-            const latestReview = codeRabbitReviews[0];
-
-            // Fail if the latest review from CodeRabbit is not "APPROVED"
-            if (latestReview.state !== 'APPROVED') {
-              core.setFailed('ERROR: CodeRabbit approval is required before merging this PR.');
-            } else {
-              console.log('Success: CodeRabbit has approved this PR.');
-            }
+    uses: PalisadoesFoundation/.github/.github/workflows/pull-request-review.yml@main

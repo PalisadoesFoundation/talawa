@@ -8,11 +8,9 @@ function HeaderHero() {
         Talawa
       </h1>
       <h2 className="tagline" aria-describedby="main-title">
-        Mobile Docs
+        Plugin Docs
       </h2>
-      <p className="description">
-      A modular open source project to manage group activities of both non-profit organizations and businesses
-      </p>
+      <p className="description">Plugins for the Talawa Admin portal</p>
       <div className="buttons" role="navigation" aria-label="Quick links">
         <HomeCallToAction />
       </div>

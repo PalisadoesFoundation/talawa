@@ -3,7 +3,7 @@
 #
 # NOTE!
 #
-# Please read the README.md file in this directory that defines what should 
+# Please read the README.md file in this directory that defines what should
 # be placed in this file
 #
 ##############################################################################
@@ -17,30 +17,34 @@ on:
       - 'develop'
     paths:
       - docs/**
-      
+
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
-  
+
 jobs:
   Deploy-Docusaurus:
-    name: Deploy https://docs-mobile.talawa.io website
+    name: Deploy https://docs-plugin.talawa.io website
     runs-on: ubuntu-latest
     # Run only if the develop branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' }}
     environment:
-      # This "name" has to be the repos' branch that contains 
+      # This "name" has to be the repos' branch that contains
       # the current active website. There must be an entry for
       # the same branch in the PalisadoesFoundation's
       # "Code and automation > Environments > gigithub-pages"
-      # menu. The branch "name" must match the branch in the 
+      # menu. The branch "name" must match the branch in the
       # "on.push.branches" section at the top of this file
       name: develop
-      url: https://docs-mobile.talawa.io
+      url: https://docs-plugin.talawa.io
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/cache@v3
         with:
-          node-version: '20.x' 
+          path: docs/.docusaurus
+          key: docusaurus-${{ hashFiles('docs/**') }}
+          restore-keys: |
+            docusaurus-
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_GITHUB_PAGES }}
@@ -52,6 +56,11 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "gh-actions"
-          yarn install --frozen-lockfile
-          yarn deploy
- 
+          if ! pnpm install --frozen-lockfile; then
+            echo "Failed to install dependencies"
+            exit 1
+          fi
+          if ! pnpm run deploy; then
+            echo "Deployment failed"
+            exit 1
+          fi

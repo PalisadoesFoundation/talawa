@@ -1,0 +1,6 @@
+node_modules
+# Contains the PDF file of the Tag as JSON string, thus does not need to be formatted
+pnpm-lock.yaml
+docs/pnpm-lock.yaml
+plugins/Razorpay/api/pnpm-lock.yaml
+src/components/CheckIn/tagTemplate.ts

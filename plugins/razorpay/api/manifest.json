@@ -1,0 +1,77 @@
+{
+  "name": "Razorpay Payment Gateway",
+  "pluginId": "razorpay",
+  "version": "1.0.0",
+  "description": "A payment gateway plugin that integrates Razorpay for donations and payments within organizations. Provides payment processing, transaction management, and webhook handling.",
+  "author": "Palisadoes Foundation",
+  "main": "index.ts",
+  "extensionPoints": {
+    "graphql": [
+      {
+        "type": "query",
+        "name": "razorpayQueries",
+        "file": "graphql/queries.ts",
+        "builderDefinition": "registerRazorpayQueries",
+        "description": "Register all Razorpay query fields"
+      },
+      {
+        "type": "mutation",
+        "name": "razorpayMutations",
+        "file": "graphql/mutations.ts",
+        "builderDefinition": "registerRazorpayMutations",
+        "description": "Register all Razorpay mutation fields"
+      }
+    ],
+    "database": [
+      {
+        "type": "table",
+        "name": "configTable",
+        "file": "database/tables.ts",
+        "description": "Razorpay configuration settings"
+      },
+      {
+        "type": "table",
+        "name": "transactionsTable",
+        "file": "database/tables.ts",
+        "description": "Payment transactions"
+      },
+      {
+        "type": "table",
+        "name": "ordersTable",
+        "file": "database/tables.ts",
+        "description": "Payment orders"
+      }
+    ],
+    "hooks": [
+      {
+        "name": "razorpayPaymentCreatedHook",
+        "type": "post",
+        "event": "payment:created",
+        "handler": "onPaymentCreated",
+        "description": "Handle payment creation events"
+      },
+      {
+        "name": "razorpayPaymentCompletedHook",
+        "type": "post",
+        "event": "payment:completed",
+        "handler": "onPaymentCompleted",
+        "description": "Handle payment completion events"
+      },
+      {
+        "name": "razorpayPaymentFailedHook",
+        "type": "post",
+        "event": "payment:failed",
+        "handler": "onPaymentFailed",
+        "description": "Handle payment failure events"
+      }
+    ],
+    "webhooks": [
+      {
+        "name": "razorpayWebhook",
+        "path": "/",
+        "handler": "handleRazorpayWebhook",
+        "method": "POST"
+      }
+    ]
+  }
+}

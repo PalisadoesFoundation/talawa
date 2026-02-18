@@ -1,0 +1,110 @@
+{
+  "name": "Plugin Map",
+  "pluginId": "plugin_map",
+  "version": "1.0.0",
+  "description": "A developer tool plugin that serves as a map to all extension points available in the Talawa Admin Panel, helping developers understand where they can inject their own components and functionality.",
+  "author": "Palisadoes Foundation",
+  "main": "index.tsx",
+  "icon": "/src/assets/svgs/plugins.svg",
+  "extensionPoints": {
+    "RA1": [
+      {
+        "name": "extensionPointsDashboardRoute",
+        "path": "/admin/extension-points/dashboard",
+        "component": "ExtensionPointsDashboard"
+      }
+    ],
+    "RA2": [
+      {
+        "name": "extensionPointsOrgRoute",
+        "path": "/admin/extension-points/:orgId/organization",
+        "component": "ExtensionPointsOrganization"
+      }
+    ],
+    "RU1": [
+      {
+        "name": "extensionPointsUserRoute",
+        "path": "/user/extension-points/:orgId/user",
+        "component": "ExtensionPointsUser"
+      }
+    ],
+    "RU2": [
+      {
+        "name": "extensionPointsGlobalRoute",
+        "path": "/user/extension-points/global",
+        "component": "ExtensionPointsGlobal"
+      }
+    ],
+    "DA1": [
+      {
+        "name": "extensionPointsDashboardMenu",
+        "label": "Extension Points Map",
+        "icon": "/src/assets/svgs/plugins.svg",
+        "path": "/admin/extension-points/dashboard",
+        "order": 1
+      }
+    ],
+    "DA2": [
+      {
+        "name": "extensionPointsOrgMenu",
+        "label": "Extension Points Map",
+        "icon": "/src/assets/svgs/plugins.svg",
+        "path": "/admin/extension-points/:orgId/organization",
+        "order": 1
+      }
+    ],
+    "DU1": [
+      {
+        "name": "extensionPointsUserMenu",
+        "label": "Extension Points Map",
+        "icon": "/src/assets/svgs/plugins.svg",
+        "path": "/user/extension-points/:orgId/user",
+        "order": 1
+      }
+    ],
+    "DU2": [
+      {
+        "name": "extensionPointsGlobalMenu",
+        "label": "Extension Points Map",
+        "icon": "/src/assets/svgs/plugins.svg",
+        "path": "/user/extension-points/global",
+        "order": 1
+      }
+    ],
+    "G1": [
+      {
+        "name": "mapIconG1Widget",
+        "injector": "MapIconInjector",
+        "description": "Map icon indicator showing G1 extension point availability"
+      }
+    ],
+    "G2": [
+      {
+        "name": "mapIconG2Widget",
+        "injector": "MapIconInjector",
+        "description": "Map icon indicator showing G2 extension point availability"
+      }
+    ],
+    "G3": [
+      {
+        "name": "mapIconG3Widget",
+        "injector": "MapIconInjector",
+        "description": "Map icon indicator showing G3 extension point availability"
+      }
+    ],
+    "G4": [
+      {
+        "name": "mapIconG4Widget",
+        "injector": "MapIconInjector",
+        "description": "Map icon indicator showing G4 extension point availability"
+      }
+    ],
+    "G5": [
+      {
+        "name": "mapIconG5Widget",
+        "injector": "MapIconInjector",
+        "description": "Map icon indicator showing G5 extension point availability"
+      }
+    ]
+  }
+}

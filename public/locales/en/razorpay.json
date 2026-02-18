@@ -1,0 +1,192 @@
+{
+  "donation": {
+    "title": "Make a Donation",
+    "subtitle": "Support {{orgName}} with your contribution",
+    "form": {
+      "amountLabel": "Donation Amount",
+      "amountPlaceholder": "0.00",
+      "currencyLabel": "Currency",
+      "quickAmounts": "Quick Amounts",
+      "donorInfoTitle": "Your Information",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "fullNameRequired": "Full Name *",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "phone": "Phone Number",
+      "message": "Message (Optional)",
+      "phonePlaceholder": "Enter your phone number",
+      "messagePlaceholder": "Add a personal message with your donation",
+      "messageLabel": "Message",
+      "submit": "Donate Now",
+      "processing": "Processing...",
+      "emailRequired": "Email Address *",
+      "phoneLabel": "Phone Number",
+      "phoneOptional": "Phone Number (Optional)",
+      "descriptionLabel": "Message",
+      "descriptionPlaceholder": "Add a message (optional)",
+      "descriptionOptional": "Message (Optional)",
+      "submitButton": "Donate {{amount}}",
+      "submitButtonDefault": "Donate"
+    },
+    "validation": {
+      "amountRequired": "Please enter a valid amount",
+      "amountMinimum": "Amount must be at least {{min}}",
+      "nameRequired": "Please enter your name",
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Please enter a valid email address"
+    },
+    "success": {
+      "title": "Payment Successful!",
+      "message": "Thank you for your donation of {{amount}} to {{orgName}}.",
+      "thankYou": "Thank you for your generous contribution!",
+      "backButton": "Back to Organization"
+    },
+    "error": {
+      "paymentFailed": "Payment failed",
+      "verificationFailed": "Payment verification failed. Please contact support.",
+      "orderFailed": "Failed to create payment order",
+      "configNotEnabled": "Razorpay is not configured or enabled. Please contact the administrator.",
+      "loadUserFailed": "Failed to load user data. Please refresh the page.",
+      "loadOrgFailed": "Failed to load organization information",
+      "systemUnavailable": "Payment System Not Available"
+    }
+  },
+  "configuration": {
+    "title": "Razorpay Configuration",
+    "subtitle": "Configure your Razorpay payment gateway settings",
+    "sections": {
+      "credentials": "🔑 API Credentials",
+      "settings": "⚙️ Settings"
+    },
+    "form": {
+      "keyIdLabel": "Key ID",
+      "keyIdPlaceholder": "Enter Razorpay Key ID",
+      "keyIdHelp": "Your Razorpay Key ID (starts with rzp_test_ or rzp_live_)",
+      "keySecretLabel": "Key Secret",
+      "keySecretPlaceholder": "Enter your key secret",
+      "keySecretHelp": "Your Razorpay Key Secret (keep this secure)",
+      "webhookSecretLabel": "Webhook Secret",
+      "webhookSecretPlaceholder": "Enter your webhook secret",
+      "webhookSecretHelp": "Webhook secret for signature verification",
+      "enabledLabel": "Enable Razorpay",
+      "enabledHelp": "Enable Razorpay payment processing",
+      "testModeLabel": "Test Mode",
+      "testModeHelp": "Enable test mode for development and testing",
+      "currencyLabel": "Default Currency",
+      "descriptionLabel": "Default Description",
+      "descriptionPlaceholder": "Enter default payment description",
+      "saveButton": "Save Configuration",
+      "saving": "Saving...",
+      "yes": "Enabled",
+      "no": "Disabled",
+      "testMode": "Test Mode",
+      "liveMode": "Live Mode"
+    },
+    "actions": {
+      "test": "Test with Dummy Payment",
+      "testing": "Testing...",
+      "showSecret": "Show secret",
+      "hideSecret": "Hide secret"
+    },
+    "help": {
+      "title": "📚 Help & Resources",
+      "gettingStarted": "Getting Started",
+      "step1": "• Get your API keys from Razorpay Dashboard",
+      "step2": "• Configure webhook URL:",
+      "step3": "• Copy webhook secret from Razorpay Dashboard",
+      "step4": "• Test your setup with dummy payment",
+      "usefulLinks": "Useful Links",
+      "docsLink": "Razorpay Documentation",
+      "dashboardLink": "Razorpay Dashboard",
+      "completeFields": "Complete the required fields"
+    },
+    "status": {
+      "testing": "Testing Razorpay setup with dummy payment..."
+    },
+    "success": {
+      "saved": "Razorpay configuration saved successfully!",
+      "testSetup": "Setup test successful! Razorpay configuration is working correctly."
+    },
+    "error": {
+      "loadFailed": "Failed to load configuration",
+      "saveFailed": "Failed to save configuration",
+      "missingFields": "Please enter Key ID, Key Secret, and Webhook Secret before testing setup",
+      "invalidKeyId": "Invalid Key ID format. Razorpay Key ID should start with \"rzp_\"",
+      "testSetupFailed": "Setup test failed",
+      "testSetupGeneric": "Setup test failed. Please check your configuration."
+    }
+  },
+  "transactions": {
+    "title": "Transaction History",
+    "orgTitle": "Razorpay Organization Transactions",
+    "subtitle": "View your payment transaction history",
+    "orgSubtitle": "Payment transactions for your organization processed through Razorpay",
+    "search": "Search transactions...",
+    "filters": {
+      "statusLabel": "Filter transactions by status",
+      "statusPlaceholder": "Filter by status",
+      "allStatuses": "All Statuses",
+      "dateRangeLabel": "Filter by date range",
+      "startDate": "Start Date",
+      "endDate": "End Date"
+    },
+    "table": {
+      "id": "Transaction ID",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "organization": "Organization",
+      "donor": "Donor",
+      "method": "Payment Method",
+      "fees": "Fees",
+      "actions": "Actions",
+      "pagination": "{{start}}-{{end}} of {{total}} transactions"
+    },
+    "messages": {
+      "viewingDetails": "Viewing details for transaction: {{id}}",
+      "downloadingReceipt": "Downloading receipt for transaction: {{id}}"
+    },
+    "stats": {
+      "totalAmount": "Total Amount",
+      "totalTransactions": "Total Transactions",
+      "successRate": "Success Rate",
+      "failedTransactions": "Failed Transactions"
+    },
+    "status": {
+      "captured": "Captured",
+      "authorized": "Authorized",
+      "failed": "Failed",
+      "refunded": "Refunded",
+      "success": "Success",
+      "pending": "Pending"
+    },
+    "empty": "No transactions found",
+    "viewButton": "View",
+    "error": {
+      "loadFailed": "Failed to load transaction data",
+      "loadOrgFailed": "Error loading transactions"
+    },
+    "loadingOrg": "Loading Razorpay organization transactions...",
+    "userTransactions": {
+      "loading": "Loading Razorpay transactions...",
+      "errorPrefix": "Error loading transactions:",
+      "title": "Razorpay Transactions",
+      "subtitle": "Your payment transactions processed through Razorpay",
+      "receiptButton": "Receipt",
+      "viewDetailsAriaLabel": "View transaction details",
+      "downloadReceiptAriaLabel": "Download receipt for transaction"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notAvailable": "N/A",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "back": "Back",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete"
+  }
+}

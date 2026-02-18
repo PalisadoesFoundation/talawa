@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./*"],
+      "razorpay": ["./__mocks__/razorpay.ts"]
+    }
+  },
+  "include": ["test", "__mocks__", "plugins/**/test"]
+}

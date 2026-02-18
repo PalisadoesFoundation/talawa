@@ -1,0 +1,73 @@
+{
+  "name": "Razorpay Payment Gateway",
+  "pluginId": "razorpay",
+  "version": "1.0.0",
+  "description": "A payment gateway plugin that integrates Razorpay for donations and payments within organizations. Provides configuration, transaction management, and user payment interfaces.",
+  "author": "Palisadoes Foundation",
+  "main": "index.tsx",
+  "icon": "/src/plugin/available/razorpay/assets/razorpay.png",
+  "extensionPoints": {
+    "G1": [
+      {
+        "name": "razorpayUserTransactionsWidget",
+        "injector": "RazorpayUserTransactionsInjector",
+        "description": "Razorpay payment provider transactions for users"
+      }
+    ],
+    "G2": [
+      {
+        "name": "razorpayOrgTransactionsWidget",
+        "injector": "RazorpayOrganizationTransactionsInjector",
+        "description": "Razorpay payment provider transactions for organization admins"
+      }
+    ],
+    "RA1": [
+      {
+        "name": "razorpayConfigurationRoute",
+        "path": "/admin/razorpay/configuration",
+        "component": "RazorpayConfiguration"
+      }
+    ],
+    "RU1": [
+      {
+        "name": "razorpayDonationRoute",
+        "path": "/user/razorpay/:orgId/donate",
+        "component": "DonationForm"
+      }
+    ],
+    "RU2": [
+      {
+        "name": "razorpayUserTransactionsRoute",
+        "path": "/user/razorpay/my-transactions",
+        "component": "UserTransactions"
+      }
+    ],
+    "DA1": [
+      {
+        "name": "razorpayConfigurationMenu",
+        "label": "Razorpay Configuration",
+        "icon": "/src/plugin/available/razorpay/assets/razorpay.png",
+        "path": "/admin/razorpay/configuration",
+        "order": 1
+      }
+    ],
+    "DU1": [
+      {
+        "name": "razorpayDonationMenu",
+        "label": "Make Donation",
+        "icon": "/src/plugin/available/razorpay/assets/razorpay.png",
+        "path": "/user/razorpay/:orgId/donate",
+        "order": 1
+      }
+    ],
+    "DU2": [
+      {
+        "name": "razorpayUserTransactionsMenu",
+        "label": "My Transactions",
+        "icon": "/src/plugin/available/razorpay/assets/razorpay.png",
+        "path": "/user/razorpay/my-transactions",
+        "order": 1
+      }
+    ]
+  }
+}

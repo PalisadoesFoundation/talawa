@@ -1,0 +1,7 @@
+# Plugin Map Configuration
+id: plugin_map
+name: Plugin Map
+description: Demonstrates plugin system capabilities and API integration
+version: 1.0.0
+
+dependencies: {}

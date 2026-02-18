@@ -1,0 +1,41 @@
+{
+  "name": "SummarizeAPI AI Summarizer",
+  "pluginId": "summarize_api",
+  "version": "1.0.0",
+  "description": "AI-powered text summarization plugin using configurable external API. Provides summarize buttons for posts and admin configuration for API credentials.",
+  "author": "Palisadoes Foundation",
+  "main": "index.tsx",
+  "icon": "/src/plugin/available/summarize_api/assets/summarize-icon.svg",
+  "extensionPoints": {
+    "G3": [
+      {
+        "name": "summarizeAPIButtonG3Widget",
+        "injector": "SummarizeButton",
+        "description": "AI Summarize button for organization posts"
+      }
+    ],
+    "G4": [
+      {
+        "name": "summarizeAPIButtonG4Widget",
+        "injector": "SummarizeButton",
+        "description": "AI Summarize button for user portal posts"
+      }
+    ],
+    "RA1": [
+      {
+        "name": "summarizeAPIConfigurationRoute",
+        "path": "/admin/summarizeapi/configuration",
+        "component": "SummarizeAPIConfiguration"
+      }
+    ],
+    "DA1": [
+      {
+        "name": "summarizeAPIConfigurationMenu",
+        "label": "SummarizeAPI Configuration",
+        "icon": "/src/plugin/available/summarize_api/assets/summarize-icon.svg",
+        "path": "/admin/summarizeapi/configuration",
+        "order": 1
+      }
+    ]
+  }
+}
