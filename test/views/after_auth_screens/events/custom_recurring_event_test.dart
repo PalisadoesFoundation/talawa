@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/constants/recurrence_values.dart';
@@ -62,14 +63,6 @@ void main() {
     testSetupLocator();
     getAndRegisterNavigationService();
   });
-
-  // setUp(() {
-  //   registerServices();
-  // });
-
-  // tearDown(() {
-  //   unregisterServices();
-  // });
 
   group("RecurrenceUtils Tests", () {
     test("getRecurrenceRuleText for all frequency types with intervals", () {
@@ -834,8 +827,7 @@ void main() {
       // Verify that the container shows a formatted date (YYYY-MM-DD format)
       // The date should be auto-set to 30 days from now
       final expectedDate = model.recurrenceEndDate!;
-      final formattedDate =
-          '${expectedDate.year}-${expectedDate.month.toString().padLeft(2, '0')}-${expectedDate.day.toString().padLeft(2, '0')}';
+      final formattedDate = DateFormat("MMM d, yyyy").format(expectedDate);
       expect(find.text(formattedDate), findsOne);
     });
 
@@ -1012,6 +1004,74 @@ void main() {
         // Verify UI updates (chip should change visual state)
         expect(find.byType(FilterChip), findsAtLeast(7));
       }
+    });
+
+    testWidgets('Switching from On to Never triggers Never onChanged callback',
+        (tester) async {
+      final model = CreateEventViewModel();
+      await tester.pumpWidget(
+        createCustomRecurrenceScreen(
+          theme: TalawaTheme.darkTheme,
+          model: model,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // First select 'On' to change away from default 'Never'
+      await tester.tap(find.text('On'));
+      await tester.pumpAndSettle();
+      expect(model.eventEndType, EventEndTypes.on);
+      expect(model.never, false);
+      expect(model.recurrenceEndDate, isNotNull);
+
+      // Now switch back to 'Never' - this triggers the onChanged callback
+      await tester.tap(find.text('Never'));
+      await tester.pumpAndSettle();
+
+      // Verify the Never onChanged callback executed
+      expect(model.eventEndType, EventEndTypes.never);
+      expect(model.never, true);
+      expect(model.recurrenceEndDate, isNull);
+      expect(model.count, isNull);
+    });
+
+    testWidgets('Tapping date container when On is selected opens date picker',
+        (tester) async {
+      final model = CreateEventViewModel();
+      await tester.pumpWidget(
+        createCustomRecurrenceScreen(
+          theme: TalawaTheme.darkTheme,
+          model: model,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Select 'On' to enable the date picker InkWell and set recurrenceEndDate
+      await tester.tap(find.text('On'));
+      await tester.pumpAndSettle();
+      expect(model.eventEndType, EventEndTypes.on);
+      expect(model.recurrenceEndDate, isNotNull);
+      final expectedDate = model.recurrenceEndDate;
+
+      // The date is formatted as MMM d, yyyy in the Container child Text widget
+      final dateFinder =
+          find.textContaining(RegExp(r'[A-Za-z]{3} \d{1,2}, \d{4}'));
+      expect(dateFinder, findsOneWidget);
+
+      // Tap the date text to trigger the InkWell onTap -> showDatePicker
+      await tester.tap(dateFinder);
+      await tester.pumpAndSettle();
+
+      // Date picker dialog should be open - tap OK to select the initial date
+      final okButton = find.text('OK');
+      expect(okButton, findsOneWidget);
+      await tester.tap(okButton);
+      await tester.pumpAndSettle();
+
+      // After tapping OK, the recurrenceEndDate should be equal to the initial date (ignoring time)
+      expect(model.recurrenceEndDate?.year, expectedDate?.year);
+      expect(model.recurrenceEndDate?.month, expectedDate?.month);
+      expect(model.recurrenceEndDate?.day, expectedDate?.day);
     });
   });
 }

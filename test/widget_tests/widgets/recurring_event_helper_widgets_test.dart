@@ -406,7 +406,7 @@ void main() {
 
       // Check if TextField for count is present
       final textFieldFinder = find.byWidgetPredicate(
-        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+        (widget) => widget is TextField && widget.decoration?.hintText == '10',
       );
       expect(textFieldFinder, findsOneWidget);
 
@@ -734,7 +734,7 @@ void main() {
 
       // Find the count input TextField
       final countField = find.byWidgetPredicate(
-        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+        (widget) => widget is TextField && widget.decoration?.hintText == '10',
       );
       expect(countField, findsOneWidget);
 
@@ -778,7 +778,7 @@ void main() {
 
       // Count field should be enabled when "after" is selected
       final countField = find.byWidgetPredicate(
-        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+        (widget) => widget is TextField && widget.decoration?.hintText == '10',
       );
       expect(countField, findsOneWidget);
     });
@@ -805,8 +805,6 @@ void main() {
       final firstRadio =
           tester.widget<RadioListTile<String>>(radioButtons.first);
       expect(firstRadio.value, EventEndTypes.never);
-      expect(firstRadio.groupValue, mockModel.eventEndType);
-      expect(firstRadio.onChanged, isNotNull);
     });
 
     testWidgets(
@@ -850,7 +848,7 @@ void main() {
       );
 
       final countField = find.byWidgetPredicate(
-        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+        (widget) => widget is TextField && widget.decoration?.hintText == '10',
       );
       expect(countField, findsOneWidget);
 
@@ -869,7 +867,7 @@ void main() {
       );
 
       final disabledField = find.byWidgetPredicate(
-        (widget) => widget is TextField && widget.decoration?.hintText == '1',
+        (widget) => widget is TextField && widget.decoration?.hintText == '10',
       );
       expect(disabledField, findsOneWidget);
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/services/size_config.dart';
@@ -28,6 +29,17 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
   void initState() {
     super.initState();
     viewModel = widget.model;
+    _countController = TextEditingController(
+      text: viewModel.count?.toString() ?? "10",
+    );
+  }
+
+  late final TextEditingController _countController;
+
+  @override
+  void dispose() {
+    _countController.dispose();
+    super.dispose();
   }
 
   @override
@@ -202,14 +214,11 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           groupValue: viewModel.eventEndType,
           onChanged: (value) {
             setState(() {
-              viewModel.count = null;
-              viewModel.recurrenceEndDate = null;
-              viewModel.eventEndType = EventEndTypes.never;
-              viewModel.never = true;
+              viewModel.setEventEndType(EventEndTypes.never);
+              viewModel.updateRecurrenceLabel();
             });
           },
         ),
-        // "After" option has been moved below
         RadioListTile<String>(
           title: Row(
             children: [
@@ -227,6 +236,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
                               DateTime.now().add(const Duration(days: 365 * 5)),
                         );
                         if (date != null) {
+                          if (!mounted) return;
                           setState(() {
                             viewModel.recurrenceEndDate = date;
                           });
@@ -242,7 +252,8 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
                   ),
                   child: Text(
                     viewModel.recurrenceEndDate != null
-                        ? '${viewModel.recurrenceEndDate!.year}-${viewModel.recurrenceEndDate!.month.toString().padLeft(2, '0')}-${viewModel.recurrenceEndDate!.day.toString().padLeft(2, '0')}'
+                        ? DateFormat("MMM d, yyyy")
+                            .format(viewModel.recurrenceEndDate!)
                         : 'Select Date',
                   ),
                 ),
@@ -253,11 +264,8 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           groupValue: viewModel.eventEndType,
           onChanged: (value) {
             setState(() {
-              viewModel.eventEndType = EventEndTypes.on;
-              viewModel.count = null; // Clear count when using end date
-              viewModel.recurrenceEndDate ??=
-                  DateTime.now().add(const Duration(days: 30));
-              viewModel.never = false; // Not a never-ending event
+              viewModel.setEventEndType(EventEndTypes.on);
+              viewModel.updateRecurrenceLabel();
             });
           },
         ),
@@ -275,9 +283,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 8),
                   ),
-                  controller: TextEditingController(
-                    text: viewModel.count?.toString() ?? "10",
-                  ),
+                  controller: _countController,
                   onChanged: (value) {
                     final int? parsed = int.tryParse(value);
                     if (parsed != null && parsed > 0) {
@@ -296,10 +302,9 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           groupValue: viewModel.eventEndType,
           onChanged: (value) {
             setState(() {
-              viewModel.eventEndType = EventEndTypes.after;
-              viewModel.recurrenceEndDate = null;
-              viewModel.count = viewModel.count ?? 10;
-              viewModel.never = false;
+              viewModel.setEventEndType(EventEndTypes.after);
+              _countController.text = viewModel.count?.toString() ?? '10';
+              viewModel.updateRecurrenceLabel();
             });
           },
         ),
