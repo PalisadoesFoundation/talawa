@@ -7,7 +7,6 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// CustomDrawerViewModel class helps to serve the data and to react to user's input for Custom Dialog Widget.
 ///
@@ -16,38 +15,30 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// * `isPresentinSwitchableOrg`
 /// * `setSelectedOrganizationName`
 class CustomDrawerViewModel extends BaseModel {
-  // getters
-
   /// Scroll controller for managing scrolling behavior.
   final ScrollController controller = ScrollController();
 
-  /// List of TargetFocus objects used for tutorial coaching.
-  final List<TargetFocus> targets = [];
-
-  /// Instance of TutorialCoachMark responsible for providing tutorial guidance.
-  late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
   late List<OrgInfo> _switchAbleOrg;
   bool _disposed = false;
   OrgInfo? _selectedOrg;
-  StreamSubscription? _currentOrganizationStreamSubscription;
+  StreamSubscription<OrgInfo>? _currentOrganizationStreamSubscription;
 
-  //// Getter method to retrieve the selected organization.
+  /// Getter method to retrieve the selected organization.
   OrgInfo? get selectedOrg => _selectedOrg;
 
-  /// Getter method to retrieve the switchAble organization.
+  /// Getter method to retrieve the switchable organizations.
   // ignore: unnecessary_getters_setters
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
 
-  /// Setter method for switchAble organization.
-  set switchAbleOrg(List<OrgInfo> switchableOrg) =>
-      _switchAbleOrg = switchableOrg;
+  /// Setter method for switchable organizations.
+  set switchAbleOrg(List<OrgInfo> value) => _switchAbleOrg = value;
 
-  /// initializer.
+  /// Initializes the view model.
   ///
   /// **params**:
-  /// * `homeModel`: instance of MainScreenViewModel.
-  /// * `context`: instance of BuildContext.
+  /// * `homeModel`: Instance of MainScreenViewModel
+  /// * `context`: BuildContext for the current widget
   ///
   /// **returns**:
   ///   None
@@ -58,27 +49,21 @@ class CustomDrawerViewModel extends BaseModel {
         setSelectedOrganizationName(updatedOrganization);
       },
     );
+
     _currentUser = userConfig.currentUser;
     _selectedOrg = userConfig.currentOrg;
     _switchAbleOrg = _currentUser.joinedOrganizations ?? [];
   }
 
-  /// This function switches the organization to the specified `switchToOrg`.
-  ///
-  /// If `selectedOrg` is equal to `switchToOrg` and `switchToOrg` is present, a warning message is displayed using a custom Snackbar.
-  /// Otherwise, it saves the `switchToOrg` as the current organization, updates the selected organization name,
-  /// and displays an informational message using a custom Snackbar.
+  /// Switches the organization to the specified `switchToOrg`.
   ///
   /// **params**:
-  /// * `switchToOrg`: The organization to switch to.
+  /// * `switchToOrg`: The organization to switch to
   ///
   /// **returns**:
   ///   None
   void switchOrg(OrgInfo switchToOrg) {
-    // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
-    if ((selectedOrg == switchToOrg) &&
-        (isPresentinSwitchableOrg(switchToOrg))) {
-      // _navigationService.pop();
+    if ((selectedOrg == switchToOrg) && isPresentinSwitchableOrg(switchToOrg)) {
       navigationService.showTalawaErrorSnackBar(
         '${switchToOrg.name} already selected',
         MessageType.warning,
@@ -94,21 +79,15 @@ class CustomDrawerViewModel extends BaseModel {
     navigationService.pop();
   }
 
-  /// This function checks `switchOrg` is present in the `switchAbleOrg`.
+  /// Checks whether `switchToOrg` is present in the switchable organization list.
   ///
   /// **params**:
-  /// * `switchToOrg`: `OrgInfo` type of organization want to switch into.
+  /// * `switchToOrg`: The organization to check for presence
   ///
   /// **returns**:
-  /// * `bool`: returns true if switchToOrg is in switchAbleOrg list.
+  /// * `bool`: true if organization is present, false otherwise
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
-    var isPresent = false;
-    for (final OrgInfo orgs in switchAbleOrg) {
-      if (orgs.id == switchToOrg.id) {
-        isPresent = true;
-      }
-    }
-    return isPresent;
+    return _switchAbleOrg.any((org) => org.id == switchToOrg.id);
   }
 
   @override
@@ -118,35 +97,39 @@ class CustomDrawerViewModel extends BaseModel {
     }
   }
 
-  /// returns an exit alert dialog.
+  /// Returns an exit alert dialog.
   ///
   /// **params**:
-  ///   None
+  /// * `context`: BuildContext for creating the dialog
   ///
   /// **returns**:
-  /// * `CustomAlertDialog`: returns customAlertDialogBox.
-  CustomAlertDialog exitAlertDialog() {
+  /// * `CustomAlertDialog`: The configured exit alert dialog
+  CustomAlertDialog exitAlertDialog(BuildContext context) {
     return CustomAlertDialog(
       key: const Key("Exit?"),
       reverse: true,
       dialogSubTitle: 'Are you sure you want to exit this organization?',
       successText: 'Exit',
-      success: () {},
+      success: () {
+        userConfig.exitCurrentOrg();
+        navigationService.pop();
+        Scaffold.of(context).closeDrawer();
+      },
     );
   }
 
-  /// This function switches the current organization to new organization.
+  /// Updates the selected organization.
   ///
   /// **params**:
-  /// * `updatedOrganization`: `OrgInfo` type, new organization.
+  /// * `updatedOrganization`: The new organization to set as selected
   ///
   /// **returns**:
   ///   None
   void setSelectedOrganizationName(OrgInfo updatedOrganization) {
-    // if current and updated organization are not same.
+    if (_disposed) return;
+
     if (_selectedOrg != updatedOrganization) {
       _selectedOrg = updatedOrganization;
-      // update in `UserConfig` variable.
       userConfig.currentOrgInfoController.add(_selectedOrg!);
       notifyListeners();
     }

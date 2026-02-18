@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
+import 'package:talawa/services/user_config.dart';
 
 /// To add options to the bottom nav bar, increase the height too.
 class PostBottomModal extends StatelessWidget {
   const PostBottomModal({
     super.key,
-    this.function,
     this.deletePost,
     required this.post,
   });
-
-  /// This function is passed for the handling the action to be performed when the comment button is clicked.
-  final Function(Post)? function;
 
   /// To delete the post if user can (only work if the post is made by the user).
   final Function(Post)? deletePost;
@@ -53,8 +49,9 @@ class PostBottomModal extends StatelessWidget {
             ],
           ),
         ),
-        Center(
-          child: Row(
+        if (post.creator?.id != null &&
+            post.creator?.id == locator<UserConfig>().currentUser.id)
+          Row(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
@@ -78,14 +75,9 @@ class PostBottomModal extends StatelessWidget {
                           TextButton(
                             key: const Key('alert_dialog_yes_btn'),
                             onPressed: () {
-                              navigationService.pop();
+                              Navigator.pop(context);
+                              Navigator.pop(context);
                               deletePost?.call(post);
-                              navigationService.pop();
-                              navigationService.pushDialog(
-                                const CustomProgressDialog(
-                                  key: Key('deletePost'),
-                                ),
-                              );
                             },
                             child: const Text("Yes"),
                           ),
@@ -102,13 +94,12 @@ class PostBottomModal extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  'The post was deleted',
+                  'Delete Post',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
             ],
           ),
-        ),
       ],
     );
   }

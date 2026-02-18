@@ -3,8 +3,11 @@ import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/services/app_config_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -65,52 +68,50 @@ class SetUrlViewModel extends BaseModel {
   ///   None
 
   void initialise({String inviteUrl = ''}) {
-    final uri = inviteUrl;
-    if (uri.isNotEmpty) {
+    if (inviteUrl.isNotEmpty) {
       /// assigning the invite server url to the url text controller.
-      url.text = uri;
+      url.text = inviteUrl;
       final box = Hive.box('url');
-      box.put(urlKey, uri);
-      box.put(imageUrlKey, "$uri/talawa/");
+      box.put(urlKey, inviteUrl);
+      box.put(imageUrlKey, "$inviteUrl/talawa/");
       graphqlConfig.getOrgUrl();
     }
 
     /// greeting message.
-    greeting = [
-      {
-        'text': 'Join ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .titleLarge!
-            .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
-      },
-      {
-        'text': 'and ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headlineSmall,
-      },
-      {
-        'text': 'Collaborate ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .titleLarge!
-            .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
-      },
-      {
-        'text': 'with your ',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headlineSmall,
-      },
-      {
-        'text': 'Organizations',
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headlineSmall!
-            .copyWith(fontSize: 24, color: const Color(0xFF4285F4)),
-      },
-    ];
+    final context = navigationService.navigatorKey.currentContext;
+    if (context != null) {
+      greeting = [
+        {
+          'text': 'Join ',
+          'textStyle': Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
+        },
+        {
+          'text': 'and ',
+          'textStyle': Theme.of(context).textTheme.headlineSmall,
+        },
+        {
+          'text': 'Collaborate ',
+          'textStyle': Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
+        },
+        {
+          'text': 'with your ',
+          'textStyle': Theme.of(context).textTheme.headlineSmall,
+        },
+        {
+          'text': 'Organizations',
+          'textStyle': Theme.of(context)
+              .textTheme
+              .headlineSmall!
+              .copyWith(fontSize: 24, color: const Color(0xFF4285F4)),
+        },
+      ];
+    }
     notifyListeners();
   }
 
@@ -142,9 +143,17 @@ class SetUrlViewModel extends BaseModel {
           );
           validate = AutovalidateMode.disabled;
           final String uri = url.text.trim();
-          final bool? urlPresent =
+          if (uri.isEmpty) {
+            navigationService.pop();
+            navigationService.showTalawaErrorSnackBar(
+              "URL cannot be empty",
+              MessageType.error,
+            );
+            return null;
+          }
+          final bool urlPresent =
               await locator<Validator>().validateUrlExistence(uri);
-          if (urlPresent! == true) {
+          if (urlPresent) {
             final box = Hive.box('url');
             box.put(urlKey, uri);
             box.put(imageUrlKey, "$uri/talawa/");
@@ -185,9 +194,9 @@ class SetUrlViewModel extends BaseModel {
       );
       validate = AutovalidateMode.disabled;
       final String uri = url.text.trim();
-      final bool? urlPresent =
+      final bool urlPresent =
           await locator<Validator>().validateUrlExistence(uri);
-      if (urlPresent! == true) {
+      if (urlPresent) {
         final box = Hive.box('url');
         box.put(urlKey, uri);
         box.put(imageUrlKey, "$uri/talawa/");
@@ -202,6 +211,31 @@ class SetUrlViewModel extends BaseModel {
         );
       }
     }
+  }
+
+  /// Enables demo mode via AppConfigService, then navigates to the app home screen.
+  ///
+  /// by clearing the navigation stack (so the demo becomes the active session).
+  /// There are no params and no return value but there are side effects
+  /// (modifies app config and performs navigation).
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateToDemo() {
+    final AppConfigService appConfigService = locator<AppConfigService>();
+    appConfigService.isDemoMode = true;
+    navigationService.removeAllAndPush(
+      Routes.mainScreen,
+      Routes.splashScreen,
+      arguments: MainScreenArgs(
+        mainScreenIndex: 0,
+        fromSignUp: false,
+        toggleDemoMode: true,
+      ),
+    );
   }
 
   /// This function create a widget which is used to scan the QR-code.
@@ -278,19 +312,47 @@ class SetUrlViewModel extends BaseModel {
     controller.scannedDataStream.listen((scanData) {
       /// if the scanData is not empty.
       if (scanData.code!.isNotEmpty) {
-        print(scanData.code);
         try {
           final List<String> data = scanData.code!.split('?');
+          if (data.isEmpty || data[0].isEmpty) {
+            navigationService.showTalawaErrorSnackBar(
+              "Invalid QR code format",
+              MessageType.error,
+            );
+            return;
+          }
           url.text = data[0];
+          if (data.length < 2) {
+            navigationService.showTalawaErrorSnackBar(
+              "QR code missing organization information",
+              MessageType.error,
+            );
+            return;
+          }
           final List<String> queries = data[1].split('&');
-          orgId = queries[0].split('=')[1];
+          if (queries.isEmpty || !queries[0].contains('=')) {
+            navigationService.showTalawaErrorSnackBar(
+              "Invalid QR code organization format",
+              MessageType.error,
+            );
+            return;
+          }
+          final List<String> orgIdParts = queries[0].split('=');
+          if (orgIdParts.length < 2 || orgIdParts[1].isEmpty) {
+            navigationService.showTalawaErrorSnackBar(
+              "Invalid organization ID in QR code",
+              MessageType.error,
+            );
+            return;
+          }
+          orgId = orgIdParts[1];
           Vibration.vibrate(duration: 100);
           controller.stopCamera();
           final box = Hive.box('url');
           box.put(urlKey, url.text);
           box.put(imageUrlKey, "${url.text}/talawa/");
           graphqlConfig.getOrgUrl();
-          Navigator.pop(navigationService.navigatorKey.currentContext!);
+          navigationService.pop();
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());

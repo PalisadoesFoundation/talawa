@@ -17,7 +17,11 @@ const config: Config = {
   projectName: "talawa", // repo name
 
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn", // Or 'throw', 'ignore'
+    },
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -27,10 +31,11 @@ const config: Config = {
     locales: ["en"],
   },
 
+  stylesheets: ["https://docs.talawa.io/css/styles-latest.css"],
+
   presets: [
     [
       "classic",
-      /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
@@ -40,132 +45,149 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: [
-            require.resolve("./src/css/custom.css"),
-            require.resolve("./src/css/index.css"),
-          ],
+          // the custom css file is default css provided by docusaurus
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
+    docs: {
+      sidebar: {
+        hideable: false,
+      },
+    },
     navbar: {
       title: "Talawa",
       logo: {
         alt: "Talawa Logo",
         src: "img/icons/logo.png",
-        href: 'https://docs.talawa.io/',
-        target: '_self',
+        href: "https://docs.talawa.io/",
+        target: "_self",
       },
       items: [
         {
-          label: 'General',
-          position: 'left',
-          to: 'https://docs.talawa.io/docs',
-          target: '_self',
+          label: "General",
+          position: "left",
+          to: "https://docs.talawa.io/docs",
+          target: "_self",
         },
         {
-          to: '/docs',
-          activeBasePath: 'docs',
-          label: 'Mobile Guide',
-          position: 'left',
+          to: "/docs",
+          activeBasePath: "docs",
+          label: "Mobile Guide",
+          position: "left",
         },
         {
-          label: 'Admin Guide',
-          position: 'left',
-          to: 'https://docs-admin.talawa.io/docs',
-          target: '_self',
+          label: "Admin Guide",
+          position: "left",
+          to: "https://docs-admin.talawa.io/docs",
+          target: "_self",
         },
         {
-          label: 'API Guide',
-          position: 'left',
-          to: 'https://docs-api.talawa.io/docs',
-          target: '_self',
-        },
-
-        {
-          label: 'Demo',
-          position: 'left',
-          to: 'https://demo.talawa.io/',
+          label: "API Guide",
+          position: "left",
+          to: "https://docs-api.talawa.io/docs",
+          target: "_self",
         },
         {
-          to: 'https://github.com/PalisadoesFoundation',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
+          label: "Plugin Guide",
+          position: "left",
+          to: "https://docs-plugin.talawa.io/docs",
+          target: "_self",
         },
         {
-          to: 'https://www.youtube.com/@PalisadoesOrganization',
-          position: 'right',
-          className: 'header-youtube-link',
-          'aria-label': 'Palisadoes Youtube channel',
+          label: "Community",
+          position: "left",
+          to: "https://community.talawa.io",
+          target: "_self",
+        },
+        {
+          label: "Demo",
+          position: "left",
+          to: "https://demo.talawa.io/",
+        },
+        {
+          to: "https://github.com/PalisadoesFoundation",
+          position: "right",
+          className: "header-github-link",
+          "aria-label": "GitHub repository",
+        },
+        {
+          to: "https://www.youtube.com/@PalisadoesOrganization",
+          position: "right",
+          className: "header-youtube-link",
+          "aria-label": "Palisadoes Youtube channel",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Community',
+          title: "Community",
           items: [
             {
-              label: 'Slack',
-              to: 'https://github.com/PalisadoesFoundation',
-              className: 'footer__icon footer__slack',
+              label: "Forums",
+              to: "https://community.talawa.io/",
+              className: "footer__icon footer__news",
+            },            
+            {
+              label: "News",
+              to: "https://www.palisadoes.org/news/",
+              className: "footer__icon footer__news",
             },
             {
-              label: 'News',
-              to: 'https://www.palisadoes.org/news/',
-              className: 'footer__icon footer__news',
-            },
-            {
-              label: 'Contact Us',
-              to: 'https://www.palisadoes.org/contact/',
-              className: 'footer__icon footer__contact',
+              label: "Contact Us",
+              to: "https://www.palisadoes.org/contact/",
+              className: "footer__icon footer__contact",
             },
           ],
         },
         {
-          title: 'Social Media',
+          title: "Social Media",
           items: [
             {
-              label: ' Twitter',
-              to: 'https://twitter.com/palisadoesorg?lang=en',
-              className: 'footer__icon footer__twitter',
+              label: " Twitter",
+              to: "https://twitter.com/palisadoesorg?lang=en",
+              className: "footer__icon footer__twitter",
             },
             {
-              label: ' Facebook',
-              to: 'https://www.facebook.com/palisadoesproject/',
-              className: 'footer__icon footer__facebook',
+              label: " Facebook",
+              to: "https://www.facebook.com/palisadoesproject/",
+              className: "footer__icon footer__facebook",
             },
             {
-              label: ' Instagram',
-              to: 'https://www.instagram.com/palisadoes/?hl=en',
-              className: 'footer__icon footer__instagram',
+              label: " Instagram",
+              to: "https://www.instagram.com/palisadoes/?hl=en",
+              className: "footer__icon footer__instagram",
             },
           ],
         },
         {
-          title: 'Development',
+          title: "Development",
           items: [
             {
-              label: ' GitHub',
-              to: 'https://github.com/PalisadoesFoundation',
-              className: 'footer__icon footer__github',
+              label: " GitHub",
+              to: "https://github.com/PalisadoesFoundation",
+              className: "footer__icon footer__github",
             },
           ],
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} The Palisadoes Foundation, LLC. Built with Docusaurus.`,
     },
+    colorMode: {
+      defaultMode: "light",
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
+    },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-  } satisfies Preset.ThemeConfig,
+  },
 };
 
 export default config;

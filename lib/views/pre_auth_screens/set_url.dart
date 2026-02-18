@@ -31,7 +31,6 @@ class SetUrl extends StatefulWidget {
 class _SetUrlState extends State<SetUrl> {
   @override
   Widget build(BuildContext context) {
-    print("built");
     return BaseView<SetUrlViewModel>(
       onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
       builder: (context, model, child) {
@@ -71,7 +70,6 @@ class _SetUrlState extends State<SetUrl> {
                             semanticLabel: 'Join Organisation with QR',
                           ),
                           onPressed: () => model.scanQR(context),
-                          // model.scanQR(context),
                         ),
                       ),
                       Padding(
@@ -100,16 +98,20 @@ class _SetUrlState extends State<SetUrl> {
                         keyboardType: TextInputType.text,
                         enableSuggestions: true,
                         validator: (value) {
-                          final String? msg = Validator.validateURL(value!);
+                          final String? msg = Validators.url(value);
                           if (msg == null) {
                             return null;
                           }
 
                           return AppLocalizations.of(context)!.translate(msg);
                         },
-                        onFieldSubmitted: (value) =>
-                            AppLocalizations.of(context)!
-                                .translate(Validator.validateURL(value)),
+                        onFieldSubmitted: (value) async {
+                          model.urlFocus.unfocus();
+                          model.validate = AutovalidateMode.always;
+                          if (model.formKey.currentState!.validate()) {
+                            await model.checkURLandShowPopUp('');
+                          }
+                        },
                         decoration: InputDecoration(
                           labelText:
                               '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
@@ -119,10 +121,11 @@ class _SetUrlState extends State<SetUrl> {
                             onTap: () async {
                               model.urlFocus.unfocus();
                               model.validate = AutovalidateMode.always;
-                              model.formKey.currentState!.validate();
 
                               /// Checking url. If valid, than show the pop-up
-                              await model.checkURLandShowPopUp('');
+                              if (model.formKey.currentState!.validate()) {
+                                await model.checkURLandShowPopUp('');
+                              }
                             },
                             child: Container(
                               height: 48,
@@ -152,10 +155,11 @@ class _SetUrlState extends State<SetUrl> {
                         },
                         showArrow: true,
                         textColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
+                                .inputDecorationTheme
+                                .focusedBorder
+                                ?.borderSide
+                                .color ??
+                            Theme.of(context).colorScheme.primary,
                         backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
@@ -174,10 +178,24 @@ class _SetUrlState extends State<SetUrl> {
                         textColor:
                             Theme.of(context).colorScheme.secondaryContainer,
                         backgroundColor: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .borderSide
-                            .color,
+                                .inputDecorationTheme
+                                .focusedBorder
+                                ?.borderSide
+                                .color ??
+                            Theme.of(context).colorScheme.primary,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.0215,
+                      ),
+                      //Try Demo button.
+                      RaisedRoundedButton(
+                        key: const Key('TryDemoButton'),
+                        buttonLabel: AppLocalizations.of(context)!
+                            .strictTranslate('Try Demo'),
+                        onTap: () => model.navigateToDemo(),
+                        showArrow: true,
+                        textColor: Theme.of(context).primaryColor,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.06,

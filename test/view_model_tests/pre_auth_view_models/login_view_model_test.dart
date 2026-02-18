@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
@@ -16,10 +16,12 @@ import 'package:talawa/constants/routing_constants.dart';
 // import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/secure_storage_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 
+import '../../helpers/fake_secure_storage_service.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 // import 'package:talawa/utils/queries.dart';
@@ -27,39 +29,16 @@ import '../../helpers/test_locator.dart';
 
 // import '../../helpers/test_helpers.dart';
 
-/// Mock Class for Flutter Secure Storage for error detection.
-class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
+/// Mock Class for SecureStorageService for error detection.
+class ThrowingSecureStorageService extends FakeSecureStorageService {
   @override
-  Future<void> write({
-    required String key,
-    required String? value,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (key == "userEmail" || key == "userPassword") {
-      throw Exception("Storing error");
-    }
-    return Future.value(null);
+  Future<String?> readToken(String key) {
+    return Future.error(Exception("Unable to read"));
   }
 
   @override
-  Future<String?> read({
-    required String key,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (key == "userEmail" || key == "userPassword") {
-      throw Exception("Unable to read");
-    }
-    return Future.value(null);
+  Future<void> writeToken(String key, String value) {
+    return Future.error(Exception("Storing error"));
   }
 }
 
@@ -78,17 +57,21 @@ final data = {
 bool empty = false;
 
 Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
   // setupFirebaseMocks();
   // await Firebase.initializeApp();
   // FirebaseMessagingPlatform.instance = kMockMessagingPlatform;
 
   testSetupLocator();
   registerServices();
-  FlutterSecureStorage.setMockInitialValues(
-    {"userEmail": "mocked_value", "userPassword": "mocked_value"},
-  );
 
   group('LoginViewModel Test -', () {
+    setUp(() async {
+      final storage = locator<SecureStorageService>();
+      await storage.deleteAll(); // Ensure clean state across tests
+      await storage.writeToken("userEmail", "mocked_value");
+      await storage.writeToken("userPassword", "mocked_value");
+    });
     testWidgets(
         'Check if login() is working fine when organisation is not empty',
         (tester) async {
@@ -209,10 +192,11 @@ Future<void> main() async {
     });
 
     test("Check if prev user is fetched correctly with success", () async {
+      await locator<SecureStorageService>()
+          .writeToken("userEmail", "test@example.com");
+      await locator<SecureStorageService>()
+          .writeToken("userPassword", "password123");
       final model = LoginViewModel();
-      FlutterSecureStorage.setMockInitialValues(
-        {"userEmail": "test@example.com", "userPassword": "password123"},
-      );
       await model.fetchPrevUser();
 
       expect(model.prevUserEmail, "test@example.com");
@@ -220,12 +204,14 @@ Future<void> main() async {
     });
 
     test("Check if fetching previous user result in error", () async {
+      final throwingStorage = ThrowingSecureStorageService();
+      locator.registerSingleton<SecureStorageService>(throwingStorage);
+      addTearDown(() {
+        locator.registerSingleton<SecureStorageService>(
+            FakeSecureStorageService());
+      });
+
       final model = LoginViewModel();
-      FlutterSecureStorage.setMockInitialValues(
-        {"userEmail": "test@example.com", "userPassword": "password123"},
-      );
-      final mockSecureStorage = MockFlutterSecureStorage();
-      model.secureStorage = mockSecureStorage;
 
       String log = "";
 
@@ -250,12 +236,14 @@ Future<void> main() async {
       );
     });
     test('Should handle exception while storing data', () async {
+      final throwingStorage = ThrowingSecureStorageService();
+      locator.registerSingleton<SecureStorageService>(throwingStorage);
+      addTearDown(() {
+        locator.registerSingleton<SecureStorageService>(
+            FakeSecureStorageService());
+      });
+
       final model = LoginViewModel();
-      FlutterSecureStorage.setMockInitialValues(
-        {"userEmail": "test@example.com", "userPassword": "password123"},
-      );
-      final mockSecureStorage = MockFlutterSecureStorage();
-      model.secureStorage = mockSecureStorage;
 
       String log = "";
 

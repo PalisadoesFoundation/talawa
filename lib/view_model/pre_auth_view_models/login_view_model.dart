@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:talawa/constants/app_strings.dart';
 
 import 'package:talawa/constants/routing_constants.dart';
@@ -8,7 +8,6 @@ import 'package:talawa/locator.dart';
 
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -27,9 +26,6 @@ class LoginViewModel extends BaseModel {
 
   /// This field store previous user Password.
   String? prevUserPassword;
-
-  /// Secure local storage instance.
-  FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// List of maps to store greetings..
   late List<Map<String, dynamic>> greeting;
@@ -102,11 +98,6 @@ class LoginViewModel extends BaseModel {
   /// 6. Initializing database functions.
   /// 7. Performing a GraphQL mutation to login the user by providing
   ///    the email and encrypted password.
-  /// 8. Handling the result of the login operation:
-  ///    - Updating the current user with the received data.
-  ///    - Redirecting the user based on their status in the application.
-  ///    - Handling Firebase options for Android and iOS if available.
-  ///    - Configuring Firebase and saving FCM token to the database.
   ///
   /// In case of any exceptions during the login process,
   /// this function catches and prints the error.
@@ -133,14 +124,10 @@ class LoginViewModel extends BaseModel {
             ),
           );
           databaseFunctions.init();
-          // run the graph QL query to login the user,
-          // passing `email` and `password`.
           final result = await databaseFunctions.gqlNonAuthMutation(
             queries.loginUser(
               email.text,
-              Encryptor.encryptString(
-                password.text,
-              ),
+              password.text,
             ),
           );
           navigationService.pop();
@@ -154,36 +141,37 @@ class LoginViewModel extends BaseModel {
               result.data!['signIn'] as Map<String, dynamic>,
             );
             userConfig.updateUser(loggedInUser);
+            graphqlConfig.getToken();
           }
         },
         apiCallSuccessUpdateUI: () async {
           // if user has not already joined any organization.
-          if (userConfig.currentUser.joinedOrganizations == null) {
-            navigationService.removeAllAndPush(
-              Routes.mainScreen,
-              Routes.splashScreen,
-              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
-            );
-          } else if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-            navigationService.removeAllAndPush(
-              Routes.mainScreen,
-              Routes.splashScreen,
-              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
-            );
-          } else {
+          if (userConfig.currentUser.joinedOrganizations != null &&
+              userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
             userConfig.saveCurrentOrgInHive(
               userConfig.currentUser.joinedOrganizations![0],
             );
             navigationService.removeAllAndPush(
               Routes.mainScreen,
               Routes.splashScreen,
-              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+            );
+          } else if (userConfig.currentUser.membershipRequests != null &&
+              userConfig.currentUser.membershipRequests!.isNotEmpty) {
+            navigationService.removeAllAndPush(
+              Routes.waitingScreen,
+              Routes.splashScreen,
+              arguments: '-1',
+            );
+          } else {
+            navigationService.pushReplacementScreen(
+              Routes.joinOrg,
+              arguments: '-1',
             );
           }
           await storingCredentialsInSecureStorage();
         },
         onActionException: (e) async {
-          print('here');
           print(e);
         },
       );
@@ -199,13 +187,13 @@ class LoginViewModel extends BaseModel {
   ///   None
   Future<void> storingCredentialsInSecureStorage() async {
     try {
-      await secureStorage.write(
-        key: "userEmail",
-        value: this.email.text,
+      await secureStorage.writeToken(
+        "userEmail",
+        this.email.text,
       );
-      await secureStorage.write(
-        key: "userPassword",
-        value: this.password.text,
+      await secureStorage.writeToken(
+        "userPassword",
+        this.password.text,
       );
     } catch (e) {
       // Handle secure storage write failure
@@ -222,8 +210,8 @@ class LoginViewModel extends BaseModel {
   ///   None
   Future<void> fetchPrevUser() async {
     try {
-      prevUserEmail = await secureStorage.read(key: "userEmail");
-      prevUserPassword = await secureStorage.read(key: "userPassword");
+      prevUserEmail = await secureStorage.readToken("userEmail");
+      prevUserPassword = await secureStorage.readToken("userPassword");
     } catch (e) {
       print("Error decrypting previous values $e");
     }

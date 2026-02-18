@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:talawa/constants/app_strings.dart';
+import 'package:flutter/widgets.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -15,7 +14,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 ///
 /// Methods include:
 /// * `setCurrentOrganizationName` : to set current organization name.
-/// * `fetchNewPosts` : to fetch new posts in the organization.
+/// * `refreshPosts` : to fetch new posts in the organization.
 /// * `navigateToIndividualPage` : to navigate to individual page.
 /// * `navigateToPinnedPostPage` : to navigate to pinned post page.
 /// * `addNewPost` : to add new post in the organization.
@@ -25,12 +24,7 @@ class OrganizationFeedViewModel extends BaseModel {
   // ignore: prefer_final_fields
   List<Post> _posts = [];
   final List<Post> _userPosts = [];
-
-  /// flag for the test.
-  ///
-  bool istest = false;
-  List<Post> _pinnedPosts =
-      pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
+  List<Post> _pinnedPosts = [];
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
 
@@ -38,43 +32,28 @@ class OrganizationFeedViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserConfig _userConfig = locator<UserConfig>();
   final PostService _postService = locator<PostService>();
+  final PinnedPostService _pinnedPostService = locator<PinnedPostService>();
 
   // Stream variables
   late StreamSubscription _currentOrganizationStreamSubscription;
   late StreamSubscription _postsSubscription;
   late StreamSubscription _updatePostSubscription;
+  late StreamSubscription _pinnnedPostSubscription;
 
   // Getters
   /// getter for the posts.
-  ///
-  List<Post> get posts {
-    // if (istest) {
-    //   _posts = pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
-    //   return _posts;
-    // }
-    return _posts;
-  }
+  List<Post> get posts => _posts;
 
   /// Getter for User Posts.
-  List<Post> get userPosts {
-    return _userPosts;
-  }
+  List<Post> get userPosts => _userPosts;
 
   /// getter for the pinned post.
-  ///
-  List<Post> get pinnedPosts {
-    if (istest) {
-      _pinnedPosts = [];
-      return _pinnedPosts;
-    }
-    return _pinnedPosts;
-  }
+  List<Post> get pinnedPosts => _pinnedPosts;
 
   /// getter for the currentOrgName.
-  ///
   String get currentOrgName => _currentOrgName;
 
-  bool _isFetchingPosts = false;
+  bool _isFetchingPosts = true;
 
   /// getter for isFetchingPosts to show loading indicator.
   bool get isFetchingPosts => _isFetchingPosts;
@@ -88,18 +67,24 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void setCurrentOrganizationName(String updatedOrganization) {
+  Future<void> setCurrentOrganizationName(String updatedOrganization) async {
     // if `updatedOrganization` is not same to `_currentOrgName`.
     if (updatedOrganization != _currentOrgName) {
       _isFetchingPosts = true;
+      databaseFunctions.clearGraphQLCache();
+      _currentOrgName = updatedOrganization;
       notifyListeners();
       _userPosts.clear();
       _posts.clear();
+      _pinnedPosts.clear();
       _renderedPostID.clear();
-      _currentOrgName = updatedOrganization;
+      await Future.wait([
+        _postService.refreshFeed(),
+        _pinnedPostService.refreshPinnedPosts(),
+      ]);
+      _isFetchingPosts = false;
       notifyListeners();
     }
-    // _postService.getPosts();
   }
 
   /// This function fetches new posts in the organization.
@@ -109,23 +94,23 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void fetchNewPosts() {
-    _postService.refreshFeed();
+  Future<void> refreshPosts() async {
+    await Future.wait([
+      _postService.refreshFeed(),
+      _pinnedPostService.refreshPinnedPosts(),
+    ]);
   }
 
   /// To initialize the view model.
   ///
-  /// more_info_if_required
-  ///
   /// **params**:
-  /// * `isTest`: for test
+  ///   None
   ///
   /// **returns**:
   ///   None
-  void initialise({
-    bool isTest = false,
-  }) {
+  Future<void> initialise() async {
     _isFetchingPosts = true;
+    notifyListeners();
 
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
     _currentOrgName = _userConfig.currentOrg.name!;
@@ -136,62 +121,67 @@ class OrganizationFeedViewModel extends BaseModel {
       (updatedOrganization) =>
           setCurrentOrganizationName(updatedOrganization.name!),
     );
+
+    _pinnnedPostSubscription =
+        _pinnedPostService.pinnedPostStream.listen((newPosts) {
+      return setPinnedPosts(newPosts);
+    });
+
     _postsSubscription = _postService.postStream.listen((newPosts) {
-      return buildNewPosts(newPosts);
+      return setPosts(newPosts);
     });
 
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
-    _postService.fetchPostsInitial();
-    if (isTest) {
-      istest = true;
-    }
-    _isFetchingPosts = false;
-  }
+    // SWR Pattern: Load from cache first
+    await _postService.fetchPostsInitial();
+    // Synchronously update the local state with cached data to avoid loading flicker
+    setPosts(_postService.posts);
 
-  // /// initializing the demo data.
-  // ///
-  // ///
-  // /// **params**:
-  // ///   None
-  // ///
-  // /// **returns**:
-  // ///   None
-  // void initializeWithDemoData() {
-  //   // final postJsonResult = postsDemoData;
-  //   //
-  //   // ------
-  //   // // Calling function to ge the post for the only 1st time.
-  //   // _postService.getPosts();
-  //   //
-  //   // //fetching pinnedPosts
-  //   // final pinnedPostJsonResult = pinnedPostsDemoData;
-  //   // pinnedPostJsonResult.forEach((pinnedPostJsonData) {
-  //   //   _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
-  //   // });
-  // }
+    if (_posts.isNotEmpty) {
+      _isFetchingPosts = false;
+      notifyListeners();
+    }
+
+    // Background refresh
+    await Future.wait([
+      _postService.refreshFeed(),
+      _pinnedPostService.refreshPinnedPosts(),
+    ]);
+
+    _isFetchingPosts = false;
+    notifyListeners();
+  }
 
   /// This function initialise `_posts` with `newPosts`.
   ///
-  /// more_info_if_required
-  ///
   /// **params**:
-  /// * `newPosts`: new post
+  /// * `newPosts`: new post list
   ///
   /// **returns**:
   ///   None
-  void buildNewPosts(List<Post> newPosts) {
+  void setPosts(List<Post> newPosts) {
     _posts = newPosts;
     final currentUserId = _userConfig.currentUser.id!;
     _userPosts.clear();
     for (final post in newPosts) {
-      if (!_userPosts.any((element) => element.sId == post.sId) &&
-          post.creator!.id == currentUserId) {
+      if (!_userPosts.any((element) => element.id == post.id) &&
+          post.creator?.id == currentUserId) {
         _userPosts.insert(0, post);
       }
     }
-    _isFetchingPosts = false;
+  }
+
+  /// This function initialise `_pinnedPosts` with `newPosts`.
+  ///
+  /// **params**:
+  /// * `newPinPosts`: new post
+  ///
+  /// **returns**:
+  ///   None
+  void setPinnedPosts(List<Post> newPinPosts) {
+    _pinnedPosts = newPinPosts;
     notifyListeners();
   }
 
@@ -227,6 +217,7 @@ class OrganizationFeedViewModel extends BaseModel {
     // Canceling the subscription so that there will be no rebuild after the widget is disposed.
     _currentOrganizationStreamSubscription.cancel();
     _postsSubscription.cancel();
+    _pinnnedPostSubscription.cancel();
     _updatePostSubscription.cancel();
     super.dispose();
   }
@@ -252,7 +243,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///   None
   void updatedPost(Post post) {
     for (int i = 0; i < _posts.length; i++) {
-      if (_posts[i].sId == post.sId) {
+      if (_posts[i].id == post.id) {
         _posts[i] = post;
         notifyListeners();
         break;
@@ -260,52 +251,25 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 
-  /// function to remove the post.
+  /// Method to delete a post from the feed.
   ///
   /// **params**:
-  /// * `post`: post object
+  /// * `post`: Post object to be deleted from the feed
   ///
   /// **returns**:
   ///   None
-  Future<void> removePost(Post post) async {
-    await actionHandlerService.performAction(
-      actionType: ActionType.critical,
-      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
-      action: () async {
-        final result = await _postService.deletePost(post);
-        return result;
-      },
-      onValidResult: (result) async {
-        _posts.remove(post);
-      },
-      apiCallSuccessUpdateUI: () {
-        navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
-          'Post was deleted if you had the rights!',
-          MessageType.info,
-        );
-        notifyListeners();
-      },
-    );
-    await actionHandlerService.performAction(
-      actionType: ActionType.critical,
-      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
-      action: () async {
-        final result = await _postService.deletePost(post);
-        return result;
-      },
-      onValidResult: (result) async {
-        _posts.remove(post);
-      },
-      apiCallSuccessUpdateUI: () {
-        navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
-          'Post was deleted if you had the rights!',
-          MessageType.info,
-        );
-        notifyListeners();
-      },
-    );
+  Future<void> deletePost(Post post) async {
+    try {
+      await _postService.deletePost(post);
+      _posts.removeWhere((p) => p.id == post.id);
+      _pinnedPosts.removeWhere((p) => p.id == post.id);
+      navigationService.showSnackBar(
+        "Post deleted successfully",
+      );
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error deleting post: $e');
+    }
   }
 
   /// Method to fetch next posts.
@@ -315,18 +279,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void nextPage() {
-    _postService.nextPage();
-  }
-
-  /// Method to fetch previous posts.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void previousPage() {
-    _postService.previousPage();
+  Future<void> nextPage() async {
+    await _postService.nextPage();
   }
 }

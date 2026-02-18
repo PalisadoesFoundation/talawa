@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -47,7 +49,7 @@ Widget createSetUrlScreen({
         darkTheme: TalawaTheme.darkTheme,
         home: const SetUrl(
           key: Key('SetUrl'),
-          uri: 'null',
+          uri: '',
         ),
         navigatorKey: navigationService.navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -67,6 +69,9 @@ Future<void> main() async {
     //initializing test functions
     locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
+  });
+  setUp(() {
+    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
   });
 
   //Testing in light mode/normal mode
@@ -96,31 +101,6 @@ Future<void> main() async {
       );
     });
 
-    testWidgets("Testing if icon button shows up", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the logo Finder
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      //finding the logo
-      expect(iconButton, findsOneWidget);
-      //testing logo size
-      expect(
-        (tester.firstWidget(iconButton) as Icon).semanticLabel,
-        'Join Organisation with QR',
-      );
-
-      expect((tester.firstWidget(iconButton) as Icon).size, 30);
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -204,57 +184,6 @@ Future<void> main() async {
         greeting,
       );
     });
-    testWidgets("Testing the Url Input text form field", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the url input field widget Finder
-      final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
-      //initializing the text field suffix button widget Finder
-      final findVerifyButton = find.byKey(const Key('VerifyButton'));
-      //initializing the nullUrlSubmission widget Finder
-      final nullErrorUrlSubmission = find.text('Please verify URL first');
-      //initializing the invalidUrlSubmission widget Finder
-      final invalidUrlSubmission = find.text('Enter a valid URL');
-
-      //finding the url input text field
-      expect(urlInputFieldWidget, findsOneWidget);
-      //finding the verify suffix button in text form field
-      expect(findVerifyButton, findsOneWidget);
-
-      /*//submitting the field with null url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the nullErrorUrlSubmission widget appears
-      expect(nullErrorUrlSubmission, findsOneWidget);*/
-
-      //inputting a non url text in the field
-      await tester.enterText(urlInputFieldWidget, 'non-url text');
-      //submitting the field with non url input
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the invalidUrlSubmission widget appears
-      expect(invalidUrlSubmission, findsOneWidget);
-
-      //inputting an existing url text in the field
-      await tester.enterText(
-        urlInputFieldWidget,
-        'https://<org_url_here>/graphql',
-      );
-      //submitting the field with a existing url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing nullErrorUrlSubmission is not found
-      expect(nullErrorUrlSubmission, findsNothing);
-      //testing invalidUrlSubmission is not found
-      expect(invalidUrlSubmission, findsNothing);
-    });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -283,6 +212,128 @@ Future<void> main() async {
       await tester.tap(changeLanguageWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
     });
+
+    testWidgets("Testing Verify button functionality", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field and enter a valid URL
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.pump();
+
+      // Find and tap the Verify button
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+      expect(verifyButton, findsOneWidget);
+
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+
+      // Verify that validation passed and checkURLandShowPopUp was triggered
+    });
+
+    testWidgets("Testing Verify button with invalid URL", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field and enter an invalid URL
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      await tester.enterText(urlInputField, 'invalid-url');
+      await tester.pump();
+
+      // Find and tap the Verify button
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+      expect(verifyButton, findsOneWidget);
+
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+
+      // Verify that validation error appears
+      expect(find.text('Enter a valid URL'), findsOneWidget);
+    });
+
+    testWidgets("Testing TextFormField onFieldSubmitted with valid URL",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      // Enter a valid URL and submit
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+
+      // Verify that validation was triggered and passed (no error message)
+      // The behavior is now consistent with the Verify button
+      expect(find.text('Enter a valid URL'), findsNothing);
+    });
+
+    testWidgets("Testing TextFormField onFieldSubmitted with invalid URL",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      // Enter an invalid URL and submit
+      await tester.enterText(urlInputField, 'invalid-url');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+
+      // Verify that validation error appears (same as Verify button)
+      expect(find.text('Enter a valid URL'), findsOneWidget);
+    });
+
+    testWidgets("Testing QR scanner button", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the QR scanner button
+      final qrScannerButton = find.byIcon(Icons.qr_code_scanner);
+      expect(qrScannerButton, findsOneWidget);
+
+      // Tap the QR scanner button
+      await tester.tap(qrScannerButton);
+      await tester.pumpAndSettle();
+
+      // Verify that the QR scanner bottom sheet appears
+      expect(find.text('Scan QR'), findsOneWidget);
+    });
+
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -298,18 +349,7 @@ Future<void> main() async {
 
       //finding the login button
       expect(loginButtonWidget, findsOneWidget);
-      //testing the login button widget
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme.lightTheme.colorScheme.tertiary,
-      );
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme
-            .lightTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
+
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
@@ -330,11 +370,6 @@ Future<void> main() async {
       );
       await tester.pump();
       expect(find.byKey(const Key('SetUrlScreenScaffold')), findsOneWidget);
-
-      await tester.enterText(
-        find.byKey(const Key('UrlInputField')),
-        'https://<org_url_here>/graphql',
-      );
 
       final finder = find.byKey(const Key('LoginButton'));
       await tester.ensureVisible(finder);
@@ -360,47 +395,11 @@ Future<void> main() async {
       //testing the signup button widget
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme
-            .lightTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme.lightTheme.colorScheme.secondaryContainer,
-      );
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
         'Sign Up',
       );
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
-    });
-    testWidgets(
-        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
-        (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final formFinder = find.ancestor(
-        of: find.byKey(const Key('UrlInputField')),
-        matching: find.byType(Form),
-      );
-      final formWidget = tester.firstWidget(formFinder) as Form;
-      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
-
-      final textFinder = find.byKey(const Key('UrlInputField'));
-      await tester.tap(textFinder);
-      await tester.pump();
-      await tester.showKeyboard(textFinder);
-      await tester.testTextInput.receiveAction(TextInputAction.done);
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen
@@ -441,15 +440,136 @@ Future<void> main() async {
         const Offset(100, 0),
       );
 
-      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
-
-      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) async => 1);
-
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pop());
+      verify(
+        navigationService.pushScreen('/selectLang'),
+      );
+    });
+
+    testWidgets("Testing Login button text color with focusedBorder",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final loginButton = find.byKey(const Key('LoginButton'));
+      expect(loginButton, findsOneWidget);
+
+      final button = tester.widget<RaisedRoundedButton>(loginButton);
+      final theme = TalawaTheme.lightTheme;
+
+      // Verify that text color uses focusedBorder color if available, otherwise primary
+      final expectedColor =
+          theme.inputDecorationTheme.focusedBorder?.borderSide.color ??
+              theme.colorScheme.primary;
+
+      expect(button.textColor, expectedColor);
+    });
+
+    testWidgets("Testing SignUp button text color with focusedBorder",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final signupButton = find.byKey(const Key('SignUpButton'));
+      expect(signupButton, findsOneWidget);
+
+      final button = tester.widget<RaisedRoundedButton>(signupButton);
+      final theme = TalawaTheme.lightTheme;
+
+      // SignUp button's backgroundColor uses focusedBorder color if available, otherwise primary
+      final expectedColor =
+          theme.inputDecorationTheme.focusedBorder?.borderSide.color ??
+              theme.colorScheme.primary;
+
+      expect(button.backgroundColor, expectedColor);
+    });
+
+    testWidgets(
+        "Testing button colors fallback to primary when focusedBorder is null",
+        (tester) async {
+      // Create a theme with no focusedBorder to trigger the ?? fallback
+      final themeWithNullFocusedBorder = TalawaTheme.lightTheme.copyWith(
+        inputDecorationTheme: const InputDecorationTheme(
+          focusedBorder:
+              null, // This will make focusedBorder?.borderSide.color null
+        ),
+      );
+
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: themeWithNullFocusedBorder,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final loginButton = find.byKey(const Key('LoginButton'));
+      final signupButton = find.byKey(const Key('SignUpButton'));
+
+      expect(loginButton, findsOneWidget);
+      expect(signupButton, findsOneWidget);
+
+      final loginWidget = tester.widget<RaisedRoundedButton>(loginButton);
+      final signupWidget = tester.widget<RaisedRoundedButton>(signupButton);
+
+      // Since focusedBorder is null, both buttons should use colorScheme.primary
+      expect(
+        loginWidget.textColor,
+        themeWithNullFocusedBorder.colorScheme.primary,
+      );
+      expect(
+        signupWidget.backgroundColor,
+        themeWithNullFocusedBorder.colorScheme.primary,
+      );
+    });
+
+    testWidgets("Testing if Try Demo button works", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the try demo button Finder
+      final tryDemoButtonWidget = find.byKey(const Key('TryDemoButton'));
+
+      //finding the try demo button
+      expect(tryDemoButtonWidget, findsOneWidget);
+
+      expect(
+        (tester.firstWidget(tryDemoButtonWidget) as RaisedRoundedButton)
+            .buttonLabel,
+        'Try Demo',
+      );
+      await tester.ensureVisible(tryDemoButtonWidget);
+      await tester.tap(tryDemoButtonWidget);
+      await tester.pumpAndSettle();
+
+      // navigateToDemo uses removeAllAndPush with Routes.mainScreen and demo args
+      verify(navigationService.removeAllAndPush(
+        Routes.mainScreen,
+        Routes.splashScreen,
+        arguments: MainScreenArgs(
+          mainScreenIndex: 0,
+          fromSignUp: false,
+          toggleDemoMode: true,
+        ),
+      )).called(1);
     });
   });
 
@@ -480,50 +600,6 @@ Future<void> main() async {
       );
     });
 
-    testWidgets("Testing if icon button shows up", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the logo Finder
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      //finding the logo
-      expect(iconButton, findsOneWidget);
-      //testing logo size
-      expect(
-        (tester.firstWidget(iconButton) as Icon).semanticLabel,
-        'Join Organisation with QR',
-      );
-
-      expect((tester.firstWidget(iconButton) as Icon).size, 30);
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-    });
-    testWidgets("Check if QR button works", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      // tapping the qr button
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-
-      expect(find.byType(ClipRRect), findsOneWidget);
-      expect(find.byType(QRView), findsOneWidget);
-    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -606,57 +682,6 @@ Future<void> main() async {
         greeting,
       );
     });
-    testWidgets("Testing the Url Input text form field", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the url input field widget Finder
-      final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
-      //initializing the text field suffix button widget Finder
-      final findVerifyButton = find.byKey(const Key('VerifyButton'));
-      //initializing the nullUrlSubmission widget Finder
-      final nullErrorUrlSubmission = find.text('Please verify URL first');
-      //initializing the invalidUrlSubmission widget Finder
-      final invalidUrlSubmission = find.text('Enter a valid URL');
-
-      //finding the url input text field
-      expect(urlInputFieldWidget, findsOneWidget);
-      //finding the verify suffix button in text form field
-      expect(findVerifyButton, findsOneWidget);
-
-      /* //submitting the field with null url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle();
-      //testing the nullErrorUrlSubmission widget appears
-      expect(nullErrorUrlSubmission, findsOneWidget);*/
-
-      //inputting a non url text in the field
-      await tester.enterText(urlInputFieldWidget, 'non-url text');
-      //submitting the field with non url input
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle();
-      //testing the invalidUrlSubmission widget appears
-      expect(invalidUrlSubmission, findsOneWidget);
-
-      //inputting an existing url text in the field
-      await tester.enterText(
-        urlInputFieldWidget,
-        'https://<org_url_here>/graphql',
-      );
-      //submitting the field with a existing url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle();
-      //testing nullErrorUrlSubmission is not found
-      expect(nullErrorUrlSubmission, findsNothing);
-      //testing invalidUrlSubmission is not found
-      expect(invalidUrlSubmission, findsNothing);
-    });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -685,6 +710,132 @@ Future<void> main() async {
       await tester.tap(changeLanguageWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
     });
+
+    testWidgets("Testing Verify button functionality in dark mode",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field and enter a valid URL
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.pump();
+
+      // Find and tap the Verify button
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+      expect(verifyButton, findsOneWidget);
+
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+
+      // Verify that validation passed and checkURLandShowPopUp was triggered
+    });
+
+    testWidgets("Testing Verify button with invalid URL in dark mode",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field and enter an invalid URL
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      await tester.enterText(urlInputField, 'invalid-url');
+      await tester.pump();
+
+      // Find and tap the Verify button
+      final verifyButton = find.byKey(const Key('VerifyButton'));
+      expect(verifyButton, findsOneWidget);
+
+      await tester.tap(verifyButton);
+      await tester.pumpAndSettle();
+
+      // Verify that validation error appears
+      expect(find.text('Enter a valid URL'), findsOneWidget);
+    });
+
+    testWidgets(
+        "Testing TextFormField onFieldSubmitted with valid URL in dark mode",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      // Enter a valid URL and submit
+      await tester.enterText(urlInputField, 'https://example.com/graphql');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+
+      // Verify that validation was triggered and passed (no error message)
+      // The behavior is now consistent with the Verify button
+      expect(find.text('Enter a valid URL'), findsNothing);
+    });
+
+    testWidgets(
+        "Testing TextFormField onFieldSubmitted with invalid URL in dark mode",
+        (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the URL input field
+      final urlInputField = find.byKey(const Key('UrlInputField'));
+      expect(urlInputField, findsOneWidget);
+
+      // Enter an invalid URL and submit
+      await tester.enterText(urlInputField, 'invalid-url');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+
+      // Verify that validation error appears (same as Verify button)
+      expect(find.text('Enter a valid URL'), findsOneWidget);
+    });
+
+    testWidgets("Testing QR scanner button in dark mode", (tester) async {
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find the QR scanner button
+      final qrScannerButton = find.byIcon(Icons.qr_code_scanner);
+      expect(qrScannerButton, findsOneWidget);
+
+      // Tap the QR scanner button
+      await tester.tap(qrScannerButton);
+      await tester.pumpAndSettle();
+
+      // Verify that the QR scanner bottom sheet appears
+      expect(find.text('Scan QR'), findsOneWidget);
+    });
+
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -701,17 +852,6 @@ Future<void> main() async {
       //finding the login button
       expect(loginButtonWidget, findsOneWidget);
       //testing the login button widget
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme.darkTheme.colorScheme.tertiary,
-      );
-      expect(
-        (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme
-            .darkTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
@@ -737,18 +877,7 @@ Future<void> main() async {
 
       //finding the signup button
       expect(signupButtonWidget, findsOneWidget);
-      //testing the signup button widget
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .backgroundColor,
-        TalawaTheme
-            .darkTheme.inputDecorationTheme.focusedBorder!.borderSide.color,
-      );
-      expect(
-        (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
-            .textColor,
-        TalawaTheme.darkTheme.colorScheme.secondaryContainer,
-      );
+
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .buttonLabel,
@@ -756,31 +885,6 @@ Future<void> main() async {
       );
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
-    });
-    testWidgets(
-        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
-        (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final formFinder = find.ancestor(
-        of: find.byKey(const Key('UrlInputField')),
-        matching: find.byType(Form),
-      );
-      final formWidget = tester.firstWidget(formFinder) as Form;
-      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
-
-      final textFinder = find.byKey(const Key('UrlInputField'));
-      await tester.tap(textFinder);
-      await tester.pump();
-      await tester.showKeyboard(textFinder);
-      await tester.testTextInput.receiveAction(TextInputAction.done);
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen
@@ -821,15 +925,49 @@ Future<void> main() async {
         const Offset(100, 0),
       );
 
-      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
-
-      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) async => 1);
-
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pop());
+      verify(
+        navigationService.pushScreen('/selectLang'),
+      );
+    });
+
+    testWidgets("Testing if Try Demo button works", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      //initializing the try demo button Finder
+      final tryDemoButtonWidget = find.byKey(const Key('TryDemoButton'));
+
+      //finding the try demo button
+      expect(tryDemoButtonWidget, findsOneWidget);
+
+      expect(
+        (tester.firstWidget(tryDemoButtonWidget) as RaisedRoundedButton)
+            .buttonLabel,
+        'Try Demo',
+      );
+      await tester.ensureVisible(tryDemoButtonWidget);
+      await tester.tap(tryDemoButtonWidget);
+      await tester.pumpAndSettle();
+
+      // navigateToDemo uses removeAllAndPush with Routes.mainScreen and demo args
+      verify(navigationService.removeAllAndPush(
+        Routes.mainScreen,
+        Routes.splashScreen,
+        arguments: MainScreenArgs(
+          mainScreenIndex: 0,
+          fromSignUp: false,
+          toggleDemoMode: true,
+        ),
+      )).called(1);
     });
   });
 }

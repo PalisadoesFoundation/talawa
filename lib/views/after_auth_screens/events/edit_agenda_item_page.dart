@@ -3,10 +3,8 @@ import 'dart:convert';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
-import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
@@ -44,7 +42,7 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
             elevation: 1,
             centerTitle: true,
             leading: GestureDetector(
-              onTap: () => locator<NavigationService>().pop(),
+              onTap: model.navigateBack,
               child: const Icon(Icons.close),
             ),
             title: Text(
@@ -161,8 +159,13 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                       controller: model.titleController,
                       keyboardType: TextInputType.name,
                       maxLength: 20,
-                      validator: (value) =>
-                          Validator.validateEventForm(value!, 'Title'),
+                      validator: (value) {
+                        final String? err =
+                            Validators.eventField(value, 'Title');
+                        return err == null
+                            ? null
+                            : AppLocalizations.of(context)!.translate(err);
+                      },
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!
                             .strictTranslate('Agenda Item Title'),
@@ -189,8 +192,13 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                       key: const Key('edit_event_agenda_tf2'),
                       keyboardType: TextInputType.multiline,
                       controller: model.descriptionController,
-                      validator: (value) =>
-                          Validator.validateEventForm(value!, 'Description'),
+                      validator: (value) {
+                        final String? err =
+                            Validators.eventField(value, 'Description');
+                        return err == null
+                            ? null
+                            : AppLocalizations.of(context)!.translate(err);
+                      },
                       maxLines: 10,
                       minLines: 1,
                       decoration: InputDecoration(
@@ -239,7 +247,8 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                         ),
                       ),
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        final String? err = Validators.required(value);
+                        if (err != null) {
                           return AppLocalizations.of(context)!
                               .strictTranslate('Please enter a duration');
                         }

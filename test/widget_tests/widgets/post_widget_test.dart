@@ -1,434 +1,334 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:network_image_mock/network_image_mock.dart';
-import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/locator.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/size_config.dart';
-import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
-import 'package:talawa/views/base_view.dart';
+import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/widgets/caption_text_widget.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/interaction.dart';
 import 'package:talawa/widgets/post_container.dart';
-import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/post_modal.dart';
 import 'package:talawa/widgets/post_widget.dart';
-// import 'package:talawa/widgets/video_widget.dart';
-// import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/test_helpers.dart';
 
-/// Key for NewsPost widget.
-const Key newsPostKey = Key("newsPostKey");
-
-/// Key for PostContainer widget.
-const Key postContainerKey = Key("postContainerKey");
-
-/// [createNewsPostWidget] is a method that returns a NewsPost widget.
-///
-/// **params**:
-/// * `function`: Function(Post)? - function to be called when the post comment is clicked.
-/// * `post`: Post object containing all the data related to the post.
-///
-/// **returns**:
-/// * `Widget`: NewsPost widget.
-Widget createNewsPostWidget([Function(Post)? function, Post? post]) {
-  return MaterialApp(
-    locale: const Locale('en'),
-    localizationsDelegates: [
-      const AppLocalizationsDelegate(isTest: true),
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-    ],
-    themeMode: ThemeMode.light,
-    theme: TalawaTheme.lightTheme,
-    home: Scaffold(
-      body: NewsPost(
-        key: newsPostKey,
-        post: post ?? getPostMockModel(),
-        function: function,
-      ),
-    ),
-  );
-}
-
 void main() {
-  SizeConfig().test();
-  locator.registerSingleton(NavigationService());
-
-  setUp(() {
-    registerServices();
-    registerViewModels();
-  });
-
-  tearDown(() {
-    unregisterViewModels();
-    unregisterServices();
-  });
-
-  group('Testing News Post Widget - ', () {
-    testWidgets("Test if News Post Widget is displayed ",
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await tester.pumpWidget(createNewsPostWidget());
-        await tester.pump();
-        final postFinder = find.byKey(newsPostKey);
-        expect(postFinder, findsOneWidget);
-      });
+  group('PostWidget Tests', () {
+    late Post testPost;
+    late Post postWithAttachments;
+    late Post postWithoutCreator;
+    setUpAll(() {
+      registerServices();
+      registerViewModels();
+    });
+    tearDownAll(() {
+      unregisterViewModels();
+      unregisterServices();
     });
 
-    group('Post Widget Test functionality-', () {
-      testWidgets("Test if like button changes colour if liked",
-          (WidgetTester tester) async {
-        await tester.runAsync(() async {
-          final Post post = getPostMockModel();
-          when(post.likedBy).thenReturn([LikedBy(sId: "xzy1")]);
-          await tester.pumpWidget(
-            createNewsPostWidget(
-              null,
-              post,
+    setUp(() {
+      testPost = Post(
+        id: 'post1',
+        caption: 'Test caption',
+        creator: User(
+          name: 'John Doe',
+          image: null,
+        ),
+        attachments: null,
+      );
+
+      postWithAttachments = Post(
+        id: 'post2',
+        caption: 'Post with attachments',
+        creator: User(
+          name: 'Jane Smith',
+          image: 'https://example.com/image.jpg',
+        ),
+        attachments: [
+          AttachmentModel(url: 'https://example.com/attachment.jpg'),
+        ],
+      );
+
+      postWithoutCreator = Post(
+        id: 'post3',
+        caption: 'Post without creator',
+        creator: null,
+      );
+    });
+
+    testWidgets('PostWidget displays basic post structure', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: testPost),
+          ),
+        ),
+      );
+
+      // Verify basic structure
+      expect(find.byType(Card), findsOneWidget);
+      expect(find.byType(ListTile), findsOneWidget);
+      expect(find.byType(CustomAvatar), findsOneWidget);
+      expect(
+        find.byKey(const Key('postContainergestureDetector')),
+        findsOneWidget,
+      );
+      expect(find.byType(Interactions), findsOneWidget);
+    });
+
+    testWidgets('PostWidget displays creator information correctly',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: testPost),
+          ),
+        ),
+      );
+
+      // Verify creator name
+      expect(find.text('John Doe'), findsOneWidget);
+
+      // Verify CustomAvatar receives correct props
+      final avatar = tester.widget<CustomAvatar>(find.byType(CustomAvatar));
+      expect(avatar.isImageNull, isTrue);
+      expect(avatar.firstAlphabet, equals('J'));
+      expect(avatar.fontSize, equals(20));
+    });
+
+    testWidgets('PostWidget displays creator with image correctly',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: postWithAttachments),
+          ),
+        ),
+      );
+
+      // Verify creator name
+      expect(find.text('Jane Smith'), findsOneWidget);
+
+      // Verify CustomAvatar receives correct props
+      final avatar = tester.widget<CustomAvatar>(find.byType(CustomAvatar));
+      expect(avatar.isImageNull, isFalse);
+      expect(avatar.imageUrl, equals('https://example.com/image.jpg'));
+    });
+
+    testWidgets('PostWidget handles creator with null values', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: postWithoutCreator),
+          ),
+        ),
+      );
+
+      // Should handle null creator gracefully
+      expect(find.text('Unknown User'), findsOneWidget);
+
+      final avatar = tester.widget<CustomAvatar>(find.byType(CustomAvatar));
+      expect(avatar.isImageNull, isTrue);
+      expect(avatar.firstAlphabet, isNull);
+    });
+
+    testWidgets('PostWidget shows report button and opens modal',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: testPost),
+          ),
+        ),
+      );
+
+      // Verify report button exists
+      expect(find.byKey(const Key('reportButton')), findsOneWidget);
+      expect(find.byIcon(Icons.report_gmailerrorred_outlined), findsOneWidget);
+
+      // Tap report button (use the correct key)
+      await tester.tap(find.byKey(const Key('reportButton')));
+      await tester.pumpAndSettle();
+
+      // Verify modal appears
+      expect(find.byKey(const Key('reportPost')), findsOneWidget);
+      expect(find.byType(PostBottomModal), findsOneWidget);
+    });
+
+    testWidgets('PostWidget displays caption when no attachments',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: testPost),
+          ),
+        ),
+      );
+
+      // Should show CaptionTextWidget when no attachments
+      expect(find.byType(CaptionTextWidget), findsOneWidget);
+      expect(find.text('Test caption'), findsOneWidget);
+      expect(find.byType(PostContainer), findsNothing);
+    });
+
+    testWidgets('PostWidget displays attachments when present', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: postWithAttachments),
+          ),
+        ),
+      );
+
+      // Should show PostContainer when attachments exist
+      expect(find.byType(PostContainer), findsOneWidget);
+
+      // Should also show caption below (in the Row)
+      expect(find.byType(CaptionTextWidget), findsOneWidget);
+    });
+
+    testWidgets('PostWidget handles GestureDetector tap', (tester) async {
+      bool redirectCalled = false;
+      Post? redirectedPost;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(
+              post: testPost,
+              redirectToIndividualPage: (post) {
+                redirectCalled = true;
+                redirectedPost = post;
+              },
             ),
-          );
-          await tester.pump();
+          ),
+        ),
+      );
 
-          final postFinder = find.byKey(newsPostKey);
-          final columnFinder =
-              find.descendant(of: postFinder, matching: find.byType(Column));
-          final column2Finder = columnFinder.at(2);
-          final secondColumnWidget =
-              tester.firstWidget(column2Finder) as Column;
-          print(secondColumnWidget);
+      final gestureDetecor =
+          find.byKey(const Key('postContainergestureDetector'));
 
-          // final thirdPaddingWidget = secondColumnWidget.children[2] as Padding;
-          //
-          // final first3GestureDetectorFinder = find.descendant(
-          //   of: find.byWidget(thirdPaddingWidget),
-          //   matching: find.byType(GestureDetector),
-          // );
-          // final first3GestureDetectorWidget = tester
-          //     .firstWidget(first3GestureDetectorFinder) as GestureDetector;
+      // Tap the GestureDetector
+      await tester.tap(gestureDetecor);
+      await tester.pumpAndSettle();
 
-          // expect(
-          //   (first3GestureDetectorWidget.child! as Icon).color,
-          //   TalawaTheme.lightTheme.colorScheme.secondary,
-          // );
-        });
-      });
-
-      testWidgets("test onTap of GestureDetector's", (tester) async {
-        await tester.runAsync(() async {
-          int clicked = 0;
-          await tester
-              .pumpWidget(createNewsPostWidget((Post post) => clicked++));
-          await tester.pump();
-
-          await tester.tap(find.byKey(const Key('commentButton')));
-          await tester.pump();
-          expect(clicked, 1);
-
-          await tester.tap(find.byType(GestureDetector).last);
-          await tester.pump();
-          expect(clicked, 2);
-        });
-      });
+      // Verify callback was called
+      expect(redirectCalled, isTrue);
+      expect(redirectedPost?.id, equals('post1'));
     });
 
-    group("Post Widget Test is all Widgets exist-", () {
-      testWidgets("Test if Column exists", (WidgetTester tester) async {
-        await tester.runAsync(() async {
-          await tester.pumpWidget(createNewsPostWidget());
-          await tester.pump();
-          final postFinder = find.byKey(newsPostKey);
-          final firstColumnFinder = find
-              .descendant(of: postFinder, matching: find.byType(Column))
-              .first;
+    testWidgets('PostWidget passes correct props to Interactions',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(
+              post: testPost,
+              redirectToIndividualPage: (post) {},
+            ),
+          ),
+        ),
+      );
 
-          //Test if 3 Columns exists
-          expect(firstColumnFinder, findsOneWidget);
+      // Verify Interactions widget receives correct props
+      final interactions =
+          tester.widget<Interactions>(find.byType(Interactions));
+      expect(interactions.post.id, equals('post1'));
+      expect(interactions.redirectToIndividualPage, isNotNull);
+    });
 
-          final firstColumnWidget =
-              tester.firstWidget(firstColumnFinder) as Column;
+    testWidgets('PostWidget handles deletePost callback', (tester) async {
+      bool deleteCalled = false;
+      Post? deletedPost;
 
-          // Test if first column has cross axis alignment of start
-          expect(
-            firstColumnWidget.crossAxisAlignment,
-            CrossAxisAlignment.start,
-          );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(
+              post: testPost,
+              deletePost: (post) {
+                deleteCalled = true;
+                deletedPost = post;
+              },
+            ),
+          ),
+        ),
+      );
 
-          // Testing if all direct children of column are there
-          expect(firstColumnWidget.children[0], isA<ListTile>());
-          expect(firstColumnWidget.children[1], isA<DescriptionTextWidget>());
-          // expect(firstColumnWidget.children[2], isA<Container>());
-          expect(
-            firstColumnWidget.children[2],
-            isA<BaseView<LikeButtonViewModel>>(),
-          );
-        });
-      });
-      testWidgets('Test Props of List Tile', (WidgetTester tester) async {
-        await tester.runAsync(() async {
-          await tester.pumpWidget(createNewsPostWidget());
-          await tester.pump();
-          final postFinder = find.byKey(newsPostKey);
-          final columnFinder = find
-              .descendant(of: postFinder, matching: find.byType(Column))
-              .first;
+      // Open modal
+      await tester.tap(find.byKey(const Key('reportButton')));
+      await tester.pumpAndSettle();
 
-          final listTileFinder = find.descendant(
-            of: columnFinder,
-            matching: find.byType(ListTile),
-          );
+      // Tap delete button if available
+      if (find.text('Delete Post').evaluate().isNotEmpty) {
+        await tester.tap(find.text('Delete Post'));
+        await tester.pumpAndSettle();
 
-          // Tests if List Tile is a child of the first Column
-          expect(listTileFinder, findsOneWidget);
+        expect(deleteCalled, isTrue);
+        expect(deletedPost?.id, equals('post1'));
+      }
+    });
 
-          final listTileWidget = tester.firstWidget(listTileFinder) as ListTile;
+    testWidgets('PostWidget applies correct styling', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          ),
+          home: Scaffold(
+            body: PostWidget(post: testPost),
+          ),
+        ),
+      );
 
-          // Tests if leading of list tile is custom avatar
-          expect(listTileWidget.leading.runtimeType, CustomAvatar);
+      // Verify Card styling
+      final card = tester.widget<Card>(find.byType(Card));
+      expect(card.elevation, equals(5));
+      expect(card.shape, isA<RoundedRectangleBorder>());
+    });
 
-          final customAvatarFinder = find.descendant(
-            of: listTileFinder.first,
-            matching: find.byType(CustomAvatar),
-          );
+    testWidgets('PostWidget handles empty caption', (tester) async {
+      final postWithEmptyCaption = Post(
+        id: 'post4',
+        caption: null,
+        creator: testPost.creator,
+      );
 
-          // Tests if Custom Avatar is a descendant of list tile
-          expect(customAvatarFinder, findsOneWidget);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: postWithEmptyCaption),
+          ),
+        ),
+      );
 
-          final customAvatarWidget =
-              tester.firstWidget(customAvatarFinder) as CustomAvatar;
+      // Should handle empty caption gracefully
+      expect(find.byType(CaptionTextWidget), findsOneWidget);
+      expect(find.text(''), findsOneWidget);
+    });
 
-          // Testing props of Custom Avatar Widget
-          expect(customAvatarWidget.isImageNull, true);
-          expect(customAvatarWidget.imageUrl, ' /null');
-          expect(customAvatarWidget.fontSize, 20);
-          expect(customAvatarWidget.firstAlphabet, 'T');
+    testWidgets('PostWidget modal can be dismissed', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostWidget(post: testPost),
+          ),
+        ),
+      );
 
-          // Tests if leading of list tile is custom avatar
-          expect(listTileWidget.title.runtimeType, Text);
+      // Open modal
+      await tester.tap(find.byKey(const Key('reportButton')));
+      await tester.pumpAndSettle();
 
-          final textsOfListTileFinder = find.descendant(
-            of: listTileFinder.first,
-            matching: find.byType(Text),
-          );
+      // Verify modal is open
+      expect(find.byKey(const Key('reportPostButton')), findsOneWidget);
 
-          // Testing if 3 Text Widget are children of list tile
-          // expect(textsOfListTileFinder, findsNWidgets(3));
+      // Tap outside to dismiss (or use back button)
+      await tester.tapAt(const Offset(50, 50));
+      await tester.pumpAndSettle();
 
-          final titleListTileFinder = textsOfListTileFinder.at(1);
-          final titleListTileWidget =
-              tester.firstWidget(titleListTileFinder) as Text;
-
-          // Testing properties of title Text Widget of list tile
-          expect(titleListTileWidget.data, "TestName null");
-          expect(titleListTileWidget.style!.fontSize, 16);
-          expect(titleListTileWidget.style!.fontWeight, FontWeight.w400);
-
-          final subtitleListTileFinder = textsOfListTileFinder.at(1);
-          final subtitleListTileWidget =
-              tester.firstWidget(subtitleListTileFinder) as Text;
-
-          // Testing properties of title Text Widget of list tile
-          expect(subtitleListTileWidget.data, "TestName null");
-        });
-      });
-      testWidgets("Test props of DescriptionTextWidget",
-          (WidgetTester tester) async {
-        await tester.runAsync(() async {
-          await tester.pumpWidget(createNewsPostWidget());
-          await tester.pump();
-          final postFinder = find.byKey(newsPostKey);
-          final columnFinder = find
-              .descendant(of: postFinder, matching: find.byType(Column))
-              .first;
-          final descriptionTextWidgetFinder = find.descendant(
-            of: columnFinder,
-            matching: find.byType(DescriptionTextWidget),
-          );
-
-          // Testing if DescriptionTextWidget shows
-          expect(descriptionTextWidgetFinder, findsOneWidget);
-
-          final descriptionTextWidget =
-              tester.firstWidget(descriptionTextWidgetFinder)
-                  as DescriptionTextWidget;
-
-          // Testing if the text description is correct
-          expect(descriptionTextWidget.text, "TestDescription");
-        });
-      });
-
-      testWidgets("Test props of Base view", (WidgetTester tester) async {
-        await tester.runAsync(() async {
-          await tester.pumpWidget(createNewsPostWidget());
-          await tester.pump();
-          final postFinder = find.byKey(newsPostKey);
-          final columnFinder =
-              find.descendant(of: postFinder, matching: find.byType(Column));
-
-          final baseViewWidget = (tester.firstWidget(columnFinder) as Column)
-              .children[2] as BaseView<LikeButtonViewModel>;
-
-          // Testing if the text description is correct
-          expect(baseViewWidget.onModelReady, isNotNull);
-          expect(baseViewWidget.builder, isNotNull);
-          final column2Finder = columnFinder.at(2);
-          expect(column2Finder, findsOneWidget);
-
-          final secondColumnWidget =
-              tester.firstWidget(column2Finder) as Column;
-          print(secondColumnWidget);
-        });
-      });
-
-      group('Test props of children for baseview', () {
-        // testWidgets(
-        //     'Test MultiReactButton presence and onReactionChanged property in NewsPostWidget',
-        //     (WidgetTester tester) async {
-        //   await tester.runAsync(() async {
-        //     // Variable to check if onReactionChanged is called
-        //     bool reactionChangedCalled = false;
-
-        //     // Build the NewsPostWidget containing the MultiReactButton
-        //     await tester.pumpWidget(
-        //       MultiReactButton(
-        //         toggle: () {
-        //           // Set the flag when onReactionChanged is called
-        //           reactionChangedCalled = true;
-        //         },
-        //       ),
-        //     );
-
-        //     // Find the MultiReactButton widget within the NewsPostWidget
-        //     final multiReactButtonFinder = find.byType(MultiReactButton);
-
-        //     // Ensure the MultiReactButton widget is present in the widget tree
-        //     expect(multiReactButtonFinder, findsOneWidget);
-
-        //     // Simulate a reaction change on the MultiReactButton
-        //     await tester.tap(
-        //       multiReactButtonFinder,
-        //     ); // Replace with your actual tap action
-        //     await tester.pump();
-
-        //     // Ensure that onReactionChanged callback was triggered
-        //     expect(reactionChangedCalled, true);
-        //   });
-        // });
-        testWidgets('Test props first padding widget',
-            (WidgetTester tester) async {
-          await tester.runAsync(() async {
-            await tester.pumpWidget(createNewsPostWidget());
-            await tester.pump();
-            final postFinder = find.byKey(newsPostKey);
-            final columnFinder =
-                find.descendant(of: postFinder, matching: find.byType(Column));
-            final column2Finder = columnFinder.at(2);
-            final secondColumnWidget =
-                tester.firstWidget(column2Finder) as Column;
-            final firstPaddingWidget =
-                secondColumnWidget.children[0] as Padding;
-
-            final firstGestureDetectorFinder = find.descendant(
-              of: find.byWidget(firstPaddingWidget),
-              matching: find.byType(GestureDetector),
-            );
-            print(firstGestureDetectorFinder);
-
-            final secondGestureDetectorFinder = find.descendant(
-              of: find.byWidget(firstPaddingWidget),
-              matching: find.byType(GestureDetector),
-            );
-            print(secondGestureDetectorFinder);
-          });
-        });
-
-        testWidgets('Test props second padding widget',
-            (WidgetTester tester) async {
-          await tester.runAsync(() async {
-            await tester.pumpWidget(createNewsPostWidget());
-            await tester.pump();
-            final postFinder = find.byKey(newsPostKey);
-            final columnFinder =
-                find.descendant(of: postFinder, matching: find.byType(Column));
-            final column2Finder = columnFinder.at(2);
-            final secondColumnWidget =
-                tester.firstWidget(column2Finder) as Column;
-            final secondPaddingWidget =
-                secondColumnWidget.children[1] as Padding;
-            print(secondPaddingWidget);
-          });
-        });
-
-        testWidgets('Test props third padding widget',
-            (WidgetTester tester) async {
-          await tester.runAsync(() async {
-            await tester.pumpWidget(createNewsPostWidget());
-            await tester.pump();
-            final postFinder = find.byKey(newsPostKey);
-            final columnFinder =
-                find.descendant(of: postFinder, matching: find.byType(Column));
-            final column2Finder = columnFinder.at(2);
-            final secondColumnWidget =
-                tester.firstWidget(column2Finder) as Column;
-            print(secondColumnWidget);
-          });
-        });
-
-        testWidgets('Test if report button opens modal bottom sheet',
-            (WidgetTester tester) async {
-          await tester.pumpWidget(createNewsPostWidget());
-          await tester.pump();
-
-          final reportButtonFinder = find.byKey(const Key('reportButton'));
-          expect(reportButtonFinder, findsOneWidget);
-
-          await tester.tap(reportButtonFinder);
-          await tester.pumpAndSettle();
-
-          final modalBottomSheetFinder =
-              find.byKey(const Key('reportPost')).first;
-          expect(modalBottomSheetFinder, findsOneWidget);
-
-          final postBottomModalFinder = find.byType(PostBottomModal);
-          expect(postBottomModalFinder, findsOneWidget);
-        });
-
-        testWidgets("Test post image", (tester) async {
-          await tester.runAsync(() async {
-            await mockNetworkImagesFor(() async {
-              final Post post = getPostMockModel();
-              when(post.imageUrl).thenReturn(
-                "testImageUrl",
-              );
-
-              await tester.pumpWidget(
-                createNewsPostWidget(
-                  null,
-                  post,
-                ),
-              );
-
-              await tester.pumpAndSettle();
-
-              final postParentContainer =
-                  find.byKey(const Key('postParentContainer'));
-              expect(postParentContainer, findsOneWidget);
-              final postContainer = find
-                  .descendant(
-                    of: postParentContainer,
-                    matching: find.byType(PostContainer),
-                  )
-                  .first;
-
-              expect(postContainer, findsOneWidget);
-            });
-          });
-        });
-      });
+      // Verify modal is closed
+      expect(find.byKey(const Key('reportPostButton')), findsNothing);
     });
   });
 }

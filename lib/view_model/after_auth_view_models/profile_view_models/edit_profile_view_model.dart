@@ -18,22 +18,19 @@ class EditProfilePageViewModel extends BaseModel {
   late MultiMediaPickerService _multiMediaPickerService;
 
   /// profile image.
-  late File? imageFile;
-
-  /// profile image in base64.
-  String? base64Image;
+  File? imageFile;
 
   /// first name controller.
-  late TextEditingController firstNameTextController;
+  late TextEditingController nameTextController;
 
-  /// last name controller.
-  late TextEditingController lastNameTextController;
-
-  /// Focus node tpo control focus.
-  FocusNode firstNameFocus = FocusNode();
+  /// email controller.
+  late TextEditingController emailTextController;
 
   /// Focus node tpo control focus.
-  FocusNode lastNameFocus = FocusNode();
+  FocusNode nameFocus = FocusNode();
+
+  /// Focus node to control focus.
+  FocusNode emailFocus = FocusNode();
 
   /// Graphql client.
   final databaseService = databaseFunctions;
@@ -51,8 +48,8 @@ class EditProfilePageViewModel extends BaseModel {
   void initialize() {
     imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
-    firstNameTextController = TextEditingController(text: user.firstName);
-    lastNameTextController = TextEditingController(text: user.lastName);
+    emailTextController = TextEditingController(text: user.email);
+    nameTextController = TextEditingController(text: user.name);
   }
 
   /// This function is used to get the image from gallery.
@@ -73,40 +70,21 @@ class EditProfilePageViewModel extends BaseModel {
     }
   }
 
-  /// This function is used to convert the image into Base64 format.
-  ///
-  /// **params**:
-  /// * `file`:  Takes the image in format of file.
-  ///
-  /// **returns**:
-  /// * `Future<String>`: image in string format
-  Future<String> convertToBase64(File file) async {
-    try {
-      base64Image = await imageService.convertToBase64(file);
-      return base64Image!;
-    } catch (error) {
-      print(error);
-      return '';
-    }
-  }
-
   /// Method to update user profile.
   ///
   /// **params**:
-  /// * `firstName`: updated first name.
-  /// * `lastName`: updated last name.
+  /// * `name`: updated name.
+  /// * `email`: updated email.
   /// * `newImage`: New profile picture that is to be updated.
   ///
   /// **returns**:
   ///   None
   Future<void> updateUserProfile({
-    String? firstName,
-    String? lastName,
+    String? name,
+    String? email,
     File? newImage,
   }) async {
-    if (firstName == user.firstName &&
-        newImage == null &&
-        lastName == user.lastName) {
+    if (name == user.name && email == user.email && newImage == null) {
       return;
     }
     await actionHandlerService.performAction(
@@ -114,16 +92,14 @@ class EditProfilePageViewModel extends BaseModel {
       criticalActionFailureMessage: TalawaErrors.userProfileUpdateFailed,
       action: () async {
         final Map<String, dynamic> variables = {};
-        if (firstName != null) {
-          variables["firstName"] = firstName;
+        if (name != null && name != user.name) {
+          variables["name"] = name;
         }
-        if (lastName != null) {
-          variables["lastName"] = lastName;
+        if (email != null && email != user.email) {
+          variables["emailAddress"] = email;
         }
         if (newImage != null) {
-          final String imageAsString = await convertToBase64(newImage);
-          print('data:image/png;base64,$imageAsString');
-          variables["file"] = 'data:image/png;base64,$imageAsString';
+          variables["avatar"] = newImage;
         }
         if (variables.isNotEmpty) {
           await userProfileService.updateUserProfile(variables);
@@ -133,23 +109,18 @@ class EditProfilePageViewModel extends BaseModel {
 
           return result;
         }
-        return databaseFunctions.noData;
+        return null;
       },
       onValidResult: (result) async {
-        final List users = result.data!['users'] as List;
+        final user = result.data!['user'] as Map<String, dynamic>;
 
         final User userInfo = User.fromJson(
-          users[0] as Map<String, dynamic>,
-          fromOrg: false,
+          user,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
 
         await userConfig.updateUser(userInfo);
-        user.firstName = firstName ?? user.firstName;
-        user.lastName = lastName ?? user.lastName;
-        firstNameTextController.text = user.firstName!;
-        lastNameTextController.text = user.lastName!;
       },
       apiCallSuccessUpdateUI: () {
         notifyListeners();
@@ -157,7 +128,6 @@ class EditProfilePageViewModel extends BaseModel {
           "Profile updated successfully",
           MessageType.info,
         );
-        print('cccccccccccccccccccccccccccccccccccccccc');
       },
       onActionException: (_) async {
         navigationService.showTalawaErrorSnackBar(
@@ -178,5 +148,14 @@ class EditProfilePageViewModel extends BaseModel {
   void removeImage() {
     imageFile = null;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    nameTextController.dispose();
+    emailTextController.dispose();
+    nameFocus.dispose();
+    emailFocus.dispose();
+    super.dispose();
   }
 }

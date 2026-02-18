@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -149,10 +148,10 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
-  /// Navigates the user after choosing lthe anguage.
+  /// Navigates the user after choosing the language.
   ///
-  /// This function navigate user to `/appSettingsPage` route if the user
-  /// is authenticated else navigate to `demoMode - /MainScreenPage` route.
+  /// This function navigates the user to `/appSettingsPage` when authenticated,
+  /// otherwise to `Routes.setUrlScreen` (Join and Collaborate / login-signup screen).
   ///
   /// **params**:
   ///   None
@@ -161,70 +160,12 @@ class AppLanguage extends BaseModel {
   ///   None
   Future<void> selectLanguagePress() async {
     if (userConfig.currentUser.id != 'null') {
-      dbLanguageUpdate();
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
       navigationService.pushScreen(
-        Routes.mainScreen,
-        arguments: MainScreenArgs(
-          mainScreenIndex: 0,
-          fromSignUp: false,
-          toggleDemoMode: true,
-        ),
+        Routes.setUrlScreen,
+        arguments: '',
       );
-    }
-  }
-
-  /// This function updates the Database Language by running the graphQL `mutations`.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> dbLanguageUpdate() async {
-    try {
-      await databaseFunctions
-          .gqlAuthMutation(queries.updateLanguage(_appLocale.languageCode));
-      print('Language Updated in Database');
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  /// Queries the app language.
-  ///
-  /// Performs graphQL query to check the app language.
-  /// The function uses `gqlAuthQuery` method provided by Database
-  /// Functions Services.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> appLanguageQuery() async {
-    try {
-      await databaseFunctions.gqlAuthQuery(queries.userLanguage());
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  /// This function perform graphQL query to check the user's language in the database.
-  ///
-  /// The function uses `gqlAuthQuery` method provided by Database Functions Services.
-  ///
-  /// **params**:
-  /// * `userId`: user for which language need to be fetch.
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> userLanguageQuery(String userId) async {
-    try {
-      await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));
-    } catch (e) {
-      print(e);
     }
   }
 }

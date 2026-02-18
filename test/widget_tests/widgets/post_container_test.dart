@@ -1,311 +1,390 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail_image_network/mocktail_image_network.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/widgets/post_container.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
-/// main function.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-///   None
 void main() {
-  const photoUrl =
-      'https://www.fcbarcelona.com/fcbarcelona/photo/2022/08/02/ae5252d1-b79b-4950-9e34-6e67fac09bb0/LeoMessi20092010_pic_fcb-arsenal62.jpg';
-  setUp(() {
-    VisibilityDetectorController.instance.updateInterval = Duration.zero;
-  });
-
-  group('PostContainer Widget Tests', () {
-    testWidgets('PostContainer should be built without crashing',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
-              ),
-            ),
-          );
-        });
-
-        expect(find.byType(PostContainer), findsOneWidget);
-      });
+  group('PostContainer', () {
+    testWidgets('renders nothing if attachments are empty', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: PostContainer(fileAttachmentList: []),
+        ),
+      );
+      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(PageView), findsNothing);
+      expect(find.byType(Column), findsNothing);
     });
-    testWidgets(
-        'PostContainer should display an image when photoUrl is provided',
+
+    testWidgets('renders nothing if fileAttachmentList is null',
         (tester) async {
-      await mockNetworkImages(
-        () async => tester.pumpWidget(
-          const MaterialApp(
-            home: PostContainer(
-              photoUrl: photoUrl,
-            ),
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: PostContainer(fileAttachmentList: null),
+        ),
+      );
+      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(PageView), findsNothing);
+    });
+
+    testWidgets('does not show indicator dots for single attachment',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: 'https://example.com/image.jpg',
+                mimetype: 'image/jpeg',
+              ),
+            ],
           ),
         ),
       );
 
-      expect(find.byType(Image), findsOneWidget);
+      // Verify no indicator dots are shown
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is Container &&
+              widget.decoration is BoxDecoration &&
+              (widget.decoration! as BoxDecoration).shape == BoxShape.circle,
+        ),
+        findsNothing,
+      );
     });
 
-    testWidgets(
-        'PostContainer should not display an image when photoUrl is null',
+    testWidgets('shows indicator dots for multiple attachments',
         (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: PostContainer(photoUrl: null),
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: 'https://example.com/image1.jpg',
+                mimetype: 'image/jpeg',
+              ),
+              AttachmentModel(
+                url: 'https://example.com/image2.jpg',
+                mimetype: 'image/jpeg',
+              ),
+            ],
+          ),
         ),
       );
-      expect(find.byType(Image), findsNothing);
-      expect(find.byType(Container), findsOneWidget);
+      // There should be 2 indicator dots (circle containers)
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is Container &&
+              widget.decoration is BoxDecoration &&
+              (widget.decoration! as BoxDecoration).shape == BoxShape.circle,
+        ),
+        findsNWidgets(2),
+      );
     });
 
-    testWidgets(
-        'initState should be called and variables should be initialized correctly',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
+    testWidgets('handles null URL in image attachment', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: null,
+                mimetype: 'image/jpeg',
               ),
-            ),
-          );
-        });
-        final postContainerState =
-            tester.state<PostContainerState>(find.byType(PostContainer));
-        expect(postContainerState.startedPlaying, isFalse);
-        expect(postContainerState.inView, isTrue);
-        expect(find.byType(PostContainer), findsOneWidget);
-      });
+            ],
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.byType(CachedNetworkImage), findsOneWidget);
+
+      final cachedImage = tester.widget<CachedNetworkImage>(
+        find.byType(CachedNetworkImage),
+      );
+      expect(cachedImage.imageUrl, isEmpty);
     });
 
-    testWidgets(
-        'PageController should be disposed when widget is removed from tree',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
+    testWidgets('handles null mimetype', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: 'https://example.com/file',
+                mimetype: null,
               ),
-            ),
-          );
-        });
-        final postContainerState =
-            tester.state<PostContainerState>(find.byType(PostContainer));
-        final pageController = postContainerState.controller;
+            ],
+          ),
+        ),
+      );
 
-        await tester.pumpWidget(
-          MaterialApp(home: Container()),
-        );
-
-        try {
-          pageController.position;
-          fail('Should throw AssertionError');
-        } catch (e) {
-          expect(e, isInstanceOf<AssertionError>());
-        }
-      });
+      expect(find.text('MIME type is not available '), findsOneWidget);
     });
 
-    testWidgets('PostContainer should change inView to true when visible',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
+    testWidgets('renders SizedBox for invalid MIME type', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: 'https://example.com/file.unknown',
+                mimetype: 'invalid/mimetype',
               ),
-            ),
-          );
-        });
+            ],
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-        final postContainerState =
-            tester.state<PostContainerState>(find.byType(PostContainer));
-        expect(postContainerState.inView, isTrue);
-      });
+      final pageViewFinder = find.byType(PageView);
+
+      final sizedBoxInPageView = find.descendant(
+        of: pageViewFinder,
+        matching: find.byType(SizedBox),
+      );
+
+      expect(sizedBoxInPageView, findsOneWidget);
     });
 
-    testWidgets('generates unique keys for each instance', (tester) async {
-      await mockNetworkImages(() async {
-        await tester.pumpWidget(
-          const MaterialApp(home: PostContainer(photoUrl: photoUrl)),
-        );
-        final firstKey = tester
-            .widget<VisibilityDetector>(find.byType(VisibilityDetector))
-            .key;
-
-        await tester.pumpWidget(
-          const MaterialApp(home: PostContainer(photoUrl: photoUrl)),
-        );
-        final secondKey = tester
-            .widget<VisibilityDetector>(find.byType(VisibilityDetector))
-            .key;
-
-        expect(firstKey != secondKey, isTrue);
-      });
-    });
-
-    testWidgets(
-        'onVisibilityChanged callback should update inView state if image is fully visible',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
+    testWidgets('renders SizedBox for video MIME type', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: 'https://example.com/file.mp4',
+                mimetype: 'video/mp4',
               ),
-            ),
-          );
-        });
+            ],
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-        final postContainerState =
-            tester.state<PostContainerState>(find.byType(PostContainer));
+      final pageViewFinder = find.byType(PageView);
 
-        // Get the VisibilityDetector widget
-        final visibilityDetector = tester.widget<VisibilityDetector>(
-          find.byType(VisibilityDetector),
-        );
+      final sizedBoxInPageView = find.descendant(
+        of: pageViewFinder,
+        matching: find.byType(SizedBox),
+      );
 
-        // Test fully visible case i.e visibleFraction = 1  (> 0.5)
-        const fullVisInfo = VisibilityInfo(
-          key: Key('test'),
-          size: Size(100, 100),
-          visibleBounds: Rect.fromLTWH(0, 0, 100, 100),
-        );
-        visibilityDetector.onVisibilityChanged!(fullVisInfo);
-        expect(postContainerState.inView, isTrue);
-      });
+      expect(sizedBoxInPageView, findsOneWidget);
     });
 
-    testWidgets(
-        'onVisibilityChanged callback should update inView state if image is partially visible',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
-              ),
-            ),
-          );
-        });
+    testWidgets('PageView onPageChanged updates pindex correctly',
+        (tester) async {
+      // Arrange
+      final attachments = [
+        AttachmentModel(
+          url: 'https://example.com/image1.jpg',
+          mimetype: 'image/jpeg',
+        ),
+        AttachmentModel(
+          url: 'https://example.com/image2.jpg',
+          mimetype: 'image/jpeg',
+        ),
+        AttachmentModel(
+          url: 'https://example.com/image3.jpg',
+          mimetype: 'image/jpeg',
+        ),
+      ];
 
-        final postContainerState =
-            tester.state<PostContainerState>(find.byType(PostContainer));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostContainer(fileAttachmentList: attachments),
+          ),
+        ),
+      );
 
-        final visibilityDetector = tester.widget<VisibilityDetector>(
-          find.byType(VisibilityDetector),
-        );
+      await tester.pumpAndSettle();
 
-        // Test partially visible case i.e visibleFraction <= 0.5
-        const partialVisInfo1 = VisibilityInfo(
-          key: Key('test'),
-          size: Size(100, 100),
-          visibleBounds: Rect.fromLTWH(0, 0, 49, 100),
-        );
-        visibilityDetector.onVisibilityChanged!(partialVisInfo1);
-        expect(postContainerState.inView, isFalse);
+      // Initially first page indicator should be active (primary color)
+      expect(
+        find.byType(Container),
+        findsWidgets,
+      );
 
-        await tester.pump();
+      // Act - Swipe to next page with sufficient distance
+      final pageViewFinder = find.byType(PageView);
+      expect(pageViewFinder, findsOneWidget);
 
-        // Test partially visible case i.e visibleFraction > 0.5
-        const partialVisInfo2 = VisibilityInfo(
-          key: Key('test'),
-          size: Size(100, 100),
-          visibleBounds: Rect.fromLTWH(0, 0, 51, 100),
-        );
-        visibilityDetector.onVisibilityChanged!(partialVisInfo2);
-        expect(postContainerState.inView, isTrue);
-      });
+      await tester.drag(pageViewFinder, const Offset(-400, 0));
+      await tester.pumpAndSettle();
+
+      // Assert - Verify we're now on a different page by checking indicators
+      final containers = tester.widgetList<Container>(find.byType(Container));
+      final indicators = containers
+          .where(
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
+          )
+          .toList();
+
+      expect(indicators.length, equals(3));
+
+      // Verify that onPageChanged was called by checking active indicator color
+      // At least one indicator should have a non-grey color (the active one)
+      final activeIndicators = indicators
+          .where(
+            (indicator) =>
+                (indicator.decoration! as BoxDecoration).color != Colors.grey,
+          )
+          .toList();
+
+      expect(activeIndicators.length, equals(1));
     });
 
-    testWidgets(
-        'onVisibilityChanged callback should update inView state if image is invisible ',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
+    testWidgets('errorWidget callback is invoked and returns correct widget',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: PostContainer(
+            fileAttachmentList: [
+              AttachmentModel(
+                url: 'https://example.com/image.jpg',
+                mimetype: 'image/jpeg',
               ),
-            ),
-          );
-        });
+            ],
+          ),
+        ),
+      );
 
-        final postContainerState =
-            tester.state<PostContainerState>(find.byType(PostContainer));
+      await tester.pumpAndSettle();
 
-        final visibilityDetector = tester.widget<VisibilityDetector>(
-          find.byType(VisibilityDetector),
-        );
+      // Get the CachedNetworkImage widget
+      final cachedImageFinder = find.byType(CachedNetworkImage);
+      expect(cachedImageFinder, findsOneWidget);
 
-        // Test fully hidden case i.e visibleFraction = 0  (< 0.5)
-        const hiddenVisInfo = VisibilityInfo(
-          key: Key('test'),
-          size: Size(100, 100),
-          visibleBounds: Rect.zero,
-        );
-        visibilityDetector.onVisibilityChanged!(hiddenVisInfo);
-        expect(postContainerState.inView, isFalse);
-      });
+      final cachedImage = tester.widget<CachedNetworkImage>(cachedImageFinder);
+      expect(cachedImage.errorWidget, isNotNull);
+
+      // Get a valid BuildContext from the widget tree
+      final elementFinder = tester.element(cachedImageFinder);
+
+      // Directly invoke the errorWidget callback with test parameters
+      final errorWidget = cachedImage.errorWidget!(
+        elementFinder,
+        'https://example.com/image.jpg',
+        Exception('Image load failed'),
+      );
+
+      // Verify it returns a Center widget
+      expect(errorWidget, isA<Center>());
+
+      // Create a test widget to verify the error widget renders correctly
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: errorWidget,
+          ),
+        ),
+      );
+
+      // Verify the broken image icon is present
+      expect(find.byIcon(Icons.broken_image), findsOneWidget);
+      expect(find.byType(Icon), findsOneWidget);
     });
 
-    testWidgets(
-        'onVisibilityChanged should maintain state during rapid updates',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: PostContainer(
-                photoUrl: photoUrl,
-              ),
-            ),
-          );
-        });
+    testWidgets('swipe right to previous page triggers onPageChanged',
+        (tester) async {
+      final attachments = [
+        AttachmentModel(
+          url: 'https://example.com/image1.jpg',
+          mimetype: 'image/jpeg',
+        ),
+        AttachmentModel(
+          url: 'https://example.com/image2.jpg',
+          mimetype: 'image/jpeg',
+        ),
+      ];
 
-        final visibilityDetector = tester.widget<VisibilityDetector>(
-          find.byType(VisibilityDetector),
-        );
-        final postContainerState =
-            tester.state<PostContainerState>(find.byType(PostContainer));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostContainer(fileAttachmentList: attachments),
+          ),
+        ),
+      );
 
-        // Test sequence of different visibility states
-        final visibilityStates = [
-          const Rect.fromLTWH(0, 0, 80, 100), // 80% visible
-          const Rect.fromLTWH(0, 0, 30, 100), // 30% visible
-          const Rect.fromLTWH(0, 0, 60, 100), // 60% visible
-          const Rect.fromLTWH(0, 0, 20, 100), // 20% visible
-          const Rect.fromLTWH(0, 0, 90, 100), // 90% visible
-        ];
+      await tester.pumpAndSettle();
 
-        for (final bounds in visibilityStates) {
-          final visInfo = VisibilityInfo(
-            key: const Key('test'),
-            size: const Size(100, 100),
-            visibleBounds: bounds,
-          );
-          visibilityDetector.onVisibilityChanged!(visInfo);
+      // Get PageView and indicator dots
+      final pageView = find.byType(PageView);
+      expect(pageView, findsOneWidget);
 
-          // Check if inView matches the expected state based on visibleFraction
-          expect(
-            postContainerState.inView,
-            visInfo.visibleFraction > 0.5,
-            reason: 'Failed for visible bounds: $bounds',
-          );
-        }
-      });
+      // Initially, first indicator should be active (primary color)
+      var containers = tester.widgetList<Container>(find.byType(Container));
+      var indicators = containers
+          .where(
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
+          )
+          .toList();
+      expect(indicators.length, equals(2));
+
+      // Verify first indicator is active initially
+      final firstIndicatorColorInitial =
+          (indicators[0].decoration! as BoxDecoration).color;
+      expect(firstIndicatorColorInitial, isNot(Colors.grey));
+
+      final secondIndicatorColorInitial =
+          (indicators[1].decoration! as BoxDecoration).color;
+      expect(secondIndicatorColorInitial, equals(Colors.grey));
+
+      // Drag left to go to next page
+      await tester.drag(pageView, const Offset(-500, 0));
+      await tester.pumpAndSettle();
+
+      // Verify second indicator is now active
+      containers = tester.widgetList<Container>(find.byType(Container));
+      indicators = containers
+          .where(
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
+          )
+          .toList();
+
+      final firstIndicatorColorAfterSwipe =
+          (indicators[0].decoration! as BoxDecoration).color;
+      expect(firstIndicatorColorAfterSwipe, equals(Colors.grey));
+
+      final secondIndicatorColorAfterSwipe =
+          (indicators[1].decoration! as BoxDecoration).color;
+      expect(secondIndicatorColorAfterSwipe, isNot(Colors.grey));
+
+      // Drag right to go back to previous page
+      await tester.drag(pageView, const Offset(500, 0));
+      await tester.pumpAndSettle();
+
+      // Verify first indicator is active (we're back on first page)
+      containers = tester.widgetList<Container>(find.byType(Container));
+      indicators = containers
+          .where(
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
+          )
+          .toList();
+
+      final firstIndicatorColor =
+          (indicators[0].decoration! as BoxDecoration).color;
+      expect(firstIndicatorColor, isNot(Colors.grey));
+
+      final secondIndicatorColor =
+          (indicators[1].decoration! as BoxDecoration).color;
+      expect(secondIndicatorColor, equals(Colors.grey));
     });
   });
 }

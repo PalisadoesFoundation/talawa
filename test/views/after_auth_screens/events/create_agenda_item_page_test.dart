@@ -18,7 +18,6 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_agenda_item_page.dart';
 import 'package:talawa/views/base_view.dart';
@@ -43,27 +42,20 @@ Event getTestEvent({
 }) {
   return Event(
     id: "1",
-    title: "test_event",
+    name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      firstName: "ravidi",
-      lastName: "shaikh",
+      name: "ravidi shaikh",
     ),
     isPublic: isPublic,
-    startDate: "00/00/0000",
-    endDate: "12/12/9999",
-    startTime: "00:00",
-    endTime: "24:00",
     location: "iitbhu, varanasi",
     description: "test_event_description",
     admins: [
       User(
-        firstName: "ravidi_admin_one",
-        lastName: "shaikh_admin_one",
+        name: "ravidi_admin_one shaikh_admin_one",
       ),
       User(
-        firstName: "ravidi_admin_two",
-        lastName: "shaikh_admin_two",
+        name: "ravidi_admin_two shaikh_admin_two",
       ),
     ],
     attendees: [
@@ -83,16 +75,7 @@ Widget createCreateAgendaItemScreen() {
     builder: (context, langModel, child) {
       return BaseView<EventInfoViewModel>(
         onModelReady: (model) {
-          model.initialize(
-            args: {
-              "event": getTestEvent(
-                isPublic: true,
-                viewOnMap: false,
-                asAdmin: true,
-              ),
-              "exploreEventViewModel": ExploreEventsViewModel(),
-            },
-          );
+          model.initialize(getTestEvent(asAdmin: true));
         },
         builder: (context, model, child) {
           return MaterialApp(

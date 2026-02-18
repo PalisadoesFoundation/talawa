@@ -20,12 +20,25 @@ on:
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+  FLUTTER_VERSION: 3.32.8
+  # Test concurrency: defaults to nproc, capped at 4 (override if needed)
+  # Note: Flutter 3.32.x may have --concurrency flag behavior issues
+  FLUTTER_TEST_CONCURRENCY: 4
 
 jobs:
+  Merge-Conflict-Check:
+    runs-on: ubuntu-latest
+    name: Find merge conflicts
+    steps:
+      - uses: actions/checkout@v4
+      - name: Merge conflict finder
+        uses: olivernybroe/action-conflict-finder@v4.1
+
   Flutter-Codebase-Check:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: Checking Codebase
     runs-on: ubuntu-latest
+    needs: [Merge-Conflict-Check]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,7 +52,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
@@ -91,21 +104,34 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
-        run: flutter test --coverage
+        run: |
+          CONCURRENCY="${FLUTTER_TEST_CONCURRENCY:-$(nproc)}"
+          if [ "$CONCURRENCY" -gt 4 ]; then CONCURRENCY=4; fi
+          flutter test --concurrency="$CONCURRENCY" --coverage
+      - name: Remove generated files from coverage
+        run: |
+          sed -i '/\.g\.dart/d' coverage/lcov.info
+
+      #######################################################################
+      # DO NOT DELETE ANY references to env.CODECOV_UNIQUE_NAME in this
+      # section. They are required for accurate calculations
+      #######################################################################
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
-          fail_ci_if_error: false
           name: "${{env.CODECOV_UNIQUE_NAME}}"
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+          verbose: true
+          exclude: "docs/"
+          gcov_ignore: "docs/"
 
   Android-Build-and-Release:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -123,7 +149,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
@@ -131,6 +157,8 @@ jobs:
         run: flutter pub get
       - name: Building for android
         run: flutter build apk
+        env:
+          GRADLE_OPTS: "-Xmx3g -XX:MaxMetaspaceSize=512m"
 
         ###################################################
         ## Release the built apk as an automated release ##
@@ -149,14 +177,20 @@ jobs:
 
   iOS-Build:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: iOS Build and Relaese
-    runs-on: macos-latest
+    name: iOS Build and Release
+    permissions:
+      contents: write
+    runs-on: macos-14
     needs: Flutter-Testing
+
     steps:
       - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.1"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios
@@ -171,7 +205,7 @@ jobs:
         run: |
           mkdir Payload
           cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
-          zip -r app.ipa Payload
+          zip -r app-release.ipa Payload
         # This packages the Runner.app into an .ipa file
 
       - uses: ncipollo/release-action@v1

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/main.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -9,29 +8,29 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/group_chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
-import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
-import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
-import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
+import 'package:talawa/views/after_auth_screens/events/custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
-import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
+import 'package:talawa/views/after_auth_screens/events/event_page_form.dart';
 import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group.dart';
 import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
-import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/demo_page_view.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
@@ -79,7 +78,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     // Returns the SetUrl Widget
     case Routes.setUrlScreen:
-      final String uri = settings.arguments!.toString();
+      final String uri = settings.arguments?.toString() ?? '';
       return MaterialPageRoute(
         builder: (context) => SetUrl(
           key: const Key('SetUrl'),
@@ -98,7 +97,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final String id = settings.arguments!.toString();
       return CupertinoPageRoute(
         builder: (context) => SelectOrganization(
-          key: const Key('Signup'),
+          key: const Key('SelectOrganization'),
           selectedOrgId: id,
         ),
       );
@@ -108,7 +107,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final OrgInfo org = settings.arguments! as OrgInfo;
       return CupertinoPageRoute(
         builder: (context) => SignUpDetails(
-          key: const Key('Signup'),
+          key: const Key('SignUpDetails'),
           selectedOrg: org,
         ),
       );
@@ -166,19 +165,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
 
-    // Returns the PinnedPostPgae Widget
-    case Routes.pinnedPostPage:
-      final List<Post> pinnedPosts = settings.arguments! as List<Post>;
-      return MaterialPageRoute(
-        builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts),
-      );
-
-    // Returns the ExploreEvents Widget
-    case Routes.exploreEventsScreen:
-      return MaterialPageRoute(
-        builder: (context) => const ExploreEvents(key: Key('ExploreEvents')),
-      );
-
     // Returns the DemoExploreEvents Widget
     case Routes.demoExploreEventsScreen:
       return MaterialPageRoute(
@@ -188,28 +174,35 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     // Returns the EventInfoPage Widget
     case Routes.eventInfoPage:
-      final Map<String, dynamic> args =
-          settings.arguments! as Map<String, dynamic>;
+      final event = settings.arguments! as Event;
+
       return MaterialPageRoute(
         builder: (context) => EventInfoPage(
           key: const Key('EventInfo'),
-          args: args,
+          event: event,
         ),
       );
 
-    // Returns the CreateEventPage Widget
-    case Routes.createEventPage:
+    // Returns the EventPage Widget for creating a new event or editing an existing one
+    case Routes.eventPageForm:
+      // Check if we're editing an existing event (has arguments) or creating a new one
+      final event = settings.arguments as Event?;
       return MaterialPageRoute(
-        builder: (context) => const CreateEventPage(key: Key('CreateEvent')),
+        builder: (context) => EventPageForm(
+          key: const Key('EventPageForm'),
+          event: event,
+        ),
       );
 
-    // Returns the CreateEventPage Widget
+    // Returns the CustomRecurrencePage Widget
     case Routes.customRecurrencePage:
-      final model = settings.arguments! as CreateEventViewModel;
+      // Custom recurrence is now handled through dialogs within the EventPage
+
+      final baseEventViewModel = settings.arguments;
       return MaterialPageRoute(
-        builder: (context) => CustomRecurrencePage(
-          key: const Key('CreateEvent'),
-          model: model,
+        builder: (context) => CustomRecurringEvent(
+          key: const Key('CustomRecurrence'),
+          model: baseEventViewModel! as BaseEventViewModel,
         ),
       );
 
@@ -243,28 +236,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case Routes.requestAccess:
       final OrgInfo org = settings.arguments! as OrgInfo;
-      return CupertinoPageRoute(
+      return MaterialPageRoute(
         builder: (context) => SendAccessRequest(
-          key: const Key('Signup'),
+          key: const Key('AccessRequest'),
           org: org,
         ),
       );
-    // Returns the EditEventPage Widget
-    case Routes.editEventPage:
-      final Event event = settings.arguments! as Event;
-      return MaterialPageRoute(
-        builder: (context) => EditEventPage(
-          key: const Key('EditEvent'),
-          event: event,
-        ),
-      );
-    case Routes.pinnedPostScreen:
-      // final Map<String, dynamic> post = settings.arguments! as Map<String, dynamic> ;
-      final Map<String, String> post =
-          settings.arguments! as Map<String, String>;
 
+    case Routes.pinnedPostScreen:
       return MaterialPageRoute(
-        builder: (context) => PinnedPostScreen(post: post),
+        builder: (context) =>
+            PinnedPostScreen(post: settings.arguments! as Post),
       );
     // Returns the AppSettingsPage Widget
     case Routes.appSettings:
@@ -285,11 +267,23 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
 
+    // Returns the GroupChatMessageScreen Widget
+    case Routes.groupChatMessageScreen:
+      final List<dynamic> arguments = settings.arguments! as List<dynamic>;
+      final String chatId = arguments[0] as String;
+      final GroupChatViewModel model = arguments[1] as GroupChatViewModel;
+      return MaterialPageRoute(
+        builder: (context) => GroupChatMessageScreen(
+          key: const Key('GroupChatMessageScreen'),
+          chatId: chatId,
+          model: model,
+        ),
+      );
+
     case Routes.calendar:
       return MaterialPageRoute(
-        builder: (context) => EventCalendar(
-          settings.arguments! as List<Event>,
-          key: const Key('Calendar'),
+        builder: (context) => const EventCalendar(
+          key: Key('Calendar'),
         ),
       );
 
@@ -330,10 +324,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => ManageGroupScreen(group: group, event: event),
       );
 
-    default:
+    case Routes.demoPage:
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
           key: Key("DemoPage"),
+        ),
+      );
+
+    default:
+      // Fallback to demo page if route not found
+      return MaterialPageRoute(
+        builder: (context) => const DemoPageView(
+          key: Key("DefaultDemoPage"),
         ),
       );
   }

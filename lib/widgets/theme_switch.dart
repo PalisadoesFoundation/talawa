@@ -10,21 +10,24 @@ class ChangeThemeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<AppTheme>(context);
     return ListTile(
       key: const Key('ThemeSwitch'),
       contentPadding: EdgeInsets.symmetric(
         horizontal: SizeConfig.blockSizeHorizontal!,
       ),
       title: Text(AppLocalizations.of(context)!.strictTranslate("Dark Theme")),
-      trailing: Switch(
-        key: const Key('ToggleTheme'),
-        autofocus: true,
-        activeColor: Theme.of(context).colorScheme.primary,
-        value: themeProvider.isdarkTheme,
-        onChanged: (value) {
-          final provider = Provider.of<AppTheme>(context, listen: false);
-          provider.switchTheme(isOn: value);
+      trailing: Selector<AppTheme, bool>(
+        selector: (_, appTheme) => appTheme.isdarkTheme,
+        builder: (context, isDarkTheme, child) {
+          return Switch(
+            key: const Key('ToggleTheme'),
+            autofocus: true,
+            activeColor: Theme.of(context).colorScheme.primary,
+            value: isDarkTheme,
+            onChanged: (value) {
+              context.read<AppTheme>().switchTheme(isOn: value);
+            },
+          );
         },
       ),
     );

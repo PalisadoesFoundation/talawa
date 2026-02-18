@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/services/cache/swr_cache.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 /// An abstract base class for managing a feed of type [T] with caching and online data fetching capabilities.
@@ -28,6 +29,9 @@ abstract class BaseFeedManager<T> {
   /// feed cache box.
   late Box<T> _box;
 
+  /// SWR Cache instance
+  final _swrCache = SwrCache();
+
   /// Initializes the Hive box associated with the [cacheKey].
   ///
   /// **params**:
@@ -47,6 +51,12 @@ abstract class BaseFeedManager<T> {
   /// **returns**:
   /// * `Future<List<T>>`: A Future containing a list of cached data.
   Future<List<T>> loadCachedData() async {
+    // Try memory cache first
+    final memCached = _swrCache.get<List<T>>(cacheKey);
+    if (memCached != null) {
+      return memCached;
+    }
+
     final data = _box.values.toList();
     return data;
   }
@@ -59,40 +69,51 @@ abstract class BaseFeedManager<T> {
   /// **returns**:
   ///   None
   Future<void> saveDataToCache(List<T> data) async {
-    debugPrint('saveToCache1');
     await _box.clear();
-    debugPrint(_box.values.length.toString());
-    debugPrint('saveToCache2');
     await _box.addAll(data);
-    debugPrint('saveToCache');
-    debugPrint(_box.values.length.toString());
-    debugPrint(_box.values.length.toString());
+    _swrCache.set(cacheKey, data);
   }
 
-  /// Abstract method to be implemented by subclasses to fetch data from an API.
+  /// Clear cached data.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
+  ///   None
+  Future<void> clearCache() async {
+    await _box.clear();
+    _swrCache.remove(cacheKey);
+  }
+
+  /// Abstract method to be implemented by subclasses to fetch data from an API.
+  ///
+  /// **params**:
+  /// * `params`: Optional parameters for the API request.
+  ///
+  /// **returns**:
   /// * `Future<List<T>>`: A Future containing a list of data fetched from the API.
-  Future<List<T>> fetchDataFromApi();
+  Future<List<T>> fetchDataFromApi({Map<String, dynamic>? params});
 
   /// Fetches new data from the API if online, updates the cache, and returns the data.
   ///
   /// If offline, loads and returns cached data.
   ///
   /// **params**:
-  ///   None
+  /// * `params`: Optional parameters for the API request.
   ///
   /// **returns**:
   /// * `Future<List<T>>`: A Future containing a list of the latest data.
-  Future<List<T>> getNewFeedAndRefreshCache() async {
+  Future<List<T>> getNewFeedAndRefreshCache({
+    Map<String, dynamic>? params,
+  }) async {
     if (AppConnectivity.isOnline) {
       try {
-        final data = await fetchDataFromApi();
-        await saveDataToCache(data);
-        return data;
+        return await _swrCache.revalidate<List<T>>(cacheKey, () async {
+          final data = await fetchDataFromApi(params: params);
+          await saveDataToCache(data);
+          return data;
+        });
       } catch (e) {
         debugPrint(e.toString());
         return loadCachedData();

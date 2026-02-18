@@ -65,18 +65,15 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   // Returns a list of all the languages available
                   return InkWell(
                     key: Key(
-                      Provider.of<AppLanguage>(context).appLocal.languageCode ==
+                      context.read<AppLanguage>().appLocal.languageCode ==
                               languages[index].langCode
                           ? 'Selected'
                           : 'NotSelected',
                     ),
                     onTap: () async {
-                      await Provider.of<AppLanguage>(
-                        context,
-                        listen: false,
-                      ).changeLanguage(
-                        Locale(languages[index].langCode),
-                      );
+                      await context.read<AppLanguage>().changeLanguage(
+                            Locale(languages[index].langCode),
+                          );
                     },
                     child: Consumer<AppLanguage>(
                       builder: (context, appLang, _) {
@@ -139,9 +136,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 key: const Key('NavigateToMainScreen'),
-                onPressed: () async {
-                  Provider.of<AppLanguage>(context, listen: false)
-                      .selectLanguagePress();
+                onPressed: () {
+                  context.read<AppLanguage>().selectLanguagePress();
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Select'),

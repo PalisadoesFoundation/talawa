@@ -12,15 +12,28 @@ import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This widget takes the user details for signup. The form includes first name, last name, email, password, and password confirmation inputs.
 class SignUpDetails extends StatefulWidget {
-  const SignUpDetails({required Key key, this.selectedOrg}) : super(key: key);
+  const SignUpDetails({required Key key, required this.selectedOrg})
+      : super(key: key);
 
   /// Details of selected Organisation.
-  final OrgInfo? selectedOrg;
+  final OrgInfo selectedOrg;
   @override
   _SignUpDetailsState createState() => _SignUpDetailsState();
 }
 
 class _SignUpDetailsState extends State<SignUpDetails> {
+  @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    securityService.disableSecure();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<SignupDetailsViewModel>(
@@ -78,72 +91,30 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 height: SizeConfig.screenHeight! * 0.05,
                               ), //Input field for the first name of the user.
                               TextFormField(
-                                key: const Key('FirstNameInputField'),
-                                controller: model.firstName,
+                                key: const Key('NameInputField'),
+                                controller: model.name,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 autofillHints: const <String>[
-                                  AutofillHints.givenName,
+                                  AutofillHints.name,
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
                                   final String? msg =
-                                      Validator.validateFirstName(
-                                    value!,
-                                  );
+                                      Validators.required(value);
                                   if (msg == null) {
                                     return null;
                                   }
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validateFirstName(
-                                      value,
-                                    ),
-                                  );
+                                      .translate(msg);
                                 },
                                 decoration: InputDecoration(
                                   hintText: AppLocalizations.of(
                                     context,
                                   )!
-                                      .translate('First Name Hint'),
+                                      .translate('Name Hint'),
                                   labelText:
-                                      '${AppLocalizations.of(context)!.translate("Enter your first name")}*',
-                                  labelStyle:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                              ),
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * 0.015,
-                              ), //Input field for the last name of the user.
-                              TextFormField(
-                                key: const Key('LastNameInputField'),
-                                controller: model.lastName,
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.text,
-                                autofillHints: const <String>[
-                                  AutofillHints.familyName,
-                                ],
-                                enableSuggestions: true,
-                                validator: (value) {
-                                  final String? msg =
-                                      Validator.validateLastName(
-                                    value!,
-                                  );
-                                  if (msg == null) {
-                                    return null;
-                                  }
-                                  return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validateLastName(value),
-                                  );
-                                },
-                                decoration: InputDecoration(
-                                  hintText: AppLocalizations.of(
-                                    context,
-                                  )!
-                                      .translate('Last Name Hint'),
-                                  labelText:
-                                      '${AppLocalizations.of(context)!.translate("Enter your last name")}*',
+                                      '${AppLocalizations.of(context)!.translate("Enter your name")}*',
                                   labelStyle:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -162,16 +133,13 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
-                                  final String? msg =
-                                      Validator.validateEmail(value!);
+                                  final String? msg = Validators.email(value);
                                   if (msg == null) {
                                     return null;
                                   }
 
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validateEmail(value),
-                                  );
+                                      .translate(msg);
                                 },
                                 decoration: InputDecoration(
                                   hintText: 'test@test.org',
@@ -196,17 +164,13 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 enableSuggestions: true,
                                 validator: (value) {
                                   final String? msg =
-                                      Validator.validatePassword(
-                                    value!,
-                                  );
+                                      Validators.password(value);
                                   if (msg == null) {
                                     return null;
                                   }
 
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validatePassword(value),
-                                  );
+                                      .translate(msg);
                                 },
                                 onFieldSubmitted: (done) {
                                   FocusScope.of(context).requestFocus(
@@ -250,20 +214,15 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 obscureText: model.hidePassword,
                                 validator: (value) {
                                   final String? msg =
-                                      Validator.validatePasswordConfirm(
+                                      Validators.passwordConfirm(
+                                    value,
                                     model.password.text,
-                                    value!,
                                   );
                                   if (msg == null) {
                                     return null;
                                   }
                                   return AppLocalizations.of(context)!
-                                      .translate(
-                                    Validator.validatePasswordConfirm(
-                                      model.password.text,
-                                      value,
-                                    ),
-                                  );
+                                      .translate(msg);
                                 },
                                 decoration: InputDecoration(
                                   hintText: AppLocalizations.of(context)!

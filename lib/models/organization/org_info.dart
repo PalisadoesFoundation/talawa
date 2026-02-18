@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:talawa/models/user/user_info.dart';
-
 part 'org_info.g.dart';
 
 /// This class creates an organization-information model and returns an OrgInfo instance.
@@ -8,8 +7,6 @@ part 'org_info.g.dart';
 class OrgInfo {
   /// Constructs an OrgInfo object.
   OrgInfo({
-    this.admins,
-    this.members,
     this.description,
     this.id,
     this.image,
@@ -21,6 +18,10 @@ class OrgInfo {
     this.line2,
     this.postalCode,
     this.state,
+    this.adminsCount,
+    this.membersCount,
+    this.members,
+    this.admins,
   });
 
   /// Factory method to construct an OrgInfo from a JSON object.
@@ -38,11 +39,9 @@ class OrgInfo {
 
     final List<Map<String, dynamic>> memberEdges =
         edgesDynamic.map((e) => e as Map<String, dynamic>).toList();
-
     final List<User> members = memberEdges
         .map(
-          (e) =>
-              User.fromJson(e['node'] as Map<String, dynamic>, fromOrg: true),
+          (e) => User.fromJson(e['node'] as Map<String, dynamic>),
         )
         .toList();
 
@@ -50,31 +49,34 @@ class OrgInfo {
         .map((e) {
           final Map<String, dynamic> user = e['node'] as Map<String, dynamic>;
           if (user['role'] == 'administrator') {
-            return User.fromJson(user, fromOrg: true);
+            return User.fromJson(user);
           }
           return null;
         })
         .where((user) => user != null)
         .cast<User>()
         .toList();
-
     return OrgInfo(
       id: json['id'] != null ? json['id'] as String : null,
       image: json['avatarURL'] != null ? json['avatarURL'] as String? : null,
       name: json['name'] != null ? json['name'] as String? : null,
       description:
           json['description'] != null ? json['description'] as String? : null,
-      userRegistrationRequired: json['userRegistrationRequired'] != null
-          ? json['userRegistrationRequired'] as bool?
+      userRegistrationRequired: json['isUserRegistrationRequired'] != null
+          ? json['isUserRegistrationRequired'] as bool?
           : null,
-      members: members,
-      admins: admins,
       city: json['city'] as String?,
       countryCode: json['countryCode'] as String?,
       line1: json['addressLine1'] as String?,
       line2: json['addressLine2'] as String?,
       postalCode: json['postalCode'] as String?,
       state: json['state'] as String?,
+      members: members,
+      admins: admins,
+      adminsCount:
+          json['adminsCount'] != null ? json['adminsCount'] as int? : null,
+      membersCount:
+          json['membersCount'] != null ? json['membersCount'] as int? : null,
     );
   }
 
@@ -139,14 +141,6 @@ class OrgInfo {
   @HiveField(2)
   String? name;
 
-  /// The administrators of the organization.
-  @HiveField(3)
-  List<User>? admins;
-
-  /// The members of the organization.
-  @HiveField(4)
-  List<User>? members;
-
   /// The description of the organization.
   @HiveField(5)
   String? description;
@@ -178,4 +172,34 @@ class OrgInfo {
   /// The state of the organization's address.
   @HiveField(12)
   String? state;
+
+  @HiveField(13)
+
+  /// The count of admins in the organization.
+  int? adminsCount;
+
+  @HiveField(14)
+
+  /// The count of members in the organization.
+  int? membersCount;
+
+  @HiveField(15)
+
+  /// List of members in the organization.
+  List<User>? members;
+
+  @HiveField(16)
+
+  /// List of admins in the organization.
+  List<User>? admins;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is OrgInfo &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name;
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

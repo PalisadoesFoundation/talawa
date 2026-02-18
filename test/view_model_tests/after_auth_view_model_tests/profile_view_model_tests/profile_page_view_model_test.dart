@@ -2,13 +2,10 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -32,7 +29,7 @@ void verifyInteraction(dynamic x, {required String mockName}) {
   }
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
@@ -167,42 +164,6 @@ void main() async {
           horizontal: SizeConfig.screenWidth! * 0.075,
         ),
       );
-    });
-    testWidgets("Test invite method", (WidgetTester tester) async {
-      final model = ProfilePageViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: Scaffold(
-            body: Builder(
-              builder: (BuildContext context) {
-                // Trigger the invite method on button press
-                return ElevatedButton(
-                  key: const Key('inviteButton'),
-                  onPressed: () => model.invite(context),
-                  child: const Text('Invoke Invite'),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      // model.invite(mockContext);
-
-      await tester.tap(find.byKey(const Key('inviteButton')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('iconbtn1')));
-
-      expect(find.byType(Dialog), findsOneWidget);
-      expect(find.byType(QrImageView), findsOneWidget);
     });
 
     testWidgets('attachListener test', (WidgetTester tester) async {

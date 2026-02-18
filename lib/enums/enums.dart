@@ -91,7 +91,7 @@ enum CachedUserActionStatus {
 /// This enum defines the different types of cached GraphQL operations.
 ///
 /// It's used with Hive to store information about cached queries and mutations.
-@HiveType(typeId: 5)
+@HiveType(typeId: 9)
 enum CachedOperationType {
   /// A GraphQL query that requires user authentication.
   @HiveField(0)
@@ -119,4 +119,80 @@ enum ActionType {
   ///
   /// even if the result is not immediately confirmed.
   optimistic,
+}
+
+/// Represents the actions available in group chat popup menu.
+enum GroupChatAction {
+  /// Show group information.
+  info,
+
+  /// Edit group details (admin only).
+  edit,
+
+  /// Add new members to group (admin only).
+  addMembers,
+
+  /// Manage existing group members (admin only).
+  manageMembers,
+
+  /// Delete the group (admin only).
+  delete,
+
+  /// Leave the group (non-admin only).
+  leave,
+}
+
+@HiveType(typeId: 13)
+
+/// VoteType enum represents the different types of votes a user can cast.
+enum VoteType {
+  /// Upvote - positive vote.
+  @HiveField(0)
+  upVote,
+
+  /// Downvote - negative vote.
+  @HiveField(1)
+  downVote,
+
+  /// No vote (neutral).
+  @HiveField(2)
+  none;
+
+  /// Converts the enum value to a string representation for backend API.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The string representation of the VoteType for API.
+  String toApiString() {
+    switch (this) {
+      case VoteType.upVote:
+        return 'up_vote';
+      case VoteType.downVote:
+        return 'down_vote';
+      case VoteType.none:
+        return 'null';
+    }
+  }
+
+  /// Converts a string from the API to the corresponding VoteType enum.
+  ///
+  /// **params**:
+  /// * `apiString`: The string representation of the VoteType from API.
+  ///
+  /// **returns**:
+  /// * `VoteType`: The corresponding VoteType enum value.
+  static VoteType fromApiString(String? apiString) {
+    if (apiString == null) return VoteType.none;
+
+    switch (apiString) {
+      case 'up_vote':
+        return VoteType.upVote;
+      case 'down_vote':
+        return VoteType.downVote;
+      default:
+        return VoteType.none;
+    }
+  }
 }

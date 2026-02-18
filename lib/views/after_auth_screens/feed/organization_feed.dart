@@ -6,21 +6,17 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_post.dart';
-import 'package:talawa/widgets/post_list_widget.dart';
+import 'package:talawa/widgets/post_widget.dart';
 
 /// OrganizationFeed returns a widget that shows the feed of the organization.
 class OrganizationFeed extends StatefulWidget {
   const OrganizationFeed({
     required Key key,
     this.homeModel,
-    this.forTest = false,
   }) : super(key: key);
 
   /// MainScreenViewModel.
   final MainScreenViewModel? homeModel;
-
-  /// To implement the test.
-  final bool forTest;
 
   @override
   State<OrganizationFeed> createState() => _OrganizationFeedState();
@@ -28,25 +24,92 @@ class OrganizationFeed extends StatefulWidget {
 
 class _OrganizationFeedState extends State<OrganizationFeed> {
   final ScrollController _scrollController = ScrollController();
+  bool _isLoadingMore = false;
 
-  /// Counter for first time scrolling when at the start of the list.
-  int firstDownScroll = 0;
+  /// This function is used to listen to the scroll events and fetch more posts when the user scrolls to the bottom.
+  ///
+  /// **params**:
+  /// * `model`: The OrganizationFeedViewModel instance.
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> _scrollListener(OrganizationFeedViewModel model) async {
+    // Check if we're at the bottom for pagination
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      if (!_isLoadingMore) {
+        setState(() {
+          _isLoadingMore = true;
+        });
+        await model.nextPage();
+        if (mounted) {
+          setState(() {
+            _isLoadingMore = false;
+          });
+        }
+      }
+    }
+  }
 
-  /// Counter for first time scrolling when at the start of the list.
-  int firstUpScroll = 0;
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
   }
 
+  /// This function is used to build the empty state widget when there are no posts.
+  ///
+  /// **params**:
+  /// * `context`: The build context.
+  ///
+  /// **returns**:
+  /// * `Widget`: The empty state widget.
+  Widget _buildEmptyState(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            // Reduced top padding as alignment is handled by MainAxisAlignment
+            top: SizeConfig.screenHeight! * 0.05,
+          ),
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate(
+              'There are no posts in this organization',
+            ),
+            style: TextStyle(
+              fontSize: SizeConfig.screenHeight! * 0.026,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            navigationService.pushScreen('/addpostscreen');
+          },
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate(
+              'Create your first post',
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
-      onModelReady: (model) => model.initialise(isTest: widget.forTest),
+      onModelReady: (model) async {
+        await model.initialise();
+        _scrollController.addListener(() {
+          _scrollListener(model);
+        });
+      },
       builder: (context, model, child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
+            heroTag: "org_feed_fab",
             shape: const CircleBorder(side: BorderSide.none),
             key: const Key('floating_action_btn'),
             backgroundColor: Colors.green,
@@ -65,7 +128,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
             centerTitle: true,
             title: Text(
               model.currentOrgName,
-              key: widget.homeModel?.keySHOrgName,
+              key: widget.homeModel?.keys.keySHOrgName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -73,13 +136,14 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                   ),
             ),
             leading: IconButton(
-              key: widget.homeModel?.keySHMenuIcon,
+              key: widget.homeModel?.keys.keySHMenuIcon,
               icon: const Icon(
                 Icons.menu,
                 color: Colors.white,
               ),
               onPressed: () {
-                MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+                // Open the drawer if it exists
+                Scaffold.maybeOf(context)?.openDrawer();
               },
             ),
           ),
@@ -87,96 +151,93 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => model.fetchNewPosts(),
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (notification) {
-                      final currentScroll = _scrollController.position.pixels;
+                  onRefresh: () async => await model.refreshPosts(),
+                  child: model.posts.isEmpty && model.pinnedPosts.isEmpty
+                      ? ListView(
+                          controller: _scrollController,
+                          key: const Key('listView'),
+                          children: [
+                            _buildEmptyState(context),
+                          ],
+                        )
+                      : ListView.builder(
+                          controller: _scrollController,
+                          key: const Key('listView'),
+                          itemCount: (model.pinnedPosts.isNotEmpty ? 1 : 0) +
+                              (model.pinnedPosts.isNotEmpty
+                                  ? 1
+                                  : 0) + // For SizedBox (only if pinned posts exist)
+                              (model.posts.isEmpty ? 1 : model.posts.length) +
+                              (_isLoadingMore ? 1 : 0),
+                          itemBuilder: (context, index) {
+                            int currentIndex = index;
 
-                      if (notification is ScrollEndNotification &&
-                          notification.metrics.atEdge) {
-                        if (firstDownScroll > 0) {
-                          model.nextPage();
-                          firstDownScroll = 0;
-                        } else {
-                          firstDownScroll++;
-                        }
-                      }
-                      if (notification is ScrollEndNotification &&
-                          notification.metrics.atEdge &&
-                          currentScroll <= 0) {
-                        if (firstUpScroll > 0) {
-                          model.previousPage();
-                          firstUpScroll = 0;
-                        } else {
-                          firstUpScroll++;
-                        }
-                      }
-                      // Reset counters if scrolling occurs anywhere other than at the edge
-                      if (!notification.metrics.atEdge) {
-                        firstDownScroll = 0;
-                        firstUpScroll = 0;
-                      }
+                            // 1. Pinned Post
+                            if (model.pinnedPosts.isNotEmpty) {
+                              if (currentIndex == 0) {
+                                return PinnedPost(
+                                  key: const Key('pinnedPosts'),
+                                  pinnedPost: model.pinnedPosts,
+                                );
+                              }
+                              currentIndex--;
+                            }
 
-                      return false;
-                    },
-                    child: ListView(
-                      controller: _scrollController,
-                      key: const Key('listView'),
-                      shrinkWrap: true,
-                      children: [
-                        // Always show PinnedPost if available
-                        if (model.pinnedPosts.isNotEmpty)
-                          PinnedPost(
-                            key: const Key('pinnedPosts'),
-                            pinnedPost: model.pinnedPosts,
-                            model: widget.homeModel!,
-                          ),
-                        SizedBox(
-                          height: SizeConfig.screenHeight! * 0.01,
+                            // 2. SizedBox (Spacer) - Only if pinned posts exist
+                            if (model.pinnedPosts.isNotEmpty) {
+                              if (currentIndex == 0) {
+                                return SizedBox(
+                                  height: SizeConfig.screenHeight! * 0.01,
+                                );
+                              }
+                              currentIndex--;
+                            }
+
+                            // 3. Empty State
+                            if (model.posts.isEmpty) {
+                              if (currentIndex == 0) {
+                                return _buildEmptyState(context);
+                              }
+                              // If currentIndex != 0 (which happens if _isLoadingMore is true),
+                              // we implicitly fall through. logic:
+                              // - currentIndex is NOT decremented here.
+                              // - It fails the next check (currentIndex < model.posts.length) because length is 0.
+                              // - It correctly lands on the Loading Indicator check.
+                            }
+
+                            // 4. Posts
+                            if (currentIndex < model.posts.length) {
+                              final post = model.posts[currentIndex];
+                              return PostWidget(
+                                key: ValueKey(post.id),
+                                post: post,
+                                redirectToIndividualPage:
+                                    model.navigateToIndividualPage,
+                                deletePost: model.deletePost,
+                              );
+                            }
+
+                            // 5. Loading Indicator
+                            if (_isLoadingMore) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.screenHeight! * 0.02,
+                                ),
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+
+                            // coverage:ignore-start
+                            assert(false,
+                                'Unexpected index $index in OrganizationFeed builder');
+                            debugPrint(
+                                'Unexpected index $index in OrganizationFeed builder');
+                            return const SizedBox.shrink();
+                            // coverage:ignore-end
+                          },
                         ),
-                        model.posts.isNotEmpty
-                            ? PostListWidget(
-                                key: widget.homeModel?.keySHPost,
-                                posts: model.posts,
-                                function: model.navigateToIndividualPage,
-                                deletePost: model.removePost,
-                              )
-                            : // if there is no post in an organisation then show text button to create a post.
-                            Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: SizeConfig.screenHeight! * 0.21,
-                                    ),
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .strictTranslate(
-                                        'There are no posts in this organization',
-                                      ),
-                                      style: TextStyle(
-                                        fontSize:
-                                            SizeConfig.screenHeight! * 0.026,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      navigationService
-                                          .pushScreen('/addpostscreen');
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .strictTranslate(
-                                        'Create your first post',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
-                  ),
                 ),
         );
       },

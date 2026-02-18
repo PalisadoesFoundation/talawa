@@ -5,7 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
@@ -13,7 +15,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_agenda_item_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_agenda_item_page.dart';
@@ -29,30 +30,24 @@ Event getTestEvent({
   bool viewOnMap = true,
   bool asAdmin = false,
   String id = "1",
+  List<EventAgendaItem>? agendaItems,
 }) {
   return Event(
     id: id,
-    title: "test_event",
+    name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      firstName: "ravidi",
-      lastName: "shaikh",
+      name: "ravidi shaikh",
     ),
     isPublic: isPublic,
-    startDate: "00/00/0000",
-    endDate: "12/12/9999",
-    startTime: "00:00",
-    endTime: "24:00",
     location: "iitbhu, varanasi",
     description: "test_event_description",
     admins: [
       User(
-        firstName: "ravidi_admin_one",
-        lastName: "shaikh_admin_one",
+        name: "ravidi_admin_one shaikh_admin_one",
       ),
       User(
-        firstName: "ravidi_admin_two",
-        lastName: "shaikh_admin_two",
+        name: "ravidi_admin_two shaikh_admin_two",
       ),
     ],
     attendees: [
@@ -63,25 +58,27 @@ Event getTestEvent({
       ),
     ],
     isRegisterable: true,
+    agendaItems: agendaItems,
   );
 }
 
-Widget createManageAgendaScreen(String id) {
+Widget createManageAgendaScreen(
+  String id, {
+  List<EventAgendaItem>? agendaItems,
+}) {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),
     builder: (context, langModel, child) {
       return BaseView<EventInfoViewModel>(
         onModelReady: (model) {
           model.initialize(
-            args: {
-              "event": getTestEvent(
-                isPublic: true,
-                viewOnMap: false,
-                asAdmin: true,
-                id: id,
-              ),
-              "exploreEventViewModel": ExploreEventsViewModel(),
-            },
+            getTestEvent(
+              isPublic: true,
+              viewOnMap: false,
+              asAdmin: true,
+              id: id,
+              agendaItems: agendaItems,
+            ),
           );
         },
         builder: (context, model, child) {
@@ -105,15 +102,34 @@ Widget createManageAgendaScreen(String id) {
 }
 
 void main() {
+  testSetupLocator();
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
-    testSetupLocator();
+
     registerServices();
     locator<SizeConfig>().test();
   });
-
   tearDownAll(() {
     unregisterServices();
+  });
+
+  setUp(() {
+    when(userConfig.currentOrg).thenReturn(
+      OrgInfo(id: 'XYZ', name: 'Test Organization'),
+    );
+
+    // Mock default empty categories response
+    when(eventService.fetchAgendaCategories('XYZ')).thenAnswer(
+      (_) async => QueryResult(
+        source: QueryResultSource.network,
+        data: {'agendaItemCategoriesByOrganization': []},
+        options: QueryOptions(
+          document: gql(
+            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+          ),
+        ),
+      ),
+    );
   });
 
   group('ManageAgendaScreen Widget Tests', () {
@@ -128,33 +144,23 @@ void main() {
 
     testWidgets('Shows list of agenda items when present',
         (WidgetTester tester) async {
-      final mockResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'agendaItemByEvent': [
-            {
-              'id': '1',
-              'title': 'Agenda 1',
-              'duration': '1h',
-              'sequence': 1,
-            },
-            {
-              'id': '2',
-              'title': 'Agenda 2',
-              'duration': '30m',
-              'sequence': 2,
-            },
-          ],
-        },
-        options: QueryOptions(
-          document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
+      final agendaItems = [
+        EventAgendaItem(
+          id: '1',
+          name: 'Agenda 1',
+          duration: '1h',
+          sequence: 1,
         ),
-      );
+        EventAgendaItem(
+          id: '2',
+          name: 'Agenda 2',
+          duration: '30m',
+          sequence: 2,
+        ),
+      ];
 
-      when(eventService.fetchAgendaItems('1'))
-          .thenAnswer((_) async => mockResult);
-
-      await tester.pumpWidget(createManageAgendaScreen('1'));
+      await tester
+          .pumpWidget(createManageAgendaScreen('1', agendaItems: agendaItems));
       await tester.pumpAndSettle();
 
       expect(find.text('No agenda items yet'), findsNothing);
@@ -163,33 +169,23 @@ void main() {
     });
 
     testWidgets('Can reorder agenda items', (WidgetTester tester) async {
-      final mockResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'agendaItemByEvent': [
-            {
-              '_id': '1',
-              'title': 'Agenda 1',
-              'duration': '1h',
-              'sequence': 1,
-            },
-            {
-              '_id': '2',
-              'title': 'Agenda 2',
-              'duration': '30m',
-              'sequence': 2,
-            },
-          ],
-        },
-        options: QueryOptions(
-          document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
+      final agendaItems = [
+        EventAgendaItem(
+          id: '1',
+          name: 'Agenda 1',
+          duration: '1h',
+          sequence: 1,
         ),
-      );
+        EventAgendaItem(
+          id: '2',
+          name: 'Agenda 2',
+          duration: '30m',
+          sequence: 2,
+        ),
+      ];
 
-      when(eventService.fetchAgendaItems('1'))
-          .thenAnswer((_) async => mockResult);
-
-      await tester.pumpWidget(createManageAgendaScreen('1'));
+      await tester
+          .pumpWidget(createManageAgendaScreen('1', agendaItems: agendaItems));
       await tester.pumpAndSettle();
 
       final firstItemFinder = find.text('Agenda 1');
@@ -207,38 +203,22 @@ void main() {
 
     testWidgets('Can navigate to EditAgendaItemPage and update agenda item',
         (WidgetTester tester) async {
-      final mockResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'agendaItemByEvent': [
-            {
-              '_id': '1',
-              'title': 'Agenda 1',
-              'duration': '1h',
-              'sequence': 1,
-            },
-            {
-              '_id': '2',
-              'title': 'Agenda 2',
-              'duration': '30m',
-              'sequence': 2,
-            },
-          ],
-        },
-        options: QueryOptions(
-          document: gql(EventQueries().fetchAgendaItemsByEvent('2')),
+      final agendaItems = [
+        EventAgendaItem(
+          id: '1',
+          name: 'Agenda 1',
+          duration: '1h',
+          sequence: 1,
         ),
-      );
+      ];
 
-      when(eventService.fetchAgendaItems('2'))
-          .thenAnswer((_) async => mockResult);
-
-      await tester.pumpWidget(createManageAgendaScreen('2'));
+      await tester
+          .pumpWidget(createManageAgendaScreen('2', agendaItems: agendaItems));
       await tester.pumpAndSettle();
 
       // Find and tap the edit button
       final Finder editButtonFinder =
-          find.byKey(const Key('edit_agenda_item2'));
+          find.byKey(const Key('edit_agenda_item1'));
       await tester.tap(editButtonFinder);
       await tester.pumpAndSettle();
 
@@ -248,36 +228,24 @@ void main() {
       // Simulate returning without changes (true)
       Navigator.of(tester.element(find.byType(EditAgendaItemPage))).pop(true);
       await tester.pumpAndSettle();
-
-      // Verify that the agenda items are refreshed
-      verify(eventService.fetchAgendaItems('2')).called(2);
     });
 
     testWidgets('Delete agenda item shows toast notification',
         (WidgetTester tester) async {
-      final mockResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'agendaItemByEvent': [
-            {
-              '_id': '1',
-              'title': 'Agenda 1',
-              'duration': '1h',
-              'sequence': 1,
-            }
-          ],
-        },
-        options: QueryOptions(
-          document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
+      final agendaItems = [
+        EventAgendaItem(
+          id: '1',
+          name: 'Agenda 1',
+          duration: '1h',
+          sequence: 1,
         ),
-      );
+      ];
 
-      when(eventService.fetchAgendaItems('1'))
-          .thenAnswer((_) async => mockResult);
       when(eventService.deleteAgendaItem({"removeAgendaItemId": "1"}))
           .thenAnswer((_) async => true);
 
-      await tester.pumpWidget(createManageAgendaScreen('1'));
+      await tester
+          .pumpWidget(createManageAgendaScreen('1', agendaItems: agendaItems));
       await tester.pumpAndSettle();
 
       // Find and tap the delete button
@@ -312,34 +280,26 @@ void main() {
     });
 
     testWidgets('Can delete agenda item', (WidgetTester tester) async {
-      final mockResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'agendaItemByEvent': [
-            {
-              '_id': '1',
-              'title': 'Agenda 1',
-              'duration': '1h',
-              'sequence': 1,
-            },
-            {
-              '_id': '2',
-              'title': 'Agenda 2',
-              'duration': '30m',
-              'sequence': 2,
-            },
-          ],
-        },
-        options: QueryOptions(
-          document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
+      final agendaItems = [
+        EventAgendaItem(
+          id: '1',
+          name: 'Agenda 1',
+          duration: '1h',
+          sequence: 1,
         ),
-      );
+        EventAgendaItem(
+          id: '2',
+          name: 'Agenda 2',
+          duration: '30m',
+          sequence: 2,
+        ),
+      ];
 
-      when(eventService.fetchAgendaItems('1'))
-          .thenAnswer((_) async => mockResult);
       when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
           .thenAnswer((_) async => true);
-      await tester.pumpWidget(createManageAgendaScreen('1'));
+
+      await tester
+          .pumpWidget(createManageAgendaScreen('1', agendaItems: agendaItems));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key("delete_agenda_item1")));
       await tester.pump();

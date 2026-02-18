@@ -2,11 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
@@ -61,14 +58,9 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
   /// List of base64 encoded attachments associated with the agenda item.
   List<String> attachments = [];
 
-  /// Service for picking multimedia files.
-  late MultiMediaPickerService _multiMediaPickerService;
-
   @override
   void initState() {
     super.initState();
-    // Initialize the multimedia picker service.
-    _multiMediaPickerService = locator<MultiMediaPickerService>();
   }
 
   /// Handles the selection and deselection of categories.
@@ -143,13 +135,17 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
   ///   None
   Future<void> _pickAttachment({bool fromCamera = false}) async {
     final File? pickedFile =
-        await _multiMediaPickerService.getPhotoFromGallery(camera: fromCamera);
+        await widget.model.pickAttachment(fromCamera: fromCamera);
+
+    if (!mounted) return;
+
     if (pickedFile != null) {
-      final base64PickedFile = await imageService
-          .convertToBase64(pickedFile); // Convert the file to base64.
+      final base64PickedFile = await widget.model.convertToBase64(pickedFile);
+
+      if (!mounted) return;
+
       setState(() {
-        attachments
-            .add(base64PickedFile); // Add the base64 string to attachments.
+        attachments.add(base64PickedFile);
       });
     }
   }
@@ -169,14 +165,13 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    final navigationServiceLocal = locator<NavigationService>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         elevation: 1,
         centerTitle: true,
         leading: GestureDetector(
-          onTap: navigationServiceLocal.pop,
+          onTap: widget.model.navigateBack,
           child: const Icon(Icons.close),
         ),
         title: Text(
@@ -266,8 +261,15 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.name,
                   maxLength: 20,
                   focusNode: titleFocus,
-                  validator: (value) =>
-                      Validator.validateEventForm(value!, 'Title'),
+                  validator: (value) {
+                    final String? err = Validators.eventField(
+                      value,
+                      'Title',
+                    );
+                    return err == null
+                        ? null
+                        : AppLocalizations.of(context)!.translate(err);
+                  },
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!
                         .strictTranslate('Add Agenda Item Title'),
@@ -295,8 +297,15 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.multiline,
                   controller: descController,
                   focusNode: descFocus,
-                  validator: (value) =>
-                      Validator.validateEventForm(value!, 'Description'),
+                  validator: (value) {
+                    final String? err = Validators.eventField(
+                      value,
+                      'Description',
+                    );
+                    return err == null
+                        ? null
+                        : AppLocalizations.of(context)!.translate(err);
+                  },
                   maxLines: 10,
                   minLines: 1,
                   decoration: InputDecoration(
@@ -346,7 +355,8 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    final String? err = Validators.required(value);
+                    if (err != null) {
                       return AppLocalizations.of(context)!
                           .strictTranslate('Please enter a duration');
                     }
@@ -473,5 +483,18 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descController.dispose();
+    urlController.dispose();
+    durationController.dispose();
+    titleFocus.dispose();
+    descFocus.dispose();
+    urlFocus.dispose();
+    durationFocus.dispose();
+    super.dispose();
   }
 }

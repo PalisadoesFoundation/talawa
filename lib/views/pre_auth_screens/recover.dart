@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -10,6 +7,7 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 /// This class recovers the users password.
+///
 /// The users needs to enter his/her email and press on the button at the bottom to recover his/her password.
 class Recover extends StatefulWidget {
   const Recover({required Key key}) : super(key: key);
@@ -18,9 +16,26 @@ class Recover extends StatefulWidget {
   _RecoverState createState() => _RecoverState();
 }
 
+/// State class for [Recover].
 class _RecoverState extends State<Recover> {
+  /// Controller for the email input field.
   final TextEditingController email = TextEditingController();
+
+  /// Key for the form to facilitate validation.
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    securityService.enableSecure();
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    securityService.disableSecure();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +102,13 @@ class _RecoverState extends State<Recover> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const <String>[AutofillHints.email],
                   enableSuggestions: true,
-                  validator: (email) => Validator.validateEmail(email!),
+                  validator: (email) {
+                    final String? err = Validators.email(email);
+                    if (err != null) {
+                      return AppLocalizations.of(context)!.translate(err);
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText:
                         AppLocalizations.of(context)!.translate("Email Hint"),

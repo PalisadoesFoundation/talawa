@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -13,7 +13,7 @@ void main() {
 
   final testAgendaItem = EventAgendaItem(
     id: '1',
-    title: 'Test Agenda Item',
+    name: 'Test Agenda Item',
     description: 'Test Description',
     duration: '60',
     urls: ['https://example.com'],
@@ -113,6 +113,12 @@ void main() {
           'categories': ['cat1'],
         }),
       ).called(1);
+    });
+
+    test('navigateBack calls navigationService.pop', () {
+      model.navigateBack();
+
+      verify(navigationService.pop()).called(1);
     });
   });
 }

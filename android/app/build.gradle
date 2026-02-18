@@ -33,7 +33,7 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
     
-    compileSdkVersion 35
+    compileSdkVersion 36
     namespace "com.example.talawa"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -42,10 +42,10 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.talawa"
-        minSdkVersion 22
+        // API 24 ensures full Google Tink compatibility (flutter_secure_storage v10 dependency)
+        minSdkVersion 24
 
-        targetSdkVersion 35
-        multiDexEnabled true
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -74,7 +74,7 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 }

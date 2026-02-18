@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -69,7 +69,7 @@ class EditAgendaItemViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void _fillEditForm() {
-    titleController.text = _agendaItem.title ?? '';
+    titleController.text = _agendaItem.name ?? '';
     descriptionController.text = _agendaItem.description ?? '';
     durationController.text = _agendaItem.duration ?? '';
     _initialUrls = List<String>.from(_agendaItem.urls ?? []);
@@ -160,7 +160,7 @@ class EditAgendaItemViewModel extends BaseModel {
   /// **returns**:
   /// * `bool`: define_the_return
   bool checkForChanges() {
-    final bool titleChanged = titleController.text != (_agendaItem.title ?? '');
+    final bool titleChanged = titleController.text != (_agendaItem.name ?? '');
     final bool descriptionChanged =
         descriptionController.text != (_agendaItem.description ?? '');
     final bool durationChanged =
@@ -217,6 +217,20 @@ class EditAgendaItemViewModel extends BaseModel {
     } catch (e) {
       print('Error updating agenda item: $e');
     }
+  }
+
+  /// Navigate back to the previous screen.
+  ///
+  /// This method provides a clean interface for the View to navigate back
+  /// without directly accessing the NavigationService.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void navigateBack() {
+    navigationService.pop();
   }
 
   @override

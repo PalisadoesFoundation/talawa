@@ -4,7 +4,6 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/caching/base_feed_manager.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
@@ -26,24 +25,20 @@ import 'package:talawa/utils/event_queries.dart';
 class EventService extends BaseFeedManager<Event> {
   EventService() : super(HiveKeys.eventFeedKey) {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
-    print(_eventStream);
-    _currentOrg = _userConfig.currentOrg;
     _userConfig.initialiseStream();
-    setOrgStreamSubscription();
   }
 
   // variables declaration
   final _userConfig = locator<UserConfig>();
   final _dbFunctions = locator<DataBaseMutationFunctions>();
 
-  late OrgInfo _currentOrg;
-  late StreamSubscription _currentOrganizationStreamSubscription;
+  StreamSubscription? _currentOrganizationStreamSubscription;
   late Stream<List<Event>> _eventStream;
 
   final StreamController<List<Event>> _eventStreamController =
       StreamController<List<Event>>();
 
-  List<Event> _events = [];
+  final List<Event> _events = [];
 
   /// The event stream.
   ///
@@ -53,82 +48,88 @@ class EventService extends BaseFeedManager<Event> {
   /// * `Stream<Event>`: returns the event stream
   Stream<List<Event>> get eventStream => _eventStream;
 
-  /// The event stream.
-  ///
-  /// params:
-  ///  None
-  /// returns:
-  /// * `OrgInfo`: returns the Organisation info.
-  OrgInfo get currentOrg => _currentOrg;
+  /// Getter for list of events.
+  List<Event> get events => _events;
 
   @override
-  Future<List<Event>> fetchDataFromApi() async {
+  Future<List<Event>> fetchDataFromApi({Map<String, dynamic>? params}) async {
     // get current organization id
-    final String currentOrgID = _currentOrg.id!;
-    // mutation to fetch the events
-    final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-    final result = await _dbFunctions.gqlAuthQuery(mutation);
+    final String currentOrgID = _userConfig.currentOrg.id!;
+    final Map<String, dynamic> variables = {
+      'id': currentOrgID,
+      'first': 200,
+      'startDate': params?['startDate'] ??
+          DateTime.now()
+              .subtract(const Duration(days: 30))
+              .toUtc()
+              .toIso8601String(),
+      'endDate': params?['endDate'] ??
+          DateTime.now()
+              .add(const Duration(days: 30))
+              .toUtc()
+              .toIso8601String(),
+      'includeRecurring': params?['includeRecurring'] ?? true,
+    };
 
-    if (result.data == null) {
-      throw Exception('unable to fetch data');
+    // mutation to fetch the events
+    final String query = EventQueries().fetchOrgEvents();
+    final result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
+
+    // Check for GraphQL errors or null data
+    if (result.hasException || result.data == null) {
+      throw Exception('Failed to fetch events: ${result.exception}');
     }
 
-    final eventsJson =
-        result.data!["eventsByOrganizationConnection"] as List<dynamic>;
-    eventsJson.forEach((eventJsonData) {
-      final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
-      event.isRegistered = event.attendees?.any(
-            (attendee) => attendee.id == _userConfig.currentUser.id,
-          ) ??
-          false;
-      _events.insert(0, event);
-    });
-    return _events;
+    final org = result.data!['organization'] as Map<String, dynamic>;
+    final eventsMap = org['events'] as Map<String, dynamic>;
+    final List<Event> newEvents = [];
+    for (final edge in eventsMap['edges'] as List) {
+      final event = Event.fromJson(
+        (edge as Map<String, dynamic>)['node'] as Map<String, dynamic>,
+      );
+      newEvents.add(event);
+    }
+
+    return newEvents;
   }
 
-  /// Fetches the initial set of events, loading from the cache first, and then refreshing the feed.
-  ///
-  /// This method loads events from the cache, adds them to the event stream, and then triggers a feed refresh
-  /// to fetch the latest events from the API and update the stream accordingly.
+  /// Fetches new events from the API and refreshes the cache.
   ///
   /// **params**:
-  ///   None
+  /// * `start`: DateTime representing the start date of the range.
+  /// * `end`: DateTime representing the end date of the range.
+  /// * `includeRecurring`: Whether to include recurring events (default: true)
+  /// * `clearExisting`: Whether to clear existing events before adding new ones (default: false)
   ///
   /// **returns**:
   ///   None
-  Future<void> fetchEventsInitial() async {
-    _events = await loadCachedData();
+  Future<void> fetchEventsWithDates(
+    DateTime start,
+    DateTime end, {
+    bool includeRecurring = true,
+  }) async {
+    final newEvents = await getNewFeedAndRefreshCache(
+      params: {
+        'startDate': start.toUtc().toIso8601String(),
+        'endDate': end.toUtc().toIso8601String(),
+        'includeRecurring': includeRecurring,
+      },
+    );
+
+    _events.addAll(
+      newEvents.where(
+        (newEvent) {
+          if (newEvent.id != null) {
+            return !_events.any(
+              (existingEvent) =>
+                  existingEvent.id != null && existingEvent.id == newEvent.id,
+            );
+          }
+          return false;
+        },
+      ),
+    );
     _eventStreamController.add(_events);
-    refreshFeed();
-  }
-
-  /// Refreshes the event feed by fetching the latest events from the API and updating the event stream.
-  ///
-  /// This method retrieves the latest events using the `getNewFeedAndRefreshCache` method and adds the new events
-  /// to the event stream.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> refreshFeed() async {
-    _events = await getNewFeedAndRefreshCache();
-    _eventStreamController.add(_events);
-  }
-
-  /// This function is used to set stream subscription for an organization.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void setOrgStreamSubscription() {
-    _currentOrganizationStreamSubscription =
-        _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
-      _currentOrg = updatedOrganization;
-    });
   }
 
   /// This function is used to create an event using a GraphQL mutation.
@@ -148,16 +149,103 @@ class EventService extends BaseFeedManager<Event> {
     return result;
   }
 
-  /// This function is used to fetch all the events of an organization.
+  /// This function is used to delete an event.
+  ///
+  /// **params**:
+  /// * `event`: ID of the event to delete
+  /// * `recurrenceType`: Type of deletion for recurring events:
+  ///   - 'standalone' or null: Delete a non-recurring event
+  ///   - 'single': Delete a single instance of a recurring event
+  ///   - 'series': Delete the entire recurring event series
+  ///   - 'thisAndFollowing': Delete this and all following instances
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>>`: Information about the event deletion
+  Future<QueryResult<Object?>> deleteEvent(
+    Event event, {
+    String? recurrenceType,
+  }) async {
+    final Map<String, Map<String, dynamic>> variables = {
+      'input': {'id': event.id},
+    };
+
+    String query;
+    switch (recurrenceType) {
+      case 'single':
+        query = EventQueries().deleteSingleEventOfRecurring();
+      case 'series':
+        variables['input']!["id"] = event.baseEvent?.id;
+
+        query = EventQueries().deleteEntireEventSeriesOfRecurring();
+      case 'thisAndFollowing':
+        query = EventQueries().deleteThisAndFollowing();
+      case 'standalone':
+      default:
+        query = EventQueries().deleteStandaloneEvent();
+    }
+
+    final result =
+        await _dbFunctions.gqlAuthMutation(query, variables: variables);
+
+    if (!result.hasException) {
+      await clearEvents();
+    }
+    return result;
+  }
+
+  /// This function is used to edit an event.
+  ///
+  /// **params**:
+  /// * `variables`: this will be `map` type and contain all the event details need to be update.
+  /// * `recurrenceType`: Type of edit for recurring events:
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>>`: Information about the event deletion.
+  Future<QueryResult<Object?>> editEvent({
+    required Map<String, dynamic> variables,
+    String? recurrenceType,
+  }) async {
+    String query;
+    switch (recurrenceType) {
+      case 'single':
+        query = EventQueries().updateSingleRecurringEventInstance();
+      case 'series':
+        query = EventQueries().updateEntireRecurringEventSeries();
+      case 'thisAndFollowing':
+        query = EventQueries().updateThisAndFollowingEvents();
+      case 'standalone':
+      default:
+        query = EventQueries().updateStandaloneEvent();
+    }
+
+    final Map<String, dynamic> inputVariables = {
+      'input': {
+        ...variables,
+      },
+    };
+
+    final result = await _dbFunctions.gqlAuthMutation(
+      query,
+      variables: inputVariables,
+    );
+
+    if (!result.hasException) {
+      await clearEvents();
+    }
+    return result;
+  }
+
+  /// This function is used to clear all events from the local cache and stream.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
   ///   None
-  Future<void> getEvents() async {
-    final List<Event> newEvents = await getNewFeedAndRefreshCache();
-    _eventStreamController.add(newEvents);
+  Future<void> clearEvents() async {
+    await clearCache();
+    _events.clear();
+    _eventStreamController.add(_events);
   }
 
   /// This function is used to fetch all registrants of an event.
@@ -185,39 +273,6 @@ class EventService extends BaseFeedManager<Event> {
     final Map<String, dynamic> variables = {'eventId': eventId};
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().registerForEvent(),
-      variables: variables,
-    );
-    return result;
-  }
-
-  /// This function is used to delete the event.
-  ///
-  /// **params**:
-  /// * `eventId`: id of an event
-  ///
-  /// **returns**:
-  /// * `Future<QueryResult<Object?>>`: Information about the event deletion
-  Future<QueryResult<Object?>> deleteEvent(String eventId) async {
-    final result = await _dbFunctions.gqlAuthMutation(
-      EventQueries().deleteEvent(eventId),
-    );
-    return result;
-  }
-
-  /// This function is used to edit an event.
-  ///
-  /// **params**:
-  /// * `eventId`: id of an event
-  /// * `variables`: this will be `map` type and contain all the event details need to be update.
-  ///
-  /// **returns**:
-  /// * `Future<QueryResult<Object?>>`: Information about the event deletion.
-  Future<QueryResult<Object?>> editEvent({
-    required String eventId,
-    required Map<String, dynamic> variables,
-  }) async {
-    final result = await _dbFunctions.gqlAuthMutation(
-      EventQueries().updateEvent(eventId: eventId),
       variables: variables,
     );
     return result;
@@ -420,6 +475,6 @@ class EventService extends BaseFeedManager<Event> {
   /// **returns**:
   ///   None
   void dispose() {
-    _currentOrganizationStreamSubscription.cancel();
+    _currentOrganizationStreamSubscription?.cancel();
   }
 }
