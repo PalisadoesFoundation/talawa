@@ -1,3 +1,0 @@
-# More information at this link: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
-/.github/ @palisadoes
-# CODEOWNERS @palisadoes

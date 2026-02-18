@@ -1,0 +1,342 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/events/event_volunteer_group.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/splash_screen.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
+import 'package:talawa/views/after_auth_screens/add_post_page.dart';
+import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/group_chat_message_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
+import 'package:talawa/views/after_auth_screens/events/custom_recurring_event.dart';
+import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
+import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
+import 'package:talawa/views/after_auth_screens/events/event_page_form.dart';
+import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group.dart';
+import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
+import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
+import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
+import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
+import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
+import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
+import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/demo_page_view.dart';
+import 'package:talawa/views/demo_screens/explore_events_demo.dart';
+import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
+import 'package:talawa/views/demo_screens/profile_page_demo.dart';
+import 'package:talawa/views/main_screen.dart';
+import 'package:talawa/views/pre_auth_screens/change_password.dart';
+import 'package:talawa/views/pre_auth_screens/login.dart';
+import 'package:talawa/views/pre_auth_screens/recover.dart';
+import 'package:talawa/views/pre_auth_screens/select_language.dart';
+import 'package:talawa/views/pre_auth_screens/select_organization.dart';
+import 'package:talawa/views/pre_auth_screens/set_url.dart';
+import 'package:talawa/views/pre_auth_screens/signup_details.dart';
+import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
+
+/// The MaterialApp provides us with a property called generateRoute where.
+///
+///
+/// we can pass in a Function that returns a `Route<dynamic>` and takes in RouteSettings
+/// Thus for this purpose, we create a function named generateRoute
+///
+/// **params**:
+/// * `settings`: RouteSetting have been passed
+///
+/// **returns**:
+/// * `Route<dynamic>`: Return a Route
+Route<dynamic> generateRoute(RouteSettings settings) {
+  // The settings contains the route information of the requested route.
+  // It provides two key things to us: the name, and the arguments.
+  // We use the name to determine which view to return.
+  switch (settings.name) {
+    // Returns the SplashScreen
+    case Routes.splashScreen:
+      final int mainScreenIndex = settings.arguments! as int;
+      return MaterialPageRoute(
+        builder: (context) => SplashScreen(
+          key: const Key('SplashScreen'),
+          mainScreenIndex: mainScreenIndex,
+        ),
+      );
+
+    // Returns the SelectLanguage Widget
+    case Routes.languageSelectionRoute:
+      return MaterialPageRoute(
+        builder: (context) => const SelectLanguage(key: Key('SelectLanguage')),
+      );
+
+    // Returns the SetUrl Widget
+    case Routes.setUrlScreen:
+      final String uri = settings.arguments?.toString() ?? '';
+      return MaterialPageRoute(
+        builder: (context) => SetUrl(
+          key: const Key('SetUrl'),
+          uri: uri,
+        ),
+      );
+
+    // Returns the Login Widget
+    case Routes.loginScreen:
+      return MaterialPageRoute(
+        builder: (context) => const Login(key: Key('Login')),
+      );
+
+    // Returns the SelectOrganization Widget
+    case Routes.selectOrgScreen:
+      final String id = settings.arguments!.toString();
+      return CupertinoPageRoute(
+        builder: (context) => SelectOrganization(
+          key: const Key('SelectOrganization'),
+          selectedOrgId: id,
+        ),
+      );
+
+    // Returns the SignUpDetails Widget
+    case Routes.signupDetailScreen:
+      final OrgInfo org = settings.arguments! as OrgInfo;
+      return CupertinoPageRoute(
+        builder: (context) => SignUpDetails(
+          key: const Key('SignUpDetails'),
+          selectedOrg: org,
+        ),
+      );
+
+    // Returns the WaitingPge Widget
+    case Routes.waitingScreen:
+      return CupertinoPageRoute(
+        builder: (context) => const WaitingPage(key: Key('Waiting')),
+      );
+
+    // Returns the Recover Widget
+    case Routes.recoverScreen:
+      return MaterialPageRoute(
+        builder: (context) => const Recover(key: Key('Recover')),
+      );
+
+    // Returns the ChangePass Widget
+    case Routes.updateScreen:
+      return MaterialPageRoute(
+        builder: (context) => const ChangePass(key: Key('Update')),
+      );
+
+    // Returns the OrganizationFeed Widget
+    case Routes.homeScreen:
+      return MaterialPageRoute(
+        builder: (context) => const OrganizationFeed(key: Key('HomeScreen')),
+      );
+
+    // Returns the DemoOrganizationFeed Widget
+    case Routes.demoHomeScreen:
+      return MaterialPageRoute(
+        builder: (context) =>
+            const DemoOrganizationFeed(key: Key('DemoHomeScreen')),
+      );
+
+    // Returns the MainScreen Widget
+    case Routes.mainScreen:
+      final MainScreenArgs mainScreenArgs =
+          settings.arguments! as MainScreenArgs;
+      //  final bool fromSignUp = settings.arguments! as bool;
+      return MaterialPageRoute(
+        builder: (context) => MainScreen(
+          key: const Key('MainScreen'),
+          mainScreenArgs: mainScreenArgs,
+        ),
+      );
+
+    // Returns the IndividualPostView Widget
+    case Routes.individualPost:
+      final Post post = settings.arguments! as Post;
+      return MaterialPageRoute(
+        builder: (context) => IndividualPostView(
+          key: const Key('IndividualPost'),
+          post: post,
+        ),
+      );
+
+    // Returns the DemoExploreEvents Widget
+    case Routes.demoExploreEventsScreen:
+      return MaterialPageRoute(
+        builder: (context) =>
+            const DemoExploreEvents(key: Key('DemoExploreEvents')),
+      );
+
+    // Returns the EventInfoPage Widget
+    case Routes.eventInfoPage:
+      final event = settings.arguments! as Event;
+
+      return MaterialPageRoute(
+        builder: (context) => EventInfoPage(
+          key: const Key('EventInfo'),
+          event: event,
+        ),
+      );
+
+    // Returns the EventPage Widget for creating a new event or editing an existing one
+    case Routes.eventPageForm:
+      // Check if we're editing an existing event (has arguments) or creating a new one
+      final event = settings.arguments as Event?;
+      return MaterialPageRoute(
+        builder: (context) => EventPageForm(
+          key: const Key('EventPageForm'),
+          event: event,
+        ),
+      );
+
+    // Returns the CustomRecurrencePage Widget
+    case Routes.customRecurrencePage:
+      // Custom recurrence is now handled through dialogs within the EventPage
+
+      final baseEventViewModel = settings.arguments;
+      return MaterialPageRoute(
+        builder: (context) => CustomRecurringEvent(
+          key: const Key('CustomRecurrence'),
+          model: baseEventViewModel! as BaseEventViewModel,
+        ),
+      );
+
+    // Returns the ProfilePage Widget
+    case Routes.profilePage:
+      return MaterialPageRoute(
+        builder: (context) => const ProfilePage(key: Key('Profile')),
+      );
+
+    // Return the DemoProfilePage Widget
+    case Routes.demoProfilePage:
+      return MaterialPageRoute(
+        builder: (context) => const DemoProfilePage(key: Key('DemoProfile')),
+      );
+
+    // Returns the EditProfilePage Widget
+    case Routes.editProfilePage:
+      return MaterialPageRoute(
+        builder: (context) => const EditProfilePage(key: Key('EditProfile')),
+      );
+
+    // Returns the JoinOrganizationAfterAuth Widget
+    case Routes.joinOrg:
+      final String id = settings.arguments!.toString();
+      return MaterialPageRoute(
+        builder: (context) => JoinOrganisationAfterAuth(
+          key: const Key('JoinOrganisationAfterAuth'),
+          orgId: id,
+        ),
+      );
+
+    case Routes.requestAccess:
+      final OrgInfo org = settings.arguments! as OrgInfo;
+      return MaterialPageRoute(
+        builder: (context) => SendAccessRequest(
+          key: const Key('AccessRequest'),
+          org: org,
+        ),
+      );
+
+    case Routes.pinnedPostScreen:
+      return MaterialPageRoute(
+        builder: (context) =>
+            PinnedPostScreen(post: settings.arguments! as Post),
+      );
+    // Returns the AppSettingsPage Widget
+    case Routes.appSettings:
+      return MaterialPageRoute(
+        builder: (context) => const AppSettingsPage(key: Key('AppSettings')),
+      );
+
+    // Returns the ChatMessageScreen Widget
+    case Routes.chatMessageScreen:
+      final List<dynamic> arguments = settings.arguments! as List<dynamic>;
+      final String chatId = arguments[0] as String;
+      final DirectChatViewModel model = arguments[1] as DirectChatViewModel;
+      return MaterialPageRoute(
+        builder: (context) => ChatMessageScreen(
+          key: const Key('ChatMessageScreen'),
+          chatId: chatId,
+          model: model,
+        ),
+      );
+
+    // Returns the GroupChatMessageScreen Widget
+    case Routes.groupChatMessageScreen:
+      final List<dynamic> arguments = settings.arguments! as List<dynamic>;
+      final String chatId = arguments[0] as String;
+      final GroupChatViewModel model = arguments[1] as GroupChatViewModel;
+      return MaterialPageRoute(
+        builder: (context) => GroupChatMessageScreen(
+          key: const Key('GroupChatMessageScreen'),
+          chatId: chatId,
+          model: model,
+        ),
+      );
+
+    case Routes.calendar:
+      return MaterialPageRoute(
+        builder: (context) => const EventCalendar(
+          key: Key('Calendar'),
+        ),
+      );
+
+    case Routes.selectContact:
+      return MaterialPageRoute(
+        builder: (context) => const SelectContact(key: Key('selectContact')),
+      );
+
+    case Routes.addPostScreen:
+      return MaterialPageRoute(
+        builder: (context) => const AddPost(
+          key: Key('AddPostPage'),
+        ),
+      );
+
+    case Routes.orgInfoScreen:
+      final OrgInfo orgInfo = settings.arguments! as OrgInfo;
+      return MaterialPageRoute(
+        builder: (context) => OrganisationInfoScreen(
+          orgInfo: orgInfo,
+          key: const Key('orginfoscreen'),
+        ),
+      );
+
+    case Routes.volunteerGroupScreen:
+      final List<dynamic> arguments = settings.arguments! as List<dynamic>;
+      final Event event = arguments[0] as Event;
+      final EventInfoViewModel model = arguments[1] as EventInfoViewModel;
+      return MaterialPageRoute(
+        builder: (context) => VolunteerGroupsScreen(event: event, model: model),
+      );
+
+    case Routes.manageVolunteerGroup:
+      final List<dynamic> arguments = settings.arguments! as List<dynamic>;
+      final Event event = arguments[0] as Event;
+      final EventVolunteerGroup group = arguments[1] as EventVolunteerGroup;
+      return MaterialPageRoute(
+        builder: (context) => ManageGroupScreen(group: group, event: event),
+      );
+
+    case Routes.demoPage:
+      return MaterialPageRoute(
+        builder: (context) => const DemoPageView(
+          key: Key("DemoPage"),
+        ),
+      );
+
+    default:
+      // Fallback to demo page if route not found
+      return MaterialPageRoute(
+        builder: (context) => const DemoPageView(
+          key: Key("DefaultDemoPage"),
+        ),
+      );
+  }
+}

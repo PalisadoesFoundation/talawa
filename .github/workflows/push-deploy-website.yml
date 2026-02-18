@@ -14,7 +14,7 @@ name: PUSH Workflow - Website Deployment
 on:
   push:
     branches:
-      - 'develop'
+      - "develop"
     paths:
       - docs/**
 
@@ -23,7 +23,7 @@ env:
 
 jobs:
   Deploy-Docusaurus:
-    name: Deploy https://docs-plugin.talawa.io website
+    name: Deploy https://docs-mobile.talawa.io website
     runs-on: ubuntu-latest
     # Run only if the develop branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -35,11 +35,11 @@ jobs:
       # menu. The branch "name" must match the branch in the
       # "on.push.branches" section at the top of this file
       name: develop
-      url: https://docs-plugin.talawa.io
+      url: https://docs-mobile.talawa.io
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: docs/.docusaurus
           key: docusaurus-${{ hashFiles('docs/**') }}

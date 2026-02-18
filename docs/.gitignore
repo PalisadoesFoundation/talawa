@@ -12,6 +12,7 @@ docs/build-stats.json
 .docusaurus
 .cache-loader
 package-lock.json
+yarn.lock
 .eslintcache
 tsconfig.tsbuildinfo
 

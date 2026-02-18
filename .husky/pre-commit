@@ -1,57 +1,25 @@
-#!/usr/bin/env bash
-#
-# =============================================================================
-# Talawa Plugin – Git Pre-Commit Hook
-# =============================================================================
-#
-# This is the main entry point for all pre-commit checks.
-# It determines which files are staged, prepares temporary file lists,
-# and delegates language-specific checks to dedicated scripts.
-#
-# Responsibilities:
-# - Verify required tools are installed
-# - Identify staged source files safely (null-delimited)
-# - Run Node.js and Python pre-commit checks conditionally
-# - Re-stage modified files after formatting
-#
-# Design Notes:
-# - Uses temporary files instead of variables to safely handle filenames
-# - Exits early if no files are staged to improve performance
-# - Delegates logic to smaller scripts for maintainability
-#
-# =============================================================================
+#!/bin/sh
 
-# If running under sh/dash (from Husky sourcing), re-execute with bash
-if [ -z "$BASH_VERSION" ]; then
-  exec bash "$0" "$@"
+# Check if any Dart files have changed
+if git diff --name-only --cached | grep -q '\.dart$'; then
+  echo "Dart files changed. Generating docs..."
+
+  # Run dependency validator
+  echo "Running dependency validator..."
+  if ! fvm dart run dependency_validator; then
+    echo "Error: Dependency validation failed. Please fix unused dependencies."
+    exit 1
+  fi
+  
+  # Run the Generate Docs script
+  if ! scripts/docusaurus/generate_docs.sh; then
+    echo "Error: Documentation generation failed. Aborting commit."
+    exit 1
+  fi
+  
+  # Add the generated docs to the commit
+  git add docs/docs/auto-docs
+else
+  echo "No Dart files changed. Skipping doc generation."
 fi
 
-set -euo pipefail
-
-. .husky/scripts/staged-files.sh
-
-.husky/scripts/check-tools.sh
-
-mktemp_compat() {
-  mktemp 2>/dev/null || mktemp -t husky.XXXXXX
-}
-STAGED_SRC_FILE=$(mktemp_compat)
-STAGED_ALL_FILE=$(mktemp_compat)
-trap 'rm -f "$STAGED_SRC_FILE" "$STAGED_ALL_FILE"; cleanup_staged_cache 2>/dev/null || true' EXIT
-
-get_staged_files '\.(ts|tsx|js|jsx)$' > "$STAGED_SRC_FILE"
-get_staged_files > "$STAGED_ALL_FILE"
-
-# Early exit if nothing staged
-[ ! -s "$STAGED_ALL_FILE" ] && {
-  echo "No staged files to check..."
-  exit 0
-}
-
-if [ -s "$STAGED_SRC_FILE" ]; then
-  .husky/scripts/precommit-node.sh "$STAGED_SRC_FILE"
-fi
-
-.husky/scripts/precommit-python.sh "$STAGED_SRC_FILE"
-
-xargs -0 git add -- < "$STAGED_ALL_FILE"

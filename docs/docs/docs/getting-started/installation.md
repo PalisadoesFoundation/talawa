@@ -1,329 +1,141 @@
 ---
-id: installation
-title: Plugin Installation
-slug: /getting-started/installation
-sidebar_position: 2
+id: talawa-installation
+title: Installation
+slug: /installation
+sidebar_position: 1
 ---
 
-# Installing Talawa Plugins
-
-This guide will walk you through the complete process of getting plugins from the repository and installing them in your Talawa system. No technical expertise required!
+We recommend that you follow these steps before beginning development work on the Talawa mobile app.
 
 ## Prerequisites
 
-Before you start, make sure you have:
-
-- **Internet Connection**: To download plugins from the repository
-- **Browser**: Any modern web browser (Chrome, Firefox, Safari, Edge)
-- **Admin Access**: You need to be logged in as an administrator in Talawa-Admin
-
-## Understanding Plugin Distribution
-
-### What's in a Plugin ZIP?
-
-When you download a plugin, you get a ZIP file that contains everything the plugin needs to work:
-
-```
-my-plugin.zip
-├── 🎨 admin/                 (Admin dashboard components)
-├── 📱 mobile/                (Mobile app components)
-├── 🔧 api/                   (Backend logic)
-└── 📚 README.md              (Plugin documentation)
-```
-
-### 🔄 Two Types of Plugin Installation
-
-#### 1. Web Plugins (Admin & API)
-These plugins are **uploaded and installed through the admin dashboard**. They add features to:
-- Admin Dashboard (new pages, widgets, tools)
-- Backend API (new data, webhooks, integrations)
-
-**Installation**: Upload ZIP file → Install → Activate
-
-#### 2. Mobile Plugins (App)
-These plugins are **pre-bundled into the mobile app** before it's built. They add features to:
-- Mobile app (new screens, widgets, enhanced posts)
-
-**Installation**: Include in build → Download APK → Control via dashboard
-
----
-
-## Part 1: Getting Plugins from the Repository
-
-### Step 1: Visit the Plugin Repository
-
-1. Open your web browser
-2. Go to the **Talawa Plugin Repository** (link provided by your organization)
-3. You'll see a gallery of available plugins
-
-### Step 2: Review Plugin Details
-
-Before downloading, check:
-
-- **Description**: What the plugin does
-- **Features**: List of capabilities
-- **Screenshots**: How it looks in action
-- **Requirements**: Any special setup needed
-
-### Step 3: Download the Plugin
-
-1. Click the **Download** button
-2. The ZIP file will download to your computer
-3. **Important**: Don't unzip the file! Keep it as a ZIP
-
-**File naming**: Plugins are named like `plugin_name.zip`
-
----
-
-## Part 2: Installing Web Plugins (Admin & API)
-
-### Step 1: Access the Admin Dashboard
-
-1. Open your web browser
-2. Navigate to your Talawa-Admin URL
-   - Example: `https://admin.yourorg.com`
-3. Log in with your administrator credentials
-
-### Step 2: Navigate to Plugin Management
-
-1. Open the **Plugin Store** directly from the left drawer in the admin portal.
-2. The Plugin Store is accessible at the route `/pluginstore`.
-3. You'll see the plugin management page with:
-   - **Installed Plugins**: Plugins already in your system
-   - **Available Plugins**: Plugins you can activate
-   - **Upload Plugin**: Button to add new plugins
-
-### Step 3: Upload the Plugin
-
-1. Click the **Upload Plugin** button
-2. A file picker dialog will appear
-3. Navigate to where you downloaded the plugin ZIP
-4. Select the ZIP file (don't unzip it!)
-5. Review Plugin Information
-5. Click **Upload Plugin**
-
-**What happens next**:
-- The ZIP is uploaded to your server
-- Files are extracted and validated
-- Plugin information is displayed
-
-### Step 4: Install the Plugin
-
-1. Click the **Manage** button next to the plugin you want to install.
-2. Then click the **Install** button.
-3. Installation process begins:
-   ```
-   Validating plugin files...
-   Installing dependencies...
-   Setting up database...
-   Registering plugin...
-   Installation complete!
-   ```
-
-**What happens during installation**:
-- Plugin files are copied to the correct locations
-- Required packages are installed
-- Database tables are created (if needed)
-
-### Step 5: Installation Complete
-
-You'll see a success message and the plugin appears in your **Installed Plugins** list with status: **Inactive**
-
-**Note**: Installed doesn't mean active! You need to activate it to use it.
-
----
-
-## Part 3: Installing Mobile Plugins (Pre-Bundling)
-
-Mobile plugins work differently - they must be included when the app is built.
-
-### For Organization Administrators
-
-**You don't build the app yourself** - contact your technical team or app developer.
-
-**What to tell them**:
-1. "I need the [plugin name] included in the next app build"
-2. Provide the plugin ZIP file or plugin ID
-
-### For Technical Teams
-
-#### Step 1: Get the Plugin
-
-Download the plugin ZIP from the repository or receive it from your admin.
-
-#### Step 2: Extract to Mobile Plugin Directory
-
-To pre-bundle a mobile plugin:
-
-1. Open the plugin ZIP file and locate the `mobile` folder inside it.
-2. Rename the `mobile` folder to match the plugin ID (e.g., `razorpay`, `summarize_t5`, etc.).
-3. Place the renamed folder inside `talawa-mobile/lib/plugin/available/`.
-
-For example, your `available/` directory might look like:
-
-```
-lib/plugin/available/
-   razorpay/
-      index.dart
-      ...
-   summarize_t5/
-      index.dart
-      widgets/
-         summarize_button.dart
-   plugin_map/
-      index.dart
-      ...
-```
-
-#### Step 3: Install Dependencies
-
-```bash
-# Run the dependency installer script
-cd talawa-mobile
-python3 lib/plugin/scripts/install_plugin_dependencies.py
-
-# Install Flutter packages
-flutter pub get
-```
-
-**What this does**:
-- Scans all plugins for required packages
-- Adds them to `pubspec.yaml`
-- Downloads packages
-
-#### Step 4: Register the Plugin
-
-Edit `lib/plugin/available/index.dart`:
-
-```dart
-import 'package:talawa/plugin/available/new_plugin/index.dart';
-
-List<TalawaMobilePlugin> getBundledPlugins() => [
-  // Existing plugins...
-  NewPluginName(),  // Add your plugin here
-];
-```
-
-#### Step 5: Build the App
-
-```bash
-# For Android
-flutter build apk
-
-# For iOS  
-flutter build ios
-```
-
-#### Step 6: Distribute the APK
-
-1. Share the built APK with organization
-3. Plugins appear in the app but are **inactive by default**
-
-### Controlling Mobile Plugins
-
-
-### How Plugin Activation Works
-
-Talawa plugins are unified: each plugin ZIP may contain both web (admin/API) and app (mobile) parts. The admin dashboard is the single source of truth for plugin management.
-
-- If the app part of a plugin is prebundled in the mobile app, installing and activating the plugin from the admin dashboard will automatically enable its mobile features for users.
-- There is no separate control for mobile plugins; activation and deactivation is managed centrally via the admin dashboard.
-- If a plugin is not installed in the admin dashboard, its mobile features remain inactive, even if prebundled in the app.
-
-This unified approach ensures consistent plugin management and feature rollout across web and mobile platforms.
-
----
-
-## Installation Troubleshooting
-
-### ❌ "Upload Failed" Error
-
-**Possible causes**:
-- File is too large (check server upload limits)
-- File is corrupted (re-download the plugin)
-- Not a valid ZIP file (ensure you didn't unzip it)
-
-**Solutions**:
-1. Check file size (should be under 50MB typically)
-2. Re-download from repository
-3. Try a different browser
-4. Contact your system administrator
-
-### ❌ "Invalid Plugin" Error
-
-**Possible causes**:
-- Plugin ZIP is corrupted
-- Missing required files (manifest.json)
-- Plugin is for wrong Talawa version
-
-**Solutions**:
-1. Verify you downloaded the correct version
-2. Check plugin compatibility with your Talawa version
-3. Re-download the plugin
-4. Contact plugin author if issue persists
-
-### ❌ "Installation Failed" Error
-
-**Possible causes**:
-- Missing dependencies
-- Database connection issues
-- Permission problems
-- Conflicting plugins
-
-**Solutions**:
-1. Check error message details
-2. Ensure your server has internet access (for dependencies)
-3. Verify database is working
-4. Try disabling other plugins temporarily
-
-### ❌ Mobile Plugin Not Appearing
-
-**Possible causes**:
-- Plugin not added to `getBundledPlugins()`
-- App not rebuilt after adding plugin
-- Using old APK
-
-**Solutions**:
-1. Verify plugin is in `available/index.dart`
-2. Rebuild the mobile app
-3. Distribute the new APK
-4. Check users have latest version
-
----
-
-## Next Steps
-
-Now that your plugin is installed, you're ready to activate and use it!
-
-**[Continue to Usage Guide →](./usage)**
-
-Learn how to:
-- ✅ Activate plugins
-- ✅ Configure plugin settings  
-- ✅ Use plugin features
-- ✅ Deactivate when needed
-- ✅ Uninstall completely
-
----
-
-## Need Help?
-
-### Common Questions
-
-**Q: Can I install multiple plugins at once?**  
-A: You need to upload and install plugins one at a time, but you can activate multiple plugins simultaneously.
-
-**Q: Do I need to restart anything after installation?**  
-A: For web/admin features, plugins are ready to activate immediately after installation. For mobile features, if the app part is prebundled, users may need to reopen the app to see new plugin features.
-
-**Q: What happens to plugin data if I uninstall?**  
-A: Most plugins remove their data on uninstall, but check the plugin documentation to be sure.
-
-**Q: Can mobile plugins be installed without rebuilding the app?**  
-A: No, mobile plugins must be bundled during the app build process. However, you can activate/deactivate them remotely via the admin dashboard.
-
-### Get Support
-
-- [Ask in the community forum](https://community.talawa.io)
-- [Report installation issues](https://github.com/PalisadoesFoundation/talawa/issues)
-- Contact your organization's technical team
+You must install the following applications beforehand on your system for best results. 
+
+1. [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api): The API system that the mobile app uses for accessing data.
+2. [Talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin): The system used by Administrators to manage user information. This is important as you will occasionally need to do administrative functions that cannot be done in the mobile app.
+
+Each of these software application repositories have an INSTALLATION.md file that explains how install them. The Talawa-API INSTALLATION.md file will also show you the `Organization URL` to use when you first login to Talawa mobile.
+
+**Note:** If you are a developer then you should setup your own **_local instances_** of these applications.
+
+
+## Installation for End Users
+
+End users can install the `apk` file on their phones. 
+
+**Note:** 
+1. Make sure you follow these steps on your phone.
+2. Please note that the release is provided only for Android. For iOS, you will still need to build the app yourself.
+
+Please follow these steps:
+
+1. The `apk` file is automatically generated when we make updates to the code. It has the latest features of the application.
+4. Head over to the [release section](https://github.com/PalisadoesFoundation/talawa/releases) of Talawa repository. 
+5. You will find a release with the name of `Automated Android Release`. 
+6. Scroll a bit and you will find a file named `app-release.apk`. 
+7. Click on the link to download the file.
+8. Head over to the downloads of your browser and then click on `app-release.apk` there. 
+   1. You will be prompted to install the app. 
+   2. Click on `Install`.
+9. Once done, you can find `Talawa` in your apps list. 
+10. Start using it from right there.
+
+## Installation for Developers
+
+Developers should follow these steps to install the application in their development environment.
+
+### Talawa Mobile App Setup
+You'll need to set up the IDE and mobile device emulator on your local system and have access to a system running the Talawa API, which the mobile needs to access to operate properly.
+
+1. **Development Environment**: You'll need to have the following installed:
+    1. [Flutter SDK](https://flutter.dev/docs/get-started/install)
+    1. [Android Studio](https://developer.android.com/studio)
+1. **API Environment**: This part is very important.
+    1. Make sure Talawa-API is up and running.
+    1. You will need to enter the URL of the API server in the Talawa app when it first starts up. The URL could be active on a system you control or in our test environment. The Talawa-API INSTALLATION.md will provide that information.
+1. **Google APIs** (Optional): The app uses Google Maps API for venue selection. You will need to sign up for it if you want to test these features.
+    1. **Maps API Setup**: Follow these steps:
+        1. Go to [Google Developers Console](https://console.cloud.google.com).
+        1. Create a new project that you want to enable Google Maps on.
+        1. Search `credentials` in the search bar and select `Credentials` in APIs & Services. Click on `Create credentials` and select `API key`. Copy the key and replace it as said before.
+        1. Search `maps sdk for android` and select the `Google Maps SDK for Android` in Marketplace. You can also search `maps sdk for ios` and select the `Google Maps SDK for iOS` in Marketplace for iOS devices.
+        1. Click `Enable`.
+    1. **Mobile App Setup**: Enter your API key in the:
+        1. `android/app/src/main/AndroidManifest.xml` file for Android.
+        1. `ios/Runner/AppDelegate.swift` file for iOS.
+            1. Replace YOUR_KEY_HERE with your API key.
+        1. **Remember** to remove the key before committing changes and replace again with YOUR_KEY_HERE.
+
+### Mobile App Installation
+
+We have tried to make the process simple. Here's what you need to do.
+
+1. In Android Studio
+   1. Make sure you have installed the `Android SDK Command Line Tools"
+   2. Navigate to Project Structure
+      1. On Windows/Linux: Click File > Project Structure...
+      2. On macOS: Click Android Studio > Settings... (or Preferences...) > Project Structure
+   3. Select the SDK Location
+   4. Apply and save the settings
+2. From the CLI
+   1. Clone and change into the project.
+       ```bash
+       $ git clone https://github.com/PalisadoesFoundation/talawa.git
+       $ cd talawa
+       ```
+   1. Next you'll need to ensure that you are running the correct version of Flutter. We recommend using FVM to ensure you are running the correct version of Flutter.
+      1. Install FVM using the instructions on the FVM website
+        - https://fvm.app
+      2. Ensure you are using Flutter version `3.35.0` 
+        - `fvm use 3.35.0`
+   2. Install packages.
+      ```bash
+      $ cd talawa_lint
+      $ fvm flutter pub get
+      $ cd ..
+      $ fvm flutter pub get
+      ```
+   
+   3. **Troubleshooting**: If you encounter dependency version conflicts during installation, please refer to our [Handling Upgrades](../developer-resources/general/handling-upgrades.md) guide for checking and updating local package dependencies.
+   3. Run the `flutter doctor` command to determine whether everything is OK. 
+      1. Here is the specific command.
+         ```bash
+         $ fvm flutter doctor
+         ```      
+      2. Fix any issues the command output suggests need rectification. 
+         1. **Note**: Though you may have setup an SDK in Android Studio, the configuration may have to be setup separately on the CLI.
+            1. Here is an example SDK error:
+               ```
+               [✗] Android toolchain - develop for Android devices
+                  ✗ Unable to locate Android SDK.
+                     Install Android Studio from: https://developer.android.com/studio/index.html
+                     On first launch it will assist you in installing the Android SDK components.
+                     (or visit https://flutter.dev/to/linux-android-setup for detailed instructions).
+                     If the Android SDK has been installed to a custom location, please use
+                     `flutter config --android-sdk` to update to that location.
+
+               ```
+            2. You will need to run the `flutter config --android-sdk` command to correct the CLI configuration. On a Linux based system this will typically be `~/Android/Sdk/`. Here is an example.
+               ```
+               $ fvm flutter config --android-sdk /PATH/TO/Android/Sdk/  
+               ```
+   4. For a first time installation, you will need to accept the Flutter licences agreements.
+      ```
+      $ fvm flutter doctor --android-licenses
+      ```
+   5. Run the application
+      1. Using a virtual device
+         1. Create and launch an Android Virtual Device
+         2. Run the application
+         3. **Note:** In some cases the run icon in your IDE may be disabled, and you'll need to use the CLI
+            ```
+            $ fvm flutter run
+            ```
+      2. Using your phone
+         1. Enable USB debugging
+         2. Connect your phone
+   6. **Set the API URL**: When you first launch the app, you will be prompted to enter the Talawa API URL. 
+      1. If you are running the API locally on your development machine and testing on an emulator, use `http://10.0.2.2:4000/graphql` (Android emulator special address that maps to localhost).
+      2. If you are running the API on your local network and testing on a physical device, use `http://<YOUR_LOCAL_IP>:4000/graphql` where `<YOUR_LOCAL_IP>` is the IP address of your development machine on your local network.
+      3. Alternatively, you can scan a QR code if your organization provides one with the API URL pre-configured.
+   7. Start developing!

@@ -1,14 +1,19 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# More information at this link: https://docs.coderabbit.ai/configure-coderabbit
 
-language: 'en-US'
+language: "en-US"
 early_access: false
 chat:
   auto_reply: true
+issue_enrichment:
+  auto_enrich:
+    enabled: false
 reviews:
-  profile: 'assertive'
+  profile: "assertive"
   poem: false
-  request_changes_workflow: true
+  request_changes_workflow: false
   high_level_summary: true
+  assess_linked_issues: true
   review_status: true
   review_details: false
   auto_apply_labels: false
@@ -19,10 +24,54 @@ reviews:
     drafts: false
     base_branches:
       - develop
-      - develop
       - main
   path_filters:
-    - '!**/docs/**'
-    - '!*.html'
-    - '!*.md'
-    - '!*.svg'
+    - "!**/docs/docs/**"
+    - "!*.html"
+    - "!*.md"
+    - "!*.svg"
+  path_instructions:
+    # General: applies to all changed files
+    - path: "**/*"
+      instructions: |
+        Output a single consolidated review comment.
+        Issue goals: open the issue linked in the first PR comment; quote each acceptance criterion and mark Met/Not Met with line refs.
+        Talawa policy: prefer extracting shared widgets/services per the reusable component policy; flag duplications (≥2 occurrences) as candidates.
+        Approval: do not append [approve] if any blocking item remains.
+
+    # Dart implementation
+    - path: "lib/**/*.dart"
+      instructions: |
+        Correctness: verify business rules, data queries/collections, and error handling; use precise exception types with user-visible feedback.
+        Safety: Dart null-safety respected; no BuildContext usage after await; no secrets committed.
+        Performance: minimize rebuilds; prefer const; dispose controllers/streams; avoid work in build().
+        Critical: fix any logic bugs in files under test within this PR.
+
+    # Flutter widgets
+    - path: "lib/**/widgets/**/*.dart"
+      instructions: |
+        Widget hygiene: pick StatefulWidget vs StatelessWidget appropriately; dispose Focus/Animation/Stream/TextEditing controllers.
+        Reusability: split large widgets; promote shared patterns to reusable components per policy.
+
+    # Tests (unit/widget)
+    - path: "test/**/*_test.dart"
+      instructions: |
+        Coverage: target ≥95% for new/changed code; call out uncovered lines; defensive-only catch blocks may be exempt.
+        Quality: meaningful assertions; cover success, failure, and edge paths.
+        Flutter: use tester.pump / pumpAndSettle appropriately; avoid using BuildContext across awaits.
+        Flakiness (sharded): no globals/cross-test state; deterministic seeds; no sleeps; stub network/GraphQL; unique temp dirs/keys; full cleanup in tearDown().
+
+    # Integration / GraphQL-related
+    - path: "lib/**/graphql/**"
+      instructions: |
+        Ensure GraphQL document nodes/operations are well-formed and colocated; tests mock GraphQL and cover data and error paths.
+
+    # Dependencies
+    - path: "pubspec.yaml"
+      instructions: |
+        New deps justified; prefer stable versions; remove unused/duplicates; watch transitive bloat and known security risks.
+
+    # Docs
+    - path: "**/*.md"
+      instructions: |
+        Update README/docs when behavior or APIs change; keep ToC current; summarize user-visible changes.

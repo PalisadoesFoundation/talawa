@@ -1,0 +1,503 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/options/options.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
+
+import '../../helpers/test_helpers.dart';
+import '../../helpers/test_locator.dart';
+
+TileType _tileType = TileType.org;
+OrgInfo _orgInfo = OrgInfo();
+const Key _key = Key('CustomListTileKey');
+int _index = 0;
+Options _option = Options(
+  icon: const Icon(Icons.add),
+  title: 'Test',
+  subtitle: 'Just a test',
+);
+bool _showIcon = false;
+User _userInfo = User();
+
+// ignore: prefer_function_declarations_over_variables
+dynamic Function(OrgInfo)? _onTapOrgInfo = (OrgInfo orgInfo) => true;
+
+// ignore: prefer_function_declarations_over_variables
+void Function()? _onTapOption = () => {};
+
+// ignore: prefer_function_declarations_over_variables
+dynamic Function()? _onTapUserInfo = () => {};
+
+Widget _createCustomListTile({
+  Attendee? attendeeInfo,
+  void Function()? onTapAttendeeInfo,
+}) {
+  return MaterialApp(
+    navigatorKey: navigationService.navigatorKey,
+    locale: const Locale('en'),
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    home: Scaffold(
+      body: CustomListTile(
+        key: _key,
+        index: _index,
+        type: _tileType,
+        option: _option,
+        showIcon: _showIcon,
+        onTapOrgInfo: _onTapOrgInfo,
+        onTapOption: _onTapOption,
+        userInfo: _userInfo,
+        orgInfo: _orgInfo,
+        onTapUserInfo: _onTapUserInfo,
+        attendeeInfo: attendeeInfo,
+        onTapAttendeeInfo: onTapAttendeeInfo,
+      ),
+    ),
+  );
+}
+
+void main() {
+  SizeConfig().test();
+  setUp(() {
+    _tileType = TileType.org;
+    _orgInfo = OrgInfo();
+    _index = 0;
+    _option = Options(
+      icon: const Icon(Icons.add),
+      title: 'Test',
+      subtitle: 'Just a test',
+    );
+    _showIcon = false;
+    _onTapOrgInfo = (OrgInfo orgInfo) => true;
+
+    _userInfo = User();
+    _onTapOption = () => {};
+    _onTapUserInfo = () => {};
+    registerServices();
+  });
+  tearDown(() {
+    unregisterServices();
+  });
+  group('Custom list tile test', () {
+    testWidgets("Test type is org with city and countryCode",
+        (WidgetTester tester) async {
+      bool executed = false;
+      _orgInfo = OrgInfo(
+        name: 'Test Name',
+        city: 'Test City',
+        countryCode: 'TC',
+      );
+      _onTapOrgInfo = (OrgInfo orgInfo) {
+        executed = true;
+      };
+      _tileType = TileType.org;
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(_key), findsOneWidget);
+
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      final orgName = find.byKey(const Key('OrgNamewithOrgAddress'));
+      expect(orgName, findsOneWidget);
+    });
+
+    testWidgets("Test type is org without city and countryCode",
+        (WidgetTester tester) async {
+      bool executed = false;
+      _orgInfo = OrgInfo(
+        name: 'Test Name',
+      );
+      _onTapOrgInfo = (OrgInfo orgInfo) {
+        executed = true;
+      };
+      _tileType = TileType.org;
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(_key), findsOneWidget);
+
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      final orgName = find.byKey(const Key('OrgNamewithOrgAddress'));
+      expect(orgName, findsOneWidget);
+    });
+
+    // testWidgets("Test type is org ", (WidgetTester tester) async {
+    //   bool executed = false;
+    //   _orgInfo = OrgInfo(
+    //     name: 'Test Name',
+    //     // userRegistrationRequired: false,
+    //     city: 'Test City',
+    //     countryCode: 'TC',
+    //   );
+    //   _onTapOrgInfo = (OrgInfo orgInfo) {
+    //     executed = true;
+    //   };
+    //   _tileType = TileType.org;
+    //   await tester.pumpWidget(_createCustomListTile());
+    //   await tester.pumpAndSettle();
+
+    //   // test to see if custom list tile widget shows up
+    //   expect(find.byKey(_key), findsOneWidget);
+
+    //   // test to see if onTap of Inkwell works
+    //   await tester.tap(find.byType(InkWell));
+    //   await tester.pump();
+    //   expect(executed, true);
+
+    //   // test to check that there is no icon
+    //   expect(find.byIcon(Icons.add), findsNothing);
+
+    //   // Testing Rich Text for org name and address shows up
+    //   final orgName = find.byKey(const Key('OrgNamewithOrgAddress'));
+
+    //   expect(orgName, findsOneWidget);
+
+    // Test for icon when is public is true
+    // expect(find.byIcon(Icons.lock_open), findsOneWidget);
+
+    // final iconFinder = find.descendant(
+    //   of: find.byType(Expanded).at(1),
+    //   matching: find.byType(Icon),
+    // );
+    // final iconWidget = tester.firstWidget(iconFinder) as Icon;
+
+    // expect(iconWidget.color, const Color(0xFF34AD64));
+
+    // Test for sized box when showIcon is false
+    //   final sizedBoxFinder = find
+    //       .descendant(
+    //         of: find.byType(Expanded).at(1),
+    //         matching: find.byType(SizedBox),
+    //       )
+    //       .at(0);
+    //   expect(sizedBoxFinder, findsOneWidget);
+    // });
+
+    // testWidgets("Test for orgs when is Public is false ",
+    //     (WidgetTester tester) async {
+    //   _orgInfo = OrgInfo(
+    //     name: 'Test Name',
+    //     userRegistrationRequired: true,
+    //   );
+    //   _tileType = TileType.org;
+
+    //   await tester.pumpWidget(_createCustomListTile());
+    //   await tester.pumpAndSettle();
+
+    //   // Test for is public display
+    //   expect(
+    //     find.text(
+    //       AppLocalizations.of(navigationService.navigatorKey.currentContext!)!
+    //           .strictTranslate('Private'),
+    //     ),
+    //     findsNothing,
+    //   );
+
+    //   // Test for icon when is public is false
+    //   expect(find.byIcon(Icons.lock), findsOneWidget);
+
+    //   final iconFinder = find.descendant(
+    //     of: find.byType(Expanded).at(1),
+    //     matching: find.byType(Icon),
+    //   );
+    //   final iconWidget = tester.firstWidget(iconFinder) as Icon;
+
+    //   expect(iconWidget.color, const Color(0xffFABC57));
+    // });
+
+    testWidgets("Test when type is user ", (WidgetTester tester) async {
+      bool executed = false;
+      _tileType = TileType.user;
+      _userInfo = User(
+        name: 'Test-firstname Test-lastname',
+      );
+      _onTapUserInfo = () => {executed = true};
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // test to see if custom list tile widget shows up
+      expect(find.byKey(_key), findsOneWidget);
+
+      // test to see if onTap of Inkwell works
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      // test to check that there is a custom avatar
+      // expect(find.byType(CustomAvatar), findsOneWidget);
+
+      // test to check that there is no icon
+      expect(find.byIcon(Icons.add), findsNothing);
+
+      // test the properties passed to CustomAvatar
+      // final customAvatarFinder = find.byType(CustomAvatar);
+      // final customAvatarWidget =
+      //     tester.firstWidget(customAvatarFinder) as CustomAvatar;
+      // expect(customAvatarWidget.isImageNull, true);
+      // expect(customAvatarWidget.imageUrl, null);
+      // expect(customAvatarWidget.firstAlphabet, 'T');
+
+      // Testing Text for that contains user's name
+      final userNameFinder = find
+          .descendant(
+            of: find.byType(Expanded).at(0),
+            matching: find.byType(Text),
+          )
+          .first;
+
+      final userNameWidget = tester.firstWidget(userNameFinder) as Text;
+
+      expect(userNameWidget.data, 'Test-firstname Test-lastname');
+      // expect(
+      //   userNameWidget.style,
+      //   Theme.of(navigationService.navigatorKey.currentContext!)
+      //       .textTheme
+      //       .titleLarge,
+      // );
+
+      // Testing SizedBox for users fallback for creater info
+      // final userSizedBoxFallback = find
+      //     .descendant(
+      //       of: find.byType(Expanded).at(0),
+      //       matching: find.byType(SizedBox),
+      //     )
+      //     .first;
+
+      // expect(userSizedBoxFallback, findsOneWidget);
+
+      // Testing SizedBox for users fallback for userRegistrationRequired info
+      // final userSizedBoxFallback1 = find
+      //     .descendant(
+      //       of: find.byType(Expanded).at(1),
+      //       matching: find.byType(SizedBox),
+      //     )
+      //     .first;
+      //
+      // expect(userSizedBoxFallback1, findsOneWidget);
+    });
+
+    testWidgets("Test when type is attendee", (WidgetTester tester) async {
+      bool executed = false;
+      _tileType = TileType.attendee;
+      final attendeeInfo = Attendee(
+        firstName: 'Attendee First',
+        lastName: 'Attendee Last',
+      );
+
+      void onTapAttendeeInfo() {
+        executed = true;
+      }
+
+      await tester.pumpWidget(
+        _createCustomListTile(
+          attendeeInfo: attendeeInfo,
+          onTapAttendeeInfo: onTapAttendeeInfo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(_key), findsOneWidget);
+
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      final attendeeNameFinder = find
+          .descendant(
+            of: find.byType(Expanded).at(0),
+            matching: find.byType(Text),
+          )
+          .first;
+
+      final attendeeNameWidget = tester.firstWidget(attendeeNameFinder) as Text;
+      expect(attendeeNameWidget.data, 'Attendee First Attendee Last');
+    });
+
+    testWidgets("Test when type is option with trailingIconButton",
+        (WidgetTester tester) async {
+      bool executed = false;
+      _tileType = TileType.option;
+      _option = Options(
+        icon: const Icon(Icons.add),
+        title: 'Test Option with Button',
+        subtitle: 'Just a test',
+        trailingIconButton: IconButton(
+          icon: const Icon(Icons.send),
+          onPressed: () {},
+        ),
+      );
+      _onTapOption = () => executed = true;
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(_key), findsOneWidget);
+
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      final optionTitleFinder = find
+          .descendant(
+            of: find.byType(Expanded).at(0),
+            matching: find.byType(Text),
+          )
+          .first;
+
+      final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
+      expect(optionTitleWidget.data, 'Test Option with Button');
+
+      // Verify that when trailingIconButton is present, fontSize is 18.0
+      expect(
+        optionTitleWidget.style?.fontSize,
+        18.0,
+      );
+    });
+
+    // testWidgets("Test when type is option", (WidgetTester tester) async {
+    //   bool executed = false;
+    //   _tileType = TileType.option;
+    //   _onTapOption = () => executed = true;
+    //   await tester.pumpWidget(_createCustomListTile());
+    //   await tester.pumpAndSettle();
+
+    //   // test to see if custom list tile widget shows up
+    //   expect(find.byKey(_key), findsOneWidget);
+
+    //   // test to see if onTap of Inkwell works
+    //   await tester.ensureVisible(find.byType(InkWell));
+    //   await tester.tap(find.byType(InkWell));
+    //   await tester.pump();
+    //   expect(executed, true);
+
+    //   // test to check that there is no custom avatar
+    //   expect(find.byType(CustomAvatar), findsNothing);
+
+    //   // test to check that there is an icon
+    //   // expect(find.byIcon(Icons.add), findsOneWidget);
+
+    //   // Testing Text that contains option's title
+    //   final optionTitleFinder = find
+    //       .descendant(
+    //         of: find.byType(Expanded).at(0),
+    //         matching: find.byType(Text),
+    //       )
+    //       .first;
+
+    //   final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
+
+    //   expect(optionTitleWidget.data, 'Test');
+    //   expect(
+    //     optionTitleWidget.style,
+    //     Theme.of(navigationService.navigatorKey.currentContext!)
+    //         .textTheme
+    //         .bodyMedium
+    //         ?.copyWith(fontSize: 18, color: Colors.black),
+    //   );
+
+    //   // Testing Text that contains option's subtitle
+    //   final optionSubtitleFinder = find
+    //       .descendant(
+    //         of: find.byType(Expanded).at(0),
+    //         matching: find.byType(Text),
+    //       )
+    //       .at(0);
+
+    //   final optionSubtitleWidget =
+    //       tester.firstWidget(optionSubtitleFinder) as Text;
+
+    //   expect(optionSubtitleWidget.data, 'Test');
+    //   expect(
+    //     optionSubtitleWidget.style,
+    //     Theme.of(navigationService.navigatorKey.currentContext!)
+    //         .textTheme
+    //         .bodyMedium
+    //         ?.copyWith(
+    //           color: Colors.black,
+    //           fontSize: 18,
+    //         ),
+    //   );
+
+    //   // Testing SizedBox for option when trailing icon button is null (fallback for creater info)
+    //   final optionSizedBoxFallback = find
+    //       .descendant(
+    //         of: find.byType(Expanded).at(1),
+    //         matching: find.byType(SizedBox),
+    //       )
+    //       .first;
+
+    //   expect(optionSizedBoxFallback, findsOneWidget);
+    // });
+    // testWidgets("Test when option trailing icon button is not null",
+    //     (WidgetTester tester) async {
+    //   _tileType = TileType.option;
+    //   _option = Options(
+    //     icon: const Icon(Icons.add),
+    //     title: 'Test',
+    //     subtitle: 'Just a test',
+    //     trailingIconButton: IconButton(
+    //       icon: const Icon(Icons.send),
+    //       onPressed: () {},
+    //     ),
+    //   );
+    //   await tester.pumpWidget(_createCustomListTile());
+    //   await tester.pumpAndSettle();
+
+    //   // Testing TextStyle that contains option's title
+    //   final optionTitleFinder = find
+    //       .descendant(
+    //         of: find.byType(Expanded).at(0),
+    //         matching: find.byType(Text),
+    //       )
+    //       .first;
+
+    //   final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
+
+    //   expect(
+    //     optionTitleWidget.style,
+    //     Theme.of(navigationService.navigatorKey.currentContext!)
+    //         .textTheme
+    //         .headlineSmall!
+    //         .copyWith(fontSize: 18, color: Colors.black),
+    //   );
+
+    // Testing TextStyle that contains option's subtitle
+    // final optionSubtitleFinder = find
+    //     .descendant(
+    //       of: find.byType(Expanded).at(0),
+    //       matching: find.byType(Text),
+    //     )
+    //     .at(0);
+
+    // final optionSubtitleWidget =
+    //     tester.firstWidget(optionSubtitleFinder) as Text;
+
+    // expect(
+    //   optionSubtitleWidget.style,
+    //   Theme.of(navigationService.navigatorKey.currentContext!)
+    //       .textTheme
+    //       .titleLarge?.copyWith(fontSize: 18, color: Colors.black,),
+    // );
+
+    // Test for checking if trailing icon button is shown
+    //   expect(find.byIcon(Icons.send), findsOneWidget);
+    // });
+  });
+}

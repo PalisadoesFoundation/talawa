@@ -1,4 +1,4 @@
-# Contributing to Talawa-Plugin
+# Contributing to Talawa-Admin
 
 Thank you for your interest in contributing to Talawa Admin. Regardless of the size of the contribution you make, all contributions are welcome and are appreciated.
 
@@ -8,7 +8,7 @@ If you are new to contributing to open source, please read the Open Source Guide
 
 <!-- toc -->
 
-- [Contributing to Talawa-Plugin](#contributing-to-talawa-plugin)
+- [Contributing to Talawa-Admin](#contributing-to-talawa-admin)
   - [Table of Contents](#table-of-contents)
   - [General](#general)
   - [Testing and Code Quality](#testing-and-code-quality)
@@ -31,7 +31,7 @@ For detailed information about testing, linting, formatting, and code coverage, 
 - Run all tests: `pnpm run test`
 - Run specific test: `pnpm run test /path/to/test/file`
 - Run with coverage: `pnpm run test:coverage`
-- View UI: `pnpm run test:ui`
+- Run with sharding: `pnpm run test:shard`
 
 **Linting and Formatting:**
 - Fix linting issues: `pnpm run lint:fix`
@@ -39,7 +39,10 @@ For detailed information about testing, linting, formatting, and code coverage, 
 - Check linting: `pnpm run lint:check`
 - Check formatting: `pnpm run format:check`
 
-For complete documentation including code coverage setup, debugging, and git hooks, visit the [Testing Guide](docs/docs/docs/developer-resources/testing.md).
+**Cypress E2E Testing:**
+- See the [Cypress Guide](cypress/README.md) for end-to-end testing
+
+For complete documentation including test sharding, code coverage setup, debugging, and git hooks, visit the [Testing Guide](docs/docs/docs/developer-resources/testing.md).
 
 ## Making Contributions   
 
