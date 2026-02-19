@@ -175,7 +175,7 @@ class _SwitchOrganizationSection extends StatelessWidget {
               itemCount: model.switchAbleOrg.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  key: const Key("Org"),
+                  key: Key('Org_${model.switchAbleOrg[index].id}'),
                   onTap: () => model.switchOrg(
                     model.switchAbleOrg[index],
                   ),
