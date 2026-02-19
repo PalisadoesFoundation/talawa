@@ -13,51 +13,27 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// ViewModel managing app tour flow, tutorial targets, and dialogs.
-///
-/// Handles tour initialization, progression, and completion tracking.
 class MainScreenTourViewModel extends BaseModel {
   MainScreenTourViewModel({required this.keys, required this.onTabTapped});
 
-  /// Reference to MainScreenKeys.
   final MainScreenKeys keys;
-
-  /// Callback to switch tabs.
   final void Function(int) onTabTapped;
 
-  /// Show tour flag.
+  /// Flags to track tour state
   bool showAppTour = false;
-
-  /// Tour complete flag.
   bool tourComplete = false;
-
-  /// Tour skipped flag.
   bool tourSkipped = false;
 
   @visibleForTesting
-
-  /// Transition delay for testing.
   static Duration transitionDelay = const Duration(milliseconds: 500);
 
-  /// Context set in initializeTour. Check mounted before use.
   late BuildContext context;
-
-  /// App tour instance.
   late AppTour appTour;
 
-  /// List of focus targets for the current tour step.
+  /// Active focus targets for the current tour step
   final List<FocusTarget> targets = [];
 
-  /// Initializes tour based on user state.
-  ///
-  /// **params**:
-  /// * `ctx`: BuildContext
-  /// * `fromSignUp`: User just signed up
-  /// * `demoMode`: App in demo mode
-  /// * `scaffoldKey`: Scaffold key
-  /// * `mainScreenModel`: MainScreenViewModel instance
-  ///
-  /// **returns**:
-  ///   None
+  /// Initializes the app tour based on user state.
   void initializeTour(
     BuildContext ctx, {
     required bool fromSignUp,
@@ -65,7 +41,6 @@ class MainScreenTourViewModel extends BaseModel {
     required GlobalKey<ScaffoldState> scaffoldKey,
     required MainScreenViewModel mainScreenModel,
   }) {
-    // Reset tour state to allow re-initialization
     tourComplete = false;
     tourSkipped = false;
     showAppTour = fromSignUp || demoMode;
@@ -74,42 +49,27 @@ class MainScreenTourViewModel extends BaseModel {
 
     if (!showAppTour) {
       tourComplete = true;
-      tourSkipped = false;
     } else {
       _showTourDialogAfterDelay(ctx, scaffoldKey);
     }
   }
 
-  /// Shows tour dialog after delay with mounted check.
-  ///
-  /// **params**:
-  /// * `ctx`: BuildContext
-  /// * `scaffoldKey`: Scaffold key
-  ///
-  /// **returns**:
-  ///   None
+  /// Delay and show tour dialog safely if mounted.
   Future<void> _showTourDialogAfterDelay(
     BuildContext ctx,
     GlobalKey<ScaffoldState> scaffoldKey,
   ) async {
     await Future.delayed(const Duration(seconds: 1));
     if (ctx.mounted) {
-      navigationService.pushDialog(appTourDialog(ctx, scaffoldKey));
+      navigationService.pushDialog(_buildTourDialog(ctx, scaffoldKey));
     }
   }
 
-  /// Builds and returns an AppTourDialog.
-  ///
-  /// **params**:
-  /// * `ctx`: BuildContext
-  /// * `scaffoldKey`: Scaffold key
-  ///
-  /// **returns**:
-  /// * `Widget`: CustomAlertDialog widget
-  Widget appTourDialog(BuildContext ctx, GlobalKey<ScaffoldState> scaffoldKey) {
+  /// Builds the CustomAlertDialog for app tour start.
+  Widget _buildTourDialog(BuildContext ctx, GlobalKey<ScaffoldState> scaffoldKey) {
     return CustomAlertDialog(
       dialogTitle: 'App Tour',
-      dialogSubTitle: 'Start app tour to know talawa functioning',
+      dialogSubTitle: 'Start app tour to know Talawa functioning',
       successText: 'Start',
       secondaryButtonText: 'Skip',
       success: () {
@@ -117,10 +77,9 @@ class MainScreenTourViewModel extends BaseModel {
         if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
           scaffoldKey.currentState?.closeDrawer();
         }
-        tourHomeTargets(scaffoldKey);
+        _startHomeTour(scaffoldKey);
       },
       secondaryButtonTap: () {
-        tourComplete = false;
         tourSkipped = true;
         navigationService.pop();
         notifyListeners();
@@ -128,158 +87,89 @@ class MainScreenTourViewModel extends BaseModel {
     );
   }
 
-  /// Starts home tour.
-  ///
-  /// **params**:
-  /// * `scaffoldKey`: Scaffold key
-  /// * `givenUserConfig`: Mock config for testing
-  ///
-  /// **returns**:
-  ///   None
-  void tourHomeTargets(
-    GlobalKey<ScaffoldState> scaffoldKey, [
-    UserConfig? givenUserConfig,
-  ]) {
-    targets.clear();
-    targets.addAll(
-      HomeTourTargets.build(
+  /// ------------------- Tour Steps -------------------
+
+  void _startHomeTour(GlobalKey<ScaffoldState> scaffoldKey, [UserConfig? userConfig]) {
+    _showTourStep(
+      targets: HomeTourTargets.build(
         keys: keys,
         appTour: appTour,
         scaffoldKey: scaffoldKey,
-        userConfig: givenUserConfig,
+        userConfig: userConfig,
       ),
-    );
-
-    appTour.showTutorial(
-      onClickTarget: (target) =>
-          HomeTourTargets.handleClick(target, scaffoldKey),
+      onClickTarget: (t) => HomeTourTargets.handleClick(t, scaffoldKey),
       onFinish: () async {
         onTabTapped(1);
         await Future.delayed(transitionDelay);
-        if (!tourComplete && !tourSkipped) {
-          tourEventTargets();
-        }
+        if (!tourComplete && !tourSkipped) _startEventTour();
       },
-      targets: targets,
     );
   }
 
-  /// Shows events tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void tourEventTargets() {
-    targets.clear();
-    targets.addAll(
-      OtherTourTargets.buildEventTargets(keys: keys, appTour: appTour),
-    );
-
-    appTour.showTutorial(
+  void _startEventTour() {
+    _showTourStep(
+      targets: OtherTourTargets.buildEventTargets(keys: keys, appTour: appTour),
       onFinish: () async {
         onTabTapped(2);
         await Future.delayed(transitionDelay);
-        if (!tourComplete && !tourSkipped) {
-          tourChat();
-        }
+        if (!tourComplete && !tourSkipped) _startChatTour();
       },
-      onClickTarget: (TargetFocus a) {},
-      targets: targets,
     );
   }
 
-  /// Shows chat tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void tourChat() {
-    targets.clear();
-    targets.addAll(
-      OtherTourTargets.buildChatTargets(keys: keys, appTour: appTour),
-    );
-
-    appTour.showTutorial(
+  void _startChatTour() {
+    _showTourStep(
+      targets: OtherTourTargets.buildChatTargets(keys: keys, appTour: appTour),
       onFinish: () async {
         onTabTapped(4);
         await Future.delayed(transitionDelay);
-        if (!tourComplete && !tourSkipped) {
-          tourProfile();
-        }
+        if (!tourComplete && !tourSkipped) _startProfileTour();
       },
-      onClickTarget: (TargetFocus a) {},
-      targets: targets,
     );
   }
 
-  /// Shows profile tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void tourProfile() {
-    targets.clear();
-    targets.addAll(
-      OtherTourTargets.buildProfileTargets(keys: keys, appTour: appTour),
-    );
-
-    appTour.showTutorial(
+  void _startProfileTour() {
+    _showTourStep(
+      targets: OtherTourTargets.buildProfileTargets(keys: keys, appTour: appTour),
       onFinish: () async {
-        if (!tourComplete && !tourSkipped) {
-          tourComplete = true;
-          onTabTapped(0);
-          await Future.delayed(transitionDelay);
-        }
+        tourComplete = true;
+        onTabTapped(0);
+        await Future.delayed(transitionDelay);
       },
-      onClickTarget: (TargetFocus a) {},
-      targets: targets,
     );
   }
 
-  /// Shows add post tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
   void tourAddPost() {
-    targets.clear();
-    targets.addAll(
-      OtherTourTargets.buildAddPostTargets(keys: keys, appTour: appTour),
-    );
-
-    appTour.showTutorial(
+    _showTourStep(
+      targets: OtherTourTargets.buildAddPostTargets(keys: keys, appTour: appTour),
       onFinish: () async {
         onTabTapped(2);
         await Future.delayed(transitionDelay);
-        if (!tourComplete && !tourSkipped) {
-          tourChat();
-        }
+        if (!tourComplete && !tourSkipped) _startChatTour();
       },
-      onClickTarget: (TargetFocus a) {},
-      targets: targets,
     );
   }
 
-  /// Handles home tour clicks.
-  ///
-  /// **params**:
-  /// * `clickedTarget`: Clicked target
-  /// * `scaffoldKey`: Scaffold key
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> showHome(
-    TargetFocus clickedTarget,
-    GlobalKey<ScaffoldState> scaffoldKey,
-  ) {
+  /// ------------------- Private Helper -------------------
+
+  void _showTourStep({
+    required List<FocusTarget> targets,
+    required void Function(TargetFocus)? onClickTarget,
+    required FutureOr<void> Function()? onFinish,
+  }) {
+    this.targets
+      ..clear()
+      ..addAll(targets);
+
+    appTour.showTutorial(
+      targets: this.targets,
+      onClickTarget: onClickTarget ?? (_) {},
+      onFinish: onFinish ?? () {},
+    );
+  }
+
+  /// Exposed method for handling clicks in HomeTourTargets
+  Future<void> showHome(TargetFocus clickedTarget, GlobalKey<ScaffoldState> scaffoldKey) {
     return HomeTourTargets.handleClick(clickedTarget, scaffoldKey);
   }
 }

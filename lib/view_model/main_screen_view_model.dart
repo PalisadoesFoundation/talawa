@@ -10,18 +10,14 @@ import 'package:talawa/view_model/main_screen_nav_view_model.dart';
 import 'package:talawa/view_model/main_screen_tour_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-/// MainScreenViewModel serves as a coordinator for the main screen.
-///
-/// This class follows the composition pattern to delegate responsibilities
-/// to specialized ViewModels while maintaining backward compatibility with
-/// existing widgets and tests.
-///
-/// Responsibilities are delegated to:
-/// - [MainScreenKeys]: All GlobalKeys (zero logic)
+/// Coordinator ViewModel for MainScreen.
+/// 
+/// Delegates responsibilities to:
+/// - [MainScreenKeys]: All GlobalKeys
 /// - [MainScreenNavViewModel]: Navigation, pages, tabs, demo mode
-/// - [MainScreenTourViewModel]: App tour, targets, dialogs, tutorial flows
+/// - [MainScreenTourViewModel]: App tour, targets, dialogs
 class MainScreenViewModel extends BaseModel {
-  /// Constructs MainScreenViewModel with optional dependencies for testing.
+  /// Factory constructor for normal usage
   factory MainScreenViewModel() {
     final keys = MainScreenKeys();
     final navViewModel = MainScreenNavViewModel(keys: keys);
@@ -29,35 +25,28 @@ class MainScreenViewModel extends BaseModel {
       keys: keys,
       onTabTapped: navViewModel.onTabTapped,
     );
+
     final model = MainScreenViewModel._internal(
       keys: keys,
       navViewModel: navViewModel,
       tourViewModel: tourViewModel,
     );
 
-    // Forward notifications from sub-models to parent
+    // Forward notifications from sub-models
     navViewModel.addListener(model.notifyListeners);
     tourViewModel.addListener(model.notifyListeners);
 
     return model;
   }
 
-  /// Internal constructor for dependency injection (primarily for testing).
+  /// Internal constructor for dependency injection/testing
   MainScreenViewModel._internal({
     required this.keys,
     required this.navViewModel,
     required this.tourViewModel,
   });
 
-  /// Creates test instance with consistent dependency injection.
-  ///
-  /// **params**:
-  /// * `keysInstance`: Optional MainScreenKeys
-  /// * `navInstance`: Optional MainScreenNavViewModel
-  /// * `tourInstance`: Optional MainScreenTourViewModel
-  ///
-  /// **returns**:
-  /// * `MainScreenViewModel`: Test instance
+  /// Factory for creating test instances
   factory MainScreenViewModel.createForTest({
     MainScreenKeys? keysInstance,
     MainScreenNavViewModel? navInstance,
@@ -71,85 +60,56 @@ class MainScreenViewModel extends BaseModel {
           keys: resolvedKeys,
           onTabTapped: resolvedNav.onTabTapped,
         );
+
     final model = MainScreenViewModel._internal(
       keys: resolvedKeys,
       navViewModel: resolvedNav,
       tourViewModel: resolvedTour,
     );
 
-    // Forward notifications from sub-models to parent
     resolvedNav.addListener(model.notifyListeners);
     resolvedTour.addListener(model.notifyListeners);
 
     return model;
   }
 
-  /// Instance of MainScreenKeys for GlobalKey access.
+  /// ------------------- Dependencies -------------------
+
   final MainScreenKeys keys;
-
-  /// Instance of MainScreenNavViewModel for navigation logic.
   final MainScreenNavViewModel navViewModel;
-
-  /// Instance of MainScreenTourViewModel for tour logic.
   final MainScreenTourViewModel tourViewModel;
 
-  // Delegated Properties - Navigation
-  /// Contains the Widgets to be rendered for corresponding navbar items.
+  /// ------------------- Delegated Properties -------------------
+
+  // Navigation
   List<Widget> get pages => navViewModel.pages;
-
-  /// Actual navbar items.
   List<BottomNavigationBarItem> get navBarItems => navViewModel.navBarItems;
-
-  /// Current page index.
   int get currentPageIndex => navViewModel.currentPageIndex;
 
-  // Delegated Properties - Tour
-  /// Whether to show the app tour.
+  // Tour
   bool get showAppTour => tourViewModel.showAppTour;
-
-  /// Whether the tour is complete.
   bool get tourComplete => tourViewModel.tourComplete;
-
-  /// Whether the tour was skipped.
   bool get tourSkipped => tourViewModel.tourSkipped;
   set tourSkipped(bool value) {
     tourViewModel.tourSkipped = value;
     notifyListeners();
   }
 
-  /// Current build context.
   BuildContext get context => tourViewModel.context;
-
-  /// App tour instance.
   AppTour get appTour => tourViewModel.appTour;
-
-  /// Focus targets for current tour step.
   List<FocusTarget> get targets => tourViewModel.targets;
 
-  // Delegated Methods - Initialization & Setup
-  /// Initializes the view model.
-  ///
-  /// **params**:
-  /// * `ctx`: BuildContext
-  /// * `fromSignUp`: User entry point
-  /// * `mainScreenIndex`: Tab index
-  /// * `demoMode`: Demo mode flag
-  ///
-  /// **returns**:
-  ///   None
+  /// ------------------- Initialization -------------------
+
   void initialise(
     BuildContext ctx, {
     required bool fromSignUp,
     required int mainScreenIndex,
     bool demoMode = false,
   }) {
-    // Set demo mode in app config
     appConfig.isDemoMode = demoMode;
-
-    // Set initial page index
     navViewModel.currentPageIndex = mainScreenIndex;
 
-    // Initialize tour
     tourViewModel.initializeTour(
       ctx,
       fromSignUp: fromSignUp,
@@ -161,13 +121,6 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// Sets up navigation items.
-  ///
-  /// **params**:
-  /// * `context`: BuildContext
-  ///
-  /// **returns**:
-  ///   None
   void setupNavigationItems(BuildContext context) {
     navViewModel.setupNavigationItems(
       context,
@@ -176,114 +129,34 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
-  // Delegated Methods - Navigation
-  /// Handles click on tab.
-  ///
-  /// **params**:
-  /// * `index`: Tab index
-  ///
-  /// **returns**:
-  ///   None
-  void onTabTapped(int index) {
-    navViewModel.onTabTapped(index);
-  }
+  /// ------------------- Navigation Delegates -------------------
 
-  /// Exits demo mode.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void exitDemoMode() {
-    navViewModel.exitDemoMode();
-  }
+  void onTabTapped(int index) => navViewModel.onTabTapped(index);
+  void exitDemoMode() => navViewModel.exitDemoMode();
 
-  // Delegated Methods - Tour
-  /// Builds AppTourDialog.
-  ///
-  /// **params**:
-  /// * `ctx`: BuildContext
-  ///
-  /// **returns**:
-  /// * `Widget`: Dialog widget
-  Widget appTourDialog(BuildContext ctx) {
-    return tourViewModel.appTourDialog(ctx, keys.scaffoldKey);
-  }
+  /// ------------------- Tour Delegates -------------------
 
-  /// Starts home tour.
-  ///
-  /// **params**:
-  /// * `givenUserConfig`: Mock config for testing
-  ///
-  /// **returns**:
-  ///   None
-  void tourHomeTargets([UserConfig? givenUserConfig]) {
-    tourViewModel.tourHomeTargets(keys.scaffoldKey, givenUserConfig);
-  }
+  Widget appTourDialog(BuildContext ctx) =>
+      tourViewModel.appTourDialog(ctx, keys.scaffoldKey);
 
-  /// Handles home tour clicks.
-  ///
-  /// **params**:
-  /// * `clickedTarget`: Clicked target
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> showHome(TargetFocus clickedTarget) {
-    return tourViewModel.showHome(clickedTarget, keys.scaffoldKey);
-  }
+  void tourHomeTargets([UserConfig? givenUserConfig]) =>
+      tourViewModel.tourHomeTargets(keys.scaffoldKey, givenUserConfig);
 
-  /// Shows events tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void tourEventTargets() {
-    tourViewModel.tourEventTargets();
-  }
+  Future<void> showHome(TargetFocus clickedTarget) =>
+      tourViewModel.showHome(clickedTarget, keys.scaffoldKey);
 
-  /// Shows add post tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void tourAddPost() {
-    tourViewModel.tourAddPost();
-  }
+  void tourEventTargets() => tourViewModel.tourEventTargets();
+  void tourAddPost() => tourViewModel.tourAddPost();
+  void tourChat() => tourViewModel.tourChat();
+  void tourProfile() => tourViewModel.tourProfile();
 
-  /// Shows chat tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void tourChat() {
-    tourViewModel.tourChat();
-  }
-
-  /// Shows profile tour.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void tourProfile() {
-    tourViewModel.tourProfile();
-  }
+  /// ------------------- Lifecycle -------------------
 
   @override
   void dispose() {
-    // Remove listeners before disposing sub-models
     navViewModel.removeListener(notifyListeners);
     tourViewModel.removeListener(notifyListeners);
 
-    // Dispose sub-models
     navViewModel.dispose();
     tourViewModel.dispose();
 

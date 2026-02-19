@@ -3,82 +3,52 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// AppTheme class is a type of ViewModel to serve data from model to views in the context of App Themes.
+/// ViewModel for managing app theme (light/dark mode).
 ///
-/// Methods include:
-/// * `switchTheme`
+/// Responsibilities:
+/// - Store and retrieve theme preference from SharedPreferences
+/// - Provide current ThemeData
+/// - Switch theme dynamically and notify listeners
 class AppTheme extends BaseModel {
-  /// Key for dynamic theme.
-  final String key = "DynamicTheme";
+  /// Key used for storing theme preference.
+  static const String _prefKey = "DynamicTheme";
 
-  late SharedPreferences _pref;
-  late bool _isDarkMode;
+  late SharedPreferences _prefs;
+  bool _isDarkMode = true;
 
-  /// flag to check darkMode.
-  bool get isdarkTheme => _isDarkMode;
+  /// Getter for dark theme status.
+  bool get isDarkTheme => _isDarkMode;
 
-  /// getter to fetch current theme.
-  ThemeData get theme =>
-      isdarkTheme ? TalawaTheme.darkTheme : TalawaTheme.lightTheme;
+  /// Getter for the current theme.
+  ThemeData get theme => isDarkTheme ? TalawaTheme.darkTheme : TalawaTheme.lightTheme;
 
-  /// Initializes the theme settings.
+  /// Initializes theme from SharedPreferences.
   ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void initialize() {
-    _isDarkMode = true;
-    _loadFromPrefs();
+  /// Should be called during app startup.
+  Future<void> initialize() async {
+    await _loadFromPrefs();
   }
 
-  /// This function switches the app theme.
+  /// Switches the theme to the given state.
   ///
   /// **params**:
-  /// * `isOn`: `bool` type, the state to switch the theme to (true for Dark, false for Light).
-  ///
-  /// **returns**:
-  ///   None
+  /// - `isOn`: `true` for dark mode, `false` for light mode
   void switchTheme({required bool isOn}) {
     _isDarkMode = isOn;
     _saveToPrefs();
     notifyListeners();
   }
 
-  /// Initializes the SharedPreferences instance.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> _initPrefs() async {
-    _pref = await SharedPreferences.getInstance();
-  }
-
-  /// Loads the theme preference from SharedPreferences.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
+  /// Loads theme preference from SharedPreferences.
   Future<void> _loadFromPrefs() async {
-    await _initPrefs();
-    _isDarkMode = _pref.getBool(key) ?? true;
+    _prefs = await SharedPreferences.getInstance();
+    _isDarkMode = _prefs.getBool(_prefKey) ?? true;
     notifyListeners();
   }
 
-  /// Saves the theme preference to SharedPreferences.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
+  /// Saves current theme preference to SharedPreferences.
   Future<void> _saveToPrefs() async {
-    await _initPrefs();
-    _pref.setBool(key, _isDarkMode);
+    _prefs = _prefs ?? await SharedPreferences.getInstance();
+    await _prefs.setBool(_prefKey, _isDarkMode);
   }
 }

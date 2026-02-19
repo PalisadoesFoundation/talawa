@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -13,27 +12,12 @@ class AccessScreenViewModel extends BaseModel {
   /// organizations list.
   late List<OrgInfo> organizations = [];
 
-  /// text controller for optional message during the request.
-  final optionalMessageController = TextEditingController();
-
   /// Initialization function.
-  ///
-  /// **params**:
-  /// * `org`: Org to send request to.
-  ///
-  /// **returns**:
-  ///   None
   Future<void> initialise(OrgInfo org) async {
     selectedOrganization = org;
   }
 
-  /// Sending member ship request function.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
+  /// Sending membership request function.
   Future<void> sendMembershipRequest() async {
     if (selectedOrganization.id == null || selectedOrganization.id == '-1') {
       navigationService.showTalawaErrorSnackBar(
@@ -47,6 +31,7 @@ class AccessScreenViewModel extends BaseModel {
       queries.sendMembershipRequest(),
       variables: {"organizationId": selectedOrganization.id},
     );
+
     if (result.data != null) {
       final data =
           result.data!['sendMembershipRequest'] as Map<String, dynamic>;
@@ -61,6 +46,7 @@ class AccessScreenViewModel extends BaseModel {
       }
 
       userConfig.updateUserMemberRequestOrg([selectedOrganization.id!]);
+
       if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
         navigationService.removeAllAndPush(
           Routes.waitingScreen,
@@ -74,11 +60,5 @@ class AccessScreenViewModel extends BaseModel {
         );
       }
     }
-  }
-
-  @override
-  void dispose() {
-    optionalMessageController.dispose();
-    super.dispose();
   }
 }

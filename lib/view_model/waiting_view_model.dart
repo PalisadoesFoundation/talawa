@@ -6,75 +6,69 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// WaitingViewModel class helps to interact with model to serve data and react to user's input for Waiting section.
+/// ViewModel for the "Waiting" section.
 ///
-/// Methods include:
-/// * `initialise`
-/// * `settingPageNavigation`
-/// * `getOrgInfo`
-/// * `joinOrg`
+/// Responsibilities:
+/// - Track pending organization membership requests
+/// - Navigate to settings or join organization screens
+/// - Fetch organization info from backend
 class WaitingViewModel extends BaseModel {
   /// List of organization IDs for which the user's membership requests are pending.
   late List<String> pendingRequestOrg;
 
-  /// initialiser.
+  /// Initializes the ViewModel.
   ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
+  /// Loads the user's pending organization requests.
   void initialise() {
     pendingRequestOrg = userConfig.currentUser.membershipRequests ?? [];
   }
 
-  /// This function ends the session for the user or logout the user from the application.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
+  /// Navigates to the app settings page.
   void settingPageNavigation() {
-    navigationService.pushScreen(
-      Routes.appSettings,
-    );
+    navigationService.pushScreen(Routes.appSettings);
   }
 
-  /// This function fetches the organization information based on the provided organization ID.
+  /// Fetches organization information by its ID.
   ///
   /// **params**:
-  /// * `orgId`: The ID of the organization to fetch information for.
+  /// - `orgId`: ID of the organization
   ///
   /// **returns**:
-  /// * `Future<OrgInfo?>`: object containing the organization's information if found, otherwise `null`.
+  /// - `Future<OrgInfo?>`: Returns `OrgInfo` if successful, otherwise `null`
   Future<OrgInfo?> getOrgInfo(String orgId) async {
     try {
-      final QueryResult joinedOrgData =
+      final QueryResult result =
           await databaseFunctions.gqlAuthQuery(queries.fetchOrgById(orgId));
 
-      final OrgInfo orgInfo = OrgInfo.fromJson(
-        joinedOrgData.data!['organization'] as Map<String, dynamic>,
-      );
-      return orgInfo;
-    } on Exception catch (e) {
+      if (result.hasException) {
+        debugPrint('GraphQL exception: ${result.exception.toString()}');
+        navigationService.showTalawaErrorSnackBar(
+          'Failed to fetch organization info. Please try again later.',
+          MessageType.error,
+        );
+        return null;
+      }
+
+      final orgData = result.data?['organization'] as Map<String, dynamic>?;
+
+      if (orgData == null) return null;
+
+      return OrgInfo.fromJson(orgData);
+    } catch (e) {
       debugPrint('Error fetching org info: $e');
       navigationService.showTalawaErrorSnackBar(
         'Some error occurred. Please try again later.',
         MessageType.error,
       );
+      return null;
     }
-    return null;
   }
 
-  /// This function navigates the user to the join organization screen.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
+  /// Navigates to the join organization screen.
   void joinOrg() {
-    navigationService.pushScreen(Routes.joinOrg, arguments: '-1');
+    navigationService.pushScreen(
+      Routes.joinOrg,
+      arguments: '-1',
+    );
   }
 }
