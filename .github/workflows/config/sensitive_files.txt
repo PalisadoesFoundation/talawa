@@ -1,7 +1,7 @@
 .flake8$
 .pydocstyle$
 pyproject.toml$
-.env..*$
+\.env(\..+)?$
 vitest.config.js$
 src/App.tsx$
 ^.github/.*
