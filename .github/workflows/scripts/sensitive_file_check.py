@@ -109,10 +109,11 @@ def _get_changed_files(base_sha, head_sha):
             stderr=subprocess.STDOUT,
         )
         result = output.decode("utf-8").splitlines()
-        return result
     except subprocess.CalledProcessError as err:
         print(f"Error getting changed files: {err.output.decode('utf-8')}")
         sys.exit(1)
+    else:
+        return result
 
 
 def _filepaths_in_directories(directories):
@@ -134,13 +135,13 @@ def _filepaths_in_directories(directories):
 
 
 def load_sensitive_patterns(config_file):
-    """Load sensitive file patterns from the configuration file.
+    """Load and compile sensitive file patterns from the configuration file.
 
     Args:
         config_file: Path to the configuration file containing regex patterns.
 
     Returns:
-        result: List of regex patterns.
+        result: List of compiled regex pattern objects.
 
     """
     if not os.path.exists(config_file):
@@ -148,11 +149,16 @@ def load_sensitive_patterns(config_file):
         sys.exit(1)
 
     result = []
-    with open(config_file, "r", encoding="utf-8") as fh_:
+    with open(config_file, encoding="utf-8") as fh_:
         for raw_line in fh_:
             line = raw_line.strip()
             if line and not line.startswith("#"):
-                result.append(line)
+                try:
+                    pattern = re.compile(line)
+                    result.append(pattern)
+                except re.error as err:
+                    print(f"Error compiling regex '{line}': {err}")
+                    sys.exit(1)
     return result
 
 
@@ -161,7 +167,7 @@ def check_sensitive_files(changed_files, sensitive_patterns):
 
     Args:
         changed_files: List of changed file paths to evaluate.
-        sensitive_patterns: List of sensitive file regex patterns.
+        sensitive_patterns: List of compiled sensitive file regex objects.
 
     Returns:
         result: List of matched sensitive file paths.
@@ -170,7 +176,7 @@ def check_sensitive_files(changed_files, sensitive_patterns):
     result = []
     for file_path in changed_files:
         for pattern in sensitive_patterns:
-            if re.search(pattern, file_path):
+            if pattern.search(file_path):
                 result.append(file_path)
                 break
     return result
