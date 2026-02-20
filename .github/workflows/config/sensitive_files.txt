@@ -7,7 +7,7 @@ src/App\.tsx$
 ^\.github/.*
 ^env\.example$
 \.node-version$
-\.husky/.*
+^\.husky/.*
 ^scripts/.*
 ^src/style/.*
 schema\.graphql$
