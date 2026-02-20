@@ -198,6 +198,25 @@ def main():
     has_git_mode = args.base_sha is not None and args.head_sha is not None
     has_direct_mode = args.files is not None or args.directories is not None
 
+    # Reject a single SHA provided without its counterpart
+    partial_git_mode = (args.base_sha is not None) != (
+        args.head_sha is not None
+    )
+    if partial_git_mode:
+        print(
+            "Error: Both --base_sha and --head_sha are required "
+            "for git diff mode."
+        )
+        sys.exit(1)
+
+    # Reject mixing git-diff mode with direct-file mode
+    if has_git_mode and has_direct_mode:
+        print(
+            "Error: Git mode (--base_sha/--head_sha) and direct mode "
+            "(--files/--directories) are mutually exclusive."
+        )
+        sys.exit(1)
+
     if not has_git_mode and not has_direct_mode:
         print(
             "Error: Provide either (--base_sha and --head_sha) "
