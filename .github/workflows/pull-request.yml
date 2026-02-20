@@ -160,10 +160,13 @@ jobs:
 
       - name: Run Sensitive Files Check
         if: steps.check-labels.outputs.skip != 'true'
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
            # Determine base and head commits for comparison
-           HEAD_SHA="${{ github.event.pull_request.head.sha || github.sha }}"
-           BASE_SHA=$(git merge-base "${{ github.event.pull_request.base.sha }}" "$HEAD_SHA")
+           HEAD_SHA="${PR_HEAD_SHA}"
+           BASE_SHA=$(git merge-base "${PR_BASE_SHA}" "$HEAD_SHA")
 
            python3 .github/workflows/scripts/sensitive_file_check.py \
              --config .github/workflows/config/sensitive_files.txt \
