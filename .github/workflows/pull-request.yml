@@ -21,6 +21,7 @@ env:
   # Test concurrency: defaults to nproc, capped at 4 (override if needed)
   # Note: Flutter 3.32.x may have --concurrency flag behavior issues
   FLUTTER_TEST_CONCURRENCY: 4
+  TOTAL_SHARDS: 12
 
 jobs:
   Flutter-Codebase-Check:
@@ -273,6 +274,15 @@ jobs:
           #Get all changed files
           ALL_CHANGED_FILES=$(git diff --name-only --diff-filter=ACMRT $BASE_SHA ${{github.event.pull_request.head.sha}} | tr '\n' ' ')
           echo "all_changed_files=${ALL_CHANGED_FILES}" >> $GITHUB_OUTPUT
+
+          FILE_COUNT=$(echo "$ALL_CHANGED_FILES" | wc -w)
+          echo "all_changed_files_count=${FILE_COUNT}" >> $GITHUB_OUTPUT
+
+          if [ -n "$ALL_CHANGED_FILES" ]; then
+            echo "any_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "any_changed=false" >> $GITHUB_OUTPUT
+          fi
       - env:
           CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
         if: steps.changed_files.outputs.any_changed == 'true' || steps.changed_files.outputs.any_deleted == 'true'
@@ -302,10 +312,14 @@ jobs:
           exit 1
 
   Flutter-Testing:
-    name: Testing codebase
+    name: Run tests (Shard ${{ matrix.shard }})
     runs-on: ubuntu-latest
     needs:
       [Flutter-Codebase-Check, Python-Compliance, check-unused-dependencies]
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -318,30 +332,141 @@ jobs:
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
-      - name: Codebase testing
+      - name: Run tests (shard ${{ matrix.shard }}/${{ env.TOTAL_SHARDS }})
         run: |
           CONCURRENCY="${FLUTTER_TEST_CONCURRENCY:-$(nproc)}"
           if [ "$CONCURRENCY" -gt 4 ]; then CONCURRENCY=4; fi
-          flutter test --concurrency="$CONCURRENCY" --coverage
+          flutter test --concurrency="$CONCURRENCY" \
+            --shard-index=${{ matrix.shard }} \
+            --total-shards=${{ env.TOTAL_SHARDS }} \
+            --coverage
       - name: Remove generated files from coverage
+        if: always()
         run: |
           dart pub global activate remove_from_coverage
           dart pub global run remove_from_coverage:remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$'
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-shard-${{ matrix.shard }}
+          path: ./coverage/
+          retention-days: 1
+
+  Merge-Coverage:
+    name: Merge Coverage Reports
+    runs-on: ubuntu-latest
+    needs: [Flutter-Testing]
+    if: success()
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base branch for Codecov comparison
+        run: |
+          set -e
+          echo "Fetching base branch: ${{ github.event.pull_request.base.ref }}"
+          if ! git fetch origin ${{ github.event.pull_request.base.ref }} 2>&1; then
+            echo "ERROR: Failed to fetch base branch '${{ github.event.pull_request.base.ref }}' from origin"
+            exit 1
+          fi
+          echo "Successfully fetched base branch"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17.0"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+      - name: Download all coverage artifacts
+        id: download-artifacts
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-shard-*
+          path: ./coverage-shards/
+          merge-multiple: false
+      - name: Check if artifacts were downloaded
+        id: check-artifacts
+        run: |
+          if find coverage-shards -name "lcov.info" -type f | grep -q .; then
+            echo "artifacts_found=true" >> $GITHUB_OUTPUT
+            echo "Coverage artifacts found"
+          else
+            echo "artifacts_found=false" >> $GITHUB_OUTPUT
+            echo "No coverage artifacts found"
+            exit 1
+          fi
+      - name: Install lcov
+        if: steps.check-artifacts.outputs.artifacts_found == 'true'
+        run: sudo apt-get update && sudo apt-get install -y lcov
+
+      - name: Merge coverage reports
+        if: steps.check-artifacts.outputs.artifacts_found == 'true'
+        run: |
+          mkdir -p ./coverage
+          echo "Merging coverage from shards..."
+          find coverage-shards -name "lcov.info" -type f > lcov-files.txt
+          if [ ! -s lcov-files.txt ]; then
+            echo "ERROR: No lcov.info files found"
+            exit 1
+          fi
+          echo "Found lcov files:"
+          cat lcov-files.txt
+
+          # Properly merge using lcov to avoid duplicate entries
+          FIRST_FILE=true
+          while IFS= read -r file; do
+            if [ "$FIRST_FILE" = true ]; then
+              cp "$file" ./coverage/lcov.info
+              FIRST_FILE=false
+            else
+              lcov --add-tracefile ./coverage/lcov.info \
+                   --add-tracefile "$file" \
+                   --output-file ./coverage/lcov.info.tmp
+              mv ./coverage/lcov.info.tmp ./coverage/lcov.info
+            fi
+          done < lcov-files.txt
+
+          echo "Merged coverage file size: $(wc -c < ./coverage/lcov.info) bytes"
+          SF_COUNT=$(grep -c "^SF:" ./coverage/lcov.info || echo "0")
+          echo "Number of files in merged coverage: $SF_COUNT"
+          if [ "$SF_COUNT" -lt 50 ]; then
+            echo "::warning::Only $SF_COUNT files in coverage (expected 50+)"
+          fi
+
+      - name: Calculate merge base for Codecov
+        if: steps.check-artifacts.outputs.artifacts_found == 'true'
+        id: get-merge-base
+        run: |
+          MERGE_BASE=$(git merge-base origin/${{ github.event.pull_request.base.ref }} HEAD)
+          echo "Merge base commit: $MERGE_BASE"
+          echo "merge_base=$MERGE_BASE" >> $GITHUB_OUTPUT
+          git show -s --format=%ci $MERGE_BASE
 
       #######################################################################
       # DO NOT DELETE ANY references to env.CODECOV_UNIQUE_NAME in this
       # section. They are required for accurate calculations
       #######################################################################
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
+        if: steps.check-artifacts.outputs.artifacts_found == 'true'
         uses: codecov/codecov-action@v5
         with:
           name: "${{env.CODECOV_UNIQUE_NAME}}"
           token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: false
+          fail_ci_if_error: true
           verbose: true
           exclude: "docs/"
+          gcov_ignore: "docs/"
+          files: ./coverage/lcov.info
+          flags: flutter
 
       - name: Test acceptable level of code coverage
+        if: steps.check-artifacts.outputs.artifacts_found == 'true'
         uses: VeryGoodOpenSource/very_good_coverage@v3
         with:
           path: "./coverage/lcov.info"
@@ -350,7 +475,7 @@ jobs:
   Android-Build:
     name: Testing build for android
     runs-on: ubuntu-latest
-    needs: [Flutter-Testing]
+    needs: [Merge-Coverage]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
