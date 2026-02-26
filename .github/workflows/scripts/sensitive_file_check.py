@@ -130,7 +130,8 @@ def _filepaths_in_directories(directories):
     for directory in directories:
         if not os.path.isdir(directory):
             print(
-                f"Error: Directory '{directory}' not found or is not a valid directory."
+                f"Error: Directory '{directory}' not found"
+                " or is not a valid directory."
             )
             sys.exit(1)
         for root, _, files in os.walk(directory, topdown=False):
