@@ -28,7 +28,7 @@ vite\.config\.ts$
 ^config/docker/setup/nginx\.prod\.conf$
 CODEOWNERS$
 LICENSE$
-setup\.ts$
+^setup\.ts$
 \.coderabbit\.yaml$
 CODE_OF_CONDUCT\.md$
 CODE_STYLE\.md$
