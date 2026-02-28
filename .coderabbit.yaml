@@ -11,7 +11,7 @@ issue_enrichment:
 reviews:
   profile: "assertive"
   poem: false
-  request_changes_workflow: false
+  request_changes_workflow: true
   high_level_summary: true
   assess_linked_issues: true
   review_status: true
