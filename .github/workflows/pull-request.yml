@@ -151,108 +151,27 @@ jobs:
           else
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
-      - name: Get Changed Unauthorized files
+
+      - name: Set up Python
         if: steps.check-labels.outputs.skip != 'true'
-        id: changed-unauth-files
-        run: |
-          # Skip if not in PR context
-          if [ -z "${{ github.event.pull_request.base.sha }}" ]; then
-            echo "any_changed=false" >> $GITHUB_OUTPUT
-            exit 0
-          fi
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-          # Determine base and head commits for comparison
-          HEAD_SHA="${{ github.event.pull_request.head.sha || github.sha }}"
-          BASE_SHA=$(git merge-base "${{ github.event.pull_request.base.sha }}" "$HEAD_SHA")
-
-          # Define sensitive files pattern
-          SENSITIVE_FILES=(
-            '.flake8$'
-            '.pydocstyle$'
-            'pyproject.toml$'
-            '.env..*$'
-            'vitest.config.js$'
-            'src/App.tsx$'
-            '^.github/.*'
-            '^env.example$'
-            '.node-version$'
-            '.husky/.*' 'scripts/.*'
-            'src/style/.*'
-            'schema.graphql$'
-            'package.json$'
-            'package-lock.json$'
-            'tsconfig.json$'
-            '^.gitignore$'
-            '.eslintrc.json$'
-            '.eslintignore$'
-            '.prettierrc$'
-            '.prettierignore$'
-            'vite.config.ts$'
-            '^docker/docker-compose.prod.yaml$'
-            '^docker/docker-compose.dev.yaml$'
-            '^docker/Dockerfile.dev$'
-            '^docker/Dockerfile.prod$'
-            '^config/docker/setup/nginx.conf$'
-            '^config/docker/setup/nginx.prod.conf$'
-            'CODEOWNERS$'
-            'LICENSE$'
-            'setup.ts$'
-            '.coderabbit.yaml$'
-            'CODE_OF_CONDUCT.md$'
-            'CODE_STYLE.md$'
-            'CONTRIBUTING.md$'
-            'DOCUMENTATION.md$'
-            'INSTALLATION.md$'
-            'ISSUE_GUIDELINES.md$'
-            'PR_GUIDELINES.md$'
-            'README.md$'
-            '.*.pem$'
-            '.*.key$'
-            '.*.cert$'
-            '.*.password$'
-            '.*.secret$'
-            '.*.credentials$'
-            '.nojekyll$'
-            'yarn.lock$'
-            '^docs/docusaurus.config.ts$'
-            '^docs/sidebar..*'
-            'CNAME$'
-          )
-
-          # Check for changes in sensitive files
-          CHANGED_UNAUTH_FILES=""
-          for pattern in "${SENSITIVE_FILES[@]}"; do
-            FILES=$(git diff --name-only --diff-filter=ACMRD "$BASE_SHA" "$HEAD_SHA" | grep -E "$pattern" || true)
-
-            if [ ! -z "$FILES" ]; then
-              CHANGED_UNAUTH_FILES="$CHANGED_UNAUTH_FILES $FILES"
-            fi
-          done
-
-          # Trim and format output
-          CHANGED_UNAUTH_FILES=$(echo "$CHANGED_UNAUTH_FILES" | xargs)
-          echo "all_changed_files=$CHANGED_UNAUTH_FILES" >> $GITHUB_OUTPUT
-
-          # Check if any unauthorized files changed
-          if [ ! -z "$CHANGED_UNAUTH_FILES" ]; then
-            echo "any_changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "any_changed=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: List all changed unauthorized files
-        if: steps.changed-unauth-files.outputs.any_changed == 'true'
+      - name: Run Sensitive Files Check
+        if: steps.check-labels.outputs.skip != 'true'
         env:
-          CHANGED_UNAUTH_FILES: ${{ steps.changed-unauth-files.outputs.all_changed_files }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
-          echo "::error::Unauthorized changes detected in sensitive files"
-          echo ""
-          for file in $CHANGED_UNAUTH_FILES; do
-            echo "- $file"
-          done
-          echo ""
-          echo "To override this, apply the 'ignore-sensitive-files-pr' label"
-          exit 1
+           # Determine base and head commits for comparison
+           HEAD_SHA="${PR_HEAD_SHA}"
+           BASE_SHA=$(git merge-base "${PR_BASE_SHA}" "$HEAD_SHA")
+
+           python3 .github/workflows/scripts/sensitive_file_check.py \
+             --config .github/workflows/config/sensitive_files.txt \
+             --base_sha "$BASE_SHA" \
+             --head_sha "$HEAD_SHA"
 
   Count-Changed-Files:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -301,11 +220,25 @@ jobs:
           echo "- Source branch may be incorrect please use develop as source branch."
           exit 1
 
+  Pre-Test-Checks-Pass:
+    name: All Pre-Test Checks Passed
+    runs-on: ubuntu-latest
+    if: ${{ always() && !failure() && !cancelled() }}
+    needs: [Check-Sensitive-Files, Check-Target-Branch, Count-Changed-Files]
+    steps:
+      - name: All pre-test checks passed
+        run: echo "All pre-test checks passed successfully"
+
   Flutter-Testing:
     name: Testing codebase
     runs-on: ubuntu-latest
     needs:
-      [Flutter-Codebase-Check, Python-Compliance, check-unused-dependencies]
+      [
+        Flutter-Codebase-Check,
+        Python-Compliance,
+        check-unused-dependencies,
+        Pre-Test-Checks-Pass,
+      ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
