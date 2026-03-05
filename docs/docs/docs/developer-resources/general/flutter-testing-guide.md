@@ -270,6 +270,158 @@ Here is a breakdown of what this test does
 
 Overall, this test verifies that the `sendMessageToDirectChat` method correctly triggers a GraphQL mutation and correctly handles the returned data by updating the `_chatMessageController` object with the expected `ChatMessage` object.
 
+## Golden Tests
+
+Golden tests (also called snapshot tests) capture the **pixel-perfect rendered output** of a widget as a PNG baseline image. On every subsequent test run Flutter re-renders the widget and compares it byte-for-byte against the saved PNG. If the pixels differ the test fails, catching unintended visual regressions.
+
+### When to Use Golden Tests
+
+- A widget's visual appearance is the primary thing being verified (layout, colours, typography, dark/light theme variants).
+- The widget is stateless or its state can be controlled deterministically.
+- You want to prevent accidental visual regressions across refactors.
+
+### Directory Structure
+
+All golden test files and their PNG baselines live under `test/goldens/`:
+
+```
+test/goldens/
+├── golden_test.dart                   # Aggregator — runs every golden suite
+├── golden_test_helpers.dart           # Shared helpers (themedWidget, goldenFileName, …)
+├── goldens/                           # PNG baseline images (committed to git)
+│   ├── rich_text_single_word_light.png
+│   └── …
+├── rich_text_golden_test.dart
+├── signup_progress_indicator_golden_test.dart
+└── …
+```
+
+### Shared Helpers
+
+`golden_test_helpers.dart` provides three utilities used by every golden test:
+
+| Helper | Purpose |
+|---|---|
+| `setUpGoldenTests()` | Locks the virtual screen to 1080 × 1920 px for consistent renders |
+| `tearDownGoldenTests()` | Restores screen dimensions after the suite |
+| `themedWidget(child, {themeMode})` | Wraps a widget in `MaterialApp` with Talawa light/dark theme + localization |
+| `goldenFileName(name, variant, theme)` | Returns `'goldens/<name>_<variant>_<theme>.png'` |
+
+### Writing a Golden Test
+
+```dart
+// ignore_for_file: talawa_api_doc
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/widgets/my_widget.dart';
+import 'golden_test_helpers.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() => setUpGoldenTests());
+  tearDownAll(() => tearDownGoldenTests());
+
+  group('MyWidget Golden Tests', () {
+    testWidgets('default - light', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        themedWidget(const MyWidget(), themeMode: ThemeMode.light),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MyWidget),
+        matchesGoldenFile(goldenFileName('my_widget', 'default', 'light')),
+      );
+    });
+
+    testWidgets('default - dark', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        themedWidget(const MyWidget(), themeMode: ThemeMode.dark),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(MyWidget),
+        matchesGoldenFile(goldenFileName('my_widget', 'default', 'dark')),
+      );
+    });
+  });
+}
+```
+
+### Running Golden Tests
+
+```bash
+# Run a single golden test suite
+flutter test test/goldens/my_widget_golden_test.dart
+
+# Run the full aggregator (all golden suites)
+flutter test test/goldens/golden_test.dart
+
+# Generate / regenerate PNG baselines (required on first run or after intentional UI change)
+flutter test test/goldens/golden_test.dart --update-goldens
+```
+
+> **Important:** Always commit the updated PNG files alongside the code change that caused them. Reviewers can inspect the diff visually on GitHub.
+
+### Common Patterns
+
+**Dialogs and SnackBars** — use `addPostFrameCallback` to show them after the first frame:
+
+```dart
+themedWidget(
+  Builder(builder: (context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(context: context, builder: (_) => MyDialog());
+    });
+    return const SizedBox.shrink();
+  }),
+)
+```
+
+**Widgets that need mocks** — use `Mockito` mocks from `test/helpers/test_helpers.mocks.dart` and call `testSetupLocator()` + `registerServices()` in `setUp`:
+
+```dart
+setUp(() {
+  testSetupLocator();
+  registerServices();
+  mockModel = MockMyViewModel();
+  when(mockModel.someValue).thenReturn(42);
+});
+tearDown(() => unregisterServices());
+```
+
+**Network images** — wrap the test body with `mockNetworkImagesFor` (from `network_image_mock`) or `mockNetworkImages` (from `mocktail_image_network`) to prevent real HTTP calls.
+
+**Suppressing pre-existing layout overflow errors** — if a widget has a known overflow bug that does not affect the area under test, suppress only overflow errors:
+
+```dart
+void _ignoreOverflow(FlutterErrorDetails d) {
+  if (d.exceptionAsString().contains('overflowed')) return;
+  FlutterError.presentError(d);
+}
+// before pump:
+FlutterError.onError = _ignoreOverflow;
+// after expectLater:
+FlutterError.onError = FlutterError.presentError;
+```
+
+### Registering a New Suite in the Aggregator
+
+After creating `test/goldens/my_widget_golden_test.dart`, add it to `golden_test.dart`:
+
+```dart
+import 'my_widget_golden_test.dart' as my_widget;
+
+void main() {
+  // … existing entries …
+  my_widget.main();
+}
+```
+
+---
+
 ## Integration Testing
 
 This project uses **Flutter Integration Testing** with the **Robot Pattern** to ensure UI flows and app behavior are working as expected.
