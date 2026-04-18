@@ -105,8 +105,6 @@ class AppConnectivity extends BaseModel {
     databaseFunctions.init();
   }
 
-
-
   @override
   void dispose() {
     _subscription?.cancel();

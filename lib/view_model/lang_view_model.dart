@@ -61,8 +61,6 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
-  
-
   /// This function change the app default language.
   ///
   /// **params**:

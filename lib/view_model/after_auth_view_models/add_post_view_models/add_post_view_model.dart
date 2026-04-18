@@ -35,8 +35,6 @@ class AddPostViewModel extends BaseModel {
   /// The organization ID for which to fetch the presigned URL.
   late OrgInfo _selectedOrg;
 
-
-
   /// The username of the currentUser.
   String get userName => userConfig.currentUser.name!;
 

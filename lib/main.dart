@@ -148,7 +148,8 @@ class _MyAppState extends State<MyApp> {
                         for (final Locale supportedLocale in supportedLocales) {
                           if (supportedLocale.languageCode ==
                                   locale.languageCode ||
-                              supportedLocale.countryCode == locale.countryCode) {
+                              supportedLocale.countryCode ==
+                                  locale.countryCode) {
                             return supportedLocale;
                           }
                         }

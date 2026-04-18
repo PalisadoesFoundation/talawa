@@ -46,7 +46,8 @@ Widget createMainScreen({bool demoMode = true, bool? isOnline}) {
                       body: TextButton(
                         child: const Text('click me'),
                         onPressed: () {
-                          locator<NavigationService>().showConnectivitySnackBar(isOnline: isOnline!);
+                          locator<NavigationService>()
+                              .showConnectivitySnackBar(isOnline: isOnline!);
                         },
                       ),
                     ),

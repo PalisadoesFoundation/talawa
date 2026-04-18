@@ -229,8 +229,6 @@ void main() {
         // Should not call any navigation or snackbar methods when data is null
         verifyNever(locator<NavigationService>().pop());
       });
-
-
     },
   );
 }

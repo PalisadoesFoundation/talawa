@@ -1,4 +1,3 @@
-
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -14,7 +13,6 @@ class AccessScreenViewModel extends BaseModel {
   late List<OrgInfo> organizations = [];
 
   /// text controller for optional message during the request.
-
 
   /// Initialization function.
   ///
@@ -78,7 +76,6 @@ class AccessScreenViewModel extends BaseModel {
 
   @override
   void dispose() {
-
     super.dispose();
   }
 }

@@ -85,8 +85,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                             horizontal: SizeConfig.screenWidth! * 0.06,
                           ),
                           decoration: BoxDecoration(
-                            color: languages[index].langCode ==
-                                    appLang.appLocal
+                            color: languages[index].langCode == appLang.appLocal
                                 ? const Color(0xFFC4C4C4)
                                     .withAlpha((0.15 * 255).toInt())
                                 : Colors.transparent,

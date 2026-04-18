@@ -199,11 +199,11 @@ class EditEventViewModel extends BaseEventViewModel {
       String recurrenceType;
       if (wasRecurringOriginally) {
         if (isRecurring) {
-          recurrenceType = await navigationService
-                  .showRecurrenceUpdateOptionDialog(
+          recurrenceType =
+              await navigationService.showRecurrenceUpdateOptionDialog(
                     isRecurrenceSettingsEdit: isRecurrenceSettingsEdit,
                   ) ??
-              'standalone';
+                  'standalone';
         } else {
           recurrenceType = 'single';
         }

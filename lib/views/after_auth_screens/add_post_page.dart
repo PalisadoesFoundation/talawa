@@ -68,7 +68,8 @@ class _AddPostState extends State<AddPost> {
                             key: Key('addPostProgress'),
                           ),
                         );
-                        bool success = await model.uploadPost(_captionController.text);
+                        bool success =
+                            await model.uploadPost(_captionController.text);
                         navigationService.pop(); // Pop progress dialog
                         if (success) {
                           navigationService.pop(); // Pop the page
