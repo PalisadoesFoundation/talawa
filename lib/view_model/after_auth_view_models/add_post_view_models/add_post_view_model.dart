@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -15,7 +13,6 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// AddPostViewModel class have different functions.
 ///
@@ -38,8 +35,7 @@ class AddPostViewModel extends BaseModel {
   /// The organization ID for which to fetch the presigned URL.
   late OrgInfo _selectedOrg;
 
-  /// Controller for caption text field.
-  final TextEditingController captionController = TextEditingController();
+
 
   /// The username of the currentUser.
   String get userName => userConfig.currentUser.name!;
@@ -133,36 +129,31 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> uploadPost() async {
+  Future<bool> uploadPost(String caption) async {
     // Validate that at least one image is selected
     if (imageFiles.isEmpty) {
       _navigationService.showTalawaErrorSnackBar(
         "At least one image is required to create a post",
         MessageType.error,
       );
-      return;
+      return false;
     }
 
     // Validate that caption is not empty
-    if (captionController.text.trim().isEmpty) {
+    if (caption.trim().isEmpty) {
       _navigationService.showTalawaErrorSnackBar(
         "Caption cannot be empty",
         MessageType.error,
       );
-      return;
+      return false;
     }
+
+    bool isSuccess = false;
 
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.postCreationFailed,
       action: () async {
-        navigationService.pushDialog(
-          const CustomProgressDialog(
-            key: Key('addPostProgress'),
-          ),
-        );
-
-        // Upload images to Minio if available
         final List<Map<String, String>> attachmentsList = [];
         if (imageFiles.isNotEmpty) {
           for (final imageFile in imageFiles) {
@@ -182,7 +173,7 @@ class AddPostViewModel extends BaseModel {
           }
         }
         final Map<String, dynamic> variables = {
-          "caption": captionController.text,
+          "caption": caption,
           "organizationId": _selectedOrg.id,
         };
 
@@ -203,7 +194,7 @@ class AddPostViewModel extends BaseModel {
         );
         newPost.getPresignedUrl(_selectedOrg.id);
         locator<PostService>().addNewpost(newPost);
-        navigationService.pop();
+        isSuccess = true;
       },
       apiCallSuccessUpdateUI: () {
         _navigationService.showTalawaErrorSnackBar(
@@ -219,10 +210,11 @@ class AddPostViewModel extends BaseModel {
       },
       onActionFinally: () async {
         removeImage();
-        captionController.clear();
+        // Caption clear is handled by the view
         notifyListeners();
       },
     );
+    return isSuccess;
   }
 
   /// This function removes all images selected.
@@ -244,8 +236,8 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `bool`: True if post can be uploaded, false otherwise
-  bool canUploadPost() {
-    return imageFiles.isNotEmpty && captionController.text.trim().isNotEmpty;
+  bool canUploadPost(String caption) {
+    return imageFiles.isNotEmpty && caption.trim().isNotEmpty;
   }
 
   /// Gets the total number of images selected.

@@ -20,7 +20,8 @@ class LanguageTile extends StatelessWidget {
     return Consumer<AppLanguage>(
       builder: (context, appLang, _) {
         final Language userLanguage = languages.firstWhere(
-          (element) => element.langCode == appLang.appLocal.languageCode,
+          (element) => element.langCode == appLang.appLocal,
+          orElse: () => languages.first,
         );
         return ListTile(
           key: const Key('LanguageTile'),

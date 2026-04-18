@@ -3,10 +3,10 @@
 
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/recurrence_values.dart';
+import 'package:talawa/models/events/time_value.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
@@ -63,10 +63,11 @@ void main() {
     test('initializes with default values', () {
       final model = CreateEventViewModel();
 
-      expect(model.eventTitleTextController, isNotNull);
-      expect(model.eventLocationTextController, isNotNull);
-      expect(model.eventDescriptionTextController, isNotNull);
-      expect(model.repeatsEveryCountController.text, '1');
+      // Controllers are now Strings; verify they are empty by default
+      expect(model.eventTitle, '');
+      expect(model.eventLocation, '');
+      expect(model.eventDescription, '');
+      expect(model.repeatsEveryCount, '1');
       expect(model.isPublicSwitch, true);
       expect(model.isRegisterableSwitch, true);
       expect(model.isAllDay, true);
@@ -108,7 +109,7 @@ void main() {
     test('combineDateTime combines date and time correctly', () {
       final model = CreateEventViewModel();
       final date = DateTime(2025, 7, 28);
-      const time = TimeOfDay(hour: 14, minute: 30);
+      const time = TimeValue(hour: 14, minute: 30);
 
       final result = model.combineDateTime(date, time);
 
@@ -196,7 +197,7 @@ void main() {
       expect(model.frequency, Frequency.weekly);
       expect(model.weekDays, isEmpty);
       expect(model.interval, 1);
-      expect(model.repeatsEveryCountController.text, '1');
+      expect(model.repeatsEveryCount, '1');
       expect(model.count, null);
       expect(model.byMonth, null);
       expect(model.byMonthDay, null);
@@ -259,16 +260,16 @@ void main() {
       verify(notifyListenerCallback()).called(greaterThan(0));
     });
 
-    test('pickStartTime adjusts end time if it becomes before start time', () {
+    test('setStartTime adjusts end time if it becomes before start time', () {
       final model = CreateEventViewModel();
       model.isAllDay = false;
       model.eventStartDate = DateTime.now();
       model.eventEndDate = DateTime.now();
-      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
-      model.eventEndTime = const TimeOfDay(hour: 9, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 10, minute: 0);
+      model.eventEndTime = const TimeValue(hour: 9, minute: 0);
 
       // Manually update to simulate picker result
-      model.eventStartTime = const TimeOfDay(hour: 14, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 14, minute: 0);
       final startDateTime =
           model.combineDateTime(model.eventStartDate, model.eventStartTime);
       final endDateTime =
@@ -280,40 +281,38 @@ void main() {
       }
     });
 
-    test('pickStartTime does nothing when isAllDay is true', () async {
+    test('setStartTime does nothing when isAllDay is true', () {
       final model = CreateEventViewModel();
       model.isAllDay = true;
       final originalTime = model.eventStartTime;
 
-      await model.pickStartTime();
+      model.setStartTime(const TimeValue(hour: 10, minute: 0));
 
       expect(model.eventStartTime, originalTime);
     });
 
-    test('pickEndTime does nothing when isAllDay is true', () async {
+    test('setEndTime does nothing when isAllDay is true', () {
       final model = CreateEventViewModel();
       model.isAllDay = true;
       final originalTime = model.eventEndTime;
 
-      await model.pickEndTime();
+      model.setEndTime(const TimeValue(hour: 10, minute: 0));
 
       expect(model.eventEndTime, originalTime);
     });
 
-    test('dispose calls cleanUp', () {
+    test('dispose runs without error', () {
       final model = CreateEventViewModel();
 
-      // Verify controllers exist before dispose
-      expect(model.eventTitleTextController, isNotNull);
-      expect(model.eventLocationTextController, isNotNull);
-      expect(model.eventDescriptionTextController, isNotNull);
-      expect(model.repeatsEveryCountController, isNotNull);
+      // Verify string fields exist before dispose
+      expect(model.eventTitle, '');
+      expect(model.eventLocation, '');
+      expect(model.eventDescription, '');
+      expect(model.repeatsEveryCount, '1');
 
       model.dispose();
 
       // After dispose, the model should have cleaned up
-      // Note: We can't directly test if controllers are disposed,
-      // but we verify the method runs without error
       expect(true, true);
     });
 
@@ -387,18 +386,18 @@ void main() {
       expect(model.weekDayOccurrenceInMonth, -1);
     });
 
-    test('validate mode defaults to disabled', () {
+    test('validateMode defaults to false', () {
       final model = CreateEventViewModel();
 
-      expect(model.validate, AutovalidateMode.disabled);
+      expect(model.validateMode, false);
     });
 
-    test('validate mode can be changed', () {
+    test('validateMode can be changed to true', () {
       final model = CreateEventViewModel();
 
-      model.validate = AutovalidateMode.always;
+      model.validateMode = true;
 
-      expect(model.validate, AutovalidateMode.always);
+      expect(model.validateMode, true);
     });
   });
 }

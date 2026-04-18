@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
@@ -23,17 +21,20 @@ class EditAgendaItemViewModel extends BaseModel {
   List<String> _initialAttachments = [];
   List<String> _currentAttachments = [];
 
-  /// Controller for the title input field.
-  TextEditingController titleController = TextEditingController();
+  // ── Text fields (owned here as plain Strings; the View creates its own
+  //    TextEditingControllers that are synced to these via onChanged).
 
-  /// Controller for the description input field.
-  TextEditingController descriptionController = TextEditingController();
+  /// Current title text.
+  String titleText = '';
 
-  /// Controller for the URL input field.
-  TextEditingController urlController = TextEditingController();
+  /// Current description text.
+  String descriptionText = '';
 
-  /// Controller for the duration input field.
-  TextEditingController durationController = TextEditingController();
+  /// Current URL input text.
+  String urlText = '';
+
+  /// Current duration text.
+  String durationText = '';
 
   /// Get the list of all available categories.
   List<AgendaCategory> get categories => _categories;
@@ -69,9 +70,9 @@ class EditAgendaItemViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void _fillEditForm() {
-    titleController.text = _agendaItem.name ?? '';
-    descriptionController.text = _agendaItem.description ?? '';
-    durationController.text = _agendaItem.duration ?? '';
+    titleText = _agendaItem.name ?? '';
+    descriptionText = _agendaItem.description ?? '';
+    durationText = _agendaItem.duration ?? '';
     _initialUrls = List<String>.from(_agendaItem.urls ?? []);
     _currentUrls = List<String>.from(_initialUrls);
     _initialAttachments = List<String>.from(_agendaItem.attachments ?? []);
@@ -107,6 +108,7 @@ class EditAgendaItemViewModel extends BaseModel {
   void addUrl(String url) {
     if (url.isNotEmpty) {
       _currentUrls.add(url);
+      urlText = '';
       notifyListeners();
     }
   }
@@ -160,11 +162,10 @@ class EditAgendaItemViewModel extends BaseModel {
   /// **returns**:
   /// * `bool`: define_the_return
   bool checkForChanges() {
-    final bool titleChanged = titleController.text != (_agendaItem.name ?? '');
+    final bool titleChanged = titleText != (_agendaItem.name ?? '');
     final bool descriptionChanged =
-        descriptionController.text != (_agendaItem.description ?? '');
-    final bool durationChanged =
-        durationController.text != (_agendaItem.duration ?? '');
+        descriptionText != (_agendaItem.description ?? '');
+    final bool durationChanged = durationText != (_agendaItem.duration ?? '');
 
     final selectedCategoryIds =
         _selectedCategories.map((cat) => cat.id).toSet();
@@ -202,9 +203,9 @@ class EditAgendaItemViewModel extends BaseModel {
           _selectedCategories.map((category) => category.id!).toList();
 
       final updatedAgendaItem = {
-        'title': titleController.text,
-        'description': descriptionController.text,
-        'duration': durationController.text,
+        'title': titleText,
+        'description': descriptionText,
+        'duration': durationText,
         'attachments': attachmentPaths,
         'urls': _currentUrls,
         'categories': categoryIds,
@@ -231,14 +232,5 @@ class EditAgendaItemViewModel extends BaseModel {
   ///   None
   void navigateBack() {
     navigationService.pop();
-  }
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    descriptionController.dispose();
-    urlController.dispose();
-    durationController.dispose();
-    super.dispose();
   }
 }

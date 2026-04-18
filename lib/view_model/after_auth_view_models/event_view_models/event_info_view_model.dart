@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -14,7 +12,6 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// EventInfoViewModel class helps interacting with model to serve view with the event information data.
 class EventInfoViewModel extends BaseModel {
@@ -88,11 +85,7 @@ class EventInfoViewModel extends BaseModel {
   Future<void> registerForEvent() async {
     // if event registration is open and user not already registered for the event.
     if (event.isRegisterable == true && event.isRegistered == false) {
-      navigationService.pushDialog(
-        const CustomProgressDialog(
-          key: Key('RegisterEvent'),
-        ),
-      );
+      navigationService.showProgressDialog();
 
       // use `registerForAnEvent` function provided by `EventService` service.
       final registerResult =
@@ -390,7 +383,10 @@ class EventInfoViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// Method to delete an event. Shows a simple Yes/No dialog for standalone events and full dialog for recurrence events.
+  /// Method to delete an event.
+  ///
+  /// Delegates the appropriate confirmation dialog to the NavigationService
+  /// to avoid coupling this ViewModel to the Flutter widget layer.
   ///
   /// **params**:
   ///   None
@@ -401,47 +397,22 @@ class EventInfoViewModel extends BaseModel {
     print('Deleting event with id: ${event.id}');
     print("event recurring: ${event.recurring}");
     if (event.recurring == true || event.recurrenceRule != null) {
-      await _showRecurringEventDeleteDialog();
+      await _deleteRecurringEvent();
     } else {
-      await _showStandaloneEventDeleteDialog();
+      await _deleteStandaloneEvent();
     }
   }
 
-  /// Shows a dialog for deleting a standalone event.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> _showStandaloneEventDeleteDialog() async {
-    final bool? confirm = await showDialog<bool>(
-      context: navigationService.navigatorKey.currentContext!,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Event'),
-        content: const Text('Are you sure you want to delete this event?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              'Delete',
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
-          ),
-        ],
-      ),
+  /// Handles deletion of a standalone event using a confirmation dialog.
+  Future<void> _deleteStandaloneEvent() async {
+    final bool confirm = await navigationService.showConfirmDialog(
+      title: 'Delete Event',
+      content: 'Are you sure you want to delete this event?',
+      confirmText: 'Delete',
     );
-    if (confirm == true) {
+    if (confirm) {
       try {
-        navigationService.pushDialog(
-          const CustomProgressDialog(
-            key: Key('DeleteEvent'),
-          ),
-        );
+        navigationService.showProgressDialog();
         final result = await eventService.deleteEvent(
           event,
           recurrenceType: 'standalone',
@@ -464,55 +435,14 @@ class EventInfoViewModel extends BaseModel {
     }
   }
 
-  /// Shows a dialog for deleting a recurring event with options.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> _showRecurringEventDeleteDialog() async {
-    final String? option = await showDialog<String>(
-      context: navigationService.navigatorKey.currentContext!,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Recurring Event'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('How would you like to delete this event?'),
-            const SizedBox(height: 16),
-            _buildDeleteOption(context, 'Delete this event only', 'single'),
-            const SizedBox(height: 8),
-            _buildDeleteOption(
-              context,
-              'Delete this and all future events',
-              'thisAndFollowing',
-            ),
-            const SizedBox(height: 8),
-            _buildDeleteOption(
-              context,
-              'Delete all events in the series',
-              'series',
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(null),
-            child: const Text('Cancel'),
-          ),
-        ],
-      ),
-    );
+  /// Handles deletion of a recurring event using the recurring delete dialog.
+  Future<void> _deleteRecurringEvent() async {
+    final String? option =
+        await navigationService.showRecurringEventDeleteDialog();
 
     if (option != null) {
       try {
-        navigationService.pushDialog(
-          const CustomProgressDialog(
-            key: Key('DeleteEvent'),
-          ),
-        );
+        navigationService.showProgressDialog();
 
         final result = await eventService.deleteEvent(
           event,
@@ -535,30 +465,6 @@ class EventInfoViewModel extends BaseModel {
       }
       setState(ViewState.idle);
     }
-  }
-
-  /// Builds a delete option button for recurring events.
-  ///
-  /// **params**:
-  /// * `context`: Build context
-  /// * `text`: Display text for the option
-  /// * `value`: Value to return when selected
-  ///
-  /// **returns**:
-  /// * `Widget`: A button widget for the delete option
-  Widget _buildDeleteOption(BuildContext context, String text, String value) {
-    return InkWell(
-      onTap: () => Navigator.of(context).pop(value),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).dividerColor),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(text),
-      ),
-    );
   }
 
   /// Navigate back to the previous screen.

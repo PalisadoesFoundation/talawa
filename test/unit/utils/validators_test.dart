@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:talawa/models/events/time_value.dart';
 import 'package:talawa/utils/validators.dart';
 
 void main() {
@@ -190,9 +190,9 @@ void main() {
         expect(
           Validators.eventDateTime(
             start,
-            TimeOfDay.fromDateTime(start),
+            TimeValue(hour: start.hour, minute: start.minute),
             end,
-            TimeOfDay.fromDateTime(end),
+            TimeValue(hour: end.hour, minute: end.minute),
           ),
           'Event end date/time cannot be before start date/time',
         );
@@ -204,9 +204,9 @@ void main() {
         expect(
           Validators.eventDateTime(
             start,
-            TimeOfDay.fromDateTime(start),
+            TimeValue(hour: start.hour, minute: start.minute),
             end,
-            TimeOfDay.fromDateTime(end),
+            TimeValue(hour: end.hour, minute: end.minute),
           ),
           null,
         );
@@ -217,9 +217,9 @@ void main() {
         expect(
           Validators.eventDateTime(
             start,
-            TimeOfDay.fromDateTime(start),
+            TimeValue(hour: start.hour, minute: start.minute),
             start,
-            TimeOfDay.fromDateTime(start),
+            TimeValue(hour: start.hour, minute: start.minute),
           ),
           null,
         );

@@ -30,11 +30,33 @@ class EditAgendaItemPage extends StatefulWidget {
 }
 
 class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
+  // ── Controllers owned by the View.
+  // The ViewModel holds plain Strings; these are the UI bridge.
+  late final TextEditingController _titleController;
+  late final TextEditingController _descriptionController;
+  late final TextEditingController _urlController;
+  late final TextEditingController _durationController;
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _urlController.dispose();
+    _durationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<EditAgendaItemViewModel>(
-      onModelReady: (model) =>
-          model.initialize(widget.agendaItem, widget.categories),
+      onModelReady: (model) {
+        model.initialize(widget.agendaItem, widget.categories);
+        _titleController = TextEditingController(text: model.titleText);
+        _descriptionController =
+            TextEditingController(text: model.descriptionText);
+        _urlController = TextEditingController(text: model.urlText);
+        _durationController = TextEditingController(text: model.durationText);
+      },
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
@@ -56,6 +78,11 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
               TextButton(
                 key: const Key('updateButton'),
                 onPressed: () async {
+                  // Sync controller text → model fields before checking
+                  model.titleText = _titleController.text;
+                  model.descriptionText = _descriptionController.text;
+                  model.durationText = _durationController.text;
+
                   if (model.checkForChanges()) {
                     await model.updateAgendaItem();
                     if (context.mounted) {
@@ -156,7 +183,8 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                     TextFormField(
                       key: const Key('edit_event_agenda_tf1'),
                       textInputAction: TextInputAction.next,
-                      controller: model.titleController,
+                      controller: _titleController,
+                      onChanged: (v) => model.titleText = v,
                       keyboardType: TextInputType.name,
                       maxLength: 20,
                       validator: (value) {
@@ -191,7 +219,8 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                     TextFormField(
                       key: const Key('edit_event_agenda_tf2'),
                       keyboardType: TextInputType.multiline,
-                      controller: model.descriptionController,
+                      controller: _descriptionController,
+                      onChanged: (v) => model.descriptionText = v,
                       validator: (value) {
                         final String? err =
                             Validators.eventField(value, 'Description');
@@ -226,7 +255,8 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                     SizedBox(height: SizeConfig.screenHeight! * 0.013),
                     TextFormField(
                       key: const Key('edit_event_agenda_duration'),
-                      controller: model.durationController,
+                      controller: _durationController,
+                      onChanged: (v) => model.durationText = v,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!
@@ -262,7 +292,8 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                         Expanded(
                           child: TextFormField(
                             key: const Key('urlTextField'),
-                            controller: model.urlController,
+                            controller: _urlController,
+                            onChanged: (v) => model.urlText = v,
                             maxLines: 5,
                             minLines: 1,
                             decoration: InputDecoration(
@@ -288,8 +319,8 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                         SizedBox(height: SizeConfig.screenHeight! * 0.013),
                         ElevatedButton(
                           onPressed: () {
-                            model.addUrl(model.urlController.text);
-                            model.urlController.clear();
+                            model.addUrl(_urlController.text);
+                            _urlController.clear();
                           },
                           child: Text(
                             AppLocalizations.of(context)!

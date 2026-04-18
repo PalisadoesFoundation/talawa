@@ -56,6 +56,7 @@ import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
+import 'package:talawa/models/events/time_value.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
@@ -497,7 +498,7 @@ AppLanguage getAndRegisterAppLanguage() {
   _removeRegistrationIfExists<AppLanguage>();
   final service = MockAppLanguage();
 
-  when(service.appLocal).thenReturn(const Locale('en'));
+  when(service.appLocal).thenReturn('en');
 
   locator.registerSingleton<AppLanguage>(service);
   return service;
@@ -901,18 +902,13 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   _removeRegistrationIfExists<CreateEventViewModel>();
   final cachedViewModel = MockCreateEventViewModel();
 
-  final textEditingController = TextEditingController();
-
-  when(cachedViewModel.eventLocationTextController)
-      .thenReturn(textEditingController);
-  when(cachedViewModel.eventTitleTextController)
-      .thenReturn(textEditingController);
-  when(cachedViewModel.eventDescriptionTextController)
-      .thenReturn(textEditingController);
+  when(cachedViewModel.eventTitle).thenReturn('');
+  when(cachedViewModel.eventLocation).thenReturn('');
+  when(cachedViewModel.eventDescription).thenReturn('');
   when(cachedViewModel.eventStartDate).thenReturn(DateTime.now());
   when(cachedViewModel.eventEndDate).thenReturn(DateTime.now());
-  when(cachedViewModel.eventStartTime).thenReturn(TimeOfDay.now());
-  when(cachedViewModel.eventEndTime).thenReturn(TimeOfDay.now());
+  when(cachedViewModel.eventStartTime).thenReturn(TimeValue.now());
+  when(cachedViewModel.eventEndTime).thenReturn(TimeValue.now());
   when(cachedViewModel.isPublicSwitch).thenReturn(true);
   when(cachedViewModel.isRegisterableSwitch).thenReturn(true);
 
@@ -932,13 +928,13 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   when(cachedViewModel.orgMembersList).thenReturn([user1]);
   when(cachedViewModel.memberCheckedMap).thenReturn(mapType);
   when(cachedViewModel.isAllDay).thenReturn(true);
-  when(cachedViewModel.eventStartTime).thenReturn(TimeOfDay.now());
+  when(cachedViewModel.eventStartTime).thenReturn(TimeValue.now());
 
   when(cachedViewModel.eventEndTime).thenReturn(
-    TimeOfDay.now().replacing(
+    TimeValue.now().replacing(
       hour:
-          (TimeOfDay.now().hour + (TimeOfDay.now().minute >= 30 ? 1 : 0)) % 24,
-      minute: (TimeOfDay.now().minute + 30) % 60,
+          (TimeValue.now().hour + (TimeValue.now().minute >= 30 ? 1 : 0)) % 24,
+      minute: (TimeValue.now().minute + 30) % 60,
     ),
   );
 

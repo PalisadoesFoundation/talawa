@@ -23,6 +23,10 @@ dependency_overrides:
   # Revisit this when hive_generator is updated to support analyzer >=7.0.0.
   analyzer: ">=6.0.0 <7.0.0"
   dart_style: 2.3.6
+  build_runner: 2.4.13
+  build_resolvers: 2.4.2
+  mockito: 5.4.4
+  json_serializable: 6.8.0
 dependencies:
   # _fe_analyzer_shared: ^60.0.0
   # analyzer:

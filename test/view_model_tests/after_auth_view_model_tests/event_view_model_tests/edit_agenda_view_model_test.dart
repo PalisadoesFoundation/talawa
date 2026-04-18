@@ -35,9 +35,10 @@ void main() {
     test('initialize() populates the form correctly', () {
       model.initialize(testAgendaItem, testCategories);
 
-      expect(model.titleController.text, 'Test Agenda Item');
-      expect(model.descriptionController.text, 'Test Description');
-      expect(model.durationController.text, '60');
+      // ViewModel now uses plain String fields instead of TextEditingControllers
+      expect(model.titleText, 'Test Agenda Item');
+      expect(model.descriptionText, 'Test Description');
+      expect(model.durationText, '60');
       expect(model.urls, ['https://example.com']);
       expect(model.attachments, ['base64image1']);
       expect(model.selectedCategories.length, 1);
@@ -78,18 +79,20 @@ void main() {
       model.initialize(testAgendaItem, testCategories);
       expect(model.checkForChanges(), false);
 
-      model.titleController.text = 'Updated Title';
+      // Simulate view updating the VM string field
+      model.titleText = 'Updated Title';
       expect(model.checkForChanges(), true);
     });
 
     testWidgets('updateAgendaItem() calls event service with correct data',
         (WidgetTester tester) async {
       model.initialize(testAgendaItem, testCategories);
-      model.titleController.text = 'Updated Title';
+      // Simulate view syncing controller text to VM
+      model.titleText = 'Updated Title';
 
       when(
         eventService.updateAgendaItem('1', {
-          'title': model.titleController.text,
+          'title': model.titleText,
         }),
       ).thenAnswer(
         (_) async => QueryResult(

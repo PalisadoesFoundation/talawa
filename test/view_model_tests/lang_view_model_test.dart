@@ -36,17 +36,17 @@ void main() {
       model.initialize();
 
       // check that initially the app language is set to english
-      final Locale locale = model.appLocal;
-      expect(locale, const Locale('en'));
+      final String locale = model.appLocal;
+      expect(locale, 'en');
 
       // test changeLanguage function with same language as before
-      model.changeLanguage(const Locale('en'));
-      expect(model.appLocal, const Locale('en'));
+      model.changeLanguage('en');
+      expect(model.appLocal, 'en');
 
       // test changeLanguage function with different language
-      model.changeLanguage(const Locale('es'));
-      final Locale changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('es'));
+      model.changeLanguage('es');
+      final String changedLocale = model.appLocal;
+      expect(changedLocale, 'es');
     });
 
     test('change language with isTest false', () async {
@@ -54,45 +54,45 @@ void main() {
       model.initialize();
 
       // check that initially the app language is set to english
-      final Locale locale = model.appLocal;
-      expect(locale, const Locale('en'));
+      final String locale = model.appLocal;
+      expect(locale, 'en');
 
       // test changeLanguage function with same language as before
-      await model.changeLanguage(const Locale('en'));
-      expect(model.appLocal, const Locale('en'));
+      await model.changeLanguage('en');
+      expect(model.appLocal, 'en');
 
       // test changeLanguage function with different languages
-      await model.changeLanguage(const Locale('es'));
-      Locale changedLocale = model.appLocal;
-      expect(model.appLocal, const Locale('es'));
+      await model.changeLanguage('es');
+      String changedLocale = model.appLocal;
+      expect(model.appLocal, 'es');
 
-      await model.changeLanguage(const Locale('fr'));
+      await model.changeLanguage('fr');
       changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('fr'));
+      expect(changedLocale, 'fr');
 
-      await model.changeLanguage(const Locale('hi'));
+      await model.changeLanguage('hi');
       changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('hi'));
+      expect(changedLocale, 'hi');
 
-      await model.changeLanguage(const Locale('zh'));
+      await model.changeLanguage('zh');
       changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('zh'));
+      expect(changedLocale, 'zh');
 
-      await model.changeLanguage(const Locale('de'));
+      await model.changeLanguage('de');
       changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('de'));
+      expect(changedLocale, 'de');
 
-      await model.changeLanguage(const Locale('ja'));
+      await model.changeLanguage('ja');
       changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('ja'));
+      expect(changedLocale, 'ja');
 
-      await model.changeLanguage(const Locale('pt'));
+      await model.changeLanguage('pt');
       changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('pt'));
+      expect(changedLocale, 'pt');
 
-      await model.changeLanguage(const Locale('en'));
+      await model.changeLanguage('en');
       changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('en'));
+      expect(changedLocale, 'en');
     });
 
     test('selectLanguagePress navigates authenticated user to app settings',
@@ -134,47 +134,5 @@ void main() {
     });
   });
 
-  group('Locale Resolution Tests', () {
-    final model = AppLanguage(isTest: true);
-    model.initialize();
-    const supportedLocales = [
-      Locale('en', 'US'),
-      Locale('es', 'ES'),
-      Locale('fr', 'FR'),
-      Locale('hi', 'IN'),
-      Locale('zh', 'CN'),
-      Locale('de', 'DE'),
-      Locale('ja', 'JP'),
-      Locale('pt', 'PT'),
-    ];
 
-    test('Returns first supported locale when locale is null', () {
-      final result = model.localeResoultion(null, supportedLocales);
-      expect(result, supportedLocales.first);
-    });
-
-    test('Returns matching language code locale', () {
-      const locale = Locale('es', 'MX');
-      final result = model.localeResoultion(locale, supportedLocales);
-      expect(result, const Locale('es', 'ES'));
-    });
-
-    test('Returns matching country code locale', () {
-      const locale = Locale('fr', 'CA');
-      final result = model.localeResoultion(locale, supportedLocales);
-      expect(result, const Locale('fr', 'FR'));
-    });
-
-    test('Returns first supported locale when no match is found', () {
-      const locale = Locale('it', 'IT');
-      final result = model.localeResoultion(locale, supportedLocales);
-      expect(result, supportedLocales.first);
-    });
-
-    test('Returns correct locale when exact match is found', () {
-      const locale = Locale('en', 'US');
-      final result = model.localeResoultion(locale, supportedLocales);
-      expect(result, locale);
-    });
-  });
 }

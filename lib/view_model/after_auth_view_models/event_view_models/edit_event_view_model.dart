@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/events/time_value.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// EditEventViewModel class have methods to interact with model in.
 ///
@@ -43,7 +42,7 @@ class EditEventViewModel extends BaseEventViewModel {
 
   /// Method to populate the form fields with data from the provided event.
   ///
-  /// This method initializes the text controllers and switches with values
+  /// This method initializes the text fields and switches with values
   /// from the `_event` instance. It also parses and sets the event's start and
   /// end date and time.
   ///
@@ -55,9 +54,9 @@ class EditEventViewModel extends BaseEventViewModel {
   void _fillEditForm() {
     try {
       // Basic info
-      eventTitleTextController.text = _event.name ?? '';
-      eventLocationTextController.text = _event.location ?? '';
-      eventDescriptionTextController.text = _event.description ?? '';
+      eventTitle = _event.name ?? '';
+      eventLocation = _event.location ?? '';
+      eventDescription = _event.description ?? '';
       isPublicSwitch = _event.isPublic ?? true;
       isRegisterableSwitch = _event.isRegisterable ?? true;
       isAllDay = _event.allDay ?? false;
@@ -71,13 +70,13 @@ class EditEventViewModel extends BaseEventViewModel {
         );
 
         // Set time
-        eventStartTime = TimeOfDay(
+        eventStartTime = TimeValue(
           hour: _event.startAt!.hour,
           minute: _event.startAt!.minute,
         );
       } else {
         eventStartDate = DateTime.now();
-        eventStartTime = TimeOfDay.now();
+        eventStartTime = TimeValue.now();
       }
 
       if (_event.endAt != null) {
@@ -88,7 +87,7 @@ class EditEventViewModel extends BaseEventViewModel {
         );
 
         // Set time
-        eventEndTime = TimeOfDay(
+        eventEndTime = TimeValue(
           hour: _event.endAt!.hour,
           minute: _event.endAt!.minute,
         );
@@ -96,7 +95,7 @@ class EditEventViewModel extends BaseEventViewModel {
         // Default end date/time if not available
         final now = DateTime.now();
         eventEndDate = now;
-        eventEndTime = TimeOfDay(
+        eventEndTime = TimeValue(
           hour: (now.hour + 1) % 24,
           minute: now.minute,
         );
@@ -105,9 +104,9 @@ class EditEventViewModel extends BaseEventViewModel {
       // Fallback to safe defaults
       final now = DateTime.now();
       eventStartDate = now;
-      eventStartTime = TimeOfDay.now();
+      eventStartTime = TimeValue.now();
       eventEndDate = now;
-      eventEndTime = TimeOfDay(
+      eventEndTime = TimeValue(
         hour: (now.hour + 1) % 24,
         minute: now.minute,
       );
@@ -129,7 +128,7 @@ class EditEventViewModel extends BaseEventViewModel {
       final rule = _event.recurrenceRule!;
       frequency = rule.frequency;
       interval = rule.interval ?? 1;
-      repeatsEveryCountController.text = '$interval';
+      repeatsEveryCount = '$interval';
 
       // Handle byDay - check if it contains position indicators (e.g., "1MO", "2TU")
       if (rule.byDay != null) {
@@ -200,9 +199,10 @@ class EditEventViewModel extends BaseEventViewModel {
       String recurrenceType;
       if (wasRecurringOriginally) {
         if (isRecurring) {
-          recurrenceType = await _showRecurrenceUpdateOptionDialog(
-                isRecurrenceSettingsEdit: isRecurrenceSettingsEdit,
-              ) ??
+          recurrenceType = await navigationService
+                  .showRecurrenceUpdateOptionDialog(
+                    isRecurrenceSettingsEdit: isRecurrenceSettingsEdit,
+                  ) ??
               'standalone';
         } else {
           recurrenceType = 'single';
@@ -214,16 +214,16 @@ class EditEventViewModel extends BaseEventViewModel {
         'id': eventId,
       };
 
-      if (eventTitleTextController.text != _event.name) {
-        variables['name'] = eventTitleTextController.text;
+      if (eventTitle != _event.name) {
+        variables['name'] = eventTitle;
       }
 
-      if (eventDescriptionTextController.text != _event.description) {
-        variables['description'] = eventDescriptionTextController.text;
+      if (eventDescription != _event.description) {
+        variables['description'] = eventDescription;
       }
 
-      if (eventLocationTextController.text != _event.location) {
-        variables['location'] = eventLocationTextController.text;
+      if (eventLocation != _event.location) {
+        variables['location'] = eventLocation;
       }
 
       if (isPublicSwitch != _event.isPublic) {
@@ -316,9 +316,7 @@ class EditEventViewModel extends BaseEventViewModel {
         return;
       }
 
-      navigationService.pushDialog(
-        const CustomProgressDialog(),
-      );
+      navigationService.showProgressDialog();
 
       final result = await eventService.editEvent(
         variables: variables,
@@ -341,79 +339,6 @@ class EditEventViewModel extends BaseEventViewModel {
           .showSnackBar('An error occurred while updating the event');
       return;
     }
-  }
-
-  /// Shows a dialog for updating a recurring event with options.
-  ///
-  /// **params**:
-  /// * `isRecurrenceSettingsEdit`: Whether recurrence settings are being edited
-  ///
-  /// **returns**:
-  /// * `Future<String?>`: Selected recurrence update type
-  Future<String?> _showRecurrenceUpdateOptionDialog({
-    required bool isRecurrenceSettingsEdit,
-  }) {
-    return showDialog<String>(
-      context: navigationService.navigatorKey.currentContext!,
-      builder: (context) => AlertDialog(
-        title: const Text('Update Recurring Event'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('How would you like to update this event?'),
-            const SizedBox(height: 16),
-            if (!isRecurrenceSettingsEdit) ...[
-              _buildUpdateOption(context, 'Update this event only', 'single'),
-              const SizedBox(height: 8),
-            ],
-            _buildUpdateOption(
-              context,
-              'Update this and all future events',
-              'thisAndFollowing',
-            ),
-            if (!isRecurrenceSettingsEdit) ...[
-              const SizedBox(height: 8),
-              _buildUpdateOption(
-                context,
-                'Update all events in the series',
-                'series',
-              ),
-            ],
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(null),
-            child: const Text('Cancel'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// Builds an update option button for recurring events.
-  ///
-  /// **params**:
-  /// * `context`: Build context
-  /// * `text`: Display text for the option
-  /// * `value`: Value to return when selected
-  ///
-  /// **returns**:
-  /// * `Widget`: A button widget for the update option
-  Widget _buildUpdateOption(BuildContext context, String text, String value) {
-    return InkWell(
-      onTap: () => Navigator.of(context).pop(value),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).dividerColor),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(text),
-      ),
-    );
   }
 
   /// Checks if recurrence settings are being edited.

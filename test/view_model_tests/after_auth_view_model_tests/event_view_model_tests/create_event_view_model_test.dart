@@ -1,7 +1,6 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -11,6 +10,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+import 'package:talawa/models/events/time_value.dart';
 
 void main() {
   testSetupLocator();
@@ -27,16 +27,16 @@ void main() {
     test('execute creates non-recurring event successfully', () async {
       final model = CreateEventViewModel();
 
-      model.eventTitleTextController.text = 'Test Event';
-      model.eventDescriptionTextController.text = 'Test Description';
-      model.eventLocationTextController.text = 'Test Location';
+      model.eventTitle = 'Test Event';
+      model.eventDescription = 'Test Description';
+      model.eventLocation = 'Test Location';
       model.isPublicSwitch = true;
       model.isRegisterableSwitch = false;
       model.isAllDay = false;
       model.eventStartDate = DateTime(2025, 8, 1);
-      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 10, minute: 0);
       model.eventEndDate = DateTime(2025, 8, 1);
-      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+      model.eventEndTime = const TimeValue(hour: 11, minute: 0);
 
       final startAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
       final endAt = DateTime(2025, 8, 1, 11, 0).toUtc().toIso8601String();
@@ -88,23 +88,23 @@ void main() {
       ).called(1);
 
       // Verify form is cleared after successful creation
-      expect(model.eventTitleTextController.text, isEmpty);
-      expect(model.eventLocationTextController.text, isEmpty);
+      expect(model.eventTitle, isEmpty);
+      expect(model.eventLocation, isEmpty);
     });
 
     test('execute creates recurring event successfully', () async {
       final model = CreateEventViewModel();
 
-      model.eventTitleTextController.text = 'Recurring Event';
-      model.eventDescriptionTextController.text = 'Description';
-      model.eventLocationTextController.text = 'Location';
+      model.eventTitle = 'Recurring Event';
+      model.eventDescription = 'Description';
+      model.eventLocation = 'Location';
       model.isPublicSwitch = true;
       model.isRegisterableSwitch = true;
       model.isAllDay = false;
       model.eventStartDate = DateTime(2025, 8, 1);
-      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 10, minute: 0);
       model.eventEndDate = DateTime(2025, 8, 1);
-      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+      model.eventEndTime = const TimeValue(hour: 11, minute: 0);
       model.isRecurring = true;
       model.frequency = Frequency.weekly;
       model.interval = 1;
@@ -179,13 +179,13 @@ void main() {
     test('execute creates daily recurring event', () async {
       final model = CreateEventViewModel();
 
-      model.eventTitleTextController.text = 'Daily Event';
-      model.eventDescriptionTextController.text = 'Daily Description';
-      model.eventLocationTextController.text = 'Daily Location';
+      model.eventTitle = 'Daily Event';
+      model.eventDescription = 'Daily Description';
+      model.eventLocation = 'Daily Location';
       model.eventStartDate = DateTime(2025, 8, 1);
-      model.eventStartTime = const TimeOfDay(hour: 9, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 9, minute: 0);
       model.eventEndDate = DateTime(2025, 8, 1);
-      model.eventEndTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventEndTime = const TimeValue(hour: 10, minute: 0);
       model.isRecurring = true;
       model.frequency = Frequency.daily;
       model.interval = 2;
@@ -254,13 +254,13 @@ void main() {
     test('execute creates monthly recurring event with day of month', () async {
       final model = CreateEventViewModel();
 
-      model.eventTitleTextController.text = 'Monthly Event';
-      model.eventDescriptionTextController.text = 'Monthly Description';
-      model.eventLocationTextController.text = 'Monthly Location';
+      model.eventTitle = 'Monthly Event';
+      model.eventDescription = 'Monthly Description';
+      model.eventLocation = 'Monthly Location';
       model.eventStartDate = DateTime(2025, 8, 15);
-      model.eventStartTime = const TimeOfDay(hour: 14, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 14, minute: 0);
       model.eventEndDate = DateTime(2025, 8, 15);
-      model.eventEndTime = const TimeOfDay(hour: 15, minute: 0);
+      model.eventEndTime = const TimeValue(hour: 15, minute: 0);
       model.isRecurring = true;
       model.frequency = Frequency.monthly;
       model.interval = 1;
@@ -337,13 +337,13 @@ void main() {
     test('execute handles creation failure gracefully', () async {
       final model = CreateEventViewModel();
 
-      model.eventTitleTextController.text = 'Failed Event';
-      model.eventDescriptionTextController.text = 'Description';
-      model.eventLocationTextController.text = 'Location';
+      model.eventTitle = 'Failed Event';
+      model.eventDescription = 'Description';
+      model.eventLocation = 'Location';
       model.eventStartDate = DateTime(2025, 8, 1);
-      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 10, minute: 0);
       model.eventEndDate = DateTime(2025, 8, 1);
-      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+      model.eventEndTime = const TimeValue(hour: 11, minute: 0);
 
       final startAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
       final endAt = DateTime(2025, 8, 1, 11, 0).toUtc().toIso8601String();
@@ -375,19 +375,19 @@ void main() {
       await model.execute();
 
       // Should not clear form on failure
-      expect(model.eventTitleTextController.text, 'Failed Event');
+      expect(model.eventTitle, 'Failed Event');
     });
 
     test('execute handles exception during creation', () async {
       final model = CreateEventViewModel();
 
-      model.eventTitleTextController.text = 'Exception Event';
-      model.eventDescriptionTextController.text = 'Description';
-      model.eventLocationTextController.text = 'Location';
+      model.eventTitle = 'Exception Event';
+      model.eventDescription = 'Description';
+      model.eventLocation = 'Location';
       model.eventStartDate = DateTime(2025, 8, 1);
-      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 10, minute: 0);
       model.eventEndDate = DateTime(2025, 8, 1);
-      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+      model.eventEndTime = const TimeValue(hour: 11, minute: 0);
 
       final startAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
       final endAt = DateTime(2025, 8, 1, 11, 0).toUtc().toIso8601String();
@@ -413,20 +413,20 @@ void main() {
       await model.execute();
 
       // Should not clear form on exception
-      expect(model.eventTitleTextController.text, 'Exception Event');
+      expect(model.eventTitle, 'Exception Event');
     });
 
     test('execute creates all-day event correctly', () async {
       final model = CreateEventViewModel();
 
-      model.eventTitleTextController.text = 'All Day Event';
-      model.eventDescriptionTextController.text = 'All day description';
-      model.eventLocationTextController.text = 'Location';
+      model.eventTitle = 'All Day Event';
+      model.eventDescription = 'All day description';
+      model.eventLocation = 'Location';
       model.isAllDay = true;
       model.eventStartDate = DateTime(2025, 8, 1);
-      model.eventStartTime = const TimeOfDay(hour: 0, minute: 0);
+      model.eventStartTime = const TimeValue(hour: 0, minute: 0);
       model.eventEndDate = DateTime(2025, 8, 1);
-      model.eventEndTime = const TimeOfDay(hour: 23, minute: 59);
+      model.eventEndTime = const TimeValue(hour: 23, minute: 59);
 
       final startAt = DateTime(2025, 8, 1, 0, 0).toUtc().toIso8601String();
       final endAt = DateTime(2025, 8, 1, 23, 59).toUtc().toIso8601String();
@@ -615,9 +615,9 @@ void main() {
       final model = CreateEventViewModel();
 
       // Set various values
-      model.eventTitleTextController.text = 'Title';
-      model.eventLocationTextController.text = 'Location';
-      model.eventDescriptionTextController.text = 'Description';
+      model.eventTitle = 'Title';
+      model.eventLocation = 'Location';
+      model.eventDescription = 'Description';
       model.isPublicSwitch = false;
       model.isRegisterableSwitch = false;
       model.isAllDay = false;
@@ -629,10 +629,10 @@ void main() {
 
       model.clearFormState();
 
-      expect(model.eventTitleTextController.text, isEmpty);
-      expect(model.eventLocationTextController.text, isEmpty);
-      expect(model.eventDescriptionTextController.text, isEmpty);
-      expect(model.repeatsEveryCountController.text, '1');
+      expect(model.eventTitle, isEmpty);
+      expect(model.eventLocation, isEmpty);
+      expect(model.eventDescription, isEmpty);
+      expect(model.repeatsEveryCount, '1');
       expect(model.isPublicSwitch, true);
       expect(model.isRegisterableSwitch, true);
       expect(model.isAllDay, true);

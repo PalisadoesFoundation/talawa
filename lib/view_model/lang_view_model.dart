@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
@@ -29,10 +29,10 @@ class AppLanguage extends BaseModel {
   /// Functions related to database mutations.
   final databaseFunctions = locator<DataBaseMutationFunctions>();
 
-  late Locale _appLocale;
+  late String _appLocale;
 
   /// getter for appLocal.
-  Locale get appLocal => _appLocale;
+  String get appLocal => _appLocale;
 
   /// initialiser.
   ///
@@ -42,7 +42,7 @@ class AppLanguage extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> initialize() async {
-    _appLocale = const Locale('en');
+    _appLocale = 'en';
     await fetchLocale();
   }
 
@@ -56,33 +56,12 @@ class AppLanguage extends BaseModel {
   Future<void> fetchLocale() async {
     final prefs = await SharedPreferences.getInstance();
     final String langCode = prefs.getString('language_code') ?? 'en';
-    _appLocale = Locale(langCode);
+    _appLocale = langCode;
 
     notifyListeners();
   }
 
-  /// This function fetches the appropriate locale for the user's app based on the provided locale and supported locales.
-  ///
-  /// **params**:
-  /// * `locale`: (`Locale?`): The locale to be resolved. Can be null.
-  /// * `supportedLocales`: (`Iterable<Locale>`): The list of supported locales in the app.
-  ///
-  /// **returns**:
-  /// * `Locale`: The resolved locale that matches either the language code or the country code of the provided locale.
-  ///              If no match is found or the provided locale is null, the first supported locale is returned.
-  Locale localeResoultion(Locale? locale, Iterable<Locale> supportedLocales) {
-    if (locale == null) {
-      debugPrint("*language locale is null!!!");
-      return supportedLocales.first;
-    }
-    for (final Locale supportedLocale in supportedLocales) {
-      if (supportedLocale.languageCode == locale.languageCode ||
-          supportedLocale.countryCode == locale.countryCode) {
-        return supportedLocale;
-      }
-    }
-    return supportedLocales.first;
-  }
+  
 
   /// This function change the app default language.
   ///
@@ -91,7 +70,7 @@ class AppLanguage extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> changeLanguage(Locale type) async {
+  Future<void> changeLanguage(String type) async {
     // if the app language is of same [type].
     if (_appLocale == type) {
       return;
@@ -101,44 +80,44 @@ class AppLanguage extends BaseModel {
       _appLocale = type;
     } else {
       final prefs = await SharedPreferences.getInstance();
-      if (type == const Locale("es")) {
+      if (type == "es") {
         //If selected language is spanish
-        _appLocale = const Locale("es");
+        _appLocale = "es";
         await prefs.setString('language_code', 'es');
         await prefs.setString('countryCode', 'ES');
-      } else if (type == const Locale("fr")) {
+      } else if (type == "fr") {
         //If selected language is french
-        _appLocale = const Locale("fr");
+        _appLocale = "fr";
         await prefs.setString('language_code', 'fr');
         await prefs.setString('countryCode', 'FR');
-      } else if (type == const Locale("hi")) {
+      } else if (type == "hi") {
         //If selected language is hindi
-        _appLocale = const Locale("hi");
+        _appLocale = "hi";
         await prefs.setString('language_code', 'hi');
         await prefs.setString('countryCode', 'IN');
-      } else if (type == const Locale("zh")) {
+      } else if (type == "zh") {
         //If selected language is Chinese
-        _appLocale = const Locale("zh");
+        _appLocale = "zh";
         await prefs.setString('language_code', 'zh');
         await prefs.setString('countryCode', 'CN');
-      } else if (type == const Locale("de")) {
+      } else if (type == "de") {
         //If selected language is Chinese
-        _appLocale = const Locale("de");
+        _appLocale = "de";
         await prefs.setString('language_code', 'de');
         await prefs.setString('countryCode', 'GE');
-      } else if (type == const Locale("ja")) {
+      } else if (type == "ja") {
         //If selected language is Chinese
-        _appLocale = const Locale("ja");
+        _appLocale = "ja";
         await prefs.setString('language_code', 'ja');
         await prefs.setString('countryCode', 'JP');
-      } else if (type == const Locale("pt")) {
+      } else if (type == "pt") {
         //If selected language is Chinese
-        _appLocale = const Locale("pt");
+        _appLocale = "pt";
         await prefs.setString('language_code', 'pt');
         await prefs.setString('countryCode', 'PT');
       } else {
         //If selected language is english
-        _appLocale = const Locale("en");
+        _appLocale = "en";
         await prefs.setString('language_code', 'en');
         await prefs.setString('countryCode', 'US');
       }

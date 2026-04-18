@@ -283,4 +283,186 @@ class NavigationService {
       );
     }
   }
+
+  /// Shows a progress dialog (loading spinner).
+  ///
+  /// Call [pop] to dismiss the dialog when the operation completes.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void showProgressDialog() {
+    showDialog(
+      context: navigatorKey.currentContext!,
+      barrierColor: Colors.transparent,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  /// Shows a simple Yes/No confirmation dialog.
+  ///
+  /// **params**:
+  /// * `title`: Dialog title.
+  /// * `content`: Dialog body text.
+  /// * `confirmText`: Label for the confirm button. Defaults to 'Confirm'.
+  /// * `cancelText`: Label for the cancel button. Defaults to 'Cancel'.
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: `true` if the user confirmed, `false` otherwise.
+  Future<bool> showConfirmDialog({
+    required String title,
+    required String content,
+    String confirmText = 'Confirm',
+    String cancelText = 'Cancel',
+    Color? confirmColor,
+  }) async {
+    final bool? result = await showDialog<bool>(
+      context: navigatorKey.currentContext!,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(cancelText),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(
+              confirmText,
+              style: confirmColor != null
+                  ? TextStyle(color: confirmColor)
+                  : TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+    return result ?? false;
+  }
+
+  /// Shows a dialog for updating a recurring event with options.
+  ///
+  /// **params**:
+  /// * `isRecurrenceSettingsEdit`: Whether recurrence settings are being edited.
+  ///
+  /// **returns**:
+  /// * `Future<String?>`: Selected recurrence update type, or `null` if cancelled.
+  Future<String?> showRecurrenceUpdateOptionDialog({
+    required bool isRecurrenceSettingsEdit,
+  }) {
+    return showDialog<String>(
+      context: navigatorKey.currentContext!,
+      builder: (context) => AlertDialog(
+        title: const Text('Update Recurring Event'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('How would you like to update this event?'),
+            const SizedBox(height: 16),
+            if (!isRecurrenceSettingsEdit) ...[
+              _buildDialogOption(
+                context,
+                'Update this event only',
+                'single',
+              ),
+              const SizedBox(height: 8),
+            ],
+            _buildDialogOption(
+              context,
+              'Update this and all future events',
+              'thisAndFollowing',
+            ),
+            if (!isRecurrenceSettingsEdit) ...[
+              const SizedBox(height: 8),
+              _buildDialogOption(
+                context,
+                'Update all events in the series',
+                'series',
+              ),
+            ],
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(null),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Shows a dialog for deleting a recurring event with options.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<String?>`: Selected deletion type, or `null` if cancelled.
+  Future<String?> showRecurringEventDeleteDialog() {
+    return showDialog<String>(
+      context: navigatorKey.currentContext!,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Recurring Event'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('How would you like to delete this event?'),
+            const SizedBox(height: 16),
+            _buildDialogOption(
+              context,
+              'Delete this event only',
+              'single',
+            ),
+            const SizedBox(height: 8),
+            _buildDialogOption(
+              context,
+              'Delete this and all future events',
+              'thisAndFollowing',
+            ),
+            const SizedBox(height: 8),
+            _buildDialogOption(
+              context,
+              'Delete all events in the series',
+              'series',
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(null),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Builds a pressable option row for use inside dialog content.
+  Widget _buildDialogOption(BuildContext context, String text, String value) {
+    return InkWell(
+      onTap: () => Navigator.of(context).pop(value),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        decoration: BoxDecoration(
+          border: Border.all(color: Theme.of(context).dividerColor),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(text),
+      ),
+    );
+  }
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';

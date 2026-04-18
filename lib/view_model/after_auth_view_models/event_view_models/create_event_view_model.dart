@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_venue.dart';
+import 'package:talawa/models/events/time_value.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// View model for creating events in an organization.
 class CreateEventViewModel extends BaseEventViewModel {
@@ -26,9 +25,9 @@ class CreateEventViewModel extends BaseEventViewModel {
     try {
       final Map<String, dynamic> variables = {
         "input": {
-          'name': eventTitleTextController.text,
-          'description': eventDescriptionTextController.text,
-          'location': eventLocationTextController.text,
+          'name': eventTitle,
+          'description': eventDescription,
+          'location': eventLocation,
           'isPublic': isPublicSwitch,
           'isRegisterable': isRegisterableSwitch,
           'allDay': isAllDay,
@@ -52,9 +51,7 @@ class CreateEventViewModel extends BaseEventViewModel {
         }
       }
 
-      navigationService.pushDialog(
-        const CustomProgressDialog(),
-      );
+      navigationService.showProgressDialog();
 
       final result = await eventService.createEvent(variables: variables);
       if (result.data != null) {
@@ -180,11 +177,11 @@ class CreateEventViewModel extends BaseEventViewModel {
   /// **returns**:
   ///   None
   void clearFormState() {
-    eventTitleTextController.clear();
-    eventLocationTextController.clear();
-    eventDescriptionTextController.clear();
-    repeatsEveryCountController.text = '1';
-    validate = AutovalidateMode.disabled;
+    eventTitle = '';
+    eventLocation = '';
+    eventDescription = '';
+    repeatsEveryCount = '1';
+    validateMode = false;
     resetRecurrenceSettings();
     isPublicSwitch = true;
     isRegisterableSwitch = true;
@@ -193,8 +190,8 @@ class CreateEventViewModel extends BaseEventViewModel {
     eventStartDate = now;
     eventEndDate = now;
     recurrenceEndDate = null;
-    eventStartTime = TimeOfDay.now();
-    eventEndTime = TimeOfDay.now();
+    eventStartTime = TimeValue.now();
+    eventEndTime = TimeValue.now();
     imageFile = null;
     _selectedMembers.clear();
     _memberCheckedMap.clear();

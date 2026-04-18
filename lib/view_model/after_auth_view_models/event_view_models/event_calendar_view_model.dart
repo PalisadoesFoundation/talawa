@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/scheduler.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:talawa/locator.dart';
@@ -135,7 +134,7 @@ class EventCalendarViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void viewChanged(ViewChangedDetails viewChangedDetails) {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    Future.microtask(() {
       _dateRangePickerController.selectedDate =
           viewChangedDetails.visibleDates[0];
       _dateRangePickerController.displayDate =
@@ -197,7 +196,7 @@ class EventCalendarViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+    Future.microtask(() async {
       final pickedDate = args.value as DateTime?;
       if (pickedDate != null) {
         // Fetch events for the picked date's month only

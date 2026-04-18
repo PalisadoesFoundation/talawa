@@ -1,27 +1,18 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/time_value.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/widgets/date_time_picker.dart';
 
 /// Base class for event view models with common recurrence functionality.
 abstract class BaseEventViewModel extends BaseModel {
-  /// Constructor to initialize controllers and focus nodes.
-  BaseEventViewModel() {
-    eventTitleTextController = TextEditingController();
-    eventLocationTextController = TextEditingController();
-    eventDescriptionTextController = TextEditingController();
-    repeatsEveryCountController = TextEditingController(text: '1');
-  }
-
   ///  MultiMediaPickerService instance.
   final MultiMediaPickerService multiMediaPickerService =
       locator<MultiMediaPickerService>();
@@ -29,8 +20,11 @@ abstract class BaseEventViewModel extends BaseModel {
   /// Event service instance.
   final eventService = locator<EventService>();
 
-  /// Form validation mode.
-  AutovalidateMode validate = AutovalidateMode.disabled;
+  /// When true, the view should show validation errors on all fields.
+  ///
+  /// The View maps this to `AutovalidateMode.always` when `true`,
+  /// and `AutovalidateMode.disabled` when `false`.
+  bool validateMode = false;
 
   /// Current organization info.
   final OrgInfo currentOrg = locator<UserConfig>().currentOrg;
@@ -38,28 +32,38 @@ abstract class BaseEventViewModel extends BaseModel {
   /// Image file for the event.
   File? imageFile;
 
-  /// Event title controller.
-  late final TextEditingController eventTitleTextController;
+  // ── Text fields (owned here; the View creates its own TextEditingControllers
+  //    and syncs them with these values via callbacks / onChanged).
 
-  /// Event location controller.
-  late final TextEditingController eventLocationTextController;
+  /// Event title text.
+  String eventTitle = '';
 
-  /// Event description controller.
-  late final TextEditingController eventDescriptionTextController;
+  /// Event location text.
+  String eventLocation = '';
 
-  /// Recurrence interval controller.
-  late final TextEditingController repeatsEveryCountController;
+  /// Event description text.
+  String eventDescription = '';
+
+  /// Recurrence interval text (e.g. "1", "2").
+  String repeatsEveryCount = '1';
 
   /// Event start time.
-  TimeOfDay eventStartTime = TimeOfDay.now();
+  TimeValue eventStartTime = TimeValue.now();
 
-  /// Event end time greater then start time in deafult also.
-  TimeOfDay eventEndTime = TimeOfDay.now().replacing(
-    hour: TimeOfDay.now().minute == 59
-        ? TimeOfDay.now().hour + 1
-        : TimeOfDay.now().hour,
-    minute: TimeOfDay.now().minute == 59 ? 59 : TimeOfDay.now().minute + 1,
-  );
+  /// Event end time greater than start time by default.
+  TimeValue get _defaultEndTime {
+    final now = TimeValue.now();
+    return now.replacing(
+      hour: now.minute == 59 ? now.hour + 1 : now.hour,
+      minute: now.minute == 59 ? 59 : now.minute + 1,
+    );
+  }
+
+  late TimeValue _eventEndTime = _defaultEndTime;
+
+  /// Event end time.
+  TimeValue get eventEndTime => _eventEndTime;
+  set eventEndTime(TimeValue value) => _eventEndTime = value;
 
   /// Event start date.
   DateTime eventStartDate = DateTime.now();
@@ -72,20 +76,6 @@ abstract class BaseEventViewModel extends BaseModel {
 
   /// Whether the event is registerable.
   bool isRegisterableSwitch = true;
-
-  /// Clean up resources when the view model is destroyed.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void cleanUp() {
-    eventTitleTextController.dispose();
-    eventLocationTextController.dispose();
-    eventDescriptionTextController.dispose();
-    repeatsEveryCountController.dispose();
-  }
 
   /// Whether the event is all day.
   bool isAllDay = true;
@@ -200,7 +190,7 @@ abstract class BaseEventViewModel extends BaseModel {
     frequency = Frequency.weekly;
     weekDays = {};
     interval = 1;
-    repeatsEveryCountController.text = '1';
+    repeatsEveryCount = '1';
     count = null;
     byMonth = null;
     byMonthDay = null;
@@ -224,7 +214,7 @@ abstract class BaseEventViewModel extends BaseModel {
   /// * `DateTime`: Combined DateTime object
   DateTime combineDateTime(
     DateTime date,
-    TimeOfDay? time,
+    TimeValue? time,
   ) {
     final combined = DateTime(
       date.year,
@@ -300,15 +290,15 @@ abstract class BaseEventViewModel extends BaseModel {
 
   /// Shows date picker and handles start date selection with validation.
   ///
+  /// The View must pass the context-aware date picker result.
+  /// Call this after the View has invoked `customDatePicker`.
+  ///
   /// **params**:
-  ///   None
+  /// * `date`: The selected date returned from the date picker.
   ///
   /// **returns**:
   ///   None
-  Future<void> pickStartDate() async {
-    final date = await customDatePicker(
-      initialDate: eventStartDate,
-    );
+  void setStartDate(DateTime date) {
     // Validator functions tested in unit tests
     // coverage:ignore-start
     final errorMessage = Validators.eventStartDate(date);
@@ -323,7 +313,7 @@ abstract class BaseEventViewModel extends BaseModel {
     if (endDateTime.isBefore(startDateTime)) {
       eventEndDate = eventStartDate;
 
-      /// end time 1 minute extra then start time
+      /// end time 1 minute extra than start time
       eventEndTime = eventStartTime.replacing(
         hour: eventStartTime.minute == 59
             ? eventStartTime.hour + 1
@@ -334,46 +324,16 @@ abstract class BaseEventViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// Shows time picker and handles start time selection with validation.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> pickStartTime() async {
-    if (isAllDay) {
-      return;
-    }
-
-    final time = await customTimePicker(
-      initialTime: eventStartTime,
-    );
-    eventStartTime = time;
-    final endDateTime = combineDateTime(eventEndDate, eventEndTime);
-    final startDateTime = combineDateTime(eventStartDate, eventStartTime);
-    if (endDateTime.isBefore(startDateTime)) {
-      if (eventStartDate.year == eventEndDate.year &&
-          eventStartDate.month == eventEndDate.month &&
-          eventStartDate.day == eventEndDate.day) {
-        eventEndTime = time;
-      }
-    }
-
-    notifyListeners();
-  }
-
   /// Shows date picker and handles end date selection with validation.
   ///
+  /// The View must pass the context-aware date picker result.
+  ///
   /// **params**:
-  ///   None
+  /// * `date`: The selected date returned from the date picker.
   ///
   /// **returns**:
   ///   None
-  Future<void> pickEndDate() async {
-    final date = await customDatePicker(
-      initialDate: eventEndDate,
-    );
+  void setEndDate(DateTime date) {
     // Validator functions tested in unit tests
     // coverage:ignore-start
     final errorMessage = Validators.eventDateTime(
@@ -387,26 +347,45 @@ abstract class BaseEventViewModel extends BaseModel {
       navigationService.showSnackBar(errorMessage);
       return;
     }
-
     eventEndDate = date;
     notifyListeners();
   }
 
-  /// Shows time picker and handles end time selection with validation.
+  /// Sets the start time and adjusts end time if needed.
+  ///
+  /// The View must pass the context-aware time picker result.
   ///
   /// **params**:
-  ///   None
+  /// * `time`: The selected time returned from the time picker.
   ///
   /// **returns**:
   ///   None
-  Future<void> pickEndTime() async {
-    if (isAllDay) {
-      return;
+  void setStartTime(TimeValue time) {
+    if (isAllDay) return;
+    eventStartTime = time;
+    final endDateTime = combineDateTime(eventEndDate, eventEndTime);
+    final startDateTime = combineDateTime(eventStartDate, eventStartTime);
+    if (endDateTime.isBefore(startDateTime)) {
+      if (eventStartDate.year == eventEndDate.year &&
+          eventStartDate.month == eventEndDate.month &&
+          eventStartDate.day == eventEndDate.day) {
+        eventEndTime = time;
+      }
     }
+    notifyListeners();
+  }
 
-    final time = await customTimePicker(
-      initialTime: eventEndTime,
-    );
+  /// Sets the end time with validation.
+  ///
+  /// The View must pass the context-aware time picker result.
+  ///
+  /// **params**:
+  /// * `time`: The selected time returned from the time picker.
+  ///
+  /// **returns**:
+  ///   None
+  void setEndTime(TimeValue time) {
+    if (isAllDay) return;
     if (eventStartDate.year == eventEndDate.year &&
         eventStartDate.month == eventEndDate.month &&
         eventStartDate.day == eventEndDate.day) {
@@ -419,7 +398,6 @@ abstract class BaseEventViewModel extends BaseModel {
         time,
       );
       // coverage:ignore-end
-
       if (errorMessage != null) {
         navigationService.showSnackBar(errorMessage);
         return;
@@ -475,18 +453,5 @@ abstract class BaseEventViewModel extends BaseModel {
   ///   None
   void navigateBack() {
     navigationService.pop();
-  }
-
-  /// Dispose controllers and focus nodes by calling cleanUp.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  @override
-  void dispose() {
-    cleanUp();
-    super.dispose();
   }
 }

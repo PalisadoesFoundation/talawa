@@ -157,8 +157,8 @@ Future<void> main() async {
                   .navigatorKey
                   .currentContext!
                   .read<AppLanguage>()
-                  .appLocal
-                  .languageCode,
+                  .appLocal,
+          orElse: () => languages.first,
         );
         expect(
           ((tester.firstWidget(languageSelectionButton) as TextButton).child!

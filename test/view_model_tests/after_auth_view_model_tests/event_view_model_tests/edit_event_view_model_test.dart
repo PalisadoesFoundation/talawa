@@ -11,6 +11,7 @@ import 'package:talawa/models/events/recurrence_rule_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
+import 'package:talawa/models/events/time_value.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
@@ -50,16 +51,16 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      expect(model.eventTitleTextController.text, 'Test Event');
-      expect(model.eventLocationTextController.text, 'Test Location');
-      expect(model.eventDescriptionTextController.text, 'Test Description');
+      expect(model.eventTitle, 'Test Event');
+      expect(model.eventLocation, 'Test Location');
+      expect(model.eventDescription, 'Test Description');
       expect(model.isPublicSwitch, true);
       expect(model.isRegisterableSwitch, true);
       expect(model.isAllDay, false);
       expect(model.eventStartDate, DateTime(2025, 7, 28));
       expect(model.eventEndDate, DateTime(2025, 7, 30));
-      expect(model.eventStartTime, const TimeOfDay(hour: 9, minute: 0));
-      expect(model.eventEndTime, const TimeOfDay(hour: 17, minute: 0));
+      expect(model.eventStartTime, const TimeValue(hour: 9, minute: 0));
+      expect(model.eventEndTime, const TimeValue(hour: 17, minute: 0));
       expect(model.isRecurring, false);
       expect(model.wasRecurringOriginally, false);
     });
@@ -132,9 +133,9 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      expect(model.eventTitleTextController.text, '');
-      expect(model.eventLocationTextController.text, '');
-      expect(model.eventDescriptionTextController.text, '');
+      expect(model.eventTitle, '');
+      expect(model.eventLocation, '');
+      expect(model.eventDescription, '');
       expect(model.isPublicSwitch, true);
       expect(model.isRegisterableSwitch, true);
       expect(model.isAllDay, false);
@@ -505,8 +506,8 @@ void main() {
       model.initialize(testEvent);
 
       // Make changes to the model
-      model.eventTitleTextController.text = 'Updated Event';
-      model.eventLocationTextController.text = 'Updated Location';
+      model.eventTitle = 'Updated Event';
+      model.eventLocation = 'Updated Location';
       model.isPublicSwitch = false;
 
       // Test the model can be executed (may throw due to unmocked service)
@@ -583,10 +584,10 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      expect(model.eventTitleTextController.text, 'Original Title');
+      expect(model.eventTitle, 'Original Title');
 
-      model.eventTitleTextController.text = 'Updated Title';
-      expect(model.eventTitleTextController.text, 'Updated Title');
+      model.eventTitle = 'Updated Title';
+      expect(model.eventTitle, 'Updated Title');
     });
 
     test('correctly identifies field changes for location', () {
@@ -599,10 +600,10 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      expect(model.eventLocationTextController.text, 'Original Location');
+      expect(model.eventLocation, 'Original Location');
 
-      model.eventLocationTextController.text = 'Updated Location';
-      expect(model.eventLocationTextController.text, 'Updated Location');
+      model.eventLocation = 'Updated Location';
+      expect(model.eventLocation, 'Updated Location');
     });
 
     test('correctly identifies field changes for description', () {
@@ -615,10 +616,10 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      expect(model.eventDescriptionTextController.text, 'Original Description');
+      expect(model.eventDescription, 'Original Description');
 
-      model.eventDescriptionTextController.text = 'Updated Description';
-      expect(model.eventDescriptionTextController.text, 'Updated Description');
+      model.eventDescription = 'Updated Description';
+      expect(model.eventDescription, 'Updated Description');
     });
 
     test('correctly identifies changes for boolean switches', () {
@@ -659,18 +660,18 @@ void main() {
 
       expect(model.eventStartDate, DateTime(2025, 8, 1));
       expect(model.eventEndDate, DateTime(2025, 8, 1));
-      expect(model.eventStartTime, const TimeOfDay(hour: 10, minute: 0));
-      expect(model.eventEndTime, const TimeOfDay(hour: 11, minute: 0));
+      expect(model.eventStartTime, const TimeValue(hour: 10, minute: 0));
+      expect(model.eventEndTime, const TimeValue(hour: 11, minute: 0));
 
       model.eventStartDate = DateTime(2025, 8, 2);
       model.eventEndDate = DateTime(2025, 8, 2);
-      model.eventStartTime = const TimeOfDay(hour: 14, minute: 30);
-      model.eventEndTime = const TimeOfDay(hour: 16, minute: 30);
+      model.eventStartTime = const TimeValue(hour: 14, minute: 30);
+      model.eventEndTime = const TimeValue(hour: 16, minute: 30);
 
       expect(model.eventStartDate, DateTime(2025, 8, 2));
       expect(model.eventEndDate, DateTime(2025, 8, 2));
-      expect(model.eventStartTime, const TimeOfDay(hour: 14, minute: 30));
-      expect(model.eventEndTime, const TimeOfDay(hour: 16, minute: 30));
+      expect(model.eventStartTime, const TimeValue(hour: 14, minute: 30));
+      expect(model.eventEndTime, const TimeValue(hour: 16, minute: 30));
     });
   });
 
@@ -729,9 +730,9 @@ void main() {
       model.initialize(testEvent);
 
       // Make changes to various fields
-      model.eventTitleTextController.text = 'Updated Event';
-      model.eventLocationTextController.text = 'Updated Location';
-      model.eventDescriptionTextController.text = 'Updated Description';
+      model.eventTitle = 'Updated Event';
+      model.eventLocation = 'Updated Location';
+      model.eventDescription = 'Updated Description';
       model.isPublicSwitch = false;
       model.isRegisterableSwitch = true;
       model.isAllDay = true;
@@ -790,8 +791,8 @@ void main() {
       // Change dates and times
       model.eventStartDate = DateTime(2025, 8, 2);
       model.eventEndDate = DateTime(2025, 8, 2);
-      model.eventStartTime = const TimeOfDay(hour: 14, minute: 30);
-      model.eventEndTime = const TimeOfDay(hour: 16, minute: 30);
+      model.eventStartTime = const TimeValue(hour: 14, minute: 30);
+      model.eventEndTime = const TimeValue(hour: 16, minute: 30);
 
       await model.execute();
 
@@ -937,7 +938,7 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      model.eventTitleTextController.text = 'Updated Event';
+      model.eventTitle = 'Updated Event';
 
       await model.execute();
 
@@ -975,7 +976,7 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      model.eventTitleTextController.text = 'Updated Event';
+      model.eventTitle = 'Updated Event';
 
       await model.execute();
 
@@ -1007,7 +1008,7 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      model.eventTitleTextController.text = 'Updated Event';
+      model.eventTitle = 'Updated Event';
 
       await model.execute();
 
@@ -1033,7 +1034,7 @@ void main() {
       model.initialize(testEvent);
 
       // Verify the model was initialized properly
-      expect(model.eventTitleTextController.text, 'Test Event');
+      expect(model.eventTitle, 'Test Event');
     });
   });
 
@@ -1295,7 +1296,7 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      model.eventTitleTextController.text = 'Updated Event';
+      model.eventTitle = 'Updated Event';
 
       // Test that service exceptions are handled gracefully
       try {
@@ -1318,7 +1319,7 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      model.eventTitleTextController.text = 'Updated Event';
+      model.eventTitle = 'Updated Event';
 
       // Test that null service responses are handled gracefully
       try {
@@ -1358,9 +1359,9 @@ void main() {
       final model = EditEventViewModel();
       model.initialize(testEvent);
 
-      expect(model.eventTitleTextController.text, '');
-      expect(model.eventLocationTextController.text, '');
-      expect(model.eventDescriptionTextController.text, '');
+      expect(model.eventTitle, '');
+      expect(model.eventLocation, '');
+      expect(model.eventDescription, '');
       expect(model.isPublicSwitch, true);
       expect(model.isRegisterableSwitch, true);
       expect(model.isAllDay, false);

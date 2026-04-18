@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/events/time_value.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
@@ -25,15 +26,104 @@ class EventPageForm extends StatefulWidget {
 
 /// _EventPageFormState returns a widget for a Page to Create the Event in the Organization.
 class EventPageFormState extends State<EventPageForm> {
+  // ── Text controllers owned by the View.
+  // The ViewModel holds plain String fields; these controllers are the UI bridge.
+  late final TextEditingController _titleController;
+  late final TextEditingController _locationController;
+  late final TextEditingController _descriptionController;
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _locationController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  /// Formats a [TimeValue] into a locale-aware 12h/24h string using
+  /// Flutter's `TimeOfDay.format()`. The View is responsible for all
+  /// Flutter-specific formatting.
+  String _formatTime(BuildContext context, TimeValue tv) {
+    return TimeOfDay(hour: tv.hour, minute: tv.minute).format(context);
+  }
+
+  /// Shows the date picker and passes the result back to the ViewModel.
+  Future<void> _pickStartDate(BaseEventViewModel model) async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: model.eventStartDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
+    );
+    if (date != null && date != model.eventStartDate) {
+      model.setStartDate(date);
+    }
+  }
+
+  /// Shows the time picker and passes the result back to the ViewModel.
+  Future<void> _pickStartTime(BaseEventViewModel model) async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(
+        hour: model.eventStartTime.hour,
+        minute: model.eventStartTime.minute,
+      ),
+    );
+    if (picked != null) {
+      model.setStartTime(TimeValue(hour: picked.hour, minute: picked.minute));
+    }
+  }
+
+  /// Shows the date picker for end date and passes the result to the ViewModel.
+  Future<void> _pickEndDate(BaseEventViewModel model) async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: model.eventEndDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
+    );
+    if (date != null && date != model.eventEndDate) {
+      model.setEndDate(date);
+    }
+  }
+
+  /// Shows the time picker for end time and passes the result to the ViewModel.
+  Future<void> _pickEndTime(BaseEventViewModel model) async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(
+        hour: model.eventEndTime.hour,
+        minute: model.eventEndTime.minute,
+      ),
+    );
+    if (picked != null) {
+      model.setEndTime(TimeValue(hour: picked.hour, minute: picked.minute));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.event != null) {
       return BaseView<EditEventViewModel>(
-        onModelReady: (model) => model.initialize(widget.event!),
+        onModelReady: (model) {
+          model.initialize(widget.event!);
+          _titleController = TextEditingController(text: model.eventTitle);
+          _locationController =
+              TextEditingController(text: model.eventLocation);
+          _descriptionController =
+              TextEditingController(text: model.eventDescription);
+        },
         builder: (context, model, child) => _formUi(context, model),
       );
     } else {
       return BaseView<CreateEventViewModel>(
+        onModelReady: (model) {
+          _titleController = TextEditingController(text: model.eventTitle);
+          _locationController =
+              TextEditingController(text: model.eventLocation);
+          _descriptionController =
+              TextEditingController(text: model.eventDescription);
+        },
         builder: (context, model, child) => _formUi(context, model),
       );
     }
@@ -68,7 +158,13 @@ class EventPageFormState extends State<EventPageForm> {
         ),
         actions: [
           TextButton(
-            onPressed: model.executeIfLoggedIn,
+            onPressed: () {
+              // Sync controller text → model fields before executing
+              model.eventTitle = _titleController.text;
+              model.eventLocation = _locationController.text;
+              model.eventDescription = _descriptionController.text;
+              model.executeIfLoggedIn();
+            },
             child: Text(
               model is CreateEventViewModel
                   ? AppLocalizations.of(context)!.strictTranslate('Add')
@@ -144,7 +240,8 @@ class EventPageFormState extends State<EventPageForm> {
                   children: [
                     TextField(
                       textInputAction: TextInputAction.next,
-                      controller: model.eventTitleTextController,
+                      controller: _titleController,
+                      onChanged: (v) => model.eventTitle = v,
                       keyboardType: TextInputType.name,
                       maxLength: 20,
                       decoration: InputDecoration(
@@ -174,7 +271,8 @@ class EventPageFormState extends State<EventPageForm> {
                     TextField(
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.streetAddress,
-                      controller: model.eventLocationTextController,
+                      controller: _locationController,
+                      onChanged: (v) => model.eventLocation = v,
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!
                             .strictTranslate('Where is the event?'),
@@ -195,7 +293,8 @@ class EventPageFormState extends State<EventPageForm> {
                     ),
                     TextField(
                       keyboardType: TextInputType.multiline,
-                      controller: model.eventDescriptionTextController,
+                      controller: _descriptionController,
+                      onChanged: (v) => model.eventDescription = v,
                       maxLines: 10,
                       minLines: 1,
                       decoration: InputDecoration(
@@ -326,9 +425,9 @@ class EventPageFormState extends State<EventPageForm> {
                 DateTimeTile(
                   isAllDay: model.isAllDay,
                   date: "${model.eventStartDate.toLocal()}".split(' ')[0],
-                  time: model.eventStartTime.format(context),
-                  setDate: model.pickStartDate,
-                  setTime: model.pickStartTime,
+                  time: _formatTime(context, model.eventStartTime),
+                  setDate: () => _pickStartDate(model),
+                  setTime: () => _pickStartTime(model),
                 ),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.026,
@@ -350,9 +449,9 @@ class EventPageFormState extends State<EventPageForm> {
                 DateTimeTile(
                   isAllDay: model.isAllDay,
                   date: "${model.eventEndDate.toLocal()}".split(' ')[0],
-                  time: model.eventEndTime.format(context),
-                  setDate: model.pickEndDate,
-                  setTime: model.pickEndTime,
+                  time: _formatTime(context, model.eventEndTime),
+                  setDate: () => _pickEndDate(model),
+                  setTime: () => _pickEndTime(model),
                 ),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.026,

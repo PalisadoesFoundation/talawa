@@ -65,7 +65,7 @@ void main() {
         expect(viewModel.userPic, null);
         expect(viewModel.orgName, equals('Test Organization'));
         expect(viewModel.imageFiles, isEmpty);
-        expect(viewModel.captionController.text, isEmpty);
+
         expect(viewModel.imageCount, equals(0));
         expect(viewModel.imageFile, isNull);
       });
@@ -232,10 +232,8 @@ void main() {
       test('should return false for canUploadPost when no images selected', () {
         // Arrange
         viewModel.initialise();
-        viewModel.captionController.text = 'Test caption';
-
         // Act & Assert
-        expect(viewModel.canUploadPost(), isFalse);
+        expect(viewModel.canUploadPost('Test caption'), isFalse);
       });
 
       test('should return false for canUploadPost when caption is empty', () {
@@ -245,7 +243,7 @@ void main() {
         viewModel.addImage(mockFile);
 
         // Act & Assert
-        expect(viewModel.canUploadPost(), isFalse);
+        expect(viewModel.canUploadPost(''), isFalse);
       });
 
       test(
@@ -255,10 +253,8 @@ void main() {
         viewModel.initialise();
         final mockFile = File('test_image.jpg');
         viewModel.addImage(mockFile);
-        viewModel.captionController.text = '   ';
-
         // Act & Assert
-        expect(viewModel.canUploadPost(), isFalse);
+        expect(viewModel.canUploadPost('   '), isFalse);
       });
 
       test(
@@ -268,19 +264,15 @@ void main() {
         viewModel.initialise();
         final mockFile = File('test_image.jpg');
         viewModel.addImage(mockFile);
-        viewModel.captionController.text = 'Test caption';
-
         // Act & Assert
-        expect(viewModel.canUploadPost(), isTrue);
+        expect(viewModel.canUploadPost('Test caption'), isTrue);
       });
 
       test('should show error when uploading post without images', () async {
         // Arrange
         viewModel.initialise();
-        viewModel.captionController.text = 'Test caption';
-
         // Act
-        await viewModel.uploadPost();
+        await viewModel.uploadPost('Test caption');
 
         // Assert
         verify(
@@ -298,7 +290,7 @@ void main() {
         viewModel.addImage(mockFile);
 
         // Act
-        await viewModel.uploadPost();
+        await viewModel.uploadPost('');
 
         // Assert
         verify(
@@ -515,10 +507,8 @@ void main() {
       test('should show error when no images are selected', () async {
         // Arrange
         viewModel.initialise();
-        viewModel.captionController.text = 'Test caption';
-
         // Act
-        await viewModel.uploadPost();
+        await viewModel.uploadPost('Test caption');
 
         // Assert
         verify(
@@ -536,7 +526,7 @@ void main() {
         viewModel.addImage(mockFile);
 
         // Act
-        await viewModel.uploadPost();
+        await viewModel.uploadPost('');
 
         // Assert
         verify(
@@ -552,10 +542,8 @@ void main() {
         viewModel.initialise();
         final mockFile = File('assets/images/talawa-logo-lite-200x200.png');
         viewModel.addImage(mockFile);
-        viewModel.captionController.text = '   ';
-
         // Act
-        await viewModel.uploadPost();
+        await viewModel.uploadPost('   ');
 
         // Assert
         verify(
@@ -572,10 +560,8 @@ void main() {
         viewModel.initialise();
         final mockFile = File('assets/images/talawa-logo-lite-200x200.png');
         viewModel.addImage(mockFile);
-        viewModel.captionController.text = 'Test post caption';
-
         // Act
-        await viewModel.uploadPost();
+        await viewModel.uploadPost('Test post caption');
 
         // Assert
         verify(
@@ -596,10 +582,8 @@ void main() {
         viewModel.initialise();
         final mockFile = File('assets/images/talawa-logo-lite-200x200.png');
         viewModel.addImage(mockFile);
-        viewModel.captionController.text = 'Test post caption';
-
         // Act
-        await viewModel.uploadPost();
+        await viewModel.uploadPost('Test post caption');
 
         // Assert - Just verify that ActionHandlerService is called
         verify(

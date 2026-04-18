@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show debugPrint;
 import 'package:http/http.dart' as http;
+import 'package:talawa/models/events/time_value.dart';
 
 ///This class creats various validator methods for the application.
 ///
@@ -177,9 +178,9 @@ class Validators {
   /// * `String?`: Error message if end date/time is before start date/time, null otherwise.
   static String? eventDateTime(
     DateTime startDate,
-    TimeOfDay startTime,
+    TimeValue startTime,
     DateTime endDate,
-    TimeOfDay endTime,
+    TimeValue endTime,
   ) {
     final start = DateTime(
       startDate.year,

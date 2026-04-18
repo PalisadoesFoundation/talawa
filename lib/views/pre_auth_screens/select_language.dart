@@ -11,10 +11,10 @@ import 'package:talawa/view_model/lang_view_model.dart';
 /// There is a text button at the right bottom of the screen which changes the language when tapped.
 /// The user finally gets redirected to the previous screen.
 class SelectLanguage extends StatefulWidget {
-  const SelectLanguage({required Key key}) : super(key: key);
+  const SelectLanguage({super.key});
 
   @override
-  _SelectLanguageState createState() => _SelectLanguageState();
+  State<SelectLanguage> createState() => _SelectLanguageState();
 }
 
 class _SelectLanguageState extends State<SelectLanguage> {
@@ -65,14 +65,14 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   // Returns a list of all the languages available
                   return InkWell(
                     key: Key(
-                      context.read<AppLanguage>().appLocal.languageCode ==
+                      context.read<AppLanguage>().appLocal ==
                               languages[index].langCode
                           ? 'Selected'
                           : 'NotSelected',
                     ),
                     onTap: () async {
                       await context.read<AppLanguage>().changeLanguage(
-                            Locale(languages[index].langCode),
+                            languages[index].langCode,
                           );
                     },
                     child: Consumer<AppLanguage>(
@@ -86,7 +86,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                           ),
                           decoration: BoxDecoration(
                             color: languages[index].langCode ==
-                                    appLang.appLocal.languageCode
+                                    appLang.appLocal
                                 ? const Color(0xFFC4C4C4)
                                     .withAlpha((0.15 * 255).toInt())
                                 : Colors.transparent,

@@ -683,7 +683,7 @@ void main() {
 
       // Should default to 1 and reset text field
       expect(model.interval, 1);
-      expect(model.repeatsEveryCountController.text, '1');
+      expect(model.repeatsEveryCount, '1');
     });
 
     testWidgets('Date picker functionality in "On" option', (tester) async {

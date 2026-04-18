@@ -25,6 +25,10 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
   /// Instance of Base event view model.
   late BaseEventViewModel viewModel;
 
+  /// Local controller for the "repeats every" count field.
+  /// The View owns this controller; the ViewModel owns the plain String `repeatsEveryCount`.
+  late final TextEditingController _repeatsEveryController;
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +36,8 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
     _countController = TextEditingController(
       text: viewModel.count?.toString() ?? "10",
     );
+    _repeatsEveryController =
+        TextEditingController(text: viewModel.repeatsEveryCount);
   }
 
   late final TextEditingController _countController;
@@ -39,6 +45,8 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
   @override
   void dispose() {
     _countController.dispose();
+    _repeatsEveryController.dispose();
+
     super.dispose();
   }
 
@@ -81,7 +89,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
     viewModel.updateRecurrenceLabel();
 
     // Validate and update data before navigation
-    final intervalText = viewModel.repeatsEveryCountController.text;
+    final intervalText = _repeatsEveryController.text;
 
     // Parse and validate interval
     int parsedInterval = 1;
@@ -90,7 +98,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
       if (parsedInterval <= 0) parsedInterval = 1;
     } catch (e) {
       parsedInterval = 1;
-      viewModel.repeatsEveryCountController.text = '1';
+      _repeatsEveryController.text = '1';
     }
     if (viewModel.eventEndType == EventEndTypes.never) {
       viewModel.recurrenceEndDate = null;
@@ -333,7 +341,7 @@ class _CustomRecurringEventState extends State<CustomRecurringEvent> {
           width: SizeConfig.screenWidth! * 0.15,
           child: CustomTextField(
             maxTextLength: 2,
-            textEditingController: viewModel.repeatsEveryCountController,
+            textEditingController: _repeatsEveryController,
           ),
         ),
         SizedBox(

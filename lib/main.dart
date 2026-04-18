@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
                   selector: (_, appTheme) => appTheme.theme,
                   builder: (context, themeData, child) {
                     return MaterialApp(
-                      locale: langModel.appLocal,
+                      locale: Locale(langModel.appLocal),
                       supportedLocales: [
                         const Locale('en', 'US'),
                         const Locale('es', 'ES'),
@@ -140,7 +140,20 @@ class _MyAppState extends State<MyApp> {
                       debugShowCheckedModeBanner: false,
                       navigatorKey: navigationService.navigatorKey,
                       onGenerateRoute: router.generateRoute,
-                      localeResolutionCallback: langModel.localeResoultion,
+                      localeResolutionCallback: (locale, supportedLocales) {
+                        if (locale == null) {
+                          debugPrint("*language locale is null!!!");
+                          return supportedLocales.first;
+                        }
+                        for (final Locale supportedLocale in supportedLocales) {
+                          if (supportedLocale.languageCode ==
+                                  locale.languageCode ||
+                              supportedLocale.countryCode == locale.countryCode) {
+                            return supportedLocale;
+                          }
+                        }
+                        return supportedLocales.first;
+                      },
                       initialRoute: '/',
                       onGenerateInitialRoutes: (String initialRouteName) {
                         return [

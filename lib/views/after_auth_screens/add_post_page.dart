@@ -4,6 +4,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// AddPost returns a widget to add(upload) the post.
 class AddPost extends StatefulWidget {
@@ -16,6 +17,14 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
+  final TextEditingController _captionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _captionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -52,17 +61,25 @@ class _AddPostState extends State<AddPost> {
             actions: [
               TextButton(
                 key: const Key('add_post_share_button'),
-                onPressed: model.canUploadPost()
+                onPressed: model.canUploadPost(_captionController.text)
                     ? () async {
-                        await model.uploadPost();
-                        navigationService.pop();
+                        navigationService.pushDialog(
+                          const CustomProgressDialog(
+                            key: Key('addPostProgress'),
+                          ),
+                        );
+                        bool success = await model.uploadPost(_captionController.text);
+                        navigationService.pop(); // Pop progress dialog
+                        if (success) {
+                          navigationService.pop(); // Pop the page
+                        }
                       }
                     : null,
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate("Share"),
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: model.canUploadPost()
+                    color: model.canUploadPost(_captionController.text)
                         ? colorScheme.primary
                         : theme.disabledColor,
                   ),
@@ -118,7 +135,7 @@ class _AddPostState extends State<AddPost> {
                       // Caption text field
                       TextField(
                         key: const Key('caption_text_field'),
-                        controller: model.captionController,
+                        controller: _captionController,
                         maxLines: null,
                         minLines: 3,
                         style: theme.textTheme.bodyLarge?.copyWith(
