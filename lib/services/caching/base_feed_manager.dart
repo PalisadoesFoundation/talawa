@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/services/cache/swr_cache.dart';
+import 'package:talawa/utils/app_logger.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 /// An abstract base class for managing a feed of type [T] with caching and online data fetching capabilities.
@@ -115,7 +114,7 @@ abstract class BaseFeedManager<T> {
           return data;
         });
       } catch (e) {
-        debugPrint(e.toString());
+        AppLog.error('Feed fetch failed; falling back to cached data', e);
         return loadCachedData();
       }
     } else {

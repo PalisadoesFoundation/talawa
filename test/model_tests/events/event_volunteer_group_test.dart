@@ -23,7 +23,7 @@ void main() {
   group('Test EventVolunteerGroup Model', () {
     test('Test EventVolunteerGroup fromJson', () {
       final eventVolunteerGroupJson = {
-        '_id': 'group1',
+        'id': 'group1',
         'createdAt': '2024-08-01T10:00:00Z',
         'creator': {
           'id': 'fakeCreatorId',
@@ -45,12 +45,12 @@ void main() {
         'updatedAt': '2024-08-05T15:30:00Z',
         'volunteers': [
           {
-            '_id': 'volunteer1',
+            'id': 'volunteer1',
             'isAssigned': true,
             'response': 'Accepted',
           },
           {
-            '_id': 'volunteer2',
+            'id': 'volunteer2',
             'isAssigned': false,
             'response': 'Pending',
           },
@@ -81,7 +81,7 @@ void main() {
 
     test('Test EventVolunteerGroup fromJson with null values', () {
       final eventVolunteerGroupJson = {
-        '_id': 'group2',
+        'id': 'group2',
         'createdAt': null,
         'creator': null,
         'event': null,
@@ -108,7 +108,7 @@ void main() {
 
     test('Test EventVolunteerGroup fromJson with minimal data', () {
       final eventVolunteerGroupJson = {
-        '_id': 'group3',
+        'id': 'group3',
       };
 
       final eventVolunteerGroupFromJson =
@@ -144,7 +144,7 @@ void main() {
 
     test('Test EventVolunteerGroup fromJson with empty volunteers list', () {
       final eventVolunteerGroupJson = {
-        '_id': 'group4',
+        'id': 'group4',
         'name': 'Empty Group',
         'volunteers': <Map<String, dynamic>>[],
         'volunteersRequired': 0,
@@ -161,21 +161,21 @@ void main() {
 
     test('Test EventVolunteerGroup fromJson with multiple volunteers', () {
       final eventVolunteerGroupJson = {
-        '_id': 'group5',
+        'id': 'group5',
         'name': 'Large Group',
         'volunteers': [
           {
-            '_id': 'vol1',
+            'id': 'vol1',
             'isAssigned': true,
             'response': 'Accepted',
           },
           {
-            '_id': 'vol2',
+            'id': 'vol2',
             'isAssigned': false,
             'response': 'Pending',
           },
           {
-            '_id': 'vol3',
+            'id': 'vol3',
             'isAssigned': true,
             'response': 'Declined',
           },
@@ -297,7 +297,7 @@ void main() {
       // This tests the TestJsonUtils method with the actual nested format
       // that comes from API responses (with nested 'user' structures)
       final eventVolunteerGroupJson = {
-        '_id': 'utilsTest',
+        'id': 'utilsTest',
         'createdAt': '2024-08-01T10:00:00Z',
         'creator': {
           'user': {
@@ -306,7 +306,7 @@ void main() {
           },
         },
         'event': {
-          '_id': 'utilsEventId',
+          'id': 'utilsEventId',
           'title': 'Utils Event',
         },
         'leader': {
@@ -319,7 +319,7 @@ void main() {
         'updatedAt': '2024-08-05T15:30:00Z',
         'volunteers': [
           {
-            '_id': 'utilsVol1',
+            'id': 'utilsVol1',
             'response': 'Accepted',
           },
         ],

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
@@ -14,9 +13,18 @@ class GraphqlConfig {
   // variable declaration
   static const imageUrlKey = "imageUrl";
   static const urlKey = "url";
-  static String? orgURI = ' ';
+  static const defaultGraphqlUrl = 'https://api-test.talawa.io/graphql';
+  static const defaultImageRoute = 'https://api-test.talawa.io/graphql/talawa/';
+  static String? orgURI = defaultGraphqlUrl;
   static String? token;
-  late HttpLink httpLink;
+  HttpLink? _httpLink;
+
+  /// Lazily-initialized HTTP link. Defaults to [defaultGraphqlUrl] so callers
+  /// can build a client before [getOrgUrl] runs (avoids LateInitializationError
+  /// when subscribers fire before login).
+  HttpLink get httpLink => _httpLink ??= HttpLink(defaultGraphqlUrl);
+  set httpLink(HttpLink link) => _httpLink = link;
+
   WebSocketLink? webSocketLink;
 
 //prefix route for showing images
@@ -37,11 +45,9 @@ class GraphqlConfig {
 
   /// This function is used to get the organization URL.
   void getOrgUrl() {
-    final box = Hive.box('url');
-    final String? url = box.get(urlKey) as String?;
-    final String? imgUrl = box.get(imageUrlKey) as String?;
-    orgURI = url ?? ' ';
-    displayImgRoute = imgUrl ?? ' ';
+    // Force a single backend endpoint to avoid stale local URL state.
+    orgURI = defaultGraphqlUrl;
+    displayImgRoute = defaultImageRoute;
     httpLink = HttpLink(orgURI!);
     _initializeWebSocketLink();
   }
@@ -53,15 +59,11 @@ class GraphqlConfig {
       String socketUrl;
       final trimmedOrg = orgURI?.trim();
       if (trimmedOrg != null && trimmedOrg.isNotEmpty) {
-        socketUrl = trimmedOrg
-            .replaceFirst('http://', 'ws://')
-            .replaceFirst('https://', 'wss://');
+        socketUrl = trimmedOrg.replaceFirst('http://', 'ws://').replaceFirst('https://', 'wss://');
       } else {
         // Fallback to environment variable or default
         socketUrl = dotenv.env['SOCKET_URL'] ??
-            (kReleaseMode
-                ? 'wss://api-test.talawa.io/graphql'
-                : 'ws://localhost:4000/graphql');
+            (kReleaseMode ? 'wss://api-test.talawa.io/graphql' : 'ws://localhost:4000/graphql');
       }
 
       webSocketLink = WebSocketLink(
@@ -132,7 +134,7 @@ class GraphqlConfig {
 
   void test() {
     httpLink = HttpLink(
-      'https://talawa-graphql-api.herokuapp.com/graphql',
+      'https://api-test.talawa.io/graphql',
       httpClient: MockHttpClient(),
     );
   }

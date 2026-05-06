@@ -36,6 +36,8 @@ class EventQueries {
             description
             startAt
             endAt
+            startDate
+            endDate
             allDay
             location
             isPublic
@@ -106,6 +108,18 @@ class EventQueries {
         createEvent(input: \$input) {
           id
           name
+          description
+          startAt
+          endAt
+          startDate
+          endDate
+          allDay
+          location
+          isPublic
+          isRegisterable
+          isRecurringEventTemplate
+          creator { id name }
+          organization { id name }
         }
       }
     ''';
@@ -268,8 +282,9 @@ class EventQueries {
     return '''
       query {
         getEventAttendeesByEventId(eventId: "$eventId") {
-          eventId
-          userId
+          id
+          event { id }
+          user { id name }
           isRegistered
           isInvited
           isCheckedIn
@@ -311,16 +326,11 @@ class EventQueries {
     return '''
   mutation CreateEventVolunteerGroup(\$data: EventVolunteerGroupInput!) {
     createEventVolunteerGroup(data: \$data) {
-      _id
+      id
       name
-      volunteers{
-      _id
-      }
       createdAt
       volunteersRequired
-      creator{
-      _id
-      }
+      creator { id name }
     }
   }
   ''';
@@ -337,10 +347,10 @@ class EventQueries {
   /// This function generates a GraphQL mutation string for removing an event volunteer group.
   String removeEventVolunteerGroup() {
     return '''
-  mutation RemoveEventVolunteerGroup(\$id: ID!) {
-    removeEventVolunteerGroup(id: \$id) {
-    _id
-    name
+  mutation DeleteEventVolunteerGroup(\$id: ID!) {
+    deleteEventVolunteerGroup(id: \$id) {
+      id
+      name
     }
   }
   ''';
@@ -359,22 +369,12 @@ class EventQueries {
     return '''
     mutation CreateEventVolunteer(\$data: EventVolunteerInput!) {
       createEventVolunteer(data: \$data) {
-        _id
-        isAssigned
-        response
-        creator{
-        _id
-        }
-        group{
-        _id
-        name
-        }
-        isInvited
-        user{
-        _id
-        firstName
-        lastName
-        }
+        id
+        hasAccepted
+        isPublic
+        creator { id name }
+        event { id }
+        user { id name }
       }
     }
     ''';
@@ -391,9 +391,9 @@ class EventQueries {
   /// This function generates a GraphQL mutation string for deleting a volunteer to a group.
   String removeVolunteerMutation() {
     return '''
-  mutation RemoveEventVolunteer(\$id: ID!) {
-    removeEventVolunteer(id: \$id) {
-      _id
+  mutation DeleteEventVolunteer(\$id: ID!) {
+    deleteEventVolunteer(id: \$id) {
+      id
     }
   }
   ''';
@@ -410,7 +410,7 @@ class EventQueries {
     return '''
       mutation UpdateEventVolunteerGroup(\$id: ID!, \$data: UpdateEventVolunteerGroupInput!) {
         updateEventVolunteerGroup(id: \$id, data: \$data) {
-          _id
+          id
           name
           volunteersRequired
         }
@@ -429,19 +429,12 @@ class EventQueries {
     return '''
       query GetEventVolunteerGroups(\$where: EventVolunteerGroupWhereInput) {
         getEventVolunteerGroups(where: \$where) {
-          _id
+          id
           name
           volunteersRequired
           createdAt
-          volunteers{
-          _id
-          response
-          user{
-          _id
-          firstName
-          lastName
-          }
-          }
+          leader { id name }
+          creator { id name }
         }
       }
     ''';
@@ -454,14 +447,13 @@ class EventQueries {
   ///
   /// **returns**:
   /// * `String`: Returns a GraphQL query string to fetch agenda item categories.
-  String fetchAgendaItemCategoriesByOrganization(String organizationId) {
+  String fetchAgendaItemCategoriesByOrganization(String eventId) {
     return """
     query {
-      agendaItemCategoriesByOrganization(organizationId: "$organizationId") {
-        _id
+      agendaCategoriesByEventId(eventId: "$eventId") {
+        id
         name
         description
-        
       }
     }
   """;
@@ -476,24 +468,19 @@ class EventQueries {
   /// * `String`: Returns a GraphQL mutation string to create an agenda item.
   String createAgendaItem() {
     return """
-    mutation CreateAgendaItem(\$input: CreateAgendaItemInput!) {
+    mutation CreateAgendaItem(\$input: MutationCreateAgendaItemInput!) {
       createAgendaItem(input: \$input) {
-        _id
-        title
+        id
+        name
         description
         duration
-        attachments
-        createdBy {
-        _id
-        firstName
-        lastName
-        }
-        urls
-        categories {
-        _id
-        name
-        }
+        notes
         sequence
+        type
+        creator { id name }
+        category { id name }
+        folder { id name }
+        event { id }
       }
     }
   """;
@@ -508,26 +495,19 @@ class EventQueries {
   /// * `String`: Returns a GraphQL mutation string to update an agenda item.
   String updateAgendaItem() {
     return """
-    mutation UpdateAgendaItem(\$updateAgendaItemId: ID!
-    \$input: UpdateAgendaItemInput!
-  ) {
-      updateAgendaItem(id: \$updateAgendaItemId, input: \$input) {
-        _id
-        title
+    mutation UpdateAgendaItem(\$input: MutationUpdateAgendaItemInput!) {
+      updateAgendaItem(input: \$input) {
+        id
+        name
         description
         duration
-        attachments
-        createdBy {
-        _id
-        firstName
-        lastName
-        }
-        urls
-        categories {
-        _id
-        name
-        }
+        notes
         sequence
+        type
+        creator { id name }
+        category { id name }
+        folder { id name }
+        event { id }
       }
     }
   """;
@@ -542,9 +522,9 @@ class EventQueries {
   /// * `String`: Returns a GraphQL mutation string to delete an agenda item.
   String deleteAgendaItem() {
     return """
-    mutation RemoveAgendaItem(\$removeAgendaItemId: ID!) {
-      removeAgendaItem(id: \$removeAgendaItemId) {
-         _id
+    mutation DeleteAgendaItem(\$input: MutationDeleteAgendaItemInput!) {
+      deleteAgendaItem(input: \$input) {
+        id
       }
     }
   """;
@@ -560,30 +540,29 @@ class EventQueries {
   String fetchAgendaItemsByEvent(String relatedEventId) {
     return """
   query {
-    agendaItemByEvent(relatedEventId: "$relatedEventId") {
-      _id
-      title
+    agendaFoldersByEventId(eventId: "$relatedEventId") {
+      id
+      name
       description
-      duration
-      attachments
-      createdBy {
-        _id
-        firstName
-        lastName
-      }
-      urls
-      categories {
-        _id
-        name
-      }
       sequence
-      organization {
-        _id
-        name
-      }
-      relatedEvent {
-        _id
-        title
+      isDefaultFolder
+      event { id }
+      items(first: 50) {
+        edges {
+          node {
+            id
+            name
+            description
+            duration
+            notes
+            sequence
+            type
+            creator { id name }
+            category { id name }
+          }
+          cursor
+        }
+        pageInfo { hasNextPage endCursor }
       }
     }
   }

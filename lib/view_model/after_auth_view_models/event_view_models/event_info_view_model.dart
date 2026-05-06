@@ -204,13 +204,16 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchCategories() async {
     try {
-      final result =
-          await eventService.fetchAgendaCategories(userConfig.currentOrg.id!);
+      final eventId = event.id;
+      if (eventId == null) return;
+
+      final result = await eventService.fetchAgendaCategories(eventId);
 
       if (result is! QueryResult || result.data == null) return;
 
-      final List categoryJson =
-          result.data!['agendaItemCategoriesByOrganization'] as List;
+      final List? categoryJson =
+          result.data!['agendaCategoriesByEventId'] as List?;
+      if (categoryJson == null) return;
       _categories = categoryJson
           .map((json) => AgendaCategory.fromJson(json as Map<String, dynamic>))
           .toList();
@@ -273,16 +276,16 @@ class EventInfoViewModel extends BaseModel {
     int? sequence,
   }) async {
     try {
-      final variables = {
-        'title': title,
-        'description': description,
+      final variables = <String, dynamic>{
+        'name': title,
+        if (description != null && description.isNotEmpty)
+          'description': description,
         'duration': duration,
-        'attachments': attachments,
-        'relatedEventId': event.id,
-        'urls': urls,
-        'categories': categories,
+        'eventId': event.id,
         'sequence': _agendaItems.length + 1,
-        'organizationId': userConfig.currentOrg.id,
+        'type': 'general',
+        if (categories != null && categories.isNotEmpty)
+          'categoryId': categories.first,
       };
       final result = await eventService.createAgendaItem(variables);
 
@@ -319,7 +322,7 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> deleteAgendaItem(String id) async {
     try {
-      await eventService.deleteAgendaItem({"removeAgendaItemId": id});
+      await eventService.deleteAgendaItem({"id": id});
       _agendaItems.removeWhere((item) => item.id == id);
       notifyListeners();
     } catch (e) {

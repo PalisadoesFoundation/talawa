@@ -354,36 +354,7 @@ class _AddPostState extends State<AddPost> {
 
                       const SizedBox(height: 20),
 
-                      // Required image notice
-                      if (model.imageFiles.isEmpty)
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: colorScheme.errorContainer,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: colorScheme.error),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.info_outline,
-                                color: colorScheme.error,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  AppLocalizations.of(context)!.strictTranslate(
-                                    "At least one image is required to create a post",
-                                  ),
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    color: colorScheme.onErrorContainer,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                      // Image is optional now: backend accepts text-only posts.
                     ],
                   ),
                 ),

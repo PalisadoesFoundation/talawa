@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:talawa/plugin/registry.dart';
 import 'package:talawa/plugin/types.dart';
+import 'package:talawa/utils/app_logger.dart';
 
 /// A thin manager that wires the registry with bundled plugins.
 class PluginManager {
@@ -31,49 +32,48 @@ class PluginManager {
   }) {
     if (_initialized) return; // Prevent re-initialization
 
-    print(
+    AppLog.info(
       'Plugin Manager: Initializing with ${available.length} bundled plugins',
     );
-    print(
+    AppLog.info(
       'Available plugin IDs: ${available.map((p) => p.manifest.id).toList()}',
     );
-    print('Active plugin IDs from database: $active');
+    AppLog.info('Active plugin IDs from database: $active');
 
     if (active == null || active.isEmpty) {
-      print('No active plugins in database - skipping plugin registration');
-      // Don't register any plugins if none are active
+      AppLog.info(
+        'No active plugins in database - skipping plugin registration',
+      );
     } else {
-      // Find bundled plugins that are activated in the database
       final filtered = available.where((p) {
         final isActive = active.contains(p.manifest.id);
         if (isActive) {
-          print(
+          AppLog.info(
             '✓ Plugin "${p.manifest.id}" is bundled AND active - will register',
           );
         } else {
-          print(
+          AppLog.info(
             '✗ Plugin "${p.manifest.id}" is bundled but NOT active - skipping',
           );
         }
         return isActive;
       }).toList();
 
-      // Log any active plugins that aren't bundled
       for (final activeId in active) {
         if (!available.any((p) => p.manifest.id == activeId)) {
-          print(
-            '⚠ Plugin "$activeId" is active in database but NOT bundled in app',
+          AppLog.warn(
+            'Plugin "$activeId" is active in database but NOT bundled in app',
           );
         }
       }
 
       registry.registerAll(filtered);
-      print(
+      AppLog.info(
         'Registered ${filtered.length} plugins: ${filtered.map((p) => p.manifest.id).toList()}',
       );
     }
     _initialized = true;
-    print(
+    AppLog.info(
       'Plugin Manager: Initialization complete. ${registry.all.length} plugins registered.',
     );
   }

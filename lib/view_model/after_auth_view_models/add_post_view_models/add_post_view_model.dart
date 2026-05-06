@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -134,16 +136,8 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> uploadPost() async {
-    // Validate that at least one image is selected
-    if (imageFiles.isEmpty) {
-      _navigationService.showTalawaErrorSnackBar(
-        "At least one image is required to create a post",
-        MessageType.error,
-      );
-      return;
-    }
-
-    // Validate that caption is not empty
+    // Caption is the only required field on the API side; attachments and
+    // body are optional, so text-only posts are allowed.
     if (captionController.text.trim().isEmpty) {
       _navigationService.showTalawaErrorSnackBar(
         "Caption cannot be empty",
@@ -151,6 +145,8 @@ class AddPostViewModel extends BaseModel {
       );
       return;
     }
+
+    bool succeeded = false;
 
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
@@ -162,33 +158,25 @@ class AddPostViewModel extends BaseModel {
           ),
         );
 
-        // Upload images to Minio if available
-        final List<Map<String, String>> attachmentsList = [];
-        if (imageFiles.isNotEmpty) {
-          for (final imageFile in imageFiles) {
-            final fileInfo = await _imageService.uploadFileToMinio(
-              file: imageFile,
-              organizationId: _selectedOrg.id!,
-            );
-
-            attachmentsList.add(
-              prepareAttachmentData(
-                fileInfo['objectName']!,
-                fileInfo['fileHash']!,
-                fileInfo['name']!,
-                getPostAttachmentMimeType(imageFile.path),
-              ),
-            );
-          }
-        }
+        // API expects a single direct file upload via the `Upload` scalar.
+        // If multiple images are selected, only the first is sent until the
+        // backend supports multi-attachment posts.
         final Map<String, dynamic> variables = {
-          "caption": captionController.text,
+          "caption": captionController.text.trim(),
           "organizationId": _selectedOrg.id,
+          "userId": userConfig.currentUser.id,
         };
 
-        // Add file information to variables if we uploaded files
-        if (attachmentsList.isNotEmpty) {
-          variables["attachments"] = attachmentsList;
+        if (imageFiles.isNotEmpty) {
+          final imageFile = imageFiles.first;
+          variables["attachment"] = http.MultipartFile.fromBytes(
+            'attachment',
+            await imageFile.readAsBytes(),
+            filename: imageFile.path.split(Platform.pathSeparator).last,
+            contentType: MediaType.parse(
+              getPostAttachmentMimeType(imageFile.path),
+            ),
+          );
         }
 
         final result = await _dbFunctions.gqlAuthMutation(
@@ -198,29 +186,39 @@ class AddPostViewModel extends BaseModel {
         return result;
       },
       onValidResult: (result) async {
-        final Post newPost = Post.fromJson(
-          result.data!['createPost'] as Map<String, dynamic>,
-        );
-        newPost.getPresignedUrl(_selectedOrg.id);
+        final createdJson = result.data?['createPost'];
+        if (createdJson is! Map<String, dynamic>) return;
+
+        final Post newPost = Post.fromJson(createdJson);
+        await newPost.getPresignedUrl(_selectedOrg.id);
         locator<PostService>().addNewpost(newPost);
+        succeeded = true;
+        // Pop progress dialog.
         navigationService.pop();
       },
       apiCallSuccessUpdateUI: () {
         _navigationService.showTalawaErrorSnackBar(
-          "Post is uploaded",
+          "Post uploaded",
           MessageType.info,
         );
       },
       onActionException: (e) async {
+        // Pop progress dialog if it is still up.
+        navigationService.pop();
         _navigationService.showTalawaErrorSnackBar(
           "Upload failed: $e",
           MessageType.error,
         );
       },
       onActionFinally: () async {
-        removeImage();
-        captionController.clear();
-        notifyListeners();
+        if (succeeded) {
+          removeImage();
+          captionController.clear();
+          notifyListeners();
+          // Pop the AddPostPage so the user lands back on the feed with the
+          // newly added post visible.
+          navigationService.pop();
+        }
       },
     );
   }

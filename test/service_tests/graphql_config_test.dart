@@ -74,7 +74,7 @@ void main() {
       expect(config.httpLink, isA<HttpLink>());
       expect(
         config.httpLink.uri.toString(),
-        'https://talawa-graphql-api.herokuapp.com/graphql',
+        'https://api-test.talawa.io/graphql',
       );
     });
 
@@ -97,7 +97,7 @@ void main() {
       expect(config.httpLink, isA<HttpLink>());
     });
 
-    test('getOrgUrl sets orgURI, displayImgRoute, and httpLink from Hive', () {
+    test('getOrgUrl forces defaults regardless of Hive values', () {
       final box = Hive.box('url');
       box.put(GraphqlConfig.urlKey, 'https://example.com/graphql');
       box.put(GraphqlConfig.imageUrlKey, 'https://example.com/image.png');
@@ -105,13 +105,13 @@ void main() {
       final config = GraphqlConfig();
       config.getOrgUrl();
 
-      expect(GraphqlConfig.orgURI, 'https://example.com/graphql');
-      expect(config.displayImgRoute, 'https://example.com/image.png');
+      expect(GraphqlConfig.orgURI, GraphqlConfig.defaultGraphqlUrl);
+      expect(config.displayImgRoute, GraphqlConfig.defaultImageRoute);
       expect(config.httpLink, isA<HttpLink>());
-      expect(config.httpLink.uri.toString(), 'https://example.com/graphql');
+      expect(config.httpLink.uri.toString(), GraphqlConfig.defaultGraphqlUrl);
     });
 
-    test('getOrgUrl uses defaults if Hive values are null', () {
+    test('getOrgUrl applies defaults when Hive values absent', () {
       final box = Hive.box('url');
       box.delete(GraphqlConfig.urlKey);
       box.delete(GraphqlConfig.imageUrlKey);
@@ -119,10 +119,10 @@ void main() {
       final config = GraphqlConfig();
       config.getOrgUrl();
 
-      expect(GraphqlConfig.orgURI, ' ');
-      expect(config.displayImgRoute, ' ');
+      expect(GraphqlConfig.orgURI, GraphqlConfig.defaultGraphqlUrl);
+      expect(config.displayImgRoute, GraphqlConfig.defaultImageRoute);
       expect(config.httpLink, isA<HttpLink>());
-      expect(config.httpLink.uri.toString(), '%20');
+      expect(config.httpLink.uri.toString(), GraphqlConfig.defaultGraphqlUrl);
     });
 
     test('getOrgUrl initializes WebSocket link', () {
@@ -212,28 +212,26 @@ void main() {
       expect(GraphqlConfig.orgURI, testApiUrl);
     });
 
-    test('displayImgRoute is set correctly from Hive', () {
-      const testImageUrl = 'https://example.com/test-image.png';
+    test('displayImgRoute is set to default image route', () {
       final box = Hive.box('url');
-      box.put(GraphqlConfig.imageUrlKey, testImageUrl);
+      box.put(GraphqlConfig.imageUrlKey, 'https://example.com/test-image.png');
 
       final config = GraphqlConfig();
       config.getOrgUrl();
 
-      expect(config.displayImgRoute, testImageUrl);
+      expect(config.displayImgRoute, GraphqlConfig.defaultImageRoute);
     });
 
-    test('httpLink is properly configured with orgURI', () {
-      const testUrl = 'https://test-org.example.com/graphql';
+    test('httpLink is configured with default GraphQL URL', () {
       final box = Hive.box('url');
-      box.put(GraphqlConfig.urlKey, testUrl);
+      box.put(GraphqlConfig.urlKey, 'https://test-org.example.com/graphql');
 
       final config = GraphqlConfig();
       config.getOrgUrl();
 
       expect(config.httpLink, isA<HttpLink>());
-      expect(config.httpLink.uri.toString(), testUrl);
-      expect(GraphqlConfig.orgURI, testUrl);
+      expect(config.httpLink.uri.toString(), GraphqlConfig.defaultGraphqlUrl);
+      expect(GraphqlConfig.orgURI, GraphqlConfig.defaultGraphqlUrl);
     });
 
     test('getInitialPayload returns correct Authorization header', () async {

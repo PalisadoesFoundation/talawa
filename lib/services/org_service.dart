@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/utils/app_logger.dart';
 import 'package:talawa/utils/queries.dart';
 
 /// Provides the Services in the context of organizations.
@@ -31,21 +31,29 @@ class OrganizationService {
       // fetching from database using graphQL query.
       final result = await _dbFunctions.gqlAuthQuery(query);
 
-      // Check if there are any errors
-      if (result.hasException) {
-        debugPrint('GraphQL Exception: ${result.exception}');
-        return [];
+      // Some backends may return partial data with non-fatal GraphQL errors.
+      // Only log the full exception when we have no usable data (avoids noisy
+      // ServerException dumps when members list is still returned).
+      final hasMembersData = result.data != null &&
+          result.data!['usersByOrganizationId'] != null;
+      if (result.hasException && !hasMembersData) {
+        AppLog.warn(
+          'GraphQL Exception while fetching org members: ${result.exception}',
+        );
+      } else if (result.hasException && hasMembersData) {
+        AppLog.info(
+          'Org members: partial response (some fields had errors; members list used)',
+        );
       }
 
-      // Check if data exists and is not null
       if (result.data == null ||
           result.data!['usersByOrganizationId'] == null) {
-        debugPrint('No data received from usersByOrganizationId query');
+        AppLog.info('No data received from usersByOrganizationId query');
         return [];
       }
 
       final List usersResult = result.data!['usersByOrganizationId'] as List;
-      debugPrint(
+      AppLog.info(
         'OrganizationService: getOrgMembersList: usersResult: $usersResult',
       );
 
@@ -58,15 +66,14 @@ class OrganizationService {
           );
           orgMembersList.add(member);
         } catch (e) {
-          debugPrint('Error parsing user data: $e');
-          // Continue with other users even if one fails
+          AppLog.error('Failed to parse user', e);
           continue;
         }
       }
 
       return orgMembersList;
     } catch (e) {
-      debugPrint('Error in getOrgMembersList: $e');
+      AppLog.error('getOrgMembersList failed', e);
       return [];
     }
   }

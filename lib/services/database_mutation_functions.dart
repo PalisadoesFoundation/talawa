@@ -101,15 +101,66 @@ class DataBaseMutationFunctions {
       variables: variables,
       operationType: CachedOperationType.gqlAuthQuery,
       whenOnline: () async {
-        final QueryResult result = await clientAuth.query(options);
+        QueryResult result;
+        try {
+          result = await clientAuth.query(options);
+        } on ServerException catch (e) {
+          // graphql_flutter sometimes lets ServerException propagate instead of
+          // wrapping it on the QueryResult. Rebuild a result so partial data
+          // (in parsedResponse) can still flow through the recovery path below.
+          final partial = e.parsedResponse?.data;
+          if (partial != null) {
+            traverseAndConvertDates(
+              partial,
+              convertUTCToLocal,
+              splitDateTimeLocal,
+            );
+            return QueryResult(
+              options: options,
+              data: partial,
+              source: QueryResultSource.network,
+            );
+          }
+          rethrow;
+        }
         // if there is an error or exception in [result]
         if (result.hasException) {
+          final linkException = result.exception?.linkException;
+          final Map<String, dynamic>? recoveredData =
+              linkException is ServerException
+                  ? linkException.parsedResponse?.data
+                  : null;
+          final bool hasUsableData =
+              result.data != null || recoveredData != null;
+
           final exception =
               GraphqlExceptionResolver.encounteredExceptionOrError(
             result.exception!,
+            // Don't show generic error UI when we have partial data to return.
+            showSnackBar: !hasUsableData,
           );
           if (exception!) {
             return await gqlAuthQuery(query, variables: variables);
+          }
+          if (hasUsableData) {
+            // Preserve partial GraphQL data when available, even if
+            // the response includes non-fatal field-level errors.
+            final partial = result.data ?? recoveredData!;
+            // coverage:ignore-start
+            traverseAndConvertDates(
+              partial,
+              convertUTCToLocal,
+              splitDateTimeLocal,
+            );
+            // coverage:ignore-end
+            if (result.data != null) {
+              return result;
+            }
+            return QueryResult(
+              options: options,
+              data: partial,
+              source: QueryResultSource.network,
+            );
           }
         } else if (result.data != null && result.isConcrete) {
           // coverage:ignore-start
@@ -153,7 +204,20 @@ class DataBaseMutationFunctions {
       variables: variables,
       operationType: CachedOperationType.gqlAuthMutation,
       whenOnline: () async {
-        final QueryResult result = await clientAuth.mutate(options);
+        QueryResult result;
+        try {
+          result = await clientAuth.mutate(options);
+        } on ServerException catch (e) {
+          final partial = e.parsedResponse?.data;
+          if (partial != null) {
+            return QueryResult(
+              options: options,
+              data: partial,
+              source: QueryResultSource.network,
+            );
+          }
+          rethrow;
+        }
         // If there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(

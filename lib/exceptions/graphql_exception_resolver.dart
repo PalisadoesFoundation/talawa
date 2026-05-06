@@ -43,6 +43,10 @@ class GraphqlExceptionResolver {
 
   /// This function is used to check if any exceptions or error encountered. The return type is [boolean].
   ///
+  /// Graphql error for handling (non-fatal when partial data is returned).
+  static const String notAuthorizedMessage =
+      'You are not authorized to perform this action.';
+
   /// **params**:
   /// * `exception`: OperationException which occur when calling for graphql post request
   /// * `showSnackBar`: Tell if the the place where this function is called wants a SnackBar on error
@@ -55,11 +59,14 @@ class GraphqlExceptionResolver {
   }) {
     // If server link is wrong.
     if (exception.linkException != null) {
-      debugPrint(exception.linkException.toString());
+      final linkError = exception.linkException.toString();
+      if (showSnackBar) {
+        debugPrint(linkError);
+      }
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => navigationService.showTalawaErrorSnackBar(
-            "Server not running/wrong url",
+            "Network issue while contacting server: $linkError",
             MessageType.info,
           ),
         );
@@ -75,9 +82,17 @@ class GraphqlExceptionResolver {
       return false;
     }
 
-    /// Looping through graphQL errors.
-    debugPrint(exception.graphqlErrors.toString());
+    // GraphQL errors collection — only surface when we'd also show UI to the
+    // user. Field-level non-fatal errors (e.g. partial-response auth issues)
+    // are silenced to keep `flutter run` output focused on real problems.
+    if (showSnackBar) {
+      debugPrint(exception.graphqlErrors.toString());
+    }
     for (int i = 0; i < exception.graphqlErrors.length; i++) {
+      /// Non-fatal: field-level "not authorized" (e.g. path [user] when other data succeeded).
+      if (exception.graphqlErrors[i].message == notAuthorizedMessage) {
+        return false;
+      }
       // if the error message is "Access Token has expired. Please refresh session.: Undefined location"
       if (exception.graphqlErrors[i].message ==
           refreshAccessTokenExpiredException.message) {
@@ -106,7 +121,6 @@ class GraphqlExceptionResolver {
 
       /// If the error message is "User not found"
       if (exception.graphqlErrors[i].message == userNotFound.message) {
-        print(showSnackBar);
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(
@@ -170,13 +184,15 @@ class GraphqlExceptionResolver {
         return false;
       }
     }
-    // If the error is unknown
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => navigationService.showTalawaErrorDialog(
-        "Something went wrong!",
-        MessageType.error,
-      ),
-    );
+    // If the error is unknown, only show UI when requested.
+    if (showSnackBar) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => navigationService.showTalawaErrorDialog(
+          "Something went wrong!",
+          MessageType.error,
+        ),
+      );
+    }
     return false;
   }
 }

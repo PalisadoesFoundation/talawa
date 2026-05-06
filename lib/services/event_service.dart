@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/locator.dart';
@@ -35,8 +36,7 @@ class EventService extends BaseFeedManager<Event> {
   StreamSubscription? _currentOrganizationStreamSubscription;
   late Stream<List<Event>> _eventStream;
 
-  final StreamController<List<Event>> _eventStreamController =
-      StreamController<List<Event>>();
+  final StreamController<List<Event>> _eventStreamController = StreamController<List<Event>>();
 
   final List<Event> _events = [];
 
@@ -55,39 +55,57 @@ class EventService extends BaseFeedManager<Event> {
   Future<List<Event>> fetchDataFromApi({Map<String, dynamic>? params}) async {
     // get current organization id
     final String currentOrgID = _userConfig.currentOrg.id!;
-    final Map<String, dynamic> variables = {
-      'id': currentOrgID,
-      'first': 200,
-      'startDate': params?['startDate'] ??
-          DateTime.now()
-              .subtract(const Duration(days: 30))
-              .toUtc()
-              .toIso8601String(),
-      'endDate': params?['endDate'] ??
-          DateTime.now()
-              .add(const Duration(days: 30))
-              .toUtc()
-              .toIso8601String(),
-      'includeRecurring': params?['includeRecurring'] ?? true,
-    };
+    final String startDate = params?['startDate'] as String? ??
+        DateTime.now()
+            .subtract(const Duration(days: 30))
+            .toUtc()
+            .toIso8601String();
+    final String endDate = params?['endDate'] as String? ??
+        DateTime.now()
+            .add(const Duration(days: 30))
+            .toUtc()
+            .toIso8601String();
+    final bool includeRecurring =
+        params?['includeRecurring'] as bool? ?? true;
 
-    // mutation to fetch the events
     final String query = EventQueries().fetchOrgEvents();
-    final result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
-
-    // Check for GraphQL errors or null data
-    if (result.hasException || result.data == null) {
-      throw Exception('Failed to fetch events: ${result.exception}');
-    }
-
-    final org = result.data!['organization'] as Map<String, dynamic>;
-    final eventsMap = org['events'] as Map<String, dynamic>;
     final List<Event> newEvents = [];
-    for (final edge in eventsMap['edges'] as List) {
-      final event = Event.fromJson(
-        (edge as Map<String, dynamic>)['node'] as Map<String, dynamic>,
-      );
-      newEvents.add(event);
+    String? after;
+    // Page through results so events past the first 100 (e.g. recurring
+    // instance heavy windows) still reach the calendar.
+    const int maxPages = 10;
+    for (int page = 0; page < maxPages; page++) {
+      final variables = <String, dynamic>{
+        'id': currentOrgID,
+        'first': 100,
+        if (after != null) 'after': after,
+        'startDate': startDate,
+        'endDate': endDate,
+        'includeRecurring': includeRecurring,
+      };
+      final result =
+          await _dbFunctions.gqlAuthQuery(query, variables: variables);
+
+      // Fail soft when the response is unusable: skip silently rather than
+      // throwing, since recovery from partial data lives in the link layer.
+      if (result.data == null) break;
+
+      final org = result.data!['organization'] as Map<String, dynamic>?;
+      final eventsMap = org?['events'] as Map<String, dynamic>?;
+      if (eventsMap == null) break;
+
+      final edges = (eventsMap['edges'] as List<dynamic>?) ?? const [];
+      for (final edge in edges) {
+        final event = Event.fromJson(
+          (edge as Map<String, dynamic>)['node'] as Map<String, dynamic>,
+        );
+        newEvents.add(event);
+      }
+
+      final pageInfo = eventsMap['pageInfo'] as Map<String, dynamic>?;
+      final hasNext = pageInfo?['hasNextPage'] as bool? ?? false;
+      after = pageInfo?['endCursor'] as String?;
+      if (!hasNext || after == null || edges.isEmpty) break;
     }
 
     return newEvents;
@@ -121,8 +139,7 @@ class EventService extends BaseFeedManager<Event> {
         (newEvent) {
           if (newEvent.id != null) {
             return !_events.any(
-              (existingEvent) =>
-                  existingEvent.id != null && existingEvent.id == newEvent.id,
+              (existingEvent) => existingEvent.id != null && existingEvent.id == newEvent.id,
             );
           }
           return false;
@@ -147,6 +164,17 @@ class EventService extends BaseFeedManager<Event> {
       variables: variables,
     );
     return result;
+  }
+
+  /// Inserts an [event] into the in-memory feed and notifies stream listeners.
+  ///
+  /// Used after a successful create so the new event is visible immediately
+  /// — even when the next paginated refetch would have missed it.
+  void addLocalEvent(Event event) {
+    if (event.id == null) return;
+    if (_events.any((e) => e.id != null && e.id == event.id)) return;
+    _events.add(event);
+    _eventStreamController.add(_events);
   }
 
   /// This function is used to delete an event.
@@ -184,8 +212,7 @@ class EventService extends BaseFeedManager<Event> {
         query = EventQueries().deleteStandaloneEvent();
     }
 
-    final result =
-        await _dbFunctions.gqlAuthMutation(query, variables: variables);
+    final result = await _dbFunctions.gqlAuthMutation(query, variables: variables);
 
     if (!result.hasException) {
       await clearEvents();
@@ -377,8 +404,7 @@ class EventService extends BaseFeedManager<Event> {
 
       return groupsJson
           .map(
-            (groupJson) =>
-                EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
+            (groupJson) => EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
           )
           .toList();
     } catch (e) {
@@ -426,7 +452,7 @@ class EventService extends BaseFeedManager<Event> {
   Future<dynamic> deleteAgendaItem(Map<String, dynamic> variables) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().deleteAgendaItem(),
-      variables: variables,
+      variables: {'input': variables},
     );
     return result;
   }
@@ -446,8 +472,10 @@ class EventService extends BaseFeedManager<Event> {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().updateAgendaItem(),
       variables: {
-        'updateAgendaItemId': itemId,
-        'input': variables,
+        'input': {
+          'id': itemId,
+          ...variables,
+        },
       },
     );
     return result;

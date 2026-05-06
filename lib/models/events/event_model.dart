@@ -47,12 +47,19 @@ class Event {
       location: json['location'] as String?,
       recurring: json['recurring'] as bool?,
       allDay: json['allDay'] as bool?,
+      // Timed events use `startAt`/`endAt` (full DateTime); all-day events
+      // populate `startDate`/`endDate` (YYYY-MM-DD) instead. Parse whichever
+      // the API returned so the calendar/list always has a usable timestamp.
       startAt: json['startAt'] != null
           ? DateTime.tryParse(json['startAt'] as String)?.toLocal()
-          : null,
+          : (json['startDate'] != null
+              ? DateTime.tryParse(json['startDate'] as String)
+              : null),
       endAt: json['endAt'] != null
           ? DateTime.tryParse(json['endAt'] as String)?.toLocal()
-          : null,
+          : (json['endDate'] != null
+              ? DateTime.tryParse(json['endDate'] as String)
+              : null),
       isPublic: json['isPublic'] as bool?,
       isRegistered: json['isRegistered'] as bool?,
       isRegisterable: json['isRegisterable'] as bool?,

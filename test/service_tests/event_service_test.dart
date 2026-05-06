@@ -374,7 +374,8 @@ void main() {
         expect(events[1].name, "Test Event 2");
       });
 
-      test('fetchDataFromApi - throws exception when data is null', () {
+      test('fetchDataFromApi - returns empty list when data is null',
+          () async {
         final query = EventQueries().fetchOrgEvents();
 
         when(
@@ -390,10 +391,8 @@ void main() {
           ),
         );
 
-        expect(
-          () async => await eventService.fetchDataFromApi(),
-          throwsException,
-        );
+        final events = await eventService.fetchDataFromApi();
+        expect(events, isEmpty);
       });
 
       test('fetchDataFromApi - uses custom date range params', () async {
@@ -875,12 +874,12 @@ void main() {
             data: {
               'getEventVolunteerGroups': [
                 {
-                  '_id': 'groupId1',
+                  'id': 'groupId1',
                   'name': 'Volunteer Group 1',
                   'eventId': eventId,
                 },
                 {
-                  '_id': 'groupId2',
+                  'id': 'groupId2',
                   'name': 'Volunteer Group 2',
                   'eventId': eventId,
                 },
@@ -980,11 +979,11 @@ void main() {
       });
 
       test('deleteAgendaItem - deletes successfully', () async {
-        final variables = {'agendaItemId': 'agenda1'};
+        final variables = {'id': 'agenda1'};
         final mockResult = QueryResult(
           options: QueryOptions(document: gql('')),
           data: {
-            'deleteAgendaItem': {'_id': 'agenda1'},
+            'deleteAgendaItem': {'id': 'agenda1'},
           },
           source: QueryResultSource.network,
         );
@@ -992,7 +991,7 @@ void main() {
         when(
           mockDbFunctions.gqlAuthMutation(
             EventQueries().deleteAgendaItem(),
-            variables: variables,
+            variables: {'input': variables},
           ),
         ).thenAnswer((_) async => mockResult);
 
@@ -1002,18 +1001,18 @@ void main() {
         verify(
           mockDbFunctions.gqlAuthMutation(
             EventQueries().deleteAgendaItem(),
-            variables: variables,
+            variables: {'input': variables},
           ),
         ).called(1);
       });
 
       test('updateAgendaItem - updates successfully', () async {
         const itemId = 'agenda1';
-        final variables = {'title': 'Updated Agenda'};
+        final variables = {'name': 'Updated Agenda'};
         final mockResult = QueryResult(
           options: QueryOptions(document: gql('')),
           data: {
-            'updateAgendaItem': {'_id': 'agenda1', 'title': 'Updated Agenda'},
+            'updateAgendaItem': {'id': 'agenda1', 'name': 'Updated Agenda'},
           },
           source: QueryResultSource.network,
         );
@@ -1022,8 +1021,10 @@ void main() {
           mockDbFunctions.gqlAuthMutation(
             EventQueries().updateAgendaItem(),
             variables: {
-              'updateAgendaItemId': itemId,
-              'input': variables,
+              'input': {
+                'id': itemId,
+                ...variables,
+              },
             },
           ),
         ).thenAnswer((_) async => mockResult);
@@ -1035,8 +1036,10 @@ void main() {
           mockDbFunctions.gqlAuthMutation(
             EventQueries().updateAgendaItem(),
             variables: {
-              'updateAgendaItemId': itemId,
-              'input': variables,
+              'input': {
+                'id': itemId,
+                ...variables,
+              },
             },
           ),
         ).called(1);
