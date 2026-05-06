@@ -231,9 +231,25 @@ class PostService extends BaseFeedManager<Post> {
       first = 5;
       last = null;
       final List<Post> newPosts = await getNewFeedAndRefreshCache();
+      // Preserve locally-added posts (e.g. just-created via addNewpost) that
+      // the server hasn't returned yet so they don't disappear after refresh.
+      final freshIds = newPosts.map((p) => p.id).whereType<String>().toSet();
+      final preserved = _posts
+          .where((p) => p.id != null && !freshIds.contains(p.id))
+          .toList();
       _renderedPostID.clear();
-      _posts.clear();
-      _posts = newPosts;
+      final merged = [...preserved, ...newPosts];
+      // Sort by createdAt DESC so newly created posts slot in chronologically
+      // instead of getting pinned to the top forever.
+      merged.sort((a, b) {
+        final ad = a.createdAt;
+        final bd = b.createdAt;
+        if (ad == null && bd == null) return 0;
+        if (ad == null) return 1;
+        if (bd == null) return -1;
+        return bd.compareTo(ad);
+      });
+      _posts = merged;
       _postStreamController.add(_posts);
     } finally {
       _isRefreshing = false;
@@ -248,10 +264,25 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   ///   None
   void addNewpost(Post newPost) {
-    if (!_posts.contains(newPost)) {
-      _posts.insert(0, newPost);
+    final alreadyPresent = newPost.id != null &&
+        _posts.any((p) => p.id != null && p.id == newPost.id);
+    if (!alreadyPresent && !_posts.contains(newPost)) {
+      _posts.add(newPost);
     }
+    // Sort by createdAt DESC so the new post lands in its correct
+    // chronological slot (newest first) instead of always at the top.
+    _posts.sort((a, b) {
+      final ad = a.createdAt;
+      final bd = b.createdAt;
+      if (ad == null && bd == null) return 0;
+      if (ad == null) return 1;
+      if (bd == null) return -1;
+      return bd.compareTo(ad);
+    });
     _postStreamController.add(_posts);
+    // Persist immediately so background SWR / cache reload doesn't drop the
+    // new post before the server-side feed catches up.
+    saveDataToCache(_posts);
   }
 
   ///Method to delete a post from the feed.
