@@ -440,13 +440,13 @@ class EventQueries {
     ''';
   }
 
-  /// Creates a GraphQL query for fetching agenda item categories by organization.
+  /// Creates a GraphQL query for fetching agenda categories by event.
   ///
   /// **params**:
-  /// * `organizationId`: The ID of the organization to fetch agenda item categories for.
+  /// * `eventId`: The ID of the event to fetch agenda categories for.
   ///
   /// **returns**:
-  /// * `String`: Returns a GraphQL query string to fetch agenda item categories.
+  /// * `String`: Returns a GraphQL query string to fetch agenda categories.
   String fetchAgendaItemCategoriesByOrganization(String eventId) {
     return """
     query {

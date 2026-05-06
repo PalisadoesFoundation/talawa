@@ -168,6 +168,12 @@ class EventService extends BaseFeedManager<Event> {
   ///
   /// Used after a successful create so the new event is visible immediately
   /// — even when the next paginated refetch would have missed it.
+  ///
+  /// **params**:
+  /// * `event`: The newly created [Event] to insert into the local feed.
+  ///
+  /// **returns**:
+  ///   None
   void addLocalEvent(Event event) {
     if (event.id == null) return;
     if (_events.any((e) => e.id != null && e.id == event.id)) return;

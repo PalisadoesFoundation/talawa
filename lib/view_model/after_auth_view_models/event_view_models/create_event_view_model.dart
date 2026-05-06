@@ -22,14 +22,20 @@ class CreateEventViewModel extends BaseEventViewModel {
   /// Member selection map.
   Map<String, bool> get memberCheckedMap => _memberCheckedMap;
 
+  /// Formats a [DateTime] as `YYYY-MM-DD` for all-day event date fields.
+  ///
+  /// **params**:
+  /// * `d`: The date to format.
+  ///
+  /// **returns**:
+  /// * `String`: `YYYY-MM-DD` representation of [d].
+  String _formatDateOnly(DateTime d) => '${d.year.toString().padLeft(4, '0')}-'
+      '${d.month.toString().padLeft(2, '0')}-'
+      '${d.day.toString().padLeft(2, '0')}';
+
   @override
   Future<void> execute() async {
     try {
-      String formatDateOnly(DateTime d) =>
-          '${d.year.toString().padLeft(4, '0')}-'
-          '${d.month.toString().padLeft(2, '0')}-'
-          '${d.day.toString().padLeft(2, '0')}';
-
       final description = eventDescriptionTextController.text.trim();
       final location = eventLocationTextController.text.trim();
 
@@ -51,8 +57,8 @@ class CreateEventViewModel extends BaseEventViewModel {
         if (!endForApi.isAfter(eventStartDate)) {
           endForApi = eventStartDate.add(const Duration(days: 1));
         }
-        input['startDate'] = formatDateOnly(eventStartDate);
-        input['endDate'] = formatDateOnly(endForApi);
+        input['startDate'] = _formatDateOnly(eventStartDate);
+        input['endDate'] = _formatDateOnly(endForApi);
       } else {
         final start = combineDateTime(eventStartDate, eventStartTime).toUtc();
         DateTime end = combineDateTime(eventEndDate, eventEndTime).toUtc();

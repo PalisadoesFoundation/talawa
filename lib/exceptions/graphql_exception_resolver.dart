@@ -41,12 +41,15 @@ class GraphqlExceptionResolver {
     message: TalawaErrors.failedToDetermineProject,
   );
 
-  /// This function is used to check if any exceptions or error encountered. The return type is [boolean].
+  /// Field-level "not authorized" message treated as non-fatal.
   ///
-  /// Graphql error for handling (non-fatal when partial data is returned).
+  /// When a GraphQL response carries this error alongside partial data, the
+  /// resolver should still let the data flow through to callers.
   static const String notAuthorizedMessage =
       'You are not authorized to perform this action.';
 
+  /// This function is used to check if any exceptions or error encountered.
+  ///
   /// **params**:
   /// * `exception`: OperationException which occur when calling for graphql post request
   /// * `showSnackBar`: Tell if the the place where this function is called wants a SnackBar on error
