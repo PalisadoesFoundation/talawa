@@ -131,7 +131,7 @@ void main() {
     test("Test removeVolunteerFromGroup success", () async {
       final mockEventService = locator<EventService>();
       final mockResult = {
-        'deleteEventVolunteer':{
+        'deleteEventVolunteer': {
           'id': 'volunteer1',
         },
       };
@@ -190,7 +190,7 @@ void main() {
         }),
       ).thenAnswer(
         (_) async => QueryResult(
-          data: {'deleteEventVolunteer':null},
+          data: {'deleteEventVolunteer': null},
           source: QueryResultSource.network,
           options: QueryOptions(
             document: gql(EventQueries().removeVolunteerMutation()),
@@ -243,7 +243,7 @@ void main() {
     test("Test deleteVolunteerGroup success", () async {
       final mockEventService = locator<EventService>();
       final mockResult = {
-        'deleteEventVolunteerGroup':{
+        'deleteEventVolunteerGroup': {
           'id': 'group1',
         },
       };

@@ -374,8 +374,7 @@ void main() {
         expect(events[1].name, "Test Event 2");
       });
 
-      test('fetchDataFromApi - returns empty list when data is null',
-          () async {
+      test('fetchDataFromApi - returns empty list when data is null', () async {
         final query = EventQueries().fetchOrgEvents();
 
         when(

@@ -42,7 +42,8 @@ class _EventCalendarState extends State<EventCalendar> {
           // events whose end was clamped to 23:59 in the converter).
           selectedDateEvents = appointments
               .where(
-                (a) => a.startTime.isBefore(selEnd) && a.endTime.isAfter(selStart),
+                (a) =>
+                    a.startTime.isBefore(selEnd) && a.endTime.isAfter(selStart),
               )
               .toList();
         } else {
@@ -193,8 +194,18 @@ class _EventCalendarState extends State<EventCalendar> {
     }
 
     const monthNames = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
 
     final entries = grouped.entries.toList();
@@ -204,8 +215,7 @@ class _EventCalendarState extends State<EventCalendar> {
       itemBuilder: (context, index) {
         final dayEvents = entries[index].value;
         final d = dayEvents.first.startTime;
-        final header =
-            '${d.day} ${monthNames[d.month - 1]} ${d.year}';
+        final header = '${d.day} ${monthNames[d.month - 1]} ${d.year}';
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -276,10 +286,7 @@ class _EventCalendarState extends State<EventCalendar> {
                   children: [
                     Text(
                       event.subject,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),

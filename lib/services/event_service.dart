@@ -36,7 +36,8 @@ class EventService extends BaseFeedManager<Event> {
   StreamSubscription? _currentOrganizationStreamSubscription;
   late Stream<List<Event>> _eventStream;
 
-  final StreamController<List<Event>> _eventStreamController = StreamController<List<Event>>();
+  final StreamController<List<Event>> _eventStreamController =
+      StreamController<List<Event>>();
 
   final List<Event> _events = [];
 
@@ -61,12 +62,8 @@ class EventService extends BaseFeedManager<Event> {
             .toUtc()
             .toIso8601String();
     final String endDate = params?['endDate'] as String? ??
-        DateTime.now()
-            .add(const Duration(days: 30))
-            .toUtc()
-            .toIso8601String();
-    final bool includeRecurring =
-        params?['includeRecurring'] as bool? ?? true;
+        DateTime.now().add(const Duration(days: 30)).toUtc().toIso8601String();
+    final bool includeRecurring = params?['includeRecurring'] as bool? ?? true;
 
     final String query = EventQueries().fetchOrgEvents();
     final List<Event> newEvents = [];
@@ -139,7 +136,8 @@ class EventService extends BaseFeedManager<Event> {
         (newEvent) {
           if (newEvent.id != null) {
             return !_events.any(
-              (existingEvent) => existingEvent.id != null && existingEvent.id == newEvent.id,
+              (existingEvent) =>
+                  existingEvent.id != null && existingEvent.id == newEvent.id,
             );
           }
           return false;
@@ -212,7 +210,8 @@ class EventService extends BaseFeedManager<Event> {
         query = EventQueries().deleteStandaloneEvent();
     }
 
-    final result = await _dbFunctions.gqlAuthMutation(query, variables: variables);
+    final result =
+        await _dbFunctions.gqlAuthMutation(query, variables: variables);
 
     if (!result.hasException) {
       await clearEvents();
@@ -404,7 +403,8 @@ class EventService extends BaseFeedManager<Event> {
 
       return groupsJson
           .map(
-            (groupJson) => EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
+            (groupJson) =>
+                EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
           )
           .toList();
     } catch (e) {

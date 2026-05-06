@@ -34,7 +34,8 @@ void main() {
 
     test("Check if attendeesByEvent works correctly", () {
       final fnData = EventQueries().attendeesByEvent("sampleID");
-      expect(fnData, contains('getEventAttendeesByEventId(eventId: "sampleID")'));
+      expect(
+          fnData, contains('getEventAttendeesByEventId(eventId: "sampleID")'));
       expect(fnData, contains('event { id }'));
       expect(fnData, contains('user { id name }'));
       expect(fnData, contains('isRegistered'));
@@ -237,7 +238,8 @@ void main() {
       expect(actual, contains('mutation UpdateEventVolunteerGroup'));
       expect(actual, contains(r'$id: ID!'));
       expect(actual, contains(r'$data: UpdateEventVolunteerGroupInput!'));
-      expect(actual, contains('updateEventVolunteerGroup(id: \$id, data: \$data)'));
+      expect(actual,
+          contains('updateEventVolunteerGroup(id: \$id, data: \$data)'));
       expect(actual, contains('id'));
       expect(actual, contains('name'));
       expect(actual, contains('volunteersRequired'));
@@ -261,9 +263,10 @@ void main() {
 
     test("Check if fetchAgendaItemCategoriesByOrganization works correctly",
         () {
-      final actual =
-          EventQueries().fetchAgendaItemCategoriesByOrganization("sampleEventId");
-      expect(actual, contains('agendaCategoriesByEventId(eventId: "sampleEventId")'));
+      final actual = EventQueries()
+          .fetchAgendaItemCategoriesByOrganization("sampleEventId");
+      expect(actual,
+          contains('agendaCategoriesByEventId(eventId: "sampleEventId")'));
       expect(actual, contains('id'));
       expect(actual, contains('name'));
       expect(actual, contains('description'));
@@ -311,7 +314,8 @@ void main() {
 
     test("Check if fetchAgendaItemsByEvent works correctly", () {
       final actual = EventQueries().fetchAgendaItemsByEvent("sampleEventId");
-      expect(actual, contains('agendaFoldersByEventId(eventId: "sampleEventId")'));
+      expect(
+          actual, contains('agendaFoldersByEventId(eventId: "sampleEventId")'));
       expect(actual, contains('id'));
       expect(actual, contains('name'));
       expect(actual, contains('description'));

@@ -34,8 +34,8 @@ class OrganizationService {
       // Some backends may return partial data with non-fatal GraphQL errors.
       // Only log the full exception when we have no usable data (avoids noisy
       // ServerException dumps when members list is still returned).
-      final hasMembersData = result.data != null &&
-          result.data!['usersByOrganizationId'] != null;
+      final hasMembersData =
+          result.data != null && result.data!['usersByOrganizationId'] != null;
       if (result.hasException && !hasMembersData) {
         AppLog.warn(
           'GraphQL Exception while fetching org members: ${result.exception}',

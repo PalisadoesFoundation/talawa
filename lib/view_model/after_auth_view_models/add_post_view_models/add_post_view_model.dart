@@ -243,7 +243,8 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   /// * `bool`: True if post can be uploaded, false otherwise
   bool canUploadPost() {
-    return imageFiles.isNotEmpty && captionController.text.trim().isNotEmpty;
+    // Image is optional; only caption is required by the API.
+    return captionController.text.trim().isNotEmpty;
   }
 
   /// Gets the total number of images selected.

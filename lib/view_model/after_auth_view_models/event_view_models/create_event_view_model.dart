@@ -54,8 +54,7 @@ class CreateEventViewModel extends BaseEventViewModel {
         input['startDate'] = formatDateOnly(eventStartDate);
         input['endDate'] = formatDateOnly(endForApi);
       } else {
-        final start =
-            combineDateTime(eventStartDate, eventStartTime).toUtc();
+        final start = combineDateTime(eventStartDate, eventStartTime).toUtc();
         DateTime end = combineDateTime(eventEndDate, eventEndTime).toUtc();
         if (!end.isAfter(start)) {
           end = start.add(const Duration(hours: 1));
