@@ -32,7 +32,10 @@ class EventCalendar extends StatefulWidget {
 }
 
 class _EventCalendarState extends State<EventCalendar> {
-  DateTime? _selectedDate;
+  // Default to today so the agenda list under the calendar isn't empty on
+  // first open — without this the user has to tap a cell before any of the
+  // day's events show up below.
+  DateTime? _selectedDate = DateTime.now();
   _EventViewMode _viewMode = _EventViewMode.calendar;
 
   @override
@@ -185,13 +188,20 @@ class _EventCalendarState extends State<EventCalendar> {
               ),
               const Divider(),
               Expanded(
-                child: ListView.builder(
-                  itemCount: selectedDateEvents.length,
-                  itemBuilder: (context, index) => EventCardWidget(
-                    model: model,
-                    event: selectedDateEvents[index],
-                  ),
-                ),
+                child: selectedDateEvents.isEmpty
+                    ? Center(
+                        child: Text(
+                          'No events on this day',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: selectedDateEvents.length,
+                        itemBuilder: (context, index) => EventCardWidget(
+                          model: model,
+                          event: selectedDateEvents[index],
+                        ),
+                      ),
               ),
             ],
           ),

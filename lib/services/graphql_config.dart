@@ -55,6 +55,14 @@ class GraphqlConfig {
   /// Initialize WebSocket link for GraphQL subscriptions
   void _initializeWebSocketLink() {
     try {
+      // Skip WS init until we have a token — connecting with `Bearer null`
+      // is rejected by the server (`onConnect` returns false), causing the
+      // connection to be torn down before any subscription can run.
+      if (token == null || token!.isEmpty) {
+        webSocketLink = null;
+        return;
+      }
+
       // Derive socket URL from orgURI by replacing http with ws
       String socketUrl;
       final trimmedOrg = orgURI?.trim();
@@ -75,9 +83,6 @@ class GraphqlConfig {
         config: SocketClientConfig(
           autoReconnect: true,
           inactivityTimeout: const Duration(minutes: 30),
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
           initialPayload: getInitialPayload,
         ),
       );
@@ -88,10 +93,14 @@ class GraphqlConfig {
     }
   }
 
-  /// Get the initial payload for WebSocket connection
+  /// Get the initial payload for WebSocket connection.
+  ///
+  /// Mercurius (Talawa API) reads `payload.authorization` (lowercase) in its
+  /// subscription `onConnect` handler — sending `Authorization` (capital) makes
+  /// the server reject the connection.
   Future<Map<String, String>> getInitialPayload() async {
     return {
-      'Authorization': 'Bearer $token',
+      'authorization': 'Bearer $token',
     };
   }
 

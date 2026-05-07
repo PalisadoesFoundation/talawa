@@ -234,14 +234,15 @@ void main() {
       expect(GraphqlConfig.orgURI, GraphqlConfig.defaultGraphqlUrl);
     });
 
-    test('getInitialPayload returns correct Authorization header', () async {
+    test('getInitialPayload returns correct authorization header', () async {
       final config = GraphqlConfig();
       GraphqlConfig.token = 'test-initial-payload-token';
 
       final payload = await config.getInitialPayload();
 
       expect(payload, isA<Map<String, String>>());
-      expect(payload['Authorization'], 'Bearer test-initial-payload-token');
+      // Mercurius reads `payload.authorization` (lowercase) in onConnect.
+      expect(payload['authorization'], 'Bearer test-initial-payload-token');
     });
 
     test('isSubscriptionRequest correctly identifies subscription requests',

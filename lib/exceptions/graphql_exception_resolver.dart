@@ -48,6 +48,67 @@ class GraphqlExceptionResolver {
   static const String notAuthorizedMessage =
       'You are not authorized to perform this action.';
 
+  /// Message returned by the new Talawa API when the access token is missing
+  /// or expired (paired with `extensions.code: "unauthenticated"`).
+  static const String userMustBeAuthenticatedMessage =
+      'You must be authenticated to perform this action.';
+
+  /// Single-flight future for a pending access-token refresh.
+  ///
+  /// Concurrent auth-failure paths share the same refresh attempt instead of
+  /// each kicking off their own (which would race the refresh-token rotation
+  /// and almost always blow up).
+  static Future<bool>? _refreshFuture;
+
+  /// Returns true when [error] indicates the access token is missing/expired.
+  ///
+  /// Detects both the legacy message strings and the new API's
+  /// `extensions.code: "unauthenticated"` marker. Matching on the extension
+  /// code is preferred because messages are localizable.
+  static bool _isAuthExpired(GraphQLError error) {
+    final code = (error.extensions?['code'] as String?)?.toLowerCase();
+    if (code == 'unauthenticated') return true;
+    final msg = error.message;
+    return msg == userNotAuthenticated.message ||
+        msg == refreshAccessTokenExpiredException.message ||
+        msg == userMustBeAuthenticatedMessage;
+  }
+
+  /// Awaits any in-flight token refresh, kicking one off if none is running.
+  ///
+  /// Use this from the auth query/mutation retry paths so the retried request
+  /// runs against the freshly-rotated [clientAuth] instead of the stale one.
+  static Future<bool> awaitRefresh() {
+    final existing = _refreshFuture;
+    if (existing != null) return existing;
+
+    final refreshToken = userConfig.currentUser.refreshToken;
+    if (refreshToken == null || refreshToken.isEmpty) {
+      return Future.value(false);
+    }
+
+    final future = _runRefresh(refreshToken);
+    _refreshFuture = future;
+    future.whenComplete(() {
+      if (_refreshFuture == future) _refreshFuture = null;
+    });
+    return future;
+  }
+
+  /// Performs a single access-token refresh and rebuilds the auth client.
+  static Future<bool> _runRefresh(String refreshToken) async {
+    try {
+      final ok = await databaseFunctions.refreshAccessToken(refreshToken);
+      if (ok) {
+        graphqlConfig.getToken();
+        databaseFunctions.init();
+      }
+      return ok;
+    } catch (_) {
+      return false;
+    }
+  }
+
   /// This function is used to check if any exceptions or error encountered.
   ///
   /// **params**:
@@ -62,10 +123,23 @@ class GraphqlExceptionResolver {
   }) {
     // If server link is wrong.
     if (exception.linkException != null) {
-      final linkError = exception.linkException.toString();
+      final linkException = exception.linkException;
+      final linkError = linkException.toString();
       if (showSnackBar) {
         debugPrint(linkError);
       }
+
+      // graphql_flutter wraps server-side GraphQL errors (with HTTP status
+      // 4xx/5xx) in a [ServerException] — that's not a real network failure,
+      // it's a domain/auth error the server returned. Treat it as a regular
+      // GraphQL error so the per-error logic below decides how to surface it.
+      final parsedErrors = linkException is ServerException
+          ? linkException.parsedResponse?.errors
+          : null;
+      if (parsedErrors != null && parsedErrors.isNotEmpty) {
+        return _handleGraphqlErrors(parsedErrors, showSnackBar);
+      }
+
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => navigationService.showTalawaErrorSnackBar(
@@ -85,45 +159,47 @@ class GraphqlExceptionResolver {
       return false;
     }
 
-    // GraphQL errors collection — only surface when we'd also show UI to the
-    // user. Field-level non-fatal errors (e.g. partial-response auth issues)
-    // are silenced to keep `flutter run` output focused on real problems.
+    return _handleGraphqlErrors(exception.graphqlErrors, showSnackBar);
+  }
+
+  /// Routes a list of [GraphQLError]s through the per-error UI/refresh logic.
+  ///
+  /// Extracted so both the direct GraphQL-error path and the
+  /// [ServerException]-wrapped path (where graphql_flutter buries the parsed
+  /// errors inside [linkException]) share the same handling.
+  static bool _handleGraphqlErrors(
+    List<GraphQLError> errors,
+    bool showSnackBar,
+  ) {
     if (showSnackBar) {
-      debugPrint(exception.graphqlErrors.toString());
+      debugPrint(errors.toString());
     }
-    for (int i = 0; i < exception.graphqlErrors.length; i++) {
+
+    for (final error in errors) {
+      final code = (error.extensions?['code'] as String?)?.toLowerCase();
+
       /// Non-fatal: field-level "not authorized" (e.g. path [user] when other data succeeded).
-      if (exception.graphqlErrors[i].message == notAuthorizedMessage) {
+      if (error.message == notAuthorizedMessage) return false;
+
+      /// Token expired / missing — kick off a single-flight refresh and
+      /// signal the caller to retry. Detects both legacy messages and the
+      /// new API's `extensions.code: "unauthenticated"`.
+      if (_isAuthExpired(error)) {
+        awaitRefresh();
+        return true;
+      }
+
+      // Field-level permission denial from the new API. Treat as non-fatal —
+      // the caller already gets `null` for the field; we don't surface a
+      // generic "something went wrong" snackbar for missing permissions.
+      if (code == 'unauthorized_action' ||
+          code == 'unauthorized_action_on_arguments_associated_resources' ||
+          code == 'forbidden_action_on_arguments_associated_resources' ||
+          code == 'forbidden') {
         return false;
       }
-      // if the error message is "Access Token has expired. Please refresh session.: Undefined location"
-      if (exception.graphqlErrors[i].message ==
-          refreshAccessTokenExpiredException.message) {
-        databaseFunctions
-            .refreshAccessToken(userConfig.currentUser.refreshToken!)
-            .then((value) {
-          graphqlConfig.getToken();
-          databaseFunctions.init();
-        });
 
-        return true;
-      }
-
-      /// If the error message is "User is not authenticated"
-      if (exception.graphqlErrors[i].message == userNotAuthenticated.message) {
-        databaseFunctions
-            .refreshAccessToken(userConfig.currentUser.refreshToken!)
-            .then(
-          (value) {
-            graphqlConfig.getToken();
-            databaseFunctions.init();
-          },
-        );
-        return true;
-      }
-
-      /// If the error message is "User not found"
-      if (exception.graphqlErrors[i].message == userNotFound.message) {
+      if (error.message == userNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(
@@ -135,8 +211,7 @@ class GraphqlExceptionResolver {
         return false;
       }
 
-      /// If the error message is "Membership Request already exists"
-      if (exception.graphqlErrors[i].message == memberRequestExist.message) {
+      if (error.message == memberRequestExist.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(
@@ -148,12 +223,14 @@ class GraphqlExceptionResolver {
         return false;
       }
 
-      /// If the error message is "Invalid credentials"
-      if (exception.graphqlErrors[i].message == wrongCredentials.message) {
+      // New API uses `extensions.code: "invalid_credentials"`; legacy used the
+      // message string. Match either so the dialog still shows on bad login.
+      if (code == 'invalid_credentials' ||
+          error.message == wrongCredentials.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(
-              "Enter a valid password",
+              "Invalid email address or password",
               MessageType.error,
             ),
           );
@@ -161,8 +238,7 @@ class GraphqlExceptionResolver {
         return false;
       }
 
-      /// If the error message is "Organization not found"
-      if (exception.graphqlErrors[i].message == organizationNotFound.message) {
+      if (error.message == organizationNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(
@@ -174,8 +250,7 @@ class GraphqlExceptionResolver {
         return false;
       }
 
-      /// If the error message is "Email address already exists"
-      if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
+      if (error.message == emailAccountPresent.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(

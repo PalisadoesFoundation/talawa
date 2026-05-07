@@ -426,8 +426,11 @@ class EventQueries {
   /// **returns**:
   /// * `String`: Returns a GraphQL query string to fetch event volunteer groups that match the provided criteria.
   String fetchVolunteerGroups() {
+    // `where` is non-null on the API (`EventVolunteerGroupWhereInput!`),
+    // so the variable declaration must match — declaring it as nullable
+    // causes the server to reject the operation with `invalid_arguments`.
     return '''
-      query GetEventVolunteerGroups(\$where: EventVolunteerGroupWhereInput) {
+      query GetEventVolunteerGroups(\$where: EventVolunteerGroupWhereInput!) {
         getEventVolunteerGroups(where: \$where) {
           id
           name
@@ -435,6 +438,11 @@ class EventQueries {
           createdAt
           leader { id name }
           creator { id name }
+          volunteers {
+            id
+            hasAccepted
+            user { id name }
+          }
         }
       }
     ''';

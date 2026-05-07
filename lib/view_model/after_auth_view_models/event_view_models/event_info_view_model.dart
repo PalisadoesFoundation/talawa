@@ -70,7 +70,9 @@ class EventInfoViewModel extends BaseModel {
   Future<void> initialize(Event event) async {
     this.event = event;
     fabTitle = getFabTitle();
-    await fetchCategories();
+    // Categories are only needed inside the admin-only "add agenda item"
+    // dialog, so fetch them lazily there instead of eagerly here. The eager
+    // fetch made every non-admin event view hit a 403 from the server.
     await fetchAgendaItems();
     selectedCategories.clear();
     setState(ViewState.busy);
@@ -147,10 +149,15 @@ class EventInfoViewModel extends BaseModel {
     int volunteersRequired,
   ) async {
     try {
+      // `leaderId` is required by the API (`EventVolunteerGroupInput.leaderId:
+      // ID!`). The current dialog doesn't ask for one, so default to the
+      // logged-in user — they are the creator of the request and a sensible
+      // initial leader; admins can reassign later.
       final variables = {
         'eventId': event.id,
         'name': groupName,
         'volunteersRequired': volunteersRequired,
+        'leaderId': locator<UserConfig>().currentUser.id,
       };
 
       final result = await eventService.createVolunteerGroup(variables);

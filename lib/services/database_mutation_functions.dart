@@ -91,10 +91,15 @@ class DataBaseMutationFunctions {
   Future<QueryResult<Object?>> gqlAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
+    FetchPolicy? fetchPolicy,
   }) async {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: variables ?? <String, dynamic>{},
+      // Allow callers to bypass the default cache-first behavior — needed for
+      // lists that change after a mutation (e.g. volunteer groups), where the
+      // cached empty result would otherwise stick on re-entry.
+      fetchPolicy: fetchPolicy,
     );
     final response = await cacheService.executeOrCacheOperation(
       operation: query,
@@ -140,6 +145,9 @@ class DataBaseMutationFunctions {
             showSnackBar: !hasUsableData,
           );
           if (exception!) {
+            // Wait for the in-flight refresh to settle so the retry runs
+            // against the rotated [clientAuth] with a fresh token.
+            await GraphqlExceptionResolver.awaitRefresh();
             return await gqlAuthQuery(query, variables: variables);
           }
           if (hasUsableData) {
@@ -220,9 +228,15 @@ class DataBaseMutationFunctions {
         }
         // If there is an error or exception in [result]
         if (result.hasException) {
-          GraphqlExceptionResolver.encounteredExceptionOrError(
+          final retry = GraphqlExceptionResolver.encounteredExceptionOrError(
             result.exception!,
           );
+          if (retry == true) {
+            // Auth-expired — wait for the refresh to land, then re-run the
+            // mutation so the user doesn't see a silent failure.
+            await GraphqlExceptionResolver.awaitRefresh();
+            return await gqlAuthMutation(mutation, variables: variables);
+          }
         } else if (result.data != null && result.isConcrete) {
           return result;
         }

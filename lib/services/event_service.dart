@@ -404,8 +404,17 @@ class EventService extends BaseFeedManager<Event> {
       final result = await _dbFunctions.gqlAuthQuery(
         EventQueries().fetchVolunteerGroups(),
         variables: variables,
+        // Always hit the network — the list mutates (create/edit/delete) and
+        // a cached empty result from before the first create would otherwise
+        // keep showing on re-entry to the Volunteers tab.
+        fetchPolicy: FetchPolicy.networkOnly,
       );
-      final List groupsJson = result.data!['getEventVolunteerGroups'] as List;
+      // Server returns `null` data on validation errors (or a missing field
+      // when the user isn't authorized) — guard so we don't crash with a
+      // "Null check operator used on a null value" on top of the real error.
+      final groupsJson =
+          result.data?['getEventVolunteerGroups'] as List<dynamic>?;
+      if (groupsJson == null) return [];
 
       return groupsJson
           .map(

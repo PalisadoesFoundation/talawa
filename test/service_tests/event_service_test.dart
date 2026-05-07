@@ -866,6 +866,7 @@ void main() {
             variables: {
               "where": {"eventId": eventId},
             },
+            fetchPolicy: FetchPolicy.networkOnly,
           ),
         ).thenAnswer(
           (_) async => QueryResult(
@@ -905,6 +906,7 @@ void main() {
             variables: {
               "where": {"eventId": eventId},
             },
+            fetchPolicy: FetchPolicy.networkOnly,
           ),
         ).thenThrow(Exception("query error"));
 

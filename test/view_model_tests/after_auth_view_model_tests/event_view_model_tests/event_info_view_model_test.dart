@@ -104,6 +104,7 @@ void main() {
           'eventId': "1",
           'name': 'Group 1',
           'volunteersRequired': 10,
+          'leaderId': 'xzy1',
         }),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -133,6 +134,7 @@ void main() {
           'eventId': "1",
           'name': 'Group 1',
           'volunteersRequired': 10,
+          'leaderId': 'xzy1',
         }),
       ).thenThrow(Exception('Failed to create new volunteer group'));
 
