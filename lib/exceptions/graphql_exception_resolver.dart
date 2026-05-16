@@ -96,15 +96,24 @@ class GraphqlExceptionResolver {
   }
 
   /// Performs a single access-token refresh and rebuilds the auth client.
+  ///
+  /// On failure (refresh token expired/invalid, or the mutation itself threw),
+  /// forces a silent logout so we don't loop calling a refresh endpoint that
+  /// will never succeed — which is what historically produced the
+  /// `rate_limit_exceeded` storm.
   static Future<bool> _runRefresh(String refreshToken) async {
     try {
       final ok = await databaseFunctions.refreshAccessToken(refreshToken);
       if (ok) {
         graphqlConfig.getToken();
         databaseFunctions.init();
+        return true;
       }
-      return ok;
-    } catch (_) {
+      await userConfig.forceSilentLogout();
+      return false;
+    } catch (e, st) {
+      debugPrint('Token refresh failed: $e\n$st');
+      await userConfig.forceSilentLogout();
       return false;
     }
   }
@@ -177,9 +186,19 @@ class GraphqlExceptionResolver {
 
     for (final error in errors) {
       final code = (error.extensions?['code'] as String?)?.toLowerCase();
+      final httpStatus = error.extensions?['httpStatus'] as int?;
 
       /// Non-fatal: field-level "not authorized" (e.g. path [user] when other data succeeded).
       if (error.message == notAuthorizedMessage) return false;
+
+      /// Server rate-limited the request. Don't retry — the caller's
+      /// SWR/cache fallback will surface stale data, and any retry here
+      /// would amplify the burst that triggered the limit in the first
+      /// place. Suppress the generic dialog so users don't see a popup
+      /// for every queued request during the burst.
+      if (code == 'rate_limit_exceeded' || httpStatus == 429) {
+        return false;
+      }
 
       /// Token expired / missing — kick off a single-flight refresh and
       /// signal the caller to retry. Detects both legacy messages and the

@@ -340,7 +340,10 @@ class DataBaseMutationFunctions {
   ///
   /// **returns**:
   /// * `Future<bool>`: it returns Future of dynamic
-  Future<bool> refreshAccessToken(String refreshToken) async {
+  Future<bool> refreshAccessToken(
+    String refreshToken, {
+    int attempt = 0,
+  }) async {
     // run the graphQL mutation
     final QueryResult result = await clientNonAuth.mutate(
       MutationOptions(
@@ -351,14 +354,17 @@ class DataBaseMutationFunctions {
     );
     // if there is an error or exception in [result]
     if (result.hasException) {
-      final exception = GraphqlExceptionResolver.encounteredExceptionOrError(
+      // Suppress UI noise during refresh — caller decides how to react.
+      GraphqlExceptionResolver.encounteredExceptionOrError(
         result.exception!,
+        showSnackBar: false,
       );
-      if (exception!) {
-        refreshAccessToken(refreshToken);
-      } else {
-        navigationService.pop();
+      // Bounded retry: one extra attempt for transient failures, then give up
+      // so the caller can force a silent logout instead of looping forever.
+      if (attempt < 1) {
+        return refreshAccessToken(refreshToken, attempt: attempt + 1);
       }
+      return false;
     } else if (result.data != null && result.isConcrete) {
       userConfig.updateAccessToken(
         refreshToken: (result.data!['refreshToken']
