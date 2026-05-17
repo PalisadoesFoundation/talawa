@@ -97,7 +97,7 @@ class TestJsonUtils {
   /// * `Event`: Properly constructed Event with extracted nested data
   static Event createEventFromJson(Map<String, dynamic> json) {
     return Event(
-      id: json['_id'] as String,
+      id: (json['id'] ?? json['_id']) as String,
       name: json['title'] as String?,
       description: json['description'] as String?,
       location: json['location'] as String?,
@@ -132,7 +132,7 @@ class TestJsonUtils {
     Map<String, dynamic> json,
   ) {
     return EventVolunteer(
-      id: json['_id'] as String?,
+      id: json['id'] as String?,
       creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
       event: json['event'] != null
           ? createEventFromJson(json['event'] as Map<String, dynamic>)
@@ -160,7 +160,7 @@ class TestJsonUtils {
     Map<String, dynamic> json,
   ) {
     return EventVolunteerGroup(
-      id: json['_id'] as String?,
+      id: json['id'] as String?,
       createdAt: json['createdAt'] as String?,
       creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
       event: json['event'] != null

@@ -3517,12 +3517,13 @@ class MockDataBaseMutationFunctions extends _i2.Mock
   _i9.Future<_i3.QueryResult<Object?>> gqlAuthQuery(
     String? query, {
     Map<String, dynamic>? variables,
+    _i3.FetchPolicy? fetchPolicy,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #gqlAuthQuery,
           [query],
-          {#variables: variables},
+          {#variables: variables, #fetchPolicy: fetchPolicy},
         ),
         returnValue: _i9.Future<_i3.QueryResult<Object?>>.value(
             _FakeQueryResult_8<Object?>(
@@ -3530,7 +3531,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           Invocation.method(
             #gqlAuthQuery,
             [query],
-            {#variables: variables},
+            {#variables: variables, #fetchPolicy: fetchPolicy},
           ),
         )),
         returnValueForMissingStub: _i9.Future<_i3.QueryResult<Object?>>.value(
@@ -3539,7 +3540,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           Invocation.method(
             #gqlAuthQuery,
             [query],
-            {#variables: variables},
+            {#variables: variables, #fetchPolicy: fetchPolicy},
           ),
         )),
       ) as _i9.Future<_i3.QueryResult<Object?>>);

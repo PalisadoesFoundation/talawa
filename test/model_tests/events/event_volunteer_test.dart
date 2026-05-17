@@ -23,7 +23,7 @@ void main() {
   group('Test EventVolunteer Model', () {
     test('Test EventVolunteer fromJson', () {
       final eventVolunteerJson = {
-        '_id': 'volunteer1',
+        'id': 'volunteer1',
         'creator': {
           'id': 'fakeCreatorId',
           'name': 'Creator Name',
@@ -36,7 +36,7 @@ void main() {
           'location': 'Sample Location',
         },
         'group': {
-          '_id': 'group1',
+          'id': 'group1',
           'name': 'Group Name',
         },
         'isAssigned': true,
@@ -71,7 +71,7 @@ void main() {
 
     test('Test EventVolunteer fromJson with null and missing fields', () {
       final eventVolunteerJson = {
-        '_id': 'volunteer2',
+        'id': 'volunteer2',
         'creator': null,
         'event': null,
         'group': null,
@@ -96,7 +96,7 @@ void main() {
 
     test('Test EventVolunteer fromJson with minimal data', () {
       final eventVolunteerJson = {
-        '_id': 'volunteer3',
+        'id': 'volunteer3',
       };
 
       final eventVolunteerFromJson =
@@ -187,7 +187,7 @@ void main() {
 
     test('Test EventVolunteer fromJson with complex nested structures', () {
       final eventVolunteerJson = {
-        '_id': 'volunteer4',
+        'id': 'volunteer4',
         'creator': {
           'id': 'creatorId',
           'name': 'John Doe',
@@ -203,7 +203,7 @@ void main() {
           'recurring': false,
         },
         'group': {
-          '_id': 'groupId',
+          'id': 'groupId',
           'name': 'Complex Group',
           'description': 'This is a complex group',
           'volunteersRequired': 10,
@@ -279,7 +279,7 @@ void main() {
       // This tests the TestJsonUtils method with the actual nested format
       // that comes from API responses (with nested 'user' structures)
       final eventVolunteerJson = {
-        '_id': 'utilsTest',
+        'id': 'utilsTest',
         'creator': {
           'user': {
             'id': 'utilsCreatorId',
@@ -287,11 +287,11 @@ void main() {
           },
         },
         'event': {
-          '_id': 'utilsEventId',
+          'id': 'utilsEventId',
           'title': 'Utils Event',
         },
         'group': {
-          '_id': 'utilsGroupId',
+          'id': 'utilsGroupId',
           'name': 'Utils Group',
         },
         'isAssigned': false,

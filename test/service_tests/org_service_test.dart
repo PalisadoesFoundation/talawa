@@ -101,6 +101,47 @@ void main() {
       expect(result.length, 0); // Should return empty list on error
     });
 
+    test('Test getOrgMembersList with partial data and GraphQL exception',
+        () async {
+      const String orgId = '123';
+
+      final QueryResult queryResult = QueryResult.internal(
+        parserFn: (map) => '123',
+        source: QueryResultSource.network,
+        data: {
+          'usersByOrganizationId': [
+            {
+              'id': 'user_id_1',
+              'name': 'Some Name',
+              'avatarURL': 'https://example.com/avatar1.jpg',
+              'description': 'Test user 1',
+            },
+          ],
+        },
+        exception: OperationException(
+          graphqlErrors: [
+            const GraphQLError(
+              message: 'You are not authorized to perform this action.',
+            ),
+          ],
+        ),
+      );
+
+      when(mockDbFunctions.gqlAuthQuery(
+        argThat(contains('usersByOrganizationId')),
+        variables: anyNamed('variables'),
+      )).thenAnswer((_) async => queryResult);
+
+      final OrganizationService organizationService = OrganizationService();
+      final result = await organizationService.getOrgMembersList(orgId);
+
+      // Should still parse available users from partial data
+      expect(result.length, 1);
+      expect(result[0].id, 'user_id_1');
+      expect(result[0].firstName, 'Some');
+      expect(result[0].lastName, 'Name');
+    });
+
     test('Test getOrgMembersList with null data', () async {
       const String orgId = '123';
 

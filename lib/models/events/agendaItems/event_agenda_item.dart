@@ -46,7 +46,13 @@ class EventAgendaItem {
           ? (json['categories'] as List)
               .map((e) => AgendaCategory.fromJson(e as Map<String, dynamic>))
               .toList()
-          : null,
+          : json['category'] != null
+              ? [
+                  AgendaCategory.fromJson(
+                    json['category'] as Map<String, dynamic>,
+                  ),
+                ]
+              : null,
       sequence: json['sequence'] != null
           ? int.tryParse(json['sequence'].toString())
           : null,

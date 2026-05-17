@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -14,24 +15,23 @@ import 'package:talawa/utils/chat_queries.dart';
 class ChatSubscriptionService {
   ChatSubscriptionService() {
     _dbFunctions = locator<DataBaseMutationFunctions>();
-    _chatMessagesStream = _chatMessageController.stream.asBroadcastStream();
   }
 
   /// Database mutation functions.
   late DataBaseMutationFunctions _dbFunctions;
 
-  /// Stream for chat messages.
-  late Stream<ChatMessage> _chatMessagesStream;
+  /// Active broadcast controller for the currently-subscribed chat.
+  StreamController<ChatMessage>? _activeController;
 
-  /// Controller for chat messages stream.
-  final StreamController<ChatMessage> _chatMessageController =
-      StreamController<ChatMessage>();
+  /// Underlying GraphQL subscription handle for the active chat.
+  StreamSubscription<QueryResult<Object?>>? _activeStreamSubscription;
 
-  /// Completer to control subscription cancellation.
-  Completer<void>? _subscriptionCompleter;
+  /// Chat ID currently subscribed to (used to dedupe re-subscribes).
+  String? _activeChatId;
 
   /// Getter for chat messages stream.
-  Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
+  Stream<ChatMessage> get chatMessagesStream =>
+      _activeController?.stream ?? const Stream<ChatMessage>.empty();
 
   /// Subscribes to real-time chat messages for a specific chat.
   ///
@@ -41,29 +41,20 @@ class ChatSubscriptionService {
   /// **returns**:
   /// * `Stream<ChatMessage>`: Stream of incoming messages for the specified chat
   Stream<ChatMessage> subscribeToChatMessages(String chatId) {
-    // Start the subscription
-    _startSubscription(chatId);
+    // Reuse the existing broadcast stream when the caller re-subscribes to the
+    // same chat — avoids tearing down a healthy WebSocket subscription.
+    final existing = _activeController;
+    if (_activeChatId == chatId && existing != null && !existing.isClosed) {
+      return existing.stream;
+    }
 
-    // Return the existing chat messages stream
-    return _chatMessagesStream;
-  }
+    _stopActiveSubscription();
 
-  /// Helper Method - Starts a subscription to chat messages using the gqlAuthSubscription approach.
-  ///
-  /// **params**:
-  /// * `chatId`: The ID of the chat to subscribe to
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> _startSubscription(
-    String chatId,
-  ) async {
-    // Cancel any existing subscription
-    _subscriptionCompleter?.complete();
-    _subscriptionCompleter = Completer<void>();
+    final controller = StreamController<ChatMessage>.broadcast();
+    _activeController = controller;
+    _activeChatId = chatId;
 
     try {
-      // Use the new gqlAuthSubscription method for consistent handling
       final stream = _dbFunctions.gqlAuthSubscription(
         ChatQueries().chatMessageCreate,
         variables: {
@@ -73,34 +64,45 @@ class ChatSubscriptionService {
         },
       );
 
-      // Listen to the stream using for-loop approach
-      await for (final result in stream) {
-        // Check if subscription should be cancelled
-        if (_subscriptionCompleter?.isCompleted == true) {
-          break;
-        }
+      _activeStreamSubscription = stream.listen(
+        (result) {
+          if (controller.isClosed) return;
 
-        if (result.hasException) {
-          debugPrint(
-            'Subscription error for chat $chatId: ${result.exception}',
-          );
-          // Continue listening instead of breaking
-          continue;
-        }
+          if (result.hasException) {
+            debugPrint(
+              'Subscription error for chat $chatId: ${result.exception}',
+            );
+            return;
+          }
 
-        // Parse the received message
-        if (result.data != null && result.data!['chatMessageCreate'] != null) {
-          final messageData =
-              result.data!['chatMessageCreate'] as Map<String, dynamic>;
-
-          // Create and emit the message - add to the chat message controller
-          final message = ChatMessage.fromJson(messageData);
-          _chatMessageController.add(message);
-        }
-      }
+          final data = result.data?['chatMessageCreate'];
+          if (data is Map<String, dynamic>) {
+            controller.add(ChatMessage.fromJson(data));
+          }
+        },
+        onError: (Object error, StackTrace stackTrace) {
+          debugPrint('Subscription stream error for chat $chatId: $error');
+        },
+        cancelOnError: false,
+      );
     } catch (e) {
-      // Error in subscription
-      debugPrint('Failed to start subscription: $e');
+      debugPrint('Failed to start subscription for chat $chatId: $e');
+    }
+
+    return controller.stream;
+  }
+
+  /// Tears down the currently-active subscription and broadcast controller.
+  void _stopActiveSubscription() {
+    _activeStreamSubscription?.cancel();
+    _activeStreamSubscription = null;
+
+    final controller = _activeController;
+    _activeController = null;
+    _activeChatId = null;
+
+    if (controller != null && !controller.isClosed) {
+      controller.close();
     }
   }
 
@@ -111,12 +113,7 @@ class ChatSubscriptionService {
   ///
   /// **returns**:
   ///   None
-  void stopSubscription() {
-    if (_subscriptionCompleter != null &&
-        !_subscriptionCompleter!.isCompleted) {
-      _subscriptionCompleter!.complete();
-    }
-  }
+  void stopSubscription() => _stopActiveSubscription();
 
   /// Disposes the service and closes streams.
   ///
@@ -125,8 +122,5 @@ class ChatSubscriptionService {
   ///
   /// **returns**:
   ///   None
-  void dispose() {
-    stopSubscription();
-    _chatMessageController.close();
-  }
+  void dispose() => _stopActiveSubscription();
 }

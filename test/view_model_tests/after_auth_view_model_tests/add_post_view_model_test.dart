@@ -25,7 +25,9 @@ void main() {
   });
 
   setUp(() {
-    // Register our local ActionHandlerService mock specifically for this test
+    // Reset mock invocation counts so each test sees a fresh slate.
+    reset(mockActionHandlerService);
+    reset(navigationService);
 
     viewModel = AddPostViewModel();
 
@@ -229,13 +231,12 @@ void main() {
     });
 
     group('Post Upload Validation', () {
-      test('should return false for canUploadPost when no images selected', () {
-        // Arrange
+      test('should return true for canUploadPost when only caption exists', () {
+        // Image is optional; caption alone is enough.
         viewModel.initialise();
         viewModel.captionController.text = 'Test caption';
 
-        // Act & Assert
-        expect(viewModel.canUploadPost(), isFalse);
+        expect(viewModel.canUploadPost(), isTrue);
       });
 
       test('should return false for canUploadPost when caption is empty', () {
@@ -243,8 +244,9 @@ void main() {
         viewModel.initialise();
         final mockFile = File('test_image.jpg');
         viewModel.addImage(mockFile);
+        // Leave caption empty.
 
-        // Act & Assert
+        // Caption is the only required field; image alone is not enough.
         expect(viewModel.canUploadPost(), isFalse);
       });
 
@@ -274,7 +276,8 @@ void main() {
         expect(viewModel.canUploadPost(), isTrue);
       });
 
-      test('should show error when uploading post without images', () async {
+      test('should not show image-required error for text-only posts',
+          () async {
         // Arrange
         viewModel.initialise();
         viewModel.captionController.text = 'Test caption';
@@ -282,13 +285,14 @@ void main() {
         // Act
         await viewModel.uploadPost();
 
-        // Assert
-        verify(
+        // Assert: text-only posts are now allowed; the legacy
+        // "image required" snackbar must NOT fire.
+        verifyNever(
           navigationService.showTalawaErrorSnackBar(
             'At least one image is required to create a post',
             MessageType.error,
           ),
-        ).called(1);
+        );
       });
 
       test('should show error when uploading post without caption', () async {
@@ -512,7 +516,7 @@ void main() {
     });
 
     group('uploadPost Tests', () {
-      test('should show error when no images are selected', () async {
+      test('should allow text-only posts (no image required)', () async {
         // Arrange
         viewModel.initialise();
         viewModel.captionController.text = 'Test caption';
@@ -520,13 +524,13 @@ void main() {
         // Act
         await viewModel.uploadPost();
 
-        // Assert
-        verify(
+        // Assert: legacy image-required snackbar must NOT fire.
+        verifyNever(
           navigationService.showTalawaErrorSnackBar(
             "At least one image is required to create a post",
             MessageType.error,
           ),
-        ).called(1);
+        );
       });
 
       test('should show error when caption is empty', () async {

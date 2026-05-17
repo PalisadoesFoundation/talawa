@@ -34,6 +34,7 @@ android {
     }
     
     compileSdkVersion 36
+    ndkVersion "28.2.13676358"
     namespace "com.example.talawa"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

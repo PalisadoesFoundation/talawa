@@ -132,7 +132,7 @@ class ManageVolunteerGroupViewModel extends BaseModel {
           .removeVolunteerGroup(variables) as QueryResult;
       final data = result.data;
 
-      if (data != null && data['removeEventVolunteerGroup'] != null) {
+      if (data != null && data['deleteEventVolunteerGroup'] != null) {
         notifyListeners();
       }
     } catch (e) {
@@ -156,7 +156,7 @@ class ManageVolunteerGroupViewModel extends BaseModel {
           .removeVolunteerFromGroup(variables) as QueryResult;
       final data = result.data;
 
-      if (data != null && data['removeEventVolunteer'] != null) {
+      if (data != null && data['deleteEventVolunteer'] != null) {
         _volunteers.removeWhere((volunteer) => volunteer.id == volunteerId);
         print('Volunteer removed successfully.');
         notifyListeners();

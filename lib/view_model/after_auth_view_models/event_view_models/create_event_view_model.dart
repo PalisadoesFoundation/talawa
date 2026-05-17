@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/recurrence_utils.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_venue.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
@@ -21,28 +22,54 @@ class CreateEventViewModel extends BaseEventViewModel {
   /// Member selection map.
   Map<String, bool> get memberCheckedMap => _memberCheckedMap;
 
+  /// Formats a [DateTime] as `YYYY-MM-DD` for all-day event date fields.
+  ///
+  /// **params**:
+  /// * `d`: The date to format.
+  ///
+  /// **returns**:
+  /// * `String`: `YYYY-MM-DD` representation of [d].
+  String _formatDateOnly(DateTime d) => '${d.year.toString().padLeft(4, '0')}-'
+      '${d.month.toString().padLeft(2, '0')}-'
+      '${d.day.toString().padLeft(2, '0')}';
+
   @override
   Future<void> execute() async {
     try {
-      final Map<String, dynamic> variables = {
-        "input": {
-          'name': eventTitleTextController.text,
-          'description': eventDescriptionTextController.text,
-          'location': eventLocationTextController.text,
-          'isPublic': isPublicSwitch,
-          'isRegisterable': isRegisterableSwitch,
-          'allDay': isAllDay,
-          'organizationId': currentOrg.id,
-          'startAt': combineDateTime(
-            eventStartDate,
-            eventStartTime,
-          ).toUtc().toIso8601String(),
-          'endAt': combineDateTime(
-            eventEndDate,
-            eventEndTime,
-          ).toUtc().toIso8601String(),
-        },
+      final description = eventDescriptionTextController.text.trim();
+      final location = eventLocationTextController.text.trim();
+
+      final Map<String, dynamic> input = {
+        'name': eventTitleTextController.text,
+        'isPublic': isPublicSwitch,
+        'isRegisterable': isRegisterableSwitch,
+        'allDay': isAllDay,
+        'organizationId': currentOrg.id,
+        // API rejects empty strings on optional fields with min(1) validation.
+        if (description.isNotEmpty) 'description': description,
+        if (location.isNotEmpty) 'location': location,
       };
+
+      if (isAllDay) {
+        // API requires endDate strictly greater than startDate. Bump end to
+        // the day after when the user picked the same (or earlier) end date.
+        DateTime endForApi = eventEndDate;
+        if (!endForApi.isAfter(eventStartDate)) {
+          endForApi = eventStartDate.add(const Duration(days: 1));
+        }
+        input['startDate'] = _formatDateOnly(eventStartDate);
+        input['endDate'] = _formatDateOnly(endForApi);
+      } else {
+        final start = combineDateTime(eventStartDate, eventStartTime).toUtc();
+        DateTime end = combineDateTime(eventEndDate, eventEndTime).toUtc();
+        if (!end.isAfter(start)) {
+          end = start.add(const Duration(hours: 1));
+        }
+        input['startAt'] = start.toIso8601String();
+        input['endAt'] = end.toIso8601String();
+      }
+
+      final Map<String, dynamic> variables = {"input": input};
 
       if (isRecurring) {
         final recurrenceData = _buildRecurrenceData();
@@ -52,15 +79,38 @@ class CreateEventViewModel extends BaseEventViewModel {
         }
       }
 
+      // Snapshot the date BEFORE clearFormState resets controllers so the
+      // refetch window stays anchored on the new event's actual date.
+      final eventDate = eventStartDate;
+
       navigationService.pushDialog(
         const CustomProgressDialog(),
       );
 
       final result = await eventService.createEvent(variables: variables);
       if (result.data != null) {
+        // Pop the progress dialog.
+        navigationService.pop();
+
+        // Insert returned event directly into the in-memory feed so it shows
+        // even when a refetch would page-skip it (e.g. >100 events in window).
+        final createdJson = result.data!['createEvent'];
+        if (createdJson is Map<String, dynamic>) {
+          eventService.addLocalEvent(Event.fromJson(createdJson));
+        }
+
+        // Refetch around the created event's date as a secondary refresh so
+        // server-side fields (cursor, sequence, etc.) reconcile with the feed.
+        final rangeStart = eventDate.subtract(const Duration(days: 60));
+        final rangeEnd = eventDate.add(const Duration(days: 60));
+        await eventService.fetchEventsWithDates(rangeStart, rangeEnd);
+
+        clearFormState();
+
+        // Pop the create-event screen so the user lands back on the events
+        // list with the new event visible.
         navigationService.pop();
         navigationService.showSnackBar('Event created successfully');
-        clearFormState();
       } else {
         throw Exception('Event creation failed');
       }

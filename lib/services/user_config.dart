@@ -208,6 +208,43 @@ class UserConfig {
         options: QueryOptions(document: gql('{ __typename }')));
   }
 
+  /// Single-flight guard so concurrent auth-failure paths don't each try to
+  /// log the user out (which would race the Hive box clears and the
+  /// navigation pop/push).
+  bool _silentLogoutInFlight = false;
+
+  /// Clears all session state and redirects to the login screen without any
+  /// dialog, snackbar, or progress UI.
+  ///
+  /// Used by the auth refresh path when the refresh token itself is invalid —
+  /// at that point we can't recover the session, so the user has to log in
+  /// again, but they shouldn't be greeted by a noisy "logging out" spinner.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> forceSilentLogout() async {
+    if (_silentLogoutInFlight) return;
+    _silentLogoutInFlight = true;
+    try {
+      await Hive.box<User>('currentUser').clear();
+      await Hive.box('url').clear();
+      await Hive.box<OrgInfo>('currentOrg').clear();
+      await secureStorage.deleteAll();
+      _currentUser = User(id: 'null', authToken: 'null');
+      _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
+      navigationService.removeAllAndPush(
+        Routes.setUrlScreen,
+        Routes.splashScreen,
+        arguments: '',
+      );
+    } finally {
+      _silentLogoutInFlight = false;
+    }
+  }
+
   /// Updates the user joined organization.
   ///
   /// **params**:

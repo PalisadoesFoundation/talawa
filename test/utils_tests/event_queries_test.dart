@@ -33,35 +33,32 @@ void main() {
     });
 
     test("Check if attendeesByEvent works correctly", () {
-      const data = '''
-      query {
-        getEventAttendeesByEventId(eventId: "sampleID") {
-          eventId
-          userId
-          isRegistered
-          isInvited
-          isCheckedIn
-          isCheckedOut
-        }
-      }
-    ''';
-
       final fnData = EventQueries().attendeesByEvent("sampleID");
-      expect(fnData, data);
+      expect(
+          fnData, contains('getEventAttendeesByEventId(eventId: "sampleID")'));
+      expect(fnData, contains('event { id }'));
+      expect(fnData, contains('user { id name }'));
+      expect(fnData, contains('isRegistered'));
+      expect(fnData, contains('isInvited'));
+      expect(fnData, contains('isCheckedIn'));
+      expect(fnData, contains('isCheckedOut'));
     });
 
     test("Check if addEvent works correctly", () {
-      const data = """
-      mutation CreateEvent(\$input: MutationCreateEventInput!) {
-        createEvent(input: \$input) {
-          id
-          name
-        }
-      }
-    """;
-
       final fnData = EventQueries().addEvent();
-      expect(fnData.trim(), data.trim());
+      expect(fnData, contains('mutation CreateEvent'));
+      expect(fnData, contains(r'$input: MutationCreateEventInput!'));
+      expect(fnData, contains('createEvent(input: \$input)'));
+      expect(fnData, contains('id'));
+      expect(fnData, contains('name'));
+      expect(fnData, contains('startAt'));
+      expect(fnData, contains('endAt'));
+      expect(fnData, contains('startDate'));
+      expect(fnData, contains('endDate'));
+      expect(fnData, contains('allDay'));
+      expect(fnData, contains('location'));
+      expect(fnData, contains('creator { id name }'));
+      expect(fnData, contains('organization { id name }'));
     });
 
     test("Check if updateStandaloneEvent works correctly", () {
@@ -192,266 +189,143 @@ void main() {
       expect(fnData, data);
     });
     test("Check if createVolunteerGroup works correctly", () {
-      const data = '''
-  mutation CreateEventVolunteerGroup(\$data: EventVolunteerGroupInput!) {
-    createEventVolunteerGroup(data: \$data) {
-      _id
-      name
-      volunteers{
-      _id
-      }
-      createdAt
-      volunteersRequired
-      creator{
-      _id
-      }
-    }
-  }
-  ''';
-
       final fnData = EventQueries().createVolunteerGroup();
-      expect(fnData.trim(), data.trim());
+      expect(fnData, contains('createEventVolunteerGroup(data: \$data)'));
+      expect(fnData, contains(r'$data: EventVolunteerGroupInput!'));
+      expect(fnData, contains('id'));
+      expect(fnData, contains('name'));
+      expect(fnData, contains('createdAt'));
+      expect(fnData, contains('volunteersRequired'));
+      expect(fnData, contains('creator { id name }'));
+      expect(fnData, isNot(contains('_id')));
     });
 
     test("Check if removeVolunteerGroup works correctly", () {
-      const expected = '''
-  mutation RemoveEventVolunteerGroup(\$id: ID!) {
-    removeEventVolunteerGroup(id: \$id) {
-    _id
-    name
-    }
-  }
-  ''';
-
-      final actual = EventQueries().removeEventVolunteerGroup().trim();
-      expect(actual, expected.trim());
+      final actual = EventQueries().removeEventVolunteerGroup();
+      expect(actual, contains('mutation DeleteEventVolunteerGroup'));
+      expect(actual, contains('deleteEventVolunteerGroup(id: \$id)'));
+      expect(actual, contains(r'$id: ID!'));
+      expect(actual, contains('id'));
+      expect(actual, contains('name'));
+      expect(actual, isNot(contains('_id')));
     });
 
     test("Check if addVolunteerToGroup works correctly", () {
-      const expected = '''
-mutation CreateEventVolunteer(\$data: EventVolunteerInput!) {
-  createEventVolunteer(data: \$data) {
-      _id
-      isAssigned
-      response
-      creator {
-        _id
-      }
-      group {
-        _id
-        name
-      }
-      isInvited
-      user {
-        _id
-        firstName
-        lastName
-      }
-    }
-  }  
-  ''';
-
-      final actual = EventQueries()
-          .addVolunteerToGroup()
-          .replaceAll(' ', '')
-          .replaceAll('\n', '')
-          .replaceAll('\t', '');
-
-      expect(
-        actual,
-        expected.replaceAll(' ', '').replaceAll('\n', '').replaceAll('\t', ''),
-      );
+      final actual = EventQueries().addVolunteerToGroup();
+      expect(actual, contains(r'$data: EventVolunteerInput!'));
+      expect(actual, contains('createEventVolunteer(data: \$data)'));
+      expect(actual, contains('id'));
+      expect(actual, contains('hasAccepted'));
+      expect(actual, contains('isPublic'));
+      expect(actual, contains('creator { id name }'));
+      expect(actual, contains('event { id }'));
+      expect(actual, contains('user { id name }'));
+      expect(actual, isNot(contains('_id')));
+      expect(actual, isNot(contains('firstName')));
+      expect(actual, isNot(contains('lastName')));
     });
     test("Check if removeVolunteerFromGroup works correctly", () {
-      const expected = '''
-  mutation RemoveEventVolunteer(\$id: ID!) {
-    removeEventVolunteer(id: \$id) {
-      _id
-    }
-  }
-  ''';
-
-      final actual = EventQueries().removeVolunteerMutation().trim();
-      expect(actual, expected.trim());
+      final actual = EventQueries().removeVolunteerMutation();
+      expect(actual, contains('mutation DeleteEventVolunteer'));
+      expect(actual, contains('deleteEventVolunteer(id: \$id)'));
+      expect(actual, contains(r'$id: ID!'));
+      expect(actual, contains('id'));
+      expect(actual, isNot(contains('_id')));
     });
 
     test("Check if updateVolunteerGroup works correctly", () {
-      const expected = '''
-  mutation UpdateEventVolunteerGroup(\$id: ID!, \$data: UpdateEventVolunteerGroupInput!) {
-    updateEventVolunteerGroup(id: \$id, data: \$data) {
-      _id
-      name
-      volunteersRequired
-    }
-  }
-  ''';
-
-      final actual = EventQueries()
-          .updateVolunteerGroupMutation()
-          .replaceAll(' ', '')
-          .replaceAll('\n', '')
-          .replaceAll('\t', '');
-      expect(
-        actual,
-        expected.replaceAll(' ', '').replaceAll('\n', '').replaceAll('\t', ''),
-      );
+      final actual = EventQueries().updateVolunteerGroupMutation();
+      expect(actual, contains('mutation UpdateEventVolunteerGroup'));
+      expect(actual, contains(r'$id: ID!'));
+      expect(actual, contains(r'$data: UpdateEventVolunteerGroupInput!'));
+      expect(actual,
+          contains('updateEventVolunteerGroup(id: \$id, data: \$data)'));
+      expect(actual, contains('id'));
+      expect(actual, contains('name'));
+      expect(actual, contains('volunteersRequired'));
+      expect(actual, isNot(contains('_id')));
     });
 
     test("Check if fetchVolunteerGroupsByEvent works correctly", () {
-      const expected = '''
-  query GetEventVolunteerGroups(\$where: EventVolunteerGroupWhereInput) {
-    getEventVolunteerGroups(where: \$where) {
-      _id
-      name
-      volunteersRequired
-      createdAt
-      volunteers {
-        _id
-        response
-        user {
-          _id
-          firstName
-          lastName
-        }
-      }
-    }
-  }
-  ''';
-
-      final actual = EventQueries()
-          .fetchVolunteerGroups()
-          .replaceAll(' ', '')
-          .replaceAll('\n', '')
-          .replaceAll('\t', '');
-      expect(
-        actual,
-        expected.replaceAll(' ', '').replaceAll('\n', '').replaceAll('\t', ''),
-      );
+      final actual = EventQueries().fetchVolunteerGroups();
+      expect(actual, contains('query GetEventVolunteerGroups'));
+      expect(actual, contains(r'$where: EventVolunteerGroupWhereInput'));
+      expect(actual, contains('getEventVolunteerGroups(where: \$where)'));
+      expect(actual, contains('id'));
+      expect(actual, contains('name'));
+      expect(actual, contains('volunteersRequired'));
+      expect(actual, contains('createdAt'));
+      expect(actual, contains('leader { id name }'));
+      expect(actual, contains('creator { id name }'));
+      expect(actual, isNot(contains('_id')));
+      expect(actual, isNot(contains('firstName')));
     });
 
     test("Check if fetchAgendaItemCategoriesByOrganization works correctly",
         () {
-      const expected = """
-    query {
-      agendaItemCategoriesByOrganization(organizationId: "sampleOrgId") {
-        _id
-        name
-        description
-        
-      }
-    }
-  """;
-
-      final actual =
-          EventQueries().fetchAgendaItemCategoriesByOrganization("sampleOrgId");
-      expect(actual.trim(), expected.trim());
+      final actual = EventQueries()
+          .fetchAgendaItemCategoriesByOrganization("sampleEventId");
+      expect(actual,
+          contains('agendaCategoriesByEventId(eventId: "sampleEventId")'));
+      expect(actual, contains('id'));
+      expect(actual, contains('name'));
+      expect(actual, contains('description'));
+      expect(actual, isNot(contains('_id')));
     });
 
     test("Check if createAgendaItem works correctly", () {
-      const expected = """
-    mutation CreateAgendaItem(\$input: CreateAgendaItemInput!) {
-      createAgendaItem(input: \$input) {
-        _id
-        title
-        description
-        duration
-        attachments
-        createdBy {
-        _id
-        firstName
-        lastName
-        }
-        urls
-        categories {
-        _id
-        name
-        }
-        sequence
-      }
-    }
-  """;
-
       final actual = EventQueries().createAgendaItem();
-      expect(actual.trim(), expected.trim());
+      expect(actual, contains(r'$input: MutationCreateAgendaItemInput!'));
+      expect(actual, contains('createAgendaItem(input: \$input)'));
+      expect(actual, contains('id'));
+      expect(actual, contains('name'));
+      expect(actual, contains('description'));
+      expect(actual, contains('duration'));
+      expect(actual, contains('sequence'));
+      expect(actual, contains('type'));
+      expect(actual, contains('creator { id name }'));
+      expect(actual, contains('category { id name }'));
+      expect(actual, contains('event { id }'));
+      expect(actual, isNot(contains('_id')));
+      expect(actual, isNot(contains('firstName')));
     });
 
     test("Check if updateAgendaItem works correctly", () {
-      const expected = """
-    mutation UpdateAgendaItem(\$updateAgendaItemId: ID!
-    \$input: UpdateAgendaItemInput!
-  ) {
-      updateAgendaItem(id: \$updateAgendaItemId, input: \$input) {
-        _id
-        title
-        description
-        duration
-        attachments
-        createdBy {
-        _id
-        firstName
-        lastName
-        }
-        urls
-        categories {
-        _id
-        name
-        }
-        sequence
-      }
-    }
-  """;
-
       final actual = EventQueries().updateAgendaItem();
-      expect(actual.trim(), expected.trim());
+      expect(actual, contains(r'$input: MutationUpdateAgendaItemInput!'));
+      expect(actual, contains('updateAgendaItem(input: \$input)'));
+      expect(actual, contains('id'));
+      expect(actual, contains('name'));
+      expect(actual, contains('description'));
+      expect(actual, contains('duration'));
+      expect(actual, contains('sequence'));
+      expect(actual, contains('type'));
+      expect(actual, isNot(contains('_id')));
     });
 
     test("Check if deleteAgendaItem works correctly", () {
-      const expected = """
-    mutation RemoveAgendaItem(\$removeAgendaItemId: ID!) {
-      removeAgendaItem(id: \$removeAgendaItemId) {
-         _id
-      }
-    }
-  """;
-
       final actual = EventQueries().deleteAgendaItem();
-      expect(actual.trim(), expected.trim());
+      expect(actual, contains('mutation DeleteAgendaItem'));
+      expect(actual, contains(r'$input: MutationDeleteAgendaItemInput!'));
+      expect(actual, contains('deleteAgendaItem(input: \$input)'));
+      expect(actual, contains('id'));
+      expect(actual, isNot(contains('_id')));
     });
 
     test("Check if fetchAgendaItemsByEvent works correctly", () {
-      const expected = """
-  query {
-    agendaItemByEvent(relatedEventId: "sampleEventId") {
-      _id
-      title
-      description
-      duration
-      attachments
-      createdBy {
-        _id
-        firstName
-        lastName
-      }
-      urls
-      categories {
-        _id
-        name
-      }
-      sequence
-      organization {
-        _id
-        name
-      }
-      relatedEvent {
-        _id
-        title
-      }
-    }
-  }
-  """;
-
       final actual = EventQueries().fetchAgendaItemsByEvent("sampleEventId");
-      expect(actual.trim(), expected.trim());
+      expect(
+          actual, contains('agendaFoldersByEventId(eventId: "sampleEventId")'));
+      expect(actual, contains('id'));
+      expect(actual, contains('name'));
+      expect(actual, contains('description'));
+      expect(actual, contains('sequence'));
+      expect(actual, contains('items(first: 50)'));
+      expect(actual, contains('edges'));
+      expect(actual, contains('node'));
+      expect(actual, contains('pageInfo'));
+      expect(actual, isNot(contains('_id')));
+      expect(actual, isNot(contains('createdBy')));
     });
   });
 }

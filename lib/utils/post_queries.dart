@@ -66,19 +66,20 @@ class PostQueries {
   ''';
   }
 
-  /// Add Like to a post.
+  /// Add an upvote to a post via createPostVote.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `String`: The query related to addingLike
+  /// * `String`: GraphQL mutation string for upvoting a post.
   String addLike() {
     return """
-     mutation likePost(\$postID: ID!) { 
-      likePost( id: \$postID,)
-      {
-        _id
+     mutation CreatePostUpvote(\$postId: ID!) {
+      createPostVote(input: { postId: \$postId, type: up_vote }) {
+        id
+        upVotesCount
+        downVotesCount
       }
     }
   """;
@@ -115,14 +116,16 @@ class PostQueries {
     mutation CreatePost(
       \$caption: String!
       \$organizationId: ID!
-      \$attachments: [AttachmentInput]
+      \$body: String
+      \$attachment: Upload
       \$userId: ID!
     ) {
       createPost(
         input: {
           caption: \$caption
           organizationId: \$organizationId
-          attachments: \$attachments
+          body: \$body
+          attachment: \$attachment
         }
       ) {
         id

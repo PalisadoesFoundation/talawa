@@ -61,6 +61,12 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
   @override
   void initState() {
     super.initState();
+    // Lazy-fetch agenda categories now that the admin has opened this
+    // (admin-only) dialog. Doing it here keeps the 403 off non-admin event
+    // views while still populating the category picker for admins.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.model.fetchCategories();
+    });
   }
 
   /// Handles the selection and deselection of categories.

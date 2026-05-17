@@ -131,7 +131,7 @@ void main() {
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
-          'agendaItemCategoriesByOrganization': [
+          'agendaCategoriesByEventId': [
             {
               '_id': '1',
               'name': 'Category 1',
@@ -144,12 +144,12 @@ void main() {
         },
         options: QueryOptions(
           document: gql(
-            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+            EventQueries().fetchAgendaItemCategoriesByOrganization('1'),
           ),
         ),
       );
 
-      when(eventService.fetchAgendaCategories("XYZ"))
+      when(eventService.fetchAgendaCategories("1"))
           .thenAnswer((_) async => mockResult);
       await tester.pumpWidget(createCreateAgendaItemScreen());
       await tester.pumpAndSettle();
@@ -169,7 +169,7 @@ void main() {
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
-          'agendaItemCategoriesByOrganization': [
+          'agendaCategoriesByEventId': [
             {
               '_id': '1',
               'name': 'Category 1',
@@ -182,12 +182,12 @@ void main() {
         },
         options: QueryOptions(
           document: gql(
-            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+            EventQueries().fetchAgendaItemCategoriesByOrganization('1'),
           ),
         ),
       );
 
-      when(eventService.fetchAgendaCategories("XYZ"))
+      when(eventService.fetchAgendaCategories("1"))
           .thenAnswer((_) async => mockResult);
 
       await tester.pumpWidget(createCreateAgendaItemScreen());
@@ -272,7 +272,7 @@ void main() {
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
-          'agendaItemCategoriesByOrganization': [
+          'agendaCategoriesByEventId': [
             {
               '_id': '1',
               'name': 'Category 1',
@@ -285,12 +285,12 @@ void main() {
         },
         options: QueryOptions(
           document: gql(
-            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+            EventQueries().fetchAgendaItemCategoriesByOrganization('1'),
           ),
         ),
       );
 
-      when(eventService.fetchAgendaCategories("XYZ"))
+      when(eventService.fetchAgendaCategories("1"))
           .thenAnswer((_) async => mockResult);
       await tester.pumpWidget(createCreateAgendaItemScreen());
       await tester.pumpAndSettle();

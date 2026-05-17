@@ -581,7 +581,7 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   final service = MockGraphqlConfig();
 
   final mockLink = HttpLink(
-    'https://talawa-graphql-api.herokuapp.com/graphql',
+    'https://api-test.talawa.io/graphql',
     httpClient: MockHttpClient(),
   );
 
@@ -1437,7 +1437,7 @@ void setupMockGraphQLClient(Map<String, dynamic> data) {
   });
 
   final link = HttpLink(
-    'https://talawa-graphql-api.herokuapp.com/graphql',
+    'https://api-test.talawa.io/graphql',
     httpClient: mockHttpClient,
   );
 

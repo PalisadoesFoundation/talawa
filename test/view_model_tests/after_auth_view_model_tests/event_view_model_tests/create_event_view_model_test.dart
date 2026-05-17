@@ -191,8 +191,8 @@ void main() {
       model.interval = 2;
       model.never = true;
 
-      final startAt = DateTime(2025, 8, 1, 9, 0).toUtc().toIso8601String();
-      final endAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
+      const startDate = '2025-08-01';
+      const endDate = '2025-08-02';
 
       when(
         eventService.createEvent(
@@ -205,8 +205,8 @@ void main() {
               'isRegisterable': true,
               'allDay': true,
               'organizationId': 'XYZ',
-              'startAt': startAt,
-              'endAt': endAt,
+              'startDate': startDate,
+              'endDate': endDate,
               'recurrence': {
                 'frequency': 'DAILY',
                 'interval': 2,
@@ -238,8 +238,8 @@ void main() {
               'isRegisterable': true,
               'allDay': true,
               'organizationId': 'XYZ',
-              'startAt': startAt,
-              'endAt': endAt,
+              'startDate': startDate,
+              'endDate': endDate,
               'recurrence': {
                 'frequency': 'DAILY',
                 'interval': 2,
@@ -269,8 +269,8 @@ void main() {
       model.eventEndType = EventEndTypes.on;
       model.recurrenceEndDate = DateTime(2026, 8, 15);
 
-      final startAt = DateTime(2025, 8, 15, 14, 0).toUtc().toIso8601String();
-      final endAt = DateTime(2025, 8, 15, 15, 0).toUtc().toIso8601String();
+      const startDate = '2025-08-15';
+      const endDate = '2025-08-16';
       final recEndDate = DateTime(2026, 8, 15).toUtc().toIso8601String();
 
       when(
@@ -284,8 +284,8 @@ void main() {
               'isRegisterable': true,
               'allDay': true,
               'organizationId': 'XYZ',
-              'startAt': startAt,
-              'endAt': endAt,
+              'startDate': startDate,
+              'endDate': endDate,
               'recurrence': {
                 'frequency': 'MONTHLY',
                 'interval': 1,
@@ -319,8 +319,8 @@ void main() {
               'isRegisterable': true,
               'allDay': true,
               'organizationId': 'XYZ',
-              'startAt': startAt,
-              'endAt': endAt,
+              'startDate': startDate,
+              'endDate': endDate,
               'recurrence': {
                 'frequency': 'MONTHLY',
                 'interval': 1,
@@ -428,8 +428,8 @@ void main() {
       model.eventEndDate = DateTime(2025, 8, 1);
       model.eventEndTime = const TimeOfDay(hour: 23, minute: 59);
 
-      final startAt = DateTime(2025, 8, 1, 0, 0).toUtc().toIso8601String();
-      final endAt = DateTime(2025, 8, 1, 23, 59).toUtc().toIso8601String();
+      const startDate = '2025-08-01';
+      const endDate = '2025-08-02';
 
       when(
         eventService.createEvent(
@@ -442,8 +442,8 @@ void main() {
               'isRegisterable': true,
               'allDay': true,
               'organizationId': 'XYZ',
-              'startAt': startAt,
-              'endAt': endAt,
+              'startDate': startDate,
+              'endDate': endDate,
             },
           },
         ),
@@ -470,8 +470,8 @@ void main() {
               'isRegisterable': true,
               'allDay': true,
               'organizationId': 'XYZ',
-              'startAt': startAt,
-              'endAt': endAt,
+              'startDate': startDate,
+              'endDate': endDate,
             },
           },
         ),

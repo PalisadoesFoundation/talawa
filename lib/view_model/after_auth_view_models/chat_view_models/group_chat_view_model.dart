@@ -133,6 +133,11 @@ class GroupChatViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> getChatMessages(String chatId) async {
+    // Cancel any previous chat subscription so we don't leak listeners and
+    // so messages from a previously-open chat don't bleed into the new one.
+    await _chatMessageSubscription?.cancel();
+    _chatMessageSubscription = null;
+
     _chatMessagesByUser[chatId] = []; // Initialize empty list
     _isLoadingMoreMessages[chatId] = false; // Initialize loading state
     chatState = ChatState.loading;
@@ -147,14 +152,13 @@ class GroupChatViewModel extends BaseModel {
     // This will only receive NEW messages from subscriptions
     _chatMessageSubscription =
         _chatService.subscribeToChatMessages(chatId).listen((newMessage) {
-      if (_chatMessagesByUser[chatId] != null) {
-        // Check if message already exists to prevent duplicates
-        final existingMessage =
-            _chatMessagesByUser[chatId]!.any((msg) => msg.id == newMessage.id);
-        if (!existingMessage) {
-          _chatMessagesByUser[chatId]!.add(newMessage);
-          notifyListeners();
-        }
+      final list = _chatMessagesByUser[chatId];
+      if (list == null) return;
+      final alreadyPresent =
+          newMessage.id != null && list.any((msg) => msg.id == newMessage.id);
+      if (!alreadyPresent) {
+        list.add(newMessage);
+        notifyListeners();
       }
     });
 
@@ -235,7 +239,12 @@ class GroupChatViewModel extends BaseModel {
       );
 
       if (result != null) {
-        // Don't add message to list here - it will come through the subscription
+        // Optimistically append so the message is visible even if the
+        // subscription doesn't echo it back. Subscription dedupes by id.
+        final list = _chatMessagesByUser[chatId] ??= [];
+        final alreadyPresent =
+            result.id != null && list.any((m) => m.id == result.id);
+        if (!alreadyPresent) list.add(result);
         debugPrint('Message sent successfully to group chat: $chatId');
       } else {
         debugPrint('Failed to send message to group chat: $chatId');

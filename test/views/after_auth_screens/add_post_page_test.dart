@@ -81,12 +81,11 @@ void main() {
         expect(find.byIcon(Icons.photo_library_outlined), findsOneWidget);
         expect(find.byIcon(Icons.camera_alt_outlined), findsOneWidget);
 
-        // Check required image notice
+        // Image is optional; legacy required-image notice has been removed.
         expect(
           find.text('At least one image is required to create a post'),
-          findsOneWidget,
+          findsNothing,
         );
-        expect(find.byIcon(Icons.info_outline), findsOneWidget);
       });
 
       testWidgets('share button should be disabled initially', (tester) async {
@@ -207,7 +206,8 @@ void main() {
     });
 
     group('Share Button State', () {
-      testWidgets('should remain disabled with only caption', (tester) async {
+      testWidgets('should enable share with caption alone (image optional)',
+          (tester) async {
         await tester.pumpWidget(createAddPostPage());
         await tester.pumpAndSettle();
 
@@ -218,39 +218,24 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        // Share button should still be disabled
+        // Share button should be enabled now (image is optional).
         final shareButton = find.byKey(const Key('add_post_share_button'));
         final textButton = tester.widget<TextButton>(shareButton);
-        expect(textButton.onPressed, isNull);
+        expect(textButton.onPressed, isNotNull);
       });
     });
 
     group('Error State Display', () {
-      testWidgets('should show required image notice when no images',
+      testWidgets('should not show legacy required-image notice',
           (tester) async {
         await tester.pumpWidget(createAddPostPage());
         await tester.pumpAndSettle();
 
-        // Check error container is visible
+        // The "image required" banner has been removed; ensure it's gone.
         expect(
           find.text('At least one image is required to create a post'),
-          findsOneWidget,
+          findsNothing,
         );
-        expect(find.byIcon(Icons.info_outline), findsOneWidget);
-
-        // Check that both the icon and text are in the same row/container
-        final row = find.ancestor(
-          of: find.byIcon(Icons.info_outline),
-          matching: find.byType(Row),
-        );
-        expect(row, findsOneWidget);
-
-        // Verify the container with error styling exists
-        final errorContainer = find.ancestor(
-          of: find.byIcon(Icons.info_outline),
-          matching: find.byType(Container),
-        );
-        expect(errorContainer, findsOneWidget);
       });
     });
 
@@ -781,18 +766,15 @@ void main() {
         expect(cameraText, findsOneWidget);
       });
 
-      testWidgets('should use error colors for required image notice',
+      testWidgets('should not show legacy required-image notice',
           (tester) async {
         await tester.pumpWidget(createAddPostPage());
         await tester.pumpAndSettle();
 
-        // Error container should use errorContainer background
-        // Error icon should use error color
-        // Error text should use onErrorContainer color
-        expect(find.byIcon(Icons.info_outline), findsOneWidget);
+        expect(find.byIcon(Icons.info_outline), findsNothing);
         expect(
           find.text('At least one image is required to create a post'),
-          findsOneWidget,
+          findsNothing,
         );
       });
 
@@ -812,11 +794,6 @@ void main() {
             tester.widget<Icon>(find.byIcon(Icons.camera_alt_outlined));
         expect(cameraIcon.color, isNotNull);
         expect(cameraIcon.size, equals(32));
-
-        // Error icon should use error color
-        final errorIcon = tester.widget<Icon>(find.byIcon(Icons.info_outline));
-        expect(errorIcon.color, isNotNull);
-        expect(errorIcon.size, equals(20));
       });
 
       testWidgets('should apply correct text colors based on button state',
@@ -943,26 +920,17 @@ void main() {
         // This tests the UI structure for when the warning appears
       });
 
-      testWidgets('should verify error container color structure',
+      testWidgets('should not render legacy error container or notice',
           (tester) async {
         await tester.pumpWidget(createAddPostPage());
         await tester.pumpAndSettle();
 
-        // Error container uses:
-        // - colorScheme.errorContainer for background
-        // - colorScheme.error for border and icon
-        // - colorScheme.onErrorContainer for text
-
-        final errorContainer = find.ancestor(
-          of: find.byIcon(Icons.info_outline),
-          matching: find.byType(Container),
-        );
-        expect(errorContainer, findsOneWidget);
-
-        final errorText = tester.widget<Text>(
+        // The legacy "image required" notice has been removed.
+        expect(find.byIcon(Icons.info_outline), findsNothing);
+        expect(
           find.text('At least one image is required to create a post'),
+          findsNothing,
         );
-        expect(errorText.style?.color, isNotNull);
       });
 
       testWidgets('should verify close button icon styling on images',

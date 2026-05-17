@@ -131,6 +131,11 @@ class DirectChatViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> getChatMessages(String chatId) async {
+    // Cancel any previous chat subscription so we don't leak listeners and
+    // so messages from a previously-open chat don't bleed into the new one.
+    await _chatMessageSubscription?.cancel();
+    _chatMessageSubscription = null;
+
     _chatMessagesByUser[chatId] = []; // Initialize empty list
     _isLoadingMoreMessages[chatId] = false; // Initialize loading state
     chatState = ChatState.loading;
@@ -145,14 +150,13 @@ class DirectChatViewModel extends BaseModel {
     // This will only receive NEW messages from subscriptions
     _chatMessageSubscription =
         _chatService.subscribeToChatMessages(chatId).listen((newMessage) {
-      if (_chatMessagesByUser[chatId] != null) {
-        // Check if message already exists to prevent duplicates
-        final existingMessage =
-            _chatMessagesByUser[chatId]!.any((msg) => msg.id == newMessage.id);
-        if (!existingMessage) {
-          _chatMessagesByUser[chatId]!.add(newMessage);
-          notifyListeners();
-        }
+      final list = _chatMessagesByUser[chatId];
+      if (list == null) return;
+      final alreadyPresent =
+          newMessage.id != null && list.any((msg) => msg.id == newMessage.id);
+      if (!alreadyPresent) {
+        list.add(newMessage);
+        notifyListeners();
       }
     });
 
@@ -232,6 +236,13 @@ class DirectChatViewModel extends BaseModel {
     );
 
     if (sentMessage != null) {
+      // Optimistically append to the local list so the message is visible
+      // even when the server-side subscription hasn't echoed it back (or the
+      // WebSocket is unavailable). Subscription re-emits are deduped by id.
+      final list = _chatMessagesByUser[chatId] ??= [];
+      final alreadyPresent =
+          sentMessage.id != null && list.any((m) => m.id == sentMessage.id);
+      if (!alreadyPresent) list.add(sentMessage);
       notifyListeners();
     }
 

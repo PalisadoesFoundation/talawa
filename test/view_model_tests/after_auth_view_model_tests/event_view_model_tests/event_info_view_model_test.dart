@@ -104,6 +104,7 @@ void main() {
           'eventId': "1",
           'name': 'Group 1',
           'volunteersRequired': 10,
+          'leaderId': 'xzy1',
         }),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -133,6 +134,7 @@ void main() {
           'eventId': "1",
           'name': 'Group 1',
           'volunteersRequired': 10,
+          'leaderId': 'xzy1',
         }),
       ).thenThrow(Exception('Failed to create new volunteer group'));
 
@@ -195,15 +197,13 @@ void main() {
 
       when(
         eventService.createAgendaItem({
-          'title': 'Test Agenda',
-          'sequence': 1,
+          'name': 'Test Agenda',
           'description': 'desc',
           'duration': '1h',
-          'organizationId': 'XYZ',
-          'attachments': [],
-          'relatedEventId': model.event.id,
-          'urls': [],
-          'categories': ['cat1'],
+          'eventId': model.event.id,
+          'sequence': 1,
+          'type': 'general',
+          'categoryId': 'cat1',
         }),
       ).thenAnswer((_) async => mockResult);
 
@@ -232,7 +232,7 @@ void main() {
         EventAgendaItem(id: '2', name: 'Item 2'),
       ]);
 
-      when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
+      when(eventService.deleteAgendaItem({"id": '1'}))
           .thenAnswer((_) async => true);
 
       await model.deleteAgendaItem('1');
@@ -282,7 +282,7 @@ void main() {
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
-          'agendaItemCategoriesByOrganization': [
+          'agendaCategoriesByEventId': [
             {
               'id': '1',
               'name': 'Category 1',
@@ -295,12 +295,12 @@ void main() {
         },
         options: QueryOptions(
           document: gql(
-            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+            EventQueries().fetchAgendaItemCategoriesByOrganization('1'),
           ),
         ),
       );
 
-      when(eventService.fetchAgendaCategories("XYZ"))
+      when(eventService.fetchAgendaCategories('1'))
           .thenAnswer((_) async => mockResult);
 
       await model.fetchCategories();

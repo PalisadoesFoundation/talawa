@@ -18,7 +18,7 @@ class EventVolunteer {
   // Creating a new EventVolunteer instance from a map structure.
   factory EventVolunteer.fromJson(Map<String, dynamic> json) {
     return EventVolunteer(
-      id: json['_id'] as String?,
+      id: json['id'] as String?,
       creator: json['creator'] != null
           ? User.fromJson(
               json['creator'] as Map<String, dynamic>,

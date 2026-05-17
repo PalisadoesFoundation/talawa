@@ -48,12 +48,14 @@ void main() {
       expect(query, contains('mutation CreatePost'));
       expect(query, contains(r'$caption: String!'));
       expect(query, contains(r'$organizationId: ID!'));
-      expect(query, contains(r'$attachments: [AttachmentInput]'));
+      expect(query, contains(r'$attachment: Upload'));
+      expect(query, contains(r'$body: String'));
       expect(query, contains(r'$userId: ID!'));
       expect(query, contains('createPost('));
       expect(query, contains('caption: \$caption'));
       expect(query, contains('organizationId: \$organizationId'));
-      expect(query, contains('attachments: \$attachments'));
+      expect(query, contains('attachment: \$attachment'));
+      expect(query, contains('body: \$body'));
       expect(query, contains('id'));
       expect(query, contains('caption'));
       expect(query, contains('upVotesCount'));

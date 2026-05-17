@@ -91,25 +91,84 @@ class DataBaseMutationFunctions {
   Future<QueryResult<Object?>> gqlAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
+    FetchPolicy? fetchPolicy,
   }) async {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: variables ?? <String, dynamic>{},
+      // Allow callers to bypass the default cache-first behavior — needed for
+      // lists that change after a mutation (e.g. volunteer groups), where the
+      // cached empty result would otherwise stick on re-entry.
+      fetchPolicy: fetchPolicy,
     );
     final response = await cacheService.executeOrCacheOperation(
       operation: query,
       variables: variables,
       operationType: CachedOperationType.gqlAuthQuery,
       whenOnline: () async {
-        final QueryResult result = await clientAuth.query(options);
+        QueryResult result;
+        try {
+          result = await clientAuth.query(options);
+        } on ServerException catch (e) {
+          // graphql_flutter sometimes lets ServerException propagate instead of
+          // wrapping it on the QueryResult. Rebuild a result so partial data
+          // (in parsedResponse) can still flow through the recovery path below.
+          final partial = e.parsedResponse?.data;
+          if (partial != null) {
+            traverseAndConvertDates(
+              partial,
+              convertUTCToLocal,
+              splitDateTimeLocal,
+            );
+            return QueryResult(
+              options: options,
+              data: partial,
+              source: QueryResultSource.network,
+            );
+          }
+          rethrow;
+        }
         // if there is an error or exception in [result]
         if (result.hasException) {
+          final linkException = result.exception?.linkException;
+          final Map<String, dynamic>? recoveredData =
+              linkException is ServerException
+                  ? linkException.parsedResponse?.data
+                  : null;
+          final bool hasUsableData =
+              result.data != null || recoveredData != null;
+
           final exception =
               GraphqlExceptionResolver.encounteredExceptionOrError(
             result.exception!,
+            // Don't show generic error UI when we have partial data to return.
+            showSnackBar: !hasUsableData,
           );
           if (exception!) {
+            // Wait for the in-flight refresh to settle so the retry runs
+            // against the rotated [clientAuth] with a fresh token.
+            await GraphqlExceptionResolver.awaitRefresh();
             return await gqlAuthQuery(query, variables: variables);
+          }
+          if (hasUsableData) {
+            // Preserve partial GraphQL data when available, even if
+            // the response includes non-fatal field-level errors.
+            final partial = result.data ?? recoveredData!;
+            // coverage:ignore-start
+            traverseAndConvertDates(
+              partial,
+              convertUTCToLocal,
+              splitDateTimeLocal,
+            );
+            // coverage:ignore-end
+            if (result.data != null) {
+              return result;
+            }
+            return QueryResult(
+              options: options,
+              data: partial,
+              source: QueryResultSource.network,
+            );
           }
         } else if (result.data != null && result.isConcrete) {
           // coverage:ignore-start
@@ -153,12 +212,31 @@ class DataBaseMutationFunctions {
       variables: variables,
       operationType: CachedOperationType.gqlAuthMutation,
       whenOnline: () async {
-        final QueryResult result = await clientAuth.mutate(options);
+        QueryResult result;
+        try {
+          result = await clientAuth.mutate(options);
+        } on ServerException catch (e) {
+          final partial = e.parsedResponse?.data;
+          if (partial != null) {
+            return QueryResult(
+              options: options,
+              data: partial,
+              source: QueryResultSource.network,
+            );
+          }
+          rethrow;
+        }
         // If there is an error or exception in [result]
         if (result.hasException) {
-          GraphqlExceptionResolver.encounteredExceptionOrError(
+          final retry = GraphqlExceptionResolver.encounteredExceptionOrError(
             result.exception!,
           );
+          if (retry == true) {
+            // Auth-expired — wait for the refresh to land, then re-run the
+            // mutation so the user doesn't see a silent failure.
+            await GraphqlExceptionResolver.awaitRefresh();
+            return await gqlAuthMutation(mutation, variables: variables);
+          }
         } else if (result.data != null && result.isConcrete) {
           return result;
         }
@@ -262,7 +340,10 @@ class DataBaseMutationFunctions {
   ///
   /// **returns**:
   /// * `Future<bool>`: it returns Future of dynamic
-  Future<bool> refreshAccessToken(String refreshToken) async {
+  Future<bool> refreshAccessToken(
+    String refreshToken, {
+    int attempt = 0,
+  }) async {
     // run the graphQL mutation
     final QueryResult result = await clientNonAuth.mutate(
       MutationOptions(
@@ -273,14 +354,17 @@ class DataBaseMutationFunctions {
     );
     // if there is an error or exception in [result]
     if (result.hasException) {
-      final exception = GraphqlExceptionResolver.encounteredExceptionOrError(
+      // Suppress UI noise during refresh — caller decides how to react.
+      GraphqlExceptionResolver.encounteredExceptionOrError(
         result.exception!,
+        showSnackBar: false,
       );
-      if (exception!) {
-        refreshAccessToken(refreshToken);
-      } else {
-        navigationService.pop();
+      // Bounded retry: one extra attempt for transient failures, then give up
+      // so the caller can force a silent logout instead of looping forever.
+      if (attempt < 1) {
+        return refreshAccessToken(refreshToken, attempt: attempt + 1);
       }
+      return false;
     } else if (result.data != null && result.isConcrete) {
       userConfig.updateAccessToken(
         refreshToken: (result.data!['refreshToken']
