@@ -16,6 +16,11 @@ const config: Config = {
   organizationName: "PalisadoesFoundation", // GitHub org
   projectName: "talawa", // repo name
 
+  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
+  future: {
+    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+  },
+
   onBrokenLinks: "throw",
   markdown: {
     hooks: {
@@ -132,7 +137,7 @@ const config: Config = {
               label: "Forums",
               to: "https://community.talawa.io/",
               className: "footer__icon footer__news",
-            },            
+            },
             {
               label: "News",
               to: "https://www.palisadoes.org/news/",
