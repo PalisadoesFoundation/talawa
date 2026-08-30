@@ -24,7 +24,7 @@ This function push the route and replace the screen.
 
 **returns**:
 
--   `Future<dynamic>`: resolves if the Screen was succesfully
+-   `Future<dynamic>`: resolves if the Screen was successfully
     pushedReplacementScreen.
 
 

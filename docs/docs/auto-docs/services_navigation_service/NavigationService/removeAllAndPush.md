@@ -27,7 +27,7 @@ new route.
 
 **returns**:
 
--   `Future<dynamic>`: resolves if the Screen was succesfully
+-   `Future<dynamic>`: resolves if the Screen was successfully
     removeAllAndPushed.
 
 
