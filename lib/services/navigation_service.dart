@@ -29,7 +29,7 @@ class NavigationService {
   /// * `arguments`: Set of arguments
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: resolves if the Screen was succesfully pushed.
+  /// * `Future<dynamic>`: resolves if the Screen was successfully pushed.
   Future<dynamic> pushScreen(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
         .pushNamed(routeName, arguments: arguments);
@@ -42,7 +42,7 @@ class NavigationService {
   /// * `arguments`: Set of arguments
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: resolves if the Screen was succesfully popAndPushed.
+  /// * `Future<dynamic>`: resolves if the Screen was successfully popAndPushed.
   Future<dynamic> popAndPushScreen(String routeName, {dynamic arguments}) {
     navigatorKey.currentState!.pop();
     return pushScreen(routeName, arguments: arguments);
@@ -55,7 +55,7 @@ class NavigationService {
   /// * `arguments`: Set of arguments
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: resolves if the Screen was succesfully pushedReplacementScreen.
+  /// * `Future<dynamic>`: resolves if the Screen was successfully pushedReplacementScreen.
   Future<dynamic> pushReplacementScreen(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
         .pushReplacementNamed(routeName, arguments: arguments);
@@ -69,7 +69,7 @@ class NavigationService {
   /// * `arguments`: Set of arguments
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: resolves if the Screen was succesfully removeAllAndPushed.
+  /// * `Future<dynamic>`: resolves if the Screen was successfully removeAllAndPushed.
   Future<dynamic> removeAllAndPush(
     String routeName,
     String tillRoute, {
